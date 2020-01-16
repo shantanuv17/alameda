@@ -5,9 +5,9 @@ import (
 )
 
 func livenessProbe(cfg *probe.LivenessProbeConfig) {
-	probe.LivenessProbe(cfg)
+	// probe.LivenessProbe(cfg)
 }
 
 func readinessProbe(cfg *probe.ReadinessProbeConfig) {
-	probe.ReadinessProbe(cfg)
+	// probe.ReadinessProbe(cfg)
 }

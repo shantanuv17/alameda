@@ -21,7 +21,7 @@ const (
 )
 
 // Query data over a range of time from prometheus
-func (p *Prometheus) Query(query string, startTime, timeout *time.Time) (Response, error) {
+func (p *Prometheus) Query(ctx context.Context, query string, startTime, timeout *time.Time) (Response, error) {
 
 	var (
 		err error
@@ -67,6 +67,7 @@ func (p *Prometheus) Query(query string, startTime, timeout *time.Time) (Respons
 		httpRequest.Header = h
 	}
 
+	httpRequest = httpRequest.WithContext(ctx)
 	httpResponse, err = p.Client.Do(httpRequest)
 	if err != nil {
 		scope.Errorf("failed to send http request to prometheus: %s", err.Error())
@@ -175,6 +176,67 @@ func (p *Prometheus) QueryRange(ctx context.Context, query string, startTime, en
 	defer p.Close()
 
 	return response, nil
+}
+
+// IsMetricsExist checks if metrics are existing in Prometheus,
+// if there is an error while quering to Prometheus, returns (false, nil, error)
+// if there are metrics not existing in Prometheus, returns (false, nonExistMetrics, nil)
+// or if all metrics are existing, returns (true, nil, nil)
+func (p *Prometheus) IsMetricsExist(ctx context.Context, metrics []string) (bool, []string, error) {
+	defer p.Close()
+
+	type result struct {
+		metric string
+		exist  bool
+	}
+	ch := make(chan result)
+	wg := errgroup.Group{}
+	for _, metric := range metrics {
+		copyMetric := metric
+		wg.Go(func() error {
+			resp, err := p.Query(ctx, copyMetric, nil, nil)
+			if err != nil {
+				return err
+			}
+			entities, err := resp.GetEntities()
+			if err != nil {
+				return err
+			}
+			exist := false
+			if len(entities) > 0 {
+				exist = true
+			}
+			result := result{
+				metric: copyMetric,
+				exist:  exist,
+			}
+			ch <- result
+			return nil
+		})
+	}
+
+	metricsNotExist := []string{}
+	done := make(chan bool)
+	go func() {
+		for result := range ch {
+			if !result.exist {
+				metricsNotExist = append(metricsNotExist, result.metric)
+			}
+		}
+		done <- true
+	}()
+
+	err := wg.Wait()
+	close(ch)
+	<-done
+	if err != nil {
+		return false, nil, errors.Wrap(err, "")
+	}
+
+	if len(metricsNotExist) > 0 {
+		return false, metricsNotExist, nil
+	}
+	return true, nil, nil
 }
 
 // Close free resource used by prometheus

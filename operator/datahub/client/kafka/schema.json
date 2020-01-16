@@ -1,0 +1,40 @@
+{
+    "kafka": {
+        "topic": {
+            "create": {
+                "schemaMeta": {
+                    "scope": "",
+                    "category": "",
+                    "type": ""
+                },
+                "measurements": [
+                    {
+                        "name": "",
+                        "columns": [],
+                        "columnToFieldMap": {}
+                    }
+                ]
+            },
+            "list": {
+                "schemaMeta": {
+                    "scope": "",
+                    "category": "",
+                    "type": ""
+                },
+                "measurements": [
+                    {
+                        "name": "",
+                        "whereConditions": [
+                            {
+                                "keys": [],
+                                "operators": [],
+                                "values": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "consumerGroup": {}
+    }
+}

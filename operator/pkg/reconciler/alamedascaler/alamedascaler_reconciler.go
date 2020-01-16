@@ -54,20 +54,6 @@ func (reconciler *Reconciler) HasAlamedaDeploymentConfig(deploymentConfigNS, dep
 	return ok
 }
 
-// InitAlamedaController try to initialize alamedaController field of AlamedaScaler
-func (reconciler *Reconciler) InitAlamedaController() (*autoscaling_v1alpha1.AlamedaScaler, bool) {
-	needUpdate := false
-	if reconciler.alamedascaler.Status.AlamedaController.Deployments == nil {
-		reconciler.alamedascaler.Status.AlamedaController.Deployments = map[autoscaling_v1alpha1.NamespacedName]autoscaling_v1alpha1.AlamedaResource{}
-		needUpdate = true
-	}
-	if reconciler.alamedascaler.Status.AlamedaController.DeploymentConfigs == nil {
-		reconciler.alamedascaler.Status.AlamedaController.DeploymentConfigs = map[autoscaling_v1alpha1.NamespacedName]autoscaling_v1alpha1.AlamedaResource{}
-		needUpdate = true
-	}
-	return reconciler.alamedascaler, needUpdate
-}
-
 // ResetAlamedaController try to initialize alamedaController field of AlamedaScaler
 func (reconciler *Reconciler) ResetAlamedaController() {
 
@@ -127,6 +113,7 @@ func (reconciler *Reconciler) UpdateStatusByDeployment(deployment *appsv1.Deploy
 		UID:          string(alamedaDeploymentUID),
 		Pods:         alamedaPodsMap,
 		SpecReplicas: specReplicas,
+		Effective:    true,
 	}
 	reconciler.alamedascaler.Status.AlamedaController.Deployments = alamedaDeploymentsMap
 	return reconciler.alamedascaler, nil
@@ -179,6 +166,7 @@ func (reconciler *Reconciler) UpdateStatusByDeploymentConfig(deploymentconfig *a
 		UID:          string(deploymentConfigUID),
 		Pods:         podsMap,
 		SpecReplicas: &specReplicas,
+		Effective:    true,
 	}
 	reconciler.alamedascaler.Status.AlamedaController.DeploymentConfigs = deploymentConfigsMap
 	return reconciler.alamedascaler, nil
@@ -231,6 +219,7 @@ func (reconciler *Reconciler) UpdateStatusByStatefulSet(statefulSet *appsv1.Stat
 		UID:          string(alamedaStatefulSetUID),
 		Pods:         alamedaPodsMap,
 		SpecReplicas: specReplicas,
+		Effective:    true,
 	}
 	reconciler.alamedascaler.Status.AlamedaController.StatefulSets = alamedaStatefulSetsMap
 	return reconciler.alamedascaler, nil

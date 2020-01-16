@@ -57,7 +57,7 @@ func ReadRawdata(config *Config, queries []*Common.Query) ([]*Common.ReadRawdata
 
 		switch query.GetExpression() {
 		case "query":
-			response, err = prometheusClient.Query(queryExpression, opt.StartTime, opt.Timeout)
+			response, err = prometheusClient.Query(context.TODO(), queryExpression, opt.StartTime, opt.Timeout)
 		case "query_range":
 			response, err = prometheusClient.QueryRange(context.TODO(), queryExpression, opt.StartTime, opt.EndTime, opt.StepTime)
 		default:

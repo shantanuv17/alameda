@@ -24,10 +24,9 @@ import (
 	"sync"
 	"time"
 
-	"golang.org/x/sync/errgroup"
-
 	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/pkg/errors"
+	"golang.org/x/sync/errgroup"
 
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	datahub_client "github.com/containers-ai/alameda/operator/datahub/client"
@@ -49,6 +48,7 @@ import (
 	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/types"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
@@ -76,6 +76,10 @@ type AlamedaScalerReconciler struct {
 	DatahubControllerRepo  *datahub_controller.ControllerRepository
 	DatahubNamespaceRepo   *datahub_namespace.NamespaceRepository
 	DatahubPodRepo         *datahub_pod.PodRepository
+
+	onceForceReconcile     sync.Once
+	ReconcileTimeout       time.Duration
+	ForceReconcileInterval time.Duration
 }
 
 // Reconcile reads that state of the cluster for a AlamedaScaler object and makes changes based on the state read
@@ -85,10 +89,6 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 		time.Sleep(5 * time.Second)
 	}
 	alamedascalerFirstSynced = true
-
-	getResource := utilsresource.NewGetResource(r)
-	listResources := utilsresource.NewListResources(r)
-	updateResource := utilsresource.NewUpdateResource(r)
 
 	onceCheckHasOpenshiftAPIAppsV1.Do(
 		func() {
@@ -100,82 +100,193 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 		})
 
 	// Delete resources relative to AlamedaScaler
-	if alamedaScaler, err := getResource.GetAlamedaScaler(req.Namespace, req.Name); err != nil && k8sErrors.IsNotFound(err) {
-		scope.Infof("AlamedaScaler (%s/%s) is deleted, remove alameda pods from datahub.", req.Namespace, req.Name)
+	ctx := context.TODO()
+	instance := autoscalingv1alpha1.AlamedaScaler{}
+	if err := r.Get(ctx, types.NamespacedName{Namespace: req.Namespace, Name: req.Name}, &instance); err != nil && k8sErrors.IsNotFound(err) {
+		scope.Infof("AlamedaScaler(%s/%s) is deleted, remove alameda pods from datahub.", req.Namespace, req.Name)
 		if err := r.handleAlamedaScalerDeletion(req.Namespace, req.Name); err != nil {
 			scope.Errorf("Handle AlamedaScaler(%s/%s) deletion failed, retry after %f seconds. %s", req.Namespace, req.Name, requeueAfter.Seconds(), err.Error())
 			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 		}
-	} else if err == nil {
-		alamedaScaler.SetDefaultValue()
-		alamedaScalerNS := alamedaScaler.GetNamespace()
-		alamedaScalerName := alamedaScaler.GetName()
-		alamedascalerReconciler := alamedascaler_reconciler.NewReconciler(r, alamedaScaler)
-		alamedascalerReconciler.ResetAlamedaController()
+	} else if err != nil {
+		scope.Errorf("Get AlamedaScaler(%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
+		return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
+	}
+	alamedaScaler := autoscalingv1alpha1.AlamedaScaler{}
+	instance.DeepCopyInto(&alamedaScaler)
 
-		scope.Infof(fmt.Sprintf("AlamedaScaler (%s/%s) found, try to sync latest alamedacontrollers.", alamedaScalerNS, alamedaScalerName))
-		// select matched deployments
-		if alamedaDeployments, err := listResources.ListDeploymentsByNamespaceLabels(req.Namespace, alamedaScaler.Spec.Selector.MatchLabels); err == nil {
-			for _, alamedaDeployment := range alamedaDeployments {
-				alamedaScaler, err = alamedascalerReconciler.UpdateStatusByDeployment(&alamedaDeployment)
-				if err != nil {
-					scope.Errorf("Update status of AlamedaScaler (%s/%s) by Deployment failed: %s", alamedaScalerNS, alamedaScalerName, err.Error())
-					return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
-				}
-			}
-		} else {
-			scope.Error(err.Error())
-			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
+	if ok, err := r.isAlamedaScalerNeedToBeReconciled(context.TODO(), alamedaScaler); err != nil {
+		scope.Warnf("Check if AlamedaScaler(%s/%s) need to be reconciled failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
+		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+	} else if !ok {
+		scope.Infof("AlamedaScale(%s/%s) type(%s), skip reconciling.", req.Namespace, req.Name, alamedaScaler.GetType())
+		return ctrl.Result{Requeue: false}, nil
+	}
+
+	scope.Infof("Reconciling AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
+	alamedaScaler = r.setDefaultAlamedaScaler(alamedaScaler)
+	alamedaScaler.Status.AlamedaController = autoscalingv1alpha1.NewAlamedaController()
+	var err error
+	if alamedaScaler, err = r.listAndAddDeploymentsIntoAlamedaScalerStatue(context.TODO(), alamedaScaler); err != nil {
+		scope.Warnf("List and add Deployments into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
+		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+	}
+	if hasOpenshiftAPIAppsV1 {
+		if alamedaScaler, err = r.listAndAddDeploymentConfigsIntoAlamedaScalerStatue(context.TODO(), alamedaScaler); err != nil {
+			scope.Warnf("List and add DeploymentConfigs into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
+			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 		}
+	}
+	if alamedaScaler, err = r.listAndAddStatefulSetsIntoAlamedaScalerStatue(context.TODO(), alamedaScaler); err != nil {
+		scope.Warnf("List and add StatefulSets into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
+		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+	}
 
-		// select matched deploymentConfigs
-		if hasOpenshiftAPIAppsV1 {
-			if alamedaDeploymentConfigs, err := listResources.ListDeploymentConfigsByNamespaceLabels(req.Namespace, alamedaScaler.Spec.Selector.MatchLabels); err == nil {
-				for _, alamedaDeploymentConfig := range alamedaDeploymentConfigs {
-					alamedaScaler, err = alamedascalerReconciler.UpdateStatusByDeploymentConfig(&alamedaDeploymentConfig)
-					if err != nil {
-						scope.Errorf("Update status of AlamedaScaler (%s/%s) by DeploymentConfig failed: %s", alamedaScalerNS, alamedaScalerName, err.Error())
-						return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
-					}
-				}
-			} else {
-				scope.Error(err.Error())
-				return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
-			}
-		}
-
-		// select matched statefulSets
-		if statefulSets, err := listResources.ListStatefulSetsByNamespaceLabels(req.Namespace, alamedaScaler.Spec.Selector.MatchLabels); err == nil {
-			for _, statefulSet := range statefulSets {
-				alamedaScaler, err = alamedascalerReconciler.UpdateStatusByStatefulSet(&statefulSet)
-				if err != nil {
-					scope.Errorf("update AlamedaScaler's (%s/%s) status by StatefulSets failed, retry reconciling: %s", req.Namespace, req.Name, err.Error())
-					return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
-				}
-			}
-		} else {
-			scope.Error(err.Error())
-			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
-		}
-
-		if err := updateResource.UpdateAlamedaScaler(alamedaScaler); err != nil {
-			scope.Errorf("Update AlamedaScaler (%s/%s) failed: %s", alamedaScalerNS, alamedaScalerName, err.Error())
-			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
-		}
-
-		// after updating AlamedaPod in AlamedaScaler, start create AlamedaRecommendation if necessary and register alameda pod to datahub
-		scope.Debugf("Start syncing AlamedaScaler (%s/%s) to datahub. %s", alamedaScalerNS, alamedaScalerName, alamutils.InterfaceToString(alamedaScaler))
-		if err := r.syncAlamedaScalerWithDepResources(alamedaScaler); err != nil {
-			scope.Error(err.Error())
-			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
-		}
-
-	} else {
-		scope.Errorf("get AlamedaScaler %s/%s failed: %s", req.Namespace, req.Name, err.Error())
+	if err := r.Update(context.TODO(), &alamedaScaler); err != nil {
+		scope.Errorf("Update AlamedaScaler(%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
 		return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
 	}
 
+	// after updating AlamedaPod in AlamedaScaler, start create AlamedaRecommendation if necessary and register alameda pod to datahub
+	scope.Debugf("Start syncing AlamedaScaler(%s/%s) to datahub. %s", req.Namespace, req.Name, alamutils.InterfaceToString(alamedaScaler))
+	if err := r.syncAlamedaScalerWithDepResources(&alamedaScaler); err != nil {
+		scope.Error(err.Error())
+		return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
+	}
+
+	scope.Infof("Reconcile AlamedaScaler(%s/%s) done.", req.Namespace, req.Name)
 	return ctrl.Result{}, nil
+}
+
+func (r AlamedaScalerReconciler) setDefaultAlamedaScaler(alamedaScaler autoscalingv1alpha1.AlamedaScaler) autoscalingv1alpha1.AlamedaScaler {
+	alamedaScaler.SetDefaultValue()
+	alamedaScaler.Spec.Type = autoscalingv1alpha1.AlamedaScalerTypeDefault
+	return alamedaScaler
+}
+
+func (r AlamedaScalerReconciler) isAlamedaScalerNeedToBeReconciled(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (bool, error) {
+	if alamedaScaler.GetType() == autoscalingv1alpha1.AlamedaScalerTypeNotDefine ||
+		alamedaScaler.GetType() == autoscalingv1alpha1.AlamedaScalerTypeDefault {
+		return true, nil
+	}
+	return false, nil
+}
+
+func (r AlamedaScalerReconciler) isWorkloadControllerCanBeMonitoredByAlamedaScaler(ctx context.Context, workloadController metav1.ObjectMeta, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (bool, error) {
+	alamedaScalerList := autoscalingv1alpha1.AlamedaScalerList{}
+	err := r.List(ctx, &alamedaScalerList, &client.ListOptions{Namespace: workloadController.GetNamespace()})
+	if err != nil {
+		return false, errors.Wrap(err, "list AlamedaScalers failed")
+	}
+
+	alamedaScalersObjectMeta := make([]metav1.ObjectMeta, 0, len(alamedaScalerList.Items))
+	for _, alamedaScaler := range alamedaScalerList.Items {
+		if alamedaScaler.Spec.Selector == nil {
+			continue
+		}
+		if ok := isLabelsSelectedBySelector(*alamedaScaler.Spec.Selector, workloadController.GetLabels()); !ok {
+			continue
+		}
+		alamedaScalersObjectMeta = append(alamedaScalersObjectMeta, alamedaScaler.ObjectMeta)
+	}
+
+	oldestAlamedaScaler := getFirstCreatedObjectMeta(alamedaScalersObjectMeta)
+	if oldestAlamedaScaler.GetNamespace() != alamedaScaler.GetNamespace() ||
+		oldestAlamedaScaler.GetName() != alamedaScaler.GetName() {
+		return false, nil
+	}
+	return true, nil
+}
+
+func (r AlamedaScalerReconciler) listAndAddDeploymentsIntoAlamedaScalerStatue(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (autoscalingv1alpha1.AlamedaScaler, error) {
+	listResources := utilsresource.NewListResources(r.Client)
+	alamedascalerReconciler := alamedascaler_reconciler.NewReconciler(r.Client, &alamedaScaler)
+	deployments, err := listResources.ListDeploymentsByNamespaceLabels(alamedaScaler.Namespace, alamedaScaler.Spec.Selector.MatchLabels)
+	if err != nil {
+		return alamedaScaler, errors.Wrap(err, "list Deployments failed")
+	}
+	for _, deployment := range deployments {
+		ok, err := r.isWorkloadControllerCanBeMonitoredByAlamedaScaler(ctx, deployment.ObjectMeta, alamedaScaler)
+		if err != nil {
+			return alamedaScaler, errors.Wrap(err, "check if Deployment can be monitored failed")
+		}
+
+		ok = ok && isMonitoredByAlamedaScalerType(deployment.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeDefault)
+		if ok {
+			_, err = alamedascalerReconciler.UpdateStatusByDeployment(&deployment)
+			if err != nil {
+				return alamedaScaler, errors.Wrap(err, "update status of AlamedaScaler(%s/%s) by Deployment failed")
+			}
+		} else {
+			ar := r.getIneffectiveAlamedaResource(deployment.ObjectMeta)
+			alamedaScaler.AddAlamedaResourceIntoStatus(autoscalingv1alpha1.DeploymentController, ar)
+		}
+	}
+	return alamedaScaler, nil
+}
+
+func (r AlamedaScalerReconciler) listAndAddDeploymentConfigsIntoAlamedaScalerStatue(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (autoscalingv1alpha1.AlamedaScaler, error) {
+	listResources := utilsresource.NewListResources(r.Client)
+	alamedascalerReconciler := alamedascaler_reconciler.NewReconciler(r.Client, &alamedaScaler)
+	dploymentConfigs, err := listResources.ListDeploymentConfigsByNamespaceLabels(alamedaScaler.Namespace, alamedaScaler.Spec.Selector.MatchLabels)
+	if err != nil {
+		return alamedaScaler, errors.Wrap(err, "list Deployments failed")
+	}
+	for _, deploymentConfig := range dploymentConfigs {
+		ok, err := r.isWorkloadControllerCanBeMonitoredByAlamedaScaler(context.TODO(), deploymentConfig.ObjectMeta, alamedaScaler)
+		if err != nil {
+			return alamedaScaler, errors.Wrap(err, "check if DeploymentConfig can be monitored failed")
+		}
+
+		ok = ok && isMonitoredByAlamedaScalerType(deploymentConfig.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeDefault)
+		if ok {
+			_, err = alamedascalerReconciler.UpdateStatusByDeploymentConfig(&deploymentConfig)
+			if err != nil {
+				return alamedaScaler, errors.Wrap(err, "update status of AlamedaScaler(%s/%s) by DeploymentConfig failed")
+			}
+		} else {
+			ar := r.getIneffectiveAlamedaResource(deploymentConfig.ObjectMeta)
+			alamedaScaler.AddAlamedaResourceIntoStatus(autoscalingv1alpha1.DeploymentConfigController, ar)
+		}
+	}
+	return alamedaScaler, nil
+}
+
+func (r AlamedaScalerReconciler) listAndAddStatefulSetsIntoAlamedaScalerStatue(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (autoscalingv1alpha1.AlamedaScaler, error) {
+	listResources := utilsresource.NewListResources(r.Client)
+	alamedascalerReconciler := alamedascaler_reconciler.NewReconciler(r.Client, &alamedaScaler)
+	statefulSets, err := listResources.ListStatefulSetsByNamespaceLabels(alamedaScaler.Namespace, alamedaScaler.Spec.Selector.MatchLabels)
+	if err != nil {
+		return alamedaScaler, errors.Wrap(err, "list Deployments failed")
+	}
+	for _, statefulSet := range statefulSets {
+		ok, err := r.isWorkloadControllerCanBeMonitoredByAlamedaScaler(context.TODO(), statefulSet.ObjectMeta, alamedaScaler)
+		if err != nil {
+			return alamedaScaler, errors.Wrap(err, "check if StatefulSet can be monitored failed")
+		}
+
+		ok = ok && isMonitoredByAlamedaScalerType(statefulSet.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeDefault)
+		if ok {
+			_, err = alamedascalerReconciler.UpdateStatusByStatefulSet(&statefulSet)
+			if err != nil {
+				return alamedaScaler, errors.Wrap(err, "update status of AlamedaScaler(%s/%s) by StatefulSet failed")
+			}
+		} else {
+			ar := r.getIneffectiveAlamedaResource(statefulSet.ObjectMeta)
+			alamedaScaler.AddAlamedaResourceIntoStatus(autoscalingv1alpha1.StatefulSetController, ar)
+		}
+	}
+	return alamedaScaler, nil
+}
+
+func (r AlamedaScalerReconciler) getIneffectiveAlamedaResource(workloadController metav1.ObjectMeta) autoscalingv1alpha1.AlamedaResource {
+	return autoscalingv1alpha1.AlamedaResource{
+		Namespace: workloadController.GetNamespace(),
+		Name:      workloadController.GetName(),
+		UID:       string(workloadController.GetUID()),
+		Effective: false,
+		Message:   "Is monitoring by other AlamedaScaler.",
+	}
 }
 
 func (r *AlamedaScalerReconciler) syncAlamedaScalerWithDepResources(alamedaScaler *autoscalingv1alpha1.AlamedaScaler) error {
@@ -327,99 +438,66 @@ func (r *AlamedaScalerReconciler) listAlamedaWatchedResourcesToDatahub(scaler *a
 }
 
 func (r *AlamedaScalerReconciler) createAlamedaWatchedResourcesToDatahub(scaler *autoscalingv1alpha1.AlamedaScaler) error {
-
-	watchedReses := []*datahub_resources.Controller{}
-	for _, dc := range scaler.Status.AlamedaController.DeploymentConfigs {
-		policy := datahub_resources.RecommendationPolicy_RECOMMENDATION_POLICY_UNDEFINED
-		if scaler.Spec.Policy == autoscalingv1alpha1.RecommendationPolicySTABLE {
-			policy = datahub_resources.RecommendationPolicy_STABLE
-		} else if scaler.Spec.Policy == autoscalingv1alpha1.RecommendationPolicyCOMPACT {
-			policy = datahub_resources.RecommendationPolicy_COMPACT
-		}
-		watchedReses = append(watchedReses, &datahub_resources.Controller{
-			ObjectMeta: &datahub_resources.ObjectMeta{
-				Namespace:   dc.Namespace,
-				Name:        dc.Name,
-				ClusterName: r.ClusterUID,
-			},
-			Kind: datahub_resources.Kind_DEPLOYMENTCONFIG,
-			AlamedaControllerSpec: &datahub_resources.AlamedaControllerSpec{
-				AlamedaScaler: &datahub_resources.ObjectMeta{
-					Namespace:   scaler.Namespace,
-					Name:        scaler.Name,
-					ClusterName: r.ClusterUID,
-				},
-				Policy:                        policy,
-				EnableRecommendationExecution: scaler.IsEnableExecution(),
-				ScalingTool:                   r.getAlamedaScalerDatahubScalingType(*scaler),
-			},
-			Replicas:     int32(len(dc.Pods)),
-			SpecReplicas: *dc.SpecReplicas,
-		})
-	}
-	for _, deploy := range scaler.Status.AlamedaController.Deployments {
-		policy := datahub_resources.RecommendationPolicy_RECOMMENDATION_POLICY_UNDEFINED
-		if scaler.Spec.Policy == autoscalingv1alpha1.RecommendationPolicySTABLE {
-			policy = datahub_resources.RecommendationPolicy_STABLE
-		} else if scaler.Spec.Policy == autoscalingv1alpha1.RecommendationPolicyCOMPACT {
-			policy = datahub_resources.RecommendationPolicy_COMPACT
-		}
-		watchedReses = append(watchedReses, &datahub_resources.Controller{
-			ObjectMeta: &datahub_resources.ObjectMeta{
-				Namespace:   deploy.Namespace,
-				Name:        deploy.Name,
-				ClusterName: r.ClusterUID,
-			},
-			Kind: datahub_resources.Kind_DEPLOYMENT,
-			AlamedaControllerSpec: &datahub_resources.AlamedaControllerSpec{
-				AlamedaScaler: &datahub_resources.ObjectMeta{
-					Namespace:   scaler.Namespace,
-					Name:        scaler.Name,
-					ClusterName: r.ClusterUID,
-				},
-				Policy:                        policy,
-				EnableRecommendationExecution: scaler.IsEnableExecution(),
-				ScalingTool:                   r.getAlamedaScalerDatahubScalingType(*scaler),
-			},
-			Replicas:     int32(len(deploy.Pods)),
-			SpecReplicas: *deploy.SpecReplicas,
-		})
-	}
-	for _, statefulSet := range scaler.Status.AlamedaController.StatefulSets {
-		policy := datahub_resources.RecommendationPolicy_RECOMMENDATION_POLICY_UNDEFINED
-		if scaler.Spec.Policy == autoscalingv1alpha1.RecommendationPolicySTABLE {
-			policy = datahub_resources.RecommendationPolicy_STABLE
-		} else if scaler.Spec.Policy == autoscalingv1alpha1.RecommendationPolicyCOMPACT {
-			policy = datahub_resources.RecommendationPolicy_COMPACT
-		}
-		watchedReses = append(watchedReses, &datahub_resources.Controller{
-			ObjectMeta: &datahub_resources.ObjectMeta{
-				Namespace:   statefulSet.Namespace,
-				Name:        statefulSet.Name,
-				ClusterName: r.ClusterUID,
-			},
-			Kind: datahub_resources.Kind_STATEFULSET,
-			AlamedaControllerSpec: &datahub_resources.AlamedaControllerSpec{
-				AlamedaScaler: &datahub_resources.ObjectMeta{
-					Namespace:   scaler.Namespace,
-					Name:        scaler.Name,
-					ClusterName: r.ClusterUID,
-				},
-				Policy:                        policy,
-				EnableRecommendationExecution: scaler.IsEnableExecution(),
-				ScalingTool:                   r.getAlamedaScalerDatahubScalingType(*scaler),
-			},
-			Replicas:     int32(len(statefulSet.Pods)),
-			SpecReplicas: *statefulSet.SpecReplicas,
-		})
-	}
-	scope.Debugf("Creating controllers to datahub. AlamedaScaler: %s/%s. Controllers: %+v", scaler.GetNamespace(), scaler.GetName(), watchedReses)
-	err := r.DatahubControllerRepo.CreateControllers(watchedReses)
+	controllers := r.getDatahubControllersFromAlamedaScalerStatus(*scaler)
+	scope.Debugf("Creating controllers to datahub. AlamedaScaler: %s/%s. Controllers: %+v", scaler.GetNamespace(), scaler.GetName(), controllers)
+	err := r.DatahubControllerRepo.CreateControllers(controllers)
 	if err != nil {
 		return err
 	}
-	scope.Debugf("Create controllers to datahub success. AlamedaScaler: %s/%s. Controllers: %+v", scaler.GetNamespace(), scaler.GetName(), watchedReses)
+	scope.Debugf("Create controllers to datahub success. AlamedaScaler: %s/%s. Controllers: %+v", scaler.GetNamespace(), scaler.GetName(), controllers)
 	return nil
+}
+
+func (r *AlamedaScalerReconciler) getDatahubControllersFromAlamedaScalerStatus(scaler autoscalingv1alpha1.AlamedaScaler) []*datahub_resources.Controller {
+	policy := datahub_resources.RecommendationPolicy_RECOMMENDATION_POLICY_UNDEFINED
+	switch scaler.Spec.Policy {
+	case autoscalingv1alpha1.RecommendationPolicySTABLE:
+		policy = datahub_resources.RecommendationPolicy_STABLE
+	case autoscalingv1alpha1.RecommendationPolicyCOMPACT:
+		policy = datahub_resources.RecommendationPolicy_COMPACT
+	}
+	isScalerEnableExecution := scaler.IsEnableExecution()
+	scalingTool := r.getAlamedaScalerDatahubScalingType(scaler)
+
+	datahubKindToAlamedaResourceMap := map[datahub_resources.Kind]map[autoscalingv1alpha1.NamespacedName]autoscalingv1alpha1.AlamedaResource{
+		datahub_resources.Kind_DEPLOYMENT:       scaler.Status.AlamedaController.Deployments,
+		datahub_resources.Kind_DEPLOYMENTCONFIG: scaler.Status.AlamedaController.DeploymentConfigs,
+		datahub_resources.Kind_STATEFULSET:      scaler.Status.AlamedaController.StatefulSets,
+	}
+	controllers := []*datahub_resources.Controller{}
+	for kind, alamedaResourceMap := range datahubKindToAlamedaResourceMap {
+		for _, alamedaResource := range alamedaResourceMap {
+			if alamedaResource.Effective == false {
+				continue
+			}
+			replicas := len(alamedaResource.Pods)
+			specReplicas := int32(-1)
+			if alamedaResource.SpecReplicas != nil {
+				specReplicas = *alamedaResource.SpecReplicas
+			}
+			controllers = append(controllers, &datahub_resources.Controller{
+				ObjectMeta: &datahub_resources.ObjectMeta{
+					Namespace:   alamedaResource.Namespace,
+					Name:        alamedaResource.Name,
+					ClusterName: r.ClusterUID,
+				},
+				Kind: kind,
+				AlamedaControllerSpec: &datahub_resources.AlamedaControllerSpec{
+					AlamedaScaler: &datahub_resources.ObjectMeta{
+						Namespace:   scaler.Namespace,
+						Name:        scaler.Name,
+						ClusterName: r.ClusterUID,
+					},
+					Policy:                        policy,
+					EnableRecommendationExecution: isScalerEnableExecution,
+					ScalingTool:                   scalingTool,
+				},
+				Replicas:     int32(replicas),
+				SpecReplicas: specReplicas,
+			})
+		}
+	}
+	return controllers
 }
 
 func (r *AlamedaScalerReconciler) deleteAlamedaWatchedResourcesToDatahub(ctx context.Context, scaler *autoscalingv1alpha1.AlamedaScaler, ctlrsFromDH []*datahub_resources.Controller) error {
@@ -853,7 +931,11 @@ func (r *AlamedaScalerReconciler) isControllerHasAlamedaScalerInfo(controller da
 	if controller.AlamedaControllerSpec == nil || controller.AlamedaControllerSpec.AlamedaScaler == nil {
 		return false
 	}
-	if controller.AlamedaControllerSpec.AlamedaScaler.Namespace == alamedaScaler.Namespace && controller.AlamedaControllerSpec.AlamedaScaler.Name == alamedaScaler.Name {
+	// TODO: Might compare namespace if Datahub return non empty controller.AlamedaControllerSpec.AlamedaScaler.Namespace
+	// if controller.AlamedaControllerSpec.AlamedaScaler.Namespace == alamedaScaler.Namespace && controller.AlamedaControllerSpec.AlamedaScaler.Name == alamedaScaler.Name {
+	// 	return true
+	// }
+	if controller.AlamedaControllerSpec.AlamedaScaler.Name == alamedaScaler.Name {
 		return true
 	}
 	return false

@@ -128,7 +128,7 @@ func (repo *ControllerRepository) ListControllersByApplication(ctx context.Conte
 	} else if _, err := client.IsResponseStatusOK(resp.Status); err != nil {
 		return nil, errors.Wrap(err, "list controllers from Datahub failed")
 	}
-	controllers := make([]*datahub_resources.Controller, 0, len(resp.Controllers))
+	controllers := make([]*datahub_resources.Controller, 0)
 	for _, controller := range resp.Controllers {
 		copyController := *controller
 		if controller != nil && repo.isControllerHasApplicationInfo(*controller, namespace, name) {
@@ -208,11 +208,14 @@ func (repo *ControllerRepository) Close() {
 }
 
 func (repo *ControllerRepository) isControllerHasApplicationInfo(controller datahub_resources.Controller, appNamespace, appName string) bool {
+	// TODO: Might compare namespace if Datahub return non empty controller.AlamedaControllerSpec.AlamedaScaler.Namespace
+	// if controller.AlamedaControllerSpec != nil && controller.AlamedaControllerSpec.AlamedaScaler != nil &&
+	// 	controller.AlamedaControllerSpec.AlamedaScaler.Namespace == appNamespace && controller.AlamedaControllerSpec.AlamedaScaler.Name == appName {
+	// 	return true
+	// }
 
-	if controller.AlamedaControllerSpec != nil && controller.AlamedaControllerSpec.AlamedaScaler != nil &&
-		controller.AlamedaControllerSpec.AlamedaScaler.Namespace == appNamespace && controller.AlamedaControllerSpec.AlamedaScaler.Name == appName {
+	if controller.AlamedaControllerSpec != nil && controller.AlamedaControllerSpec.AlamedaScaler != nil && controller.AlamedaControllerSpec.AlamedaScaler.Name == appName {
 		return true
 	}
-
 	return false
 }

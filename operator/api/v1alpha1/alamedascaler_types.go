@@ -63,14 +63,28 @@ type AlamedaResource struct {
 	Namespace    string                        `json:"namespace" protobuf:"bytes,1,opt,name=namespace"`
 	Name         string                        `json:"name" protobuf:"bytes,2,opt,name=name"`
 	UID          string                        `json:"uid" protobuf:"bytes,3,opt,name=uid"`
-	Pods         map[NamespacedName]AlamedaPod `json:"pods" protobuf:"bytes,4,opt,name=pods"`
+	Pods         map[NamespacedName]AlamedaPod `json:"pods,omitempty" protobuf:"bytes,4,opt,name=pods"`
 	SpecReplicas *int32                        `json:"specReplicas" protobuf:"varint,5,opt,name=spec_replicas"`
+	Effective    bool                          `json:"effective" protobuf:"varint,6,opt,name=effective"`
+	Message      string                        `json:"message" protobuf:"varint,5,opt,name=message"`
+}
+
+func (a AlamedaResource) GetNamespacedName() NamespacedName {
+	return utils.GetNamespacedNameKey(a.Namespace, a.Name)
 }
 
 type AlamedaController struct {
 	Deployments       map[NamespacedName]AlamedaResource `json:"deployments,omitempty" protobuf:"bytes,1,opt,name=deployments"`
 	DeploymentConfigs map[NamespacedName]AlamedaResource `json:"deploymentConfigs,omitempty" protobuf:"bytes,2,opt,name=deployment_configs"`
 	StatefulSets      map[NamespacedName]AlamedaResource `json:"statefulSets,omitempty" protobuf:"bytes,3,opt,name=stateful_sets"`
+}
+
+func NewAlamedaController() AlamedaController {
+	return AlamedaController{
+		Deployments:       make(map[NamespacedName]AlamedaResource),
+		DeploymentConfigs: make(map[NamespacedName]AlamedaResource),
+		StatefulSets:      make(map[NamespacedName]AlamedaResource),
+	}
 }
 
 type AlamedaControllerType int
@@ -150,21 +164,78 @@ type ScalingToolSpec struct {
 	ExecutionStrategy *ExecutionStrategy `json:"executionStrategy,omitempty" protobuf:"bytes,2,name=execution_strategy"`
 }
 
+type AlamedaScalerType = string
+
+const (
+	AlamedaScalerTypeNotDefine AlamedaScalerType = ""
+	AlamedaScalerTypeDefault   AlamedaScalerType = "default"
+	AlamedaScalerTypeKafka     AlamedaScalerType = "kafka"
+)
+
+type KafkaSpec struct {
+	ExporterNamespace string                   `json:"exporterNamespace,omitempty" protobuf:"bytes,1,opt,name=exporter_namespace"`
+	Topics            []string                 `json:"topics,omitempty" protobuf:"bytes,2,opt,name=topics"`
+	ConsumerGroups    []KafkaConsumerGroupSpec `json:"consumerGroups,omitempty" protobuf:"bytes,3,opt,name=consumer_groups"`
+}
+
+type KafkaConsumerGroupSpec struct {
+	Name       string                         `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
+	Resource   KafkaConsumerGroupResourceSpec `json:"resource,omitempty" protobuf:"bytes,2,opt,name=resource"`
+	MajorTopic *string                        `json:"majorTopic,omitempty" protobuf:"bytes,3,opt,name=major_topic"`
+}
+
+type KafkaConsumerGroupResourceSpec struct {
+	Kubernetes *KubernetesResourceSpec `json:"kubernetes,omitempty" protobuf:"bytes,1,opt,name=kubernetes"`
+	Custom     string                  `json:"custom,omitempty" protobuf:"bytes,2,opt,name=custom"`
+}
+
+type KubernetesResourceSpec struct {
+	Selector *metav1.LabelSelector `json:"selector,omitempty" protobuf:"bytes,1,opt,name=selector"`
+}
+
 // AlamedaScalerSpec defines the desired state of AlamedaScaler
 // INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 type AlamedaScalerSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
-	Selector        *metav1.LabelSelector `json:"selector" protobuf:"bytes,1,name=selector"`
+	Selector        *metav1.LabelSelector `json:"selector,omitempty" protobuf:"bytes,1,name=selector"`
 	EnableExecution *enableExecution      `json:"enableExecution,omitempty" protobuf:"bytes,2,name=enable_execution"`
 	// +kubebuilder:validation:Enum=stable,compact
-	Policy                alamedaPolicy   `json:"policy,omitempty" protobuf:"bytes,3,opt,name=policy"`
-	CustomResourceVersion string          `json:"customResourceVersion,omitempty" protobuf:"bytes,4,opt,name=custom_resource_version"`
-	ScalingTool           ScalingToolSpec `json:"scalingTool,omitempty" protobuf:"bytes,5,opt,name=scaling_tool"`
+	Policy                alamedaPolicy     `json:"policy,omitempty" protobuf:"bytes,3,opt,name=policy"`
+	CustomResourceVersion string            `json:"customResourceVersion,omitempty" protobuf:"bytes,4,opt,name=custom_resource_version"`
+	ScalingTool           ScalingToolSpec   `json:"scalingTool,omitempty" protobuf:"bytes,5,opt,name=scaling_tool"`
+	Type                  AlamedaScalerType `json:"type,omitempty" protobuf:"bytes,6,opt,name=type"`
+	Kafka                 *KafkaSpec        `json:"kafka,omitempty" protobuf:"bytes,7,opt,name=kafka"`
+}
+
+type KafkaStatus struct {
+	Effective         bool                       `json:"effective" protobuf:"bytes,1,opt,name=effective"`
+	Message           string                     `json:"message" protobuf:"bytes,2,opt,name=message"`
+	ExporterNamespace string                     `json:"namespace,omitempty" protobuf:"bytes,3,opt,name=namespace"`
+	Topics            []string                   `json:"topics,omitempty" protobuf:"bytes,4,opt,name=topics"`
+	ConsumerGroups    []KafkaConsumerGroupStatus `json:"consumerGroups,omitempty" protobuf:"bytes,5,opt,name=consumer_groups"`
+}
+
+type KafkaConsumerGroupStatus struct {
+	Name     string                             `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
+	Topic    string                             `json:"topic,omitempty" protobuf:"bytes,2,opt,name=topic"`
+	Resource KafkaConsumerGroupResourceMetadata `json:"resource,omitempty" protobuf:"bytes,3,opt,name=resource"`
+}
+
+type KafkaConsumerGroupResourceMetadata struct {
+	CustomName string                    `json:"customName,omitempty" protobuf:"bytes,1,opt,name=custom_name"`
+	Kubernetes *KubernetesObjectMetadata `json:"kubernetes,omitempty" protobuf:"bytes,2,opt,name=kubernetes"`
+}
+
+type KubernetesObjectMetadata struct {
+	Namespace string `json:"namespace,omitempty" protobuf:"bytes,1,opt,name=namespace"`
+	Name      string `json:"name,omitempty" protobuf:"bytes,2,opt,name=name"`
+	Kind      string `json:"kind,omitempty" protobuf:"bytes,3,opt,name=kind"`
 }
 
 // AlamedaScalerStatus defines the observed state of AlamedaScaler
 type AlamedaScalerStatus struct {
 	AlamedaController AlamedaController `json:"alamedaController,omitempty" protobuf:"bytes,4,opt,name=alameda_controller"`
+	Kafka             *KafkaStatus      `json:"kafka,omitempty" protobuf:"bytes,5,opt,name=kafka"`
 }
 
 // +genclient
@@ -196,9 +267,48 @@ func (as *AlamedaScaler) SetStatusAlamedaController(ac AlamedaController) {
 	as.Status.AlamedaController = ac
 }
 
+func (as *AlamedaScaler) SetStatusKafka(k *KafkaStatus) {
+	as.Status.Kafka = k
+}
+
+func (as *AlamedaScaler) SetType(t AlamedaScalerType) {
+	as.Spec.Type = t
+}
+
 func (as *AlamedaScaler) GenCustomResourceVersion() string {
 	v := as.ResourceVersion
 	return v
+}
+
+func (as *AlamedaScaler) GetType() AlamedaScalerType {
+	return as.Spec.Type
+}
+
+func (as *AlamedaScaler) GetKafkaNamespace() string {
+
+	if as.Spec.Kafka == nil {
+		return ""
+	}
+
+	return as.Spec.Kafka.ExporterNamespace
+}
+
+func (as *AlamedaScaler) ListKafkaTopics() []string {
+
+	if as.Spec.Kafka == nil {
+		return nil
+	}
+
+	return as.Spec.Kafka.Topics
+}
+
+func (as *AlamedaScaler) ListKafkaConsumerGroupSpecs() []KafkaConsumerGroupSpec {
+
+	if as.Spec.Kafka == nil {
+		return nil
+	}
+
+	return as.Spec.Kafka.ConsumerGroups
 }
 
 // GetMonitoredPods returns pods restoring in AlamedaScaler.Status
@@ -351,6 +461,18 @@ func (as *AlamedaScaler) HasAlamedaPod(namespace, name string) bool {
 	}
 
 	return false
+}
+
+func (as *AlamedaScaler) AddAlamedaResourceIntoStatus(arType AlamedaControllerType, ar AlamedaResource) {
+	ac := as.Status.AlamedaController
+	switch arType {
+	case DeploymentController:
+		ac.Deployments[ar.GetNamespacedName()] = ar
+	case DeploymentConfigController:
+		ac.DeploymentConfigs[ar.GetNamespacedName()] = ar
+	case StatefulSetController:
+		ac.StatefulSets[ar.GetNamespacedName()] = ar
+	}
 }
 
 func (as *AlamedaScaler) setDefaultEnableExecution() {

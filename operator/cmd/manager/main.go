@@ -21,7 +21,6 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"os"
 	"strings"
 	"time"
 
@@ -31,64 +30,44 @@ import (
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 
+	"github.com/containers-ai/alameda/internal/pkg/database/prometheus"
+	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
+	kafkaclient "github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/client"
 	"github.com/containers-ai/alameda/operator"
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	"github.com/containers-ai/alameda/operator/controllers"
+	datahubclient "github.com/containers-ai/alameda/operator/datahub/client"
 	datahub_client_application "github.com/containers-ai/alameda/operator/datahub/client/application"
 	datahub_client_controller "github.com/containers-ai/alameda/operator/datahub/client/controller"
+	datahub_client_kafka "github.com/containers-ai/alameda/operator/datahub/client/kafka"
 	datahub_client_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
 	datahub_client_node "github.com/containers-ai/alameda/operator/datahub/client/node"
 	datahub_client_pod "github.com/containers-ai/alameda/operator/datahub/client/pod"
+	internaldatahubschema "github.com/containers-ai/alameda/operator/datahub/schema"
 	"github.com/containers-ai/alameda/operator/pkg/probe"
 	"github.com/containers-ai/alameda/operator/pkg/utils"
-	"github.com/containers-ai/alameda/operator/pkg/utils/resources/validate"
-	op_webhook "github.com/containers-ai/alameda/operator/pkg/webhook"
 	"github.com/containers-ai/alameda/pkg/provider"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
 	datahubv1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
-	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
+	datahubschemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 
 	osappsapi "github.com/openshift/api/apps/v1"
-	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
-	"k8s.io/client-go/rest"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-	"sigs.k8s.io/controller-runtime/pkg/client/config"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
-	"sigs.k8s.io/controller-runtime/pkg/webhook"
-	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 )
 
 const (
+	JSONIndent = "  "
+
 	envVarPrefix = "ALAMEDA_OPERATOR"
 
 	defaultRotationMaxSizeMegabytes = 100
 	defaultRotationMaxBackups       = 7
 	defaultLogRotateOutputFile      = "/var/log/alameda/alameda-operator.log"
-)
-
-const JSONIndent = "  "
-
-var operatorConfigFile string
-var crdLocation string
-var showVer bool
-var readinessProbeFlag bool
-var livenessProbeFlag bool
-var metricsAddr string
-var enableLeaderElection bool
-
-var operatorConf operator.Config
-var k8sConfig *rest.Config
-var scope *logUtil.Scope
-var clusterUID string
-
-var (
-	datahubConn   *grpc.ClientConn
-	datahubClient datahubv1alpha1.DatahubServiceClient
 )
 
 var (
@@ -99,7 +78,35 @@ var (
 	// GO_VERSION is go version
 	GO_VERSION string
 
-	scheme = runtime.NewScheme()
+	// Variables for flags
+	showVer              bool
+	operatorConfigFile   string
+	crdLocation          string
+	readinessProbeFlag   bool
+	livenessProbeFlag    bool
+	metricsAddr          string
+	enableLeaderElection bool
+
+	// Global variables
+	syncPriod                          = time.Duration(1 * time.Minute)
+	hasOpenShiftAPIAppsv1              bool
+	operatorConf                       operator.Config
+	scope                              *logUtil.Scope
+	alamedaScalerKafkaControllerLogger *logUtil.Scope
+	datahubClientLogger                *logUtil.Scope
+
+	clusterUID     string
+	datahubSchemas = map[string]datahubschemas.Schema{
+		"kafkaTopic":         datahubschemas.Schema{},
+		"kafkaConsumerGroup": datahubschemas.Schema{},
+	}
+
+	// Third party clients
+	k8sClient        client.Client
+	datahubConn      *grpc.ClientConn
+	datahubClient    datahubv1alpha1.DatahubServiceClient
+	kafkaClient      kafka.Client
+	prometheusClient prometheus.Prometheus
 )
 
 func init() {
@@ -112,19 +119,19 @@ func init() {
 	flag.StringVar(&metricsAddr, "metrics-addr", ":8080", "The address the metric endpoint binds to.")
 	flag.BoolVar(&enableLeaderElection, "enable-leader-election", false,
 		"Enable leader election for controller manager. Enabling this will ensure there is only one active controller manager.")
+
 	scope = logUtil.RegisterScope("manager", "operator entry point", 0)
+	alamedaScalerKafkaControllerLogger = logUtil.RegisterScope("alameda_scaler_kafka_controller", "AlamedaScaler Kafka Controller", 0)
+	datahubClientLogger = logUtil.RegisterScope("datahub_client", "AlamedaScaler Kafka Controller", 0)
 
-	_ = clientgoscheme.AddToScheme(scheme)
-
-	_ = autoscalingv1alpha1.AddToScheme(scheme)
-	_ = appsv1.AddToScheme(scheme)
-	if ok, _ := utils.ServerHasOpenshiftAPIAppsV1(); ok {
-		_ = osappsapi.AddToScheme(scheme)
+	ok, err := utils.ServerHasOpenshiftAPIAppsV1()
+	if err != nil {
+		panic(errors.Wrap(err, "check if cluster has openshift api appsv1 failed"))
 	}
-	// +kubebuilder:scaffold:scheme
+	hasOpenShiftAPIAppsv1 = ok
 }
 
-func initLogger() {
+func initLogger() error {
 
 	opt := logUtil.DefaultOptions()
 	opt.RotationMaxSize = defaultRotationMaxSizeMegabytes
@@ -134,9 +141,8 @@ func initLogger() {
 	}
 	opt.RotationMaxBackups = defaultRotationMaxBackups
 	opt.RotateOutputPath = logFilePath
-	err := logUtil.Configure(opt)
-	if err != nil {
-		panic(err)
+	if err := logUtil.Configure(opt); err != nil {
+		return errors.Wrap(err, "configure log util failed")
 	}
 
 	scope.Infof("Log output level is %s.", operatorConf.Log.OutputLevel)
@@ -151,9 +157,11 @@ func initLogger() {
 			scope.SetStackTraceLevel(stacktraceLevel)
 		}
 	}
+
+	return nil
 }
 
-func initServerConfig(mgr *manager.Manager) {
+func initServerConfig(mgr *manager.Manager) error {
 
 	operatorConf = operator.NewConfigWithoutMgr()
 	if mgr != nil {
@@ -166,104 +174,237 @@ func initServerConfig(mgr *manager.Manager) {
 
 	// TODO: This config need default value. And it should check the file exists befor SetConfigFile.
 	viper.SetConfigFile(operatorConfigFile)
-	err := viper.ReadInConfig()
-	if err != nil {
-		panic(errors.New("Read configuration failed: " + err.Error()))
+	if err := viper.ReadInConfig(); err != nil {
+		return errors.Wrap(err, "read configuration failed")
 	}
-	err = viper.Unmarshal(&operatorConf)
+	if err := viper.Unmarshal(&operatorConf); err != nil {
+		return errors.Wrap(err, "unmarshal config failed")
+	}
+
+	if operatorConfBin, err :=
+		json.MarshalIndent(operatorConf, "", JSONIndent); err == nil {
+		scope.Infof(fmt.Sprintf("Operator configuration: %s",
+			string(operatorConfBin)))
+	}
+	return nil
+}
+
+func initThirdPartyClient() error {
+	cli, err := client.New(ctrl.GetConfigOrDie(), client.Options{})
 	if err != nil {
-		panic(errors.New("Unmarshal configuration failed: " + err.Error()))
+		return errors.Wrap(err, "new Kubernetes client failed")
+	}
+	k8sClient = cli
+
+	datahubConn, err = grpc.Dial(operatorConf.Datahub.Address,
+		grpc.WithBlock(),
+		grpc.WithTimeout(30*time.Second),
+		grpc.WithInsecure(),
+		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(3)))),
+	)
+	if err != nil {
+		return errors.Wrap(err, "new connection to datahub failed")
+	}
+	datahubClient = datahubv1alpha1.NewDatahubServiceClient(datahubConn)
+
+	if cli, err := kafkaclient.NewClient(*operatorConf.Kafka); err != nil {
+		return errors.Wrap(err, "new Kafka client failed")
 	} else {
-		if operatorConfBin, err :=
-			json.MarshalIndent(operatorConf, "", JSONIndent); err == nil {
-			scope.Infof(fmt.Sprintf("Operator configuration: %s",
-				string(operatorConfBin)))
-		}
-	}
-}
-
-func initThirdPartyClient() {
-	for {
-		datahubConn, _ = grpc.Dial(operatorConf.Datahub.Address,
-			grpc.WithInsecure(), grpc.WithUnaryInterceptor(
-				grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(3)))))
-		datahubClient = datahubv1alpha1.NewDatahubServiceClient(datahubConn)
-		_, err := datahubClient.ListNodes(context.Background(), &datahub_resources.ListNodesRequest{})
-		if err == nil {
-			break
-		} else {
-			scope.Errorf("connect datahub failed on init: %s", err.Error())
-		}
-		time.Sleep(time.Duration(1) * time.Second)
-	}
-}
-
-func initClusterUID() error {
-	k8sClient, err := client.New(k8sConfig, client.Options{})
-	if err != nil {
-		return errors.Wrap(err, "new kubernetes client failed")
+		kafkaClient = cli
 	}
 
-	clusterUID, err = k8sutils.GetClusterUID(k8sClient)
-	if err != nil {
-		return errors.Wrap(err, "get cluster uid failed")
-	} else if clusterUID == "" {
-		return errors.New("get empty cluster uid")
+	if cli, err := prometheus.NewClient(&operatorConf.Prometheus.Config); err != nil {
+		return errors.Wrap(err, "new Prometheus client failed")
+	} else {
+		prometheusClient = *cli
 	}
 
 	return nil
 }
 
-func setupWebhook(mgr manager.Manager) error {
+func initClusterUID() error {
+	uid, err := k8sutils.GetClusterUID(k8sClient)
+	if err != nil {
+		return errors.Wrap(err, "get cluster uid failed")
+	} else if uid == "" {
+		return errors.New("get empty cluster uid")
+	}
+	clusterUID = uid
+	return nil
+}
 
-	scope.Info("Setting up webhooks")
-	vr := &validate.ResourceValidate{}
-	if err := (&autoscalingv1alpha1.AlamedaScaler{
-		Validate: vr,
-	}).SetupWebhookWithManager(mgr); err != nil {
-		scope.Errorf(err.Error())
-		os.Exit(1)
+func initDatahubSchemas(ctx context.Context) error {
+	// Get Schemas
+	kafkaTopicSchema, err := internaldatahubschema.GetKafkaTopicSchema()
+	if err != nil {
+		return errors.Wrap(err, "get kafka topic schema failed")
+	}
+	datahubSchemas["kafkaTopic"] = kafkaTopicSchema
+	kafkaConsumerGroupSchema, err := internaldatahubschema.GetKafkaConsumerGroupSchema()
+	if err != nil {
+		return errors.Wrap(err, "get kafka consumergroup schema failed")
+	}
+	datahubSchemas["kafkaConsumerGroup"] = kafkaConsumerGroupSchema
+
+	// // Create schemas to Datahub
+	// req := datahubschemas.CreateSchemasRequest{
+	// 	Schemas: []*datahubschemas.Schema{&kafkaTopicSchema, &kafkaConsumerGroupSchema},
+	// }
+	// resp, err := datahubClient.CreateSchemas(ctx, &req)
+	// if err != nil {
+	// 	return errors.Wrap(err, "create schemas failed")
+	// } else if resp == nil {
+	// 	return errors.New("create schemas failed: receive nil status")
+	// } else if resp.Code != int32(code.Code_OK) {
+	// 	return errors.Errorf("create schemas failed: status: %d, message: %s", resp.Code, resp.Message)
+	// }
+
+	// List schemas from Datahub
+	listSchemaReq := datahubschemas.ListSchemasRequest{}
+	listSchemaResp, err := datahubClient.ListSchemas(ctx, &listSchemaReq)
+	if err != nil {
+		return errors.Wrap(err, "list schemas failed")
+	} else if listSchemaResp == nil {
+		return errors.New("list schemas failed: receive nil response")
+	} else if ok, err := datahubclient.IsResponseStatusOK(listSchemaResp.Status); !ok || err != nil {
+		return errors.Wrap(err, "list schemas failed")
 	}
 
-	whSrv := mgr.GetWebhookServer()
-	deploymentValidatingHook := &webhook.Admission{
-		Handler: admission.HandlerFunc(func(ctx context.Context,
-			req webhook.AdmissionRequest) webhook.AdmissionResponse {
-			decoder, err := admission.NewDecoder(scheme)
-			if err != nil {
-				scope.Errorf("new decoder failed %s", err.Error())
-				return webhook.Denied(err.Error())
-			}
-			return op_webhook.HandleDeployment(decoder, mgr.GetClient(), ctx, req)
-		}),
-	}
+	return nil
+}
 
-	if viper.IsSet("k8sWebhookServer.admissionPaths.validateDeployment") {
-		whSrv.Register(
-			viper.GetString("k8sWebhookServer.admissionPaths.validateDeployment"),
-			deploymentValidatingHook)
-	}
+func setupManager() (manager.Manager, error) {
+	return ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
+		MetricsBindAddress: metricsAddr,
+		LeaderElection:     enableLeaderElection,
+		Port:               9443,
+		SyncPeriod:         &syncPriod,
+	})
+}
 
-	if ok, _ := utils.ServerHasOpenshiftAPIAppsV1(); ok {
-		if viper.IsSet("k8sWebhookServer.admissionPaths.validateDeploymentConfig") {
-			deploymentConfigValidatingHook := &webhook.Admission{
-				Handler: admission.HandlerFunc(func(ctx context.Context,
-					req webhook.AdmissionRequest) webhook.AdmissionResponse {
-					decoder, err := admission.NewDecoder(scheme)
-					if err != nil {
-						scope.Errorf("new decoder failed %s", err.Error())
-						return webhook.Denied(err.Error())
-					}
-					return op_webhook.HandleDeploymentConfig(decoder, mgr.GetClient(), ctx, req)
-				}),
-			}
-			whSrv.Register(
-				viper.GetString("k8sWebhookServer.admissionPaths.validateDeploymentConfig"),
-				deploymentConfigValidatingHook)
+func addNecessaryAPIToScheme(scheme *runtime.Scheme) error {
+	if err := autoscalingv1alpha1.AddToScheme(scheme); err != nil {
+		return err
+	}
+	if hasOpenShiftAPIAppsv1 {
+		if err := osappsapi.AddToScheme(scheme); err != nil {
+			return err
 		}
 	}
-	if viper.IsSet("k8sWebhookServer.port") {
-		whSrv.Port = viper.GetInt("k8sWebhookServer.port")
+	return nil
+}
+
+func addControllersToManager(mgr manager.Manager) error {
+	datahubControllerRepo := datahub_client_controller.NewControllerRepository(datahubConn, clusterUID)
+	datahubPodRepo := datahub_client_pod.NewPodRepository(datahubConn, clusterUID)
+	datahubNamespaceRepo := datahub_client_namespace.NewNamespaceRepository(datahubConn, clusterUID)
+	datahubKafkaRepo := datahub_client_kafka.NewKafkaRepository(datahubClient, datahubClientLogger)
+
+	var err error
+
+	if err = (&controllers.AlamedaScalerReconciler{
+		Client:                 mgr.GetClient(),
+		Scheme:                 mgr.GetScheme(),
+		ClusterUID:             clusterUID,
+		DatahubApplicationRepo: datahub_client_application.NewApplicationRepository(datahubConn, clusterUID),
+		DatahubControllerRepo:  datahubControllerRepo,
+		DatahubNamespaceRepo:   datahubNamespaceRepo,
+		DatahubPodRepo:         datahubPodRepo,
+		ReconcileTimeout:       3 * time.Second,
+		ForceReconcileInterval: 1 * time.Minute,
+	}).SetupWithManager(mgr); err != nil {
+		return err
+	}
+
+	if err = (&controllers.AlamedaRecommendationReconciler{
+		Client:        mgr.GetClient(),
+		Scheme:        mgr.GetScheme(),
+		ClusterUID:    clusterUID,
+		DatahubClient: datahubv1alpha1.NewDatahubServiceClient(datahubConn),
+	}).SetupWithManager(mgr); err != nil {
+		return err
+	}
+
+	if err = (&controllers.DeploymentReconciler{
+		Client:     mgr.GetClient(),
+		Scheme:     mgr.GetScheme(),
+		ClusterUID: clusterUID,
+	}).SetupWithManager(mgr); err != nil {
+		return err
+	}
+
+	if hasOpenShiftAPIAppsv1 {
+		if err = (&controllers.DeploymentConfigReconciler{
+			Client:     mgr.GetClient(),
+			Scheme:     mgr.GetScheme(),
+			ClusterUID: clusterUID,
+		}).SetupWithManager(mgr); err != nil {
+			return err
+		}
+	}
+
+	if err = (&controllers.NamespaceReconciler{
+		Client:               mgr.GetClient(),
+		Scheme:               mgr.GetScheme(),
+		ClusterUID:           clusterUID,
+		DatahubNamespaceRepo: datahubNamespaceRepo,
+	}).SetupWithManager(mgr); err != nil {
+		return err
+	}
+
+	cloudprovider := ""
+	if provider.OnGCE() {
+		cloudprovider = provider.GCP
+	} else if provider.OnEC2() {
+		cloudprovider = provider.AWS
+	}
+	regionName := ""
+	switch cloudprovider {
+	case provider.AWS:
+		regionName = provider.AWSRegionMap[provider.GetEC2Region()]
+	}
+	if err = (&controllers.NodeReconciler{
+		Client:          mgr.GetClient(),
+		Scheme:          mgr.GetScheme(),
+		ClusterUID:      clusterUID,
+		Cloudprovider:   cloudprovider,
+		RegionName:      regionName,
+		DatahubNodeRepo: *datahub_client_node.NewNodeRepository(datahubConn, clusterUID),
+	}).SetupWithManager(mgr); err != nil {
+		return err
+	}
+
+	if err = (&controllers.StatefulSetReconciler{
+		Client:     mgr.GetClient(),
+		Scheme:     mgr.GetScheme(),
+		ClusterUID: clusterUID,
+	}).SetupWithManager(mgr); err != nil {
+		return err
+	}
+
+	if err = (&controllers.AlamedaScalerKafkaReconciler{
+		ClusterUID:            clusterUID,
+		HasOpenShiftAPIAppsv1: hasOpenShiftAPIAppsv1,
+
+		K8SClient: mgr.GetClient(),
+		Scheme:    mgr.GetScheme(),
+
+		KafkaRepository:                                 datahubKafkaRepo,
+		DatahubApplicationKafkaTopicSchema:              datahubSchemas["kafkaTopic"],
+		DatahubApplicationKafkaTopicMeasurement:         *datahubSchemas["kafkaTopic"].Measurements[0],
+		DatahubApplicationKafkaConsumerGroupSchema:      datahubSchemas["kafkaConsumerGroup"],
+		DatahubApplicationKafkaConsumerGroupMeasurement: *datahubSchemas["kafkaConsumerGroup"].Measurements[0],
+
+		KafkaClient:      kafkaClient,
+		PrometheusClient: prometheusClient,
+
+		ReconcileTimeout: 3 * time.Second,
+
+		Logger: alamedaScalerKafkaControllerLogger,
+
+		NeededMetrics: operatorConf.Prometheus.RequiredMetrics,
+	}).SetupWithManager(mgr); err != nil {
+		return err
 	}
 
 	return nil
@@ -271,8 +412,8 @@ func setupWebhook(mgr manager.Manager) error {
 
 func main() {
 	flag.Parse()
+	printSoftwareInfo()
 	if showVer {
-		printSoftwareInfo()
 		return
 	}
 
@@ -302,133 +443,43 @@ func main() {
 		return
 	}
 
-	// Get a config to talk to the apiserver
-	cfg, err := config.GetConfig()
+	mgr, err := setupManager()
 	if err != nil {
-		scope.Error("Get configuration failed: " + err.Error())
+		panic(errors.Wrap(err, "setup manager failed"))
 	}
-	k8sConfig = cfg
-
-	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
-		Scheme:             scheme,
-		MetricsBindAddress: metricsAddr,
-		LeaderElection:     enableLeaderElection,
-		Port:               9443,
-	})
-
-	if err != nil {
-		scope.Error(err.Error())
-		os.Exit(1)
+	if err = addNecessaryAPIToScheme(mgr.GetScheme()); err != nil {
+		panic(errors.Wrap(err, "add necessary api to scheme failed"))
 	}
 
 	// TODO: There are config dependency, this manager should have it's config.
-	initServerConfig(&mgr)
-	initLogger()
-	printSoftwareInfo()
-	initThirdPartyClient()
-	err = initClusterUID()
-	if err != nil {
-		panic(err)
+	if err = initServerConfig(&mgr); err != nil {
+		panic(errors.Wrap(err, "init server config failed"))
+	}
+	if err = initLogger(); err != nil {
+		panic(errors.Wrap(err, "init logger failed"))
+	}
+	if err = initThirdPartyClient(); err != nil {
+		panic(errors.Wrap(err, "init third party client failed"))
+	}
+	if err = initClusterUID(); err != nil {
+		panic(errors.Wrap(err, "init cluster uid failed"))
+	}
+	if err = initDatahubSchemas(context.TODO()); err != nil {
+		panic(errors.Wrap(err, "init Datahub schemas failed"))
 	}
 
-	scope.Info("Registering Components.")
-	datahubControllerRepo := datahub_client_controller.NewControllerRepository(datahubConn, clusterUID)
-	datahubPodRepo := datahub_client_pod.NewPodRepository(datahubConn, clusterUID)
-	datahubNamespaceRepo := datahub_client_namespace.NewNamespaceRepository(datahubConn, clusterUID)
-
-	// ------------------------ Setup Controllers ------------------------
-	if err = (&controllers.AlamedaScalerReconciler{
-		Client:                 mgr.GetClient(),
-		Scheme:                 mgr.GetScheme(),
-		ClusterUID:             clusterUID,
-		DatahubApplicationRepo: datahub_client_application.NewApplicationRepository(datahubConn, clusterUID),
-		DatahubControllerRepo:  datahubControllerRepo,
-		DatahubNamespaceRepo: datahubNamespaceRepo,
-		DatahubPodRepo:         datahubPodRepo,
-	}).SetupWithManager(mgr); err != nil {
-		scope.Errorf(err.Error())
-		os.Exit(1)
+	scope.Info("Adding controllers to manager...")
+	if err := addControllersToManager(mgr); err != nil {
+		panic(errors.Wrap(err, "add necessary controllers to manager failed"))
 	}
 
-	if err = (&controllers.AlamedaRecommendationReconciler{
-		Client:        mgr.GetClient(),
-		Scheme:        mgr.GetScheme(),
-		ClusterUID:    clusterUID,
-		DatahubClient: datahubv1alpha1.NewDatahubServiceClient(datahubConn),
-	}).SetupWithManager(mgr); err != nil {
-		scope.Errorf(err.Error())
-		os.Exit(1)
-	}
-
-	if err = (&controllers.DeploymentReconciler{
-		Client:                mgr.GetClient(),
-		Scheme:                mgr.GetScheme(),
-		ClusterUID:            clusterUID,
-		DatahubControllerRepo: datahubControllerRepo,
-	}).SetupWithManager(mgr); err != nil {
-		scope.Errorf(err.Error())
-		os.Exit(1)
-	}
-
-	if ok, _ := utils.ServerHasOpenshiftAPIAppsV1(); ok {
-		if err = (&controllers.DeploymentConfigReconciler{
-			Client:                mgr.GetClient(),
-			Scheme:                mgr.GetScheme(),
-			ClusterUID:            clusterUID,
-			DatahubControllerRepo: datahubControllerRepo,
-		}).SetupWithManager(mgr); err != nil {
-			scope.Errorf(err.Error())
-			os.Exit(1)
-		}
-	}
-
-	if err = (&controllers.NamespaceReconciler{
-		Client:               mgr.GetClient(),
-		Scheme:               mgr.GetScheme(),
-		ClusterUID:           clusterUID,
-		DatahubNamespaceRepo: datahubNamespaceRepo,
-	}).SetupWithManager(mgr); err != nil {
-		scope.Errorf(err.Error())
-		os.Exit(1)
-	}
-
-	cloudprovider := ""
-	if provider.OnGCE() {
-		cloudprovider = provider.GCP
-	} else if provider.OnEC2() {
-		cloudprovider = provider.AWS
-	}
-	regionName := ""
-	switch cloudprovider {
-	case provider.AWS:
-		regionName = provider.AWSRegionMap[provider.GetEC2Region()]
-	}
-	if err = (&controllers.NodeReconciler{
-		Client:          mgr.GetClient(),
-		Scheme:          mgr.GetScheme(),
-		ClusterUID:      clusterUID,
-		Cloudprovider:   cloudprovider,
-		RegionName:      regionName,
-		DatahubNodeRepo: *datahub_client_node.NewNodeRepository(datahubConn, clusterUID),
-	}).SetupWithManager(mgr); err != nil {
-		scope.Errorf(err.Error())
-		os.Exit(1)
-	}
-
-	if err = (&controllers.StatefulSetReconciler{
-		Client:                mgr.GetClient(),
-		Scheme:                mgr.GetScheme(),
-		ClusterUID:            clusterUID,
-		DatahubControllerRepo: datahubControllerRepo,
-	}).SetupWithManager(mgr); err != nil {
-		scope.Errorf(err.Error())
-		os.Exit(1)
-	}
-	// ------------------------ Setup Controllers ------------------------
-
-	setupWebhook(mgr)
-
+	// Start components
 	wg, ctx := errgroup.WithContext(context.Background())
+	wg.Go(
+		func() error {
+			scope.Info("Starting the Cmd.")
+			return mgr.Start(ctrl.SetupSignalHandler())
+		})
 	wg.Go(
 		func() error {
 			// To use instance from return value of function mgr.GetClient(),
@@ -442,14 +493,8 @@ func main() {
 			}
 			return nil
 		})
-
-	wg.Go(
-		func() error {
-			scope.Info("Starting the Cmd.")
-			return mgr.Start(ctrl.SetupSignalHandler())
-		})
-
 	if err := wg.Wait(); err != nil {
-		scope.Error(err.Error())
+		panic(err)
 	}
+	return
 }

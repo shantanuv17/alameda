@@ -15,16 +15,34 @@ address = "datahub.alameda.svc.cluster.local:50050"
   [datahub.retryInterval]
   default = 3 # second
 
-[k8sWebhookServer]
-port = 50443
-validatingWebhookConfigName = "operator-k8s-admission-validation"
-certDir = "/tmp/k8s-webhook-server/cert/"
+[kafka]
+brokerAddresses = ["my-kafka.kafka:9092"]
+version = "0.11.0.0"
+  [kafka.tls]
+  enabled = false
+  insecureSkipVerify = false
+  [kafka.sasl]
+  enabled = false
+  username = ""
+  password = ""
 
-  [k8sWebhookServer.admissionPaths]
-  validateDeployment = "/validate-autoscaling-containers-ai-v1-deployment"
-  validateDeploymentConfig = "/validate-autoscaling-containers-ai-v1-deploymentconfig"
+[prometheus]
+requiredMetrics = ["kafka_topic_partition_current_offset", "kafka_consumergroup_current_offset"]
+url = "https://prometheus-k8s.openshift-monitoring:9091"
+bearerTokenFile = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+  [prometheus.tlsConfig]
+  insecureSkipVerify = true
+
+# [k8sWebhookServer]
+# port = 50443
+# validatingWebhookConfigName = "operator-k8s-admission-validation"
+# certDir = "/tmp/k8s-webhook-server/cert/"
+
+#   [k8sWebhookServer.admissionPaths]
+#   validateDeployment = "/validate-autoscaling-containers-ai-v1-deployment"
+#   validateDeploymentConfig = "/validate-autoscaling-containers-ai-v1-deploymentconfig"
   
-  [k8sWebhookServer.service]
-  name = "alameda-operator-webhook-service"
-  port = 443
+#   [k8sWebhookServer.service]
+#   name = "alameda-operator-webhook-service"
+#   port = 443
   
