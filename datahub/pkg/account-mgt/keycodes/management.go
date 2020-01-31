@@ -9,6 +9,7 @@ import (
 	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"math"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -17,12 +18,16 @@ type KeycodeMgt struct {
 	Executor      *KeycodeExecutor
 	Status        *KeycodeStatusObject
 	KeycodeStatus int
+	InfluxCfg    *InternalInflux.Config
 }
 
-func NewKeycodeMgt() *KeycodeMgt {
+func NewKeycodeMgt(config *InternalInflux.Config) *KeycodeMgt {
 	keycodeMgt := KeycodeMgt{}
 	keycodeMgt.Executor = NewKeycodeExecutor()
 	keycodeMgt.Status = NewKeycodeStatusObject()
+	if keycodeMgt.InfluxCfg == nil {
+		keycodeMgt.InfluxCfg = config
+	}
 	if KeycodeSummary != nil {
 		keycodeMgt.KeycodeStatus = keycodeMgt.GetStatus()
 	}
@@ -252,6 +257,15 @@ func (c *KeycodeMgt) refresh(force bool) error {
 			scope.Error("failed to refresh keycodes information")
 			return err
 		}
+		// get cluster CPU info from influxdb
+		scope.Infof("CPU cores capacity: %d", keycodeSummary.Capacity.CPUs)
+		cores, err := GetAlamedaClusterCPUs(c.InfluxCfg)
+		if err != nil {
+			scope.Errorf("Failed to refresh keycode CPU info, unable to get CPU info: %s", err.Error())
+			ClusterCPUCores = 0
+		} else {
+			ClusterCPUCores = cores
+		}
 
 		// If everything goes right, refresh the global variables
 		KeycodeTimestamp = tmUnix
@@ -301,6 +315,11 @@ func (c *KeycodeMgt) refresh(force bool) error {
 			c.writeInfluxEntry("Summary", KeycodeStatusName[KeycodeStatusValid])
 			c.deleteInfluxEntry("N/A")
 			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_INFO, KeycodeStatusMessage[KeycodeStatusValid])
+		case KeycodeStatusCPUExceed:
+			c.writeInfluxEntry("Summary", KeycodeStatusName[KeycodeStatusCPUExceed])
+			c.deleteInfluxEntry("N/A")
+			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_ERROR, fmt.Sprintf(KeycodeStatusMessage[KeycodeStatusCPUExceed],
+				strconv.Itoa(ClusterCPUCores), strconv.Itoa(KeycodeSummary.Capacity.CPUs)))
 		default:
 			c.writeInfluxEntry("Summary", KeycodeStatusName[KeycodeStatusUnknown])
 			c.deleteInfluxEntry("N/A")

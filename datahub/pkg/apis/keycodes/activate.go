@@ -14,7 +14,7 @@ import (
 func (c *ServiceKeycodes) ActivateRegistrationData(ctx context.Context, in *Keycodes.ActivateRegistrationDataRequest) (*status.Status, error) {
 	scope.Debug("Request received from ActivateRegistrationData grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	keycodeMgt := KeycodeMgt.NewKeycodeMgt()
+	keycodeMgt := KeycodeMgt.NewKeycodeMgt(c.Config.InfluxDB)
 
 	// Validate request
 	if in.GetData() == "" {

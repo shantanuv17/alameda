@@ -13,7 +13,7 @@ import (
 func (c *ServiceKeycodes) DeleteKeycode(ctx context.Context, in *Keycodes.DeleteKeycodeRequest) (*status.Status, error) {
 	scope.Debug("Request received from DeleteKeycode grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	keycodeMgt := KeycodeMgt.NewKeycodeMgt()
+	keycodeMgt := KeycodeMgt.NewKeycodeMgt(c.Config.InfluxDB)
 
 	// Validate request
 	if in.GetKeycode() == "" {
