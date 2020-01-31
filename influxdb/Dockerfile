@@ -1,4 +1,7 @@
 FROM registry.access.redhat.com/ubi8/ubi-minimal
+
+ARG influxdb_pkg=influxdb-1.7.9
+
 ENV SUMMARY="Alameda InfluxDB." \
     DESCRIPTION="Alameda InfluxDB." \
     NAME="Alameda InfluxDB" \
@@ -32,7 +35,7 @@ COPY init-influxdb.sh /init-influxdb.sh
 RUN set -x \
     && chmod +x /entrypoint.sh /init-influxdb.sh \
     && microdnf update -y \
-    && microdnf install -y vim openssl influxdb \
+    && microdnf install -y vim openssl ${influxdb_pkg} \
     ## RedHat MarketPlace certification required licenses directory
     && mkdir -pv /licenses/ && touch /licenses/.placeholder \
     && microdnf clean all \
