@@ -1,6 +1,7 @@
 FROM registry.access.redhat.com/ubi8/ubi-minimal
 
 ARG image_tag
+ARG grafana_pkg=grafana-6.4.4
 
 ENV APPHOME=/opt/prophetstor/federatorai/grafana \
     APP_DEBUG=0 \
@@ -21,7 +22,7 @@ RUN set -x \
     && id \
     && mv -fv /tmp/src/grafana.repo /etc/yum.repos.d/grafana.repo \
     && microdnf update -y \
-    && microdnf install -y tar nano curl procps sqlite nginx grafana vim \
+    && microdnf install -y tar nano curl procps sqlite nginx ${grafana_pkg} vim \
     && microdnf clean all \
     && GF_VER_STR=`grafana-cli -v` && curl -LO https://raw.githubusercontent.com/grafana/grafana/v${GF_VER_STR##* }/packaging/docker/run.sh \
     && chmod +x run.sh \
