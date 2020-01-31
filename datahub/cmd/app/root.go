@@ -98,13 +98,13 @@ func initKeycode() {
 	scope.Info("Initialize keycode management")
 
 	Keycodes.KeycodeInit(config.Keycode)
-	keycodeMgt := Keycodes.NewKeycodeMgt()
+	keycodeMgt := Keycodes.NewKeycodeMgt(config.InfluxDB)
 	keycodeMgt.Refresh(true)
 }
 
 func initNotifier() {
 	scope.Info("Initialize notifier")
 
-	Notifier.NotifierInit(config.Notifier)
+	Notifier.NotifierInit(config.Notifier, config.InfluxDB)
 	go Notifier.Run()
 }

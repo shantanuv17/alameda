@@ -13,7 +13,7 @@ import (
 func (c *ServiceKeycodes) GenerateRegistrationData(ctx context.Context, in *empty.Empty) (*Keycodes.GenerateRegistrationDataResponse, error) {
 	scope.Debug("Request received from GenerateRegistrationData grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	keycodeMgt := KeycodeMgt.NewKeycodeMgt()
+	keycodeMgt := KeycodeMgt.NewKeycodeMgt(c.Config.InfluxDB)
 
 	// Generate registration data
 	registrationData, err := keycodeMgt.GetRegistrationData()

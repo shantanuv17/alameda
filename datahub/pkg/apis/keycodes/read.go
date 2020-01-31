@@ -18,7 +18,7 @@ func (c *ServiceKeycodes) ListKeycodes(ctx context.Context, in *Keycodes.ListKey
 		summary  *KeycodeMgt.Keycode
 	)
 
-	keycodeMgt := KeycodeMgt.NewKeycodeMgt()
+	keycodeMgt := KeycodeMgt.NewKeycodeMgt(c.Config.InfluxDB)
 
 	if len(in.GetKeycodes()) == 0 {
 		// Read all keycodes

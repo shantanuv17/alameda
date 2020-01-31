@@ -13,7 +13,7 @@ import (
 func (c *ServiceKeycodes) AddKeycode(ctx context.Context, in *Keycodes.AddKeycodeRequest) (*Keycodes.AddKeycodeResponse, error) {
 	scope.Debug("Request received from AddKeycode grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	keycodeMgt := KeycodeMgt.NewKeycodeMgt()
+	keycodeMgt := KeycodeMgt.NewKeycodeMgt(c.Config.InfluxDB)
 
 	// Validate request
 	if in.GetKeycode() == "" {

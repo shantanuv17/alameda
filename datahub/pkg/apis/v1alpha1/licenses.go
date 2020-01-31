@@ -13,7 +13,7 @@ import (
 func (s *ServiceV1alpha1) GetLicense(ctx context.Context, in *empty.Empty) (*ApiLicenses.GetLicenseResponse, error) {
 	scope.Debug("Request received from GetLicense grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	keycodeMgt := KeycodeMgt.NewKeycodeMgt()
+	keycodeMgt := KeycodeMgt.NewKeycodeMgt(s.Config.InfluxDB)
 	license := &ApiLicenses.License{Valid: keycodeMgt.IsValid()}
 
 	response := &ApiLicenses.GetLicenseResponse{

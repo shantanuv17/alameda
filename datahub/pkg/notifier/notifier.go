@@ -2,6 +2,7 @@ package notifier
 
 import (
 	Metrics "github.com/containers-ai/alameda/datahub/pkg/notifier/metrics"
+	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
 	"github.com/containers-ai/alameda/pkg/utils/log"
 	"github.com/robfig/cron"
 )
@@ -11,8 +12,8 @@ var (
 	Notifiers = make([]Metrics.AlertInterface, 0)
 )
 
-func NotifierInit(config *Config) {
-	keycode := Metrics.NewKeycodeMetrics(config.Keycode)
+func NotifierInit(config *Config, influxCfg *InternalInflux.Config) {
+	keycode := Metrics.NewKeycodeMetrics(config.Keycode, influxCfg)
 	Notifiers = append(Notifiers, keycode)
 }
 
