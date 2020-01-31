@@ -27,7 +27,7 @@ var KeycodeStatusMessage = map[int]string{
 	3: "Keycode is expired",
 	4: "Keycode is not activated",
 	5: "A valid keycode is applied",
-	6: "Cluster CPU cores (%s) exceed the limitation (%s)",
+	6: "Cluster CPU cores (%s) exceed the licensed number of CPU cores (%s)",
 }
 
 type KeycodeStatusObject struct {
@@ -108,7 +108,7 @@ func (c *KeycodeStatusObject) isValid() bool {
 func (c *KeycodeStatusObject) isCapacityCPUCoreExceed() bool {
 	if KeycodeSummary.Capacity.CPUs >= 0 {
 		if KeycodeSummary.Capacity.CPUs < ClusterCPUCores {
-			scope.Errorf("Cluster CPU cores (%d) exceed limitation (%d)",
+			scope.Errorf("Cluster CPU cores (%s) exceed the licensed number of CPU cores (%s)",
 				ClusterCPUCores, KeycodeSummary.Capacity.CPUs)
 			return true
 		}
