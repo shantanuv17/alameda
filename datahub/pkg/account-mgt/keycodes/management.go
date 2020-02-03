@@ -9,7 +9,6 @@ import (
 	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"math"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -18,7 +17,8 @@ type KeycodeMgt struct {
 	Executor      *KeycodeExecutor
 	Status        *KeycodeStatusObject
 	KeycodeStatus int
-	InfluxCfg    *InternalInflux.Config
+	InfluxCfg     *InternalInflux.Config
+	InvalidReason string
 }
 
 func NewKeycodeMgt(config *InternalInflux.Config) *KeycodeMgt {
@@ -241,7 +241,11 @@ func (c *KeycodeMgt) IsExpired() bool {
 
 // NOTE: DO Refresh() before GetStatus() if necessary
 func (c *KeycodeMgt) GetStatus() int {
-	return c.Status.GetStatus()
+	status := c.Status.GetStatus()
+	if status != KeycodeStatusValid && c.Status.reason != "" {
+		c.InvalidReason = c.Status.GetReason()
+	}
+	return status
 }
 
 // NOTE: DO GET KeycodeMutex lock before using this function
@@ -252,13 +256,14 @@ func (c *KeycodeMgt) refresh(force bool) error {
 	keycode := "N/A"
 
 	if (force == true) || (int64(math.Abs(float64(tmUnix-KeycodeTimestamp))) >= KeycodeDuration) {
+		c.InvalidReason = ""
 		keycodeList, keycodeSummary, err := c.Executor.GetAllKeycodes()
 		if err != nil {
 			scope.Error("failed to refresh keycodes information")
 			return err
 		}
 		// get cluster CPU info from influxdb
-		scope.Infof("CPU cores capacity: %d", keycodeSummary.Capacity.CPUs)
+		scope.Infof("Licensed CPU cores capacity: %d", keycodeSummary.Capacity.CPUs)
 		cores, err := GetAlamedaClusterCPUs(c.InfluxCfg)
 		if err != nil {
 			scope.Errorf("Failed to refresh keycode CPU info, unable to get CPU info: %s", err.Error())
@@ -300,9 +305,13 @@ func (c *KeycodeMgt) refresh(force bool) error {
 			c.deleteInfluxEntry("Summary")
 			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_ERROR, KeycodeStatusMessage[KeycodeStatusNoKeycode])
 		case KeycodeStatusInvalid:
+			msg := KeycodeStatusMessage[KeycodeStatusInvalid]
+			if c.InvalidReason != "" {
+				msg = c.InvalidReason
+			}
 			c.writeInfluxEntry("Summary", KeycodeStatusName[KeycodeStatusInvalid])
 			c.deleteInfluxEntry("N/A")
-			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_ERROR, KeycodeStatusMessage[KeycodeStatusInvalid])
+			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_ERROR, msg)
 		case KeycodeStatusExpired:
 			c.writeInfluxEntry("Summary", KeycodeStatusName[KeycodeStatusExpired])
 			c.deleteInfluxEntry("N/A")
@@ -315,11 +324,6 @@ func (c *KeycodeMgt) refresh(force bool) error {
 			c.writeInfluxEntry("Summary", KeycodeStatusName[KeycodeStatusValid])
 			c.deleteInfluxEntry("N/A")
 			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_INFO, KeycodeStatusMessage[KeycodeStatusValid])
-		case KeycodeStatusCPUExceed:
-			c.writeInfluxEntry("Summary", KeycodeStatusName[KeycodeStatusCPUExceed])
-			c.deleteInfluxEntry("N/A")
-			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_ERROR, fmt.Sprintf(KeycodeStatusMessage[KeycodeStatusCPUExceed],
-				strconv.Itoa(ClusterCPUCores), strconv.Itoa(KeycodeSummary.Capacity.CPUs)))
 		default:
 			c.writeInfluxEntry("Summary", KeycodeStatusName[KeycodeStatusUnknown])
 			c.deleteInfluxEntry("N/A")
