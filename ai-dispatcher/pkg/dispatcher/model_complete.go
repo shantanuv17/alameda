@@ -11,6 +11,30 @@ import (
 	"google.golang.org/grpc"
 )
 
+type modelCompleteMsg struct {
+	UnitType        string  `json:"unit_type"`
+	DataGranularity string  `json:"data_granularity"`
+	JobCreateTime   float64 `json:"job_create_time"`
+	ClusterName     string  `json:"cluster_name"`
+	MetricTypeStr   string  `json:"metric_type_str"`
+	ContainerName   string  `json:"container_name"`
+
+	Unit unit `json:"unit"`
+}
+
+type unit struct {
+	Name           string         `json:"name"`
+	Host           string         `json:"host"`
+	MinorNumber    string         `json:"minor_number"`
+	Kind           string         `json:"kind"`
+	NamespacedName namespacedName `json:"namespaced_name"`
+}
+
+type namespacedName struct {
+	Namespace string `json:"namespace"`
+	Name      string `json:"name"`
+}
+
 func ModelCompleteNotification(modelMapper *ModelMapper,
 	datahubGrpcCn *grpc.ClientConn, metricExporter *metrics.Exporter) {
 
@@ -33,21 +57,21 @@ func ModelCompleteNotification(modelMapper *ModelMapper,
 		}
 		for cmsg := range msgCH {
 			msg := string(cmsg.Body)
-			var msgMap map[string]interface{}
+			scope.Debugf("receive complete model body is %s", msg)
+			var msgMap modelCompleteMsg
 			msgByte := []byte(msg)
 			if err := json.Unmarshal(msgByte, &msgMap); err != nil {
 				scope.Errorf("decode model complete job from queue failed: %s", err.Error())
 				break
 			}
 
-			unit := msgMap["unit"].(map[string]interface{})
-			unitType := msgMap["unit_type"].(string)
-			dataGranularity := msgMap["data_granularity"].(string)
-			jobCreateTime := int64(msgMap["job_create_time"].(float64))
+			unitType := msgMap.UnitType
+			dataGranularity := msgMap.DataGranularity
+			jobCreateTime := int64(msgMap.JobCreateTime)
 			if unitType == consts.UnitTypeNode {
-				nodeName := unit["name"].(string)
-				clusterID := msgMap["cluster_name"].(string)
-				metricType := msgMap["metric_type_str"].(string)
+				nodeName := msgMap.Unit.Name
+				clusterID := msgMap.ClusterName
+				metricType := msgMap.MetricTypeStr
 				modelMapper.RemoveModelInfo(clusterID, unitType, dataGranularity, metricType, map[string]string{
 					"name": nodeName,
 				})
@@ -58,12 +82,11 @@ func ModelCompleteNotification(modelMapper *ModelMapper,
 				metricExporter.ExportNodeMetricModelTime(clusterID, nodeName, dataGranularity, metricType,
 					time.Now().Unix(), float64(mt))
 			} else if unitType == consts.UnitTypePod {
-				podNamespacedName := unit["namespaced_name"].(map[string]interface{})
-				podNS := podNamespacedName["namespace"].(string)
-				podName := podNamespacedName["name"].(string)
-				clusterID := msgMap["cluster_name"].(string)
-				metricType := msgMap["metric_type_str"].(string)
-				ctName := msgMap["container_name"].(string)
+				podNS := msgMap.Unit.NamespacedName.Namespace
+				podName := msgMap.Unit.NamespacedName.Name
+				clusterID := msgMap.ClusterName
+				metricType := msgMap.MetricTypeStr
+				ctName := msgMap.ContainerName
 				modelMapper.RemoveModelInfo(clusterID, unitType, dataGranularity, metricType, map[string]string{
 					"namespace":     podNS,
 					"name":          podName,
@@ -76,10 +99,10 @@ func ModelCompleteNotification(modelMapper *ModelMapper,
 				metricExporter.ExportContainerMetricModelTime(clusterID, podNS, podName, ctName, dataGranularity, metricType,
 					time.Now().Unix(), float64(mt))
 			} else if unitType == consts.UnitTypeGPU {
-				gpuHost := unit["host"].(string)
-				gpuMinorNumber := unit["minor_number"].(string)
-				clusterID := msgMap["cluster_name"].(string)
-				metricType := msgMap["metric_type_str"].(string)
+				gpuHost := msgMap.Unit.Host
+				gpuMinorNumber := msgMap.Unit.MinorNumber
+				clusterID := msgMap.ClusterName
+				metricType := msgMap.MetricTypeStr
 				modelMapper.RemoveModelInfo(clusterID, unitType, dataGranularity,
 					metricType, map[string]string{
 						"host":        gpuHost,
@@ -91,11 +114,10 @@ func ModelCompleteNotification(modelMapper *ModelMapper,
 				metricExporter.ExportGPUMetricModelTime(clusterID, gpuHost, gpuMinorNumber,
 					dataGranularity, metricType, time.Now().Unix(), float64(mt))
 			} else if unitType == consts.UnitTypeApplication {
-				appNamespacedName := unit["namespaced_name"].(map[string]interface{})
-				appNS := appNamespacedName["namespace"].(string)
-				appName := appNamespacedName["name"].(string)
-				clusterID := msgMap["cluster_name"].(string)
-				metricType := msgMap["metric_type_str"].(string)
+				appNS := msgMap.Unit.NamespacedName.Namespace
+				appName := msgMap.Unit.NamespacedName.Name
+				clusterID := msgMap.ClusterName
+				metricType := msgMap.MetricTypeStr
 				modelMapper.RemoveModelInfo(clusterID, unitType, dataGranularity,
 					metricType, map[string]string{
 						"namespace": appNS,
@@ -108,9 +130,9 @@ func ModelCompleteNotification(modelMapper *ModelMapper,
 				metricExporter.ExportApplicationMetricModelTime(clusterID, appNS, appName,
 					dataGranularity, metricType, time.Now().Unix(), float64(mt))
 			} else if unitType == consts.UnitTypeNamespace {
-				namespaceName := unit["name"].(string)
-				clusterID := msgMap["cluster_name"].(string)
-				metricType := msgMap["metric_type_str"].(string)
+				namespaceName := msgMap.Unit.Name
+				clusterID := msgMap.ClusterName
+				metricType := msgMap.MetricTypeStr
 				modelMapper.RemoveModelInfo(clusterID, unitType, dataGranularity, metricType, map[string]string{
 					"name": namespaceName,
 				})
@@ -121,9 +143,9 @@ func ModelCompleteNotification(modelMapper *ModelMapper,
 				metricExporter.ExportNamespaceMetricModelTime(clusterID, namespaceName, dataGranularity, metricType,
 					time.Now().Unix(), float64(mt))
 			} else if unitType == consts.UnitTypeCluster {
-				clusterName := unit["name"].(string)
-				clusterID := msgMap["cluster_name"].(string)
-				metricType := msgMap["metric_type_str"].(string)
+				clusterName := msgMap.Unit.Name
+				clusterID := msgMap.ClusterName
+				metricType := msgMap.MetricTypeStr
 				modelMapper.RemoveModelInfo(clusterID, unitType, dataGranularity, metricType, map[string]string{
 					"name": clusterName,
 				})
@@ -134,12 +156,11 @@ func ModelCompleteNotification(modelMapper *ModelMapper,
 				metricExporter.ExportClusterMetricModelTime(clusterName, dataGranularity, metricType,
 					time.Now().Unix(), float64(mt))
 			} else if unitType == consts.UnitTypeController {
-				controllerNamespacedName := unit["namespaced_name"].(map[string]interface{})
-				controllerNS := controllerNamespacedName["namespace"].(string)
-				controllerName := controllerNamespacedName["name"].(string)
-				kind := unit["kind"].(string)
-				clusterID := msgMap["cluster_name"].(string)
-				metricType := msgMap["metric_type_str"].(string)
+				controllerNS := msgMap.Unit.NamespacedName.Namespace
+				controllerName := msgMap.Unit.NamespacedName.Name
+				kind := msgMap.Unit.Kind
+				clusterID := msgMap.ClusterName
+				metricType := msgMap.MetricTypeStr
 				modelMapper.RemoveModelInfo(clusterID, unitType, dataGranularity,
 					metricType, map[string]string{
 						"namespace": controllerNS,
