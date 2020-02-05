@@ -83,7 +83,8 @@ download/${RBMQ_DEDUP_PLUGIN_VER}/${RBMQ_ELIXIR_EZ} && mv ${RBMQ_ELIXIR_EZ} ${RB
     && chmod g+w /etc/passwd /etc \
     && chmod -R 777 "$RABBITMQ_DATA_DIR" /etc/rabbitmq /var/log/rabbitmq \
     && rabbitmq-plugins enable rabbitmq_management rabbitmq_message_deduplication rabbitmq_tracing \
-    && rm -fv /.erlang.cookie /var/lib/rabbitmq/.erlang.cookie
+    && rm -fv /.erlang.cookie /var/lib/rabbitmq/.erlang.cookie \
+    && yum clean all && rm -rf /var/cache/yum
 
 USER rabbitmq
 
