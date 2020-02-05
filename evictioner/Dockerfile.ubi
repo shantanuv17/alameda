@@ -39,7 +39,7 @@ LABEL summary="$SUMMARY" \
       vendor="ProphetStor Data Services, Inc."
 
 RUN set -x \
-    # && microdnf update -y \
+    && microdnf update -y \
     && microdnf install -y \
          tar procps-ng psmisc findutils vim-minimal logrotate \
     && microdnf clean all
