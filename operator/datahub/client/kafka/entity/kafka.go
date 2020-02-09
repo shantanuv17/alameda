@@ -5,10 +5,10 @@ import (
 )
 
 type KafkaTopic struct {
-	Name              string `datahubcolumn:"name"`
-	ExporterNamespace string `datahubcolumn:"namespace"`
-	ClusterName       string `datahubcolumn:"cluster_name"`
-	AlamedaScalerName string `datahubcolumn:"alameda_scaler_name"`
+	Name              string `datahubcolumn:"name" datahubdatatype:"DATATYPE_STRING"`
+	ExporterNamespace string `datahubcolumn:"namespace" datahubdatatype:"DATATYPE_STRING"`
+	ClusterName       string `datahubcolumn:"cluster_name" datahubdatatype:"DATATYPE_STRING"`
+	AlamedaScalerName string `datahubcolumn:"alameda_scaler_name" datahubdatatype:"DATATYPE_STRING"`
 }
 
 func NewKafkaTopic(topic kafka.Topic) KafkaTopic {
@@ -21,19 +21,19 @@ func NewKafkaTopic(topic kafka.Topic) KafkaTopic {
 }
 
 type KafkaConsumerGroup struct {
-	Name                 string `datahubcolumn:"name"`
-	ExporterNamespace    string `datahubcolumn:"namespace"`
-	ClusterName          string `datahubcolumn:"cluster_name"`
-	AlamedaScalerName    string `datahubcolumn:"alameda_scaler_name"`
-	Policy               string `datahubcolumn:"policy"`
-	EnableExecution      bool   `datahubcolumn:"enable_execution"`
-	ConsumeTopic         string `datahubcolumn:"topic_name"`
-	ResourceCustomName   string `datahubcolumn:"resource_custom_name"`
-	ResourceK8SNamespace string `datahubcolumn:"resource_k8s_namespace"`
-	ResourceK8SName      string `datahubcolumn:"resource_k8s_name"`
-	ResourceK8SKind      string `datahubcolumn:"resource_k8s_kind"`
-	ReadyReplicas        int32  `datahubcolumn:"resource_k8s_replicas"`
-	SpecReplicas         int32  `datahubcolumn:"resource_k8s_spec_replicas"`
+	Name                 string `datahubcolumn:"name" datahubdatatype:"DATATYPE_STRING"`
+	ExporterNamespace    string `datahubcolumn:"namespace" datahubdatatype:"DATATYPE_STRING"`
+	ClusterName          string `datahubcolumn:"cluster_name" datahubdatatype:"DATATYPE_STRING"`
+	AlamedaScalerName    string `datahubcolumn:"alameda_scaler_name" datahubdatatype:"DATATYPE_STRING"`
+	Policy               string `datahubcolumn:"policy" datahubdatatype:"DATATYPE_STRING"`
+	EnableExecution      bool   `datahubcolumn:"enable_execution" datahubdatatype:"DATATYPE_BOOL"`
+	ConsumeTopic         string `datahubcolumn:"topic_name" datahubdatatype:"DATATYPE_STRING"`
+	ResourceCustomName   string `datahubcolumn:"resource_custom_name" datahubdatatype:"DATATYPE_STRING"`
+	ResourceK8SNamespace string `datahubcolumn:"resource_k8s_namespace" datahubdatatype:"DATATYPE_STRING"`
+	ResourceK8SName      string `datahubcolumn:"resource_k8s_name" datahubdatatype:"DATATYPE_STRING"`
+	ResourceK8SKind      string `datahubcolumn:"resource_k8s_kind" datahubdatatype:"DATATYPE_STRING"`
+	ReadyReplicas        int32  `datahubcolumn:"resource_k8s_replicas" datahubdatatype:"DATATYPE_INT32"`
+	SpecReplicas         int32  `datahubcolumn:"resource_k8s_spec_replicas" datahubdatatype:"DATATYPE_INT32"`
 }
 
 func NewKafkaConsumerGroup(consumerGroup kafka.ConsumerGroup) KafkaConsumerGroup {

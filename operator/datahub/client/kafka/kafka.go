@@ -20,7 +20,8 @@ import (
 )
 
 const (
-	tagDatahubColumn = "datahubcolumn"
+	tagDatahubColumn   = "datahubcolumn"
+	tagDatahubDataType = "datahubdatatype"
 )
 
 type KafkaRepository struct {
@@ -73,7 +74,7 @@ func (k KafkaRepository) ListTopics(ctx context.Context, option ListTopicsOption
 		return nil, err
 	}
 	entities := make([]entity.KafkaTopic, 0)
-	if err := decodeSlice(data, entities); err != nil {
+	if err := decodeSlice(data, &entities); err != nil {
 		return nil, errors.Wrap(err, "decode data failed")
 	}
 	topics := make([]kafka.Topic, 0, len(entities))
@@ -98,7 +99,7 @@ func (k KafkaRepository) ListConsumerGroups(ctx context.Context, option ListCons
 		return nil, err
 	}
 	entities := make([]entity.KafkaConsumerGroup, 0)
-	if err := decodeSlice(data, entities); err != nil {
+	if err := decodeSlice(data, &entities); err != nil {
 		return nil, errors.Wrap(err, "decode data failed")
 	}
 	consumerGroups := make([]kafka.ConsumerGroup, 0, len(entities))
@@ -242,7 +243,7 @@ func (k KafkaRepository) newDeleteDataRequestByTopics(topics []kafka.Topic) (dat
 		entities = append(entities, entity)
 	}
 
-	deleteData, err := newDeleteData(k.schemaConfig.kafka.topic.delete.measurements[0], topics)
+	deleteData, err := newDeleteData(k.schemaConfig.kafka.topic.delete.measurements[0], entities)
 	if err != nil {
 		return data.DeleteDataRequest{}, errors.Wrap(err, "new DeleteData failed")
 	}
@@ -410,6 +411,7 @@ func newDeleteData(measurement measurement, dataRows interface{}) (data.DeleteDa
 			Keys:      []string{},
 			Values:    []string{},
 			Operators: []string{},
+			Types:     []common.DataType{},
 		}
 		for j := 0; j < rV.NumField(); j++ {
 			f := rV.Field(j)
@@ -444,9 +446,22 @@ func newDeleteData(measurement measurement, dataRows interface{}) (data.DeleteDa
 			if !exist || datahubColumn == "" {
 				continue
 			}
+
+			datahubDataType, exist := rT.Field(j).Tag.Lookup(tagDatahubDataType)
+			if !exist {
+				return data.DeleteData{}, errors.Errorf(`tag("%s") not found`, tagDatahubDataType)
+			} else if datahubDataType == "" {
+				return data.DeleteData{}, errors.Errorf(`tag("%s") value empty`, tagDatahubDataType)
+			}
+			dataType, exist := common.DataType_value[datahubDataType]
+			if !exist {
+				return data.DeleteData{}, errors.Errorf(`datatype("%s") not supported`, datahubDataType)
+			}
+
 			cond.Keys = append(cond.Keys, datahubColumn)
 			cond.Values = append(cond.Values, value)
 			cond.Operators = append(cond.Operators, "=")
+			cond.Types = append(cond.Types, common.DataType(dataType))
 		}
 		whereConditions = append(whereConditions, &cond)
 	}
@@ -497,12 +512,22 @@ func newCondition(option interface{}) (common.Condition, error) {
 		Keys:      make([]string, 0, rV.NumField()),
 		Values:    make([]string, 0, rV.NumField()),
 		Operators: make([]string, 0, rV.NumField()),
+		Types:     make([]common.DataType, 0, rV.NumField()),
 	}
 	for i := 0; i < rV.NumField(); i++ {
 		field := rT.Field(i)
 		datahubColumn, exist := field.Tag.Lookup(tagDatahubColumn)
 		if !exist || datahubColumn == "" {
 			continue
+		}
+
+		datahubDataType, exist := field.Tag.Lookup(tagDatahubDataType)
+		if !exist || datahubDataType == "" {
+			continue
+		}
+		dataType, exist := common.DataType_value[datahubDataType]
+		if !exist {
+			return common.Condition{}, errors.Errorf(`datatype("%s") not supported`, datahubDataType)
 		}
 
 		value := ""
@@ -537,6 +562,7 @@ func newCondition(option interface{}) (common.Condition, error) {
 		cond.Keys = append(cond.Keys, datahubColumn)
 		cond.Values = append(cond.Values, value)
 		cond.Operators = append(cond.Operators, "=")
+		cond.Types = append(cond.Types, common.DataType(dataType))
 	}
 
 	return cond, nil

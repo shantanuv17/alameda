@@ -254,6 +254,12 @@ func TestNewDeleteDataRequestByTopics(t *testing.T) {
 										"=",
 										"=",
 									},
+									Types: []common.DataType{
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+									},
 								},
 								&common.Condition{
 									Keys: []string{
@@ -271,6 +277,11 @@ func TestNewDeleteDataRequestByTopics(t *testing.T) {
 										"=",
 										"=",
 									},
+									Types: []common.DataType{
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+									},
 								},
 							},
 						},
@@ -286,7 +297,14 @@ func TestNewDeleteDataRequestByTopics(t *testing.T) {
 	for _, testCase := range testCases {
 		actual, err := kr.newDeleteDataRequestByTopics(testCase.have)
 		assert.NoError(err)
-		assert.Equal(testCase.want, actual)
+		for i, data := range testCase.want.DeleteData {
+			for j, cond := range data.QueryCondition.WhereCondition {
+				assert.ElementsMatch(cond.Keys, actual.DeleteData[i].QueryCondition.WhereCondition[j].Keys)
+				assert.ElementsMatch(cond.Values, actual.DeleteData[i].QueryCondition.WhereCondition[j].Values)
+				assert.ElementsMatch(cond.Operators, actual.DeleteData[i].QueryCondition.WhereCondition[j].Operators)
+				assert.ElementsMatch(cond.Types, actual.DeleteData[i].QueryCondition.WhereCondition[j].Types)
+			}
+		}
 	}
 }
 
@@ -389,6 +407,21 @@ func TestNewDeleteDataRequestByConsumerGroups(t *testing.T) {
 										"=",
 										"=",
 									},
+									Types: []common.DataType{
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_INT32,
+										common.DataType_DATATYPE_INT32,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_BOOL,
+										common.DataType_DATATYPE_STRING,
+									},
 								},
 								&common.Condition{
 									Keys: []string{
@@ -428,6 +461,18 @@ func TestNewDeleteDataRequestByConsumerGroups(t *testing.T) {
 										"=",
 										"=",
 									},
+									Types: []common.DataType{
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_INT32,
+										common.DataType_DATATYPE_INT32,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_BOOL,
+										common.DataType_DATATYPE_STRING,
+									},
 								},
 							},
 						},
@@ -448,6 +493,7 @@ func TestNewDeleteDataRequestByConsumerGroups(t *testing.T) {
 				assert.ElementsMatch(cond.Keys, actual.DeleteData[i].QueryCondition.WhereCondition[j].Keys)
 				assert.ElementsMatch(cond.Values, actual.DeleteData[i].QueryCondition.WhereCondition[j].Values)
 				assert.ElementsMatch(cond.Operators, actual.DeleteData[i].QueryCondition.WhereCondition[j].Operators)
+				assert.ElementsMatch(cond.Types, actual.DeleteData[i].QueryCondition.WhereCondition[j].Types)
 			}
 		}
 	}
@@ -492,6 +538,11 @@ func TestNewReadDataRequestForTopics(t *testing.T) {
 										"=",
 										"=",
 										"=",
+									},
+									Types: []common.DataType{
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
 									},
 								},
 							},
@@ -552,6 +603,11 @@ func TestNewReadDataRequestForConsumerGroups(t *testing.T) {
 										"=",
 										"=",
 										"=",
+									},
+									Types: []common.DataType{
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
+										common.DataType_DATATYPE_STRING,
 									},
 								},
 							},
