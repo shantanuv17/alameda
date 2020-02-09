@@ -22,6 +22,27 @@ RUN ["/bin/bash", "-c", "go build -ldflags \"-X main.VERSION=`git rev-parse --ab
 # Build license-utils executable binary
 RUN ["/bin/bash", "-c", "go build -ldflags \"-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'\" -a -o ./datahub/license-utils github.com/containers-ai/alameda/datahub/tools/license-utils/cmd"]
 
+# Install and create package file
+RUN set -x \
+    && mkdir -pv -m ug+w /install_root/etc/alameda/datahub/ /install_root/licenses/ \
+           /install_root/opt/prophetstor/federatorai/{bin,lib,etc,var/tmp} \
+           /install_root/usr/local/bin/ \
+    # Copy datahub
+    && cp -fv /go/src/github.com/containers-ai/alameda/LICENSE /install_root/licenses/ \
+    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/etc/datahub.toml /install_root/etc/alameda/datahub/datahub.toml \
+    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/datahub /install_root/usr/local/bin/ \
+    # Copy license-utils
+    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/license-utils /install_root/usr/local/bin/ \
+    # Copy keycode management tool
+    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/bin/license_main /install_root/opt/prophetstor/federatorai/bin/ \
+    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/lib/license_helper.so /install_root/opt/prophetstor/federatorai/lib/ \
+    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/lib/license_util.so /install_root/opt/prophetstor/federatorai/lib/ \
+    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/lib/util_crypto.so /install_root/opt/prophetstor/federatorai/lib/ \
+    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/lib/util_ldap.so /install_root/opt/prophetstor/federatorai/lib/ \
+    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/lib/_utilModule.so /install_root/opt/prophetstor/federatorai/lib/ \
+    && chown -R 1001:0 /install_root/opt/prophetstor/federatorai \
+    && cd /install_root; tar cvf /install_root.tar .
+
 # Copy the alameda-datahub into a thin image
 FROM registry.access.redhat.com/ubi8/ubi-minimal
 ENV SUMMARY="Alameda Datahub is an API gateway for handling gRPC requests."	\
@@ -43,6 +64,12 @@ LABEL summary="$SUMMARY" \
       version="$VERSION" \
       vendor="ProphetStor Data Services, Inc."
 
+COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/xray.sh /xray.sh
+COPY --from=builder /go/src/github.com/containers-ai/alameda/version.txt ${AIHOME}/etc/
+COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/tini /sbin/tini
+COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/init.sh /init.sh
+COPY --from=builder /install_root /
+
 RUN set -x \
     && microdnf update -y \
     && microdnf install -y \
@@ -50,38 +77,13 @@ RUN set -x \
     && microdnf clean all \
     && echo "${USER_NAME}:x:${USER_UID}:0:Federator.ai:${AIHOME}:/bin/sh" >> /etc/passwd \
     # The following lines for logrotate - startup script will add running user id into /etc/passwd
-    && chmod g+w /etc/passwd
-
-COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/xray.sh /xray.sh
-COPY --from=builder /go/src/github.com/containers-ai/alameda/version.txt ${AIHOME}/etc/
-COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/tini /sbin/tini
-COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/init.sh /init.sh
-
-# Copy datahub
-COPY --from=builder /go/src/github.com/containers-ai/alameda/LICENSE /licenses/
-COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/etc/datahub.toml /etc/alameda/datahub/datahub.toml
-COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/datahub /usr/local/bin/
-
-# Copy license-utils
-COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/license-utils /usr/local/bin/
-
-# Copy keycode management tool
-RUN mkdir -p -m ug+w /opt/prophetstor/federatorai/bin /opt/prophetstor/federatorai/lib /opt/prophetstor/federatorai/etc /opt/prophetstor/federatorai/var/tmp
-RUN chown -R 1001:0 /opt/prophetstor/federatorai
-COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/bin/license_main /opt/prophetstor/federatorai/bin/
-COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/lib/license_helper.so /opt/prophetstor/federatorai/lib/
-COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/lib/license_util.so /opt/prophetstor/federatorai/lib/
-COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/lib/util_crypto.so /opt/prophetstor/federatorai/lib/
-COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/lib/util_ldap.so /opt/prophetstor/federatorai/lib/
-COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/lib/_utilModule.so /opt/prophetstor/federatorai/lib/
-
-EXPOSE 50050/tcp
-
-RUN set -x \
+    && chmod g+w /etc/passwd \
+    ## install app
     && mkdir -pv /var/log/alameda \
     && chown -R 1001:0 /etc/alameda /var/log/alameda \
     && chmod -R ug+w /etc/alameda /var/log/alameda
 
+EXPOSE 50050/tcp
 USER 1001
 ENTRYPOINT ["/sbin/tini","-v", "--"]
 CMD ["/init.sh", "start"]
