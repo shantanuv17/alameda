@@ -491,7 +491,7 @@ func (r AlamedaScalerKafkaReconciler) syncWithDatahub(ctx context.Context, topic
 	wg.Go(func() error {
 		// Create consumerGroups
 		if err := r.KafkaRepository.CreateConsumerGroups(ctx, consumerGroups); err != nil {
-			return errors.Wrap(err, "creae consumerGroupDetails to Datahub failed")
+			return errors.Wrap(err, "create consumerGroupDetails to Datahub failed")
 		}
 		// Delete consumerGroups
 		consumerGroups, err := r.getConsumerGroupsToDelete(ctx, consumerGroups)
