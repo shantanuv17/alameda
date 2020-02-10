@@ -95,3 +95,16 @@ func (m *MockClient) ListConsumeTopics(ctx context.Context, consumerGroup string
 func (mr *MockClientMockRecorder) ListConsumeTopics(ctx, consumerGroup interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListConsumeTopics", reflect.TypeOf((*MockClient)(nil).ListConsumeTopics), ctx, consumerGroup)
 }
+
+// ListTopicsPartitionCounts mocks base method
+func (m *MockClient) ListTopicsPartitionCounts(ctx context.Context, topics []string) (map[string]int, error) {
+	ret := m.ctrl.Call(m, "ListTopicsPartitionCounts", ctx, topics)
+	ret0, _ := ret[0].(map[string]int)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListTopicsPartitionCounts indicates an expected call of ListTopicsPartitionCounts
+func (mr *MockClientMockRecorder) ListTopicsPartitionCounts(ctx, topics interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListTopicsPartitionCounts", reflect.TypeOf((*MockClient)(nil).ListTopicsPartitionCounts), ctx, topics)
+}

@@ -279,6 +279,23 @@ func (r AlamedaScalerKafkaReconciler) prepareTopics(consumerGroups []kafkamodel.
 
 // listConsumerGroups returns []kafkamodel.ConsumerGroup by AlamedaScaler.Spec.Kafka and current map recorded consumerGroup consuming topics.
 func (r AlamedaScalerKafkaReconciler) listConsumerGroups(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler, consumerGroupToConsumeTopicsMap map[string][]string) ([]kafkamodel.ConsumerGroup, error) {
+	// Get topicToPartitionCountMap for later usage that setting min/max replicas of consumerGroup.
+	empty := struct{}{}
+	topicSet := make(map[string]struct{})
+	for _, topics := range consumerGroupToConsumeTopicsMap {
+		for _, topic := range topics {
+			topicSet[topic] = empty
+		}
+	}
+	topics := make([]string, 0, len(topicSet))
+	for topic := range topicSet {
+		topics = append(topics, topic)
+	}
+	topicToPartitionCountMap, err := r.KafkaClient.ListTopicsPartitionCounts(ctx, topics)
+	if err != nil {
+		return nil, errors.Wrap(err, "list topics partition counts failed")
+	}
+
 	policy := datahubresources.RecommendationPolicy_RECOMMENDATION_POLICY_UNDEFINED.String()
 	switch alamedaScaler.Spec.Policy {
 	case autoscalingv1alpha1.RecommendationPolicySTABLE:
@@ -288,7 +305,7 @@ func (r AlamedaScalerKafkaReconciler) listConsumerGroups(ctx context.Context, al
 	}
 
 	consumerGroupSpecs := alamedaScaler.Spec.Kafka.ConsumerGroups
-	consumerGroupDetails := make([]kafkamodel.ConsumerGroup, 0, len(consumerGroupSpecs))
+	consumerGroups := make([]kafkamodel.ConsumerGroup, 0, len(consumerGroupSpecs))
 	for _, consumerGroupSpec := range consumerGroupSpecs {
 		majorTopic := ""
 		if consumerGroupSpec.MajorTopic != nil {
@@ -300,7 +317,7 @@ func (r AlamedaScalerKafkaReconciler) listConsumerGroups(ctx context.Context, al
 			continue
 		}
 
-		consumerGroupDetail := kafkamodel.ConsumerGroup{
+		consumerGroup := kafkamodel.ConsumerGroup{
 			Name:              consumerGroupSpec.Name,
 			ExporterNamespace: alamedaScaler.Spec.Kafka.ExporterNamespace,
 			ClusterName:       r.ClusterUID,
@@ -311,17 +328,28 @@ func (r AlamedaScalerKafkaReconciler) listConsumerGroups(ctx context.Context, al
 			ResourceMeta: kafkamodel.ResourceMeta{
 				CustomName: consumerGroupSpec.Resource.Custom,
 			},
+			MinReplicas: 1,
+			MaxReplicas: int32(topicToPartitionCountMap[topic]),
 		}
+
+		if consumerGroupSpec.MinReplicas != nil {
+			consumerGroup.MinReplicas = *consumerGroupSpec.MinReplicas
+		}
+		if consumerGroupSpec.MaxReplicas != nil {
+			consumerGroup.MaxReplicas = *consumerGroupSpec.MaxReplicas
+		}
+
 		if consumerGroupSpec.Resource.Kubernetes != nil {
-			kubernetesMetadata, err := r.getFirstCreatedMatchedKubernetesMetadata(ctx, alamedaScaler.GetNamespace(), *consumerGroupSpec.Resource.Kubernetes)
+			metadata, err := r.getFirstCreatedMatchedKubernetesMetadata(ctx, alamedaScaler.GetNamespace(), *consumerGroupSpec.Resource.Kubernetes)
 			if err != nil {
 				return nil, errors.Wrapf(err, "get matched kubernetes resource failed: consumerGroup.Name: %s", consumerGroupSpec.Name)
 			}
-			consumerGroupDetail.ResourceMeta.KubernetesMeta = kubernetesMetadata
+			consumerGroup.KubernetesMeta = metadata
 		}
-		consumerGroupDetails = append(consumerGroupDetails, consumerGroupDetail)
+
+		consumerGroups = append(consumerGroups, consumerGroup)
 	}
-	return consumerGroupDetails, nil
+	return consumerGroups, nil
 }
 
 func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(ctx context.Context, namespace string, spec autoscalingv1alpha1.KubernetesResourceSpec) (kafkamodel.KubernetesMeta, error) {
@@ -564,13 +592,18 @@ func (r AlamedaScalerKafkaReconciler) getKafkaConsumerGroupStatusFromConsumerGro
 		Resource: autoscalingv1alpha1.KafkaConsumerGroupResourceMetadata{
 			CustomName: detail.CustomName,
 		},
+		MinReplicas: detail.MinReplicas,
+		MaxReplicas: detail.MaxReplicas,
 	}
 
-	status.Resource.Kubernetes = &autoscalingv1alpha1.KubernetesObjectMetadata{
-		Namespace: detail.ResourceMeta.KubernetesMeta.Namespace,
-		Name:      detail.ResourceMeta.KubernetesMeta.Name,
-		Kind:      detail.ResourceMeta.KubernetesMeta.Kind,
+	if !detail.ResourceMeta.KubernetesMeta.IsEmpty() {
+		status.Resource.Kubernetes = &autoscalingv1alpha1.KubernetesObjectMetadata{
+			Namespace: detail.ResourceMeta.KubernetesMeta.Namespace,
+			Name:      detail.ResourceMeta.KubernetesMeta.Name,
+			Kind:      detail.ResourceMeta.KubernetesMeta.Kind,
+		}
 	}
+
 	return status
 }
 

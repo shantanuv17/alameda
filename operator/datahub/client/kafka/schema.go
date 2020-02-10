@@ -118,6 +118,8 @@ var defaultConfig = config{
 							"resource_k8s_kind",
 							"resource_k8s_replicas",
 							"resource_k8s_spec_replicas",
+							"resource_k8s_min_replicas",
+							"resource_k8s_max_replicas",
 							"resource_custom_name",
 							"policy",
 							"enable_execution",

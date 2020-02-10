@@ -348,19 +348,23 @@ func newWriteData(measurement measurement, dataRows interface{}) (data.WriteData
 		return data.WriteData{}, errors.Errorf("not supported value(%s)", reflect.TypeOf(dataRows).Kind())
 	}
 
-	rv := reflect.ValueOf(dataRows)
-	rows := make([]*common.Row, 0, rv.Len())
-	for i := 0; i < rv.Len(); i++ {
-		v := rv.Index(i)
-		m := datahubColumnToFieldMap(v.Interface())
+	slice := reflect.ValueOf(dataRows)
+	rows := make([]*common.Row, 0, slice.Len())
+	for i := 0; i < slice.Len(); i++ {
+		element := slice.Index(i)
+		elementType := element.Type()
 
 		values := make([]string, 0, len(measurement.columns))
-		for _, column := range measurement.columns {
-			fieldValue, exist := m[column]
+		for j := 0; j < element.NumField(); j++ {
+			field := elementType.Field(j)
+			datahubColumn, exist := field.Tag.Lookup(tagDatahubColumn)
 			if !exist {
-				return data.WriteData{}, errors.Errorf(`field for column("%s") not found`, column)
+				return data.WriteData{}, errors.Errorf(`tag("%s") not found`, tagDatahubColumn)
+			} else if datahubColumn == "" {
+				return data.WriteData{}, errors.Errorf(`tag("%s") value empty`, tagDatahubColumn)
 			}
 
+			fieldValue := element.Field(j)
 			switch fieldValue.Kind() {
 			case reflect.Int:
 				values = append(values, strconv.FormatInt(fieldValue.Int(), 10))
@@ -384,6 +388,7 @@ func newWriteData(measurement measurement, dataRows interface{}) (data.WriteData
 				return data.WriteData{}, errors.Errorf("field type(%s) not supported", fieldValue.Kind().String())
 			}
 		}
+
 		rows = append(rows, &common.Row{
 			Values: values,
 		})
@@ -479,30 +484,6 @@ func newDeleteData(measurement measurement, dataRows interface{}) (data.DeleteDa
 		},
 	}
 	return w, nil
-}
-
-func datahubColumnToFieldMap(s interface{}) map[string]reflect.Value {
-	m := make(map[string]reflect.Value)
-
-	rT := reflect.TypeOf(s)
-	rV := reflect.ValueOf(s)
-	for i := 0; i < rT.NumField(); i++ {
-		switch rT.Field(i).Type.Kind() {
-		case reflect.Struct:
-			rm := datahubColumnToFieldMap(rV.Field(i).Interface())
-			for tag, value := range rm {
-				m[tag] = value
-			}
-		default:
-			tag, ok := rT.Field(i).Tag.Lookup(tagDatahubColumn)
-			if !ok {
-
-			}
-			m[tag] = rV.Field(i)
-		}
-	}
-
-	return m
 }
 
 func newCondition(option interface{}) (common.Condition, error) {

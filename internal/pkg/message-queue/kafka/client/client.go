@@ -136,6 +136,29 @@ func (c *client) ListConsumeTopics(ctx context.Context, consumerGroup string) ([
 	return topics, nil
 }
 
+// ListTopicsPartitionCounts returns map from topic name to partition counts.
+func (c *client) ListTopicsPartitionCounts(ctx context.Context, topics []string) (map[string]int, error) {
+	topicsMetadata, err := c.admin.DescribeTopics(topics)
+	if err != nil {
+		return nil, errors.Wrap(err, "describe topics failed")
+	}
+
+	topicToPartitionMap := make(map[string]int, len(topicsMetadata))
+	for _, metadata := range topicsMetadata {
+		if metadata == nil {
+			continue
+		}
+
+		if metadata.Err != sarama.ErrNoError {
+			return nil, errors.New(metadata.Err.Error())
+		}
+
+		topicToPartitionMap[metadata.Name] = len(metadata.Partitions)
+	}
+
+	return topicToPartitionMap, nil
+}
+
 func setConfigDefaults(config kafka.Config) kafka.Config {
 	if config.DialTimeout == nil {
 		copyTime := defaultDialTimeout

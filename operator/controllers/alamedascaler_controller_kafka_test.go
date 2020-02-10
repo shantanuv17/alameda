@@ -1018,7 +1018,7 @@ func TestGetKafkaConsumerGroupStatusFromConsumerGroupDetail(t *testing.T) {
 			have: kafka.ConsumerGroup{
 				Name: "cg3",
 				ResourceMeta: kafka.ResourceMeta{
-					CustomName: "cg3",
+					CustomName: "ccc",
 				},
 				ConsumeTopic: "",
 			},

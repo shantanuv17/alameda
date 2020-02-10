@@ -54,13 +54,25 @@
                     "name": "resource_k8s_replicas",
                     "required": false,
                     "column_types": 2,
-                    "data_types": 14
+                    "data_types": 5
                 },
                 {
                     "name": "resource_k8s_spec_replicas",
                     "required": false,
                     "column_types": 2,
-                    "data_types": 14
+                    "data_types": 5
+                },
+                {
+                    "name": "resource_k8s_min_replicas",
+                    "required": false,
+                    "column_types": 2,
+                    "data_types": 5
+                },
+                {
+                    "name": "resource_k8s_max_replicas",
+                    "required": false,
+                    "column_types": 2,
+                    "data_types": 5
                 },
                 {
                     "name": "resource_custom_name",
@@ -82,6 +94,42 @@
                 },
                 {
                     "name": "alameda_scaler_name",
+                    "required": false,
+                    "column_types": 2,
+                    "data_types": 14
+                },
+                {
+                    "name": "resource_cpu_limit",
+                    "required": false,
+                    "column_types": 2,
+                    "data_types": 14
+                },
+                {
+                    "name": "resource_cpu_request",
+                    "required": false,
+                    "column_types": 2,
+                    "data_types": 14
+                },
+                {
+                    "name": "resource_memory_limit",
+                    "required": false,
+                    "column_types": 2,
+                    "data_types": 14
+                },
+                {
+                    "name": "resource_memory_request",
+                    "required": false,
+                    "column_types": 2,
+                    "data_types": 14
+                },
+                {
+                    "name": "volumes_size",
+                    "required": false,
+                    "column_types": 2,
+                    "data_types": 14
+                },
+                {
+                    "name": "volumes_pvc_size",
                     "required": false,
                     "column_types": 2,
                     "data_types": 14

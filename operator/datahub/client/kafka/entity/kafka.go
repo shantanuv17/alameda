@@ -34,6 +34,8 @@ type KafkaConsumerGroup struct {
 	ResourceK8SKind      string `datahubcolumn:"resource_k8s_kind" datahubdatatype:"DATATYPE_STRING"`
 	ReadyReplicas        int32  `datahubcolumn:"resource_k8s_replicas" datahubdatatype:"DATATYPE_INT32"`
 	SpecReplicas         int32  `datahubcolumn:"resource_k8s_spec_replicas" datahubdatatype:"DATATYPE_INT32"`
+	MinReplicas          int32  `datahubcolumn:"resource_k8s_min_replicas" datahubdatatype:"DATATYPE_INT32"`
+	MaxReplicas          int32  `datahubcolumn:"resource_k8s_max_replicas" datahubdatatype:"DATATYPE_INT32"`
 }
 
 func NewKafkaConsumerGroup(consumerGroup kafka.ConsumerGroup) KafkaConsumerGroup {
@@ -51,5 +53,7 @@ func NewKafkaConsumerGroup(consumerGroup kafka.ConsumerGroup) KafkaConsumerGroup
 		ResourceK8SKind:      consumerGroup.ResourceMeta.Kind,
 		ReadyReplicas:        consumerGroup.ResourceMeta.ReadyReplicas,
 		SpecReplicas:         consumerGroup.ResourceMeta.SpecReplicas,
+		MinReplicas:          consumerGroup.MinReplicas,
+		MaxReplicas:          consumerGroup.MaxReplicas,
 	}
 }

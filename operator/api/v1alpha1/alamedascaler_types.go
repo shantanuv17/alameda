@@ -179,9 +179,11 @@ type KafkaSpec struct {
 }
 
 type KafkaConsumerGroupSpec struct {
-	Name       string                         `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
-	Resource   KafkaConsumerGroupResourceSpec `json:"resource,omitempty" protobuf:"bytes,2,opt,name=resource"`
-	MajorTopic *string                        `json:"majorTopic,omitempty" protobuf:"bytes,3,opt,name=major_topic"`
+	Name        string                         `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
+	Resource    KafkaConsumerGroupResourceSpec `json:"resource,omitempty" protobuf:"bytes,2,opt,name=resource"`
+	MajorTopic  *string                        `json:"majorTopic,omitempty" protobuf:"bytes,3,opt,name=major_topic"`
+	MinReplicas *int32                         `json:"minReplicas,omitempty" protobuf:"bytes,2,opt,name=min_replicas"`
+	MaxReplicas *int32                         `json:"maxReplicas,omitempty" protobuf:"bytes,3,opt,name=max_replicas"`
 }
 
 type KafkaConsumerGroupResourceSpec struct {
@@ -216,9 +218,11 @@ type KafkaStatus struct {
 }
 
 type KafkaConsumerGroupStatus struct {
-	Name     string                             `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
-	Topic    string                             `json:"topic,omitempty" protobuf:"bytes,2,opt,name=topic"`
-	Resource KafkaConsumerGroupResourceMetadata `json:"resource,omitempty" protobuf:"bytes,3,opt,name=resource"`
+	Name        string                             `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
+	Topic       string                             `json:"topic,omitempty" protobuf:"bytes,2,opt,name=topic"`
+	Resource    KafkaConsumerGroupResourceMetadata `json:"resource,omitempty" protobuf:"bytes,3,opt,name=resource"`
+	MinReplicas int32                              `json:"minReplicas,omitempty" protobuf:"bytes,4,opt,name=min_replicas"`
+	MaxReplicas int32                              `json:"maxReplicas,omitempty" protobuf:"bytes,5,opt,name=max_replicas"`
 }
 
 type KafkaConsumerGroupResourceMetadata struct {

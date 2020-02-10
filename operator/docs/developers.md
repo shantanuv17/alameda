@@ -18,5 +18,5 @@
 Use util "mockgen" to generate the mock implementation of interface.
 Example using mockgen to generate mock of interface Kafka.Client.
 ```
-mockgen --source=/Users/bob/Documents/project/go/src/github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/interface.go -destination=internal/pkg/message-queue/kafka/mock/mock.go -self_package=github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/mock
+mockgen --source=${GOPATH}/src/github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/interface.go -destination=${GOPATH}/src/github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/mock/mock.go -self_package=github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/mock
 ``` 

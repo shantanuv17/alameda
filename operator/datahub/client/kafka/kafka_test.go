@@ -112,6 +112,8 @@ func TestNewWriteDataRequestByConsumerGroups(t *testing.T) {
 						},
 						CustomName: "custom-name-1",
 					},
+					MinReplicas: 1,
+					MaxReplicas: 10,
 				},
 				kafka.ConsumerGroup{
 					Name:              "consumer-group-2",
@@ -145,6 +147,8 @@ func TestNewWriteDataRequestByConsumerGroups(t *testing.T) {
 							"resource_k8s_kind",
 							"resource_k8s_replicas",
 							"resource_k8s_spec_replicas",
+							"resource_k8s_min_replicas",
+							"resource_k8s_max_replicas",
 							"resource_custom_name",
 							"policy",
 							"enable_execution",
@@ -162,6 +166,8 @@ func TestNewWriteDataRequestByConsumerGroups(t *testing.T) {
 									"Deployment",
 									"1",
 									"2",
+									"1",
+									"10",
 									"custom-name-1",
 									"stable",
 									"true",
@@ -177,6 +183,8 @@ func TestNewWriteDataRequestByConsumerGroups(t *testing.T) {
 									"",
 									"",
 									"",
+									"0",
+									"0",
 									"0",
 									"0",
 									"custom-name-2",
@@ -198,7 +206,13 @@ func TestNewWriteDataRequestByConsumerGroups(t *testing.T) {
 	for _, testCase := range testCases {
 		actual, err := kr.newWriteDataRequesByConsumerGroups(testCase.have)
 		assert.NoError(err)
-		assert.Equal(testCase.want, actual)
+		for i, data := range testCase.want.WriteData {
+			assert.Equal(data.Measurement, actual.WriteData[i].Measurement)
+			assert.ElementsMatch(data.Columns, actual.WriteData[i].Columns)
+			for j, row := range data.Rows {
+				assert.ElementsMatch(row.Values, actual.WriteData[i].Rows[j].Values)
+			}
+		}
 	}
 }
 
