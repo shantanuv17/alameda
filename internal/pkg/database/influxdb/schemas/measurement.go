@@ -51,15 +51,17 @@ func (p *Measurement) AddColumn(name string, required bool, columnType ColumnTyp
 func (p *Measurement) Validate(columns []string) error {
 	// Check required columns
 	for _, c := range p.Columns {
-		found := false
-		for _, name := range columns {
-			if c.Name == name {
-				found = true
-				break
+		if c.Required {
+			found := false
+			for _, name := range columns {
+				if c.Name == name {
+					found = true
+					break
+				}
 			}
-		}
-		if !found {
-			return errors.New(fmt.Sprintf("column(%s) is not given in measurement(%s)", c.Name, p.Name))
+			if !found {
+				return errors.New(fmt.Sprintf("column(%s) is not given in measurement(%s)", c.Name, p.Name))
+			}
 		}
 	}
 
