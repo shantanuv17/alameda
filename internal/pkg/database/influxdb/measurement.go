@@ -146,50 +146,47 @@ func (p *InfluxMeasurement) buildPoints(columnTypes []schemas.ColumnType, dataTy
 }
 
 func (p *InfluxMeasurement) format(value string, dataType common.DataType) interface{} {
+	var v interface{}
+	var err error
+
 	switch dataType {
 	case common.Bool:
-		valueBool, _ := strconv.ParseBool(value)
-		return valueBool
+		v, err = strconv.ParseBool(value)
 	case common.Int:
-		valueInt, _ := strconv.ParseInt(value, 10, 32)
-		return valueInt
+		v, err = strconv.ParseInt(value, 10, 32)
 	case common.Int8:
-		valueInt, _ := strconv.ParseInt(value, 10, 32)
-		return valueInt
+		v, err = strconv.ParseInt(value, 10, 8)
 	case common.Int16:
-		valueInt, _ := strconv.ParseInt(value, 10, 32)
-		return valueInt
+		v, err = strconv.ParseInt(value, 10, 16)
 	case common.Int32:
-		valueInt, _ := strconv.ParseInt(value, 10, 32)
-		return valueInt
+		v, err = strconv.ParseInt(value, 10, 32)
 	case common.Int64:
-		valueInt, _ := strconv.ParseInt(value, 10, 64)
-		return valueInt
+		v, err = strconv.ParseInt(value, 10, 64)
 	case common.Uint:
-		valueUint, _ := strconv.ParseUint(value, 10, 32)
-		return valueUint
+		v, err = strconv.ParseUint(value, 10, 32)
 	case common.Uint8:
-		valueUint, _ := strconv.ParseUint(value, 10, 32)
-		return valueUint
+		v, err = strconv.ParseUint(value, 10, 8)
 	case common.Uint16:
-		valueUint, _ := strconv.ParseUint(value, 10, 32)
-		return valueUint
+		v, err = strconv.ParseUint(value, 10, 16)
 	case common.Uint32:
-		valueUint, _ := strconv.ParseUint(value, 10, 32)
-		return valueUint
+		v, err = strconv.ParseUint(value, 10, 32)
 	case common.Uint64:
-		valueUint, _ := strconv.ParseUint(value, 10, 64)
-		return valueUint
+		v, err = strconv.ParseUint(value, 10, 64)
 	case common.Float32:
-		valueFloat, _ := strconv.ParseFloat(value, 32)
-		return valueFloat
+		v, err = strconv.ParseFloat(value, 32)
 	case common.Float64:
-		valueFloat, _ := strconv.ParseFloat(value, 64)
-		return valueFloat
+		v, err = strconv.ParseFloat(value, 64)
 	case common.String:
-		return value
+		v = value
 	default:
 		fmt.Println("not support")
 		return value
 	}
+
+	if err != nil {
+		scope.Error(fmt.Sprintf("failed to format string(%s) to type(%d)", value, dataType))
+		return nil
+	}
+
+	return v
 }
