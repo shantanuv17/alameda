@@ -128,6 +128,9 @@ func (k KafkaRepository) ListConsumerGroups(ctx context.Context, option ListCons
 }
 
 func (k KafkaRepository) DeleteTopics(ctx context.Context, topics []kafka.Topic) error {
+	if len(topics) == 0 {
+		return nil
+	}
 	req, err := k.newDeleteDataRequestByTopics(topics)
 	if err != nil {
 		return errors.Wrap(err, "new DeleteDataRequeset by topics failed")
@@ -139,6 +142,9 @@ func (k KafkaRepository) DeleteTopics(ctx context.Context, topics []kafka.Topic)
 }
 
 func (k KafkaRepository) DeleteConsumerGroups(ctx context.Context, consumerGroups []kafka.ConsumerGroup) error {
+	if len(consumerGroups) == 0 {
+		return nil
+	}
 	req, err := k.newDeleteDataRequestByConsumerGroups(consumerGroups)
 	if err != nil {
 		return errors.Wrap(err, "new DeleteDataRequeset by consumergroups failed")
