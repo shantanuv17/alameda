@@ -6,6 +6,7 @@ import (
 
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -94,4 +95,36 @@ func getFirstCreatedObjectMeta(objs []metav1.ObjectMeta) metav1.ObjectMeta {
 		}
 	}
 	return firstCreatedObe
+}
+
+func getTotalResourceFromContainers(containers []corev1.Container) corev1.ResourceRequirements {
+	total := corev1.ResourceRequirements{
+		Limits:   corev1.ResourceList{},
+		Requests: corev1.ResourceList{},
+	}
+	for _, c := range containers {
+		for resourceName, quantity := range c.Resources.Limits {
+			q := total.Limits[resourceName]
+			q.Add(quantity)
+			total.Limits[resourceName] = q
+		}
+		for resourceName, quantity := range c.Resources.Requests {
+			q := total.Requests[resourceName]
+			q.Add(quantity)
+			total.Requests[resourceName] = q
+		}
+	}
+
+	return total
+}
+
+func getFirstTime(times []time.Time)time.Time{
+	min := time.Now()
+	for _,t:=range times{
+		if min.After(t){
+			min=t
+		}
+	}
+	
+	return min
 }

@@ -350,6 +350,7 @@ func TestChooseTopic(t *testing.T) {
 // 	}
 // }
 
+// TODO: To pass
 func TestGetFirstCreatedMatchedKubernetesMetadata(t *testing.T) {
 	testEnv, mgr, err := createTestEnvAndManager()
 	if err != nil {

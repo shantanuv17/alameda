@@ -321,7 +321,7 @@ func (r AlamedaScalerKafkaReconciler) listConsumerGroups(ctx context.Context, al
 			Name:              consumerGroupSpec.Name,
 			ExporterNamespace: alamedaScaler.Spec.Kafka.ExporterNamespace,
 			ClusterName:       r.ClusterUID,
-			AlamedaScalerName: alamedaScaler.GetNamespace(),
+			AlamedaScalerName: alamedaScaler.GetName(),
 			Policy:            policy,
 			EnableExecution:   alamedaScaler.IsEnableExecution(),
 			ConsumeTopic:      topic,
@@ -372,55 +372,98 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(c
 	}
 
 	kubernetesMetadata := kafkamodel.KubernetesMeta{}
-	var creationTimestamp = metav1.NewTime(time.Now())
-	for _, r := range deployments {
+	indexDeployment := 0
+	indexStatefulSet := 0
+	indexDeploymentConfig := 0
+	earliestDeploymentCreationTimestamp := metav1.NewTime(time.Now())
+	earliestStatefulSetCreationTimestamp := metav1.NewTime(time.Now())
+	earliestDeploymentConfigCreationTimestamp := metav1.NewTime(time.Now())
+	for i, r := range deployments {
 		if !isMonitoredByAlamedaScalerType(r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
 			continue
 		}
+		if r.CreationTimestamp.UnixNano() < earliestDeploymentCreationTimestamp.UnixNano() {
+			indexDeployment = i
+			earliestDeploymentCreationTimestamp = r.CreationTimestamp
+		}
+	}
+	for i, r := range statefulSets {
+		if !isMonitoredByAlamedaScalerType(r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
+			continue
+		}
+		if r.CreationTimestamp.UnixNano() < earliestStatefulSetCreationTimestamp.UnixNano() {
+			indexStatefulSet = i
+			earliestStatefulSetCreationTimestamp = r.CreationTimestamp
+		}
+	}
+	for i, r := range deploymentConfigs {
+		if !isMonitoredByAlamedaScalerType(r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
+			continue
+		}
+		if r.CreationTimestamp.UnixNano() < earliestDeploymentConfigCreationTimestamp.UnixNano() {
+			indexDeploymentConfig = i
+			earliestDeploymentConfigCreationTimestamp = r.CreationTimestamp
+		}
+	}
+
+	switch getFirstTime([]time.Time{
+		earliestDeploymentCreationTimestamp.Time,
+		earliestStatefulSetCreationTimestamp.Time,
+		earliestDeploymentConfigCreationTimestamp.Time,
+	}) {
+	case earliestDeploymentCreationTimestamp.Time:
+		controller := deployments[indexDeployment]
 		specReplicas := int32(0)
-		if r.Spec.Replicas != nil {
-			specReplicas = *r.Spec.Replicas
+		if controller.Spec.Replicas != nil {
+			specReplicas = *controller.Spec.Replicas
 		}
-		if r.CreationTimestamp.UnixNano() < creationTimestamp.UnixNano() {
-			kubernetesMetadata.Kind = r.GetObjectKind().GroupVersionKind().Kind
-			kubernetesMetadata.Namespace = r.GetNamespace()
-			kubernetesMetadata.Name = r.GetName()
-			kubernetesMetadata.ReadyReplicas = r.Status.ReadyReplicas
-			kubernetesMetadata.SpecReplicas = specReplicas
-			creationTimestamp = r.CreationTimestamp
-		}
-	}
-	for _, r := range statefulSets {
-		if !isMonitoredByAlamedaScalerType(r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
-			continue
-		}
+
+		resource := getTotalResourceFromContainers(controller.Spec.Template.Spec.Containers)
+
+		kubernetesMetadata.Kind = controller.GetObjectKind().GroupVersionKind().Kind
+		kubernetesMetadata.Namespace = controller.GetNamespace()
+		kubernetesMetadata.Name = controller.GetName()
+		kubernetesMetadata.ReadyReplicas = controller.Status.ReadyReplicas
+		kubernetesMetadata.SpecReplicas = specReplicas
+		kubernetesMetadata.SetResourceRequirements(resource)
+		// TODO:
+		kubernetesMetadata.VolumesSize = ""
+		kubernetesMetadata.VolumesPVCSize = ""
+	case earliestStatefulSetCreationTimestamp.Time:
+		controller := statefulSets[indexStatefulSet]
 		specReplicas := int32(0)
-		if r.Spec.Replicas != nil {
-			specReplicas = *r.Spec.Replicas
+		if controller.Spec.Replicas != nil {
+			specReplicas = *controller.Spec.Replicas
 		}
-		if r.CreationTimestamp.UnixNano() < creationTimestamp.UnixNano() {
-			kubernetesMetadata.Kind = r.GetObjectKind().GroupVersionKind().Kind
-			kubernetesMetadata.Namespace = r.GetNamespace()
-			kubernetesMetadata.Name = r.GetName()
-			kubernetesMetadata.ReadyReplicas = r.Status.ReadyReplicas
-			kubernetesMetadata.SpecReplicas = specReplicas
-			creationTimestamp = r.CreationTimestamp
-		}
+
+		resource := getTotalResourceFromContainers(controller.Spec.Template.Spec.Containers)
+
+		kubernetesMetadata.Kind = controller.GetObjectKind().GroupVersionKind().Kind
+		kubernetesMetadata.Namespace = controller.GetNamespace()
+		kubernetesMetadata.Name = controller.GetName()
+		kubernetesMetadata.ReadyReplicas = controller.Status.ReadyReplicas
+		kubernetesMetadata.SpecReplicas = specReplicas
+		kubernetesMetadata.SetResourceRequirements(resource)
+		// TODO:
+		kubernetesMetadata.VolumesSize = ""
+		kubernetesMetadata.VolumesPVCSize = ""
+	case earliestDeploymentConfigCreationTimestamp.Time:
+		controller := deploymentConfigs[indexDeploymentConfig]
+		specReplicas := controller.Spec.Replicas
+
+		resource := getTotalResourceFromContainers(controller.Spec.Template.Spec.Containers)
+
+		kubernetesMetadata.Kind = controller.GetObjectKind().GroupVersionKind().Kind
+		kubernetesMetadata.Namespace = controller.GetNamespace()
+		kubernetesMetadata.Name = controller.GetName()
+		kubernetesMetadata.ReadyReplicas = controller.Status.ReadyReplicas
+		kubernetesMetadata.SpecReplicas = specReplicas
+		kubernetesMetadata.SetResourceRequirements(resource)
+		// TODO:
+		kubernetesMetadata.VolumesSize = ""
+		kubernetesMetadata.VolumesPVCSize = ""
 	}
-	for _, r := range deploymentConfigs {
-		if !isMonitoredByAlamedaScalerType(r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
-			continue
-		}
-		specReplicas := r.Spec.Replicas
-		if r.CreationTimestamp.UnixNano() < creationTimestamp.UnixNano() {
-			kubernetesMetadata.Kind = r.GetObjectKind().GroupVersionKind().Kind
-			kubernetesMetadata.Namespace = r.GetNamespace()
-			kubernetesMetadata.Name = r.GetName()
-			kubernetesMetadata.ReadyReplicas = r.Status.ReadyReplicas
-			kubernetesMetadata.SpecReplicas = specReplicas
-			creationTimestamp = r.CreationTimestamp
-		}
-	}
+
 	return kubernetesMetadata, nil
 }
 

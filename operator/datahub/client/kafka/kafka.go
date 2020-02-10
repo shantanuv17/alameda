@@ -115,13 +115,21 @@ func (k KafkaRepository) ListConsumerGroups(ctx context.Context, option ListCons
 			ResourceMeta: kafka.ResourceMeta{
 				CustomName: e.ResourceCustomName,
 				KubernetesMeta: kafka.KubernetesMeta{
-					Namespace:     e.ResourceK8SNamespace,
-					Name:          e.ResourceK8SName,
-					Kind:          e.ResourceK8SKind,
-					ReadyReplicas: e.ReadyReplicas,
-					SpecReplicas:  e.SpecReplicas,
+					Namespace:      e.ResourceK8SNamespace,
+					Name:           e.ResourceK8SName,
+					Kind:           e.ResourceK8SKind,
+					ReadyReplicas:  e.ReadyReplicas,
+					SpecReplicas:   e.SpecReplicas,
+					CPULimit:       e.ResourceK8SCPULimit,
+					CPURequest:     e.ResourceK8SCPURequest,
+					MemoryLimit:    e.ResourceK8SMemoryLimit,
+					MemoryRequest:  e.ResourceK8SMemoryRequest,
+					VolumesSize:    e.ResourceK8SVolumesSize,
+					VolumesPVCSize: e.ResourceK8SVolumesPVCSize,
 				},
 			},
+			MaxReplicas: e.MaxReplicas,
+			MinReplicas: e.MinReplicas,
 		})
 	}
 	return consumerGroups, nil
@@ -349,21 +357,21 @@ func newWriteData(measurement measurement, dataRows interface{}) (data.WriteData
 	}
 
 	slice := reflect.ValueOf(dataRows)
+	if slice.Len() == 0 {
+		return data.WriteData{}, nil
+	}
+
+	columns, err := listDatahubColumns(slice.Index(0))
+	if err != nil {
+		return data.WriteData{}, errors.Wrap(err, "list Datahub columns failed")
+	}
+
 	rows := make([]*common.Row, 0, slice.Len())
 	for i := 0; i < slice.Len(); i++ {
 		element := slice.Index(i)
-		elementType := element.Type()
 
-		values := make([]string, 0, len(measurement.columns))
+		values := make([]string, 0, len(columns))
 		for j := 0; j < element.NumField(); j++ {
-			field := elementType.Field(j)
-			datahubColumn, exist := field.Tag.Lookup(tagDatahubColumn)
-			if !exist {
-				return data.WriteData{}, errors.Errorf(`tag("%s") not found`, tagDatahubColumn)
-			} else if datahubColumn == "" {
-				return data.WriteData{}, errors.Errorf(`tag("%s") value empty`, tagDatahubColumn)
-			}
-
 			fieldValue := element.Field(j)
 			switch fieldValue.Kind() {
 			case reflect.Int:
@@ -396,7 +404,7 @@ func newWriteData(measurement measurement, dataRows interface{}) (data.WriteData
 
 	w := data.WriteData{
 		Measurement: measurement.name,
-		Columns:     measurement.columns,
+		Columns:     columns,
 		Rows:        rows,
 	}
 	return w, nil
@@ -675,4 +683,26 @@ func decodeSlice(data data.Data, items interface{}) error {
 		}
 	}
 	return nil
+}
+
+func listDatahubColumns(entity reflect.Value) ([]string, error) {
+	switch entity.Kind() {
+	case reflect.Struct:
+	default:
+		return nil, errors.Errorf(`type("%s") not supported`, entity.Kind().String())
+	}
+
+	columns := make([]string, 0)
+	rT := entity.Type()
+	for i := 0; i < entity.NumField(); i++ {
+		field := rT.Field(i)
+		column, exist := field.Tag.Lookup(tagDatahubColumn)
+		if !exist {
+			return nil, errors.Errorf(`tag("%s") not exist`, tagDatahubColumn)
+		} else if column == "" {
+			return nil, errors.Errorf(`tag("%s") empty`, tagDatahubColumn)
+		}
+		columns = append(columns, column)
+	}
+	return columns, nil
 }
