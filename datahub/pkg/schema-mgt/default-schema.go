@@ -76,7 +76,7 @@ func genSchemaMetricKafkaTopic() *schemas.Schema {
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("value", true, schemas.Field, common.String)
+	measurement.AddColumn("value", true, schemas.Field, common.Float64)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }
@@ -89,7 +89,7 @@ func genSchemaMetricKafkaCG() *schemas.Schema {
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("topic_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("value", true, schemas.Field, common.String)
+	measurement.AddColumn("value", true, schemas.Field, common.Float64)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }
@@ -106,7 +106,7 @@ func genSchemaPredictionKafkaTopic() *schemas.Schema {
 	raw.AddColumn("granularity", true, schemas.Tag, common.String)
 	raw.AddColumn("model_id", true, schemas.Field, common.String)
 	raw.AddColumn("prediction_id", true, schemas.Field, common.String)
-	raw.AddColumn("value", true, schemas.Field, common.String)
+	raw.AddColumn("value", true, schemas.Field, common.Float64)
 	schema.Measurements = append(schema.Measurements, raw)
 
 	// Upper bound
@@ -117,7 +117,7 @@ func genSchemaPredictionKafkaTopic() *schemas.Schema {
 	upperBound.AddColumn("granularity", true, schemas.Tag, common.String)
 	upperBound.AddColumn("model_id", true, schemas.Field, common.String)
 	upperBound.AddColumn("prediction_id", true, schemas.Field, common.String)
-	upperBound.AddColumn("value", true, schemas.Field, common.String)
+	upperBound.AddColumn("value", true, schemas.Field, common.Float64)
 	schema.Measurements = append(schema.Measurements, upperBound)
 
 	// Lower bound
@@ -128,7 +128,7 @@ func genSchemaPredictionKafkaTopic() *schemas.Schema {
 	lowerBound.AddColumn("granularity", true, schemas.Tag, common.String)
 	lowerBound.AddColumn("model_id", true, schemas.Field, common.String)
 	lowerBound.AddColumn("prediction_id", true, schemas.Field, common.String)
-	lowerBound.AddColumn("value", true, schemas.Field, common.String)
+	lowerBound.AddColumn("value", true, schemas.Field, common.Float64)
 	schema.Measurements = append(schema.Measurements, lowerBound)
 
 	return schema
@@ -147,7 +147,7 @@ func genSchemaPredictionKafkaCG() *schemas.Schema {
 	raw.AddColumn("granularity", true, schemas.Tag, common.String)
 	raw.AddColumn("model_id", true, schemas.Field, common.String)
 	raw.AddColumn("prediction_id", true, schemas.Field, common.String)
-	raw.AddColumn("value", true, schemas.Field, common.String)
+	raw.AddColumn("value", true, schemas.Field, common.Float64)
 	schema.Measurements = append(schema.Measurements, raw)
 
 	// Upper bound
@@ -159,7 +159,7 @@ func genSchemaPredictionKafkaCG() *schemas.Schema {
 	upperBound.AddColumn("granularity", true, schemas.Tag, common.String)
 	upperBound.AddColumn("model_id", true, schemas.Field, common.String)
 	upperBound.AddColumn("prediction_id", true, schemas.Field, common.String)
-	upperBound.AddColumn("value", true, schemas.Field, common.String)
+	upperBound.AddColumn("value", true, schemas.Field, common.Float64)
 	schema.Measurements = append(schema.Measurements, upperBound)
 
 	// Lower bound
@@ -171,7 +171,7 @@ func genSchemaPredictionKafkaCG() *schemas.Schema {
 	lowerBound.AddColumn("granularity", true, schemas.Tag, common.String)
 	lowerBound.AddColumn("model_id", true, schemas.Field, common.String)
 	lowerBound.AddColumn("prediction_id", true, schemas.Field, common.String)
-	lowerBound.AddColumn("value", true, schemas.Field, common.String)
+	lowerBound.AddColumn("value", true, schemas.Field, common.Float64)
 	schema.Measurements = append(schema.Measurements, lowerBound)
 
 	return schema
