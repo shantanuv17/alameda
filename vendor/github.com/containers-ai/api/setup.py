@@ -13,10 +13,10 @@ with open('LICENSE', 'r') as f:
     license = f.read()
 
 INSTALL_REQUIRES = (
-    'protobuf>=3.9.0',
-    'grpcio>=1.22.0',
-    'grpcio-tools>=1.22.0',
-    'googleapis-common-protos>=1.6.0',
+    'protobuf==3.11.3',
+    'grpcio==1.27.1',
+    'grpcio-tools==1.27.1',
+    'googleapis-common-protos==1.51.0',
 )
 
 setup(
