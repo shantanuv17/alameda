@@ -20,8 +20,9 @@ import (
 )
 
 const (
-	tagDatahubColumn   = "datahubcolumn"
-	tagDatahubDataType = "datahubdatatype"
+	tagDatahubColumnType = "datahubcolumntype"
+	tagDatahubColumn     = "datahubcolumn"
+	tagDatahubDataType   = "datahubdatatype"
 )
 
 type KafkaRepository struct {
@@ -433,6 +434,16 @@ func newDeleteData(measurement measurement, dataRows interface{}) (data.DeleteDa
 			Types:     []common.DataType{},
 		}
 		for j := 0; j < rV.NumField(); j++ {
+			field := rT.Field(j)
+			columnType, exist := field.Tag.Lookup(tagDatahubColumnType)
+			if !exist {
+				return data.DeleteData{}, errors.Errorf(`tag("%s") not found`, tagDatahubColumnType)
+			} else if columnType == "" {
+				return data.DeleteData{}, errors.Errorf(`tag("%s") value empty`, tagDatahubColumnType)
+			} else if columnType != entity.Tag {
+				continue
+			}
+
 			f := rV.Field(j)
 			value := ""
 			switch f.Kind() {
