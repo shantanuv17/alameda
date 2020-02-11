@@ -184,6 +184,7 @@ func genSchemaRecommendationKafkaCG() *schemas.Schema {
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("kind", true, schemas.Tag, common.String)
 	measurement.AddColumn("create_time", true, schemas.Field, common.String)
 	measurement.AddColumn("current_replicas", true, schemas.Field, common.Int32)
 	measurement.AddColumn("desired_replicas", true, schemas.Field, common.Int32)
