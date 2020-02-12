@@ -6,7 +6,9 @@ import (
 	"sort"
 	"strconv"
 
+	"github.com/containers-ai/alameda/ai-dispatcher/pkg/config"
 	stats_errors "github.com/containers-ai/alameda/ai-dispatcher/pkg/stats/errors"
+	dispatcher_utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
 	"github.com/containers-ai/alameda/pkg/utils"
 	"github.com/containers-ai/alameda/pkg/utils/log"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
@@ -47,6 +49,57 @@ func NewMeasurementDataSet(metricSamples []*datahub_common.Sample,
 					scope.Errorf("parse metric value failed: %s", err.Error())
 					continue
 				}
+				measurementDataSet[predictSample.GetTime().GetSeconds()] = &MeasurementData{
+					predictData: data{
+						time:  predictSample.GetTime().GetSeconds(),
+						value: predictValue,
+					},
+					metricData: data{
+						time:  metricSample.GetTime().GetSeconds(),
+						value: metricValue,
+					},
+				}
+				break
+			}
+		}
+	}
+	if len(measurementDataSet) == 0 {
+		scope.Warnf("No measurementDataSet generated due to no data overlapped between metric and prediction")
+	}
+	return measurementDataSet
+}
+
+func NewMeasurementDataSetV2(metricSamples []*datahub_common.Row, metricCols []string,
+	predictSamples []*datahub_common.Row, predictCols []string, unit *config.Unit, granularity int64) map[int64]*MeasurementData {
+	scope.Debugf("NewMeasurementDataSet metric samples: %s", utils.InterfaceToString(metricSamples))
+	scope.Debugf("NewMeasurementDataSet predict samples: %s", utils.InterfaceToString(predictSamples))
+	measurementDataSet := map[int64]*MeasurementData{}
+	for _, metricSample := range metricSamples {
+		metricValues := metricSample.GetValues()
+		metricValueStr, err := dispatcher_utils.GetRowValue(metricValues, metricCols, unit.Metric.MetricValueKeys.Value)
+		if err != nil {
+			scope.Errorf("get metric value failed: %s", err.Error())
+			continue
+		}
+		metricValue, err := strconv.ParseFloat(metricValueStr, 64)
+		if err != nil {
+			scope.Errorf("parse metric value failed: %s", err.Error())
+			continue
+		}
+		for _, predictSample := range predictSamples {
+			predictValues := predictSample.GetValues()
+			predictValueStr, err := dispatcher_utils.GetRowValue(predictValues, predictCols, unit.Prediction.PredictValueKeys.Value)
+			if err != nil {
+				scope.Errorf("get predict value failed: %s", err.Error())
+				continue
+			}
+			predictValue, err := strconv.ParseFloat(predictValueStr, 64)
+			if err != nil {
+				scope.Errorf("parse predict value failed: %s", err.Error())
+				continue
+			}
+			if math.Abs(float64(predictSample.GetTime().GetSeconds()-metricSample.GetTime().GetSeconds())) <
+				float64(granularity) {
 				measurementDataSet[predictSample.GetTime().GetSeconds()] = &MeasurementData{
 					predictData: data{
 						time:  predictSample.GetTime().GetSeconds(),

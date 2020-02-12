@@ -1,11 +1,13 @@
 package dispatcher
 
 import (
+	"strings"
 	"time"
 
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/config"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
+	"github.com/containers-ai/alameda/ai-dispatcher/pkg/stats"
 	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
@@ -14,6 +16,8 @@ import (
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	datahub_schemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	"github.com/golang/protobuf/ptypes/duration"
+	"github.com/golang/protobuf/ptypes/timestamp"
+	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 )
 
@@ -167,11 +171,152 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 								scope.Errorf("[%s] Get model ID from last predict point failed", jobID)
 								continue
 							}
-							scope.Debugf("[%s] Use model ID %s to query prediction series to measure dirft", jobID, modelID)
-							err = queueSender.SendJob(modelQueueName, unit, rawDatumColumns, row.GetValues(),
-								lastPredictPointRawData.GetMetricType(), granularity)
+							scope.Infof("[%s] Use model ID %s to query prediction series to measure dirft", jobID, modelID)
+							dispatcher.DriftEval(modelID, lastPredictPointRawData.GetMetricType(), rawData, queueSender, unit, granularity)
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+func (dispatcher *modelJobSender) DriftEval(modelID string, metricType datahub_common.MetricType, rawData []*datahub_data.Rawdata, queueSender queue.QueueSender,
+	unit *config.Unit, granularity int64) {
+	for _, rawDatum := range rawData {
+		for _, grp := range rawDatum.GetGroups() {
+			rawDatumColumns := grp.GetColumns()
+			for _, row := range grp.GetRows() {
+				readData := []*datahub_data.ReadData{&datahub_data.ReadData{
+					MetricType:       metricType,
+					ResourceBoundary: datahub_common.ResourceBoundary_RESOURCE_RAW,
+					QueryCondition: &datahub_common.QueryCondition{
+						Order: datahub_common.QueryCondition_DESC,
+						TimeRange: &datahub_common.TimeRange{
+							Step: &duration.Duration{
+								Seconds: granularity,
+							},
+						},
+						WhereCondition: []*datahub_common.Condition{
+							&datahub_common.Condition{
+								Keys:      []string{unit.Prediction.PredictValueKeys.ModelID},
+								Values:    []string{modelID},
+								Operators: []string{"="},
+								Types: []datahub_common.DataType{
+									datahub_common.DataType_DATATYPE_STRING,
+								},
+							},
+						},
+					},
+				}}
+
+				readDataRes, err := utils.ReadData(dispatcher.datahubServiceClnt, &datahub_schemas.SchemaMeta{
+					Scope:    unit.Prediction.Scope,
+					Category: unit.Prediction.Category,
+					Type:     unit.Prediction.Type,
+				}, readData)
+				if err != nil {
+					jobID, _ := utils.GetJobID(unit, row.GetValues(), rawDatumColumns,
+						datahub_common.MetricType_METRICS_TYPE_UNDEFINED, granularity)
+					scope.Errorf("[%s] List prediction with model id %s failed: %s", jobID, modelID, err.Error())
+					continue
+				}
+
+				for _, modelIDPredictData := range readDataRes.GetData().GetRawdata() {
+					for _, modelIDPredictDataGrp := range modelIDPredictData.GetGroups() {
+						jobID, _ := utils.GetJobID(unit, row.GetValues(), rawDatumColumns,
+							modelIDPredictData.GetMetricType(), granularity)
+
+						modelPredictRows := modelIDPredictDataGrp.GetRows()
+						if len(modelPredictRows) == 0 {
+							scope.Infof("[%s] No prediction found with model id %s, send model job.", jobID, modelID)
+							err := queueSender.SendJob(modelQueueName, unit, rawDatumColumns, row.GetValues(),
+								modelIDPredictData.GetMetricType(), granularity)
 							if err != nil {
 								scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
+							}
+							continue
+						}
+						metricStartT := modelPredictRows[len(modelPredictRows)-1].GetTime().GetSeconds()
+						if metricStartT > time.Now().Unix() {
+							scope.Errorf("[%s] Cannot query future metrics with timestamp %v", jobID, metricStartT)
+							continue
+						}
+						metricReadData := []*datahub_data.ReadData{&datahub_data.ReadData{
+							MetricType:       metricType,
+							ResourceBoundary: datahub_common.ResourceBoundary_RESOURCE_RAW,
+							QueryCondition: &datahub_common.QueryCondition{
+								Order: datahub_common.QueryCondition_DESC,
+								TimeRange: &datahub_common.TimeRange{
+									Step: &duration.Duration{
+										Seconds: granularity,
+									},
+									StartTime: &timestamp.Timestamp{
+										Seconds: metricStartT,
+									},
+								},
+							},
+						}}
+						metricReadDataRes, err := utils.ReadData(dispatcher.datahubServiceClnt, &datahub_schemas.SchemaMeta{
+							Scope:    unit.Metric.Scope,
+							Category: unit.Metric.Category,
+							Type:     unit.Metric.Type,
+						}, metricReadData)
+						if err != nil {
+							jobID, _ := utils.GetJobID(unit, row.GetValues(), rawDatumColumns,
+								datahub_common.MetricType_METRICS_TYPE_UNDEFINED, granularity)
+							scope.Errorf("[%s] List metric from time %v failed: %s", jobID, metricStartT, err.Error())
+							continue
+						}
+						for _, metricRawDatum := range metricReadDataRes.GetData().GetRawdata() {
+							for _, metricRawDatumGrp := range metricRawDatum.GetGroups() {
+								metricCols := metricRawDatumGrp.GetColumns()
+								metricRows := metricRawDatumGrp.GetRows()
+								if len(metricRows) == 0 {
+									scope.Errorf("[%s] No metric found from time %v, skip drift evaluation.", jobID, metricStartT)
+									continue
+								}
+								measurementDataSet := stats.NewMeasurementDataSetV2(modelPredictRows, modelIDPredictDataGrp.GetColumns(),
+									metricRows, metricCols, unit, granularity)
+
+								currentMeasure := viper.GetString("measurements.current")
+								mapeVal, mapeErr := stats.MAPE(measurementDataSet, granularity)
+								if mapeErr != nil {
+									scope.Errorf("[%s] Calculate MAPE failed due to %s", jobID, mapeErr.Error())
+								}
+								rmseVal, rmseErr := stats.RMSE(measurementDataSet, datahub_common.MetricType_METRICS_TYPE_UNDEFINED, granularity)
+								if rmseErr != nil {
+									scope.Errorf("[%s] Calculate RMSE failed due to %s", jobID, err.Error())
+								}
+
+								if strings.ToLower(strings.TrimSpace(currentMeasure)) == "mape" && mapeErr == nil {
+									modelThreshold := viper.GetFloat64("measurements.mape.threshold")
+									if mapeVal > modelThreshold {
+										scope.Infof("[%s] MAPE of metric %v  %v > %v (threshold), drift is true and start sending model job",
+											jobID, metricType, mapeVal, modelThreshold)
+										err = queueSender.SendJob(modelQueueName, unit, rawDatumColumns, row.GetValues(),
+											metricType, granularity)
+										if err != nil {
+											scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
+										}
+									} else {
+										scope.Infof("[%s] MAPE of metric %v  %v <= %v (threshold), drift is false", jobID, metricType, mapeVal, modelThreshold)
+									}
+								} else if strings.ToLower(strings.TrimSpace(currentMeasure)) == "rmse" && rmseErr == nil {
+									modelThreshold := viper.GetFloat64("measurements.rmse.threshold")
+									if rmseVal > modelThreshold {
+										scope.Infof("[%s] RMSE of metric %v  %v > %v (threshold), drift is true and start sending model job",
+											jobID, metricType, rmseVal, modelThreshold)
+										err = queueSender.SendJob(modelQueueName, unit, rawDatumColumns, row.GetValues(),
+											metricType, granularity)
+										if err != nil {
+											scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
+										}
+									} else {
+										scope.Infof("[%s] RMSE of metric %v  %v <= %v (threshold), drift is false",
+											jobID, metricType, rmseVal, modelThreshold)
+									}
+								}
 							}
 						}
 					}

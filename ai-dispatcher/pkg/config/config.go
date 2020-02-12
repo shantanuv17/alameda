@@ -47,6 +47,7 @@ type Unit struct {
 	Metric         metricSeriesMeta            `mapstructure:"metric"`
 	Prediction     predictSeriesMeta           `mapstructure:"prediction"`
 	IDKeys         []string                    `mapstructure:"idKeys"`
+	Measurement    string                      `mapstructure:"measurement"`
 	MetricTypes    []datahub_common.MetricType `mapstructure:"-"`
 }
 
@@ -67,12 +68,10 @@ type predictSeriesMeta struct {
 }
 
 type metricValueKeys struct {
-	Time  string `mapstructure:"time"`
 	Value string `mapstructure:"value"`
 }
 
 type predictValueKeys struct {
-	Time         string `mapstructure:"time"`
 	ModelID      string `mapstructure:"modelID"`
 	PredictionID string `mapstructure:"predictID"`
 	Value        string `mapstructure:"value"`

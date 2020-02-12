@@ -182,7 +182,11 @@ func (dispatcher *Dispatcher) getAndPushJobsV2(queueSender queue.QueueSender,
 		Scope:    pdUnit.Scope,
 		Category: pdUnit.Category,
 		Type:     pdUnit.Type,
-	}, []*datahub_data.ReadData{})
+	}, []*datahub_data.ReadData{
+		&datahub_data.ReadData{
+			Measurement: pdUnit.Measurement,
+		},
+	})
 
 	if err != nil {
 		scope.Errorf("List units with (scope %s, category %s, type: %s) failed: %s",
@@ -190,8 +194,7 @@ func (dispatcher *Dispatcher) getAndPushJobsV2(queueSender queue.QueueSender,
 		return
 	}
 	readData := []*datahub_data.ReadData{}
-	metricTypes := pdUnit.MetricTypes
-	for _, metricType := range metricTypes {
+	for _, metricType := range pdUnit.MetricTypes {
 		readData = append(readData, &datahub_data.ReadData{
 			MetricType: metricType,
 		})

@@ -134,6 +134,7 @@ enabled = true
 scope = "application"
 category = "kafka"
 type = "topic"
+measurement = "kafka_topic"
 idKeys = ["cluster_name", "namespace", "name"]
 metricTypes = ["current_offset"]
 predictor = "sarima"
@@ -143,7 +144,6 @@ predictor = "sarima"
   category = "kafka"
   type = "topic"
     [units.metric.valueKeys]
-    time = "time"
     value = "value"
 
   [units.prediction]
@@ -151,7 +151,6 @@ predictor = "sarima"
   category = "kafka"
   type = "topic"
     [units.prediction.valueKeys]
-    time = "time"
     modelID = "model_id"
     predictID = "prediction_id"
     value = "value"
@@ -162,6 +161,7 @@ enabled = true
 scope = "application"
 category = "kafka"
 type = "consumer_group"
+measurement = "kafka_consumer_group"
 idKeys = ["cluster_name", "namespace", "name", "topic_name"]
 metricTypes = ["current_offset"]
 predictor = "sarima"
@@ -171,7 +171,6 @@ predictor = "sarima"
   category = "kafka"
   type = "consumer_group"
     [units.metric.valueKeys]
-    time = "time"
     value = "value"
 
   [units.prediction]
@@ -179,7 +178,6 @@ predictor = "sarima"
   category = "kafka"
   type = "consumer_group"
     [units.prediction.valueKeys]
-    time = "time"
     modelID = "model_id"
     predictID = "prediction_id"
     value = "value"
