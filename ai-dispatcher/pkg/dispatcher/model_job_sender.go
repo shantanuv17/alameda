@@ -139,9 +139,27 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 				}
 
 				for _, lastPredictPointRawData := range readDataRes.GetData().GetRawdata() {
-					for _, lastPredictPointRawDataGrp := range lastPredictPointRawData.GetGroups() {
-						jobID, _ := utils.GetJobID(unit, row.GetValues(), rawDatumColumns,
+					jobID, _ := utils.GetJobID(unit, row.GetValues(), rawDatumColumns,
+						lastPredictPointRawData.GetMetricType(), granularity)
+					if len(lastPredictPointRawData.GetGroups()) == 0 {
+						scope.Infof("[%s] No prediction found, send model job.", jobID)
+						err := queueSender.SendJob(modelQueueName, unit, rawDatumColumns, row.GetValues(),
 							lastPredictPointRawData.GetMetricType(), granularity)
+						if err != nil {
+							scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
+						}
+						continue
+					}
+					if len(lastPredictPointRawData.GetGroups()) == 0 {
+						scope.Infof("[%s] No prediction found, send model job.", jobID)
+						err := queueSender.SendJob(modelQueueName, unit, rawDatumColumns, row.GetValues(),
+							lastPredictPointRawData.GetMetricType(), granularity)
+						if err != nil {
+							scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
+						}
+						continue
+					}
+					for _, lastPredictPointRawDataGrp := range lastPredictPointRawData.GetGroups() {
 						if len(lastPredictPointRawDataGrp.GetRows()) == 0 {
 							scope.Infof("[%s] No prediction found, send model job.", jobID)
 							err := queueSender.SendJob(modelQueueName, unit, rawDatumColumns, row.GetValues(),
@@ -223,9 +241,18 @@ func (dispatcher *modelJobSender) DriftEval(modelID string, metricType datahub_c
 				}
 
 				for _, modelIDPredictData := range readDataRes.GetData().GetRawdata() {
-					for _, modelIDPredictDataGrp := range modelIDPredictData.GetGroups() {
-						jobID, _ := utils.GetJobID(unit, row.GetValues(), rawDatumColumns,
+					jobID, _ := utils.GetJobID(unit, row.GetValues(), rawDatumColumns,
+						modelIDPredictData.GetMetricType(), granularity)
+					if len(modelIDPredictData.GetGroups()) == 0 {
+						scope.Infof("[%s] No prediction found with model id %s, send model job.", jobID, modelID)
+						err := queueSender.SendJob(modelQueueName, unit, rawDatumColumns, row.GetValues(),
 							modelIDPredictData.GetMetricType(), granularity)
+						if err != nil {
+							scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
+						}
+						continue
+					}
+					for _, modelIDPredictDataGrp := range modelIDPredictData.GetGroups() {
 
 						modelPredictRows := modelIDPredictDataGrp.GetRows()
 						if len(modelPredictRows) == 0 {
