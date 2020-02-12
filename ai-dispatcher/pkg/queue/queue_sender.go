@@ -1,9 +1,15 @@
 package queue
 
-import "github.com/containers-ai/alameda/pkg/utils/log"
+import (
+	"github.com/containers-ai/alameda/ai-dispatcher/pkg/config"
+	"github.com/containers-ai/alameda/pkg/utils/log"
+	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
+)
 
 type QueueSender interface {
 	SendJsonString(queueName, jsonStr, msgID string, timeout int64) error
+	SendJob(queueName string, unit *config.Unit,
+		columns, values []string, metricType datahub_common.MetricType, granularity int64) error
 	getRetry() *retry
 }
 

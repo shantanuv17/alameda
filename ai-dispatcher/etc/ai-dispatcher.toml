@@ -3,6 +3,9 @@ hourlyPredict = false
 [datahub]
 address = "datahub.alameda.svc.cluster.local:50050"
 connRetry = 5
+  [datahub.query]
+  retry = 3
+  retryInterval = 10 # seconds
 
 [queue]
 url = "amqp://admin:adminpass@rabbitmq.alameda.svc.cluster.local:5672"
@@ -47,6 +50,13 @@ predictUnits = ["POD", "GPU", "NAMESPACE",
   predictionSteps = 30
   predictionJobSendIntervalSec = 3600
   modelJobSendIntervalSec = 3600
+
+  [granularities.1m]
+  dataGranularity = "1m"
+  dataGranularitySec = 60
+  predictionSteps = 60
+  predictionJobSendIntervalSec = 60
+  modelJobSendIntervalSec = 60
 
   [granularities.30s]
   dataGranularity = "30s"
@@ -98,3 +108,78 @@ timeout = 180
     cpu = 1 #millicores
     memory = 1000000 #bytes
     dutyCycle = 0.2
+
+# api proto metric type
+[metricType]
+undefined = 0
+cpu_usage_seconds_percentage = 1
+memory_usage_bytes = 2
+power_usage_watts = 3
+temperature_celsius  = 4
+duty_cycle = 5
+current_offset = 6
+
+# api proto table
+[scope]
+undefined = 0
+application = 1
+metric = 2
+planning = 3
+prediction = 4
+recommendation = 5
+resource = 6
+
+[[units]]
+enabled = true
+scope = "application"
+category = "kafka"
+type = "topic"
+idKeys = ["cluster_name", "namespace", "name"]
+metricTypes = ["current_offset"]
+predictor = "sarima"
+
+  [units.metric]
+  scope = "metric"
+  category = "kafka"
+  type = "topic"
+    [units.metric.valueKeys]
+    time = "time"
+    value = "value"
+
+  [units.prediction]
+  scope = "prediction"
+  category = "kafka"
+  type = "topic"
+    [units.prediction.valueKeys]
+    time = "time"
+    modelID = "model_id"
+    predictID = "prediction_id"
+    value = "value"
+
+
+[[units]]
+enabled = true
+scope = "application"
+category = "kafka"
+type = "consumer_group"
+idKeys = ["cluster_name", "namespace", "name", "topic_name"]
+metricTypes = ["current_offset"]
+predictor = "sarima"
+
+  [units.metric]
+  scope = "metric"
+  category = "kafka"
+  type = "consumer_group"
+    [units.metric.valueKeys]
+    time = "time"
+    value = "value"
+
+  [units.prediction]
+  scope = "prediction"
+  category = "kafka"
+  type = "consumer_group"
+    [units.prediction.valueKeys]
+    time = "time"
+    modelID = "model_id"
+    predictID = "prediction_id"
+    value = "value"

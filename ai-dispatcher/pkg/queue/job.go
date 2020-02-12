@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/containers-ai/alameda/ai-dispatcher/consts"
+	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/streadway/amqp"
 )
@@ -57,29 +58,11 @@ func (jobBuilder *jobBuilder) GetJobJSONString() (string, error) {
 }
 
 func GetGranularityStr(granularitySec int64) string {
-	if granularitySec == 30 {
-		return "30s"
-	} else if granularitySec == 3600 {
-		return "1h"
-	} else if granularitySec == 21600 {
-		return "6h"
-	} else if granularitySec == 86400 {
-		return "24h"
-	}
-	return "30s"
+	return utils.GetGranularityStr(granularitySec)
 }
 
 func GetGranularitySec(granularityStr string) int64 {
-	if granularityStr == "30s" {
-		return 30
-	} else if granularityStr == "1h" {
-		return 3600
-	} else if granularityStr == "6h" {
-		return 21600
-	} else if granularityStr == "24h" {
-		return 86400
-	}
-	return 30
+	return utils.GetGranularitySec(granularityStr)
 }
 
 func GetQueueConn(queueURL string, retryItvMS int64) *amqp.Connection {

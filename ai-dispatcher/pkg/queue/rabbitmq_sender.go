@@ -2,9 +2,13 @@ package queue
 
 import (
 	"crypto/sha1"
+	"encoding/json"
 	"fmt"
 	"time"
 
+	"github.com/containers-ai/alameda/ai-dispatcher/pkg/config"
+	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
+	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/spf13/viper"
 	"github.com/streadway/amqp"
 )
@@ -171,4 +175,30 @@ func (sender *RabbitMQSender) getMessageHash(msgStr string) string {
 	h.Write([]byte(msgStr))
 	bs := h.Sum(nil)
 	return fmt.Sprintf("%x", bs)
+}
+
+func (sender *RabbitMQSender) SendJob(queueName string, unit *config.Unit,
+	columns, values []string, metricType datahub_common.MetricType, granularity int64) error {
+	body := map[string]interface{}{
+		"category":         unit.Category,
+		"unit_type":        unit.Type,
+		"granularity":      utils.GetGranularityStr(granularity),
+		"granularitySec":   fmt.Sprintf("%v", granularity),
+		"createTimestamp":  fmt.Sprintf("%v", time.Now().Unix()),
+		"metricType":       fmt.Sprintf("%d", metricType),
+		"metricTypeString": fmt.Sprintf("%s", metricType),
+	}
+	jobID, err := utils.GetJobID(unit, values, columns,
+		metricType, granularity)
+	if err != nil {
+		return err
+	}
+	body["object_meta"] = utils.GetJobMap(values, columns, metricType, granularity)
+	bodyStr, err := json.Marshal(body)
+	if err != nil {
+		return err
+	}
+	scope.Debugf(fmt.Sprintf("queue %s: %s", queueName, string(bodyStr)))
+	err = sender.SendJsonString(queueName, string(bodyStr), jobID, granularity)
+	return err
 }

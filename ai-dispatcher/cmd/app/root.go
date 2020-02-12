@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/containers-ai/alameda/ai-dispatcher/pkg/config"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/dispatcher"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -62,6 +63,14 @@ var rootCmd = &cobra.Command{
 		initLogger()
 		setLoggerScopesWithConfig()
 
+		cfg := &config.Config{}
+
+		err := viper.Unmarshal(&cfg)
+		if err != nil {
+			panic(err)
+		}
+		cfg.Init()
+
 		datahubAddr := viper.GetString("datahub.address")
 		if datahubAddr == "" {
 			scope.Errorf("No configuration of datahub address.")
@@ -105,7 +114,7 @@ var rootCmd = &cobra.Command{
 			go dispatcher.ModelCompleteNotification(modelMapper, conn, metricExporter)
 		}
 		dp := dispatcher.NewDispatcher(conn, granularities, predictUnits,
-			modelMapper, metricExporter)
+			modelMapper, metricExporter, cfg)
 		dp.Start()
 	},
 }

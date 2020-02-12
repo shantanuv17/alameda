@@ -8,12 +8,16 @@ import (
 	"time"
 
 	"github.com/containers-ai/alameda/ai-dispatcher/consts"
+	"github.com/containers-ai/alameda/ai-dispatcher/pkg/config"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
+	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
 	"github.com/containers-ai/alameda/pkg/utils/log"
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	datahub_data "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	datahub_gpu "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
+	datahub_schemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	"github.com/spf13/viper"
 	"github.com/streadway/amqp"
 	"google.golang.org/grpc"
@@ -37,10 +41,12 @@ type Dispatcher struct {
 
 	modelJobSender   *modelJobSender
 	predictJobSender *predictJobSender
+	cfg              *config.Config
 }
 
 func NewDispatcher(datahubGrpcCn *grpc.ClientConn, granularities []string,
-	predictUnits []string, modelMapper *ModelMapper, metricExporter *metrics.Exporter) *Dispatcher {
+	predictUnits []string, modelMapper *ModelMapper, metricExporter *metrics.Exporter,
+	cfg *config.Config) *Dispatcher {
 	modelJobSender := NewModelJobSender(datahubGrpcCn, modelMapper, metricExporter)
 	predictJobSender := NewPredictJobSender(datahubGrpcCn)
 	dispatcher := &Dispatcher{
@@ -49,6 +55,7 @@ func NewDispatcher(datahubGrpcCn *grpc.ClientConn, granularities []string,
 		datahubGrpcCn:    datahubGrpcCn,
 		modelJobSender:   modelJobSender,
 		predictJobSender: predictJobSender,
+		cfg:              cfg,
 	}
 	dispatcher.validCfg()
 	return dispatcher
@@ -83,6 +90,7 @@ func (dispatcher *Dispatcher) validCfg() {
 		scope.Errorf("no setting of granularities of service")
 		os.Exit(1)
 	}
+
 	if len(dispatcher.svcPredictUnits) == 0 {
 		scope.Errorf("no setting of predict units of service")
 		os.Exit(1)
@@ -112,33 +120,88 @@ func (dispatcher *Dispatcher) dispatch(granularity string, predictionStep int64,
 			modelHasVPA = false
 			predictHasVPA = false
 		}
-		for _, pdUnit := range dispatcher.svcPredictUnits {
-			if dispatcher.skipJobSending(pdUnit, granularitySec) {
-				continue
+
+		if granularity == "1m" {
+			// New API section
+			for _, unit := range dispatcher.cfg.GetUnits() {
+				if !unit.Enabled {
+					continue
+				}
+				unitScope := unit.Scope
+				category := unit.Category
+				unitType := unit.Type
+				if queueJobType == "predictionJobSendIntervalSec" {
+					scope.Infof(
+						"Start dispatching prediction unit with (scope: %s, category: %s, type: %s) with granularity %v seconds and cycle %v seconds",
+						unitScope, category, unitType, granularitySec, queueJobSendIntervalSec)
+				} else if queueJobType == "modelJobSendIntervalSec" {
+					scope.Infof(
+						"Start dispatching model unit with (scope %s, category %s, type: %s) with granularity %v seconds and cycle %v seconds",
+						unitScope, category, unitType, granularitySec, queueJobSendIntervalSec)
+				}
+				dispatcher.getAndPushJobsV2(queueSender, &unit, granularitySec,
+					predictionStep, queueJobType)
 			}
+		}
+		if granularity != "1m" {
+			for _, pdUnit := range dispatcher.svcPredictUnits {
+				if dispatcher.skipJobSending(pdUnit, granularitySec) {
+					continue
+				}
 
-			pdUnitType := viper.GetString(fmt.Sprintf("predictUnits.%s.type", pdUnit))
+				pdUnitType := viper.GetString(fmt.Sprintf("predictUnits.%s.type", pdUnit))
 
-			if pdUnitType == "" {
-				scope.Warnf("Unit %s is not defined or set incorrect.", pdUnit)
-				continue
+				if pdUnitType == "" {
+					scope.Warnf("Unit %s is not defined or set incorrect.", pdUnit)
+					continue
+				}
+
+				if queueJobType == "predictionJobSendIntervalSec" {
+					scope.Infof(
+						"Start dispatching prediction unit %s with granularity %v seconds and cycle %v seconds",
+						pdUnitType, granularitySec, queueJobSendIntervalSec)
+				} else if queueJobType == "modelJobSendIntervalSec" {
+					scope.Infof(
+						"Start dispatching model unit %s with granularity %v seconds and cycle %v seconds",
+						pdUnitType, granularitySec, queueJobSendIntervalSec)
+				}
+
+				dispatcher.getAndPushJobs(queueSender, pdUnit, granularitySec,
+					predictionStep, queueJobType)
 			}
-
-			if queueJobType == "predictionJobSendIntervalSec" {
-				scope.Infof(
-					"Start dispatching prediction unit %s with granularity %v seconds and cycle %v seconds",
-					pdUnitType, granularitySec, queueJobSendIntervalSec)
-			} else if queueJobType == "modelJobSendIntervalSec" {
-				scope.Infof(
-					"Start dispatching model unit %s with granularity %v seconds and cycle %v seconds",
-					pdUnitType, granularitySec, queueJobSendIntervalSec)
-			}
-
-			dispatcher.getAndPushJobs(queueSender, pdUnit, granularitySec,
-				predictionStep, queueJobType)
 		}
 		queueConn.Close()
 		time.Sleep(time.Duration(queueJobSendIntervalSec) * time.Second)
+	}
+}
+
+func (dispatcher *Dispatcher) getAndPushJobsV2(queueSender queue.QueueSender,
+	pdUnit *config.Unit, granularity int64, predictionStep int64, queueJobType string) {
+	datahubServiceClnt := datahub_v1alpha1.NewDatahubServiceClient(dispatcher.datahubGrpcCn)
+	data, err := utils.ReadData(datahubServiceClnt, &datahub_schemas.SchemaMeta{
+		Scope:    pdUnit.Scope,
+		Category: pdUnit.Category,
+		Type:     pdUnit.Type,
+	}, []*datahub_data.ReadData{})
+
+	if err != nil {
+		scope.Errorf("List units with (scope %s, category %s, type: %s) failed: %s",
+			pdUnit.Scope, pdUnit.Category, pdUnit.Type, err.Error())
+		return
+	}
+	readData := []*datahub_data.ReadData{}
+	metricTypes := pdUnit.MetricTypes
+	for _, metricType := range metricTypes {
+		readData = append(readData, &datahub_data.ReadData{
+			MetricType: metricType,
+		})
+	}
+
+	if queueJobType == "predictionJobSendIntervalSec" {
+		dispatcher.predictJobSender.SendPredictJobs(data.GetData().GetRawdata(), queueSender, pdUnit, granularity)
+	}
+	if viper.GetBool("model.enabled") && queueJobType == "modelJobSendIntervalSec" {
+		dispatcher.modelJobSender.SendModelJobs(data.GetData().GetRawdata(), queueSender, pdUnit, granularity)
 	}
 }
 

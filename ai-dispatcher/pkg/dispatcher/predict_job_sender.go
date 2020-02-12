@@ -4,8 +4,11 @@ import (
 	"fmt"
 
 	"github.com/containers-ai/alameda/ai-dispatcher/consts"
+	"github.com/containers-ai/alameda/ai-dispatcher/pkg/config"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
+	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
+	datahub_data "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	datahub_gpu "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/golang/protobuf/jsonpb"
@@ -300,6 +303,30 @@ func (dispatcher *predictJobSender) SendControllerPredictJobs(
 			if err != nil {
 				scope.Errorf("[CONTROLLER][%s][%s][%s/%s] Send predict metric %s job failed. %s",
 					controllerKindStr, dataGranularity, controllerNS, controllerName, metricType, err.Error())
+			}
+		}
+	}
+}
+
+func (dispatcher *predictJobSender) SendPredictJobs(rawData []*datahub_data.Rawdata, queueSender queue.QueueSender,
+	unit *config.Unit, granularity int64) {
+	for _, rawDatum := range rawData {
+		for _, grp := range rawDatum.GetGroups() {
+			columns := grp.GetColumns()
+			for _, row := range grp.GetRows() {
+				for _, metricType := range unit.MetricTypes {
+					jobID, err := utils.GetJobID(unit, row.GetValues(), columns,
+						metricType, granularity)
+					if err != nil {
+						scope.Errorf("[%s] Send predict job failed due to %s", jobID, err.Error())
+						continue
+					}
+					err = queueSender.SendJob(queueName, unit, columns, row.GetValues(),
+						metricType, granularity)
+					if err != nil {
+						scope.Errorf("[%s] Send predict job failed due to %s.", jobID, err.Error())
+					}
+				}
 			}
 		}
 	}
