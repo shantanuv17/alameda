@@ -35,7 +35,9 @@ func genSchemaApplicationKafkaTopic() *schemas.Schema {
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("alameda_scaler_name", true, schemas.Field, common.String)
+	measurement.AddColumn("alameda_scaler_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("alameda_scaler_namespace", true, schemas.Tag, common.String)
+	measurement.AddColumn("dummy", true, schemas.Field, common.String)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }
@@ -48,6 +50,8 @@ func genSchemaApplicationKafkaCG() *schemas.Schema {
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("topic_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("alameda_scaler_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("alameda_scaler_namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("resource_k8s_namespace", false, schemas.Field, common.String)
 	measurement.AddColumn("resource_k8s_name", false, schemas.Field, common.String)
 	measurement.AddColumn("resource_k8s_kind", false, schemas.Field, common.String)
@@ -58,7 +62,6 @@ func genSchemaApplicationKafkaCG() *schemas.Schema {
 	measurement.AddColumn("resource_custom_name", false, schemas.Field, common.String)
 	measurement.AddColumn("policy", false, schemas.Field, common.String)
 	measurement.AddColumn("enable_execution", false, schemas.Field, common.Bool)
-	measurement.AddColumn("alameda_scaler_name", false, schemas.Field, common.String)
 	measurement.AddColumn("resource_cpu_limit", false, schemas.Field, common.String)
 	measurement.AddColumn("resource_cpu_request", false, schemas.Field, common.String)
 	measurement.AddColumn("resource_memory_limit", false, schemas.Field, common.String)
