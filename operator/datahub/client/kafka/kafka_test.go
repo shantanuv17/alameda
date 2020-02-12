@@ -23,16 +23,18 @@ func TestNewWriteDataRequestByTopics(t *testing.T) {
 		testCase{
 			have: []kafka.Topic{
 				kafka.Topic{
-					Name:              "topic1",
-					ExporterNamespace: "exporter-namespace-1",
-					ClusterName:       "cluster-name-1",
-					AlamedaScalerName: "alamedascaler-namespace-1",
+					Name:                   "topic1",
+					ExporterNamespace:      "exporter-namespace-1",
+					ClusterName:            "cluster-name-1",
+					AlamedaScalerName:      "alamedascaler-name-1",
+					AlamedaScalerNamespace: "alamedascaler-namespace-1",
 				},
 				kafka.Topic{
-					Name:              "topic2",
-					ExporterNamespace: "exporter-namespace-2",
-					ClusterName:       "cluster-name-2",
-					AlamedaScalerName: "alamedascaler-namespace-2",
+					Name:                   "topic2",
+					ExporterNamespace:      "exporter-namespace-2",
+					ClusterName:            "cluster-name-2",
+					AlamedaScalerName:      "alamedascaler-name-2",
+					AlamedaScalerNamespace: "alamedascaler-namespace-2",
 				},
 			},
 			want: data.WriteDataRequest{
@@ -49,6 +51,8 @@ func TestNewWriteDataRequestByTopics(t *testing.T) {
 							"namespace",
 							"cluster_name",
 							"alameda_scaler_name",
+							"alameda_scaler_namespace",
+							"dummy",
 						},
 						Rows: []*common.Row{
 							&common.Row{
@@ -56,7 +60,9 @@ func TestNewWriteDataRequestByTopics(t *testing.T) {
 									"topic1",
 									"exporter-namespace-1",
 									"cluster-name-1",
+									"alamedascaler-name-1",
 									"alamedascaler-namespace-1",
+									"",
 								},
 							},
 							&common.Row{
@@ -64,7 +70,9 @@ func TestNewWriteDataRequestByTopics(t *testing.T) {
 									"topic2",
 									"exporter-namespace-2",
 									"cluster-name-2",
+									"alamedascaler-name-2",
 									"alamedascaler-namespace-2",
+									"",
 								},
 							},
 						},
@@ -80,7 +88,16 @@ func TestNewWriteDataRequestByTopics(t *testing.T) {
 	for _, testCase := range testCases {
 		actual, err := kr.newWriteDataRequestByTopics(testCase.have)
 		assert.NoError(err)
-		assert.Equal(testCase.want, actual)
+
+		assert.Equal(testCase.want.SchemaMeta, actual.SchemaMeta)
+		for i, data := range testCase.want.WriteData {
+			actualData := actual.WriteData[i]
+			assert.Equal(data.Measurement, actualData.Measurement)
+			assert.ElementsMatch(data.Columns, actualData.Columns)
+			for j, row := range data.Rows {
+				assert.ElementsMatch(row.Values, actualData.Rows[j].Values)
+			}
+		}
 	}
 }
 
@@ -95,13 +112,14 @@ func TestNewWriteDataRequestByConsumerGroups(t *testing.T) {
 		testCase{
 			have: []kafka.ConsumerGroup{
 				kafka.ConsumerGroup{
-					Name:              "consumer-group-1",
-					ExporterNamespace: "exporter-namespace-1",
-					ClusterName:       "cluster-name-1",
-					AlamedaScalerName: "alamedascaler-namespace-1",
-					Policy:            "stable",
-					EnableExecution:   true,
-					ConsumeTopic:      "topic1",
+					Name:                   "consumer-group-1",
+					ExporterNamespace:      "exporter-namespace-1",
+					ClusterName:            "cluster-name-1",
+					AlamedaScalerName:      "alamedascaler-name-1",
+					AlamedaScalerNamespace: "alamedascaler-namespace-1",
+					Policy:                 "stable",
+					EnableExecution:        true,
+					ConsumeTopic:           "topic1",
 					ResourceMeta: kafka.ResourceMeta{
 						KubernetesMeta: kafka.KubernetesMeta{
 							Namespace:     "namespace-1",
@@ -116,13 +134,14 @@ func TestNewWriteDataRequestByConsumerGroups(t *testing.T) {
 					MaxReplicas: 10,
 				},
 				kafka.ConsumerGroup{
-					Name:              "consumer-group-2",
-					ExporterNamespace: "exporter-namespace-2",
-					ClusterName:       "cluster-name-2",
-					AlamedaScalerName: "alamedascaler-namespace-2",
-					Policy:            "stable",
-					EnableExecution:   true,
-					ConsumeTopic:      "topic2",
+					Name:                   "consumer-group-2",
+					ExporterNamespace:      "exporter-namespace-2",
+					ClusterName:            "cluster-name-2",
+					AlamedaScalerName:      "alamedascaler-name-2",
+					AlamedaScalerNamespace: "alamedascaler-namespace-2",
+					Policy:                 "stable",
+					EnableExecution:        true,
+					ConsumeTopic:           "topic2",
 					ResourceMeta: kafka.ResourceMeta{
 						CustomName: "custom-name-2",
 					},
@@ -142,6 +161,7 @@ func TestNewWriteDataRequestByConsumerGroups(t *testing.T) {
 							"namespace",
 							"cluster_name",
 							"alameda_scaler_name",
+							"alameda_scaler_namespace",
 							"policy",
 							"enable_execution",
 							"topic_name",
@@ -166,6 +186,7 @@ func TestNewWriteDataRequestByConsumerGroups(t *testing.T) {
 									"consumer-group-1",
 									"exporter-namespace-1",
 									"cluster-name-1",
+									"alamedascaler-name-1",
 									"alamedascaler-namespace-1",
 									"stable",
 									"true",
@@ -191,6 +212,7 @@ func TestNewWriteDataRequestByConsumerGroups(t *testing.T) {
 									"consumer-group-2",
 									"exporter-namespace-2",
 									"cluster-name-2",
+									"alamedascaler-name-2",
 									"alamedascaler-namespace-2",
 									"stable",
 									"true",
@@ -828,5 +850,92 @@ func TestDecodeSlice(t *testing.T) {
 		err := decodeSlice(testCase.have.data, &testCase.have.items)
 		assert.NoError(err)
 		assert.ElementsMatch(testCase.have.items, testCase.want)
+	}
+}
+
+func TestNewDeleteDataByOption(t *testing.T) {
+	type testCase struct {
+		have DeleteTopicsOption
+		want data.DeleteData
+	}
+
+	testCases := []testCase{
+		testCase{
+			have: DeleteTopicsOption{
+				ClusterName:       "test-cluster",
+				ExporterNamespace: "test-exporter-namespace",
+				AlamedaScalerName: "test-alamedascaler",
+			},
+			want: data.DeleteData{
+				Measurement: "kafka_topic",
+				QueryCondition: &common.QueryCondition{
+					WhereCondition: []*common.Condition{
+						&common.Condition{
+							Keys: []string{
+								"cluster_name",
+								"namespace",
+								"alameda_scaler_name",
+							},
+							Values: []string{
+								"test-cluster",
+								"test-exporter-namespace",
+								"test-alamedascaler",
+							},
+							Operators: []string{
+								"=",
+								"=",
+								"=",
+							},
+							Types: []common.DataType{
+								common.DataType(common.DataType_DATATYPE_STRING),
+								common.DataType(common.DataType_DATATYPE_STRING),
+								common.DataType(common.DataType_DATATYPE_STRING),
+							},
+						},
+					},
+				},
+			},
+		},
+		testCase{
+			have: DeleteTopicsOption{
+				ClusterName: "test-cluster",
+			},
+			want: data.DeleteData{
+				Measurement: "kafka_topic",
+				QueryCondition: &common.QueryCondition{
+					WhereCondition: []*common.Condition{
+						&common.Condition{
+							Keys: []string{
+								"cluster_name",
+							},
+							Values: []string{
+								"test-cluster",
+							},
+							Operators: []string{
+								"=",
+							},
+							Types: []common.DataType{
+								common.DataType(common.DataType_DATATYPE_STRING),
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+	assert := assert.New(t)
+	for _, testCase := range testCases {
+		actual, err := newDeleteData(defaultConfig.kafka.topic.delete.measurements[0], testCase.have)
+		assert.NoError(err)
+		assert.Equal(testCase.want, actual)
+
+		for i, cond := range testCase.want.QueryCondition.WhereCondition {
+			actualCond := actual.QueryCondition.WhereCondition[i]
+			assert.ElementsMatch(cond.Keys, actualCond.Keys)
+			assert.ElementsMatch(cond.Values, actualCond.Values)
+			assert.ElementsMatch(cond.Operators, actualCond.Operators)
+			assert.ElementsMatch(cond.Types, actualCond.Types)
+
+		}
 	}
 }

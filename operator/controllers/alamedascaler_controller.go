@@ -102,12 +102,9 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 	// Delete resources relative to AlamedaScaler
 	ctx := context.TODO()
 	instance := autoscalingv1alpha1.AlamedaScaler{}
-	if err := r.Get(ctx, types.NamespacedName{Namespace: req.Namespace, Name: req.Name}, &instance); err != nil && k8sErrors.IsNotFound(err) {
-		scope.Infof("AlamedaScaler(%s/%s) is deleted, remove alameda pods from datahub.", req.Namespace, req.Name)
-		if err := r.handleAlamedaScalerDeletion(req.Namespace, req.Name); err != nil {
-			scope.Errorf("Handle AlamedaScaler(%s/%s) deletion failed, retry after %f seconds. %s", req.Namespace, req.Name, requeueAfter.Seconds(), err.Error())
-			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
-		}
+	err := r.Get(ctx, types.NamespacedName{Namespace: req.Namespace, Name: req.Name}, &instance)
+	if err != nil && k8sErrors.IsNotFound(err) {
+		return ctrl.Result{Requeue: false}, nil
 	} else if err != nil {
 		scope.Errorf("Get AlamedaScaler(%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
 		return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
@@ -115,7 +112,8 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 	alamedaScaler := autoscalingv1alpha1.AlamedaScaler{}
 	instance.DeepCopyInto(&alamedaScaler)
 
-	if ok, err := r.isAlamedaScalerNeedToBeReconciled(context.TODO(), alamedaScaler); err != nil {
+	ok, err := r.isAlamedaScalerNeedToBeReconciled(context.TODO(), alamedaScaler)
+	if err != nil {
 		scope.Warnf("Check if AlamedaScaler(%s/%s) need to be reconciled failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	} else if !ok {
@@ -123,10 +121,21 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 		return ctrl.Result{Requeue: false}, nil
 	}
 
+	if alamedaScaler.GetDeletionTimestamp() != nil {
+		scope.Infof("Handling deletion of AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
+		if err := r.handleAlamedaScalerDeletion(alamedaScaler.Namespace, alamedaScaler.Name); err != nil {
+			scope.Warnf("Handle deleteion of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+		}
+		scope.Infof("Handle deletion of AlamedaScaler(%s/%s) done.", req.Namespace, req.Name)
+		return ctrl.Result{Requeue: false}, nil
+	}
+
 	scope.Infof("Reconciling AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
+	// TODO: Delete full info
+	scope.Infof("AlamedaScaler: %+v", alamedaScaler)
 	alamedaScaler = r.setDefaultAlamedaScaler(alamedaScaler)
 	alamedaScaler.Status.AlamedaController = autoscalingv1alpha1.NewAlamedaController()
-	var err error
 	if alamedaScaler, err = r.listAndAddDeploymentsIntoAlamedaScalerStatue(context.TODO(), alamedaScaler); err != nil {
 		scope.Warnf("List and add Deployments into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil

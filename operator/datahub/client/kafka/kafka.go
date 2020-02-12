@@ -81,10 +81,11 @@ func (k KafkaRepository) ListTopics(ctx context.Context, option ListTopicsOption
 	topics := make([]kafka.Topic, 0, len(entities))
 	for _, e := range entities {
 		topics = append(topics, kafka.Topic{
-			Name:              e.Name,
-			ExporterNamespace: e.ExporterNamespace,
-			ClusterName:       e.ClusterName,
-			AlamedaScalerName: e.AlamedaScalerName,
+			Name:                   e.Name,
+			ExporterNamespace:      e.ExporterNamespace,
+			ClusterName:            e.ClusterName,
+			AlamedaScalerName:      e.AlamedaScalerName,
+			AlamedaScalerNamespace: e.AlamedaScalerNamespace,
 		})
 	}
 	return topics, nil
@@ -106,13 +107,14 @@ func (k KafkaRepository) ListConsumerGroups(ctx context.Context, option ListCons
 	consumerGroups := make([]kafka.ConsumerGroup, 0, len(entities))
 	for _, e := range entities {
 		consumerGroups = append(consumerGroups, kafka.ConsumerGroup{
-			Name:              e.Name,
-			ExporterNamespace: e.ExporterNamespace,
-			ClusterName:       e.ClusterName,
-			AlamedaScalerName: e.AlamedaScalerName,
-			Policy:            e.Policy,
-			EnableExecution:   e.EnableExecution,
-			ConsumeTopic:      e.ConsumeTopic,
+			Name:                   e.Name,
+			ExporterNamespace:      e.ExporterNamespace,
+			ClusterName:            e.ClusterName,
+			AlamedaScalerName:      e.AlamedaScalerName,
+			AlamedaScalerNamespace: e.AlamedaScalerNamespace,
+			Policy:                 e.Policy,
+			EnableExecution:        e.EnableExecution,
+			ConsumeTopic:           e.ConsumeTopic,
 			ResourceMeta: kafka.ResourceMeta{
 				CustomName: e.ResourceCustomName,
 				KubernetesMeta: kafka.KubernetesMeta{
@@ -150,6 +152,28 @@ func (k KafkaRepository) DeleteTopics(ctx context.Context, topics []kafka.Topic)
 	return nil
 }
 
+func (k KafkaRepository) DeleteTopicsByOption(ctx context.Context, option DeleteTopicsOption) error {
+	deleteData, err := newDeleteData(k.schemaConfig.kafka.topic.delete.measurements[0], option)
+	if err != nil {
+		return errors.Wrap(err, "new DeleteData failed")
+	}
+	schemaMeta := k.schemaConfig.kafka.topic.delete.schemaMeta
+	req := data.DeleteDataRequest{
+		SchemaMeta: &schemas.SchemaMeta{
+			Scope:    schemas.Scope(schemas.Scope_value[schemaMeta.scope]),
+			Category: schemaMeta.category,
+			Type:     schemaMeta.type_,
+		},
+		DeleteData: []*data.DeleteData{
+			&deleteData,
+		},
+	}
+	if err := k.sendDeleteDataRequest(ctx, req); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (k KafkaRepository) DeleteConsumerGroups(ctx context.Context, consumerGroups []kafka.ConsumerGroup) error {
 	if len(consumerGroups) == 0 {
 		return nil
@@ -157,6 +181,28 @@ func (k KafkaRepository) DeleteConsumerGroups(ctx context.Context, consumerGroup
 	req, err := k.newDeleteDataRequestByConsumerGroups(consumerGroups)
 	if err != nil {
 		return errors.Wrap(err, "new DeleteDataRequeset by consumergroups failed")
+	}
+	if err := k.sendDeleteDataRequest(ctx, req); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (k KafkaRepository) DeleteConsumerGroupsByOption(ctx context.Context, option DeleteConsumerGroupsOption) error {
+	deleteData, err := newDeleteData(k.schemaConfig.kafka.consumerGroup.delete.measurements[0], option)
+	if err != nil {
+		return errors.Wrap(err, "new DeleteData failed")
+	}
+	schemaMeta := k.schemaConfig.kafka.consumerGroup.delete.schemaMeta
+	req := data.DeleteDataRequest{
+		SchemaMeta: &schemas.SchemaMeta{
+			Scope:    schemas.Scope(schemas.Scope_value[schemaMeta.scope]),
+			Category: schemaMeta.category,
+			Type:     schemaMeta.type_,
+		},
+		DeleteData: []*data.DeleteData{
+			&deleteData,
+		},
 	}
 	if err := k.sendDeleteDataRequest(ctx, req); err != nil {
 		return err
@@ -414,10 +460,14 @@ func newWriteData(measurement measurement, dataRows interface{}) (data.WriteData
 // newDeleteData returns DeleteData containing with measuremnt and whereConditions
 // Currently type of argument "dataRows" must be slice of struct, and each type of the field must in the second swith cases.
 func newDeleteData(measurement measurement, dataRows interface{}) (data.DeleteData, error) {
-	switch reflect.ValueOf(dataRows).Kind() {
+	dataV := reflect.ValueOf(dataRows)
+	dataT := dataV.Type()
+	switch dataV.Kind() {
 	case reflect.Slice:
-	// TODO:
-	// case reflect.Struct:
+	case reflect.Struct:
+		tmpSlice := reflect.MakeSlice(reflect.SliceOf(dataT), 0, 1)
+		tmpSlice = reflect.Append(tmpSlice, dataV)
+		dataRows = tmpSlice.Interface()
 	default:
 		return data.DeleteData{}, errors.Errorf("not supported value(%s)", reflect.TypeOf(dataRows).Kind())
 	}

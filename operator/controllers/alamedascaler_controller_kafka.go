@@ -97,7 +97,12 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 	cachedAlamedaScaler := autoscalingv1alpha1.AlamedaScaler{}
 	err := r.K8SClient.Get(ctx, client.ObjectKey{Namespace: req.Namespace, Name: req.Name}, &cachedAlamedaScaler)
 	if err != nil && k8serrors.IsNotFound(err) {
-		r.Logger.Infof("AlamedaScaler(%s/%s) not found, skip reconciling.", req.Namespace, req.Name)
+		r.Logger.Infof("Handling deletion of AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
+		if err := r.handleDeletion(ctx, req.Namespace, req.Name); err != nil {
+			r.Logger.Warnf("Handle deleteion of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+		}
+		r.Logger.Infof("Handle deletion of AlamedaScaler(%s/%s) done.", req.Namespace, req.Name)
 		return ctrl.Result{Requeue: false}, nil
 	}
 	alamedaScaler := autoscalingv1alpha1.AlamedaScaler{}
@@ -117,15 +122,25 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 		}
 		err := r.updateAlamedaScaler(ctx, &alamedaScaler)
 		if err != nil {
-			r.Logger.Infof("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
 			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 		}
 		return ctrl.Result{Requeue: false}, nil
 	}
 
+	if cachedAlamedaScaler.GetDeletionTimestamp() != nil {
+		r.Logger.Infof("Handling deletion of AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
+		if err := r.handleDeletion(ctx, req.Namespace, req.Name); err != nil {
+			r.Logger.Warnf("Handle deleteion of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+		}
+		r.Logger.Infof("Handle deletion of AlamedaScaler(%s/%s) done.", req.Namespace, req.Name)
+		return ctrl.Result{Requeue: false}, nil
+	}
+
 	ok, err := r.isMetricsExist(ctx, r.NeededMetrics)
 	if err != nil {
-		r.Logger.Errorf("Check if metrics exist in Prometheus failed: metrics: %+v: err: %+v", r.NeededMetrics, err)
+		r.Logger.Warnf("Check if metrics exist in Prometheus failed: metrics: %+v: err: %+v", r.NeededMetrics, err)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
 	if !ok {
@@ -133,14 +148,14 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 		alamedaScaler.Status.Kafka.Message = "Needed metrics not exist in Prometheus."
 		err := r.updateAlamedaScaler(ctx, &alamedaScaler)
 		if err != nil {
-			r.Logger.Infof("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
 			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 		}
 		return ctrl.Result{Requeue: false}, nil
 	}
 
 	if err := r.openClient(); err != nil {
-		r.Logger.Errorf("Open AlamedaScaler(%s/%s) clients' connection failed: err: %+v", req.Namespace, req.Name, err)
+		r.Logger.Warnf("Open AlamedaScaler(%s/%s) clients' connection failed: err: %+v", req.Namespace, req.Name, err)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
 
@@ -152,20 +167,20 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 		alamedaScaler.Status.Kafka.Message = err.Error()
 		err := r.updateAlamedaScaler(ctx, &alamedaScaler)
 		if err != nil {
-			r.Logger.Infof("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
 		}
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
 	topics := r.prepareTopics(consumerGroupDetails)
 
-	err = r.syncWithDatahub(ctx, topics, consumerGroupDetails)
+	err = r.syncWithDatahub(ctx, alamedaScaler, topics, consumerGroupDetails)
 	if err != nil {
 		r.Logger.Infof("Synchornize consumerGroupDetails with remote of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
 		alamedaScaler.Status.Kafka.Effective = false
 		alamedaScaler.Status.Kafka.Message = err.Error()
 		err := r.updateAlamedaScaler(ctx, &alamedaScaler)
 		if err != nil {
-			r.Logger.Infof("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
 		}
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
@@ -173,12 +188,40 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 	kafkaStatus := r.getKafkaStatus(alamedaScaler, consumerGroupDetails)
 	alamedaScaler.Status.Kafka = &kafkaStatus
 	if err := r.updateAlamedaScaler(ctx, &alamedaScaler); err != nil {
-		r.Logger.Infof("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+		r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
 		return ctrl.Result{Requeue: false}, nil
 	}
 
 	r.Logger.Infof("Update AlamedaScaler(%s/%s) done.", req.Namespace, req.Name)
 	return ctrl.Result{Requeue: false}, nil
+}
+
+func (r AlamedaScalerKafkaReconciler) handleDeletion(ctx context.Context, namespace, name string) error {
+	wg := errgroup.Group{}
+	wg.Go(func() error {
+		opt := kafkarepository.DeleteTopicsOption{
+			ClusterName:            r.ClusterUID,
+			AlamedaScalerNamespace: namespace,
+			AlamedaScalerName:      name,
+		}
+		if err := r.KafkaRepository.DeleteTopicsByOption(ctx, opt); err != nil {
+			return errors.Wrap(err, "delete topics from Datahub failed")
+		}
+		return nil
+	})
+
+	wg.Go(func() error {
+		opt := kafkarepository.DeleteConsumerGroupsOption{
+			ClusterName:            r.ClusterUID,
+			AlamedaScalerNamespace: namespace,
+			AlamedaScalerName:      name,
+		}
+		if err := r.KafkaRepository.DeleteConsumerGroupsByOption(ctx, opt); err != nil {
+			return errors.Wrap(err, "delete consumerGroups from Datahub failed")
+		}
+		return nil
+	})
+	return wg.Wait()
 }
 
 func (r AlamedaScalerKafkaReconciler) updateAlamedaScaler(ctx context.Context, alamedaScaler *autoscalingv1alpha1.AlamedaScaler) error {
@@ -263,10 +306,11 @@ func (r AlamedaScalerKafkaReconciler) prepareTopics(consumerGroups []kafkamodel.
 		id := fmt.Sprintf("%s/%s/%s", cg.ClusterName, cg.ExporterNamespace, cg.ConsumeTopic)
 
 		topicSet[id] = kafkamodel.Topic{
-			Name:              cg.ConsumeTopic,
-			ExporterNamespace: cg.ExporterNamespace,
-			ClusterName:       cg.ClusterName,
-			AlamedaScalerName: cg.AlamedaScalerName,
+			Name:                   cg.ConsumeTopic,
+			ExporterNamespace:      cg.ExporterNamespace,
+			ClusterName:            cg.ClusterName,
+			AlamedaScalerName:      cg.AlamedaScalerName,
+			AlamedaScalerNamespace: cg.AlamedaScalerNamespace,
 		}
 	}
 
@@ -318,13 +362,14 @@ func (r AlamedaScalerKafkaReconciler) listConsumerGroups(ctx context.Context, al
 		}
 
 		consumerGroup := kafkamodel.ConsumerGroup{
-			Name:              consumerGroupSpec.Name,
-			ExporterNamespace: alamedaScaler.Spec.Kafka.ExporterNamespace,
-			ClusterName:       r.ClusterUID,
-			AlamedaScalerName: alamedaScaler.GetName(),
-			Policy:            policy,
-			EnableExecution:   alamedaScaler.IsEnableExecution(),
-			ConsumeTopic:      topic,
+			Name:                   consumerGroupSpec.Name,
+			ExporterNamespace:      alamedaScaler.Spec.Kafka.ExporterNamespace,
+			ClusterName:            r.ClusterUID,
+			AlamedaScalerName:      alamedaScaler.GetName(),
+			AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
+			Policy:                 policy,
+			EnableExecution:        alamedaScaler.IsEnableExecution(),
+			ConsumeTopic:           topic,
 			ResourceMeta: kafkamodel.ResourceMeta{
 				CustomName: consumerGroupSpec.Resource.Custom,
 			},
@@ -511,8 +556,11 @@ func (r AlamedaScalerKafkaReconciler) getConsumerGroupToConsumeTopicsMap(ctx con
 	return consumerGroupToConsumeTopicsMap, nil
 }
 
-func (r AlamedaScalerKafkaReconciler) syncWithDatahub(ctx context.Context, topics []kafkamodel.Topic, consumerGroups []kafkamodel.ConsumerGroup) error {
+func (r AlamedaScalerKafkaReconciler) syncWithDatahub(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler, topics []kafkamodel.Topic, consumerGroups []kafkamodel.ConsumerGroup) error {
 	r.Logger.Infof("Synchronize with Datahub. Topics: %+v, ConsumerGroups: %+v", topics, consumerGroups)
+
+	alamedaScalerName := alamedaScaler.Name
+	exporterNamespace := alamedaScaler.Spec.Kafka.ExporterNamespace
 
 	wg := errgroup.Group{}
 	wg.Go(func() error {
@@ -521,7 +569,7 @@ func (r AlamedaScalerKafkaReconciler) syncWithDatahub(ctx context.Context, topic
 			return errors.Wrap(err, "creae topics to Datahub failed")
 		}
 		// Delete topics
-		topics, err := r.getTopicsToDelete(ctx, topics)
+		topics, err := r.getTopicsToDelete(ctx, exporterNamespace, alamedaScalerName, topics)
 		if err != nil {
 			return err
 		}
@@ -537,7 +585,7 @@ func (r AlamedaScalerKafkaReconciler) syncWithDatahub(ctx context.Context, topic
 			return errors.Wrap(err, "create consumerGroupDetails to Datahub failed")
 		}
 		// Delete consumerGroups
-		consumerGroups, err := r.getConsumerGroupsToDelete(ctx, consumerGroups)
+		consumerGroups, err := r.getConsumerGroupsToDelete(ctx, exporterNamespace, alamedaScalerName, consumerGroups)
 		if err != nil {
 			return err
 		}
@@ -550,7 +598,7 @@ func (r AlamedaScalerKafkaReconciler) syncWithDatahub(ctx context.Context, topic
 	return wg.Wait()
 }
 
-func (r AlamedaScalerKafkaReconciler) getTopicsToDelete(ctx context.Context, topics []kafkamodel.Topic) ([]kafkamodel.Topic, error) {
+func (r AlamedaScalerKafkaReconciler) getTopicsToDelete(ctx context.Context, exporterNamespace string, alamedaScalerName string, topics []kafkamodel.Topic) ([]kafkamodel.Topic, error) {
 	empty := struct{}{}
 	topicsNeedExisting := make(map[kafkamodel.Topic]struct{}, len(topics))
 	for _, topic := range topics {
@@ -558,10 +606,9 @@ func (r AlamedaScalerKafkaReconciler) getTopicsToDelete(ctx context.Context, top
 	}
 
 	topics, err := r.KafkaRepository.ListTopics(ctx, kafkarepository.ListTopicsOption{
-		// TODO:
 		ClusterName:       r.ClusterUID,
-		ExporterNamespace: "",
-		AlamedaScalerName: "",
+		ExporterNamespace: exporterNamespace,
+		AlamedaScalerName: alamedaScalerName,
 	})
 	if err != nil {
 		return nil, errors.Wrap(err, "list topics from Datahub failed")
@@ -575,7 +622,7 @@ func (r AlamedaScalerKafkaReconciler) getTopicsToDelete(ctx context.Context, top
 	return topicsToDelete, nil
 }
 
-func (r AlamedaScalerKafkaReconciler) getConsumerGroupsToDelete(ctx context.Context, consumerGroups []kafkamodel.ConsumerGroup) ([]kafkamodel.ConsumerGroup, error) {
+func (r AlamedaScalerKafkaReconciler) getConsumerGroupsToDelete(ctx context.Context, exporterNamespace string, alamedaScalerName string, consumerGroups []kafkamodel.ConsumerGroup) ([]kafkamodel.ConsumerGroup, error) {
 	empty := struct{}{}
 	consumerGroupsNeedExisting := make(map[kafkamodel.ConsumerGroup]struct{}, len(consumerGroups))
 	for _, consumerGroup := range consumerGroups {
@@ -583,10 +630,9 @@ func (r AlamedaScalerKafkaReconciler) getConsumerGroupsToDelete(ctx context.Cont
 	}
 
 	consumerGroups, err := r.KafkaRepository.ListConsumerGroups(ctx, kafkarepository.ListConsumerGroupsOption{
-		// TODO:
 		ClusterName:       r.ClusterUID,
-		ExporterNamespace: "",
-		AlamedaScalerName: "",
+		ExporterNamespace: exporterNamespace,
+		AlamedaScalerName: alamedaScalerName,
 	})
 	if err != nil {
 		return nil, errors.Wrap(err, "list consumerGroups from Datahub failed")

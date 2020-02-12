@@ -107,6 +107,9 @@ var (
 	datahubClient    datahubv1alpha1.DatahubServiceClient
 	kafkaClient      kafka.Client
 	prometheusClient prometheus.Prometheus
+
+	// Resource repositories
+	datahubKafkaRepo datahub_client_kafka.KafkaRepository
 )
 
 func init() {
@@ -273,6 +276,10 @@ func initDatahubSchemas(ctx context.Context) error {
 	return nil
 }
 
+func initDatahubResourceRepsitories() {
+	datahubKafkaRepo = datahub_client_kafka.NewKafkaRepository(datahubClient, datahubClientLogger)
+}
+
 func setupManager() (manager.Manager, error) {
 	return ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
 		MetricsBindAddress: metricsAddr,
@@ -298,7 +305,6 @@ func addControllersToManager(mgr manager.Manager) error {
 	datahubControllerRepo := datahub_client_controller.NewControllerRepository(datahubConn, clusterUID)
 	datahubPodRepo := datahub_client_pod.NewPodRepository(datahubConn, clusterUID)
 	datahubNamespaceRepo := datahub_client_namespace.NewNamespaceRepository(datahubConn, clusterUID)
-	datahubKafkaRepo := datahub_client_kafka.NewKafkaRepository(datahubClient, datahubClientLogger)
 
 	var err error
 
@@ -467,6 +473,7 @@ func main() {
 	if err = initDatahubSchemas(context.TODO()); err != nil {
 		panic(errors.Wrap(err, "init Datahub schemas failed"))
 	}
+	initDatahubResourceRepsitories()
 
 	scope.Info("Adding controllers to manager...")
 	if err := addControllersToManager(mgr); err != nil {

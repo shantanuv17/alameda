@@ -28,7 +28,19 @@
                 },
                 {
                     "name": "alameda_scaler_name",
-                    "required": false,
+                    "required": true,
+                    "column_types": 1,
+                    "data_types": 14
+                },
+                {
+                    "name": "alameda_scaler_namespace",
+                    "required": true,
+                    "column_types": 1,
+                    "data_types": 14
+                },
+                {
+                    "name": "dummy",
+                    "required": true,
                     "column_types": 2,
                     "data_types": 14
                 }

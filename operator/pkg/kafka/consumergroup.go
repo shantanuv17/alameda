@@ -7,13 +7,14 @@ import (
 )
 
 type ConsumerGroup struct {
-	Name              string
-	ExporterNamespace string
-	ClusterName       string
-	AlamedaScalerName string
-	Policy            string
-	EnableExecution   bool
-	ConsumeTopic      string
+	Name                   string
+	ExporterNamespace      string
+	ClusterName            string
+	AlamedaScalerName      string
+	AlamedaScalerNamespace string
+	Policy                 string
+	EnableExecution        bool
+	ConsumeTopic           string
 	ResourceMeta
 	// Since value of min/max replicas are initialized from counts of topic's partition, define these fields in here rather than KubernetesMeta.
 	MinReplicas int32

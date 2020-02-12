@@ -5,18 +5,21 @@ import (
 )
 
 type KafkaTopic struct {
-	Name              string `datahubcolumntype:"tag" datahubcolumn:"name" datahubdatatype:"DATATYPE_STRING"`
-	ExporterNamespace string `datahubcolumntype:"tag" datahubcolumn:"namespace" datahubdatatype:"DATATYPE_STRING"`
-	ClusterName       string `datahubcolumntype:"tag" datahubcolumn:"cluster_name" datahubdatatype:"DATATYPE_STRING"`
-	AlamedaScalerName string `datahubcolumntype:"field" datahubcolumn:"alameda_scaler_name" datahubdatatype:"DATATYPE_STRING"`
+	Name                   string `datahubcolumntype:"tag" datahubcolumn:"name" datahubdatatype:"DATATYPE_STRING"`
+	ExporterNamespace      string `datahubcolumntype:"tag" datahubcolumn:"namespace" datahubdatatype:"DATATYPE_STRING"`
+	ClusterName            string `datahubcolumntype:"tag" datahubcolumn:"cluster_name" datahubdatatype:"DATATYPE_STRING"`
+	AlamedaScalerName      string `datahubcolumntype:"tag" datahubcolumn:"alameda_scaler_name" datahubdatatype:"DATATYPE_STRING"`
+	AlamedaScalerNamespace string `datahubcolumntype:"tag" datahubcolumn:"alameda_scaler_namespace" datahubdatatype:"DATATYPE_STRING"`
+	Dummy                  string `datahubcolumntype:"field" datahubcolumn:"dummy" datahubdatatype:"DATATYPE_STRING"`
 }
 
 func NewKafkaTopic(topic kafka.Topic) KafkaTopic {
 	return KafkaTopic{
-		Name:              topic.Name,
-		ExporterNamespace: topic.ExporterNamespace,
-		ClusterName:       topic.ClusterName,
-		AlamedaScalerName: topic.AlamedaScalerName,
+		Name:                   topic.Name,
+		ExporterNamespace:      topic.ExporterNamespace,
+		ClusterName:            topic.ClusterName,
+		AlamedaScalerName:      topic.AlamedaScalerName,
+		AlamedaScalerNamespace: topic.AlamedaScalerNamespace,
 	}
 }
 
@@ -24,7 +27,8 @@ type KafkaConsumerGroup struct {
 	Name                      string `datahubcolumntype:"tag" datahubcolumn:"name" datahubdatatype:"DATATYPE_STRING"`
 	ExporterNamespace         string `datahubcolumntype:"tag" datahubcolumn:"namespace" datahubdatatype:"DATATYPE_STRING"`
 	ClusterName               string `datahubcolumntype:"tag" datahubcolumn:"cluster_name" datahubdatatype:"DATATYPE_STRING"`
-	AlamedaScalerName         string `datahubcolumntype:"field" datahubcolumn:"alameda_scaler_name" datahubdatatype:"DATATYPE_STRING"`
+	AlamedaScalerName         string `datahubcolumntype:"tag" datahubcolumn:"alameda_scaler_name" datahubdatatype:"DATATYPE_STRING"`
+	AlamedaScalerNamespace    string `datahubcolumntype:"tag" datahubcolumn:"alameda_scaler_namespace" datahubdatatype:"DATATYPE_STRING"`
 	Policy                    string `datahubcolumntype:"field" datahubcolumn:"policy" datahubdatatype:"DATATYPE_STRING"`
 	EnableExecution           bool   `datahubcolumntype:"field" datahubcolumn:"enable_execution" datahubdatatype:"DATATYPE_BOOL"`
 	ConsumeTopic              string `datahubcolumntype:"tag" datahubcolumn:"topic_name" datahubdatatype:"DATATYPE_STRING"`
@@ -50,6 +54,7 @@ func NewKafkaConsumerGroup(consumerGroup kafka.ConsumerGroup) KafkaConsumerGroup
 		ExporterNamespace:         consumerGroup.ExporterNamespace,
 		ClusterName:               consumerGroup.ClusterName,
 		AlamedaScalerName:         consumerGroup.AlamedaScalerName,
+		AlamedaScalerNamespace:    consumerGroup.AlamedaScalerNamespace,
 		Policy:                    consumerGroup.Policy,
 		EnableExecution:           consumerGroup.EnableExecution,
 		ConsumeTopic:              consumerGroup.ConsumeTopic,

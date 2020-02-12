@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"time"
 
 	"google.golang.org/grpc"
@@ -62,6 +63,12 @@ func syncResourcesWithDatahub(client client.Client, datahubConn *grpc.ClientConn
 		if err := datahub_client_pod.SyncWithDatahub(client,
 			datahubConn); err != nil {
 			scope.Errorf("sync pod failed at start due to %s", err.Error())
+		}
+	}()
+	go func() {
+		if err := datahubKafkaRepo.SyncWithDatahub(context.Background(), client,
+			datahubConn); err != nil {
+			scope.Errorf("sync kafka failed at start due to %s", err.Error())
 		}
 	}()
 }
