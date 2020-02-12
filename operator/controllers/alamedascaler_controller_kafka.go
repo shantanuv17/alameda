@@ -3,6 +3,7 @@ package controllers
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/pkg/errors"
@@ -471,9 +472,21 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(c
 		kubernetesMetadata.ReadyReplicas = controller.Status.ReadyReplicas
 		kubernetesMetadata.SpecReplicas = specReplicas
 		kubernetesMetadata.SetResourceRequirements(resource)
-		// TODO:
-		kubernetesMetadata.VolumesSize = ""
-		kubernetesMetadata.VolumesPVCSize = ""
+
+		pods, err := resourcesLister.ListPodsByDeployment(controller.GetNamespace(), controller.GetName())
+		if err != nil {
+			return kafkamodel.KubernetesMeta{}, errors.Wrap(err, "list pods by Deployment failed")
+		}
+		volumeCapacity := VolumeCapacity{}
+		for _, pod := range pods {
+			v, err := getVolumeCapacityUsedByPod(ctx, r.K8SClient, pod)
+			if err != nil {
+				return kafkamodel.KubernetesMeta{}, errors.Wrap(err, "get volume capacity used by Pod failed")
+			}
+			volumeCapacity.add(v)
+		}
+		kubernetesMetadata.VolumesSize = strconv.FormatInt(volumeCapacity.Total, 10)
+		kubernetesMetadata.VolumesPVCSize = strconv.FormatInt(volumeCapacity.PVC, 10)
 	case earliestStatefulSetCreationTimestamp.Time:
 		controller := statefulSets[indexStatefulSet]
 		specReplicas := int32(0)
@@ -489,9 +502,21 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(c
 		kubernetesMetadata.ReadyReplicas = controller.Status.ReadyReplicas
 		kubernetesMetadata.SpecReplicas = specReplicas
 		kubernetesMetadata.SetResourceRequirements(resource)
-		// TODO:
-		kubernetesMetadata.VolumesSize = ""
-		kubernetesMetadata.VolumesPVCSize = ""
+
+		pods, err := resourcesLister.ListPodsByStatefulSet(controller.GetNamespace(), controller.GetName())
+		if err != nil {
+			return kafkamodel.KubernetesMeta{}, errors.Wrap(err, "list pods by Deployment failed")
+		}
+		volumeCapacity := VolumeCapacity{}
+		for _, pod := range pods {
+			v, err := getVolumeCapacityUsedByPod(ctx, r.K8SClient, pod)
+			if err != nil {
+				return kafkamodel.KubernetesMeta{}, errors.Wrap(err, "get volume capacity used by Pod failed")
+			}
+			volumeCapacity.add(v)
+		}
+		kubernetesMetadata.VolumesSize = strconv.FormatInt(volumeCapacity.Total, 10)
+		kubernetesMetadata.VolumesPVCSize = strconv.FormatInt(volumeCapacity.PVC, 10)
 	case earliestDeploymentConfigCreationTimestamp.Time:
 		controller := deploymentConfigs[indexDeploymentConfig]
 		specReplicas := controller.Spec.Replicas
@@ -504,9 +529,21 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(c
 		kubernetesMetadata.ReadyReplicas = controller.Status.ReadyReplicas
 		kubernetesMetadata.SpecReplicas = specReplicas
 		kubernetesMetadata.SetResourceRequirements(resource)
-		// TODO:
-		kubernetesMetadata.VolumesSize = ""
-		kubernetesMetadata.VolumesPVCSize = ""
+
+		pods, err := resourcesLister.ListPodsByDeploymentConfig(controller.GetNamespace(), controller.GetName())
+		if err != nil {
+			return kafkamodel.KubernetesMeta{}, errors.Wrap(err, "list pods by Deployment failed")
+		}
+		volumeCapacity := VolumeCapacity{}
+		for _, pod := range pods {
+			v, err := getVolumeCapacityUsedByPod(ctx, r.K8SClient, pod)
+			if err != nil {
+				return kafkamodel.KubernetesMeta{}, errors.Wrap(err, "get volume capacity used by Pod failed")
+			}
+			volumeCapacity.add(v)
+		}
+		kubernetesMetadata.VolumesSize = strconv.FormatInt(volumeCapacity.Total, 10)
+		kubernetesMetadata.VolumesPVCSize = strconv.FormatInt(volumeCapacity.PVC, 10)
 	}
 
 	return kubernetesMetadata, nil
@@ -560,6 +597,7 @@ func (r AlamedaScalerKafkaReconciler) syncWithDatahub(ctx context.Context, alame
 	r.Logger.Infof("Synchronize with Datahub. Topics: %+v, ConsumerGroups: %+v", topics, consumerGroups)
 
 	alamedaScalerName := alamedaScaler.Name
+	alamedaScalerNamespace := alamedaScaler.Namespace
 	exporterNamespace := alamedaScaler.Spec.Kafka.ExporterNamespace
 
 	wg := errgroup.Group{}
@@ -569,7 +607,7 @@ func (r AlamedaScalerKafkaReconciler) syncWithDatahub(ctx context.Context, alame
 			return errors.Wrap(err, "creae topics to Datahub failed")
 		}
 		// Delete topics
-		topics, err := r.getTopicsToDelete(ctx, exporterNamespace, alamedaScalerName, topics)
+		topics, err := r.getTopicsToDelete(ctx, exporterNamespace, alamedaScalerNamespace, alamedaScalerName, topics)
 		if err != nil {
 			return err
 		}
@@ -585,7 +623,7 @@ func (r AlamedaScalerKafkaReconciler) syncWithDatahub(ctx context.Context, alame
 			return errors.Wrap(err, "create consumerGroupDetails to Datahub failed")
 		}
 		// Delete consumerGroups
-		consumerGroups, err := r.getConsumerGroupsToDelete(ctx, exporterNamespace, alamedaScalerName, consumerGroups)
+		consumerGroups, err := r.getConsumerGroupsToDelete(ctx, exporterNamespace, alamedaScalerNamespace, alamedaScalerName, consumerGroups)
 		if err != nil {
 			return err
 		}
@@ -598,7 +636,7 @@ func (r AlamedaScalerKafkaReconciler) syncWithDatahub(ctx context.Context, alame
 	return wg.Wait()
 }
 
-func (r AlamedaScalerKafkaReconciler) getTopicsToDelete(ctx context.Context, exporterNamespace string, alamedaScalerName string, topics []kafkamodel.Topic) ([]kafkamodel.Topic, error) {
+func (r AlamedaScalerKafkaReconciler) getTopicsToDelete(ctx context.Context, exporterNamespace string, alamedaScalerNamespace, alamedaScalerName string, topics []kafkamodel.Topic) ([]kafkamodel.Topic, error) {
 	empty := struct{}{}
 	topicsNeedExisting := make(map[kafkamodel.Topic]struct{}, len(topics))
 	for _, topic := range topics {
@@ -606,9 +644,10 @@ func (r AlamedaScalerKafkaReconciler) getTopicsToDelete(ctx context.Context, exp
 	}
 
 	topics, err := r.KafkaRepository.ListTopics(ctx, kafkarepository.ListTopicsOption{
-		ClusterName:       r.ClusterUID,
-		ExporterNamespace: exporterNamespace,
-		AlamedaScalerName: alamedaScalerName,
+		ClusterName:            r.ClusterUID,
+		ExporterNamespace:      exporterNamespace,
+		AlamedaScalerName:      alamedaScalerName,
+		AlamedaScalerNamespace: alamedaScalerNamespace,
 	})
 	if err != nil {
 		return nil, errors.Wrap(err, "list topics from Datahub failed")
@@ -622,7 +661,7 @@ func (r AlamedaScalerKafkaReconciler) getTopicsToDelete(ctx context.Context, exp
 	return topicsToDelete, nil
 }
 
-func (r AlamedaScalerKafkaReconciler) getConsumerGroupsToDelete(ctx context.Context, exporterNamespace string, alamedaScalerName string, consumerGroups []kafkamodel.ConsumerGroup) ([]kafkamodel.ConsumerGroup, error) {
+func (r AlamedaScalerKafkaReconciler) getConsumerGroupsToDelete(ctx context.Context, exporterNamespace string, alamedaScalerNamespace string, alamedaScalerName string, consumerGroups []kafkamodel.ConsumerGroup) ([]kafkamodel.ConsumerGroup, error) {
 	empty := struct{}{}
 	consumerGroupsNeedExisting := make(map[kafkamodel.ConsumerGroup]struct{}, len(consumerGroups))
 	for _, consumerGroup := range consumerGroups {
@@ -630,9 +669,10 @@ func (r AlamedaScalerKafkaReconciler) getConsumerGroupsToDelete(ctx context.Cont
 	}
 
 	consumerGroups, err := r.KafkaRepository.ListConsumerGroups(ctx, kafkarepository.ListConsumerGroupsOption{
-		ClusterName:       r.ClusterUID,
-		ExporterNamespace: exporterNamespace,
-		AlamedaScalerName: alamedaScalerName,
+		ClusterName:            r.ClusterUID,
+		ExporterNamespace:      exporterNamespace,
+		AlamedaScalerName:      alamedaScalerName,
+		AlamedaScalerNamespace: alamedaScalerNamespace,
 	})
 	if err != nil {
 		return nil, errors.Wrap(err, "list consumerGroups from Datahub failed")

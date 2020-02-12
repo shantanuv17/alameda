@@ -237,6 +237,8 @@ func (k KafkaRepository) sendReadDataRequest(ctx context.Context, req data.ReadD
 	} else if resp.Data == nil {
 		return data.Data{}, errors.New("receive nil responce data")
 	}
+	// TODO: delete
+	k.logger.Infof("Read data from Datahub. Response: %+v", resp)
 	return *resp.Data, nil
 }
 
