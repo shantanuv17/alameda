@@ -179,6 +179,11 @@ func (sender *RabbitMQSender) getMessageHash(msgStr string) string {
 
 func (sender *RabbitMQSender) SendJob(queueName string, unit *config.Unit,
 	columns, values []string, metricType datahub_common.MetricType, granularity int64) error {
+	jobID, err := utils.GetJobID(unit, values, columns,
+		metricType, granularity)
+	if err != nil {
+		return err
+	}
 	body := map[string]interface{}{
 		"predictor":        unit.Predictor,
 		"scopeStr":         fmt.Sprintf("%s", unit.Scope),
@@ -190,13 +195,10 @@ func (sender *RabbitMQSender) SendJob(queueName string, unit *config.Unit,
 		"createTimestamp":  fmt.Sprintf("%v", time.Now().Unix()),
 		"metricType":       fmt.Sprintf("%d", metricType),
 		"metricTypeString": fmt.Sprintf("%s", metricType),
+		"jobID":            jobID,
+		"object_meta":      utils.GetJobMap(values, columns, metricType, granularity),
 	}
-	jobID, err := utils.GetJobID(unit, values, columns,
-		metricType, granularity)
-	if err != nil {
-		return err
-	}
-	body["object_meta"] = utils.GetJobMap(values, columns, metricType, granularity)
+
 	bodyStr, err := json.Marshal(body)
 	if err != nil {
 		return err

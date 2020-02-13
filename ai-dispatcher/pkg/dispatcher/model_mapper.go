@@ -41,6 +41,19 @@ func (mm *ModelMapper) AddModelInfo(clusterID string, predictUnitType string,
 		utils.InterfaceToString(mm.modelMap))
 }
 
+func (mm *ModelMapper) AddModelInfoV2(jobID string) {
+	mm.lock.Lock()
+	defer mm.lock.Unlock()
+	scope.Debugf("before (AddModelInfo) current mapper status: %s",
+		utils.InterfaceToString(mm.modelMap))
+	scope.Debugf("model added to mapper: %s", jobID)
+	mm.modelMap[jobID] = &modelInfo{
+		Timestamp: time.Now().Unix(),
+	}
+	scope.Debugf("after (AddModelInfo) current mapper status: %s",
+		utils.InterfaceToString(mm.modelMap))
+}
+
 func (mm *ModelMapper) RemoveModelInfo(clusterID string, predictUnitType string,
 	granularity string, metricType string, extraInfo map[string]string) {
 	mm.lock.Lock()
@@ -57,6 +70,19 @@ func (mm *ModelMapper) RemoveModelInfo(clusterID string, predictUnitType string,
 		utils.InterfaceToString(mm.modelMap))
 }
 
+func (mm *ModelMapper) RemoveModelInfoV2(jobID string) {
+	mm.lock.Lock()
+	defer mm.lock.Unlock()
+	scope.Debugf("before (RemoveModelInfo) current mapper status: %s",
+		utils.InterfaceToString(mm.modelMap))
+	scope.Debugf("model removed from mapper: %s", jobID)
+	if _, ok := mm.modelMap[jobID]; ok {
+		delete(mm.modelMap, jobID)
+	}
+	scope.Debugf("after (RemoveModelInfo) current mapper status: %s",
+		utils.InterfaceToString(mm.modelMap))
+}
+
 func (mm *ModelMapper) GetModelInfo(clusterID string, predictUnitType string,
 	granularity string, metricType string, extraInfo map[string]string) *modelInfo {
 	mm.lock.Lock()
@@ -64,6 +90,13 @@ func (mm *ModelMapper) GetModelInfo(clusterID string, predictUnitType string,
 	uniKey := mm.getUniqueName(clusterID, predictUnitType,
 		granularity, metricType, extraInfo)
 	val, _ := mm.modelMap[uniKey]
+	return val
+}
+
+func (mm *ModelMapper) GetModelInfoV2(jobID string) *modelInfo {
+	mm.lock.Lock()
+	defer mm.lock.Unlock()
+	val, _ := mm.modelMap[jobID]
 	return val
 }
 
@@ -85,6 +118,21 @@ func (mm *ModelMapper) IsModelTimeout(clusterID string, predictUnitType string,
 	return isTimeout
 }
 
+func (mm *ModelMapper) IsModelTimeoutV2(jobID string) bool {
+	mm.lock.Lock()
+	defer mm.lock.Unlock()
+	scope.Debugf("current mapper status: %s", utils.InterfaceToString(mm.modelMap))
+	isTimeout := true
+	if oldMInfo, ok := mm.modelMap[jobID]; ok {
+		isTimeout = time.Now().Unix()-oldMInfo.Timestamp > mm.modelTimeout
+	} else {
+		isTimeout = true
+	}
+	scope.Debugf("model timeout check from mapper %s is %t",
+		jobID, isTimeout)
+	return isTimeout
+}
+
 func (mm *ModelMapper) IsModeling(clusterID string, predictUnitType string,
 	granularity string, metricType string, extraInfo map[string]string) bool {
 	mm.lock.Lock()
@@ -97,6 +145,18 @@ func (mm *ModelMapper) IsModeling(clusterID string, predictUnitType string,
 	isModeling = ok
 	scope.Debugf("is model check from mapper %s is %t",
 		uniKey, isModeling)
+	return isModeling
+}
+
+func (mm *ModelMapper) IsModelingV2(jobID string) bool {
+	mm.lock.Lock()
+	defer mm.lock.Unlock()
+	scope.Debugf("current mapper status: %s", utils.InterfaceToString(mm.modelMap))
+	isModeling := false
+	_, ok := mm.modelMap[jobID]
+	isModeling = ok
+	scope.Debugf("is model check from mapper %s is %t",
+		jobID, isModeling)
 	return isModeling
 }
 

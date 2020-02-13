@@ -2,6 +2,7 @@ package dispatcher
 
 import (
 	"encoding/json"
+	"strconv"
 	"time"
 
 	"github.com/containers-ai/alameda/ai-dispatcher/consts"
@@ -12,14 +13,15 @@ import (
 )
 
 type modelCompleteMsg struct {
-	UnitType        string  `json:"unit_type"`
-	DataGranularity string  `json:"data_granularity"`
-	JobCreateTime   float64 `json:"job_create_time"`
-	ClusterName     string  `json:"cluster_name"`
-	MetricTypeStr   string  `json:"metric_type_str"`
-	ContainerName   string  `json:"container_name"`
+	UnitType        string `json:"unit_type"`
+	DataGranularity string `json:"data_granularity"`
+	JobCreateTime   string `json:"job_create_time"`
+	ClusterName     string `json:"cluster_name"`
+	MetricTypeStr   string `json:"metric_type_str"`
+	ContainerName   string `json:"container_name"`
 
-	Unit unit `json:"unit"`
+	Unit  unit   `json:"unit"`
+	JobID string `json:"job_id"`
 }
 
 type unit struct {
@@ -67,7 +69,12 @@ func ModelCompleteNotification(modelMapper *ModelMapper,
 
 			unitType := msgMap.UnitType
 			dataGranularity := msgMap.DataGranularity
-			jobCreateTime := int64(msgMap.JobCreateTime)
+			jobCreateTime, err := strconv.ParseInt(msgMap.JobCreateTime, 10, 64)
+			if err != nil {
+				scope.Errorf("parse job create time failed: %s", err.Error())
+				break
+			}
+
 			if unitType == consts.UnitTypeNode {
 				nodeName := msgMap.Unit.Name
 				clusterID := msgMap.ClusterName
@@ -173,6 +180,10 @@ func ModelCompleteNotification(modelMapper *ModelMapper,
 					kind, dataGranularity, controllerNS, controllerName, metricType, mt)
 				metricExporter.ExportControllerMetricModelTime(clusterID, controllerNS, controllerName,
 					kind, dataGranularity, metricType, time.Now().Unix(), float64(mt))
+			} else if msgMap.JobID != "" {
+				modelMapper.RemoveModelInfoV2(msgMap.JobID)
+				mt := time.Now().Unix() - jobCreateTime
+				scope.Infof("[%s] Export metric model time %v seconds", msgMap.JobID, mt)
 			}
 		}
 		scope.Warnf("Retry construct consume model complete channel")

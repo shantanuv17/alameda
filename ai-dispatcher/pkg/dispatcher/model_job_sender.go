@@ -1,6 +1,7 @@
 package dispatcher
 
 import (
+	"fmt"
 	"strings"
 	"time"
 
@@ -143,8 +144,8 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 						lastPredictPointRawData.GetMetricType(), granularity)
 					if len(lastPredictPointRawData.GetGroups()) == 0 {
 						scope.Infof("[%s] No prediction found, send model job.", jobID)
-						err := queueSender.SendJob(modelQueueName, unit, rawDatumColumns, row.GetValues(),
-							lastPredictPointRawData.GetMetricType(), granularity)
+						err := dispatcher.tryToJobSending(modelQueueName, unit, rawDatumColumns, row.GetValues(),
+							lastPredictPointRawData.GetMetricType(), granularity, queueSender, jobID)
 						if err != nil {
 							scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
 						}
@@ -152,8 +153,9 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 					}
 					if len(lastPredictPointRawData.GetGroups()) == 0 {
 						scope.Infof("[%s] No prediction found, send model job.", jobID)
-						err := queueSender.SendJob(modelQueueName, unit, rawDatumColumns, row.GetValues(),
-							lastPredictPointRawData.GetMetricType(), granularity)
+
+						err := dispatcher.tryToJobSending(modelQueueName, unit, rawDatumColumns, row.GetValues(),
+							lastPredictPointRawData.GetMetricType(), granularity, queueSender, jobID)
 						if err != nil {
 							scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
 						}
@@ -162,8 +164,8 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 					for _, lastPredictPointRawDataGrp := range lastPredictPointRawData.GetGroups() {
 						if len(lastPredictPointRawDataGrp.GetRows()) == 0 {
 							scope.Infof("[%s] No prediction found, send model job.", jobID)
-							err := queueSender.SendJob(modelQueueName, unit, rawDatumColumns, row.GetValues(),
-								lastPredictPointRawData.GetMetricType(), granularity)
+							err := dispatcher.tryToJobSending(modelQueueName, unit, rawDatumColumns, row.GetValues(),
+								lastPredictPointRawData.GetMetricType(), granularity, queueSender, jobID)
 							if err != nil {
 								scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
 							}
@@ -176,8 +178,8 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 						if len(lastPredictPointRawDataGrp.GetRows()) == 1 {
 							if time.Now().Unix() >= lastPredictPointRawDataGrp.GetRows()[0].GetTime().GetSeconds() {
 								scope.Infof("[%s] Prediction is out of date, send model job", jobID)
-								err := queueSender.SendJob(modelQueueName, unit, rawDatumColumns, row.GetValues(),
-									lastPredictPointRawData.GetMetricType(), granularity)
+								err := dispatcher.tryToJobSending(modelQueueName, unit, rawDatumColumns, row.GetValues(),
+									lastPredictPointRawData.GetMetricType(), granularity, queueSender, jobID)
 								if err != nil {
 									scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
 								}
@@ -190,7 +192,7 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 								continue
 							}
 							scope.Infof("[%s] Use model ID %s to query prediction series to measure dirft", jobID, modelID)
-							dispatcher.DriftEval(modelID, lastPredictPointRawData.GetMetricType(), rawData, queueSender, unit, granularity)
+							dispatcher.driftEval(modelID, lastPredictPointRawData.GetMetricType(), rawData, queueSender, unit, granularity)
 						}
 					}
 				}
@@ -199,7 +201,7 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 	}
 }
 
-func (dispatcher *modelJobSender) DriftEval(modelID string, metricType datahub_common.MetricType, rawData []*datahub_data.Rawdata, queueSender queue.QueueSender,
+func (dispatcher *modelJobSender) driftEval(modelID string, metricType datahub_common.MetricType, rawData []*datahub_data.Rawdata, queueSender queue.QueueSender,
 	unit *config.Unit, granularity int64) {
 	for _, rawDatum := range rawData {
 		for _, grp := range rawDatum.GetGroups() {
@@ -245,8 +247,8 @@ func (dispatcher *modelJobSender) DriftEval(modelID string, metricType datahub_c
 						modelIDPredictData.GetMetricType(), granularity)
 					if len(modelIDPredictData.GetGroups()) == 0 {
 						scope.Infof("[%s] No prediction found with model id %s, send model job.", jobID, modelID)
-						err := queueSender.SendJob(modelQueueName, unit, rawDatumColumns, row.GetValues(),
-							modelIDPredictData.GetMetricType(), granularity)
+						err := dispatcher.tryToJobSending(modelQueueName, unit, rawDatumColumns, row.GetValues(),
+							modelIDPredictData.GetMetricType(), granularity, queueSender, jobID)
 						if err != nil {
 							scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
 						}
@@ -257,8 +259,9 @@ func (dispatcher *modelJobSender) DriftEval(modelID string, metricType datahub_c
 						modelPredictRows := modelIDPredictDataGrp.GetRows()
 						if len(modelPredictRows) == 0 {
 							scope.Infof("[%s] No prediction found with model id %s, send model job.", jobID, modelID)
-							err := queueSender.SendJob(modelQueueName, unit, rawDatumColumns, row.GetValues(),
-								modelIDPredictData.GetMetricType(), granularity)
+
+							err := dispatcher.tryToJobSending(modelQueueName, unit, rawDatumColumns, row.GetValues(),
+								modelIDPredictData.GetMetricType(), granularity, queueSender, jobID)
 							if err != nil {
 								scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
 							}
@@ -320,8 +323,8 @@ func (dispatcher *modelJobSender) DriftEval(modelID string, metricType datahub_c
 									if mapeVal > modelThreshold {
 										scope.Infof("[%s] MAPE of metric %v  %v > %v (threshold), drift is true and start sending model job",
 											jobID, metricType, mapeVal, modelThreshold)
-										err = queueSender.SendJob(modelQueueName, unit, rawDatumColumns, row.GetValues(),
-											metricType, granularity)
+										err := dispatcher.tryToJobSending(modelQueueName, unit, rawDatumColumns, row.GetValues(),
+											metricType, granularity, queueSender, jobID)
 										if err != nil {
 											scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
 										}
@@ -333,8 +336,8 @@ func (dispatcher *modelJobSender) DriftEval(modelID string, metricType datahub_c
 									if rmseVal > modelThreshold {
 										scope.Infof("[%s] RMSE of metric %v  %v > %v (threshold), drift is true and start sending model job",
 											jobID, metricType, rmseVal, modelThreshold)
-										err = queueSender.SendJob(modelQueueName, unit, rawDatumColumns, row.GetValues(),
-											metricType, granularity)
+										err := dispatcher.tryToJobSending(modelQueueName, unit, rawDatumColumns, row.GetValues(),
+											metricType, granularity, queueSender, jobID)
 										if err != nil {
 											scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
 										}
@@ -350,4 +353,20 @@ func (dispatcher *modelJobSender) DriftEval(modelID string, metricType datahub_c
 			}
 		}
 	}
+}
+
+func (dispatcher *modelJobSender) tryToJobSending(queueName string, unit *config.Unit,
+	rawDataCols []string, rawDataVals []string, metricType datahub_common.MetricType,
+	granularity int64, queueSender queue.QueueSender, jobID string) error {
+	if dispatcher.modelMapper.IsModelingV2(jobID) && !dispatcher.modelMapper.IsModelTimeoutV2(jobID) {
+		return fmt.Errorf("model job with id is processing, do not send duplicated")
+	}
+	err := queueSender.SendJob(queueName, unit, rawDataCols, rawDataVals,
+		metricType, granularity)
+	if err != nil {
+		return err
+	} else {
+		dispatcher.modelMapper.AddModelInfoV2(jobID)
+	}
+	return nil
 }
