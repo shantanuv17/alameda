@@ -270,8 +270,7 @@ func (dispatcher *modelJobSender) DriftEval(modelID string, metricType datahub_c
 							continue
 						}
 						metricReadData := []*datahub_data.ReadData{&datahub_data.ReadData{
-							MetricType:       metricType,
-							ResourceBoundary: datahub_common.ResourceBoundary_RESOURCE_RAW,
+							MetricType: metricType,
 							QueryCondition: &datahub_common.QueryCondition{
 								Order: datahub_common.QueryCondition_DESC,
 								TimeRange: &datahub_common.TimeRange{

@@ -5,9 +5,9 @@ import (
 )
 
 var (
-	metricModelTimeGauges   = []*prometheus.GaugeVec{}
-	metricModelTimeCounters = []*prometheus.CounterVec{}
-	metricMAPEGauges        = []*prometheus.GaugeVec{}
-	metricRMSEGauges        = []*prometheus.GaugeVec{}
-	metricDriftCounters     = []*prometheus.CounterVec{}
+	metricModelTimeGauges   = map[string]*prometheus.GaugeVec{}
+	metricModelTimeCounters = map[string]*prometheus.CounterVec{}
+	metricMAPEGauges        = map[string]*prometheus.GaugeVec{}
+	metricRMSEGauges        = map[string]*prometheus.GaugeVec{}
+	metricDriftCounters     = map[string]*prometheus.CounterVec{}
 )

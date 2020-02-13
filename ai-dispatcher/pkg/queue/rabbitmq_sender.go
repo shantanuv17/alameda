@@ -180,6 +180,9 @@ func (sender *RabbitMQSender) getMessageHash(msgStr string) string {
 func (sender *RabbitMQSender) SendJob(queueName string, unit *config.Unit,
 	columns, values []string, metricType datahub_common.MetricType, granularity int64) error {
 	body := map[string]interface{}{
+		"predictor":        unit.Predictor,
+		"scopeStr":         fmt.Sprintf("%s", unit.Scope),
+		"measurement":      unit.Measurement,
 		"category":         unit.Category,
 		"unit_type":        unit.Type,
 		"granularity":      utils.GetGranularityStr(granularity),
