@@ -137,7 +137,7 @@ type = "topic"
 measurement = "kafka_topic"
 idKeys = ["cluster_name", "namespace", "name"]
 metricTypes = ["current_offset"]
-predictor = "sarima"
+predictor = "SARIMAX"
 
   [units.metric]
   scope = "metric"
@@ -164,7 +164,7 @@ type = "consumer_group"
 measurement = "kafka_consumer_group"
 idKeys = ["cluster_name", "namespace", "name", "topic_name"]
 metricTypes = ["current_offset"]
-predictor = "sarima"
+predictor = "SARIMAX"
 
   [units.metric]
   scope = "metric"
