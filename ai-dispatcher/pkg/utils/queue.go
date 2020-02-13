@@ -22,7 +22,7 @@ func GetJobID(unit *config.Unit, rowVals []string, columns []string,
 	}
 	unitIDStr := strings.Join(idVals, "/")
 
-	jobID := fmt.Sprintf("%s/%s/%s/%s/%v/%s", unit.Scope, unit.Category, unit.Type, unitIDStr, granularity, metricType)
+	jobID := fmt.Sprintf("%s/%s/%s/%s/%v/%s", unit.Scope, unit.Category, unit.Type, unitIDStr, GetGranularityStr(granularity), metricType)
 
 	return jobID, nil
 }

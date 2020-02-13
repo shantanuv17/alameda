@@ -136,6 +136,7 @@ category = "kafka"
 type = "topic"
 measurement = "kafka_topic"
 idKeys = ["cluster_name", "namespace", "name"]
+granularities = ["1m"]
 metricTypes = ["current_offset"]
 predictor = "SARIMAX"
 
@@ -163,6 +164,7 @@ category = "kafka"
 type = "consumer_group"
 measurement = "kafka_consumer_group"
 idKeys = ["cluster_name", "namespace", "name", "topic_name"]
+granularities = ["1m"]
 metricTypes = ["current_offset"]
 predictor = "SARIMAX"
 

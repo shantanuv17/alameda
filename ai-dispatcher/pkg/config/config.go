@@ -43,6 +43,7 @@ type Unit struct {
 	Scope          datahub_schemas.Scope       `mapstructure:"-"`
 	Category       string                      `mapstructure:"category"`
 	Type           string                      `mapstructure:"type"`
+	Granularities  []string                    `mapstructure:"granularities"`
 	MetricTypeStrs []string                    `mapstructure:"metricTypes"`
 	Metric         metricSeriesMeta            `mapstructure:"metric"`
 	Prediction     predictSeriesMeta           `mapstructure:"prediction"`

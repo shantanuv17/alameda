@@ -58,6 +58,7 @@ func NewDispatcher(datahubGrpcCn *grpc.ClientConn, granularities []string,
 		cfg:              cfg,
 	}
 	dispatcher.validCfg()
+	dispatcher.initExportedMetrics(cfg)
 	return dispatcher
 }
 
@@ -120,29 +121,39 @@ func (dispatcher *Dispatcher) dispatch(granularity string, predictionStep int64,
 			modelHasVPA = false
 			predictHasVPA = false
 		}
-
-		if granularity == "1m" {
-			// New API section
-			for _, unit := range dispatcher.cfg.GetUnits() {
-				if !unit.Enabled {
-					continue
-				}
-				unitScope := unit.Scope
-				category := unit.Category
-				unitType := unit.Type
-				if queueJobType == "predictionJobSendIntervalSec" {
-					scope.Infof(
-						"Start dispatching prediction unit with (scope: %s, category: %s, type: %s) with granularity %v seconds and cycle %v seconds",
-						unitScope, category, unitType, granularitySec, queueJobSendIntervalSec)
-				} else if queueJobType == "modelJobSendIntervalSec" {
-					scope.Infof(
-						"Start dispatching model unit with (scope %s, category %s, type: %s) with granularity %v seconds and cycle %v seconds",
-						unitScope, category, unitType, granularitySec, queueJobSendIntervalSec)
-				}
-				dispatcher.getAndPushJobsV2(queueSender, &unit, granularitySec,
-					predictionStep, queueJobType)
+		// New API section
+		for _, unit := range dispatcher.cfg.GetUnits() {
+			if !unit.Enabled {
+				continue
 			}
+			granularityFound := false
+			for _, granu := range unit.Granularities {
+				if granu == granularity {
+					granularityFound = true
+					break
+				}
+			}
+			if !granularityFound {
+				continue
+			}
+
+			unitScope := unit.Scope
+			category := unit.Category
+			unitType := unit.Type
+
+			if queueJobType == "predictionJobSendIntervalSec" {
+				scope.Infof(
+					"Start dispatching prediction unit with (scope: %s, category: %s, type: %s) with granularity %v seconds and cycle %v seconds",
+					unitScope, category, unitType, granularitySec, queueJobSendIntervalSec)
+			} else if queueJobType == "modelJobSendIntervalSec" {
+				scope.Infof(
+					"Start dispatching model unit with (scope %s, category %s, type: %s) with granularity %v seconds and cycle %v seconds",
+					unitScope, category, unitType, granularitySec, queueJobSendIntervalSec)
+			}
+			dispatcher.getAndPushJobsV2(queueSender, &unit, granularitySec,
+				predictionStep, queueJobType)
 		}
+
 		if granularity != "1m" {
 			for _, pdUnit := range dispatcher.svcPredictUnits {
 				if dispatcher.skipJobSending(pdUnit, granularitySec) {
@@ -455,4 +466,10 @@ func (dispatcher *Dispatcher) skipJobSending(pdUnit string, granularitySec int64
 
 	return (pdUnit == consts.UnitTypeCluster || pdUnit == consts.UnitTypeNamespace) &&
 		(granularitySec == 30 && !viper.GetBool("hourlyPredict"))
+}
+
+func (dispatcher *Dispatcher) initExportedMetrics(cfg *config.Config) {
+	for _, unit := range dispatcher.cfg.GetUnits() {
+		metrics.InitMetric(fmt.Sprintf("%s", unit.Scope), unit.Category, unit.Type, unit.IDKeys)
+	}
 }

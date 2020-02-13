@@ -312,10 +312,14 @@ func (dispatcher *modelJobSender) driftEval(modelID string, metricType datahub_c
 								mapeVal, mapeErr := stats.MAPE(measurementDataSet, granularity)
 								if mapeErr != nil {
 									scope.Errorf("[%s] Calculate MAPE failed due to %s", jobID, mapeErr.Error())
+								} else {
+									metrics.SetMetricMAPE(jobID, mapeVal)
 								}
 								rmseVal, rmseErr := stats.RMSE(measurementDataSet, datahub_common.MetricType_METRICS_TYPE_UNDEFINED, granularity)
 								if rmseErr != nil {
 									scope.Errorf("[%s] Calculate RMSE failed due to %s", jobID, err.Error())
+								} else {
+									metrics.SetMetricRMSE(jobID, rmseVal)
 								}
 
 								if strings.ToLower(strings.TrimSpace(currentMeasure)) == "mape" && mapeErr == nil {
@@ -327,6 +331,8 @@ func (dispatcher *modelJobSender) driftEval(modelID string, metricType datahub_c
 											metricType, granularity, queueSender, jobID)
 										if err != nil {
 											scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
+										} else {
+											metrics.AddMetricDrift(jobID, 1.0)
 										}
 									} else {
 										scope.Infof("[%s] MAPE of metric %v  %v <= %v (threshold), drift is false", jobID, metricType, mapeVal, modelThreshold)
@@ -340,6 +346,8 @@ func (dispatcher *modelJobSender) driftEval(modelID string, metricType datahub_c
 											metricType, granularity, queueSender, jobID)
 										if err != nil {
 											scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
+										} else {
+											metrics.AddMetricDrift(jobID, 1.0)
 										}
 									} else {
 										scope.Infof("[%s] RMSE of metric %v  %v <= %v (threshold), drift is false",

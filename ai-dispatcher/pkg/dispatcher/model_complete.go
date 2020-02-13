@@ -183,6 +183,8 @@ func ModelCompleteNotification(modelMapper *ModelMapper,
 			} else if msgMap.JobID != "" {
 				modelMapper.RemoveModelInfoV2(msgMap.JobID)
 				mt := time.Now().Unix() - jobCreateTime
+				metrics.SetMetricModelTime(msgMap.JobID, float64(mt))
+				metrics.AddMetricModelTime(msgMap.JobID, float64(mt))
 				scope.Infof("[%s] Export metric model time %v seconds", msgMap.JobID, mt)
 			}
 		}
