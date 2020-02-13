@@ -211,7 +211,7 @@ func (k KafkaRepository) DeleteConsumerGroupsByOption(ctx context.Context, optio
 }
 
 func (k KafkaRepository) sendWriteDataRequest(ctx context.Context, req data.WriteDataRequest) error {
-	k.logger.Infof("Write data to Datahub. Request: %+v", req)
+	k.logger.Debugf("Write data to Datahub. Request: %+v", req)
 	status, err := k.datahubClient.WriteData(ctx, &req)
 	if err != nil {
 		return errors.Wrap(err, "send WriteDataRequest failed")
@@ -224,7 +224,7 @@ func (k KafkaRepository) sendWriteDataRequest(ctx context.Context, req data.Writ
 }
 
 func (k KafkaRepository) sendReadDataRequest(ctx context.Context, req data.ReadDataRequest) (data.Data, error) {
-	k.logger.Infof("Read data from Datahub. Request: %+v", req)
+	k.logger.Debugf("Read data from Datahub. Request: %+v", req)
 	resp, err := k.datahubClient.ReadData(ctx, &req)
 	if err != nil {
 		return data.Data{}, errors.Wrap(err, "send ReadDataRequest failed")
@@ -237,13 +237,12 @@ func (k KafkaRepository) sendReadDataRequest(ctx context.Context, req data.ReadD
 	} else if resp.Data == nil {
 		return data.Data{}, errors.New("receive nil responce data")
 	}
-	// TODO: delete
-	k.logger.Infof("Read data from Datahub. Response: %+v", resp)
+	k.logger.Debugf("Read data from Datahub. Response: %+v", resp)
 	return *resp.Data, nil
 }
 
 func (k KafkaRepository) sendDeleteDataRequest(ctx context.Context, req data.DeleteDataRequest) error {
-	k.logger.Infof("Delete data from Datahub. Request: %+v", req)
+	k.logger.Debugf("Delete data from Datahub. Request: %+v", req)
 	status, err := k.datahubClient.DeleteData(ctx, &req)
 	if err != nil {
 		return errors.Wrap(err, "send DeleteDataRequest failed")

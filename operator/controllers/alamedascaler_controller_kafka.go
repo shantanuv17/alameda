@@ -163,7 +163,7 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 	r.Logger.Infof("Reconciling AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
 	consumerGroupDetails, err := r.prepareConsumerGroupDetails(ctx, alamedaScaler)
 	if err != nil {
-		r.Logger.Infof("Prepare consumerGroupDetails to synchornize with remote of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+		r.Logger.Warnf("Prepare consumerGroupDetails to synchornize with remote of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
 		alamedaScaler.Status.Kafka.Effective = false
 		alamedaScaler.Status.Kafka.Message = err.Error()
 		err := r.updateAlamedaScaler(ctx, &alamedaScaler)
@@ -176,7 +176,7 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 
 	err = r.syncWithDatahub(ctx, alamedaScaler, topics, consumerGroupDetails)
 	if err != nil {
-		r.Logger.Infof("Synchornize consumerGroupDetails with remote of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+		r.Logger.Warnf("Synchornize consumerGroupDetails with remote of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
 		alamedaScaler.Status.Kafka.Effective = false
 		alamedaScaler.Status.Kafka.Message = err.Error()
 		err := r.updateAlamedaScaler(ctx, &alamedaScaler)
@@ -594,7 +594,7 @@ func (r AlamedaScalerKafkaReconciler) getConsumerGroupToConsumeTopicsMap(ctx con
 }
 
 func (r AlamedaScalerKafkaReconciler) syncWithDatahub(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler, topics []kafkamodel.Topic, consumerGroups []kafkamodel.ConsumerGroup) error {
-	r.Logger.Infof("Synchronize with Datahub. Topics: %+v, ConsumerGroups: %+v", topics, consumerGroups)
+	r.Logger.Debugf("Synchronize with Datahub. Topics: %+v, ConsumerGroups: %+v", topics, consumerGroups)
 
 	alamedaScalerName := alamedaScaler.Name
 	alamedaScalerNamespace := alamedaScaler.Namespace
