@@ -388,7 +388,10 @@ func (r AlamedaScalerKafkaReconciler) listConsumerGroups(ctx context.Context, al
 		if consumerGroupSpec.Resource.Kubernetes != nil {
 			metadata, err := r.getFirstCreatedMatchedKubernetesMetadata(ctx, alamedaScaler.GetNamespace(), *consumerGroupSpec.Resource.Kubernetes)
 			if err != nil {
-				return nil, errors.Wrapf(err, "get matched kubernetes resource failed: consumerGroup.Name: %s", consumerGroupSpec.Name)
+				return nil, errors.Wrapf(err, "get matched kubernetes resource failed: ConsumerGroup.Name: %s", consumerGroupSpec.Name)
+			}
+			if (metadata == kafkamodel.KubernetesMeta{}) {
+				r.Logger.Warnf("No Kubernetes resource can map to ConsumerGroup: ConsumerGroup: %+v", consumerGroupSpec)
 			}
 			consumerGroup.KubernetesMeta = metadata
 		}
@@ -416,6 +419,9 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(c
 	if err != nil {
 		return kafkamodel.KubernetesMeta{}, errors.Wrap(err, "list StatefulSets by namespace and labels failed")
 	}
+	if len(deployments) == 0 && len(deploymentConfigs) == 0 && len(statefulSets) == 0 {
+		return kafkamodel.KubernetesMeta{}, nil
+	}
 
 	kubernetesMetadata := kafkamodel.KubernetesMeta{}
 	indexDeployment := 0
@@ -428,7 +434,7 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(c
 		if !isMonitoredByAlamedaScalerType(r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
 			continue
 		}
-		if r.CreationTimestamp.UnixNano() < earliestDeploymentCreationTimestamp.UnixNano() {
+		if r.CreationTimestamp.Before(&earliestDeploymentCreationTimestamp) {
 			indexDeployment = i
 			earliestDeploymentCreationTimestamp = r.CreationTimestamp
 		}
@@ -437,7 +443,7 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(c
 		if !isMonitoredByAlamedaScalerType(r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
 			continue
 		}
-		if r.CreationTimestamp.UnixNano() < earliestStatefulSetCreationTimestamp.UnixNano() {
+		if r.CreationTimestamp.Before(&earliestStatefulSetCreationTimestamp) {
 			indexStatefulSet = i
 			earliestStatefulSetCreationTimestamp = r.CreationTimestamp
 		}
@@ -446,7 +452,7 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(c
 		if !isMonitoredByAlamedaScalerType(r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
 			continue
 		}
-		if r.CreationTimestamp.UnixNano() < earliestDeploymentConfigCreationTimestamp.UnixNano() {
+		if r.CreationTimestamp.Before(&earliestDeploymentConfigCreationTimestamp) {
 			indexDeploymentConfig = i
 			earliestDeploymentConfigCreationTimestamp = r.CreationTimestamp
 		}
