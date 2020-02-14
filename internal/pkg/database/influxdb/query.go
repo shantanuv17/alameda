@@ -111,7 +111,7 @@ func (p *InfluxQuery) selects() string {
 	aggregateFunc := p.QueryCondition.AggregateOverTimeFunction
 	if aggregateFunc != common.None {
 		aggregateName := AggregateFuncMap[aggregateFunc]
-		return fmt.Sprintf("%s(%s)", aggregateName, strings.Join(selects, ","))
+		return fmt.Sprintf("%s(%s) as %s", aggregateName, strings.Join(selects, ","), selects[0])
 	}
 	return strings.Join(selects, ",")
 }

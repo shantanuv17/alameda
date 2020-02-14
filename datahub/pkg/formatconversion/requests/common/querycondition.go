@@ -1,6 +1,7 @@
 package common
 
 import (
+	"fmt"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	"github.com/containers-ai/alameda/internal/pkg/database/common"
 	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
@@ -10,6 +11,12 @@ import (
 func NewQueryCondition(queryCondition *ApiCommon.QueryCondition) *common.QueryCondition {
 	if queryCondition != nil {
 		qc := common.QueryCondition{}
+		qc.TimestampOrder = enumconv.QueryConditionOrderNameMap[queryCondition.GetOrder()]
+		qc.WhereClause = queryCondition.GetWhereClause()
+		qc.WhereCondition = NewWhereCondition(queryCondition.GetWhereCondition())
+		qc.Selects = queryCondition.GetSelects()
+		qc.Groups = queryCondition.GetGroups()
+		qc.Limit = int(queryCondition.GetLimit())
 		if queryCondition.GetTimeRange() != nil {
 			timeRange := queryCondition.GetTimeRange()
 			if timeRange.GetStartTime() != nil {
@@ -23,15 +30,10 @@ func NewQueryCondition(queryCondition *ApiCommon.QueryCondition) *common.QueryCo
 			if timeRange.GetStep() != nil {
 				ts, _ := ptypes.Duration(timeRange.GetStep())
 				qc.StepTime = &ts
+				qc.Groups = append(qc.Groups, fmt.Sprintf("time(%ds)", int(timeRange.GetStep().Seconds)))
 			}
 			qc.AggregateOverTimeFunction = enumconv.AggregateFunctionNameMap[timeRange.GetAggregateFunction()]
 		}
-		qc.TimestampOrder = enumconv.QueryConditionOrderNameMap[queryCondition.GetOrder()]
-		qc.WhereClause = queryCondition.GetWhereClause()
-		qc.WhereCondition = NewWhereCondition(queryCondition.GetWhereCondition())
-		qc.Selects = queryCondition.GetSelects()
-		qc.Groups = queryCondition.GetGroups()
-		qc.Limit = int(queryCondition.GetLimit())
 		return &qc
 	}
 	return nil

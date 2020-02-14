@@ -36,30 +36,13 @@ func (p *InfluxMeasurement) Read(query *InfluxQuery) ([]*common.Group, error) {
 	}
 
 	results := models.NewInfluxResults(response)
-	for _, result := range results {
-		for i := 0; i < result.GetGroupNum(); i++ {
-			g := result.GetGroup(i)
-			group := common.Group{}
-			for name:= range g.Tags {
-				group.Columns = append(group.Columns, name)
-			}
-			for _, name := range g.Columns {
-				if name != "time" {
-					group.Columns = append(group.Columns, name)
-				}
-			}
-			for j := 0; j < g.GetRowNum(); j++ {
-				r := g.GetRow(j)
-				row := common.Row{}
-				for _, name := range group.Columns {
-					row.Values = append(row.Values, r[name])
-				}
-				timestamp, _ := time.Parse(time.RFC3339, r["time"])
-				row.Time = &timestamp
-				group.Rows = append(group.Rows, &row)
-			}
-			groups = append(groups, &group)
-		}
+	switch query.QueryCondition.AggregateOverTimeFunction {
+	case common.MaxOverTime:
+		groups = p.aggregationData(results)
+	case common.AvgOverTime:
+		groups = p.aggregationData(results)
+	default:
+		groups = p.regularData(results)
 	}
 
 	return groups, nil
@@ -143,6 +126,73 @@ func (p *InfluxMeasurement) buildPoints(columnTypes []schemas.ColumnType, dataTy
 	}
 
 	return points
+}
+
+func (p *InfluxMeasurement) regularData(results []*models.InfluxResultExtend) []*common.Group {
+	groups := make([]*common.Group, 0)
+
+	for _, result := range results {
+		for i := 0; i < result.GetGroupNum(); i++ {
+			g := result.GetGroup(i)
+			group := common.Group{}
+			for name:= range g.Tags {
+				group.Columns = append(group.Columns, name)
+			}
+			for _, name := range g.Columns {
+				if name != "time" {
+					group.Columns = append(group.Columns, name)
+				}
+			}
+			for j := 0; j < g.GetRowNum(); j++ {
+				r := g.GetRow(j)
+				row := common.Row{}
+				for _, name := range group.Columns {
+					row.Values = append(row.Values, r[name])
+				}
+				timestamp, _ := time.Parse(time.RFC3339, r["time"])
+				row.Time = &timestamp
+				group.Rows = append(group.Rows, &row)
+			}
+			groups = append(groups, &group)
+		}
+	}
+
+	return groups
+}
+
+func (p *InfluxMeasurement) aggregationData(results []*models.InfluxResultExtend) []*common.Group {
+	groups := make([]*common.Group, 0)
+
+	for _, result := range results {
+		for i := 0; i < result.GetGroupNum(); i++ {
+			g := result.GetGroup(i)
+			group := common.Group{}
+			for name:= range g.Tags {
+				group.Columns = append(group.Columns, name)
+			}
+			for _, name := range g.Columns {
+				if name != "time" {
+					group.Columns = append(group.Columns, name)
+				}
+			}
+			valueName := group.Columns[len(group.Columns)-1]
+			for j := 0; j < g.GetRowNum(); j++ {
+				r := g.GetRow(j)
+				row := common.Row{}
+				if r[valueName] != "" {
+					for _, name := range group.Columns {
+						row.Values = append(row.Values, r[name])
+					}
+					timestamp, _ := time.Parse(time.RFC3339, r["time"])
+					row.Time = &timestamp
+					group.Rows = append(group.Rows, &row)
+				}
+			}
+			groups = append(groups, &group)
+		}
+	}
+
+	return groups
 }
 
 func (p *InfluxMeasurement) format(value string, dataType common.DataType) interface{} {
