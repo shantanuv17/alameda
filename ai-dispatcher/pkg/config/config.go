@@ -6,26 +6,38 @@ import (
 )
 
 type Config struct {
-	Units      []Unit                               `mapstructure:"units"`
-	MetricType map[string]datahub_common.MetricType `mapstructure:"metricType"`
-	Scope      map[string]datahub_schemas.Scope     `mapstructure:"scope"`
+	Units []Unit `mapstructure:"units"`
+
+	// enum table definition
+	MetricType  map[string]datahub_common.MetricType                  `mapstructure:"metricType"`
+	Scope       map[string]datahub_schemas.Scope                      `mapstructure:"scope"`
+	Aggregation map[string]datahub_common.TimeRange_AggregateFunction `mapstructure:"aggregation"`
 }
 
+// api proto enum mapping
 func (cfg *Config) Init() {
 	for jobIdx := range cfg.Units {
+		// unit scope enum
 		if val, ok := cfg.Scope[cfg.Units[jobIdx].ScopeStr]; ok {
 			cfg.Units[jobIdx].Scope = val
 		}
 
+		// model metric type enum
 		for _, metric := range cfg.Units[jobIdx].MetricTypeStrs {
 			if val, ok := cfg.MetricType[metric]; ok {
 				cfg.Units[jobIdx].MetricTypes = append(cfg.Units[jobIdx].MetricTypes, val)
 			}
 		}
 
+		// metric related
 		if val, ok := cfg.Scope[cfg.Units[jobIdx].Metric.ScopeStr]; ok {
 			cfg.Units[jobIdx].Metric.Scope = val
 		}
+		if val, ok := cfg.Aggregation[cfg.Units[jobIdx].Metric.AggregationStr]; ok {
+			cfg.Units[jobIdx].Metric.Aggregation = val
+		}
+
+		// prediction related
 		if val, ok := cfg.Scope[cfg.Units[jobIdx].Prediction.ScopeStr]; ok {
 			cfg.Units[jobIdx].Prediction.Scope = val
 		}
@@ -53,11 +65,13 @@ type Unit struct {
 }
 
 type metricSeriesMeta struct {
-	ScopeStr        string                `mapstructure:"scope"`
-	Scope           datahub_schemas.Scope `mapstructure:"-"`
-	Category        string                `mapstructure:"category"`
-	Type            string                `mapstructure:"type"`
-	MetricValueKeys metricValueKeys       `mapstructure:"valueKeys"`
+	ScopeStr        string                                     `mapstructure:"scope"`
+	Scope           datahub_schemas.Scope                      `mapstructure:"-"`
+	Category        string                                     `mapstructure:"category"`
+	Type            string                                     `mapstructure:"type"`
+	AggregationStr  string                                     `mapstructure:"aggregation"`
+	Aggregation     datahub_common.TimeRange_AggregateFunction `mapstructure:"-"`
+	MetricValueKeys metricValueKeys                            `mapstructure:"valueKeys"`
 }
 
 type predictSeriesMeta struct {
@@ -75,5 +89,6 @@ type metricValueKeys struct {
 type predictValueKeys struct {
 	ModelID      string `mapstructure:"modelID"`
 	PredictionID string `mapstructure:"predictID"`
+	Granularity  string `mapstructure:"granularity"`
 	Value        string `mapstructure:"value"`
 }

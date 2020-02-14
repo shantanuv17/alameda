@@ -129,6 +129,12 @@ prediction = 4
 recommendation = 5
 resource = 6
 
+# api proto aggregation function
+[aggregation]
+none = 0
+max = 1
+avg = 2
+
 [[units]]
 enabled = true
 scope = "application"
@@ -144,6 +150,7 @@ predictor = "SARIMAX"
   scope = "metric"
   category = "kafka"
   type = "topic"
+  aggregation = "avg"
     [units.metric.valueKeys]
     value = "value"
 
@@ -154,6 +161,7 @@ predictor = "SARIMAX"
     [units.prediction.valueKeys]
     modelID = "model_id"
     predictID = "prediction_id"
+    granularity = "granularity"
     value = "value"
 
 
@@ -172,6 +180,7 @@ predictor = "SARIMAX"
   scope = "metric"
   category = "kafka"
   type = "consumer_group"
+  aggregation = "avg"
     [units.metric.valueKeys]
     value = "value"
 
@@ -182,4 +191,5 @@ predictor = "SARIMAX"
     [units.prediction.valueKeys]
     modelID = "model_id"
     predictID = "prediction_id"
+    granularity = "granularity"
     value = "value"

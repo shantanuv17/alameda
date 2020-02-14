@@ -119,9 +119,14 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 						QueryCondition: &datahub_common.QueryCondition{
 							Order: datahub_common.QueryCondition_DESC,
 							Limit: 1,
-							TimeRange: &datahub_common.TimeRange{
-								Step: &duration.Duration{
-									Seconds: granularity,
+							WhereCondition: []*datahub_common.Condition{
+								&datahub_common.Condition{
+									Keys:      []string{unit.Prediction.PredictValueKeys.Granularity},
+									Values:    []string{fmt.Sprintf("%v", granularity)},
+									Operators: []string{"="},
+									Types: []datahub_common.DataType{
+										datahub_common.DataType_DATATYPE_STRING,
+									},
 								},
 							},
 						},
@@ -212,17 +217,13 @@ func (dispatcher *modelJobSender) driftEval(modelID string, metricType datahub_c
 					ResourceBoundary: datahub_common.ResourceBoundary_RESOURCE_RAW,
 					QueryCondition: &datahub_common.QueryCondition{
 						Order: datahub_common.QueryCondition_DESC,
-						TimeRange: &datahub_common.TimeRange{
-							Step: &duration.Duration{
-								Seconds: granularity,
-							},
-						},
 						WhereCondition: []*datahub_common.Condition{
 							&datahub_common.Condition{
-								Keys:      []string{unit.Prediction.PredictValueKeys.ModelID},
-								Values:    []string{modelID},
-								Operators: []string{"="},
+								Keys:      []string{unit.Prediction.PredictValueKeys.ModelID, unit.Prediction.PredictValueKeys.Granularity},
+								Values:    []string{modelID, fmt.Sprintf("%v", granularity)},
+								Operators: []string{"=", "="},
 								Types: []datahub_common.DataType{
+									datahub_common.DataType_DATATYPE_STRING,
 									datahub_common.DataType_DATATYPE_STRING,
 								},
 							},
@@ -272,10 +273,31 @@ func (dispatcher *modelJobSender) driftEval(modelID string, metricType datahub_c
 							scope.Errorf("[%s] Cannot query future metrics with timestamp %v", jobID, metricStartT)
 							continue
 						}
+
+						whereVals := []string{}
+						whereOps := []string{}
+						whereTypes := []datahub_common.DataType{}
+						toQueryMetric := true
+						for _, idK := range unit.IDKeys {
+							whereVal, err := utils.GetRowValue(row.GetValues(), rawDatumColumns, idK)
+							if err != nil {
+								scope.Errorf("[%s] Cannot query metric for drift evaluation due to %s", jobID, err.Error())
+								toQueryMetric = false
+								break
+							}
+							whereVals = append(whereVals, whereVal)
+							whereOps = append(whereOps, "=")
+							whereTypes = append(whereTypes, datahub_common.DataType_DATATYPE_STRING)
+						}
+						if !toQueryMetric {
+							continue
+						}
 						metricReadData := []*datahub_data.ReadData{&datahub_data.ReadData{
 							MetricType: metricType,
 							QueryCondition: &datahub_common.QueryCondition{
-								Order: datahub_common.QueryCondition_DESC,
+								Order:   datahub_common.QueryCondition_DESC,
+								Selects: []string{unit.Metric.MetricValueKeys.Value},
+								Groups:  unit.IDKeys,
 								TimeRange: &datahub_common.TimeRange{
 									Step: &duration.Duration{
 										Seconds: granularity,
@@ -283,9 +305,19 @@ func (dispatcher *modelJobSender) driftEval(modelID string, metricType datahub_c
 									StartTime: &timestamp.Timestamp{
 										Seconds: metricStartT,
 									},
+									AggregateFunction: unit.Metric.Aggregation,
+								},
+								WhereCondition: []*datahub_common.Condition{
+									&datahub_common.Condition{
+										Keys:      unit.IDKeys,
+										Values:    whereVals,
+										Operators: whereOps,
+										Types:     whereTypes,
+									},
 								},
 							},
 						}}
+
 						metricReadDataRes, err := utils.ReadData(dispatcher.datahubServiceClnt, &datahub_schemas.SchemaMeta{
 							Scope:    unit.Metric.Scope,
 							Category: unit.Metric.Category,
