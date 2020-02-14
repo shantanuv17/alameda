@@ -24,6 +24,7 @@ const (
 	TemperatureCelsius
 	DutyCycle
 	CurrentOffset
+	Lag
 )
 
 // Resource boundary enumerator

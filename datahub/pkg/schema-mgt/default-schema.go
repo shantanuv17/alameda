@@ -87,13 +87,25 @@ func genSchemaMetricKafkaTopic() *schemas.Schema {
 func genSchemaMetricKafkaCG() *schemas.Schema {
 	// Metric: kafka consumer group
 	schema := schemas.NewSchema(Metric, "kafka", "consumer_group")
-	measurement := schemas.NewMeasurement("kafka_consumer_group_current_offset", CurrentOffset, ResourceBoundaryUndefined, ResourceQuotaUndefined)
-	measurement.AddColumn("name", true, schemas.Tag, common.String)
-	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
-	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("topic_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("value", true, schemas.Field, common.Float64)
-	schema.Measurements = append(schema.Measurements, measurement)
+
+	// Current offset
+	currentOffset := schemas.NewMeasurement("kafka_consumer_group_current_offset", CurrentOffset, ResourceBoundaryUndefined, ResourceQuotaUndefined)
+	currentOffset.AddColumn("name", true, schemas.Tag, common.String)
+	currentOffset.AddColumn("namespace", true, schemas.Tag, common.String)
+	currentOffset.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	currentOffset.AddColumn("topic_name", true, schemas.Tag, common.String)
+	currentOffset.AddColumn("value", true, schemas.Field, common.Float64)
+	schema.Measurements = append(schema.Measurements, currentOffset)
+
+	// Lag
+	lag := schemas.NewMeasurement("kafka_consumer_group_lag", Lag, ResourceBoundaryUndefined, ResourceQuotaUndefined)
+	lag.AddColumn("name", true, schemas.Tag, common.String)
+	lag.AddColumn("namespace", true, schemas.Tag, common.String)
+	lag.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	lag.AddColumn("topic_name", true, schemas.Tag, common.String)
+	lag.AddColumn("value", true, schemas.Field, common.Float64)
+	schema.Measurements = append(schema.Measurements, lag)
+
 	return schema
 }
 

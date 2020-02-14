@@ -14,6 +14,7 @@ var MetricTypeNameMap = map[Schemas.MetricType]ApiCommon.MetricType{
 	SchemaMgt.TemperatureCelsius:        ApiCommon.MetricType_TEMPERATURE_CELSIUS,
 	SchemaMgt.DutyCycle:                 ApiCommon.MetricType_DUTY_CYCLE,
 	SchemaMgt.CurrentOffset:             ApiCommon.MetricType_CURRENT_OFFSET,
+	SchemaMgt.Lag:                       ApiCommon.MetricType_LAG,
 }
 
 var ResourceBoundaryNameMap = map[Schemas.ResourceBoundary]ApiCommon.ResourceBoundary{

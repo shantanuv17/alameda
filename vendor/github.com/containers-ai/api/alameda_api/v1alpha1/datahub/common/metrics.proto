@@ -19,6 +19,7 @@ enum MetricType {
     TEMPERATURE_CELSIUS          = 4;
     DUTY_CYCLE                   = 5;
     CURRENT_OFFSET               = 6;
+    LAG                          = 7;
 }
 
 enum ResourceName {
