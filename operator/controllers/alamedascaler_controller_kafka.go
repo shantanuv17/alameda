@@ -352,11 +352,7 @@ func (r AlamedaScalerKafkaReconciler) listConsumerGroups(ctx context.Context, al
 	consumerGroupSpecs := alamedaScaler.Spec.Kafka.ConsumerGroups
 	consumerGroups := make([]kafkamodel.ConsumerGroup, 0, len(consumerGroupSpecs))
 	for _, consumerGroupSpec := range consumerGroupSpecs {
-		majorTopic := ""
-		if consumerGroupSpec.MajorTopic != nil {
-			majorTopic = *consumerGroupSpec.MajorTopic
-		}
-		topic := chooseTopic(majorTopic, alamedaScaler.Spec.Kafka.Topics, consumerGroupToConsumeTopicsMap[consumerGroupSpec.Name])
+		topic := chooseTopic(consumerGroupSpec.MajorTopic, alamedaScaler.Spec.Kafka.Topics, consumerGroupToConsumeTopicsMap[consumerGroupSpec.Name])
 		if topic == "" {
 			r.Logger.Infof("ConsumerGroup(%s) does not consumes Topic(%s).", consumerGroupSpec.Name, topic)
 			continue

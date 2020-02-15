@@ -22,3 +22,14 @@ Example using mockgen to generate mock of interface Kafka.Client.
 ```
 mockgen --source=${GOPATH}/src/github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/interface.go -destination=${GOPATH}/src/github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/mock/mock.go -self_package=github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/mock
 ``` 
+
+## How to generate CRD?
+Command:
+```
+cd ${GOPATH}/src/github.com/containers-ai/alameda/operator
+make manifests
+```
+
+## 
+https://kubebuilder.io/reference/markers/crd.html
+https://kubebuilder.io/reference/markers/crd-validation.html

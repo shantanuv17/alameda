@@ -755,6 +755,17 @@
   revision = "e3636079e1a4c1f337f212cc5cd2aca108f6c900"
 
 [[projects]]
+  digest = "1:4cd3892cbc3893669c64385b6eddc17e6bd6e4ea316b19cfffd0bf0602fb3a9d"
+  name = "golang.org/x/mod"
+  packages = [
+    "module",
+    "semver",
+  ]
+  pruneopts = "T"
+  revision = "ed3ec21bb8e252814c380df79a80f366440ddb2d"
+  version = "v0.2.0"
+
+[[projects]]
   branch = "master"
   digest = "1:7ff5056f10950fb6a5ec613a91d161313439528b2f765cfaff9e1405a96dcb63"
   name = "golang.org/x/net"
@@ -854,20 +865,23 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:6c425bdc01cc09bb7d84d961335d3622b32d2fe21de339fcfee2e79b2e89d97c"
+  digest = "1:65a1c741cdac3441774b11c6da6983569e43a40976a7cbcd0f2481dc7246fac2"
   name = "golang.org/x/tools"
   packages = [
     "go/ast/astutil",
     "go/gcexportdata",
-    "go/internal/cgo",
     "go/internal/gcimporter",
+    "go/internal/packagesdriver",
     "go/packages",
     "go/types/typeutil",
     "imports",
     "internal/fastwalk",
+    "internal/gopathwalk",
+    "internal/imports",
+    "internal/packagesinternal",
   ]
   pruneopts = "T"
-  revision = "59602fdee893255faef9b2cd3aa8f880ea85265c"
+  revision = "5916a50871fbb77650a14d484c89ca39f9487118"
 
 [[projects]]
   branch = "master"

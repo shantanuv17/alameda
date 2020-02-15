@@ -119,6 +119,15 @@ app.federator.ai/part-of  | The name of a higher level application this one is p
 
 ### AlamedaScalerSpec
 
+- Field: type
+  - type: string
+  - description:Which type is this AlamedaScaler, currently support _default_ and _kafka_.
+- Field: selector
+  - type: LabelSelector
+  - description: This field is only effective whe type equals to _default_. This follows the _LabelSelector_ definition in [Kubernetes API Reference](https://kubernetes.io/docs/reference/#api-reference) except that Alameda only processes the `matchLabels` field of `LabelSelector`.
+- Field: kafkaSpec
+  - type: [KafkaSpec](#kafkaspec)
+  - description: This field is only effective whe type equals to _kafka_. AlamedaScaler will use this field to decide which topics and consumer-groups need to be monitored.
 - Field: policy
   - type: string
   - description: Policy used by Alameda for resource recommendations. _stable_ and _compact_ are supported. Default is _stable_.
@@ -128,9 +137,6 @@ app.federator.ai/part-of  | The name of a higher level application this one is p
 - Field: enableExecution
   - type: boolean
   - description: Set to _true_ to enable recommendation execution for api objects selected by this AlamedaScaler. Default is _false_.
-- Field: selector
-  - type: LabelSelector
-  - description: This follows the _LabelSelector_ definition in [Kubernetes API Reference](https://kubernetes.io/docs/reference/#api-reference) except that Alameda only processes the `matchLabels` field of `LabelSelector`.
 
 ### ScalingToolSpec
 
@@ -165,3 +171,48 @@ _vpa_ means Alameda will make recommendations to change the cpu and memory resou
 - Field: memory
   - type: string
   - description:  The thresold of percent variance between limit/request memory recommendation and container's current spec that will trigger alameda execution. Defaullt is _10%_.
+
+### KafkaSpec
+
+- Field: exporterNamespace
+  - type: string
+  - description: Defines which namespace does Kafka-Exported resides in.
+- Field: topics
+  - type: array of string
+  - description: Defines which topics that the consumer-groups might be consuming.
+- Field: consumerGroups
+  - type:  array of [KafkaConsumerGroupSpec](#kafkaconsumergroupspec) 
+  - description: Defines which consumer-groups need to be monitored.  | [][KafkaConsumerGroupSpec](#kafkaconsumergroupspec)
+
+### KafkaConsumerGroupSpec
+
+- Field: name
+  - type: string
+  - description: Name of the consumer-group. 
+- Field: majorTopic
+  - type: string
+  - description: The topic name that user want Alameda choose to predict, if it is empty, Alameda will traverses AlamedaScaler.Spec.Kafka.Topics and choose the first topic to be predicted if the consumer-group is currently consuming the topic in Kafka.
+- Field: minReplicas
+  - type: integer
+  - description: **At least** how many replicas need to running when autoscaling. Default is _1_. 
+- Field: maxReplicas
+  - type: integer
+  - description: **At most** how many replicas can run when autoscaling. Default value will be decided dynamically by the count of topic's partitions that Alameda choose to predict.
+- Field: resource
+  - type: [KafkaConsumerGroupResourceSpec](#kafkaconsumergroupresourcespec)
+  - description: Way to map the consumer-group to the workload.
+
+### KafkaConsumerGroupResourceSpec
+
+- Field: custom
+  - type: string
+  - description: A name to map to the consumer-group when it cannot be directly mapped to a resource in Kubernetes.
+- Field: kubernetes
+  - type: [KubernetesResourceSpec](#kubernetesresourcespec)
+  - description: This filed provides user to tell Alameda what's the resource in Kubernetes belongs to the consumer-group.
+
+### KubernetesResourceSpec
+
+- Field: selector
+  - type: LabelSelector
+  - description: This follows the _LabelSelector_ definition in [Kubernetes API Reference](https://kubernetes.io/docs/reference/#api-reference) except that Alameda only processes the `matchLabels` field of `LabelSelector`.

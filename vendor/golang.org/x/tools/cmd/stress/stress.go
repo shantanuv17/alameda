@@ -20,6 +20,7 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"regexp"
 	"runtime"
 	"syscall"
@@ -32,6 +33,7 @@ var (
 	flagKill    = flag.Bool("kill", true, "kill timed out processes if true, otherwise just print pid (to attach with gdb)")
 	flagFailure = flag.String("failure", "", "fail only if output matches `regexp`")
 	flagIgnore  = flag.String("ignore", "", "ignore failure if output matches `regexp`")
+	flagOutput  = flag.String("o", defaultPrefix(), "output failure logs to `path` plus a unique suffix")
 )
 
 func init() {
@@ -45,6 +47,11 @@ Usage:
 `)
 		flag.PrintDefaults()
 	}
+}
+
+func defaultPrefix() string {
+	date := time.Now().Format("go-stress-20060102T150405-")
+	return filepath.Join(os.TempDir(), date)
 }
 
 func main() {
@@ -115,7 +122,8 @@ func main() {
 				continue
 			}
 			fails++
-			f, err := ioutil.TempFile("", "go-stress")
+			dir, path := filepath.Split(*flagOutput)
+			f, err := ioutil.TempFile(dir, path)
 			if err != nil {
 				fmt.Printf("failed to create temp file: %v\n", err)
 				os.Exit(1)
@@ -123,9 +131,11 @@ func main() {
 			f.Write(out)
 			f.Close()
 			if len(out) > 2<<10 {
-				out = out[:2<<10]
+				out := out[:2<<10]
+				fmt.Printf("\n%s\n%s\n…\n", f.Name(), out)
+			} else {
+				fmt.Printf("\n%s\n%s\n", f.Name(), out)
 			}
-			fmt.Printf("\n%s\n%s\n", f.Name(), out)
 		case <-ticker:
 			fmt.Printf("%v runs so far, %v failures\n", runs, fails)
 		}

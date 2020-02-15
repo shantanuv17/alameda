@@ -159,7 +159,7 @@ const (
 )
 
 type ScalingToolSpec struct {
-	// +kubebuilder:validation:Enum=,vpa,hpa,N/A
+	// +kubebuilder:validation:Enum="";vpa;hpa;N/A
 	Type              string             `json:"type,omitempty" protobuf:"bytes,1,name=type"`
 	ExecutionStrategy *ExecutionStrategy `json:"executionStrategy,omitempty" protobuf:"bytes,2,name=execution_strategy"`
 }
@@ -173,15 +173,19 @@ const (
 )
 
 type KafkaSpec struct {
-	ExporterNamespace string                   `json:"exporterNamespace,omitempty" protobuf:"bytes,1,opt,name=exporter_namespace"`
-	Topics            []string                 `json:"topics,omitempty" protobuf:"bytes,2,opt,name=topics"`
-	ConsumerGroups    []KafkaConsumerGroupSpec `json:"consumerGroups,omitempty" protobuf:"bytes,3,opt,name=consumer_groups"`
+	// +kubebuilder:validation:MinLength=1
+	ExporterNamespace string `json:"exporterNamespace,omitempty" protobuf:"bytes,1,opt,name=exporter_namespace"`
+	// +kubebuilder:validation:MinItems=1
+	Topics []string `json:"topics,omitempty" protobuf:"bytes,2,opt,name=topics"`
+	// +kubebuilder:validation:MinItems=1
+	ConsumerGroups []KafkaConsumerGroupSpec `json:"consumerGroups,omitempty" protobuf:"bytes,3,opt,name=consumer_groups"`
 }
 
 type KafkaConsumerGroupSpec struct {
+	// +kubebuilder:validation:MinLength=1
 	Name        string                         `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
 	Resource    KafkaConsumerGroupResourceSpec `json:"resource,omitempty" protobuf:"bytes,2,opt,name=resource"`
-	MajorTopic  *string                        `json:"majorTopic,omitempty" protobuf:"bytes,3,opt,name=major_topic"`
+	MajorTopic  string                         `json:"majorTopic,omitempty" protobuf:"bytes,3,opt,name=major_topic"`
 	MinReplicas *int32                         `json:"minReplicas,omitempty" protobuf:"bytes,2,opt,name=min_replicas"`
 	MaxReplicas *int32                         `json:"maxReplicas,omitempty" protobuf:"bytes,3,opt,name=max_replicas"`
 }
@@ -198,10 +202,9 @@ type KubernetesResourceSpec struct {
 // AlamedaScalerSpec defines the desired state of AlamedaScaler
 // INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 type AlamedaScalerSpec struct {
-	// Important: Run "make" to regenerate code after modifying this file
 	Selector        *metav1.LabelSelector `json:"selector,omitempty" protobuf:"bytes,1,name=selector"`
 	EnableExecution *enableExecution      `json:"enableExecution,omitempty" protobuf:"bytes,2,name=enable_execution"`
-	// +kubebuilder:validation:Enum=stable,compact
+	// +kubebuilder:validation:Enum=stable;compact
 	Policy                alamedaPolicy     `json:"policy,omitempty" protobuf:"bytes,3,opt,name=policy"`
 	CustomResourceVersion string            `json:"customResourceVersion,omitempty" protobuf:"bytes,4,opt,name=custom_resource_version"`
 	ScalingTool           ScalingToolSpec   `json:"scalingTool,omitempty" protobuf:"bytes,5,opt,name=scaling_tool"`
@@ -242,11 +245,7 @@ type AlamedaScalerStatus struct {
 	Kafka             *KafkaStatus      `json:"kafka,omitempty" protobuf:"bytes,5,opt,name=kafka"`
 }
 
-// +genclient
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
-// AlamedaScaler is the Schema for the alamedascalers API
-// +k8s:openapi-gen=true
+// +kubebuilder:resource:scope=Namespaced
 type AlamedaScaler struct {
 	Mgr      ctrl.Manager                      `json:"-"`
 	Validate apivalidate.AlamedaScalerValidate `json:"-"`

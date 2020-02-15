@@ -667,7 +667,7 @@ func TestIsAlamedaScalerNeedToBeReconciled(t *testing.T) {
 						Resource: autoscalingv1alpha1.KafkaConsumerGroupResourceSpec{
 							Custom: "cg1-custom-name",
 						},
-						MajorTopic: nil,
+						MajorTopic: "",
 					},
 				},
 			},
@@ -689,7 +689,7 @@ func TestIsAlamedaScalerNeedToBeReconciled(t *testing.T) {
 						Resource: autoscalingv1alpha1.KafkaConsumerGroupResourceSpec{
 							Custom: "cg1-custom-name",
 						},
-						MajorTopic: nil,
+						MajorTopic: "",
 					},
 				},
 			},
@@ -883,7 +883,7 @@ func TestGetKafkaStatus(t *testing.T) {
 									Resource: autoscalingv1alpha1.KafkaConsumerGroupResourceSpec{
 										Custom: "cg1-custom-name",
 									},
-									MajorTopic: nil,
+									MajorTopic: "",
 								},
 							},
 						},

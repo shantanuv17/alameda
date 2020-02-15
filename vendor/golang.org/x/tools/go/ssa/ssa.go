@@ -654,7 +654,7 @@ type ChangeInterface struct {
 // value of a concrete type.
 //
 // Use Program.MethodSets.MethodSet(X.Type()) to find the method-set
-// of X, and Program.Method(m) to find the implementation of a method.
+// of X, and Program.MethodValue(m) to find the implementation of a method.
 //
 // To construct the zero value of an interface type T, use:
 // 	NewConst(constant.MakeNil(), T, pos)
@@ -1477,6 +1477,8 @@ func (c *NamedConst) Token() token.Token                   { return token.CONST 
 func (c *NamedConst) Object() types.Object                 { return c.object }
 func (c *NamedConst) Package() *Package                    { return c.pkg }
 func (c *NamedConst) RelString(from *types.Package) string { return relString(c, from) }
+
+func (d *DebugRef) Object() types.Object { return d.object }
 
 // Func returns the package-level function of the specified name,
 // or nil if not found.

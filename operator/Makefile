@@ -46,7 +46,7 @@ deploy: manifests
 # Generate manifests e.g. CRD
 .PHONY: manifests
 manifests: controller-gen
-	go run github.com/containers-ai/alameda/vendor/sigs.k8s.io/controller-tools/cmd/controller-gen crd
+	$(CONTROLLER_GEN) crd output:dir=./config/crds paths="./api/..." 
 
 # Run go fmt against code
 .PHONY: fmt

@@ -35,11 +35,7 @@ type AlamedaRecommendationStatus struct {
 	// Important: Run "make" to regenerate code after modifying this file
 }
 
-// +genclient
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
-// AlamedaRecommendation is the Schema for the alamedarecommendations API
-// +k8s:openapi-gen=true
+// +kubebuilder:resource:scope=Namespaced
 type AlamedaRecommendation struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
