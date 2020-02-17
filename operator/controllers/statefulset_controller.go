@@ -51,27 +51,18 @@ func (r *StatefulSetReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error)
 	instance.DeepCopyInto(&statefulSet)
 	scope.Infof("Reconciling StatefulSet(%s/%s).", req.Namespace, req.Name)
 
-	alamedaScaler, err := getCandidateAlamedaScaler(context.TODO(), r.Client, statefulSet.ObjectMeta)
+	name, err := GetAlamedaScalerControllerName(context.TODO(), r.Client, statefulSet.ObjectMeta)
 	if err != nil {
-		scope.Warnf("Get AlamedaScaler name and type failed: %+v", err)
+		scope.Warnf("Get AlamedaScaler controller name and type failed: %+v", err)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueDuration}, nil
 	}
-	scope.Infof("StatefulSet(%s/%s) is monitored by AlamedaScaler(%s/%s).", req.Namespace, req.Name, alamedaScaler.GetNamespace(), alamedaScaler.GetName())
-	if err := r.setAndUpdateDeploymentAnnotations(statefulSet, alamedaScaler.GetNamespace(), alamedaScaler.GetType()); err != nil {
+	setAlamedaScalerControllerName(&statefulSet.ObjectMeta, name)
+	if err := r.Client.Update(context.TODO(), &statefulSet); err != nil {
 		scope.Errorf("Update StatefulSet(%s/%s) falied: %s", statefulSet.GetNamespace(), statefulSet.GetName(), err.Error())
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueDuration}, nil
 	}
 
 	return ctrl.Result{}, nil
-}
-
-func (r *StatefulSetReconciler) setAndUpdateDeploymentAnnotations(statefulSet appsv1.StatefulSet, alamedaScalerName, alamedaScalerType string) error {
-	setLastMonitorAlamedaScalerType(&statefulSet.ObjectMeta, alamedaScalerType)
-	setLastMonitorAlamedaScaler(&statefulSet.ObjectMeta, alamedaScalerName)
-	if err := r.Client.Update(context.TODO(), &statefulSet); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (r *StatefulSetReconciler) SetupWithManager(mgr ctrl.Manager) error {

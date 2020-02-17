@@ -1,5 +1,6 @@
 # Developers Guide
 
+
 ## How to add new application controller into Alameda-Operator?
 1. Define new struct and implement business logic in alameda/operator/controller/new_controller.go. The new struct might has follow procedures. 
 - 1.1. Function(e.g. function "Reconcile") will be triggered by events(e.g. user inputs, states change) to reconcile the desired state.
@@ -10,6 +11,10 @@
 2. Declare and add the new controller into manager,(i.e. function "addControllersToManager" in [file](../cmd/manager/main.go))
 3. Delete redudant data from Datahub while initializing.
 - 3.1. Add logic into function [syncResourcesWithDatahub](../cmd/manager/sync_datahub.go) 
+4. If this controller reconciles one type of AlamedaScaler add folloing logic with the new controller.
+- 4.1. Defines new function within type [listCandidatesFunctions](../controllers/candidates.go) and registers it with function [RegisterAlamedaScalerController](../controllers/candidates.go).
+- 4.2. After listing Deployment/StatefulSet/DeploymentConfig, check if these objects are monitored by the controller with function [IsMonitoredByAlamedaScalerController](../controllers/util.go).
+
 
 ## How to add new configuration into Alameda-Operator?
 1. Define new configuration's Golang structure.

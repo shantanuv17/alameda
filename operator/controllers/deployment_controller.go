@@ -51,27 +51,18 @@ func (r *DeploymentReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) 
 	instance.DeepCopyInto(&deployment)
 	scope.Infof("Reconciling Deployment(%s/%s).", req.Namespace, req.Name)
 
-	alamedaScaler, err := getCandidateAlamedaScaler(context.TODO(), r.Client, deployment.ObjectMeta)
+	name, err := GetAlamedaScalerControllerName(context.TODO(), r.Client, deployment.ObjectMeta)
 	if err != nil {
-		scope.Warnf("Get AlamedaScaler name and type failed: %+v", err)
+		scope.Warnf("Get AlamedaScaler controller name and type failed: %+v", err)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueDuration}, nil
 	}
-	scope.Infof("Deployment(%s/%s) is monitored by AlamedaScaler(%s/%s).", req.Namespace, req.Name, alamedaScaler.GetNamespace(), alamedaScaler.GetName())
-	if err := r.setAndUpdateDeploymentAnnotations(deployment, alamedaScaler.GetNamespace(), alamedaScaler.GetType()); err != nil {
+	setAlamedaScalerControllerName(&deployment.ObjectMeta, name)
+	if err := r.Client.Update(context.TODO(), &deployment); err != nil {
 		scope.Errorf("Update Deployment(%s/%s) falied: %s", deployment.GetNamespace(), deployment.GetName(), err.Error())
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueDuration}, nil
 	}
 
 	return ctrl.Result{}, nil
-}
-
-func (r *DeploymentReconciler) setAndUpdateDeploymentAnnotations(deployment appsv1.Deployment, alamedaScalerName, alamedaScalerType string) error {
-	setLastMonitorAlamedaScalerType(&deployment.ObjectMeta, alamedaScalerType)
-	setLastMonitorAlamedaScaler(&deployment.ObjectMeta, alamedaScalerName)
-	if err := r.Client.Update(context.TODO(), &deployment); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (r *DeploymentReconciler) SetupWithManager(mgr ctrl.Manager) error {

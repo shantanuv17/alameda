@@ -54,6 +54,38 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 )
 
+var listCandidatesDefaultAlamedaScaler = func(
+	ctx context.Context,
+	k8sClient client.Client,
+	objectMeta metav1.ObjectMeta,
+) ([]autoscalingv1alpha1.AlamedaScaler, error) {
+
+	alamedaScalerList := autoscalingv1alpha1.AlamedaScalerList{}
+	err := k8sClient.List(ctx, &alamedaScalerList)
+	if err != nil {
+		return nil, errors.Wrap(err, "list AlamedaScalers failed")
+	}
+
+	candidates := make([]autoscalingv1alpha1.AlamedaScaler, 0)
+	for _, alamedaScaler := range alamedaScalerList.Items {
+		if !(alamedaScaler.GetType() == autoscalingv1alpha1.AlamedaScalerTypeNotDefine ||
+			alamedaScaler.GetType() == autoscalingv1alpha1.AlamedaScalerTypeDefault) {
+			continue
+		}
+		if alamedaScaler.Spec.Selector == nil {
+			continue
+		}
+		if ok := isLabelsSelectedBySelector(*alamedaScaler.Spec.Selector, objectMeta.GetLabels()); ok {
+			candidates = append(candidates, alamedaScaler)
+		}
+	}
+	return candidates, nil
+}
+
+func init() {
+	RegisterAlamedaScalerController(autoscalingv1alpha1.AlamedaScalerTypeDefault, listCandidatesKafkaAlamedaScaler)
+}
+
 var (
 	scope = logUtil.RegisterScope("operator_controllers", "operator controllers", 0)
 
@@ -218,7 +250,7 @@ func (r AlamedaScalerReconciler) listAndAddDeploymentsIntoAlamedaScalerStatue(ct
 			return alamedaScaler, errors.Wrap(err, "check if Deployment can be monitored failed")
 		}
 
-		ok = ok && isMonitoredByAlamedaScalerType(deployment.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeDefault)
+		ok = ok && IsMonitoredByAlamedaScalerController(deployment.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeDefault)
 		if ok {
 			_, err = alamedascalerReconciler.UpdateStatusByDeployment(&deployment)
 			if err != nil {
@@ -245,7 +277,7 @@ func (r AlamedaScalerReconciler) listAndAddDeploymentConfigsIntoAlamedaScalerSta
 			return alamedaScaler, errors.Wrap(err, "check if DeploymentConfig can be monitored failed")
 		}
 
-		ok = ok && isMonitoredByAlamedaScalerType(deploymentConfig.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeDefault)
+		ok = ok && IsMonitoredByAlamedaScalerController(deploymentConfig.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeDefault)
 		if ok {
 			_, err = alamedascalerReconciler.UpdateStatusByDeploymentConfig(&deploymentConfig)
 			if err != nil {
@@ -272,7 +304,7 @@ func (r AlamedaScalerReconciler) listAndAddStatefulSetsIntoAlamedaScalerStatue(c
 			return alamedaScaler, errors.Wrap(err, "check if StatefulSet can be monitored failed")
 		}
 
-		ok = ok && isMonitoredByAlamedaScalerType(statefulSet.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeDefault)
+		ok = ok && IsMonitoredByAlamedaScalerController(statefulSet.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeDefault)
 		if ok {
 			_, err = alamedascalerReconciler.UpdateStatusByStatefulSet(&statefulSet)
 			if err != nil {

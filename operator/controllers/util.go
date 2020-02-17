@@ -1,74 +1,34 @@
 package controllers
 
 import (
-	"context"
 	"time"
-
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
 const (
-	alamedaScalerNameAnnotationKey = "alamedascalers.autoscaling.containers.ai/name"
 	alamedaScalerTypeAnnotationKey = "alamedascalers.autoscaling.containers.ai/type"
 )
 
-// setLastMonitorAlamedaScaler sets the last AlamedaScaler's name into the object's annotation
-func setLastMonitorAlamedaScaler(obj metav1.Object, alamedaScalerName string) {
-
+// setAlamedaScalerControllerName sets the AlamedaScaler controller's type into the object's annotation.
+func setAlamedaScalerControllerName(obj metav1.Object, name string) {
 	annotations := obj.GetAnnotations()
 	if annotations == nil {
 		annotations = make(map[string]string)
 	}
-	annotations[alamedaScalerNameAnnotationKey] = alamedaScalerName
+	annotations[name] = name
 
 	obj.SetAnnotations(annotations)
 }
 
-// setLastMonitorAlamedaScalerType sets the last AlamedaScaler's type into the object's annotation.
-func setLastMonitorAlamedaScalerType(obj metav1.Object, alamedaScalerType string) {
-	annotations := obj.GetAnnotations()
-	if annotations == nil {
-		annotations = make(map[string]string)
-	}
-	annotations[alamedaScalerTypeAnnotationKey] = alamedaScalerType
-
-	obj.SetAnnotations(annotations)
-}
-
-func getCandidateAlamedaScaler(ctx context.Context, k8sClient client.Client, objectMeta metav1.ObjectMeta) (autoscalingv1alpha1.AlamedaScaler, error) {
-	candidates := make([]metav1.ObjectMeta, 0)
-	for _, f := range listCandidatesFunctions {
-		alamedaScalers, err := f(ctx, k8sClient, objectMeta)
-		if err != nil {
-			return autoscalingv1alpha1.AlamedaScaler{}, err
-		}
-		for _, alamedaScaler := range alamedaScalers {
-			candidates = append(candidates, alamedaScaler.ObjectMeta)
-		}
-	}
-	if len(candidates) == 0 {
-		return autoscalingv1alpha1.AlamedaScaler{}, nil
-	}
-
-	oldestObj := getFirstCreatedObjectMeta(candidates)
-	alamedaScaler := autoscalingv1alpha1.AlamedaScaler{}
-	if err := k8sClient.Get(ctx, client.ObjectKey{Namespace: oldestObj.GetNamespace(), Name: oldestObj.GetName()}, &alamedaScaler); err != nil {
-		return autoscalingv1alpha1.AlamedaScaler{}, err
-	}
-	return alamedaScaler, nil
-}
-
-// isMonitoredByAlamedaScalerType returns if the last monitored AlamedaScaler's type to object if alamedaScalerType.
-func isMonitoredByAlamedaScalerType(obj metav1.ObjectMeta, alamedaScalerType string) bool {
+// IsMonitoredByAlamedaScalerController returns if the object is monitored by the provided name of AlamdeScaler controller.
+func IsMonitoredByAlamedaScalerController(obj metav1.ObjectMeta, name string) bool {
 	annotations := obj.GetAnnotations()
 	if annotations == nil {
 		return false
 	}
-	if annotations[alamedaScalerTypeAnnotationKey] == alamedaScalerType {
+	if annotations[alamedaScalerTypeAnnotationKey] == name {
 		return true
 	}
 	return false
@@ -118,13 +78,13 @@ func getTotalResourceFromContainers(containers []corev1.Container) corev1.Resour
 	return total
 }
 
-func getFirstTime(times []time.Time)time.Time{
+func getFirstTime(times []time.Time) time.Time {
 	min := time.Now()
-	for _,t:=range times{
-		if min.After(t){
-			min=t
+	for _, t := range times {
+		if min.After(t) {
+			min = t
 		}
 	}
-	
+
 	return min
 }
