@@ -5,7 +5,6 @@ import (
 	"log"
 	"path/filepath"
 	"testing"
-	"time"
 
 	gomock "github.com/golang/mock/gomock"
 	"github.com/pkg/errors"
@@ -640,110 +639,6 @@ func TestGetFirstCreatedMatchedKubernetesMetadata(t *testing.T) {
 		actual, err := reconciler.getFirstCreatedMatchedKubernetesMetadata(ctx, testCase.have.namespace, testCase.have.kubernetesResourceSpec)
 		assert.NoError(err)
 		assert.Equal(testCase.want, actual)
-	}
-
-}
-
-func TestIsAlamedaScalerNeedToBeReconciled(t *testing.T) {
-	testEnv, mgr, err := createTestEnvAndManager()
-	if err != nil {
-		t.Error(err)
-	}
-	defer stopTestEnv(testEnv)
-
-	alamedaScaler1 := autoscalingv1alpha1.AlamedaScaler{
-		ObjectMeta: metav1.ObjectMeta{
-			Namespace: "test",
-			Name:      "test",
-		},
-		Spec: autoscalingv1alpha1.AlamedaScalerSpec{
-			Type: autoscalingv1alpha1.AlamedaScalerTypeKafka,
-			Kafka: &autoscalingv1alpha1.KafkaSpec{
-				ExporterNamespace: "test",
-				Topics:            []string{"topic1", "topic2", "topic3"},
-				ConsumerGroups: []autoscalingv1alpha1.KafkaConsumerGroupSpec{
-					autoscalingv1alpha1.KafkaConsumerGroupSpec{
-						Name: "cg1",
-						Resource: autoscalingv1alpha1.KafkaConsumerGroupResourceSpec{
-							Custom: "cg1-custom-name",
-						},
-						MajorTopic: "",
-					},
-				},
-			},
-		},
-	}
-	alamedaScaler2 := autoscalingv1alpha1.AlamedaScaler{
-		ObjectMeta: metav1.ObjectMeta{
-			Namespace: "test",
-			Name:      "test2",
-		},
-		Spec: autoscalingv1alpha1.AlamedaScalerSpec{
-			Type: autoscalingv1alpha1.AlamedaScalerTypeKafka,
-			Kafka: &autoscalingv1alpha1.KafkaSpec{
-				ExporterNamespace: "test",
-				Topics:            []string{"topic1", "topic2", "topic3"},
-				ConsumerGroups: []autoscalingv1alpha1.KafkaConsumerGroupSpec{
-					autoscalingv1alpha1.KafkaConsumerGroupSpec{
-						Name: "cg1",
-						Resource: autoscalingv1alpha1.KafkaConsumerGroupResourceSpec{
-							Custom: "cg1-custom-name",
-						},
-						MajorTopic: "",
-					},
-				},
-			},
-		},
-	}
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
-	defer cancel()
-	if err := createKubernetesResources(mgr.GetClient(), &alamedaScaler1, &alamedaScaler2); err != nil {
-		panic(err)
-	}
-
-	r := AlamedaScalerKafkaReconciler{
-		K8SClient: mgr.GetClient(),
-		Scheme:    mgr.GetScheme(),
-	}
-
-	type testCaseWant struct {
-		ok  bool
-		err error
-	}
-	type testCase struct {
-		have autoscalingv1alpha1.AlamedaScaler
-		want testCaseWant
-	}
-
-	testCases := []testCase{
-		testCase{
-			have: alamedaScaler1,
-			want: testCaseWant{
-				ok:  true,
-				err: nil,
-			},
-		},
-	}
-	ctx = context.Background()
-	assert := assert.New(t)
-	for _, testCase := range testCases {
-		actual, err := r.isAlamedaScalerNeedToBeReconciled(ctx, testCase.have)
-		assert.Equal(testCase.want.ok, actual)
-		assert.NoError(err)
-	}
-
-	failedTestCases := []testCase{
-		testCase{
-			have: alamedaScaler2,
-			want: testCaseWant{
-				ok: false,
-			},
-		},
-	}
-	for _, testCase := range failedTestCases {
-		actual, err := r.isAlamedaScalerNeedToBeReconciled(ctx, testCase.have)
-		assert.Equal(testCase.want.ok, actual)
-		assert.NotNil(err)
 	}
 }
 

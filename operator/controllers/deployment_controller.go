@@ -55,6 +55,8 @@ func (r *DeploymentReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) 
 	if err != nil {
 		scope.Warnf("Get AlamedaScaler controller name and type failed: %+v", err)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueDuration}, nil
+	} else if name == "" {
+		return ctrl.Result{}, nil
 	}
 	setAlamedaScalerControllerName(&deployment.ObjectMeta, name)
 	if err := r.Client.Update(context.TODO(), &deployment); err != nil {

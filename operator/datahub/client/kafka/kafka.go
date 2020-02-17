@@ -44,6 +44,9 @@ func NewKafkaRepository(datahubClient datahub.DatahubServiceClient, logger *log.
 }
 
 func (k KafkaRepository) CreateTopics(ctx context.Context, topics []kafka.Topic) error {
+	if len(topics) == 0 {
+		return nil
+	}
 	req, err := k.newWriteDataRequestByTopics(topics)
 	if err != nil {
 		return errors.Wrap(err, "new WriteDataRequest by topics failed")
@@ -55,6 +58,9 @@ func (k KafkaRepository) CreateTopics(ctx context.Context, topics []kafka.Topic)
 }
 
 func (k KafkaRepository) CreateConsumerGroups(ctx context.Context, consumerGroups []kafka.ConsumerGroup) error {
+	if len(consumerGroups) == 0 {
+		return nil
+	}
 	req, err := k.newWriteDataRequesByConsumerGroups(consumerGroups)
 	if err != nil {
 		return errors.Wrap(err, "new WriteDataRequest by consumerGroups failed")
