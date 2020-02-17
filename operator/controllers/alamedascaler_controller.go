@@ -132,8 +132,6 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 	}
 
 	scope.Infof("Reconciling AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
-	// TODO: Delete full info
-	scope.Infof("AlamedaScaler: %+v", alamedaScaler)
 	alamedaScaler = r.setDefaultAlamedaScaler(alamedaScaler)
 	alamedaScaler.Status.AlamedaController = autoscalingv1alpha1.NewAlamedaController()
 	if alamedaScaler, err = r.listAndAddDeploymentsIntoAlamedaScalerStatue(context.TODO(), alamedaScaler); err != nil {

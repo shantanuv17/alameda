@@ -112,15 +112,16 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 		alamedaScaler.Status.Kafka = &autoscalingv1alpha1.KafkaStatus{}
 	}
 
-	if ok, err := r.isAlamedaScalerNeedToBeReconciled(ctx, alamedaScaler); err != nil {
+	if !r.isAlamedaScalerTypeNeedToBeReconciled(alamedaScaler) {
+		return ctrl.Result{Requeue: false}, nil
+	}
+
+	if ok, err := r.isCreateOrOwnLock(ctx, alamedaScaler); err != nil {
 		r.Logger.Infof("Check if AlamedaScaler(%s/%s) needs to be reconciled failed, retry reconciling: %s", req.Namespace, req.Name, err)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	} else if !ok {
-		r.Logger.Infof("AlamedaScaler(%s/%s) type(%s), skip reconciling.", req.Namespace, req.Name, alamedaScaler.GetType())
 		alamedaScaler.Status.Kafka.Effective = false
-		if err != nil {
-			alamedaScaler.Status.Kafka.Message = err.Error()
-		}
+		alamedaScaler.Status.Kafka.Message = "Other AlamedaScaler is effective."
 		err := r.updateAlamedaScaler(ctx, &alamedaScaler)
 		if err != nil {
 			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
@@ -141,7 +142,7 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 
 	ok, err := r.isMetricsExist(ctx, r.NeededMetrics)
 	if err != nil {
-		r.Logger.Warnf("Check if metrics exist in Prometheus failed: metrics: %+v: err: %+v", r.NeededMetrics, err)
+		r.Logger.Warnf("Check if metrics exist in Prometheus failed: metrics: %+v: err: %s", r.NeededMetrics, err.Error())
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
 	if !ok {
@@ -232,18 +233,21 @@ func (r AlamedaScalerKafkaReconciler) updateAlamedaScaler(ctx context.Context, a
 	return nil
 }
 
-func (r AlamedaScalerKafkaReconciler) isAlamedaScalerNeedToBeReconciled(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (bool, error) {
+func (r AlamedaScalerKafkaReconciler) isAlamedaScalerTypeNeedToBeReconciled(alamedaScaler autoscalingv1alpha1.AlamedaScaler) bool {
 	if alamedaScaler.GetType() != autoscalingv1alpha1.AlamedaScalerTypeKafka {
-		return false, nil
+		return false
 	}
+	return true
+}
 
+func (r AlamedaScalerKafkaReconciler) isCreateOrOwnLock(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (bool, error) {
 	//Ensure that count of the AlamedaScaler with same value of AlamedaScaler.Spec.Kafka.ExporterNamespace per namespace at most one.
 	lock, err := r.getOrCreateLock(ctx, alamedaScaler)
 	if err != nil {
 		return false, errors.Wrap(err, "get or create lock failed")
 	}
 	if !r.isLockOwnBy(&lock, &alamedaScaler) {
-		return false, errors.Errorf("lock is owned by other AlamedaScaler(%s)", lock.GetOwnerReferences()[0].Name)
+		return false, nil
 	}
 
 	return true, nil
