@@ -28,7 +28,7 @@ import (
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
 
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
 	datahub_client "github.com/containers-ai/alameda/operator/datahub/client"
 	datahub_application "github.com/containers-ai/alameda/operator/datahub/client/application"
 	datahub_controller "github.com/containers-ai/alameda/operator/datahub/client/controller"

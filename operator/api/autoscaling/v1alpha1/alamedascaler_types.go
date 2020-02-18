@@ -19,11 +19,11 @@ package v1alpha1
 import (
 	"fmt"
 
-	apivalidate "github.com/containers-ai/alameda/operator/api/validate"
+	// apivalidate "github.com/containers-ai/alameda/operator/api/validate"
 	"github.com/containers-ai/alameda/operator/pkg/utils"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	ctrl "sigs.k8s.io/controller-runtime"
+	// ctrl "sigs.k8s.io/controller-runtime"
 )
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
@@ -245,10 +245,15 @@ type AlamedaScalerStatus struct {
 	Kafka             *KafkaStatus      `json:"kafka,omitempty" protobuf:"bytes,5,opt,name=kafka"`
 }
 
+// +genclient
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +k8s:openapi-gen=true
 // +kubebuilder:resource:scope=Namespaced
+
+// AlamedaScaler is the Schema for the alamedascalers API
 type AlamedaScaler struct {
-	Mgr      ctrl.Manager                      `json:"-"`
-	Validate apivalidate.AlamedaScalerValidate `json:"-"`
+	// Mgr      ctrl.Manager                      `json:"-"`
+	// Validate apivalidate.AlamedaScalerValidate `json:"-"`
 
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

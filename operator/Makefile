@@ -92,3 +92,9 @@ CONTROLLER_GEN=$(GOBIN)/controller-gen
 else
 CONTROLLER_GEN=$(shell which controller-gen)
 endif
+
+code-gen:
+	../vendor/k8s.io/code-generator/generate-groups.sh \
+	deepcopy github.com/containers-ai/alameda/operator/api \
+	github.com/containers-ai/alameda/operator/api \
+	"autoscaling:v1alpha1"

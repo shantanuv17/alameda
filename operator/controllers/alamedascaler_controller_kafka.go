@@ -11,7 +11,7 @@ import (
 
 	"github.com/containers-ai/alameda/internal/pkg/database/prometheus"
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
 	kafkarepository "github.com/containers-ai/alameda/operator/datahub/client/kafka"
 	kafkamodel "github.com/containers-ai/alameda/operator/pkg/kafka"
 	utilsresources "github.com/containers-ai/alameda/operator/pkg/utils/resources"

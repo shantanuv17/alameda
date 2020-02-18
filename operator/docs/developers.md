@@ -34,7 +34,10 @@ Command:
 cd ${GOPATH}/src/github.com/containers-ai/alameda/operator
 make manifests
 ```
+Reference of validataion markers:
+- https://kubebuilder.io/reference/markers/crd.html
+- https://kubebuilder.io/reference/markers/crd-validation.html
 
-## 
-https://kubebuilder.io/reference/markers/crd.html
-https://kubebuilder.io/reference/markers/crd-validation.html
+## Code generation for CustomResource
+To generate code that implements function "DeepCopy" for custom resource's structure, execute targe "code-gen" in Makefile.
+For further usage of k8s code-gen tools, inspect [doc](#https://blog.openshift.com/kubernetes-deep-dive-code-generation-customresources/).

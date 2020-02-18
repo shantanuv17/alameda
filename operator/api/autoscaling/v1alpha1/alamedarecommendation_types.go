@@ -35,6 +35,10 @@ type AlamedaRecommendationStatus struct {
 	// Important: Run "make" to regenerate code after modifying this file
 }
 
+// +genclient
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +k8s:openapi-gen=true
+
 // +kubebuilder:resource:scope=Namespaced
 type AlamedaRecommendation struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -48,7 +52,9 @@ func (ar *AlamedaRecommendation) GetNamespacedName() NamespacedName {
 	return utils.GetNamespacedNameKey(ar.Namespace, ar.Name)
 }
 
+// +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +k8s:openapi-gen=true
 
 // AlamedaRecommendationList contains a list of AlamedaRecommendation
 type AlamedaRecommendationList struct {

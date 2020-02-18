@@ -6,7 +6,7 @@ import (
 
 	openshift_apps_v1 "github.com/openshift/api/apps/v1"
 
-	autuscaling "github.com/containers-ai/alameda/operator/api/v1alpha1"
+	autuscaling "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
 	appsapi_v1 "github.com/openshift/api/apps/v1"
 	"github.com/pkg/errors"
 	appsv1 "k8s.io/api/apps/v1"

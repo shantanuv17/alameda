@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"

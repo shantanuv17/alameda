@@ -34,7 +34,7 @@ import (
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
 	kafkaclient "github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/client"
 	"github.com/containers-ai/alameda/operator"
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
 	"github.com/containers-ai/alameda/operator/controllers"
 	datahubclient "github.com/containers-ai/alameda/operator/datahub/client"
 	datahub_client_application "github.com/containers-ai/alameda/operator/datahub/client/application"
