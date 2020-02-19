@@ -6,7 +6,7 @@ import (
 	Keycodes "github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes"
 	DatahubConfig "github.com/containers-ai/alameda/datahub/pkg/config"
 	Notifier "github.com/containers-ai/alameda/datahub/pkg/notifier"
-	Schema "github.com/containers-ai/alameda/datahub/pkg/schema-mgt"
+	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schemamgt"
 	EventMgt "github.com/containers-ai/alameda/internal/pkg/event-mgt"
 	"github.com/containers-ai/alameda/pkg/utils/log"
 	"github.com/spf13/cobra"
@@ -106,9 +106,9 @@ func initKeycode() {
 func initSchema() {
 	scope.Info("Initialize schema management")
 
-	Schema.SchemaInit(&config)
-	Schema.DefaultSchemasInit()
-	schemaMgt := Schema.NewSchemaManagement()
+	SchemaMgt.SchemaInit(&config)
+	SchemaMgt.DefaultSchemasInit()
+	schemaMgt := SchemaMgt.NewSchemaManagement()
 	schemaMgt.Refresh()
 }
 

@@ -1,8 +1,7 @@
-package schema_mgt
+package schemamgt
 
 import (
-	"encoding/json"
-	"fmt"
+	"github.com/containers-ai/alameda/datahub/pkg/utils"
 	"github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
 )
 
@@ -28,7 +27,7 @@ func (p *SchemaMap) AddSchema(schema *schemas.Schema) {
 
 	// Do a deep copy of schema
 	s := schemas.Schema{}
-	DeepCopy(&s, schema)
+	utils.DeepCopy(&s, schema)
 	p.Schemas[scope] = append(p.Schemas[scope], &s)
 }
 
@@ -39,22 +38,4 @@ func (p *SchemaMap) Empty() {
 		}
 		p.Schemas = nil
 	}
-}
-
-func DeepCopy(dst interface{}, src interface{}) error {
-	if dst == nil {
-		return fmt.Errorf("dst cannot be nil")
-	}
-	if src == nil {
-		return fmt.Errorf("src cannot be nil")
-	}
-	bytes, err := json.Marshal(src)
-	if err != nil {
-		return fmt.Errorf("unable to marshal src: %s", err)
-	}
-	err = json.Unmarshal(bytes, dst)
-	if err != nil {
-		return fmt.Errorf("unable to unmarshal into dst: %s", err)
-	}
-	return nil
 }

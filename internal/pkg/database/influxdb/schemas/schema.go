@@ -1,7 +1,12 @@
 package schemas
 
 import (
+	"github.com/containers-ai/alameda/pkg/utils/log"
 	"strings"
+)
+
+var (
+	scope = log.RegisterScope("Database", "influxdb-schemas", 0)
 )
 
 type Schema struct {

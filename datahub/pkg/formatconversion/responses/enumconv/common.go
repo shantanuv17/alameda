@@ -1,33 +1,32 @@
 package enumconv
 
 import (
-	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schema-mgt"
-	Schemas "github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
+	"github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
+	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 )
 
-var MetricTypeNameMap = map[Schemas.MetricType]ApiCommon.MetricType{
-	SchemaMgt.MetricTypeUndefined:       ApiCommon.MetricType_METRICS_TYPE_UNDEFINED,
-	SchemaMgt.CPUUsageSecondsPercentage: ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
-	SchemaMgt.MemoryUsageBytes:          ApiCommon.MetricType_MEMORY_USAGE_BYTES,
-	SchemaMgt.PowerUsageWatts:           ApiCommon.MetricType_POWER_USAGE_WATTS,
-	SchemaMgt.TemperatureCelsius:        ApiCommon.MetricType_TEMPERATURE_CELSIUS,
-	SchemaMgt.DutyCycle:                 ApiCommon.MetricType_DUTY_CYCLE,
-	SchemaMgt.CurrentOffset:             ApiCommon.MetricType_CURRENT_OFFSET,
-	SchemaMgt.Lag:                       ApiCommon.MetricType_LAG,
+var MetricTypeNameMap = map[schemas.MetricType]common.MetricType{
+	schemas.MetricTypeUndefined:       common.MetricType_METRICS_TYPE_UNDEFINED,
+	schemas.CPUUsageSecondsPercentage: common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+	schemas.MemoryUsageBytes:          common.MetricType_MEMORY_USAGE_BYTES,
+	schemas.PowerUsageWatts:           common.MetricType_POWER_USAGE_WATTS,
+	schemas.TemperatureCelsius:        common.MetricType_TEMPERATURE_CELSIUS,
+	schemas.DutyCycle:                 common.MetricType_DUTY_CYCLE,
+	schemas.CurrentOffset:             common.MetricType_CURRENT_OFFSET,
+	schemas.Lag:                       common.MetricType_LAG,
 }
 
-var ResourceBoundaryNameMap = map[Schemas.ResourceBoundary]ApiCommon.ResourceBoundary{
-	SchemaMgt.ResourceBoundaryUndefined: ApiCommon.ResourceBoundary_RESOURCE_BOUNDARY_UNDEFINED,
-	SchemaMgt.ResourceRaw:               ApiCommon.ResourceBoundary_RESOURCE_RAW,
-	SchemaMgt.ResourceUpperBound:        ApiCommon.ResourceBoundary_RESOURCE_UPPER_BOUND,
-	SchemaMgt.ResourceLowerBound:        ApiCommon.ResourceBoundary_RESOURCE_LOWER_BOUND,
+var ResourceBoundaryNameMap = map[schemas.ResourceBoundary]common.ResourceBoundary{
+	schemas.ResourceBoundaryUndefined: common.ResourceBoundary_RESOURCE_BOUNDARY_UNDEFINED,
+	schemas.ResourceRaw:               common.ResourceBoundary_RESOURCE_RAW,
+	schemas.ResourceUpperBound:        common.ResourceBoundary_RESOURCE_UPPER_BOUND,
+	schemas.ResourceLowerBound:        common.ResourceBoundary_RESOURCE_LOWER_BOUND,
 }
 
-var ResourceQuotaNameMap = map[Schemas.ResourceQuota]ApiCommon.ResourceQuota{
-	SchemaMgt.ResourceQuotaUndefined: ApiCommon.ResourceQuota_RESOURCE_QUOTA_UNDEFINED,
-	SchemaMgt.ResourceLimit:          ApiCommon.ResourceQuota_RESOURCE_LIMIT,
-	SchemaMgt.ResourceRequest:        ApiCommon.ResourceQuota_RESOURCE_REQUEST,
-	SchemaMgt.ResourceInitialLimit:   ApiCommon.ResourceQuota_RESOURCE_INITIAL_LIMIT,
-	SchemaMgt.ResourceInitialRequest: ApiCommon.ResourceQuota_RESOURCE_INITIAL_REQUEST,
+var ResourceQuotaNameMap = map[schemas.ResourceQuota]common.ResourceQuota{
+	schemas.ResourceQuotaUndefined: common.ResourceQuota_RESOURCE_QUOTA_UNDEFINED,
+	schemas.ResourceLimit:          common.ResourceQuota_RESOURCE_LIMIT,
+	schemas.ResourceRequest:        common.ResourceQuota_RESOURCE_REQUEST,
+	schemas.ResourceInitialLimit:   common.ResourceQuota_RESOURCE_INITIAL_LIMIT,
+	schemas.ResourceInitialRequest: common.ResourceQuota_RESOURCE_INITIAL_REQUEST,
 }

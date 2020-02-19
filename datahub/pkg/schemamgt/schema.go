@@ -1,18 +1,18 @@
-package schema_mgt
+package schemamgt
 
 import (
 	"github.com/containers-ai/alameda/datahub/pkg/config"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	Log "github.com/containers-ai/alameda/pkg/utils/log"
+	"github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	"github.com/containers-ai/alameda/pkg/utils/log"
 	"sync"
 )
 
 var (
-	scope = Log.RegisterScope("schema-mgt", "schema management", 0)
+	scope = log.RegisterScope("schema", "schema library", 0)
 )
 
 var (
-	InfluxConfig  *InternalInflux.Config
+	InfluxConfig  *influxdb.Config
 	RWLock        *sync.RWMutex
 	Schemas       *SchemaMap
 	Schemas2Write *SchemaMap

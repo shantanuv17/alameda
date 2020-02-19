@@ -3,8 +3,7 @@ package influxdb
 import (
 	"errors"
 	DaoDataTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/data/types"
-	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schema-mgt"
-	//InternalCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
+	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schemamgt"
 	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
 	InfluxSchema "github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"

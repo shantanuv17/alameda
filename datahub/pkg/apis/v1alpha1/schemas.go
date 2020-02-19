@@ -4,7 +4,7 @@ import (
 	DaoSchema "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/schemas"
 	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/schemas"
 	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/schemas"
-	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schema-mgt"
+	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schemamgt"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiSchemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	"golang.org/x/net/context"

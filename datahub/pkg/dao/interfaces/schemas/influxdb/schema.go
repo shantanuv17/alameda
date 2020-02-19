@@ -2,9 +2,9 @@ package influxdb
 
 import (
 	DaoSchemaTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/schemas/types"
-	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schema-mgt"
+	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schemamgt"
 	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	"github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
+	InternalSchemas "github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 )
 
@@ -34,10 +34,10 @@ func (p *Schema) CreateSchemas(request *DaoSchemaTypes.CreateSchemasRequest) err
 	return nil
 }
 
-func (p *Schema) ListSchemas(request *DaoSchemaTypes.ListSchemasRequest) ([]*schemas.Schema, error) {
+func (p *Schema) ListSchemas(request *DaoSchemaTypes.ListSchemasRequest) ([]*InternalSchemas.Schema, error) {
 	schemaMgt := SchemaMgt.NewSchemaManagement()
 	if request.SchemaMeta == nil {
-		return schemaMgt.GetSchemas(SchemaMgt.ScopeUndefined, "", ""), nil
+		return schemaMgt.GetSchemas(InternalSchemas.ScopeUndefined, "", ""), nil
 	}
 	return schemaMgt.GetSchemas(request.SchemaMeta.Scope, request.SchemaMeta.Category, request.SchemaMeta.Type), nil
 }

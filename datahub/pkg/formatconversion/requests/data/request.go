@@ -5,7 +5,7 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/data/types"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/schemas"
-	"github.com/containers-ai/alameda/datahub/pkg/schema-mgt"
+	"github.com/containers-ai/alameda/datahub/pkg/schemamgt"
 	InternalSchema "github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 )
@@ -27,7 +27,7 @@ func (p *WriteDataRequestRequestExtended) Validate() error {
 		return errors.New("schema meta is not given")
 	}
 
-	schemaMgt := schema_mgt.NewSchemaManagement()
+	schemaMgt := schemamgt.NewSchemaManagement()
 	schemaMeta := schemas.NewSchemaMeta(p.GetSchemaMeta())
 
 	if err := isSchemaMetaComplete(schemaMeta); err != nil {
@@ -70,7 +70,7 @@ func (p *ReadDataRequestRequestExtended) Validate() error {
 		return errors.New("schema meta is not given")
 	}
 
-	schemaMgt := schema_mgt.NewSchemaManagement()
+	schemaMgt := schemamgt.NewSchemaManagement()
 	schemaMeta := schemas.NewSchemaMeta(p.GetSchemaMeta())
 
 	if err := isSchemaMetaComplete(schemaMeta); err != nil {
@@ -108,7 +108,7 @@ func (p *DeleteDataRequestRequestExtended) Validate() error {
 		return errors.New("schema meta is not given")
 	}
 
-	schemaMgt := schema_mgt.NewSchemaManagement()
+	schemaMgt := schemamgt.NewSchemaManagement()
 	schemaMeta := schemas.NewSchemaMeta(p.GetSchemaMeta())
 
 	if err := isSchemaMetaComplete(schemaMeta); err != nil {
