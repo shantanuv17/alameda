@@ -26,6 +26,12 @@ func (c NamespaceCPUUsageRepository) ListNamespaceCPUUsageMillicoresEntitiesByNa
 	// Example of expression to query prometheus
 	// 1000 * sum(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{pod_name!="",container_name!="POD",namespace=~"@n1"}) by (namespace)
 
+	var (
+		response  InternalPromth.Response
+		labelType = 0
+		err       error
+	)
+
 	prometheusClient, err := InternalPromth.NewClient(&c.PrometheusConfig)
 	if err != nil {
 		return nil, errors.Wrap(err, "new prometheus client failed")
@@ -36,26 +42,31 @@ func (c NamespaceCPUUsageRepository) ListNamespaceCPUUsageMillicoresEntitiesByNa
 		option(&opt)
 	}
 
-	queryLabelsString := c.buildQueryLabelsStringByNamespaceNames(namespaceNames)
-	queryExpression := fmt.Sprintf("%s{%s}", ContainerCpuUsagePercentageMetricName, queryLabelsString)
-	stepTimeInSeconds := int64(opt.StepTime.Nanoseconds() / int64(time.Second))
-	queryExpression, err = InternalPromth.WrapQueryExpression(queryExpression, opt.AggregateOverTimeFunc, stepTimeInSeconds)
-	if err != nil {
-		return nil, errors.Wrap(err, "wrap query expression failed")
-	}
-	queryExpression = fmt.Sprintf(`1000 * sum(%s) by (%s)`, queryExpression, ContainerCpuUsagePercentageLabelNamespace)
+	for labelType = 0; labelType < AvailableLabelType; labelType++ {
+		queryLabelsString := c.buildQueryLabelsStringByNamespaceNames(namespaceNames, labelType)
+		queryExpression := fmt.Sprintf("%s{%s}", ContainerCpuUsagePercentageMetricName, queryLabelsString)
+		stepTimeInSeconds := int64(opt.StepTime.Nanoseconds() / int64(time.Second))
+		queryExpression, err = InternalPromth.WrapQueryExpression(queryExpression, opt.AggregateOverTimeFunc, stepTimeInSeconds)
+		if err != nil {
+			return nil, errors.Wrap(err, "wrap query expression failed")
+		}
+		queryExpression = fmt.Sprintf(`1000 * sum(%s) by (%s)`, queryExpression, ContainerCpuUsagePercentageLabelNamespace)
 
-	scope.Debugf("Query to prometheus: queryExpression: %+v, StartTime: %+v, EndTime: %+v, StepTime: %+v", queryExpression, opt.StartTime, opt.EndTime, opt.StepTime)
-	response, err := prometheusClient.QueryRange(ctx, queryExpression, opt.StartTime, opt.EndTime, opt.StepTime)
-	if err != nil {
-		return nil, errors.Wrap(err, "query prometheus failed")
-	} else if response.Status != InternalPromth.StatusSuccess {
-		return nil, errors.Errorf("query prometheus failed: receive error response from prometheus: %s", response.Error)
+		scope.Debugf("Query to prometheus: queryExpression: %+v, StartTime: %+v, EndTime: %+v, StepTime: %+v", queryExpression, opt.StartTime, opt.EndTime, opt.StepTime)
+		response, err = prometheusClient.QueryRange(ctx, queryExpression, opt.StartTime, opt.EndTime, opt.StepTime)
+		if err != nil {
+			return nil, errors.Wrap(err, "query prometheus failed")
+		} else if response.Status != InternalPromth.StatusSuccess {
+			return nil, errors.Errorf("query prometheus failed: receive error response from prometheus: %s", response.Error)
+		}
+		if len(response.Data.Result) != 0 {
+			break
+		}
 	}
 
 	entities, err := response.GetEntities()
 	if err != nil {
-		return nil, errors.Wrap(err, "get prometheus response entites failed")
+		return nil, errors.Wrap(err, "get prometheus response entities failed")
 	}
 	foundMap := map[string]bool{}
 	for _, name := range namespaceNames {
@@ -78,20 +89,20 @@ func (c NamespaceCPUUsageRepository) ListNamespaceCPUUsageMillicoresEntitiesByNa
 	return namespaceCPUUsageMillicoresEntities, nil
 }
 
-func (c NamespaceCPUUsageRepository) buildDefaultQueryLabelsString() string {
+func (c NamespaceCPUUsageRepository) buildDefaultQueryLabelsString(labelType int) string {
 	// sum(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{pod_name!="",container_name!="POD",namespace="@n1"})
 
 	var queryLabelsString = ""
 
-	queryLabelsString += fmt.Sprintf(`%s != "",`, ContainerCpuUsagePercentageLabelPodName)
-	queryLabelsString += fmt.Sprintf(`%s != "POD"`, ContainerCpuUsagePercentageLabelContainerName)
+	queryLabelsString += fmt.Sprintf(`%s != "",`, AvailableContainerCpuUsagePercentageLabelPodName[labelType])
+	queryLabelsString += fmt.Sprintf(`%s != "POD"`, AvailableContainerCpuUsagePercentageLabelContainerName[labelType])
 
 	return queryLabelsString
 }
 
-func (c NamespaceCPUUsageRepository) buildQueryLabelsStringByNamespaceNames(namespaceNames []string) string {
+func (c NamespaceCPUUsageRepository) buildQueryLabelsStringByNamespaceNames(namespaceNames []string, labelType int) string {
 	var (
-		queryLabelsString = c.buildDefaultQueryLabelsString()
+		queryLabelsString = c.buildDefaultQueryLabelsString(labelType)
 	)
 
 	names := ""
