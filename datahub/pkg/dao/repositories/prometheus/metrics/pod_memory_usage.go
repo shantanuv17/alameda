@@ -27,6 +27,12 @@ func (c PodMemoryUsageRepository) ListPodMemoryUsageBytesEntityBySummingPodMetri
 	// Example of expression to query prometheus
 	// sum(container_memory_usage_bytes{pod_name!="",container_name!="",container_name!="POD",namespace="@n1",pod_name=~"@p1|@p2"})
 
+	var (
+		response  InternalPromth.Response
+		labelType = 0
+		err       error
+	)
+
 	prometheusClient, err := InternalPromth.NewClient(&c.PrometheusConfig)
 	if err != nil {
 		return nil, errors.Wrap(err, "new prometheus client failed")
@@ -37,30 +43,35 @@ func (c PodMemoryUsageRepository) ListPodMemoryUsageBytesEntityBySummingPodMetri
 		option(&opt)
 	}
 
-	queryLabelsString := c.buildDefaultQueryLabelsString()
-	queryLabelsString += fmt.Sprintf(`, %s = "%s"`, ContainerMemoryUsageBytesLabelNamespace, namespace)
-	names := ""
-	for _, name := range podNames {
-		names += fmt.Sprintf("%s|", name)
-	}
-	if names != "" {
-		names = strings.TrimSuffix(names, "|")
-		queryLabelsString += fmt.Sprintf(`,%s =~ "%s"`, ContainerCpuUsagePercentageLabelPodName, names)
-	}
-	queryExpression := fmt.Sprintf(`%s{%s}`, ContainerMemoryUsageBytesMetricName, queryLabelsString)
-	stepTimeInSeconds := int64(opt.StepTime.Nanoseconds() / int64(time.Second))
-	queryExpression, err = InternalPromth.WrapQueryExpression(queryExpression, opt.AggregateOverTimeFunc, stepTimeInSeconds)
-	if err != nil {
-		return nil, errors.Wrap(err, "wrap query expression failed")
-	}
-	queryExpression = fmt.Sprintf(`sum(%s)`, queryExpression)
+	for labelType = 0; labelType < AvailableLabelType; labelType++ {
+		queryLabelsString := c.buildDefaultQueryLabelsString(labelType)
+		queryLabelsString += fmt.Sprintf(`, %s = "%s"`, ContainerMemoryUsageBytesLabelNamespace, namespace)
+		names := ""
+		for _, name := range podNames {
+			names += fmt.Sprintf("%s|", name)
+		}
+		if names != "" {
+			names = strings.TrimSuffix(names, "|")
+			queryLabelsString += fmt.Sprintf(`,%s =~ "%s"`, AvailableContainerCpuUsagePercentageLabelPodName[labelType], names)
+		}
+		queryExpression := fmt.Sprintf(`%s{%s}`, ContainerMemoryUsageBytesMetricName, queryLabelsString)
+		stepTimeInSeconds := int64(opt.StepTime.Nanoseconds() / int64(time.Second))
+		queryExpression, err = InternalPromth.WrapQueryExpression(queryExpression, opt.AggregateOverTimeFunc, stepTimeInSeconds)
+		if err != nil {
+			return nil, errors.Wrap(err, "wrap query expression failed")
+		}
+		queryExpression = fmt.Sprintf(`sum(%s)`, queryExpression)
 
-	scope.Debugf("Query to prometheus: queryExpression: %+v, StartTime: %+v, EndTime: %+v, StepTime: %+v", queryExpression, opt.StartTime, opt.EndTime, opt.StepTime)
-	response, err := prometheusClient.QueryRange(ctx, queryExpression, opt.StartTime, opt.EndTime, opt.StepTime)
-	if err != nil {
-		return nil, errors.Wrap(err, "query prometheus failed")
-	} else if response.Status != InternalPromth.StatusSuccess {
-		return nil, errors.Errorf("query prometheus failed: receive error response from prometheus: %s", response.Error)
+		scope.Debugf("Query to prometheus: queryExpression: %+v, StartTime: %+v, EndTime: %+v, StepTime: %+v", queryExpression, opt.StartTime, opt.EndTime, opt.StepTime)
+		response, err = prometheusClient.QueryRange(ctx, queryExpression, opt.StartTime, opt.EndTime, opt.StepTime)
+		if err != nil {
+			return nil, errors.Wrap(err, "query prometheus failed")
+		} else if response.Status != InternalPromth.StatusSuccess {
+			return nil, errors.Errorf("query prometheus failed: receive error response from prometheus: %s", response.Error)
+		}
+		if len(response.Data.Result) != 0 {
+			break
+		}
 	}
 
 	entities, err := response.GetEntities()
@@ -69,24 +80,24 @@ func (c PodMemoryUsageRepository) ListPodMemoryUsageBytesEntityBySummingPodMetri
 	}
 	podMemoryUsageBytesEntities := make([]EntityPromthMetric.PodMemoryUsageBytesEntity, len(entities))
 	for i, entity := range entities {
-		e := c.newPodMemoryUsageBytesEntity(entity)
+		e := c.newPodMemoryUsageBytesEntity(entity, labelType)
 		podMemoryUsageBytesEntities[i] = e
 	}
 
 	return podMemoryUsageBytesEntities, nil
 }
 
-func (c PodMemoryUsageRepository) buildDefaultQueryLabelsString() string {
+func (c PodMemoryUsageRepository) buildDefaultQueryLabelsString(labelType int) string {
 	// sum(container_memory_usage_bytes{pod_name!="",container_name!="",container_name!="POD",namespace="@n1",pod_name=~"@p1|@p2"})
 
 	var queryLabelsString = ""
-	queryLabelsString += fmt.Sprintf(`%s != "",`, ContainerMemoryUsageBytesLabelPodName)
-	queryLabelsString += fmt.Sprintf(`%s != "",`, ContainerMemoryUsageBytesLabelContainerName)
-	queryLabelsString += fmt.Sprintf(`%s != "POD"`, ContainerMemoryUsageBytesLabelContainerName)
+	queryLabelsString += fmt.Sprintf(`%s != "",`, AvailableContainerMemoryUsageBytesLabelPodName[labelType])
+	queryLabelsString += fmt.Sprintf(`%s != "",`, AvailableContainerMemoryUsageBytesLabelContainerName[labelType])
+	queryLabelsString += fmt.Sprintf(`%s != "POD"`, AvailableContainerMemoryUsageBytesLabelContainerName[labelType])
 	return queryLabelsString
 }
 
-func (c PodMemoryUsageRepository) newPodMemoryUsageBytesEntity(e InternalPromth.Entity) EntityPromthMetric.PodMemoryUsageBytesEntity {
+func (c PodMemoryUsageRepository) newPodMemoryUsageBytesEntity(e InternalPromth.Entity, labelType int) EntityPromthMetric.PodMemoryUsageBytesEntity {
 
 	samples := make([]FormatTypes.Sample, len(e.Values))
 	for i, value := range e.Values {
@@ -97,7 +108,7 @@ func (c PodMemoryUsageRepository) newPodMemoryUsageBytesEntity(e InternalPromth.
 	}
 	return EntityPromthMetric.PodMemoryUsageBytesEntity{
 		NamespaceName: e.Labels[ContainerCpuUsagePercentageLabelNamespace],
-		PodName:       e.Labels[ContainerCpuUsagePercentageLabelPodName],
+		PodName:       e.Labels[AvailableContainerCpuUsagePercentageLabelPodName[labelType]],
 		Samples:       samples,
 	}
 }

@@ -5,7 +5,7 @@ import (
 )
 
 var (
-	scope = log.RegisterScope("metrics_prometheu", "metrics repository fetching from Prometheus", 0)
+	scope = log.RegisterScope("metrics_prometheus", "metrics repository fetching from Prometheus", 0)
 )
 
 const (
@@ -36,14 +36,20 @@ const (
 	// Metric name to query from prometheus
 	ContainerCpuUsagePercentageMetricName = "namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate"
 	// Label name in prometheus metric
-	ContainerCpuUsagePercentageLabelNamespace     = "namespace"
-	ContainerCpuUsagePercentageLabelPodName       = "pod_name"
-	ContainerCpuUsagePercentageLabelContainerName = "container_name"
+	ContainerCpuUsagePercentageLabelNamespace = "namespace"
 
 	// Metric name to query from prometheus
 	ContainerMemoryUsageBytesMetricName = "container_memory_usage_bytes"
 	// Label name in prometheus metric
-	ContainerMemoryUsageBytesLabelNamespace     = "namespace"
-	ContainerMemoryUsageBytesLabelPodName       = "pod_name"
-	ContainerMemoryUsageBytesLabelContainerName = "container_name"
+	ContainerMemoryUsageBytesLabelNamespace = "namespace"
+
+	AvailableLabelType = 2
+)
+
+var (
+	AvailableContainerCpuUsagePercentageLabelPodName       = []string{"pod", "pod_name"}
+	AvailableContainerCpuUsagePercentageLabelContainerName = []string{"container", "container_name"}
+
+	AvailableContainerMemoryUsageBytesLabelPodName       = []string{"pod", "pod_name"}
+	AvailableContainerMemoryUsageBytesLabelContainerName = []string{"container", "container_name"}
 )
