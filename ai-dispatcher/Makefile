@@ -1,7 +1,6 @@
-FETCH := $(shell git fetch --all)
 # Image URL to use all building/pushing image targets
 IMG ?= alameda-ai-dispatcher
-IMG_TAG ?= $(shell git describe --abbrev=7 --tags --dirty)
+IMG_TAG ?= $(shell git describe --always --dirty --abbrev=7)
 COMMIT := $(shell git rev-parse --short HEAD)
 
 .PHONY: all test ai-dispatcher 
