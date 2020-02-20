@@ -3,6 +3,8 @@ package client
 import (
 	"context"
 	"crypto/tls"
+	"net"
+	"strings"
 	"sync"
 	"time"
 
@@ -22,9 +24,8 @@ type client struct {
 	brokerAddresses []string
 	config          sarama.Config
 
-	lock   sync.Mutex
-	client sarama.Client
-	admin  sarama.ClusterAdmin
+	lock  sync.Mutex
+	admin sarama.ClusterAdmin
 }
 
 // NewClient returns implementation for internal kafka client interface,
@@ -59,47 +60,40 @@ func NewClient(config kafka.Config) (kafka.Client, error) {
 }
 
 func (c *client) Open() error {
-	if c.client != nil && c.admin != nil {
+	if c.admin != nil {
 		return nil
 	}
 
 	c.lock.Lock()
 	defer c.lock.Unlock()
-
-	if c.client == nil {
-		cli, err := sarama.NewClient(c.brokerAddresses, &c.config)
-		if err != nil {
-			return errors.Wrap(err, "new kafka client failed")
-		}
-		c.client = cli
+	admin, err := sarama.NewClusterAdmin(c.brokerAddresses, &c.config)
+	if err != nil {
+		return errors.Wrap(err, "new kafka clusterAdmin failed")
 	}
-
-	if c.admin == nil {
-		admin, err := sarama.NewClusterAdminFromClient(c.client)
-		if err != nil {
-			return errors.Wrap(err, "new kafka clusterAdmin failed")
-		}
-		c.admin = admin
-	}
+	c.admin = admin
 	return nil
 }
 
 func (c *client) Close() error {
-	if c.client == nil {
+	if c.admin == nil {
 		return nil
 	}
 
 	c.lock.Lock()
 	defer c.lock.Unlock()
-	if err := c.client.Close(); err != nil {
-		return errors.Wrap(err, "close client failed")
+	if err := c.admin.Close(); err != nil {
+		return errors.Wrap(err, "close admin failed")
 	}
+	c.admin = nil
 	return nil
 }
 
 func (c *client) ListTopics(ctx context.Context) ([]string, error) {
+	if err := c.Open(); err != nil {
+		return nil, errors.Wrap(err, "open client failed")
+	}
 	topicsDetail, err := c.admin.ListTopics()
-	if err != nil {
+	if err = c.handleError(err); err != nil {
 		return nil, errors.Wrap(err, "list topics failed")
 	}
 
@@ -111,8 +105,11 @@ func (c *client) ListTopics(ctx context.Context) ([]string, error) {
 }
 
 func (c *client) ListConsumerGroups(ctx context.Context) ([]string, error) {
+	if err := c.Open(); err != nil {
+		return nil, errors.Wrap(err, "open client failed")
+	}
 	consumerGroupMap, err := c.admin.ListConsumerGroups()
-	if err != nil {
+	if err = c.handleError(err); err != nil {
 		return nil, errors.Wrap(err, "list consumerGroups failed")
 	}
 
@@ -124,8 +121,11 @@ func (c *client) ListConsumerGroups(ctx context.Context) ([]string, error) {
 }
 
 func (c *client) ListConsumeTopics(ctx context.Context, consumerGroup string) ([]string, error) {
+	if err := c.Open(); err != nil {
+		return nil, errors.Wrap(err, "open client failed")
+	}
 	resp, err := c.admin.ListConsumerGroupOffsets(consumerGroup, nil)
-	if err != nil {
+	if err = c.handleError(err); err != nil {
 		return nil, errors.Wrap(err, "list consumerGroup offsets failed")
 	}
 
@@ -138,8 +138,11 @@ func (c *client) ListConsumeTopics(ctx context.Context, consumerGroup string) ([
 
 // ListTopicsPartitionCounts returns map from topic name to partition counts.
 func (c *client) ListTopicsPartitionCounts(ctx context.Context, topics []string) (map[string]int, error) {
+	if err := c.Open(); err != nil {
+		return nil, errors.Wrap(err, "open client failed")
+	}
 	topicsMetadata, err := c.admin.DescribeTopics(topics)
-	if err != nil {
+	if err = c.handleError(err); err != nil {
 		return nil, errors.Wrap(err, "describe topics failed")
 	}
 
@@ -157,6 +160,34 @@ func (c *client) ListTopicsPartitionCounts(ctx context.Context, topics []string)
 	}
 
 	return topicToPartitionMap, nil
+}
+
+func (c *client) handleError(err error) error {
+	if err == nil {
+		return nil
+	}
+
+	netErr, ok := err.(net.Error)
+	if ok {
+		return c.handleErrorNet(netErr)
+	}
+
+	if strings.Contains(err.Error(), "EOF") {
+		if err := c.Close(); err != nil {
+			return errors.Wrap(err, "close client failed")
+		}
+	}
+
+	return err
+}
+
+func (c *client) handleErrorNet(err net.Error) error {
+	if strings.Contains(err.Error(), "write: broken pipe") {
+		if err := c.Close(); err != nil {
+			return errors.Wrap(err, "close client failed")
+		}
+	}
+	return err
 }
 
 func setConfigDefaults(config kafka.Config) kafka.Config {
