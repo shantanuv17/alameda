@@ -77,7 +77,7 @@ func NewServer(cfg DatahubConfig.Config) (*Server, error) {
 		err: make(chan error),
 
 		Config:    cfg,
-		//K8SClient: k8sCli,
+		K8SClient: k8sCli,
 	}
 
 	return server, nil
