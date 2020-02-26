@@ -17,7 +17,7 @@ func setAlamedaScalerControllerName(obj metav1.Object, name string) {
 	if annotations == nil {
 		annotations = make(map[string]string)
 	}
-	annotations[name] = name
+	annotations[alamedaScalerTypeAnnotationKey] = name
 
 	obj.SetAnnotations(annotations)
 }

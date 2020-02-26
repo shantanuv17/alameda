@@ -61,7 +61,7 @@ var listCandidatesDefaultAlamedaScaler = func(
 ) ([]autoscalingv1alpha1.AlamedaScaler, error) {
 
 	alamedaScalerList := autoscalingv1alpha1.AlamedaScalerList{}
-	err := k8sClient.List(ctx, &alamedaScalerList)
+	err := k8sClient.List(ctx, &alamedaScalerList, &client.ListOptions{Namespace: objectMeta.Namespace})
 	if err != nil {
 		return nil, errors.Wrap(err, "list AlamedaScalers failed")
 	}
@@ -83,7 +83,7 @@ var listCandidatesDefaultAlamedaScaler = func(
 }
 
 func init() {
-	RegisterAlamedaScalerController(autoscalingv1alpha1.AlamedaScalerTypeDefault, listCandidatesKafkaAlamedaScaler)
+	RegisterAlamedaScalerController(autoscalingv1alpha1.AlamedaScalerTypeDefault, listCandidatesDefaultAlamedaScaler)
 }
 
 var (
@@ -319,12 +319,14 @@ func (r AlamedaScalerReconciler) listAndAddStatefulSetsIntoAlamedaScalerStatue(c
 }
 
 func (r AlamedaScalerReconciler) getIneffectiveAlamedaResource(workloadController metav1.ObjectMeta) autoscalingv1alpha1.AlamedaResource {
+	empty := int32(0)
 	return autoscalingv1alpha1.AlamedaResource{
-		Namespace: workloadController.GetNamespace(),
-		Name:      workloadController.GetName(),
-		UID:       string(workloadController.GetUID()),
-		Effective: false,
-		Message:   "Is monitoring by other AlamedaScaler.",
+		Namespace:    workloadController.GetNamespace(),
+		Name:         workloadController.GetName(),
+		UID:          string(workloadController.GetUID()),
+		SpecReplicas: &empty,
+		Effective:    false,
+		Message:      "Is monitoring by other AlamedaScaler.",
 	}
 }
 

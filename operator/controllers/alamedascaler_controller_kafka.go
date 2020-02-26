@@ -36,7 +36,7 @@ var listCandidatesKafkaAlamedaScaler = func(
 ) ([]autoscalingv1alpha1.AlamedaScaler, error) {
 
 	alamedaScalerList := autoscalingv1alpha1.AlamedaScalerList{}
-	err := k8sClient.List(ctx, &alamedaScalerList)
+	err := k8sClient.List(ctx, &alamedaScalerList, &client.ListOptions{Namespace: objectMeta.Namespace})
 	if err != nil {
 		return nil, errors.Wrap(err, "list AlamedaScalers failed")
 	}

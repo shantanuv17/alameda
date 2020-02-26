@@ -64,7 +64,7 @@ type AlamedaResource struct {
 	Name         string                        `json:"name" protobuf:"bytes,2,opt,name=name"`
 	UID          string                        `json:"uid" protobuf:"bytes,3,opt,name=uid"`
 	Pods         map[NamespacedName]AlamedaPod `json:"pods,omitempty" protobuf:"bytes,4,opt,name=pods"`
-	SpecReplicas *int32                        `json:"specReplicas" protobuf:"varint,5,opt,name=spec_replicas"`
+	SpecReplicas *int32                        `json:"specReplicas,omitempty" protobuf:"varint,5,opt,name=spec_replicas"`
 	Effective    bool                          `json:"effective" protobuf:"varint,6,opt,name=effective"`
 	Message      string                        `json:"message" protobuf:"varint,5,opt,name=message"`
 }
