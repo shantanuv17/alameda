@@ -110,16 +110,6 @@ type AlamedaScalerKafkaReconciler struct {
 	NeededMetrics []string
 }
 
-func (r AlamedaScalerKafkaReconciler) isMetricsExist(ctx context.Context, metrics []string) (bool, error) {
-	ok, nonExistMetrics, err := r.PrometheusClient.IsMetricsExist(ctx, r.NeededMetrics)
-	if err != nil {
-		return false, err
-	} else if len(nonExistMetrics) > 0 {
-		return false, errors.Errorf("metrics not eixst: metrics: %+v", metrics)
-	}
-	return ok, nil
-}
-
 func (r AlamedaScalerKafkaReconciler) openClient() error {
 	if err := r.KafkaClient.Open(); err != nil {
 		return errors.Wrap(err, "open kafka client failed")
@@ -176,22 +166,6 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 		return ctrl.Result{Requeue: false}, nil
 	}
 
-	ok, err := r.isMetricsExist(ctx, r.NeededMetrics)
-	if err != nil {
-		r.Logger.Warnf("Check if metrics exist in Prometheus failed: metrics: %+v: err: %s", r.NeededMetrics, err.Error())
-		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
-	}
-	if !ok {
-		alamedaScaler.Status.Kafka.Effective = false
-		alamedaScaler.Status.Kafka.Message = "Needed metrics not exist in Prometheus."
-		err := r.updateAlamedaScaler(ctx, &alamedaScaler)
-		if err != nil {
-			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
-			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
-		}
-		return ctrl.Result{Requeue: false}, nil
-	}
-
 	if err := r.openClient(); err != nil {
 		r.Logger.Warnf("Open AlamedaScaler(%s/%s) clients' connection failed: err: %+v", req.Namespace, req.Name, err)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
@@ -230,7 +204,7 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 		return ctrl.Result{Requeue: false}, nil
 	}
 
-	r.Logger.Infof("Update AlamedaScaler(%s/%s) done.", req.Namespace, req.Name)
+	r.Logger.Infof("Reconcile AlamedaScaler(%s/%s) done.", req.Namespace, req.Name)
 	return ctrl.Result{Requeue: false}, nil
 }
 
