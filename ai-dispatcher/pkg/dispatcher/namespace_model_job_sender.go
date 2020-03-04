@@ -202,16 +202,22 @@ func (sender *namespaceModelJobSender) sendJobByMetrics(namespace *datahub_resou
 	dataGranularity := queue.GetGranularityStr(granularity)
 	nowSeconds := time.Now().Unix()
 
-	if len(lastPredictionMetrics) == 0 {
-		scope.Infof("[NAMESPACE][%s][%s] No prediction metrics found, send model jobs.",
-			dataGranularity, namespaceName)
-		for _, metricType := range []datahub_common.MetricType{
-			datahub_common.MetricType_MEMORY_USAGE_BYTES,
-			datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
-		} {
+	for _, metricType := range []datahub_common.MetricType{
+		datahub_common.MetricType_MEMORY_USAGE_BYTES,
+		datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+	} {
+		mtNotFound := true
+		for _, lastPredictionMetric := range lastPredictionMetrics {
+			if lastPredictionMetric.GetMetricType() == metricType {
+				mtNotFound = false
+				break
+			}
+		}
+		if mtNotFound {
+			scope.Infof("[NAMESPACE][%s][%s] No prediction metric %s found, send model jobs.",
+				dataGranularity, namespaceName, metricType)
 			sender.sendJob(namespace, queueSender, pdUnit, granularity, metricType)
 		}
-		return
 	}
 
 	for _, lastPredictionMetric := range lastPredictionMetrics {

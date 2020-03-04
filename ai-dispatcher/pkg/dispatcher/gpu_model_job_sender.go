@@ -197,16 +197,22 @@ func (sender *gpuModelJobSender) sendJobByMetrics(gpu *datahub_gpu.Gpu, queueSen
 	gpuMinorNumber := gpu.GetMetadata().GetMinorNumber()
 	nowSeconds := time.Now().Unix()
 
-	if len(lastPredictionMetrics) == 0 {
-		scope.Infof("[GPU][%s][%s/%s] No prediction metric found, send model jobs",
-			dataGranularity, gpuHost, gpuMinorNumber)
-		for _, metricType := range []datahub_common.MetricType{
-			datahub_common.MetricType_MEMORY_USAGE_BYTES,
-			datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
-		} {
+	for _, metricType := range []datahub_common.MetricType{
+		datahub_common.MetricType_MEMORY_USAGE_BYTES,
+		datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+	} {
+		mtNotFound := true
+		for _, lastPredictionMetric := range lastPredictionMetrics {
+			if lastPredictionMetric.GetMetricType() == metricType {
+				mtNotFound = false
+				break
+			}
+		}
+		if mtNotFound {
+			scope.Infof("[GPU][%s][%s/%s] No prediction metric %s found, send model jobs",
+				dataGranularity, gpuHost, gpuMinorNumber, metricType)
 			sender.sendJob(gpu, queueSender, pdUnit, granularity, metricType)
 		}
-		return
 	}
 
 	for _, lastPredictionMetric := range lastPredictionMetrics {

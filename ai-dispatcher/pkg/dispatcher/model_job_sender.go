@@ -156,16 +156,6 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 						}
 						continue
 					}
-					if len(lastPredictPointRawData.GetGroups()) == 0 {
-						scope.Infof("[%s] No prediction found, send model job.", jobID)
-
-						err := dispatcher.tryToJobSending(modelQueueName, unit, rawDatumColumns, row.GetValues(),
-							lastPredictPointRawData.GetMetricType(), granularity, queueSender, jobID)
-						if err != nil {
-							scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
-						}
-						continue
-					}
 					for _, lastPredictPointRawDataGrp := range lastPredictPointRawData.GetGroups() {
 						if len(lastPredictPointRawDataGrp.GetRows()) == 0 {
 							scope.Infof("[%s] No prediction found, send model job.", jobID)
