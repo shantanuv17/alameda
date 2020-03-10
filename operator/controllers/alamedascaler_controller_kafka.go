@@ -173,6 +173,7 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 
 	r.Logger.Infof("Reconciling AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
 	consumerGroupDetails, err := r.prepareConsumerGroupDetails(ctx, alamedaScaler)
+	r.Logger.Debugf("Consumer group details %+v", consumerGroupDetails)
 	if err != nil {
 		r.Logger.Warnf("Prepare consumerGroupDetails to synchornize with remote of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
 		alamedaScaler.Status.Kafka.Effective = false
@@ -306,6 +307,7 @@ func (r AlamedaScalerKafkaReconciler) prepareConsumerGroupDetails(ctx context.Co
 	if err != nil {
 		return nil, errors.Wrap(err, "get consumerGroup consume topics map failed")
 	}
+	r.Logger.Debugf("Consumer group consumed topics mapping %+v", consumerGroupToConsumeTopicsMap)
 
 	consumerGroupDetails, err := r.listConsumerGroups(ctx, alamedaScaler, consumerGroupToConsumeTopicsMap)
 	if err != nil {
@@ -366,7 +368,9 @@ func (r AlamedaScalerKafkaReconciler) listConsumerGroups(ctx context.Context, al
 	consumerGroupSpecs := alamedaScaler.Spec.Kafka.ConsumerGroups
 	consumerGroups := make([]kafkamodel.ConsumerGroup, 0, len(consumerGroupSpecs))
 	for _, consumerGroupSpec := range consumerGroupSpecs {
-		topic := chooseTopic(consumerGroupSpec.MajorTopic, alamedaScaler.Spec.Kafka.Topics, consumerGroupToConsumeTopicsMap[consumerGroupSpec.Name])
+		topic := chooseTopic(consumerGroupSpec.MajorTopic, alamedaScaler.Spec.Kafka.Topics,
+			consumerGroupToConsumeTopicsMap[consumerGroupSpec.Name])
+		r.Logger.Debugf("Consumer group %s is consuming topic %s", consumerGroupSpec.Name, topic)
 		if topic == "" {
 			r.Logger.Infof("ConsumerGroup(%s) does not consumes Topic(%s).", consumerGroupSpec.Name, topic)
 			continue
@@ -418,6 +422,7 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(c
 	if err != nil {
 		return kafkamodel.KubernetesMeta{}, errors.Wrap(err, "list Deployments by namespace and labels failed")
 	}
+	r.Logger.Debugf("List deployments by matched namespace %s and labels %+v and get result %+v", namespace, spec.Selector.MatchLabels, deployments)
 	deploymentConfigs := []openshiftapiappsv1.DeploymentConfig{}
 	if r.HasOpenShiftAPIAppsv1 {
 		deploymentConfigs, err = resourcesLister.ListDeploymentConfigsByNamespaceLabels(namespace, spec.Selector.MatchLabels)
@@ -425,10 +430,12 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(c
 			return kafkamodel.KubernetesMeta{}, errors.Wrap(err, "list DeploymentConfigs by namespace and labels failed")
 		}
 	}
+	r.Logger.Debugf("List deploymentconfigs by matched namespace %s and labels %+v and get result %+v", namespace, spec.Selector.MatchLabels, deploymentConfigs)
 	statefulSets, err := resourcesLister.ListStatefulSetsByNamespaceLabels(namespace, spec.Selector.MatchLabels)
 	if err != nil {
 		return kafkamodel.KubernetesMeta{}, errors.Wrap(err, "list StatefulSets by namespace and labels failed")
 	}
+	r.Logger.Debugf("List statefulsets by matched namespace %s and labels %+v and get result %+v", namespace, spec.Selector.MatchLabels, statefulSets)
 	if len(deployments) == 0 && len(deploymentConfigs) == 0 && len(statefulSets) == 0 {
 		return kafkamodel.KubernetesMeta{}, nil
 	}
@@ -488,7 +495,7 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(c
 		kubernetesMetadata.ReadyReplicas = controller.Status.ReadyReplicas
 		kubernetesMetadata.SpecReplicas = specReplicas
 		kubernetesMetadata.SetResourceRequirements(resource)
-
+		r.Logger.Debugf("deployment create timestamp compared get replicas: %v", controller.Status.ReadyReplicas)
 		pods, err := resourcesLister.ListPodsByDeployment(controller.GetNamespace(), controller.GetName())
 		if err != nil {
 			return kafkamodel.KubernetesMeta{}, errors.Wrap(err, "list pods by Deployment failed")
@@ -518,7 +525,7 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(c
 		kubernetesMetadata.ReadyReplicas = controller.Status.ReadyReplicas
 		kubernetesMetadata.SpecReplicas = specReplicas
 		kubernetesMetadata.SetResourceRequirements(resource)
-
+		r.Logger.Debugf("statefulset create timestamp compared get replicas: %v", controller.Status.ReadyReplicas)
 		pods, err := resourcesLister.ListPodsByStatefulSet(controller.GetNamespace(), controller.GetName())
 		if err != nil {
 			return kafkamodel.KubernetesMeta{}, errors.Wrap(err, "list pods by Deployment failed")
@@ -545,7 +552,7 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(c
 		kubernetesMetadata.ReadyReplicas = controller.Status.ReadyReplicas
 		kubernetesMetadata.SpecReplicas = specReplicas
 		kubernetesMetadata.SetResourceRequirements(resource)
-
+		r.Logger.Debugf("deploymentconfig create timestamp compared get replicas: %v", controller.Status.ReadyReplicas)
 		pods, err := resourcesLister.ListPodsByDeploymentConfig(controller.GetNamespace(), controller.GetName())
 		if err != nil {
 			return kafkamodel.KubernetesMeta{}, errors.Wrap(err, "list pods by Deployment failed")
@@ -581,7 +588,7 @@ func (r AlamedaScalerKafkaReconciler) getConsumerGroupToConsumeTopicsMap(ctx con
 			if err != nil {
 				return errors.Wrap(err, "list consume topics failed")
 			}
-
+			r.Logger.Debugf("Consumer group %s has topics %+v", copyConsumerGroup, consumeTopics)
 			ch <- consumeDetail{
 				consumerGroup: copyConsumerGroup,
 				consumeTopics: consumeTopics,
@@ -594,6 +601,7 @@ func (r AlamedaScalerKafkaReconciler) getConsumerGroupToConsumeTopicsMap(ctx con
 	done := make(chan bool)
 	go func() {
 		for consumeDetail := range ch {
+			r.Logger.Debugf("Consumer detail received %+v", consumeDetail)
 			consumerGroupToConsumeTopicsMap[consumeDetail.consumerGroup] = consumeDetail.consumeTopics
 		}
 		done <- true
