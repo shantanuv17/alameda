@@ -76,7 +76,7 @@ v${RBMQ_MAIN_VER}.x/el/8/noarch/${RBMQ_RPM} \
 download/${RBMQ_DEDUP_PLUGIN_VER}/${RBMQ_DEDUP_EZ} && mv ${RBMQ_DEDUP_EZ} ${RBMQ_PLUGIN_FOLDER} \
     && curl -LO https://github.com/noxdafox/rabbitmq-message-deduplication/releases/\
 download/${RBMQ_DEDUP_PLUGIN_VER}/${RBMQ_ELIXIR_EZ} && mv ${RBMQ_ELIXIR_EZ} ${RBMQ_PLUGIN_FOLDER} \
-    && curl -LO https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/v${RBMQ_MAIN_VER}.x/bin/rabbitmqadmin \
+    && curl -LO https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/v${RBMQ_MAIN_VER}.3/bin/rabbitmqadmin \
     && chmod +x rabbitmqadmin && mv rabbitmqadmin /usr/local/bin/rabbitmqadmin \
     && mkdir -pv /licenses/ && touch /licenses/.placeholder \
     && chmod 755 /init.sh /prob.sh \
