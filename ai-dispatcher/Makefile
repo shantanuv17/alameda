@@ -1,6 +1,7 @@
 
 # Image URL to use all building/pushing image targets
-IMG ?= ai-dispatcher 
+IMG ?= alameda-ai-dispatcher
+IMG_TAG ?= $(shell git describe --always --dirty --abbrev=7)
 COMMIT := $(shell git rev-parse --short HEAD)
 
 .PHONY: all test ai-dispatcher 
@@ -36,4 +37,4 @@ generate:
 
 # Build the docker image
 docker-build: test
-	docker build ./.. -t ${IMG}:${COMMIT} -f Dockerfile
+	docker build ./.. -t ${IMG}:${IMG_TAG} -f Dockerfile.ubi
