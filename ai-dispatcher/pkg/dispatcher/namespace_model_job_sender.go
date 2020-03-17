@@ -7,6 +7,7 @@ import (
 
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
+	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_metrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
@@ -15,6 +16,7 @@ import (
 	"github.com/golang/protobuf/jsonpb"
 	"github.com/golang/protobuf/ptypes/duration"
 	"github.com/golang/protobuf/ptypes/timestamp"
+	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 )
 
@@ -37,6 +39,10 @@ func (sender *namespaceModelJobSender) sendModelJobs(namespaces []*datahub_resou
 	queueSender queue.QueueSender, pdUnit string, granularity int64, predictionStep int64) {
 	for _, namespace := range namespaces {
 		sender.sendNamespaceModelJobs(namespace, queueSender, pdUnit, granularity, predictionStep)
+		err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.model.directory"), granularity))
+		if err != nil {
+			scope.Error(err.Error())
+		}
 	}
 }
 

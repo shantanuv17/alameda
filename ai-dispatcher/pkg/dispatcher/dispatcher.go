@@ -9,6 +9,7 @@ import (
 
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
+	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
 	"github.com/containers-ai/alameda/pkg/utils/log"
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_gpu "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"
@@ -120,7 +121,20 @@ func (dispatcher *Dispatcher) dispatch(granularity string, predictionStep int64,
 			modelHasVPA = false
 			predictHasVPA = false
 		}
+
 		for _, pdUnit := range dispatcher.svcPredictUnits {
+			if queueJobType == "predictionJobSendIntervalSec" {
+				err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.predict.directory"), granularitySec))
+				if err != nil {
+					scope.Error(err.Error())
+				}
+			} else if queueJobType == "modelJobSendIntervalSec" {
+				err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.model.directory"), granularitySec))
+				if err != nil {
+					scope.Error(err.Error())
+				}
+			}
+
 			if dispatcher.skipJobSending(pdUnit, granularitySec) {
 				continue
 			}

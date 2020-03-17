@@ -14,6 +14,11 @@ func LivenessProbe(cfg *LivenessProbeConfig) {
 		scope.Errorf("Liveness probe: rabbitmq failed due to %s", err.Error())
 		os.Exit(1)
 	}
+	err = watchDogProbe()
+	if err != nil {
+		scope.Errorf("Liveness probe: watchdog failed due to %s", err.Error())
+		os.Exit(1)
+	}
 	os.Exit(0)
 }
 
