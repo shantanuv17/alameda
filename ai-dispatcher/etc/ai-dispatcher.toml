@@ -1,5 +1,12 @@
 hourlyPredict = false
 
+[watchdog]
+delayedSec = 120
+  [watchdog.model]
+  directory = "/tmp/model"
+  [watchdog.predict]
+  directory = "/tmp/predict"
+
 [datahub]
 address = "datahub.alameda.svc.cluster.local:50050"
 connRetry = 5

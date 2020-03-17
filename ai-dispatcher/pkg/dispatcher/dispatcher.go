@@ -123,6 +123,18 @@ func (dispatcher *Dispatcher) dispatch(granularity string, predictionStep int64,
 		}
 		// New API section
 		for _, unit := range dispatcher.cfg.GetUnits() {
+			if queueJobType == "predictionJobSendIntervalSec" {
+				err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.predict.directory"), granularitySec))
+				if err != nil {
+					scope.Error(err.Error())
+				}
+			} else if queueJobType == "modelJobSendIntervalSec" {
+				err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.model.directory"), granularitySec))
+				if err != nil {
+					scope.Error(err.Error())
+				}
+			}
+
 			if !unit.Enabled {
 				continue
 			}
@@ -156,6 +168,18 @@ func (dispatcher *Dispatcher) dispatch(granularity string, predictionStep int64,
 
 		if granularity != "1m" {
 			for _, pdUnit := range dispatcher.svcPredictUnits {
+				if queueJobType == "predictionJobSendIntervalSec" {
+					err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.predict.directory"), granularitySec))
+					if err != nil {
+						scope.Error(err.Error())
+					}
+				} else if queueJobType == "modelJobSendIntervalSec" {
+					err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.model.directory"), granularitySec))
+					if err != nil {
+						scope.Error(err.Error())
+					}
+				}
+
 				if dispatcher.skipJobSending(pdUnit, granularitySec) {
 					continue
 				}

@@ -108,6 +108,10 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 	unit *config.Unit, granularity int64) {
 
 	for _, rawDatum := range rawData {
+		err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.model.directory"), granularity))
+		if err != nil {
+			scope.Error(err.Error())
+		}
 		for _, grp := range rawDatum.GetGroups() {
 			rawDatumColumns := grp.GetColumns()
 			for _, row := range grp.GetRows() {

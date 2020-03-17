@@ -2,7 +2,6 @@ package dispatcher
 
 import (
 	"encoding/json"
-	"strconv"
 	"time"
 
 	"github.com/containers-ai/alameda/ai-dispatcher/consts"
@@ -15,7 +14,7 @@ import (
 type modelCompleteMsg struct {
 	UnitType        string `json:"unit_type"`
 	DataGranularity string `json:"data_granularity"`
-	JobCreateTime   string `json:"job_create_time"`
+	JobCreateTime   int64  `json:"job_create_time"`
 	ClusterName     string `json:"cluster_name"`
 	MetricTypeStr   string `json:"metric_type_str"`
 	ContainerName   string `json:"container_name"`
@@ -69,11 +68,7 @@ func ModelCompleteNotification(modelMapper *ModelMapper,
 
 			unitType := msgMap.UnitType
 			dataGranularity := msgMap.DataGranularity
-			jobCreateTime, err := strconv.ParseInt(msgMap.JobCreateTime, 10, 64)
-			if err != nil {
-				scope.Errorf("parse job create time failed: %s", err.Error())
-				break
-			}
+			jobCreateTime := msgMap.JobCreateTime
 
 			if unitType == consts.UnitTypeNode {
 				nodeName := msgMap.Unit.Name

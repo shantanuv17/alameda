@@ -12,6 +12,7 @@ import (
 	datahub_gpu "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/golang/protobuf/jsonpb"
+	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 )
 
@@ -30,6 +31,11 @@ func (dispatcher *predictJobSender) SendNodePredictJobs(nodes []*datahub_resourc
 	dataGranularity := queue.GetGranularityStr(granularity)
 	marshaler := jsonpb.Marshaler{}
 	for _, node := range nodes {
+		err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.predict.directory"), granularity))
+		if err != nil {
+			scope.Error(err.Error())
+		}
+
 		nodeStr, err := marshaler.MarshalToString(node)
 		nodeName := node.ObjectMeta.GetName()
 		if err != nil {
@@ -68,6 +74,11 @@ func (dispatcher *predictJobSender) SendPodPredictJobs(pods []*datahub_resources
 	dataGranularity := queue.GetGranularityStr(granularity)
 	marshaler := jsonpb.Marshaler{}
 	for _, pod := range pods {
+		err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.predict.directory"), granularity))
+		if err != nil {
+			scope.Error(err.Error())
+		}
+
 		podNS := pod.ObjectMeta.GetNamespace()
 		podName := pod.ObjectMeta.GetName()
 		podStr, err := marshaler.MarshalToString(pod)
@@ -111,6 +122,11 @@ func (dispatcher *predictJobSender) SendGPUPredictJobs(gpus []*datahub_gpu.Gpu,
 	dataGranularity := queue.GetGranularityStr(granularity)
 	marshaler := jsonpb.Marshaler{}
 	for _, gpu := range gpus {
+		err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.predict.directory"), granularity))
+		if err != nil {
+			scope.Error(err.Error())
+		}
+
 		gpuHost := gpu.GetMetadata().GetHost()
 		gpuMinorNumber := gpu.GetMetadata().GetMinorNumber()
 		gpuStr, err := marshaler.MarshalToString(gpu)
@@ -154,6 +170,11 @@ func (dispatcher *predictJobSender) SendApplicationPredictJobs(
 	dataGranularity := queue.GetGranularityStr(granularity)
 	marshaler := jsonpb.Marshaler{}
 	for _, application := range applications {
+		err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.predict.directory"), granularity))
+		if err != nil {
+			scope.Error(err.Error())
+		}
+
 		applicationNS := application.GetObjectMeta().GetNamespace()
 		applicationName := application.GetObjectMeta().GetName()
 		applicationStr, err := marshaler.MarshalToString(application)
@@ -195,6 +216,11 @@ func (dispatcher *predictJobSender) SendNamespacePredictJobs(namespaces []*datah
 	dataGranularity := queue.GetGranularityStr(granularity)
 	marshaler := jsonpb.Marshaler{}
 	for _, namespace := range namespaces {
+		err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.predict.directory"), granularity))
+		if err != nil {
+			scope.Error(err.Error())
+		}
+
 		namespaceStr, err := marshaler.MarshalToString(namespace)
 		namespaceName := namespace.GetObjectMeta().GetName()
 		if err != nil {
@@ -233,6 +259,11 @@ func (dispatcher *predictJobSender) SendClusterPredictJobs(clusters []*datahub_r
 	dataGranularity := queue.GetGranularityStr(granularity)
 	marshaler := jsonpb.Marshaler{}
 	for _, cluster := range clusters {
+		err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.predict.directory"), granularity))
+		if err != nil {
+			scope.Error(err.Error())
+		}
+
 		clusterStr, err := marshaler.MarshalToString(cluster)
 		clusterName := cluster.ObjectMeta.GetName()
 		if err != nil {
@@ -271,6 +302,11 @@ func (dispatcher *predictJobSender) SendControllerPredictJobs(
 	dataGranularity := queue.GetGranularityStr(granularity)
 	marshaler := jsonpb.Marshaler{}
 	for _, controller := range controllers {
+		err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.predict.directory"), granularity))
+		if err != nil {
+			scope.Error(err.Error())
+		}
+
 		controllerNS := controller.GetObjectMeta().GetNamespace()
 		controllerName := controller.GetObjectMeta().GetName()
 		controllerKindStr := controller.GetKind().String()
@@ -311,6 +347,11 @@ func (dispatcher *predictJobSender) SendControllerPredictJobs(
 func (dispatcher *predictJobSender) SendPredictJobs(rawData []*datahub_data.Rawdata, queueSender queue.QueueSender,
 	unit *config.Unit, granularity int64) {
 	for _, rawDatum := range rawData {
+		err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.predict.directory"), granularity))
+		if err != nil {
+			scope.Error(err.Error())
+		}
+
 		for _, grp := range rawDatum.GetGroups() {
 			columns := grp.GetColumns()
 			for _, row := range grp.GetRows() {
