@@ -41,13 +41,13 @@ LABEL summary="$SUMMARY" \
 ENV APPHOME="/opt/alameda/alameda-rabbitmq" \
     RABBITMQ_DATA_DIR=/var/lib/rabbitmq \
     RBMQ_MAIN_VER="3.8" \
-    RBMQ_DEDUP_PLUGIN_VER="0.4.3" \
+    RBMQ_DEDUP_PLUGIN_VER="0.4.4" \
     HOME=/var/lib/rabbitmq \
     PATH=/usr/lib/rabbitmq/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
-    ERLANG_VER="22.2.4"
+    ERLANG_VER="22.3"
 
-ENV RBMQ_VER="${RBMQ_MAIN_VER}.2" \
-    RBMQ_DEDUP_EZ="rabbitmq_message_deduplication-v3.8.x-${RBMQ_DEDUP_PLUGIN_VER}.ez" \
+ENV RBMQ_VER="${RBMQ_MAIN_VER}.3" \
+    RBMQ_DEDUP_EZ="rabbitmq_message_deduplication-v3.8.x_${RBMQ_DEDUP_PLUGIN_VER}.ez" \
     RBMQ_ELIXIR_EZ="elixir-1.8.2.ez" \
     ERLANG_RPM="erlang-${ERLANG_VER}-1.el8.x86_64.rpm"
 
@@ -76,7 +76,7 @@ v${RBMQ_MAIN_VER}.x/el/8/noarch/${RBMQ_RPM} \
 download/${RBMQ_DEDUP_PLUGIN_VER}/${RBMQ_DEDUP_EZ} && mv ${RBMQ_DEDUP_EZ} ${RBMQ_PLUGIN_FOLDER} \
     && curl -LO https://github.com/noxdafox/rabbitmq-message-deduplication/releases/\
 download/${RBMQ_DEDUP_PLUGIN_VER}/${RBMQ_ELIXIR_EZ} && mv ${RBMQ_ELIXIR_EZ} ${RBMQ_PLUGIN_FOLDER} \
-    && curl -LO https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/v${RBMQ_MAIN_VER}.3/bin/rabbitmqadmin \
+    && curl -LO https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/v${RBMQ_VER}/bin/rabbitmqadmin \
     && chmod +x rabbitmqadmin && mv rabbitmqadmin /usr/local/bin/rabbitmqadmin \
     && mkdir -pv /licenses/ && touch /licenses/.placeholder \
     && chmod 755 /init.sh /prob.sh \
