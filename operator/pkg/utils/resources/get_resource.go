@@ -95,8 +95,11 @@ func (getResource *GetResource) GetObservingAlamedaScalerOfController(controller
 
 		switch controllerType {
 		case autuscaling.DeploymentController:
-
-			matchedLblDeployments, err := listResources.ListDeploymentsByNamespaceLabels(controllerNamespace, alamedaScaler.Spec.Selector.MatchLabels)
+			matchLabels := map[string]string{}
+			if alamedaScaler.Spec.Selector != nil && alamedaScaler.Spec.Selector.MatchLabels != nil {
+				matchLabels = alamedaScaler.Spec.Selector.MatchLabels
+			}
+			matchedLblDeployments, err := listResources.ListDeploymentsByNamespaceLabels(controllerNamespace, matchLabels)
 			if err != nil {
 				return nil, errors.Errorf("get observing AlamedaScaler of Deployment %s/%s failed: %s", controllerNamespace, controllerName, err.Error())
 			}
@@ -107,8 +110,11 @@ func (getResource *GetResource) GetObservingAlamedaScalerOfController(controller
 				}
 			}
 		case autuscaling.DeploymentConfigController:
-
-			matchedLblDeploymentConfigs, err := listResources.ListDeploymentConfigsByNamespaceLabels(controllerNamespace, alamedaScaler.Spec.Selector.MatchLabels)
+			matchLabels := map[string]string{}
+			if alamedaScaler.Spec.Selector != nil && alamedaScaler.Spec.Selector.MatchLabels != nil {
+				matchLabels = alamedaScaler.Spec.Selector.MatchLabels
+			}
+			matchedLblDeploymentConfigs, err := listResources.ListDeploymentConfigsByNamespaceLabels(controllerNamespace, matchLabels)
 			if err != nil {
 				return nil, errors.Errorf("get observing AlamedaScaler of DeploymentConfig %s/%s failed: %s", controllerNamespace, controllerName, err.Error())
 			}
@@ -119,8 +125,11 @@ func (getResource *GetResource) GetObservingAlamedaScalerOfController(controller
 				}
 			}
 		case autuscaling.StatefulSetController:
-
-			matchedLblStatefulSets, err := listResources.ListStatefulSetsByNamespaceLabels(controllerNamespace, alamedaScaler.Spec.Selector.MatchLabels)
+			matchLabels := map[string]string{}
+			if alamedaScaler.Spec.Selector != nil && alamedaScaler.Spec.Selector.MatchLabels != nil {
+				matchLabels = alamedaScaler.Spec.Selector.MatchLabels
+			}
+			matchedLblStatefulSets, err := listResources.ListStatefulSetsByNamespaceLabels(controllerNamespace, matchLabels)
 			if err != nil {
 				return nil, errors.Errorf("get observing AlamedaScaler of StatefulSet %s/%s failed: %s", controllerNamespace, controllerName, err.Error())
 			}
