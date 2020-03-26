@@ -355,6 +355,19 @@ func (dispatcher *predictJobSender) SendPredictJobs(rawData []*datahub_data.Rawd
 		for _, grp := range rawDatum.GetGroups() {
 			columns := grp.GetColumns()
 			for _, row := range grp.GetRows() {
+				scaledUnit, err := dispatcher.isUnitWatchedByScaler(unit, row.GetValues(), columns)
+				if err != nil || !scaledUnit {
+					jobID, _ := utils.GetJobID(unit, row.GetValues(), columns,
+						datahub_common.MetricType_METRICS_TYPE_UNDEFINED, granularity)
+					if err != nil {
+						scope.Errorf("[%s] Skip sending predict job due to get alamedascaler information failed: %s",
+							jobID, err.Error())
+					} else {
+						scope.Infof("[%s] Skip sending predict job due to the unit is not watched by any alamedascaler",
+							jobID)
+					}
+					continue
+				}
 				for _, metricType := range unit.MetricTypes {
 					jobID, err := utils.GetJobID(unit, row.GetValues(), columns,
 						metricType, granularity)
@@ -371,4 +384,15 @@ func (dispatcher *predictJobSender) SendPredictJobs(rawData []*datahub_data.Rawd
 			}
 		}
 	}
+}
+
+func (dispatcher *predictJobSender) isUnitWatchedByScaler(unit *config.Unit, rowValues []string, columns []string) (bool, error) {
+	ns, name, err := GetUnitScalerNSName(unit, rowValues, columns)
+	if err != nil {
+		return false, err
+	}
+	if ns == "" || name == "" {
+		return false, nil
+	}
+	return true, nil
 }
