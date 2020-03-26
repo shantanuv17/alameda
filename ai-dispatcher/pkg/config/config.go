@@ -61,6 +61,7 @@ type Unit struct {
 	Prediction     predictSeriesMeta           `mapstructure:"prediction"`
 	IDKeys         []string                    `mapstructure:"idKeys"`
 	Measurement    string                      `mapstructure:"measurement"`
+	UnitValueKeys  unitValueKeys               `mapstructure:"valueKeys"`
 	MetricTypes    []datahub_common.MetricType `mapstructure:"-"`
 }
 
@@ -80,6 +81,11 @@ type predictSeriesMeta struct {
 	Category         string                `mapstructure:"category"`
 	Type             string                `mapstructure:"type"`
 	PredictValueKeys predictValueKeys      `mapstructure:"valueKeys"`
+}
+
+type unitValueKeys struct {
+	ScaleNamespace string `mapstructure:"scalerNamespace"`
+	ScaleName      string `mapstructure:"scalerName"`
 }
 
 type metricValueKeys struct {

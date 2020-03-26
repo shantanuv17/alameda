@@ -152,6 +152,9 @@ idKeys = ["cluster_name", "namespace", "name"]
 granularities = ["1m"]
 metricTypes = ["current_offset"]
 predictor = "SARIMAX"
+[units.valueKeys]
+  scalerNamespace = "alameda_scaler_namespace"
+  scalerName = "alameda_scaler_name"
 
   [units.metric]
   scope = "metric"
@@ -182,6 +185,9 @@ idKeys = ["cluster_name", "namespace", "name", "topic_name"]
 granularities = ["1m"]
 metricTypes = ["current_offset"]
 predictor = "SARIMAX"
+[units.valueKeys]
+  scalerNamespace = "alameda_scaler_namespace"
+  scalerName = "alameda_scaler_name"
 
   [units.metric]
   scope = "metric"
