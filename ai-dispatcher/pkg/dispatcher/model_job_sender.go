@@ -115,18 +115,20 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 		for _, grp := range rawDatum.GetGroups() {
 			rawDatumColumns := grp.GetColumns()
 			for _, row := range grp.GetRows() {
-				scaledUnit, err := dispatcher.isUnitWatchedByScaler(unit, row.GetValues(), rawDatumColumns)
-				if err != nil || !scaledUnit {
-					jobID, _ := utils.GetJobID(unit, row.GetValues(), rawDatumColumns,
-						datahub_common.MetricType_METRICS_TYPE_UNDEFINED, granularity)
-					if err != nil {
-						scope.Errorf("[%s] Skip sending model job due to get alamedascaler information failed: %s",
-							jobID, err.Error())
-					} else {
-						scope.Infof("[%s] Skip sending model job due to the unit is not watched by any alamedascaler",
-							jobID)
+				if unit.UnitValueKeys != nil {
+					scaledUnit, err := dispatcher.isUnitWatchedByScaler(unit, row.GetValues(), rawDatumColumns)
+					if err != nil || !scaledUnit {
+						jobID, _ := utils.GetJobID(unit, row.GetValues(), rawDatumColumns,
+							datahub_common.MetricType_METRICS_TYPE_UNDEFINED, granularity)
+						if err != nil {
+							scope.Errorf("[%s] Skip sending model job due to get alamedascaler information failed: %s",
+								jobID, err.Error())
+						} else {
+							scope.Infof("[%s] Skip sending model job due to the unit is not watched by any alamedascaler",
+								jobID)
+						}
+						continue
 					}
-					continue
 				}
 
 				readData := []*datahub_data.ReadData{}

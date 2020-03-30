@@ -61,7 +61,7 @@ type Unit struct {
 	Prediction     predictSeriesMeta           `mapstructure:"prediction"`
 	IDKeys         []string                    `mapstructure:"idKeys"`
 	Measurement    string                      `mapstructure:"measurement"`
-	UnitValueKeys  unitValueKeys               `mapstructure:"valueKeys"`
+	UnitValueKeys  *unitValueKeys              `mapstructure:"valueKeys"`
 	MetricTypes    []datahub_common.MetricType `mapstructure:"-"`
 }
 
