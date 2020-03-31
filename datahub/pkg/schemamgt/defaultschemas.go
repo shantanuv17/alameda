@@ -23,6 +23,10 @@ func DefaultSchemasInit() {
 	schemaList = append(schemaList, defaults.SchemaMetricResourceNamespace())
 	schemaList = append(schemaList, defaults.SchemaMetricResourceNode())
 
+	// Monitor
+	schemaList = append(schemaList, defaults.SchemaMonitorKafka())
+	schemaList = append(schemaList, defaults.SchemaMonitorKafkaCG())
+
 	// Planning
 	schemaList = append(schemaList, defaults.SchemaPlanningResourceApplication())
 	schemaList = append(schemaList, defaults.SchemaPlanningResourceCluster())
