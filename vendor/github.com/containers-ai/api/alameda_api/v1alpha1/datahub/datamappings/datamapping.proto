@@ -1,0 +1,17 @@
+// This file has messages related to data source mapping
+
+syntax = "proto3";
+
+package containersai.alameda.v1alpha1.datahub.datamappings;
+
+import "alameda_api/v1alpha1/datahub/common/metrics.proto";
+import "alameda_api/v1alpha1/datahub/datamappings/types.proto";
+import "alameda_api/v1alpha1/datahub/schemas/types.proto";
+
+option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/datamappings";
+
+message DataMapping {
+    schemas.SchemaMeta schema_meta = 1;
+    common.MetricType  metric_type = 2;
+    repeated Column    columns     = 3;
+}

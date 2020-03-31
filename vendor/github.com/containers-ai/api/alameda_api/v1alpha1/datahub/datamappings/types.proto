@@ -1,0 +1,29 @@
+// This file has messages related to data source mapping
+
+syntax = "proto3";
+
+package containersai.alameda.v1alpha1.datahub.datamappings;
+
+import "alameda_api/v1alpha1/datahub/schemas/types.proto";
+
+option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/datamappings";
+
+enum Source {
+    SOURCE_UNDEFINED  = 0;
+    SOURCE_DATADOG    = 1;
+    SOURCE_DYNATRACE  = 2;
+    SOURCE_K8S        = 3;
+    SOURCE_PROMETHEUS = 4;
+    SOURCE_SYSDIG     = 5;
+}
+
+message SourceMapping {
+    Source source  = 1;
+    string mapping = 2;
+}
+
+message Column {
+    schemas.Column         column_meta     = 1;
+    string                 name            = 2;
+    repeated SourceMapping source_mappings = 3;
+}

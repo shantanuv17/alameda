@@ -2,7 +2,6 @@ package enumconv
 
 import (
 	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	Schemas "github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
 	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 )
 
@@ -34,30 +33,4 @@ var DataTypeNameMap = map[ApiCommon.DataType]DBCommon.DataType{
 	ApiCommon.DataType_DATATYPE_FLOAT32:   DBCommon.Float32,
 	ApiCommon.DataType_DATATYPE_FLOAT64:   DBCommon.Float64,
 	ApiCommon.DataType_DATATYPE_STRING:    DBCommon.String,
-}
-
-var MetricTypeNameMap = map[ApiCommon.MetricType]Schemas.MetricType{
-	ApiCommon.MetricType_METRICS_TYPE_UNDEFINED:       Schemas.MetricTypeUndefined,
-	ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE: Schemas.CPUUsageSecondsPercentage,
-	ApiCommon.MetricType_MEMORY_USAGE_BYTES:           Schemas.MemoryUsageBytes,
-	ApiCommon.MetricType_POWER_USAGE_WATTS:            Schemas.PowerUsageWatts,
-	ApiCommon.MetricType_TEMPERATURE_CELSIUS:          Schemas.TemperatureCelsius,
-	ApiCommon.MetricType_DUTY_CYCLE:                   Schemas.DutyCycle,
-	ApiCommon.MetricType_CURRENT_OFFSET:               Schemas.CurrentOffset,
-	ApiCommon.MetricType_LAG:                          Schemas.Lag,
-}
-
-var ResourceBoundaryNameMap = map[ApiCommon.ResourceBoundary]Schemas.ResourceBoundary{
-	ApiCommon.ResourceBoundary_RESOURCE_BOUNDARY_UNDEFINED: Schemas.ResourceBoundaryUndefined,
-	ApiCommon.ResourceBoundary_RESOURCE_RAW:                Schemas.ResourceRaw,
-	ApiCommon.ResourceBoundary_RESOURCE_UPPER_BOUND:        Schemas.ResourceUpperBound,
-	ApiCommon.ResourceBoundary_RESOURCE_LOWER_BOUND:        Schemas.ResourceLowerBound,
-}
-
-var ResourceQuotaNameMap = map[ApiCommon.ResourceQuota]Schemas.ResourceQuota{
-	ApiCommon.ResourceQuota_RESOURCE_QUOTA_UNDEFINED: Schemas.ResourceQuotaUndefined,
-	ApiCommon.ResourceQuota_RESOURCE_LIMIT:           Schemas.ResourceLimit,
-	ApiCommon.ResourceQuota_RESOURCE_REQUEST:         Schemas.ResourceRequest,
-	ApiCommon.ResourceQuota_RESOURCE_INITIAL_LIMIT:   Schemas.ResourceInitialLimit,
-	ApiCommon.ResourceQuota_RESOURCE_INITIAL_REQUEST: Schemas.ResourceInitialRequest,
 }

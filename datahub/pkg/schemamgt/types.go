@@ -7,6 +7,7 @@ import (
 var MeasurementNameMap = map[schemas.Scope]string{
 	schemas.Application:    "application",
 	schemas.Metric:         "metric",
+	schemas.Monitor:        "monitor",
 	schemas.Planning:       "planning",
 	schemas.Prediction:     "prediction",
 	schemas.Recommendation: "recommendation",
@@ -16,6 +17,7 @@ var MeasurementNameMap = map[schemas.Scope]string{
 var MeasurementSchemaNameMap = map[schemas.Scope]string{
 	schemas.Application:    "application_schema",
 	schemas.Metric:         "metric_schema",
+	schemas.Monitor:        "monitor_schema",
 	schemas.Planning:       "planning_schema",
 	schemas.Prediction:     "prediction_schema",
 	schemas.Recommendation: "recommendation_schema",
@@ -25,6 +27,7 @@ var MeasurementSchemaNameMap = map[schemas.Scope]string{
 var DatabaseNameMap = map[schemas.Scope]string{
 	schemas.Application:    "alameda_application",
 	schemas.Metric:         "alameda_metric",
+	schemas.Monitor:        "alameda_monitor",
 	schemas.Planning:       "alameda_planning",
 	schemas.Prediction:     "alameda_prediction",
 	schemas.Recommendation: "alameda_recommendation",

@@ -7,6 +7,7 @@ const (
 	ScopeUndefined Scope = iota
 	Application
 	Metric
+	Monitor
 	Planning
 	Prediction
 	Recommendation

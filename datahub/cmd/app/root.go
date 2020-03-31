@@ -5,6 +5,7 @@ import (
 	"github.com/containers-ai/alameda/cmd/app"
 	Keycodes "github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes"
 	DatahubConfig "github.com/containers-ai/alameda/datahub/pkg/config"
+	DataMappingMgt "github.com/containers-ai/alameda/datahub/pkg/datamappingmgt"
 	Notifier "github.com/containers-ai/alameda/datahub/pkg/notifier"
 	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schemamgt"
 	EventMgt "github.com/containers-ai/alameda/internal/pkg/event-mgt"
@@ -110,6 +111,15 @@ func initSchema() {
 	SchemaMgt.DefaultSchemasInit()
 	schemaMgt := SchemaMgt.NewSchemaManagement()
 	schemaMgt.Refresh()
+}
+
+func initDataMapping() {
+	scope.Info("Initialize data mapping management")
+
+	DataMappingMgt.DataMappingInit(&config)
+	DataMappingMgt.DefaultDataMappingsInit()
+	dataMappingMgt := DataMappingMgt.NewDataMappingManagement()
+	dataMappingMgt.Refresh()
 }
 
 func initNotifier() {

@@ -3,7 +3,8 @@ package data
 import (
 	"errors"
 	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/data/types"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
+	EnumConv "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/enumconv"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/metrics"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/schemas"
 	"github.com/containers-ai/alameda/datahub/pkg/schemamgt"
@@ -101,7 +102,7 @@ func (p *ReadDataRequestRequestExtended) processColumnMetric(before *data.ReadDa
 }
 
 func (p *ReadDataRequestRequestExtended) processColumnKind(before *data.ReadData, after *types.ReadData) {
-	kind := enumconv.MetricKindNameMap[before.ResourceBoundary]
+	kind := EnumConv.MetricKindNameMap[before.ResourceBoundary]
 
 	for _, condition := range after.QueryCondition.WhereCondition {
 		found := false

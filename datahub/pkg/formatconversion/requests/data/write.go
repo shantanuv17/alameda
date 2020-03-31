@@ -3,7 +3,8 @@ package data
 import (
 	"errors"
 	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/data/types"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
+	EnumConv "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/enumconv"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/metrics"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/schemas"
 	"github.com/containers-ai/alameda/datahub/pkg/schemamgt"
@@ -101,7 +102,7 @@ func (p *WriteDataRequestRequestExtended) processColumnMetric(before *data.Write
 func (p *WriteDataRequestRequestExtended) processColumnKind(before *data.WriteData, after *types.WriteData) {
 	found := false
 	index := 0
-	kind := enumconv.MetricKindNameMap[before.ResourceBoundary]
+	kind := EnumConv.MetricKindNameMap[before.ResourceBoundary]
 
 	// Check if field "kind" is already filled
 	for i, column := range after.Columns {

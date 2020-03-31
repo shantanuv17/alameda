@@ -3,8 +3,8 @@ package data
 import (
 	"errors"
 	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/data/types"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/common"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/enumconv"
 	"github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 )

@@ -1,0 +1,31 @@
+// This file has messages related to data source mapping
+
+syntax = "proto3";
+
+package containersai.alameda.v1alpha1.datahub.datamappings;
+
+import "alameda_api/v1alpha1/datahub/common/metrics.proto";
+import "alameda_api/v1alpha1/datahub/datamappings/datamapping.proto";
+import "alameda_api/v1alpha1/datahub/schemas/types.proto";
+import "google/rpc/status.proto";
+
+option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/datamappings";
+
+message CreateDataMappingsRequest {
+    repeated DataMapping data_mappings = 1;
+}
+
+message ReadDataMappingsRequest {
+    schemas.SchemaMeta schema_meta = 1;
+    common.MetricType  metric_type = 2;
+}
+
+message ReadDataMappingsResponse {
+    google.rpc.Status    status        = 1;
+    repeated DataMapping data_mappings = 2;
+}
+
+message DeleteDataMappingsRequest {
+    schemas.SchemaMeta schema_meta = 1;
+    common.MetricType  metric_type = 2;
+}
