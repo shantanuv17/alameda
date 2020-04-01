@@ -178,3 +178,18 @@ func SchemaRecommendationResourceNode() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }
+
+func SchemaRecommendationResourceMachineset() *schemas.Schema {
+	// cluster-status machineset
+	schema := schemas.NewSchema(schemas.Recommendation, "cluster_status", "machineset")
+	measurement := schemas.NewMeasurement("machineset", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement.AddColumn("name", true, schemas.Tag, common.String)
+	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
+	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("machinescaler_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("create_time", true, schemas.Field, common.String)
+	measurement.AddColumn("execution_time", true, schemas.Field, common.String)
+	measurement.AddColumn("desired_replicas", true, schemas.Field, common.Int32)
+	schema.Measurements = append(schema.Measurements, measurement)
+	return schema
+}

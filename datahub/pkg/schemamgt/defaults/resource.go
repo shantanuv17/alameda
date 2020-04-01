@@ -14,6 +14,7 @@ func SchemaResourceApplication() *schemas.Schema {
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("uid", true, schemas.Tag, common.String)
 	measurement.AddColumn("scaling_tool", true, schemas.Tag, common.String)
+	measurement.AddColumn("machineset_names", false, schemas.Field, common.String)
 	measurement.AddColumn("value", true, schemas.Field, common.String)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
@@ -26,6 +27,28 @@ func SchemaResourceCluster() *schemas.Schema {
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("uid", true, schemas.Tag, common.String)
 	measurement.AddColumn("value", true, schemas.Field, common.String)
+	schema.Measurements = append(schema.Measurements, measurement)
+	return schema
+}
+
+func SchemaResourceClusterScaler() *schemas.Schema {
+	// cluster-status clusterscaler
+	schema := schemas.NewSchema(schemas.Resource, "cluster_status", "clusterscaler")
+	measurement := schemas.NewMeasurement("clusterscaler", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement.AddColumn("name", true, schemas.Tag, common.String)
+	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("foresee_time", true, schemas.Field, common.Int32)
+	measurement.AddColumn("scale_down_idle_time", true, schemas.Field, common.Int32)
+	measurement.AddColumn("max_nodes", true, schemas.Field, common.Int32)
+	measurement.AddColumn("max_cpu", true, schemas.Field, common.Float64)
+	measurement.AddColumn("max_mem", true, schemas.Field, common.Float64)
+	measurement.AddColumn("enable_execution", true, schemas.Field, common.Bool)
+	measurement.AddColumn("cpu_utilization_target", true, schemas.Field, common.Float64)
+	measurement.AddColumn("cpu_scale_up_gap", true, schemas.Field, common.Float64)
+	measurement.AddColumn("cpu_scale_down_gap", true, schemas.Field, common.Float64)
+	measurement.AddColumn("memory_utilization_target", true, schemas.Field, common.Float64)
+	measurement.AddColumn("memory_scale_up_gap", true, schemas.Field, common.Float64)
+	measurement.AddColumn("memory_scale_down_gap", true, schemas.Field, common.Float64)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }
@@ -88,6 +111,35 @@ func SchemaResourceController() *schemas.Schema {
 	return schema
 }
 
+func SchemaResourceMachineScaler() *schemas.Schema {
+	// cluster-status machinescaler
+	schema := schemas.NewSchema(schemas.Resource, "cluster_status", "machinescaler")
+	measurement := schemas.NewMeasurement("machinescaler", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement.AddColumn("name", true, schemas.Tag, common.String)
+	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
+	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("clusterscaler_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("min_replicas", true, schemas.Field, common.Int32)
+	measurement.AddColumn("max_replicas", true, schemas.Field, common.Int32)
+	measurement.AddColumn("enable_execution", true, schemas.Field, common.Bool)
+	schema.Measurements = append(schema.Measurements, measurement)
+	return schema
+}
+
+func SchemaMachineset() *schemas.Schema {
+	// cluster-status machineset
+	schema := schemas.NewSchema(schemas.Resource, "cluster_status", "machineset")
+	measurement := schemas.NewMeasurement("machineset", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement.AddColumn("name", true, schemas.Tag, common.String)
+	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
+	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("machinescaler_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("resource_k8s_replicas", false, schemas.Field, common.Int32)
+	measurement.AddColumn("resource_k8s_spec_replicas", false, schemas.Field, common.Int32)
+	schema.Measurements = append(schema.Measurements, measurement)
+	return schema
+}
+
 func SchemaResourceNamespace() *schemas.Schema {
 	// cluster-status namespace
 	schema := schemas.NewSchema(schemas.Resource, "cluster_status", "namespace")
@@ -107,6 +159,11 @@ func SchemaResourceNode() *schemas.Schema {
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("uid", true, schemas.Tag, common.String)
+	measurement.AddColumn("machineset_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("machineset_namespace", true, schemas.Tag, common.String)
+	measurement.AddColumn("role_master", false, schemas.Field, common.Bool)
+	measurement.AddColumn("role_worker", false, schemas.Field, common.Bool)
+	measurement.AddColumn("role_infra", false, schemas.Field, common.Bool)
 	measurement.AddColumn("create_time", false, schemas.Field, common.Int64)
 	measurement.AddColumn("node_cpu_cores", false, schemas.Field, common.Int64)    // NodeCPUCores is the amount of cores in node
 	measurement.AddColumn("node_memory_bytes", false, schemas.Field, common.Int64) // NodeMemoryBytes is the amount of memory bytes in node

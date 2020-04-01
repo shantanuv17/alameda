@@ -44,6 +44,8 @@ func DefaultSchemasInit() {
 	schemaList = append(schemaList, defaults.SchemaPredictionResourceController())
 	schemaList = append(schemaList, defaults.SchemaPredictionResourceNamespace())
 	schemaList = append(schemaList, defaults.SchemaPredictionResourceNode())
+	schemaList = append(schemaList, defaults.SchemaPredictionResourceNodeGroup())
+	schemaList = append(schemaList, defaults.SchemaPredictionResourceMachineset())
 
 	// Recommendation
 	schemaList = append(schemaList, defaults.SchemaRecommendationKafkaCG())
@@ -53,12 +55,16 @@ func DefaultSchemasInit() {
 	schemaList = append(schemaList, defaults.SchemaRecommendationResourceController())
 	schemaList = append(schemaList, defaults.SchemaRecommendationResourceNamespace())
 	schemaList = append(schemaList, defaults.SchemaRecommendationResourceNode())
+	schemaList = append(schemaList, defaults.SchemaRecommendationResourceMachineset())
 
 	// Resource
 	schemaList = append(schemaList, defaults.SchemaResourceApplication())
 	schemaList = append(schemaList, defaults.SchemaResourceCluster())
+	schemaList = append(schemaList, defaults.SchemaResourceClusterScaler())
 	schemaList = append(schemaList, defaults.SchemaResourceContainer())
 	schemaList = append(schemaList, defaults.SchemaResourceController())
+	schemaList = append(schemaList, defaults.SchemaResourceMachineScaler())
+	schemaList = append(schemaList, defaults.SchemaMachineset())
 	schemaList = append(schemaList, defaults.SchemaResourceNamespace())
 	schemaList = append(schemaList, defaults.SchemaResourceNode())
 	schemaList = append(schemaList, defaults.SchemaResourcePod())
