@@ -189,6 +189,7 @@ func SchemaRecommendationResourceMachineset() *schemas.Schema {
 	measurement.AddColumn("machinescaler_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("create_time", true, schemas.Field, common.String)
 	measurement.AddColumn("execution_time", true, schemas.Field, common.String)
+	measurement.AddColumn("current_replicas", true, schemas.Field, common.Int32)
 	measurement.AddColumn("desired_replicas", true, schemas.Field, common.Int32)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
