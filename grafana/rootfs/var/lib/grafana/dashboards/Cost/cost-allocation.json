@@ -945,7 +945,7 @@
       },
       "id": 44,
       "panels": [],
-      "title": "Monthly Resource Aggregated Cost",
+      "title": "Monthly Resource Cumulative Cost",
       "type": "row"
     },
     {
@@ -1571,7 +1571,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Aggregated Cost",
+      "title": "Cumulative Cost",
       "tooltip": {
         "shared": true,
         "sort": 0,
