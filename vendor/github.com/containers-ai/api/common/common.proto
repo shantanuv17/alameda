@@ -32,8 +32,9 @@ message TimeRange {
 message QueryCondition {
     TimeRange time_range = 1;
     enum Order {
-        ASC = 0;
-        DESC = 1;
+        NONE = 0;
+        ASC = 1;
+        DESC = 2;
     }
     Order order = 2;
     string where_clause = 3;
