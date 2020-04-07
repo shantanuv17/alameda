@@ -2,7 +2,10 @@ package probe
 
 import (
 	"fmt"
+	"os"
 
+	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
+	"github.com/spf13/viper"
 	"github.com/streadway/amqp"
 )
 
@@ -50,6 +53,39 @@ func checkRabbitmqNotBlock(url string) error {
 		})
 	if err != nil {
 		return err
+	}
+	return nil
+}
+
+func watchDogProbe() error {
+	granularities := viper.GetStringSlice("serviceSetting.granularities")
+	delaySec := viper.GetInt64("watchdog.delayedSec")
+
+	for _, granularity := range granularities {
+		granularitySec := int64(viper.GetInt(
+			fmt.Sprintf("granularities.%s.dataGranularitySec", granularity)))
+		if granularitySec == 0 {
+			return fmt.Errorf("granularity %v is not defined or set incorrect", granularitySec)
+		}
+
+		for _, watchFile := range []string{
+			fmt.Sprintf("%s/%v", viper.GetString("watchdog.model.directory"), granularitySec),
+			fmt.Sprintf("%s/%v", viper.GetString("watchdog.predict.directory"), granularitySec),
+		} {
+			updatedTimeDiff, err := utils.FileNotUpdateTimeSec(watchFile)
+			if err != nil {
+				if !os.IsNotExist(err) {
+					return err
+				} else {
+					continue
+				}
+			}
+
+			if updatedTimeDiff > granularitySec+delaySec {
+				return fmt.Errorf("granularity %s of watchdog file %s is not updated for %v seconds",
+					granularity, watchFile, updatedTimeDiff)
+			}
+		}
 	}
 	return nil
 }
