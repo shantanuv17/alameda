@@ -10,6 +10,7 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/schemamgt"
 	"github.com/containers-ai/alameda/internal/pkg/database/common"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
+	Schemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 )
 
 type ReadDataRequestRequestExtended struct {
@@ -56,7 +57,7 @@ func (p *ReadDataRequestRequestExtended) ProduceRequest() *types.ReadDataRequest
 }
 
 func (p *ReadDataRequestRequestExtended) postProcessRequest(request *types.ReadDataRequest) {
-	if p.SchemaMeta.Category == "cluster_status" {
+	if (p.SchemaMeta.Scope == Schemas.Scope_SCOPE_PREDICTION) && (p.SchemaMeta.Category == "cluster_status") {
 		for i, w := range p.ReadData {
 			p.processColumnMetric(w, request.ReadData[i])
 			p.processColumnKind(w, request.ReadData[i])
@@ -87,7 +88,6 @@ func (p *ReadDataRequestRequestExtended) processColumnMetric(before *data.ReadDa
 			condition.Keys = append(condition.Keys, "metric")
 			condition.Values = append(condition.Values, metric)
 			condition.Operators = append(condition.Operators, "=")
-			condition.Types = append(condition.Types, common.String)
 		}
 	}
 
@@ -96,7 +96,6 @@ func (p *ReadDataRequestRequestExtended) processColumnMetric(before *data.ReadDa
 		condition.Keys = append(condition.Keys, "metric")
 		condition.Values = append(condition.Values, metric)
 		condition.Operators = append(condition.Operators, "=")
-		condition.Types = append(condition.Types, common.String)
 		after.QueryCondition.WhereCondition = append(after.QueryCondition.WhereCondition, &condition)
 	}
 }
@@ -124,7 +123,6 @@ func (p *ReadDataRequestRequestExtended) processColumnKind(before *data.ReadData
 			condition.Keys = append(condition.Keys, "kind")
 			condition.Values = append(condition.Values, kind)
 			condition.Operators = append(condition.Operators, "=")
-			condition.Types = append(condition.Types, common.String)
 		}
 	}
 
@@ -133,7 +131,6 @@ func (p *ReadDataRequestRequestExtended) processColumnKind(before *data.ReadData
 		condition.Keys = append(condition.Keys, "kind")
 		condition.Values = append(condition.Values, kind)
 		condition.Operators = append(condition.Operators, "=")
-		condition.Types = append(condition.Types, common.String)
 		after.QueryCondition.WhereCondition = append(after.QueryCondition.WhereCondition, &condition)
 	}
 }

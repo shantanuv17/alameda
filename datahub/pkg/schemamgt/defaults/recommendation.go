@@ -21,7 +21,23 @@ func SchemaRecommendationKafkaCG() *schemas.Schema {
 	return schema
 }
 
-func SchemaRecommendationResourceApplication() *schemas.Schema {
+func SchemaRecommendationClusterAutoscalerMachineset() *schemas.Schema {
+	// cluster-autoscaler machineset
+	schema := schemas.NewSchema(schemas.Recommendation, "cluster_autoscaler", "machineset")
+	measurement := schemas.NewMeasurement("machineset", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement.AddColumn("name", true, schemas.Tag, common.String)
+	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
+	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("machinescaler_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("create_time", true, schemas.Field, common.String)
+	measurement.AddColumn("execution_time", true, schemas.Field, common.String)
+	measurement.AddColumn("current_replicas", true, schemas.Field, common.Int32)
+	measurement.AddColumn("desired_replicas", true, schemas.Field, common.Int32)
+	schema.Measurements = append(schema.Measurements, measurement)
+	return schema
+}
+
+func SchemaRecommendationClusterStatusApplication() *schemas.Schema {
 	// cluster-status application
 	schema := schemas.NewSchema(schemas.Recommendation, "cluster_status", "application")
 	measurement := schemas.NewMeasurement("application", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
@@ -44,7 +60,7 @@ func SchemaRecommendationResourceApplication() *schemas.Schema {
 	return schema
 }
 
-func SchemaRecommendationResourceCluster() *schemas.Schema {
+func SchemaRecommendationClusterStatusCluster() *schemas.Schema {
 	// cluster-status cluster
 	schema := schemas.NewSchema(schemas.Recommendation, "cluster_status", "cluster")
 	measurement := schemas.NewMeasurement("cluster", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
@@ -65,7 +81,7 @@ func SchemaRecommendationResourceCluster() *schemas.Schema {
 	return schema
 }
 
-func SchemaRecommendationResourceContainer() *schemas.Schema {
+func SchemaRecommendationClusterStatusContainer() *schemas.Schema {
 	// cluster-status container
 	schema := schemas.NewSchema(schemas.Recommendation, "cluster_status", "container")
 
@@ -112,7 +128,7 @@ func SchemaRecommendationResourceContainer() *schemas.Schema {
 	return schema
 }
 
-func SchemaRecommendationResourceController() *schemas.Schema {
+func SchemaRecommendationClusterStatusController() *schemas.Schema {
 	// cluster-status controller
 	schema := schemas.NewSchema(schemas.Recommendation, "cluster_status", "controller")
 	measurement := schemas.NewMeasurement("controller", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
@@ -135,7 +151,7 @@ func SchemaRecommendationResourceController() *schemas.Schema {
 	return schema
 }
 
-func SchemaRecommendationResourceNamespace() *schemas.Schema {
+func SchemaRecommendationClusterStatusNamespace() *schemas.Schema {
 	// cluster-status namespace
 	schema := schemas.NewSchema(schemas.Recommendation, "cluster_status", "namespace")
 	measurement := schemas.NewMeasurement("namespace", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
@@ -157,7 +173,7 @@ func SchemaRecommendationResourceNamespace() *schemas.Schema {
 	return schema
 }
 
-func SchemaRecommendationResourceNode() *schemas.Schema {
+func SchemaRecommendationClusterStatusNode() *schemas.Schema {
 	// cluster-status node
 	schema := schemas.NewSchema(schemas.Recommendation, "cluster_status", "node")
 	measurement := schemas.NewMeasurement("node", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
@@ -175,22 +191,6 @@ func SchemaRecommendationResourceNode() *schemas.Schema {
 	measurement.AddColumn("desired_cpu_limits", false, schemas.Field, common.Float64)
 	measurement.AddColumn("desired_mem_limits", false, schemas.Field, common.Float64)
 	measurement.AddColumn("total_cost", false, schemas.Field, common.Float64)
-	schema.Measurements = append(schema.Measurements, measurement)
-	return schema
-}
-
-func SchemaRecommendationResourceMachineset() *schemas.Schema {
-	// cluster-status machineset
-	schema := schemas.NewSchema(schemas.Recommendation, "cluster_status", "machineset")
-	measurement := schemas.NewMeasurement("machineset", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
-	measurement.AddColumn("name", true, schemas.Tag, common.String)
-	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
-	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("machinescaler_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("create_time", true, schemas.Field, common.String)
-	measurement.AddColumn("execution_time", true, schemas.Field, common.String)
-	measurement.AddColumn("current_replicas", true, schemas.Field, common.Int32)
-	measurement.AddColumn("desired_replicas", true, schemas.Field, common.Int32)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }

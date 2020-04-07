@@ -42,7 +42,7 @@ func SchemaMetricKafkaCG() *schemas.Schema {
 	return schema
 }
 
-func SchemaMetricResourceApplication() *schemas.Schema {
+func SchemaMetricClusterStatusApplication() *schemas.Schema {
 	// cluster-status application
 	schema := schemas.NewSchema(schemas.Metric, "cluster_status", "application")
 
@@ -67,7 +67,7 @@ func SchemaMetricResourceApplication() *schemas.Schema {
 	return schema
 }
 
-func SchemaMetricResourceCluster() *schemas.Schema {
+func SchemaMetricClusterStatusCluster() *schemas.Schema {
 	// cluster-status cluster
 	schema := schemas.NewSchema(schemas.Metric, "cluster_status", "cluster")
 
@@ -88,7 +88,7 @@ func SchemaMetricResourceCluster() *schemas.Schema {
 	return schema
 }
 
-func SchemaMetricResourceContainer() *schemas.Schema {
+func SchemaMetricClusterStatusContainer() *schemas.Schema {
 	// cluster-status container
 	schema := schemas.NewSchema(schemas.Metric, "cluster_status", "container")
 
@@ -117,7 +117,7 @@ func SchemaMetricResourceContainer() *schemas.Schema {
 	return schema
 }
 
-func SchemaMetricResourceController() *schemas.Schema {
+func SchemaMetricClusterStatusController() *schemas.Schema {
 	// cluster-status controller
 	schema := schemas.NewSchema(schemas.Metric, "cluster_status", "controller")
 
@@ -144,7 +144,7 @@ func SchemaMetricResourceController() *schemas.Schema {
 	return schema
 }
 
-func SchemaMetricResourceNamespace() *schemas.Schema {
+func SchemaMetricClusterStatusNamespace() *schemas.Schema {
 	// cluster-status namespace
 	schema := schemas.NewSchema(schemas.Metric, "cluster_status", "namespace")
 
@@ -167,7 +167,7 @@ func SchemaMetricResourceNamespace() *schemas.Schema {
 	return schema
 }
 
-func SchemaMetricResourceNode() *schemas.Schema {
+func SchemaMetricClusterStatusNode() *schemas.Schema {
 	// cluster-status node
 	schema := schemas.NewSchema(schemas.Metric, "cluster_status", "node")
 

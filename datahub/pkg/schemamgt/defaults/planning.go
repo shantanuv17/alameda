@@ -5,7 +5,7 @@ import (
 	"github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
 )
 
-func SchemaPlanningResourceApplication() *schemas.Schema {
+func SchemaPlanningClusterStatusApplication() *schemas.Schema {
 	// cluster-status application
 	schema := schemas.NewSchema(schemas.Planning, "cluster_status", "application")
 	measurement := schemas.NewMeasurement("application", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
@@ -36,7 +36,7 @@ func SchemaPlanningResourceApplication() *schemas.Schema {
 	return schema
 }
 
-func SchemaPlanningResourceCluster() *schemas.Schema {
+func SchemaPlanningClusterStatusCluster() *schemas.Schema {
 	// cluster-status cluster
 	schema := schemas.NewSchema(schemas.Planning, "cluster_status", "cluster")
 	measurement := schemas.NewMeasurement("cluster", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
@@ -45,7 +45,7 @@ func SchemaPlanningResourceCluster() *schemas.Schema {
 	return schema
 }
 
-func SchemaPlanningResourceContainer() *schemas.Schema {
+func SchemaPlanningClusterStatusContainer() *schemas.Schema {
 	// cluster-status container
 	schema := schemas.NewSchema(schemas.Planning, "cluster_status", "container")
 	measurement := schemas.NewMeasurement("container", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
@@ -54,7 +54,7 @@ func SchemaPlanningResourceContainer() *schemas.Schema {
 	return schema
 }
 
-func SchemaPlanningResourceController() *schemas.Schema {
+func SchemaPlanningClusterStatusController() *schemas.Schema {
 	// cluster-status controller
 	schema := schemas.NewSchema(schemas.Planning, "cluster_status", "controller")
 	measurement := schemas.NewMeasurement("controller", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
@@ -63,7 +63,7 @@ func SchemaPlanningResourceController() *schemas.Schema {
 	return schema
 }
 
-func SchemaPlanningResourceNamespace() *schemas.Schema {
+func SchemaPlanningClusterStatusNamespace() *schemas.Schema {
 	// cluster-status namespace
 	schema := schemas.NewSchema(schemas.Planning, "cluster_status", "namespace")
 	measurement := schemas.NewMeasurement("namespace", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
@@ -72,7 +72,7 @@ func SchemaPlanningResourceNamespace() *schemas.Schema {
 	return schema
 }
 
-func SchemaPlanningResourceNode() *schemas.Schema {
+func SchemaPlanningClusterStatusNode() *schemas.Schema {
 	// cluster-status node
 	schema := schemas.NewSchema(schemas.Planning, "cluster_status", "node")
 	measurement := schemas.NewMeasurement("node", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
