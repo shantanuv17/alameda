@@ -24,7 +24,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='containersai.common',
   syntax='proto3',
   serialized_options=_b('Z#github.com/containers-ai/api/common'),
-  serialized_pb=_b('\n\x13\x63ommon/common.proto\x12\x13\x63ontainersai.common\x1a\x12\x63ommon/types.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xee\x02\n\tTimeRange\x12.\n\nstart_time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12+\n\x07timeout\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\'\n\x04step\x18\x04 \x01(\x0b\x32\x19.google.protobuf.Duration\x12L\n\x12\x61ggregate_function\x18\x05 \x01(\x0e\x32\x30.containersai.common.TimeRange.AggregateFunction\x12.\n\napply_time\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"/\n\x11\x41ggregateFunction\x12\x08\n\x04NONE\x10\x00\x12\x07\n\x03MAX\x10\x01\x12\x07\n\x03\x41VG\x10\x02\"\xe0\x01\n\x0eQueryCondition\x12\x32\n\ntime_range\x18\x01 \x01(\x0b\x32\x1e.containersai.common.TimeRange\x12\x38\n\x05order\x18\x02 \x01(\x0e\x32).containersai.common.QueryCondition.Order\x12\x14\n\x0cwhere_clause\x18\x03 \x01(\t\x12\x0f\n\x07selects\x18\x04 \x03(\t\x12\x0e\n\x06groups\x18\x05 \x03(\t\x12\r\n\x05limit\x18\x06 \x01(\x04\"\x1a\n\x05Order\x12\x07\n\x03\x41SC\x10\x00\x12\x08\n\x04\x44\x45SC\x10\x01\"t\n\x05Query\x12\x10\n\x08\x64\x61tabase\x18\x01 \x01(\t\x12\r\n\x05table\x18\x02 \x01(\t\x12\x12\n\nexpression\x18\x03 \x01(\t\x12\x36\n\tcondition\x18\x04 \x01(\x0b\x32#.containersai.common.QueryCondition\"?\n\x03Row\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06values\x18\x02 \x03(\t\"/\n\x05Group\x12&\n\x04rows\x18\x01 \x03(\x0b\x32\x18.containersai.common.Row\"\x86\x01\n\x0bReadRawdata\x12)\n\x05query\x18\x01 \x01(\x0b\x32\x1a.containersai.common.Query\x12\x0f\n\x07\x63olumns\x18\x02 \x03(\t\x12*\n\x06groups\x18\x03 \x03(\x0b\x32\x1a.containersai.common.Group\x12\x0f\n\x07rawdata\x18\x04 \x01(\t\"\xd2\x01\n\x0cWriteRawdata\x12\x10\n\x08\x64\x61tabase\x18\x01 \x01(\t\x12\r\n\x05table\x18\x02 \x01(\t\x12\x0f\n\x07\x63olumns\x18\x03 \x03(\t\x12&\n\x04rows\x18\x04 \x03(\x0b\x32\x18.containersai.common.Row\x12\x35\n\x0c\x63olumn_types\x18\x05 \x03(\x0e\x32\x1f.containersai.common.ColumnType\x12\x31\n\ndata_types\x18\x06 \x03(\x0e\x32\x1d.containersai.common.DataType*;\n\x0c\x44\x61tabaseType\x12\r\n\tUNDEFINED\x10\x00\x12\x0c\n\x08INFLUXDB\x10\x01\x12\x0e\n\nPROMETHEUS\x10\x02\x42%Z#github.com/containers-ai/api/commonb\x06proto3')
+  serialized_pb=_b('\n\x13\x63ommon/common.proto\x12\x13\x63ontainersai.common\x1a\x12\x63ommon/types.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xee\x02\n\tTimeRange\x12.\n\nstart_time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12+\n\x07timeout\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\'\n\x04step\x18\x04 \x01(\x0b\x32\x19.google.protobuf.Duration\x12L\n\x12\x61ggregate_function\x18\x05 \x01(\x0e\x32\x30.containersai.common.TimeRange.AggregateFunction\x12.\n\napply_time\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"/\n\x11\x41ggregateFunction\x12\x08\n\x04NONE\x10\x00\x12\x07\n\x03MAX\x10\x01\x12\x07\n\x03\x41VG\x10\x02\"\xea\x01\n\x0eQueryCondition\x12\x32\n\ntime_range\x18\x01 \x01(\x0b\x32\x1e.containersai.common.TimeRange\x12\x38\n\x05order\x18\x02 \x01(\x0e\x32).containersai.common.QueryCondition.Order\x12\x14\n\x0cwhere_clause\x18\x03 \x01(\t\x12\x0f\n\x07selects\x18\x04 \x03(\t\x12\x0e\n\x06groups\x18\x05 \x03(\t\x12\r\n\x05limit\x18\x06 \x01(\x04\"$\n\x05Order\x12\x08\n\x04NONE\x10\x00\x12\x07\n\x03\x41SC\x10\x01\x12\x08\n\x04\x44\x45SC\x10\x02\"t\n\x05Query\x12\x10\n\x08\x64\x61tabase\x18\x01 \x01(\t\x12\r\n\x05table\x18\x02 \x01(\t\x12\x12\n\nexpression\x18\x03 \x01(\t\x12\x36\n\tcondition\x18\x04 \x01(\x0b\x32#.containersai.common.QueryCondition\"?\n\x03Row\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06values\x18\x02 \x03(\t\"/\n\x05Group\x12&\n\x04rows\x18\x01 \x03(\x0b\x32\x18.containersai.common.Row\"\x86\x01\n\x0bReadRawdata\x12)\n\x05query\x18\x01 \x01(\x0b\x32\x1a.containersai.common.Query\x12\x0f\n\x07\x63olumns\x18\x02 \x03(\t\x12*\n\x06groups\x18\x03 \x03(\x0b\x32\x1a.containersai.common.Group\x12\x0f\n\x07rawdata\x18\x04 \x01(\t\"\xd2\x01\n\x0cWriteRawdata\x12\x10\n\x08\x64\x61tabase\x18\x01 \x01(\t\x12\r\n\x05table\x18\x02 \x01(\t\x12\x0f\n\x07\x63olumns\x18\x03 \x03(\t\x12&\n\x04rows\x18\x04 \x03(\x0b\x32\x18.containersai.common.Row\x12\x35\n\x0c\x63olumn_types\x18\x05 \x03(\x0e\x32\x1f.containersai.common.ColumnType\x12\x31\n\ndata_types\x18\x06 \x03(\x0e\x32\x1d.containersai.common.DataType*;\n\x0c\x44\x61tabaseType\x12\r\n\tUNDEFINED\x10\x00\x12\x0c\n\x08INFLUXDB\x10\x01\x12\x0e\n\nPROMETHEUS\x10\x02\x42%Z#github.com/containers-ai/api/commonb\x06proto3')
   ,
   dependencies=[common_dot_types__pb2.DESCRIPTOR,google_dot_protobuf_dot_duration__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -49,8 +49,8 @@ _DATABASETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1307,
-  serialized_end=1366,
+  serialized_start=1317,
+  serialized_end=1376,
 )
 _sym_db.RegisterEnumDescriptor(_DATABASETYPE)
 
@@ -93,18 +93,22 @@ _QUERYCONDITION_ORDER = _descriptor.EnumDescriptor(
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='ASC', index=0, number=0,
+      name='NONE', index=0, number=0,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='DESC', index=1, number=1,
+      name='ASC', index=1, number=1,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='DESC', index=2, number=2,
       serialized_options=None,
       type=None),
   ],
   containing_type=None,
   serialized_options=None,
   serialized_start=697,
-  serialized_end=723,
+  serialized_end=733,
 )
 _sym_db.RegisterEnumDescriptor(_QUERYCONDITION_ORDER)
 
@@ -239,7 +243,7 @@ _QUERYCONDITION = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=499,
-  serialized_end=723,
+  serialized_end=733,
 )
 
 
@@ -290,8 +294,8 @@ _QUERY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=725,
-  serialized_end=841,
+  serialized_start=735,
+  serialized_end=851,
 )
 
 
@@ -328,8 +332,8 @@ _ROW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=843,
-  serialized_end=906,
+  serialized_start=853,
+  serialized_end=916,
 )
 
 
@@ -359,8 +363,8 @@ _GROUP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=908,
-  serialized_end=955,
+  serialized_start=918,
+  serialized_end=965,
 )
 
 
@@ -411,8 +415,8 @@ _READRAWDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=958,
-  serialized_end=1092,
+  serialized_start=968,
+  serialized_end=1102,
 )
 
 
@@ -477,8 +481,8 @@ _WRITERAWDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1095,
-  serialized_end=1305,
+  serialized_start=1105,
+  serialized_end=1315,
 )
 
 _TIMERANGE.fields_by_name['start_time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
