@@ -1,17 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi-minimal
-ENV SUMMARY="Alameda InfluxDB." \
-    DESCRIPTION="Alameda InfluxDB." \
-    NAME="Alameda InfluxDB" \
-    VERSION="latest"
-
-LABEL summary="$SUMMARY" \
-      description="$DESCRIPTION" \
-      io.k8s.description="$DESCRIPTION" \
-      io.k8s.display-name="$NAME" \
-      com.redhat.component="customer-container" \
-      name="$NAME" \
-      version="$VERSION" \
-      vendor="ProphetStor Data Services, Inc."
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1-407
 
 ARG influxdb_pkg=influxdb-1.7.9
 
