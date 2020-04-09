@@ -39,10 +39,10 @@ LABEL summary="$SUMMARY" \
       vendor="ProphetStor Data Services, Inc."
 
 RUN set -x \
-    && microdnf update -y \
-    && microdnf install -y \
+    && dnf update -y \
+    && dnf install -y \
         tar procps-ng psmisc findutils vim-minimal nginx \
-    && microdnf clean all
+    && dnf clean all
 
 COPY --from=builder /go/src/github.com/containers-ai/alameda/admission-controller/xray.sh /xray.sh
 COPY --from=builder /go/src/github.com/containers-ai/alameda/version.txt ${AIHOME}/etc/
