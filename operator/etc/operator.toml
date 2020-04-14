@@ -17,7 +17,7 @@ address = "datahub.alameda.svc.cluster.local:50050"
 
 [kafka]
 brokerAddresses = ["my-kafka.kafka:9092"]
-version = "0.11.0.0"
+version = "2.4.0"
   [kafka.tls]
   enabled = false
   insecureSkipVerify = false

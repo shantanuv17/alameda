@@ -3,15 +3,16 @@
 package client
 
 import (
-	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
 	"testing"
+
+	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
 )
 
 func TestClose(t *testing.T) {
 
 	c, err := NewClient(kafka.Config{
 		Addresses: []string{"localhost:9092"},
-		Version:   "0.11.0.0",
+		Version:   "2.4.0",
 	})
 	if err != nil {
 		panic(err)
