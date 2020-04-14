@@ -3,6 +3,7 @@ package client
 import (
 	"context"
 	"crypto/tls"
+	"fmt"
 	"net"
 	"strings"
 	"sync"
@@ -133,6 +134,13 @@ func (c *client) ListConsumerGroups(ctx context.Context) ([]string, error) {
 func (c *client) ListConsumeTopics(ctx context.Context, consumerGroup string) ([]string, error) {
 	if err := c.Open(); err != nil {
 		return nil, errors.Wrap(err, "open client failed")
+	}
+
+	if c.client == nil {
+		return nil, fmt.Errorf("client is nil")
+	}
+	if c.admin == nil {
+		return nil, fmt.Errorf("admin is nil")
 	}
 
 	if err := c.client.RefreshCoordinator(consumerGroup); err != nil {
