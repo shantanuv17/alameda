@@ -422,11 +422,14 @@ func (dispatcher *modelJobSender) tryToJobSending(queueName string, unit *config
 }
 
 func (dispatcher *modelJobSender) isUnitWatchedByScaler(unit *config.Unit, rowValues []string, columns []string) (bool, error) {
-	ns, name, err := GetUnitScalerNSName(unit, rowValues, columns)
+	k8sNS, k8sName, err := GetUnitResourceK8SNSName(unit, rowValues, columns)
 	if err != nil {
 		return false, err
 	}
-	if ns == "" || name == "" {
+	if k8sNS == nil || k8sName == nil {
+		return true, nil
+	}
+	if *k8sNS == "" || *k8sName == "" {
 		return false, nil
 	}
 	return true, nil
