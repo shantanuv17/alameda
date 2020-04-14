@@ -84,8 +84,10 @@ type predictSeriesMeta struct {
 }
 
 type unitValueKeys struct {
-	ScaleNamespace string `mapstructure:"scalerNamespace"`
-	ScaleName      string `mapstructure:"scalerName"`
+	ScaleNamespace       string  `mapstructure:"scalerNamespace"`
+	ScaleName            string  `mapstructure:"scalerName"`
+	ResourceK8SNamespace *string `mapstructure:"resourceK8SNamespace"`
+	ResourceK8SName      *string `mapstructure:"resourceK8SName"`
 }
 
 type metricValueKeys struct {
