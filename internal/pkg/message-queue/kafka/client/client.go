@@ -24,8 +24,9 @@ type client struct {
 	brokerAddresses []string
 	config          sarama.Config
 
-	lock  sync.Mutex
-	admin sarama.ClusterAdmin
+	lock   sync.Mutex
+	admin  sarama.ClusterAdmin
+	client sarama.Client
 }
 
 // NewClient returns implementation for internal kafka client interface,
@@ -66,11 +67,16 @@ func (c *client) Open() error {
 
 	c.lock.Lock()
 	defer c.lock.Unlock()
-	admin, err := sarama.NewClusterAdmin(c.brokerAddresses, &c.config)
+	client, err := sarama.NewClient(c.brokerAddresses, &c.config)
+	if err != nil {
+		return errors.Wrap(err, "new kafka client failed")
+	}
+	admin, err := sarama.NewClusterAdminFromClient(client)
 	if err != nil {
 		return errors.Wrap(err, "new kafka clusterAdmin failed")
 	}
 	c.admin = admin
+	c.client = client
 	return nil
 }
 
@@ -85,6 +91,10 @@ func (c *client) Close() error {
 		return errors.Wrap(err, "close admin failed")
 	}
 	c.admin = nil
+	if err := c.client.Close(); err != nil {
+		return errors.Wrap(err, "close client failed")
+	}
+	c.client = nil
 	return nil
 }
 
@@ -123,6 +133,10 @@ func (c *client) ListConsumerGroups(ctx context.Context) ([]string, error) {
 func (c *client) ListConsumeTopics(ctx context.Context, consumerGroup string) ([]string, error) {
 	if err := c.Open(); err != nil {
 		return nil, errors.Wrap(err, "open client failed")
+	}
+
+	if err := c.client.RefreshCoordinator(consumerGroup); err != nil {
+		return nil, err
 	}
 	resp, err := c.admin.ListConsumerGroupOffsets(consumerGroup, nil)
 	if err = c.handleError(err); err != nil {

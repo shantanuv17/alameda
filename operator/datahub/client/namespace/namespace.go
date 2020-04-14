@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/containers-ai/alameda/operator/datahub/client"
-	k8SUtils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
+	k8SUtils "github.com/containers-ai/alameda/pkg/utils"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
