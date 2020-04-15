@@ -34,7 +34,7 @@
   revision = "2972be24d48e78746da79ba8e24e8b488c9880de"
 
 [[projects]]
-  branch = "4.2-meemaw"
+  branch = "master"
   digest = "1:63e475cf2179c8387499a39f96468969827bdfd85ece845dcf5f92278ceb844c"
   name = "github.com/containers-ai/api"
   packages = [
