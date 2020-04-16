@@ -25,6 +25,8 @@ const (
 	DutyCycle
 	CurrentOffset
 	Lag
+	Latency
+	Number
 )
 
 type ResourceBoundary int

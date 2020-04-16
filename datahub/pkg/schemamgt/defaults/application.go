@@ -32,8 +32,8 @@ func SchemaApplicationKafkaCG() *schemas.Schema {
 	measurement.AddColumn("resource_k8s_namespace", false, schemas.Field, common.String)
 	measurement.AddColumn("resource_k8s_name", false, schemas.Field, common.String)
 	measurement.AddColumn("resource_k8s_kind", false, schemas.Field, common.String)
+	measurement.AddColumn("resource_k8s_spec_replicas", true, schemas.Field, common.Int32)
 	measurement.AddColumn("resource_k8s_replicas", false, schemas.Field, common.Int32)
-	measurement.AddColumn("resource_k8s_spec_replicas", false, schemas.Field, common.Int32)
 	measurement.AddColumn("resource_k8s_min_replicas", false, schemas.Field, common.Int32)
 	measurement.AddColumn("resource_k8s_max_replicas", false, schemas.Field, common.Int32)
 	measurement.AddColumn("resource_custom_name", false, schemas.Field, common.String)
@@ -45,6 +45,21 @@ func SchemaApplicationKafkaCG() *schemas.Schema {
 	measurement.AddColumn("resource_memory_request", false, schemas.Field, common.String)
 	measurement.AddColumn("volumes_size", false, schemas.Field, common.String)
 	measurement.AddColumn("volumes_pvc_size", false, schemas.Field, common.String)
+	schema.Measurements = append(schema.Measurements, measurement)
+	return schema
+}
+
+func SchemaApplicationNginx() *schemas.Schema {
+	// Nginx
+	schema := schemas.NewSchema(schemas.Application, "nginx", "nginx")
+	measurement := schemas.NewMeasurement("nginx", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement.AddColumn("name", true, schemas.Tag, common.String)
+	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
+	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("resource_k8s_spec_replicas", true, schemas.Field, common.Int32)
+	measurement.AddColumn("resource_k8s_replicas", false, schemas.Field, common.Int32)
+	measurement.AddColumn("resource_k8s_min_replicas", false, schemas.Field, common.Int32)
+	measurement.AddColumn("resource_k8s_max_replicas", false, schemas.Field, common.Int32)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }

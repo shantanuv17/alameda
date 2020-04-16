@@ -45,6 +45,8 @@ var MetricTypeNameMap = map[ApiCommon.MetricType]Schemas.MetricType{
 	ApiCommon.MetricType_DUTY_CYCLE:                   Schemas.DutyCycle,
 	ApiCommon.MetricType_CURRENT_OFFSET:               Schemas.CurrentOffset,
 	ApiCommon.MetricType_LAG:                          Schemas.Lag,
+	ApiCommon.MetricType_LATENCY:                      Schemas.Latency,
+	ApiCommon.MetricType_NUMBER:                       Schemas.Number,
 }
 
 var ResourceBoundaryNameMap = map[ApiCommon.ResourceBoundary]Schemas.ResourceBoundary{

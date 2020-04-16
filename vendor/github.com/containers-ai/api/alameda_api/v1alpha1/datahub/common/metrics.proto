@@ -20,6 +20,8 @@ enum MetricType {
     DUTY_CYCLE                   = 5;
     CURRENT_OFFSET               = 6;
     LAG                          = 7;
+    LATENCY                      = 8;
+    NUMBER                       = 9;
 }
 
 enum ResourceName {

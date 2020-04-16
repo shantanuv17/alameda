@@ -14,6 +14,8 @@ var MetricTypeNameMap = map[schemas.MetricType]common.MetricType{
 	schemas.DutyCycle:                 common.MetricType_DUTY_CYCLE,
 	schemas.CurrentOffset:             common.MetricType_CURRENT_OFFSET,
 	schemas.Lag:                       common.MetricType_LAG,
+	schemas.Latency:                   common.MetricType_LATENCY,
+	schemas.Number:                    common.MetricType_NUMBER,
 }
 
 var ResourceBoundaryNameMap = map[schemas.ResourceBoundary]common.ResourceBoundary{

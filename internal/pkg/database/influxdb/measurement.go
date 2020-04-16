@@ -64,12 +64,17 @@ func (p *InfluxMeasurement) Write(columns []string, rows []*common.Row) error {
 	}
 
 	// Generate influx data points
-	points := p.buildPoints(columnTypes, dataTypes, columns, rows)
+	points, err := p.buildPoints(columnTypes, dataTypes, columns, rows)
+	if err != nil {
+		scope.Error("failed to write data")
+		return err
+	}
 
 	// Batch write influx data points
-	err := p.Client.WritePoints(points, InfluxDB.BatchPointsConfig{Database: p.Database})
+	err = p.Client.WritePoints(points, InfluxDB.BatchPointsConfig{Database: p.Database})
 	if err != nil {
 		scope.Error(err.Error())
+		scope.Error("failed to write data")
 		return err
 	}
 
@@ -86,7 +91,7 @@ func (p *InfluxMeasurement) Drop(query *InfluxQuery) error {
 	return nil
 }
 
-func (p *InfluxMeasurement) buildPoints(columnTypes []schemas.ColumnType, dataTypes []common.DataType, columns []string, rows []*common.Row) []*InfluxDB.Point {
+func (p *InfluxMeasurement) buildPoints(columnTypes []schemas.ColumnType, dataTypes []common.DataType, columns []string, rows []*common.Row) ([]*InfluxDB.Point, error)  {
 	points := make([]*InfluxDB.Point, 0)
 
 	for _, row := range rows {
@@ -113,19 +118,23 @@ func (p *InfluxMeasurement) buildPoints(columnTypes []schemas.ColumnType, dataTy
 			if err == nil {
 				points = append(points, pt)
 			} else {
-				fmt.Println(err.Error())
+				scope.Error(err.Error())
+				scope.Error("failed to build influxdb points")
+				return make([]*InfluxDB.Point, 0), err
 			}
 		} else {
 			pt, err := InfluxDB.NewPoint(p.Name, tags, fields, *row.Time)
 			if err == nil {
 				points = append(points, pt)
 			} else {
-				fmt.Println(err.Error())
+				scope.Error(err.Error())
+				scope.Error("failed to build influxdb points")
+				return make([]*InfluxDB.Point, 0), err
 			}
 		}
 	}
 
-	return points
+	return points, nil
 }
 
 func (p *InfluxMeasurement) regularData(results []*models.InfluxResultExtend) []*common.Group {
