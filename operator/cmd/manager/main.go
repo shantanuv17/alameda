@@ -120,7 +120,7 @@ func init() {
 		"File path to operator coniguration")
 	flag.StringVar(&crdLocation, "crd-location", "/etc/alameda/operator/crds", "CRD location")
 	flag.StringVar(&metricsAddr, "metrics-addr", ":8080", "The address the metric endpoint binds to.")
-	flag.BoolVar(&enableLeaderElection, "enable-leader-election", false,
+	flag.BoolVar(&enableLeaderElection, "enable-leader-election", true,
 		"Enable leader election for controller manager. Enabling this will ensure there is only one active controller manager.")
 
 	scope = logUtil.RegisterScope("manager", "operator entry point", 0)
