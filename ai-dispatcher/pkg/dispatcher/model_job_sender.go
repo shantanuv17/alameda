@@ -359,7 +359,7 @@ func (dispatcher *modelJobSender) driftEval(modelID string, metricType datahub_c
 								}
 								rmseVal, rmseErr := stats.RMSE(measurementDataSet, datahub_common.MetricType_METRICS_TYPE_UNDEFINED, granularity)
 								if rmseErr != nil {
-									scope.Errorf("[%s] Calculate RMSE failed due to %s", jobID, err.Error())
+									scope.Errorf("[%s] Calculate RMSE failed due to %s", jobID, rmseErr.Error())
 								} else {
 									metrics.SetMetricRMSE(jobID, rmseVal)
 								}
