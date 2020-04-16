@@ -103,17 +103,6 @@ func SchemaPredictionNginx() *schemas.Schema {
 	rawTotal.AddColumn("value", true, schemas.Field, common.Float64)
 	schema.Measurements = append(schema.Measurements, rawTotal)
 
-	// Raw response latency
-	rawLatency := schemas.NewMeasurement("nginx_http_response_latency_ms", schemas.Latency, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
-	rawLatency.AddColumn("name", true, schemas.Tag, common.String)
-	rawLatency.AddColumn("namespace", true, schemas.Tag, common.String)
-	rawLatency.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	rawLatency.AddColumn("granularity", true, schemas.Tag, common.String)
-	rawLatency.AddColumn("model_id", true, schemas.Field, common.String)
-	rawLatency.AddColumn("prediction_id", true, schemas.Field, common.String)
-	rawLatency.AddColumn("value", true, schemas.Field, common.Float64)
-	schema.Measurements = append(schema.Measurements, rawLatency)
-
 	// Upper bound response total
 	upperTotal := schemas.NewMeasurement("nginx_http_response_total_upper_bound", schemas.Number, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
 	upperTotal.AddColumn("name", true, schemas.Tag, common.String)
@@ -125,17 +114,6 @@ func SchemaPredictionNginx() *schemas.Schema {
 	upperTotal.AddColumn("value", true, schemas.Field, common.Float64)
 	schema.Measurements = append(schema.Measurements, upperTotal)
 
-	// Upper bound response latency
-	upperLatency := schemas.NewMeasurement("nginx_http_response_latency_ms_upper_bound", schemas.Latency, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
-	upperLatency.AddColumn("name", true, schemas.Tag, common.String)
-	upperLatency.AddColumn("namespace", true, schemas.Tag, common.String)
-	upperLatency.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	upperLatency.AddColumn("granularity", true, schemas.Tag, common.String)
-	upperLatency.AddColumn("model_id", true, schemas.Field, common.String)
-	upperLatency.AddColumn("prediction_id", true, schemas.Field, common.String)
-	upperLatency.AddColumn("value", true, schemas.Field, common.Float64)
-	schema.Measurements = append(schema.Measurements, upperLatency)
-
 	// Lower bound response total
 	lowerTotal := schemas.NewMeasurement("nginx_http_response_total_lower_bound", schemas.Number, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
 	lowerTotal.AddColumn("name", true, schemas.Tag, common.String)
@@ -146,17 +124,6 @@ func SchemaPredictionNginx() *schemas.Schema {
 	lowerTotal.AddColumn("prediction_id", true, schemas.Field, common.String)
 	lowerTotal.AddColumn("value", true, schemas.Field, common.Float64)
 	schema.Measurements = append(schema.Measurements, lowerTotal)
-
-	// Lower bound response latency
-	lowerLatency := schemas.NewMeasurement("nginx_http_response_latency_ms_lower_bound", schemas.Latency, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
-	lowerLatency.AddColumn("name", true, schemas.Tag, common.String)
-	lowerLatency.AddColumn("namespace", true, schemas.Tag, common.String)
-	lowerLatency.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	lowerLatency.AddColumn("granularity", true, schemas.Tag, common.String)
-	lowerLatency.AddColumn("model_id", true, schemas.Field, common.String)
-	lowerLatency.AddColumn("prediction_id", true, schemas.Field, common.String)
-	lowerLatency.AddColumn("value", true, schemas.Field, common.Float64)
-	schema.Measurements = append(schema.Measurements, lowerLatency)
 
 	return schema
 }
