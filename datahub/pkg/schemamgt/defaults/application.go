@@ -57,6 +57,8 @@ func SchemaApplicationNginx() *schemas.Schema {
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("alameda_scaler_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("alameda_scaler_namespace", true, schemas.Tag, common.String)
+	measurement.AddColumn("resource_k8s_service_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("resource_k8s_service_namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("resource_k8s_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("resource_k8s_namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("resource_k8s_kind", true, schemas.Tag, common.String)
