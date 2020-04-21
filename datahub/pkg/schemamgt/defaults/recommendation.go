@@ -22,12 +22,13 @@ func SchemaRecommendationKafkaCG() *schemas.Schema {
 }
 
 func SchemaRecommendationNginx() *schemas.Schema {
-	// Kafka consumer group
+	// Nginx
 	schema := schemas.NewSchema(schemas.Recommendation, "nginx", "nginx")
 	measurement := schemas.NewMeasurement("nginx", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("kind", true, schemas.Tag, common.String)
 	measurement.AddColumn("current_replicas", true, schemas.Field, common.Int32)
 	measurement.AddColumn("desired_replicas", true, schemas.Field, common.Int32)
 	measurement.AddColumn("execution_time", true, schemas.Field, common.String)
