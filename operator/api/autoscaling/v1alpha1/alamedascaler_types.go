@@ -1,5 +1,5 @@
 /*
-Copyright 2019 The Alameda Authors.
+Copyright 2020 The Alameda Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -170,6 +170,7 @@ const (
 	AlamedaScalerTypeNotDefine AlamedaScalerType = ""
 	AlamedaScalerTypeDefault   AlamedaScalerType = "default"
 	AlamedaScalerTypeKafka     AlamedaScalerType = "kafka"
+	AlamedaScalerTypeNginx     AlamedaScalerType = "nginx"
 )
 
 type KafkaSpec struct {
@@ -181,18 +182,32 @@ type KafkaSpec struct {
 	ConsumerGroups []KafkaConsumerGroupSpec `json:"consumerGroups,omitempty" protobuf:"bytes,3,opt,name=consumer_groups"`
 }
 
+type NginxSpec struct {
+	Name                    string                `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
+	Selector                *metav1.LabelSelector `json:"selector,omitempty" protobuf:"bytes,2,opt,name=selector"`
+	ExporterNamespace       string                `json:"exporterNamespace,omitempty" protobuf:"bytes,3,opt,name=exporter_namespace"`
+	ReplicaMarginPercentage *int32                `json:"replicaMarginPercentage,omitempty" protobuf:"bytes,4,opt,name=replica_margin_percentage"`
+	MinReplicas             *int32                `json:"minReplicas,omitempty" protobuf:"bytes,5,opt,name=min_replicas"`
+	MaxReplicas             *int32                `json:"maxReplicas,omitempty" protobuf:"bytes,6,opt,name=max_replicas"`
+	Service                 string                `json:"service,omitempty" protobuf:"bytes,7,opt,name=service"`
+}
+
 type KafkaConsumerGroupSpec struct {
 	// +kubebuilder:validation:MinLength=1
 	Name        string                         `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
 	Resource    KafkaConsumerGroupResourceSpec `json:"resource,omitempty" protobuf:"bytes,2,opt,name=resource"`
 	MajorTopic  string                         `json:"majorTopic,omitempty" protobuf:"bytes,3,opt,name=major_topic"`
-	MinReplicas *int32                         `json:"minReplicas,omitempty" protobuf:"bytes,2,opt,name=min_replicas"`
-	MaxReplicas *int32                         `json:"maxReplicas,omitempty" protobuf:"bytes,3,opt,name=max_replicas"`
+	MinReplicas *int32                         `json:"minReplicas,omitempty" protobuf:"bytes,4,opt,name=min_replicas"`
+	MaxReplicas *int32                         `json:"maxReplicas,omitempty" protobuf:"bytes,5,opt,name=max_replicas"`
 }
 
 type KafkaConsumerGroupResourceSpec struct {
 	Kubernetes *KubernetesResourceSpec `json:"kubernetes,omitempty" protobuf:"bytes,1,opt,name=kubernetes"`
 	Custom     string                  `json:"custom,omitempty" protobuf:"bytes,2,opt,name=custom"`
+}
+
+type NginxResourceSpec struct {
+	Kubernetes *KubernetesResourceSpec `json:"kubernetes,omitempty" protobuf:"bytes,1,opt,name=kubernetes"`
 }
 
 type KubernetesResourceSpec struct {
@@ -210,6 +225,7 @@ type AlamedaScalerSpec struct {
 	ScalingTool           ScalingToolSpec   `json:"scalingTool,omitempty" protobuf:"bytes,5,opt,name=scaling_tool"`
 	Type                  AlamedaScalerType `json:"type,omitempty" protobuf:"bytes,6,opt,name=type"`
 	Kafka                 *KafkaSpec        `json:"kafka,omitempty" protobuf:"bytes,7,opt,name=kafka"`
+	Nginx                 *NginxSpec        `json:"nginx,omitempty" protobuf:"bytes,8,opt,name=nginx"`
 }
 
 type KafkaStatus struct {
@@ -218,6 +234,11 @@ type KafkaStatus struct {
 	ExporterNamespace string                     `json:"namespace,omitempty" protobuf:"bytes,3,opt,name=namespace"`
 	Topics            []string                   `json:"topics,omitempty" protobuf:"bytes,4,opt,name=topics"`
 	ConsumerGroups    []KafkaConsumerGroupStatus `json:"consumerGroups,omitempty" protobuf:"bytes,5,opt,name=consumer_groups"`
+}
+
+type NginxStatus struct {
+	Message           string            `json:"message" protobuf:"bytes,1,opt,name=message"`
+	AlamedaController AlamedaController `json:"alamedaController,omitempty" protobuf:"bytes,2,opt,name=alameda_controller"`
 }
 
 type KafkaConsumerGroupStatus struct {
@@ -243,6 +264,7 @@ type KubernetesObjectMetadata struct {
 type AlamedaScalerStatus struct {
 	AlamedaController AlamedaController `json:"alamedaController,omitempty" protobuf:"bytes,4,opt,name=alameda_controller"`
 	Kafka             *KafkaStatus      `json:"kafka,omitempty" protobuf:"bytes,5,opt,name=kafka"`
+	Nginx             *NginxStatus      `json:"nginx,omitempty" protobuf:"bytes,6,opt,name=nginx"`
 }
 
 // +genclient

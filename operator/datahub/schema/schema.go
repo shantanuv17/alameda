@@ -31,3 +31,15 @@ func GetKafkaConsumerGroupSchema() (schemas.Schema, error) {
 	}
 	return schema, nil
 }
+
+func GetNginxSchema() (schemas.Schema, error) {
+	schema := schemas.Schema{}
+	data, err := Asset("nginx.json")
+	if err != nil {
+		return schema, errors.Wrap(err, "read bindata failed")
+	}
+	if err := json.Unmarshal(data, &schema); err != nil {
+		return schema, err
+	}
+	return schema, nil
+}

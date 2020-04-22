@@ -1,5 +1,5 @@
 /*
-Copyright 2019 The Alameda Authors.
+Copyright 2020 The Alameda Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -41,6 +41,7 @@ import (
 	datahub_client_controller "github.com/containers-ai/alameda/operator/datahub/client/controller"
 	datahub_client_kafka "github.com/containers-ai/alameda/operator/datahub/client/kafka"
 	datahub_client_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
+	datahub_client_nginx "github.com/containers-ai/alameda/operator/datahub/client/nginx"
 	datahub_client_node "github.com/containers-ai/alameda/operator/datahub/client/node"
 	datahub_client_pod "github.com/containers-ai/alameda/operator/datahub/client/pod"
 	internaldatahubschema "github.com/containers-ai/alameda/operator/datahub/schema"
@@ -93,6 +94,7 @@ var (
 	operatorConf                       operator.Config
 	scope                              *logUtil.Scope
 	alamedaScalerKafkaControllerLogger *logUtil.Scope
+	alamedaScalerNginxControllerLogger *logUtil.Scope
 	datahubClientLogger                *logUtil.Scope
 
 	clusterUID     string
@@ -110,6 +112,7 @@ var (
 
 	// Resource repositories
 	datahubKafkaRepo datahub_client_kafka.KafkaRepository
+	datahubNginxRepo datahub_client_nginx.NginxRepository
 )
 
 func init() {
@@ -125,6 +128,7 @@ func init() {
 
 	scope = logUtil.RegisterScope("manager", "operator entry point", 0)
 	alamedaScalerKafkaControllerLogger = logUtil.RegisterScope("alameda_scaler_kafka_controller", "AlamedaScaler Kafka Controller", 0)
+	alamedaScalerNginxControllerLogger = logUtil.RegisterScope("alameda_scaler_nginx_controller", "AlamedaScaler Nginx Controller", 0)
 	datahubClientLogger = logUtil.RegisterScope("datahub_client", "AlamedaScaler Kafka Controller", 0)
 
 	ok, err := utils.ServerHasOpenshiftAPIAppsV1()
@@ -248,7 +252,11 @@ func initDatahubSchemas(ctx context.Context) error {
 		return errors.Wrap(err, "get kafka consumergroup schema failed")
 	}
 	datahubSchemas["kafkaConsumerGroup"] = kafkaConsumerGroupSchema
-
+	nginxSchema, err := internaldatahubschema.GetNginxSchema()
+	if err != nil {
+		return errors.Wrap(err, "get nginx schema failed")
+	}
+	datahubSchemas["nginx"] = nginxSchema
 	// // Create schemas to Datahub
 	// req := datahubschemas.CreateSchemasRequest{
 	// 	Schemas: []*datahubschemas.Schema{&kafkaTopicSchema, &kafkaConsumerGroupSchema},
@@ -278,6 +286,7 @@ func initDatahubSchemas(ctx context.Context) error {
 
 func initDatahubResourceRepsitories() {
 	datahubKafkaRepo = datahub_client_kafka.NewKafkaRepository(datahubClient, datahubClientLogger)
+	datahubNginxRepo = datahub_client_nginx.NewNginxRepository(datahubClient, datahubClientLogger)
 }
 
 func setupManager() (manager.Manager, error) {
@@ -413,6 +422,22 @@ func addControllersToManager(mgr manager.Manager) error {
 		return err
 	}
 
+	if err = (&controllers.AlamedaScalerNginxReconciler{
+		ClusterUID: clusterUID,
+
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+
+		NginxRepository:                    datahubNginxRepo,
+		DatahubApplicationNginxSchema:      datahubSchemas["nginx"],
+		DatahubApplicationNginxMeasurement: *datahubSchemas["nginx"].Measurements[0],
+
+		ReconcileTimeout: 3 * time.Second,
+
+		Logger: alamedaScalerNginxControllerLogger,
+	}).SetupWithManager(mgr); err != nil {
+		return err
+	}
 	return nil
 }
 
