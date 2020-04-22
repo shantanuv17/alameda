@@ -94,9 +94,12 @@ func SchemaPredictionNginx() *schemas.Schema {
 
 	// Raw response total
 	rawTotal := schemas.NewMeasurement("nginx_http_response_total", schemas.Number, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
-	rawTotal.AddColumn("name", true, schemas.Tag, common.String)
-	rawTotal.AddColumn("namespace", true, schemas.Tag, common.String)
 	rawTotal.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	rawTotal.AddColumn("resource_k8s_service_name", true, schemas.Tag, common.String)
+	rawTotal.AddColumn("resource_k8s_service_namespace", true, schemas.Tag, common.String)
+	rawTotal.AddColumn("resource_k8s_name", true, schemas.Tag, common.String)
+	rawTotal.AddColumn("resource_k8s_namespace", true, schemas.Tag, common.String)
+	rawTotal.AddColumn("resource_k8s_kind", true, schemas.Tag, common.String)
 	rawTotal.AddColumn("granularity", true, schemas.Tag, common.String)
 	rawTotal.AddColumn("model_id", true, schemas.Field, common.String)
 	rawTotal.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -105,9 +108,12 @@ func SchemaPredictionNginx() *schemas.Schema {
 
 	// Upper bound response total
 	upperTotal := schemas.NewMeasurement("nginx_http_response_total_upper_bound", schemas.Number, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
-	upperTotal.AddColumn("name", true, schemas.Tag, common.String)
-	upperTotal.AddColumn("namespace", true, schemas.Tag, common.String)
 	upperTotal.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	upperTotal.AddColumn("resource_k8s_service_name", true, schemas.Tag, common.String)
+	upperTotal.AddColumn("resource_k8s_service_namespace", true, schemas.Tag, common.String)
+	upperTotal.AddColumn("resource_k8s_name", true, schemas.Tag, common.String)
+	upperTotal.AddColumn("resource_k8s_namespace", true, schemas.Tag, common.String)
+	upperTotal.AddColumn("resource_k8s_kind", true, schemas.Tag, common.String)
 	upperTotal.AddColumn("granularity", true, schemas.Tag, common.String)
 	upperTotal.AddColumn("model_id", true, schemas.Field, common.String)
 	upperTotal.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -116,9 +122,12 @@ func SchemaPredictionNginx() *schemas.Schema {
 
 	// Lower bound response total
 	lowerTotal := schemas.NewMeasurement("nginx_http_response_total_lower_bound", schemas.Number, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
-	lowerTotal.AddColumn("name", true, schemas.Tag, common.String)
-	lowerTotal.AddColumn("namespace", true, schemas.Tag, common.String)
 	lowerTotal.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	lowerTotal.AddColumn("resource_k8s_service_name", true, schemas.Tag, common.String)
+	lowerTotal.AddColumn("resource_k8s_service_namespace", true, schemas.Tag, common.String)
+	lowerTotal.AddColumn("resource_k8s_name", true, schemas.Tag, common.String)
+	lowerTotal.AddColumn("resource_k8s_namespace", true, schemas.Tag, common.String)
+	lowerTotal.AddColumn("resource_k8s_kind", true, schemas.Tag, common.String)
 	lowerTotal.AddColumn("granularity", true, schemas.Tag, common.String)
 	lowerTotal.AddColumn("model_id", true, schemas.Field, common.String)
 	lowerTotal.AddColumn("prediction_id", true, schemas.Field, common.String)
