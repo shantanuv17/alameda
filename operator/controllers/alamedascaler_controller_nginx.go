@@ -109,16 +109,21 @@ func (r *AlamedaScalerNginxReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 		alamedaScaler.Status.Nginx = &autoscalingv1alpha1.NginxStatus{}
 	}
 
+	if !r.isAlamedaScalerTypeNeedToBeReconciled(alamedaScaler) {
+		return ctrl.Result{Requeue: false}, nil
+	}
+
+	if alamedaScaler.Spec.Nginx == nil {
+		scope.Errorf("nginx spec of alamedascaler (%s/%s) does not configure", req.Namespace, req.Name)
+		return ctrl.Result{Requeue: false}, nil
+	}
+
 	svcIns := corev1.Service{}
 	err = r.Get(context.Background(), client.ObjectKey{Namespace: req.Namespace, Name: alamedaScaler.Spec.Nginx.Service}, &svcIns)
 	if err != nil && k8serrors.IsNotFound(err) {
 		scope.Errorf("service (%s/%s) does not exist", req.Namespace, alamedaScaler.Spec.Nginx.Service)
 		return ctrl.Result{Requeue: false}, nil
 	} else if err != nil {
-		return ctrl.Result{Requeue: false}, nil
-	}
-
-	if !r.isAlamedaScalerTypeNeedToBeReconciled(alamedaScaler) {
 		return ctrl.Result{Requeue: false}, nil
 	}
 
