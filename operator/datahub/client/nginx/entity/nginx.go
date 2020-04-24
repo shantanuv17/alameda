@@ -26,7 +26,7 @@ type Nginx struct {
 
 func NewNginx(nginx nginx.Nginx) Nginx {
 	return Nginx{
-		Namespace:                   nginx.Namespace,
+		Namespace:                   nginx.ExporterNamespace,
 		ClusterName:                 nginx.ClusterName,
 		AlamedaScalerName:           nginx.AlamedaScalerName,
 		AlamedaScalerNamespace:      nginx.AlamedaScalerNamespace,

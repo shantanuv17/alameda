@@ -74,6 +74,7 @@ func (n NginxRepository) ListNginxs(ctx context.Context, option ListNginxsOption
 	for _, e := range entities {
 		nginxs = append(nginxs, nginx.Nginx{
 			ClusterName:            e.ClusterName,
+			ExporterNamespace:      e.Namespace,
 			AlamedaScalerName:      e.AlamedaScalerName,
 			AlamedaScalerNamespace: e.AlamedaScalerNamespace,
 			Policy:                 e.Policy,

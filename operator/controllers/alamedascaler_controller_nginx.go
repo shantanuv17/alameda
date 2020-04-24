@@ -18,6 +18,7 @@ package controllers
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
@@ -155,6 +156,17 @@ func (r *AlamedaScalerNginxReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 		scope.Warnf("List and add StatefulSets into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
+	nMatchedDC := len(alamedaScaler.Status.AlamedaController.DeploymentConfigs)
+	nMatchedSts := len(alamedaScaler.Status.AlamedaController.StatefulSets)
+	nMatchedDeploy := len(alamedaScaler.Status.AlamedaController.Deployments)
+	if (nMatchedDC + nMatchedSts + nMatchedDeploy) > 1 {
+		alamedaScaler.Status.Nginx.Message = fmt.Sprintf("More than one controller mapped by service %s in AlamedaScaler(%s/%s): %v", svcIns.GetName(), req.Namespace, req.Name, alamedaScaler.Status.AlamedaController)
+		if err := r.Update(context.TODO(), &alamedaScaler); err != nil {
+			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+		}
+		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+	}
+
 	nginxController := &autoscalingv1alpha1.AlamedaController{}
 	alamedaScaler.Status.AlamedaController.DeepCopyInto(nginxController)
 	alamedaScaler.Status.Nginx.AlamedaController = *nginxController
@@ -407,9 +419,10 @@ func (r AlamedaScalerNginxReconciler) syncWithDatahub(ctx context.Context, alame
 		if err := r.NginxRepository.CreateNginxs(ctx, nginxs); err != nil {
 			return errors.Wrap(err, "creae nginxs to Datahub failed")
 		}
-		//		if err := r.NginxRepository.DeleteNginxs(ctx, nginxs); err != nil {
-		//return errors.Wrap(err, "delete nginxs failed")
-		//		}
+		delNginxs := r.listNginxsToDelete(ctx, alamedaScaler, nginxs)
+		if err := r.NginxRepository.DeleteNginxs(ctx, delNginxs); err != nil {
+			return errors.Wrap(err, "delete nginxs failed")
+		}
 		return nil
 	})
 
@@ -488,4 +501,33 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(alamedaScaler autoscalingv1a
 		})
 	}
 	return nginxs
+}
+
+func (r AlamedaScalerNginxReconciler) listNginxsToDelete(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler, createNginxs []nginxmodel.Nginx) []nginxmodel.Nginx {
+	delNginxs := []nginxmodel.Nginx{}
+	nginxs, err := r.NginxRepository.ListNginxs(ctx, nginxrepository.ListNginxsOption{
+		ClusterName:            r.ClusterUID,
+		ExporterNamespace:      alamedaScaler.Spec.Nginx.ExporterNamespace,
+		AlamedaScalerName:      alamedaScaler.GetName(),
+		AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
+	})
+	if err != nil {
+		scope.Errorf("list nginxs to delete for alamedascaler (%s/%s) failed: %s", alamedaScaler.GetNamespace(), alamedaScaler.GetName(), err.Error())
+	}
+	for _, nginx := range nginxs {
+		toDel := true
+		for _, createNginx := range createNginxs {
+			if createNginx.ClusterName == nginx.ClusterName &&
+				createNginx.KubernetesMeta.Namespace == nginx.KubernetesMeta.Namespace &&
+				createNginx.KubernetesMeta.Name == nginx.KubernetesMeta.Name &&
+				createNginx.KubernetesMeta.Kind == nginx.KubernetesMeta.Kind &&
+				createNginx.ExporterNamespace == nginx.ExporterNamespace {
+				toDel = false
+			}
+		}
+		if toDel {
+			delNginxs = append(delNginxs, nginx)
+		}
+	}
+	return delNginxs
 }
