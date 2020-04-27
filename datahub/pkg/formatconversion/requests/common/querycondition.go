@@ -2,15 +2,15 @@ package common
 
 import (
 	"fmt"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	"github.com/containers-ai/alameda/internal/pkg/database/common"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/enumconv"
+	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
 	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/golang/protobuf/ptypes"
 )
 
-func NewQueryCondition(queryCondition *ApiCommon.QueryCondition) *common.QueryCondition {
+func NewQueryCondition(queryCondition *ApiCommon.QueryCondition) *DBCommon.QueryCondition {
 	if queryCondition != nil {
-		qc := common.QueryCondition{}
+		qc := DBCommon.QueryCondition{}
 		qc.TimestampOrder = enumconv.QueryConditionOrderNameMap[queryCondition.GetOrder()]
 		qc.WhereClause = queryCondition.GetWhereClause()
 		qc.WhereCondition = NewWhereCondition(queryCondition.GetWhereCondition())
