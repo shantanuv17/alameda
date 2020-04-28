@@ -5,7 +5,35 @@ import (
 	"github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
 )
 
-func SchemaResourceApplication() *schemas.Schema {
+func SchemaResourceClusterAutoscalerMachinegroup() *schemas.Schema {
+	// cluster-autoscaler machinegroup
+	schema := schemas.NewSchema(schemas.Resource, "cluster_autoscaler", "machinegroup")
+	measurement := schemas.NewMeasurement("machinegroup", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement.AddColumn("name", true, schemas.Tag, common.String)
+	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
+	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("dummy", true, schemas.Field, common.String)
+	schema.Measurements = append(schema.Measurements, measurement)
+	return schema
+}
+
+func SchemaResourceClusterAutoscalerMachineset() *schemas.Schema {
+	// cluster-autoscaler machineset
+	schema := schemas.NewSchema(schemas.Resource, "cluster_autoscaler", "machineset")
+	measurement := schemas.NewMeasurement("machineset", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement.AddColumn("name", true, schemas.Tag, common.String)
+	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
+	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("machinegroup_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("resource_k8s_spec_replicas", false, schemas.Field, common.Int32)
+	measurement.AddColumn("resource_k8s_replicas", false, schemas.Field, common.Int32)
+	measurement.AddColumn("resource_k8s_min_replicas", false, schemas.Field, common.Int32)
+	measurement.AddColumn("resource_k8s_max_replicas", false, schemas.Field, common.Int32)
+	schema.Measurements = append(schema.Measurements, measurement)
+	return schema
+}
+
+func SchemaResourceClusterStatusApplication() *schemas.Schema {
 	// cluster-status application
 	schema := schemas.NewSchema(schemas.Resource, "cluster_status", "application")
 	measurement := schemas.NewMeasurement("application", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
@@ -14,12 +42,14 @@ func SchemaResourceApplication() *schemas.Schema {
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("uid", true, schemas.Tag, common.String)
 	measurement.AddColumn("scaling_tool", true, schemas.Tag, common.String)
+	measurement.AddColumn("machinegroup_name", false, schemas.Field, common.String)
+	measurement.AddColumn("machinegroup_namespace", false, schemas.Field, common.String)
 	measurement.AddColumn("value", true, schemas.Field, common.String)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }
 
-func SchemaResourceCluster() *schemas.Schema {
+func SchemaResourceClusterStatusCluster() *schemas.Schema {
 	// cluster-status cluster
 	schema := schemas.NewSchema(schemas.Resource, "cluster_status", "cluster")
 	measurement := schemas.NewMeasurement("cluster", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
@@ -30,7 +60,7 @@ func SchemaResourceCluster() *schemas.Schema {
 	return schema
 }
 
-func SchemaResourceContainer() *schemas.Schema {
+func SchemaResourceClusterStatusContainer() *schemas.Schema {
 	// cluster-status container
 	schema := schemas.NewSchema(schemas.Resource, "cluster_status", "container")
 	measurement := schemas.NewMeasurement("container", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
@@ -69,7 +99,7 @@ func SchemaResourceContainer() *schemas.Schema {
 	return schema
 }
 
-func SchemaResourceController() *schemas.Schema {
+func SchemaResourceClusterStatusController() *schemas.Schema {
 	// cluster-status controller
 	schema := schemas.NewSchema(schemas.Resource, "cluster_status", "controller")
 	measurement := schemas.NewMeasurement("controller", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
@@ -88,7 +118,7 @@ func SchemaResourceController() *schemas.Schema {
 	return schema
 }
 
-func SchemaResourceNamespace() *schemas.Schema {
+func SchemaResourceClusterStatusNamespace() *schemas.Schema {
 	// cluster-status namespace
 	schema := schemas.NewSchema(schemas.Resource, "cluster_status", "namespace")
 	measurement := schemas.NewMeasurement("namespace", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
@@ -100,13 +130,18 @@ func SchemaResourceNamespace() *schemas.Schema {
 	return schema
 }
 
-func SchemaResourceNode() *schemas.Schema {
+func SchemaResourceClusterStatusNode() *schemas.Schema {
 	// Resource: cluster-status node
 	schema := schemas.NewSchema(schemas.Resource, "cluster_status", "node")
 	measurement := schemas.NewMeasurement("node", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("uid", true, schemas.Tag, common.String)
+	measurement.AddColumn("machineset_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("machineset_namespace", true, schemas.Tag, common.String)
+	measurement.AddColumn("role_master", false, schemas.Field, common.Bool)
+	measurement.AddColumn("role_worker", false, schemas.Field, common.Bool)
+	measurement.AddColumn("role_infra", false, schemas.Field, common.Bool)
 	measurement.AddColumn("create_time", false, schemas.Field, common.Int64)
 	measurement.AddColumn("node_cpu_cores", false, schemas.Field, common.Int64)    // NodeCPUCores is the amount of cores in node
 	measurement.AddColumn("node_memory_bytes", false, schemas.Field, common.Int64) // NodeMemoryBytes is the amount of memory bytes in node
@@ -123,7 +158,7 @@ func SchemaResourceNode() *schemas.Schema {
 	return schema
 }
 
-func SchemaResourcePod() *schemas.Schema {
+func SchemaResourceClusterStatusPod() *schemas.Schema {
 	// cluster-status pod
 	schema := schemas.NewSchema(schemas.Resource, "cluster_status", "pod")
 	measurement := schemas.NewMeasurement("pod", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
