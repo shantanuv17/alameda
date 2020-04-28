@@ -71,7 +71,7 @@ var listCandidatesNginxAlamedaScaler = func(
 }
 
 func init() {
-	RegisterAlamedaScalerController(autoscalingv1alpha1.AlamedaScalerTypeNginx, listCandidatesDefaultAlamedaScaler)
+	RegisterAlamedaScalerController(autoscalingv1alpha1.AlamedaScalerTypeNginx, listCandidatesNginxAlamedaScaler)
 }
 
 // AlamedaScalerNginxReconciler reconciles a AlamedaScaler object
