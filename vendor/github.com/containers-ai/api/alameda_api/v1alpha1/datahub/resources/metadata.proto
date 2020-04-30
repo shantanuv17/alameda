@@ -20,6 +20,7 @@ enum ScalingTool {
     NONE                   = 1;
     VPA                    = 2;
     HPA                    = 3;
+    CA                     = 4;
 }
 
 message ObjectMeta {
