@@ -1,3 +1,13 @@
-version: "1"
 domain: containers.ai
 repo: github.com/containers-ai/alameda/operator
+resources:
+- group: autoscaling
+  kind: AlamedaScaler
+  version: v1alpha1
+- group: autoscaling
+  kind: AlamedaRecommendation
+  version: v1alpha1
+- group: autoscaling
+  kind: AlamedaMachineGroupScaler
+  version: v1alpha1
+version: "2"

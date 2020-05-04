@@ -24,16 +24,21 @@ import (
 	"sync"
 	"time"
 
+	machinegrouprepository "github.com/containers-ai/alameda/operator/datahub/client/machinegroup"
+	machinesetrepository "github.com/containers-ai/alameda/operator/datahub/client/machineset"
 	timestamp "github.com/golang/protobuf/ptypes/timestamp"
+	mahcinev1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
 
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	datahub_client "github.com/containers-ai/alameda/operator/datahub/client"
 	datahub_application "github.com/containers-ai/alameda/operator/datahub/client/application"
 	datahub_controller "github.com/containers-ai/alameda/operator/datahub/client/controller"
 	datahub_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
 	datahub_pod "github.com/containers-ai/alameda/operator/datahub/client/pod"
+	"github.com/containers-ai/alameda/operator/pkg/machinegroup"
+	"github.com/containers-ai/alameda/operator/pkg/machineset"
 	alamedascaler_reconciler "github.com/containers-ai/alameda/operator/pkg/reconciler/alamedascaler"
 	"github.com/containers-ai/alameda/operator/pkg/utils"
 	utilsresource "github.com/containers-ai/alameda/operator/pkg/utils/resources"
@@ -102,14 +107,14 @@ type AlamedaScalerReconciler struct {
 	client.Client
 	Scheme *runtime.Scheme
 
-	ClusterUID string
-
-	DatahubApplicationRepo *datahub_application.ApplicationRepository
-	DatahubControllerRepo  *datahub_controller.ControllerRepository
-	DatahubNamespaceRepo   *datahub_namespace.NamespaceRepository
-	DatahubPodRepo         *datahub_pod.PodRepository
-
-	onceForceReconcile     sync.Once
+	ClusterUID              string
+	DatahubMachineSetRepo   *machinesetrepository.MachineSetRepository
+	DatahubMachineGroupRepo machinegrouprepository.MachineGroupRepository
+	DatahubApplicationRepo  *datahub_application.ApplicationRepository
+	DatahubControllerRepo   *datahub_controller.ControllerRepository
+	DatahubNamespaceRepo    *datahub_namespace.NamespaceRepository
+	DatahubPodRepo          *datahub_pod.PodRepository
+	//onceForceReconcile     sync.Once
 	ReconcileTimeout       time.Duration
 	ForceReconcileInterval time.Duration
 }
@@ -166,19 +171,82 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 	scope.Infof("Reconciling AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
 	alamedaScaler = r.setDefaultAlamedaScaler(alamedaScaler)
 	alamedaScaler.Status.AlamedaController = autoscalingv1alpha1.NewAlamedaController()
-	if alamedaScaler, err = r.listAndAddDeploymentsIntoAlamedaScalerStatue(context.TODO(), alamedaScaler); err != nil {
-		scope.Warnf("List and add Deployments into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
-		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
-	}
-	if hasOpenshiftAPIAppsV1 {
-		if alamedaScaler, err = r.listAndAddDeploymentConfigsIntoAlamedaScalerStatue(context.TODO(), alamedaScaler); err != nil {
-			scope.Warnf("List and add DeploymentConfigs into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
+	if !alamedaScaler.IsScalingToolTypeCA() {
+		if alamedaScaler, err = r.listAndAddDeploymentsIntoAlamedaScalerStatue(context.TODO(), alamedaScaler); err != nil {
+			scope.Warnf("List and add Deployments into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
 			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 		}
-	}
-	if alamedaScaler, err = r.listAndAddStatefulSetsIntoAlamedaScalerStatue(context.TODO(), alamedaScaler); err != nil {
-		scope.Warnf("List and add StatefulSets into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
-		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+		if hasOpenshiftAPIAppsV1 {
+			if alamedaScaler, err = r.listAndAddDeploymentConfigsIntoAlamedaScalerStatue(context.TODO(), alamedaScaler); err != nil {
+				scope.Warnf("List and add DeploymentConfigs into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
+				return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+			}
+		}
+		if alamedaScaler, err = r.listAndAddStatefulSetsIntoAlamedaScalerStatue(context.TODO(), alamedaScaler); err != nil {
+			scope.Warnf("List and add StatefulSets into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
+			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+		}
+	} else {
+		mgName := alamedaScaler.Spec.ScalingTool.MachineGroupScaler
+		mgIns := autoscalingv1alpha1.AlamedaMachineGroupScaler{}
+		err := r.Get(ctx, types.NamespacedName{Namespace: req.Namespace, Name: mgName}, &mgIns)
+		if err != nil && k8sErrors.IsNotFound(err) {
+			scope.Errorf("AlamedaMachineGroupScaler (%s/%s) does not exist in alamedascaler (%s/%s)",
+				mgIns.GetNamespace(), mgIns.GetName(), req.Namespace, req.Name)
+			return ctrl.Result{Requeue: false}, nil
+		} else if err != nil {
+			scope.Errorf("Get AlamedaMachineGroupScaler(%s/%s) failed: %s", req.Namespace, mgName, err.Error())
+			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
+		}
+
+		mgs := []machinegroup.MachineGroup{
+			machinegroup.MachineGroup{
+				ClusterName: r.ClusterUID,
+				ResourceMeta: machinegroup.ResourceMeta{
+					KubernetesMeta: machinegroup.KubernetesMeta{
+						Namespace: mgIns.Namespace,
+						Name:      mgIns.Name,
+					},
+				},
+			},
+		}
+
+		err = r.DatahubMachineGroupRepo.CreateMachineGroups(ctx, mgs)
+		if err != nil {
+			scope.Errorf("Create machinegroup (%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
+			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
+		}
+
+		msList := mahcinev1beta1.MachineSetList{}
+		err = r.List(ctx, &msList, &client.ListOptions{})
+		if err != nil {
+			scope.Errorf("Get MachineSet Liist in namespace %s failed: %s", req.Namespace, err.Error())
+			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
+		}
+
+		mss := []machineset.MachineSet{}
+		for _, ms := range msList.Items {
+			for _, msSpec := range mgIns.Spec.MachineSets {
+				if ms.GetName() == msSpec.Name && ms.GetNamespace() == msSpec.Namespace {
+					mss = append(mss, machineset.MachineSet{
+						ClusterName:      r.ClusterUID,
+						MachineGroupName: mgIns.GetName(),
+						ResourceMeta: machineset.ResourceMeta{
+							KubernetesMeta: machineset.KubernetesMeta{
+								Namespace: ms.Namespace,
+								Name:      ms.Name,
+							},
+						},
+					})
+				}
+				break
+			}
+		}
+		err = r.DatahubMachineSetRepo.CreateMachineSets(ctx, mss)
+		if err != nil {
+			scope.Errorf("Create machineset (%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
+			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
+		}
 	}
 
 	if err := r.Update(context.TODO(), &alamedaScaler); err != nil {
@@ -332,7 +400,7 @@ func (r AlamedaScalerReconciler) getIneffectiveAlamedaResource(workloadControlle
 
 func (r *AlamedaScalerReconciler) syncAlamedaScalerWithDepResources(alamedaScaler *autoscalingv1alpha1.AlamedaScaler) error {
 
-	existingPodsMap := make(map[autoscalingv1alpha1.NamespacedName]bool)
+	existingPodsMap := make(map[string]bool)
 	existingPods := alamedaScaler.GetMonitoredPods()
 	for _, pod := range existingPods {
 		existingPodsMap[pod.GetNamespacedName()] = true
@@ -380,17 +448,23 @@ func (r *AlamedaScalerReconciler) syncDatahubApplicationsByAlamedaScaler(ctx con
 
 	namespace := alamedaScaler.Namespace
 	name := alamedaScaler.Name
-	applicationObjectMetas := []*datahub_resources.Application{
-		&datahub_resources.Application{
-			ObjectMeta: &datahub_resources.ObjectMeta{
-				Namespace:   namespace,
-				Name:        name,
-				ClusterName: r.ClusterUID,
-			},
-			AlamedaApplicationSpec: &datahub_resources.AlamedaApplicationSpec{
-				ScalingTool: r.getAlamedaScalerDatahubScalingType(alamedaScaler),
-			},
+
+	appMeta := &datahub_resources.Application{
+		ObjectMeta: &datahub_resources.ObjectMeta{
+			Namespace:   namespace,
+			Name:        name,
+			ClusterName: r.ClusterUID,
 		},
+		AlamedaApplicationSpec: &datahub_resources.AlamedaApplicationSpec{
+			ScalingTool: r.getAlamedaScalerDatahubScalingType(alamedaScaler),
+		},
+	}
+	if alamedaScaler.IsScalingToolTypeCA() {
+		appMeta.AlamedaApplicationSpec.MachinegroupNamespace = namespace
+		appMeta.AlamedaApplicationSpec.MachinegroupName = alamedaScaler.Spec.ScalingTool.MachineGroupScaler
+	}
+	applicationObjectMetas := []*datahub_resources.Application{
+		appMeta,
 	}
 	scope.Debugf("Creating applications to datahub. AlamedaScaler: %s/%s. Applications: %+v", namespace, name, applicationObjectMetas)
 	if err := r.DatahubApplicationRepo.CreateApplications(applicationObjectMetas); err != nil {
@@ -500,7 +574,7 @@ func (r *AlamedaScalerReconciler) getDatahubControllersFromAlamedaScalerStatus(s
 	isScalerEnableExecution := scaler.IsEnableExecution()
 	scalingTool := r.getAlamedaScalerDatahubScalingType(scaler)
 
-	datahubKindToAlamedaResourceMap := map[datahub_resources.Kind]map[autoscalingv1alpha1.NamespacedName]autoscalingv1alpha1.AlamedaResource{
+	datahubKindToAlamedaResourceMap := map[datahub_resources.Kind]map[string]autoscalingv1alpha1.AlamedaResource{
 		datahub_resources.Kind_DEPLOYMENT:       scaler.Status.AlamedaController.Deployments,
 		datahub_resources.Kind_DEPLOYMENTCONFIG: scaler.Status.AlamedaController.DeploymentConfigs,
 		datahub_resources.Kind_STATEFULSET:      scaler.Status.AlamedaController.StatefulSets,
@@ -839,7 +913,7 @@ func (r *AlamedaScalerReconciler) deletePodsFromDatahubByAlamedaScaler(ctx conte
 	return nil
 }
 
-func (r *AlamedaScalerReconciler) syncAlamedaRecommendation(alamedaScaler *autoscalingv1alpha1.AlamedaScaler, existingPodsMap map[autoscalingv1alpha1.NamespacedName]bool) error {
+func (r *AlamedaScalerReconciler) syncAlamedaRecommendation(alamedaScaler *autoscalingv1alpha1.AlamedaScaler, existingPodsMap map[string]bool) error {
 
 	currentPods := alamedaScaler.GetMonitoredPods()
 
@@ -910,7 +984,7 @@ func (r *AlamedaScalerReconciler) listAlamedaRecommendationsOwnedByAlamedaScaler
 	return tmp, nil
 }
 
-func (r *AlamedaScalerReconciler) deleteAlamedaRecommendations(alamedaScaler *autoscalingv1alpha1.AlamedaScaler, existingPodsMap map[autoscalingv1alpha1.NamespacedName]bool) error {
+func (r *AlamedaScalerReconciler) deleteAlamedaRecommendations(alamedaScaler *autoscalingv1alpha1.AlamedaScaler, existingPodsMap map[string]bool) error {
 
 	alamedaRecommendations, err := r.getNeedDeletingAlamedaRecommendations(alamedaScaler, existingPodsMap)
 	if err != nil {
@@ -937,7 +1011,7 @@ func (r *AlamedaScalerReconciler) deleteAlamedaRecommendations(alamedaScaler *au
 	return nil
 }
 
-func (r *AlamedaScalerReconciler) getNeedDeletingAlamedaRecommendations(alamedaScaler *autoscalingv1alpha1.AlamedaScaler, existingPodsMap map[autoscalingv1alpha1.NamespacedName]bool) ([]*autoscalingv1alpha1.AlamedaRecommendation, error) {
+func (r *AlamedaScalerReconciler) getNeedDeletingAlamedaRecommendations(alamedaScaler *autoscalingv1alpha1.AlamedaScaler, existingPodsMap map[string]bool) ([]*autoscalingv1alpha1.AlamedaRecommendation, error) {
 
 	needDeletingAlamedaRecommendations := make([]*autoscalingv1alpha1.AlamedaRecommendation, 0)
 	alamedaRecommendations, err := r.listAlamedaRecommendationsOwnedByAlamedaScaler(alamedaScaler)
@@ -962,6 +1036,8 @@ func (r *AlamedaScalerReconciler) getAlamedaScalerDatahubScalingType(alamedaScal
 		scalingType = datahub_resources.ScalingTool_VPA
 	case autoscalingv1alpha1.ScalingToolTypeHPA:
 		scalingType = datahub_resources.ScalingTool_HPA
+	case autoscalingv1alpha1.ScalingToolTypeCA:
+		scalingType = datahub_resources.ScalingTool_CA
 	case autoscalingv1alpha1.ScalingToolTypeDefault:
 		scalingType = datahub_resources.ScalingTool_NONE
 	}

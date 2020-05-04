@@ -6,13 +6,13 @@ WORKDIR /go/src/github.com/containers-ai/alameda
 ADD . .
 
 # Build
-RUN ["/bin/bash", "-c", "CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags \"-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'\" -a -o ./operator/manager github.com/containers-ai/alameda/operator/cmd/manager"]
+RUN ["/bin/bash", "-c", "CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags \"-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'\" -a -o ./operator/manager github.com/containers-ai/alameda/operator"]
 
 # Copy the controller-manager into a thin image
 FROM alpine:latest
 WORKDIR /root/
 COPY --from=builder /go/src/github.com/containers-ai/alameda/operator/etc/operator.toml /etc/alameda/operator/operator.toml
 COPY --from=builder /go/src/github.com/containers-ai/alameda/operator/manager .
-COPY --from=builder /go/src/github.com/containers-ai/alameda/operator/config/crds /etc/alameda/operator/crds
+COPY --from=builder /go/src/github.com/containers-ai/alameda/operator/config/crd /etc/alameda/operator/crd
 EXPOSE 50050/tcp 50443/tcp
 ENTRYPOINT ["./manager"]

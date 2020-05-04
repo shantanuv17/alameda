@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: machine-api-operator-images
+  namespace: openshift-machine-api
+data:
+  images.json: >
+    {
+      "machineAPIOperator": "registry.svc.ci.openshift.org/openshift:machine-api-operator",
+      "clusterAPIControllerAWS": "registry.svc.ci.openshift.org/openshift:aws-machine-controllers",
+      "clusterAPIControllerOpenStack": "registry.svc.ci.openshift.org/openshift:openstack-machine-controllers",
+      "clusterAPIControllerLibvirt": "registry.svc.ci.openshift.org/openshift:libvirt-machine-controllers",
+      "clusterAPIControllerBareMetal": "registry.svc.ci.openshift.org/openshift:baremetal-machine-controllers",
+      "clusterAPIControllerAzure": "registry.svc.ci.openshift.org/openshift:azure-machine-controllers",
+      "clusterAPIControllerGCP": "registry.svc.ci.openshift.org/openshift:gcp-machine-controllers",
+      "clusterAPIControllerOvirt": "registry.svc.ci.openshift.org/openshift:ovirt-machine-controllers",
+      "clusterAPIControllerVSphere": "registry.svc.ci.openshift.org/openshift:machine-api-operator",
+      "baremetalOperator": "registry.svc.ci.openshift.org/openshift:baremetal-operator",
+      "baremetalIronic": "registry.svc.ci.openshift.org/openshift:ironic",
+      "baremetalIronicInspector": "registry.svc.ci.openshift.org/openshift:ironic-inspector",
+      "baremetalIpaDownloader": "registry.svc.ci.openshift.org/openshift:ironic-ipa-downloader",
+      "baremetalMachineOsDownloader": "registry.svc.ci.openshift.org/openshift:ironic-machine-os-downloader",
+      "baremetalStaticIpManager": "registry.svc.ci.openshift.org/openshift:ironic-static-ip-manager"
+    }

@@ -133,7 +133,7 @@ func (r *NodeReconciler) createNodeInfos(nodes []*corev1.Node) ([]*nodeinfo.Node
 }
 
 func (r *NodeReconciler) createNodeInfo(node *corev1.Node) (*nodeinfo.NodeInfo, error) {
-	n, err := nodeinfo.NewNodeInfo(*node)
+	n, err := nodeinfo.NewNodeInfo(*node, r.Client)
 	if err != nil {
 		return nil, errors.Wrap(err, "new NodeInfo failed")
 	}

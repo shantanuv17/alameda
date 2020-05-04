@@ -1,6 +1,7 @@
 package nodeinfo
 
 import (
+	"context"
 	"fmt"
 	"reflect"
 	"regexp"
@@ -10,9 +11,11 @@ import (
 	"github.com/containers-ai/alameda/pkg/provider"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	timestamp "github.com/golang/protobuf/ptypes/timestamp"
+	mahcinev1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	"github.com/pkg/errors"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
 type role = string
@@ -32,26 +35,46 @@ var (
 
 // NodeInfo flats the k8s node information from labels, spec and status
 type NodeInfo struct {
-	Name         string
-	CreatedTime  int64
-	Namespace    string
-	Kind         string
-	Role         string
-	Region       string
-	Zone         string
-	Size         string
-	InstanceType string
-	OS           string
-	Provider     string
-	InstanceID   string
-	StorageSize  int64
-	CPUCores     int64
-	MemoryBytes  int64
+	Name                string
+	CreatedTime         int64
+	Namespace           string
+	Kind                string
+	Role                string
+	Region              string
+	Zone                string
+	Size                string
+	InstanceType        string
+	OS                  string
+	Provider            string
+	InstanceID          string
+	StorageSize         int64
+	CPUCores            int64
+	MemoryBytes         int64
+	MachineSetNamespace string
+	MachineSetName      string
 }
 
 // NewNodeInfo creates node from k8s node
-func NewNodeInfo(k8sNode corev1.Node) (NodeInfo, error) {
+func NewNodeInfo(k8sNode corev1.Node, k8sClient client.Client) (NodeInfo, error) {
+	machimeList := mahcinev1beta1.MachineList{}
+	err := k8sClient.List(context.Background(), &machimeList, &client.ListOptions{})
+	if err != nil {
+	}
+
 	node := NodeInfo{Name: k8sNode.Name, Namespace: k8sNode.Namespace, Kind: k8sNode.Kind}
+	for _, ms := range machimeList.Items {
+		if ms.GetName() == k8sNode.GetName() {
+			for _, or := range ms.GetOwnerReferences() {
+				if or.Kind == "MachineSet" {
+					node.MachineSetNamespace = ms.GetNamespace()
+					node.MachineSetName = or.Name
+					break
+				}
+			}
+			break
+		}
+	}
+
 	rf := reflect.TypeOf(node)
 	rv := reflect.ValueOf(&node).Elem()
 	for i := 0; i < rf.NumField(); i++ {
@@ -136,6 +159,8 @@ func (n NodeInfo) DatahubNode(clusterUID string) datahub_resources.Node {
 				InstanceId:   n.InstanceID,
 				StorageSize:  n.StorageSize,
 			},
+			MachinesetNamespace: n.MachineSetNamespace,
+			MachinesetName:      n.MachineSetName,
 		},
 	}
 

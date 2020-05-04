@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"time"
 
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	"github.com/containers-ai/alameda/operator/pkg/nginx"
 	nginxmodel "github.com/containers-ai/alameda/operator/pkg/nginx"
 	alamedascaler_reconciler "github.com/containers-ai/alameda/operator/pkg/reconciler/alamedascaler"
@@ -396,17 +396,17 @@ func (r AlamedaScalerNginxReconciler) addAlamedaResourceIntoStatus(as autoscalin
 	switch arType {
 	case autoscalingv1alpha1.DeploymentController:
 		if ac.Deployments == nil {
-			ac.Deployments = map[autoscalingv1alpha1.NamespacedName]autoscalingv1alpha1.AlamedaResource{}
+			ac.Deployments = map[string]autoscalingv1alpha1.AlamedaResource{}
 		}
 		ac.Deployments[ar.GetNamespacedName()] = ar
 	case autoscalingv1alpha1.DeploymentConfigController:
 		if ac.DeploymentConfigs == nil {
-			ac.DeploymentConfigs = map[autoscalingv1alpha1.NamespacedName]autoscalingv1alpha1.AlamedaResource{}
+			ac.DeploymentConfigs = map[string]autoscalingv1alpha1.AlamedaResource{}
 		}
 		ac.DeploymentConfigs[ar.GetNamespacedName()] = ar
 	case autoscalingv1alpha1.StatefulSetController:
 		if ac.StatefulSets == nil {
-			ac.StatefulSets = map[autoscalingv1alpha1.NamespacedName]autoscalingv1alpha1.AlamedaResource{}
+			ac.StatefulSets = map[string]autoscalingv1alpha1.AlamedaResource{}
 		}
 		ac.StatefulSets[ar.GetNamespacedName()] = ar
 	}

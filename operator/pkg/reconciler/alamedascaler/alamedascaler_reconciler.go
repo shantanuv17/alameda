@@ -5,7 +5,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	autoscaling_v1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
+	autoscaling_v1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	utils "github.com/containers-ai/alameda/operator/pkg/utils"
 	utilsresource "github.com/containers-ai/alameda/operator/pkg/utils/resources"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
@@ -43,14 +43,14 @@ func NewReconciler(client client.Client, alamedascaler *autoscaling_v1alpha1.Ala
 // HasAlamedaDeployment checks the AlamedaScaler has the deployment or not
 func (reconciler *Reconciler) HasAlamedaDeployment(deploymentNS, deploymentName string) bool {
 	key := utils.GetNamespacedNameKey(deploymentNS, deploymentName)
-	_, ok := reconciler.alamedascaler.Status.AlamedaController.Deployments[autoscaling_v1alpha1.NamespacedName(key)]
+	_, ok := reconciler.alamedascaler.Status.AlamedaController.Deployments[key]
 	return ok
 }
 
 // HasAlamedaDeploymentConfig checks the AlamedaScaler has the deploymentconfig or not
 func (reconciler *Reconciler) HasAlamedaDeploymentConfig(deploymentConfigNS, deploymentConfigName string) bool {
 	key := utils.GetNamespacedNameKey(deploymentConfigNS, deploymentConfigName)
-	_, ok := reconciler.alamedascaler.Status.AlamedaController.DeploymentConfigs[autoscaling_v1alpha1.NamespacedName(key)]
+	_, ok := reconciler.alamedascaler.Status.AlamedaController.DeploymentConfigs[key]
 	return ok
 }
 
@@ -58,9 +58,9 @@ func (reconciler *Reconciler) HasAlamedaDeploymentConfig(deploymentConfigNS, dep
 func (reconciler *Reconciler) ResetAlamedaController() {
 
 	ac := autoscaling_v1alpha1.AlamedaController{
-		Deployments:       make(map[autoscaling_v1alpha1.NamespacedName]autoscaling_v1alpha1.AlamedaResource),
-		DeploymentConfigs: make(map[autoscaling_v1alpha1.NamespacedName]autoscaling_v1alpha1.AlamedaResource),
-		StatefulSets:      make(map[autoscaling_v1alpha1.NamespacedName]autoscaling_v1alpha1.AlamedaResource),
+		Deployments:       make(map[string]autoscaling_v1alpha1.AlamedaResource),
+		DeploymentConfigs: make(map[string]autoscaling_v1alpha1.AlamedaResource),
+		StatefulSets:      make(map[string]autoscaling_v1alpha1.AlamedaResource),
 	}
 
 	reconciler.alamedascaler.SetStatusAlamedaController(ac)
@@ -75,10 +75,10 @@ func (reconciler *Reconciler) UpdateStatusByDeployment(deployment *appsv1.Deploy
 	alamedaDeploymentNS := deployment.GetNamespace()
 	alamedaDeploymentName := deployment.GetName()
 	alamedaDeploymentUID := deployment.GetUID()
-	alamedaPodsMap := map[autoscaling_v1alpha1.NamespacedName]autoscaling_v1alpha1.AlamedaPod{}
+	alamedaPodsMap := map[string]autoscaling_v1alpha1.AlamedaPod{}
 	alamedaDeploymentsMap := reconciler.alamedascaler.Status.AlamedaController.Deployments
 	if alamedaDeploymentsMap == nil {
-		alamedaDeploymentsMap = map[autoscaling_v1alpha1.NamespacedName]autoscaling_v1alpha1.AlamedaResource{}
+		alamedaDeploymentsMap = map[string]autoscaling_v1alpha1.AlamedaResource{}
 	}
 	if alamedaPods, err := listResources.ListPodsByDeployment(alamedaDeploymentNS, alamedaDeploymentName); err == nil && len(alamedaPods) > 0 {
 		for _, alamedaPod := range alamedaPods {
@@ -95,7 +95,7 @@ func (reconciler *Reconciler) UpdateStatusByDeployment(deployment *appsv1.Deploy
 					Name: alamedaContainer.Name,
 				})
 			}
-			alamedaPodsMap[autoscaling_v1alpha1.NamespacedName(utils.GetNamespacedNameKey(alamedaPod.GetNamespace(), alamedaPodName))] = autoscaling_v1alpha1.AlamedaPod{
+			alamedaPodsMap[utils.GetNamespacedNameKey(alamedaPod.GetNamespace(), alamedaPodName)] = autoscaling_v1alpha1.AlamedaPod{
 				Namespace:  alamedaPodNamespace,
 				Name:       alamedaPodName,
 				UID:        string(alamedaPodUID),
@@ -107,7 +107,7 @@ func (reconciler *Reconciler) UpdateStatusByDeployment(deployment *appsv1.Deploy
 	}
 
 	specReplicas := deployment.Spec.Replicas
-	alamedaDeploymentsMap[autoscaling_v1alpha1.NamespacedName(utils.GetNamespacedNameKey(deployment.GetNamespace(), deployment.GetName()))] = autoscaling_v1alpha1.AlamedaResource{
+	alamedaDeploymentsMap[utils.GetNamespacedNameKey(deployment.GetNamespace(), deployment.GetName())] = autoscaling_v1alpha1.AlamedaResource{
 		Namespace:    alamedaDeploymentNS,
 		Name:         alamedaDeploymentName,
 		UID:          string(alamedaDeploymentUID),
@@ -128,10 +128,10 @@ func (reconciler *Reconciler) UpdateStatusByDeploymentConfig(deploymentconfig *a
 	deploymentConfigNS := deploymentconfig.GetNamespace()
 	deploymentConfigName := deploymentconfig.GetName()
 	deploymentConfigUID := deploymentconfig.GetUID()
-	podsMap := map[autoscaling_v1alpha1.NamespacedName]autoscaling_v1alpha1.AlamedaPod{}
+	podsMap := map[string]autoscaling_v1alpha1.AlamedaPod{}
 	deploymentConfigsMap := reconciler.alamedascaler.Status.AlamedaController.DeploymentConfigs
 	if deploymentConfigsMap == nil {
-		deploymentConfigsMap = map[autoscaling_v1alpha1.NamespacedName]autoscaling_v1alpha1.AlamedaResource{}
+		deploymentConfigsMap = map[string]autoscaling_v1alpha1.AlamedaResource{}
 	}
 	if alamedaPods, err := listResources.ListPodsByDeploymentConfig(deploymentConfigNS, deploymentConfigName); err == nil && len(alamedaPods) > 0 {
 		for _, alamedaPod := range alamedaPods {
@@ -148,7 +148,7 @@ func (reconciler *Reconciler) UpdateStatusByDeploymentConfig(deploymentconfig *a
 					Name: alamedaContainer.Name,
 				})
 			}
-			podsMap[autoscaling_v1alpha1.NamespacedName(utils.GetNamespacedNameKey(alamedaPod.GetNamespace(), alamedaPodName))] = autoscaling_v1alpha1.AlamedaPod{
+			podsMap[utils.GetNamespacedNameKey(alamedaPod.GetNamespace(), alamedaPodName)] = autoscaling_v1alpha1.AlamedaPod{
 				Namespace:  alamedaPodNamespace,
 				Name:       alamedaPodName,
 				UID:        string(alamedaPodUID),
@@ -160,7 +160,7 @@ func (reconciler *Reconciler) UpdateStatusByDeploymentConfig(deploymentconfig *a
 	}
 
 	specReplicas := deploymentconfig.Spec.Replicas
-	deploymentConfigsMap[autoscaling_v1alpha1.NamespacedName(utils.GetNamespacedNameKey(deploymentconfig.GetNamespace(), deploymentconfig.GetName()))] = autoscaling_v1alpha1.AlamedaResource{
+	deploymentConfigsMap[utils.GetNamespacedNameKey(deploymentconfig.GetNamespace(), deploymentconfig.GetName())] = autoscaling_v1alpha1.AlamedaResource{
 		Namespace:    deploymentConfigNS,
 		Name:         deploymentConfigName,
 		UID:          string(deploymentConfigUID),
@@ -181,10 +181,10 @@ func (reconciler *Reconciler) UpdateStatusByStatefulSet(statefulSet *appsv1.Stat
 	alamedaStatefulSetNS := statefulSet.GetNamespace()
 	alamedaStatefulSetName := statefulSet.GetName()
 	alamedaStatefulSetUID := statefulSet.GetUID()
-	alamedaPodsMap := map[autoscaling_v1alpha1.NamespacedName]autoscaling_v1alpha1.AlamedaPod{}
+	alamedaPodsMap := map[string]autoscaling_v1alpha1.AlamedaPod{}
 	alamedaStatefulSetsMap := reconciler.alamedascaler.Status.AlamedaController.StatefulSets
 	if alamedaStatefulSetsMap == nil {
-		alamedaStatefulSetsMap = map[autoscaling_v1alpha1.NamespacedName]autoscaling_v1alpha1.AlamedaResource{}
+		alamedaStatefulSetsMap = map[string]autoscaling_v1alpha1.AlamedaResource{}
 	}
 	alamedaPods, err := listResources.ListPodsByStatefulSet(alamedaStatefulSetNS, alamedaStatefulSetName)
 	if err != nil {
@@ -204,7 +204,7 @@ func (reconciler *Reconciler) UpdateStatusByStatefulSet(statefulSet *appsv1.Stat
 				Name: alamedaContainer.Name,
 			})
 		}
-		alamedaPodsMap[autoscaling_v1alpha1.NamespacedName(utils.GetNamespacedNameKey(alamedaPod.GetNamespace(), alamedaPodName))] = autoscaling_v1alpha1.AlamedaPod{
+		alamedaPodsMap[utils.GetNamespacedNameKey(alamedaPod.GetNamespace(), alamedaPodName)] = autoscaling_v1alpha1.AlamedaPod{
 			Namespace:  alamedaPodNamespace,
 			Name:       alamedaPodName,
 			UID:        string(alamedaPodUID),
@@ -213,7 +213,7 @@ func (reconciler *Reconciler) UpdateStatusByStatefulSet(statefulSet *appsv1.Stat
 	}
 
 	specReplicas := statefulSet.Spec.Replicas
-	alamedaStatefulSetsMap[autoscaling_v1alpha1.NamespacedName(utils.GetNamespacedNameKey(statefulSet.GetNamespace(), statefulSet.GetName()))] = autoscaling_v1alpha1.AlamedaResource{
+	alamedaStatefulSetsMap[utils.GetNamespacedNameKey(statefulSet.GetNamespace(), statefulSet.GetName())] = autoscaling_v1alpha1.AlamedaResource{
 		Namespace:    alamedaStatefulSetNS,
 		Name:         alamedaStatefulSetName,
 		UID:          string(alamedaStatefulSetUID),

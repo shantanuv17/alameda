@@ -1,4 +1,4 @@
-package operator
+package main
 
 import (
 	"github.com/containers-ai/alameda/internal/pkg/database/prometheus"

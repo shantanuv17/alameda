@@ -1,0 +1,20 @@
+package entity
+
+import (
+	"github.com/containers-ai/alameda/operator/pkg/machinegroup"
+)
+
+type MachineGroup struct {
+	Namespace   string `datahubcolumntype:"tag" datahubcolumn:"namespace" datahubdatatype:"DATATYPE_STRING"`
+	Name        string `datahubcolumntype:"tag" datahubcolumn:"name" datahubdatatype:"DATATYPE_STRING"`
+	ClusterName string `datahubcolumntype:"tag" datahubcolumn:"cluster_name" datahubdatatype:"DATATYPE_STRING"`
+	Dummy       string `datahubcolumntype:"field" datahubcolumn:"dummy" datahubdatatype:"DATATYPE_STRING"`
+}
+
+func NewMachineGroup(machineGroup machinegroup.MachineGroup) MachineGroup {
+	return MachineGroup{
+		Name:        machineGroup.Name,
+		Namespace:   machineGroup.Namespace,
+		ClusterName: machineGroup.ClusterName,
+	}
+}

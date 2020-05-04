@@ -3,9 +3,10 @@ package nodeinfo
 import (
 	"testing"
 
-	"github.com/ghodss/yaml"
 	"io/ioutil"
-	"k8s.io/api/core/v1"
+
+	"github.com/ghodss/yaml"
+	v1 "k8s.io/api/core/v1"
 )
 
 func TestNewNodeInfo(t *testing.T) {
@@ -19,7 +20,7 @@ func TestNewNodeInfo(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, n := range nodeList.Items {
-		nodeInfo, err := NewNodeInfo(n)
+		nodeInfo, err := NewNodeInfo(n, nil)
 		if err != nil {
 			t.Fatal(err)
 			continue

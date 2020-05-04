@@ -6,7 +6,7 @@ WORKDIR /opt/app-root/src/go/src/github.com/containers-ai/alameda
 ADD . .
 
 # Build
-RUN ["/bin/bash", "-c", "CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags \"-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'\" -a -o ./operator/manager github.com/containers-ai/alameda/operator/cmd/manager"]
+RUN ["/bin/bash", "-c", "CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags \"-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'\" -a -o ./operator/manager github.com/containers-ai/alameda/operator"]
 
 # Copy the controller-manager into a thin image
 FROM registry.access.redhat.com/rhscl/s2i-core-rhel7:1-51
@@ -30,7 +30,7 @@ WORKDIR /opt/app-root/src
 COPY --from=builder /opt/app-root/src/go/src/github.com/containers-ai/alameda/LICENSE /licenses/
 COPY --from=builder /opt/app-root/src/go/src/github.com/containers-ai/alameda/operator/etc/operator.toml /etc/alameda/operator/operator.toml
 COPY --from=builder /opt/app-root/src/go/src/github.com/containers-ai/alameda/operator/manager .
-COPY --from=builder /opt/app-root/src/go/src/github.com/containers-ai/alameda/operator/config/crds /etc/alameda/operator/crds
+COPY --from=builder /opt/app-root/src/go/src/github.com/containers-ai/alameda/operator/config/crd /etc/alameda/operator/crd
 EXPOSE 50050/tcp 50443/tcp
 
 RUN chown -R 1001:0 /etc/alameda/operator/ && chown -R 1001:0 ./

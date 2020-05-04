@@ -1,0 +1,20 @@
+# permissions for end users to view alamedamachinegroupscalers.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: alamedamachinegroupscaler-viewer-role
+rules:
+- apiGroups:
+  - autoscaling.containers.ai
+  resources:
+  - alamedamachinegroupscalers
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - autoscaling.containers.ai
+  resources:
+  - alamedamachinegroupscalers/status
+  verbs:
+  - get

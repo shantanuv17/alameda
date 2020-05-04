@@ -1,0 +1,32 @@
+{
+    "schema_meta": {
+        "table": 6,
+        "category": "cluster_autoscaler",
+        "type": "machinegroup"
+    },
+    "measurements": [
+        {
+            "name": "machinegroup",
+            "columns": [
+                {
+                    "name": "cluster_name",
+                    "required": true,
+                    "column_types": 1,
+                    "data_types": 14
+                },
+                {
+                    "name": "namespace",
+                    "required": true,
+                    "column_types": 1,
+                    "data_types": 14
+                },                
+                {
+                    "name": "name",
+                    "required": true,
+                    "column_types": 1,
+                    "data_types": 14
+                }
+            ]
+        }
+    ]
+}
