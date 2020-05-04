@@ -12,6 +12,8 @@ func SchemaResourceClusterAutoscalerMachinegroup() *schemas.Schema {
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("alameda_scaler_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("alameda_scaler_namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("dummy", true, schemas.Field, common.String)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
@@ -25,6 +27,7 @@ func SchemaResourceClusterAutoscalerMachineset() *schemas.Schema {
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("machinegroup_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("machinegroup_namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("resource_k8s_spec_replicas", false, schemas.Field, common.Int32)
 	measurement.AddColumn("resource_k8s_replicas", false, schemas.Field, common.Int32)
 	measurement.AddColumn("resource_k8s_min_replicas", false, schemas.Field, common.Int32)
