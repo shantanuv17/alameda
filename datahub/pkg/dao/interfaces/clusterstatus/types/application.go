@@ -34,7 +34,9 @@ type ApplicationObjectMeta struct {
 }
 
 type AlamedaApplicationSpec struct {
-	ScalingTool string
+	ScalingTool           string
+	MachinegroupName      string
+	MachinegroupNamespace string
 }
 
 func NewApplication(entity *clusterstatus.ApplicationEntity) *Application {
@@ -71,6 +73,8 @@ func NewApplicationObjectMeta(objectMeta *metadata.ObjectMeta, scalingTool strin
 func NewAlamedaApplicationSpec(entity *clusterstatus.ApplicationEntity) *AlamedaApplicationSpec {
 	spec := AlamedaApplicationSpec{}
 	spec.ScalingTool = entity.ScalingTool
+	spec.MachinegroupName = entity.MachinegroupName
+	spec.MachinegroupNamespace = entity.MachinegroupNamespace
 	return &spec
 }
 
@@ -78,7 +82,8 @@ func (p *Application) BuildEntity() *clusterstatus.ApplicationEntity {
 	entity := clusterstatus.ApplicationEntity{}
 
 	entity.Time = influxdb.ZeroTime
-	entity.Value = ""
+	entity.MachinegroupName = ""
+	entity.MachinegroupNamespace = ""
 
 	if p.ObjectMeta != nil {
 		entity.Name = p.ObjectMeta.Name
@@ -89,6 +94,8 @@ func (p *Application) BuildEntity() *clusterstatus.ApplicationEntity {
 
 	if p.AlamedaApplicationSpec != nil {
 		entity.ScalingTool = p.AlamedaApplicationSpec.ScalingTool
+		entity.MachinegroupName = p.AlamedaApplicationSpec.MachinegroupName
+		entity.MachinegroupNamespace = p.AlamedaApplicationSpec.MachinegroupNamespace
 	}
 
 	return &entity

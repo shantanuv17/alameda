@@ -83,9 +83,7 @@ func init() {
 	proto.RegisterType((*SimulatedSchedulingScore)(nil), "containersai.datahub.score.v1alpha2.SimulatedSchedulingScore")
 }
 
-func init() {
-	proto.RegisterFile("datahub/score/v1alpha2/score.proto", fileDescriptor_95e3aed5b59bfd54)
-}
+func init() { proto.RegisterFile("datahub/score/v1alpha2/score.proto", fileDescriptor_95e3aed5b59bfd54) }
 
 var fileDescriptor_95e3aed5b59bfd54 = []byte{
 	// 227 bytes of a gzipped FileDescriptorProto

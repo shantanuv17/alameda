@@ -25,11 +25,18 @@ message AlamedaControllerSpec {
 }
 
 message AlamedaApplicationSpec {
-    ScalingTool scaling_tool = 1;
+    ScalingTool scaling_tool           = 1;
+    string      machinegroup_name      = 2;
+    string      machinegroup_namespace = 3;
 }
 
 message AlamedaNodeSpec {
-    Provider provider = 1;
+    Provider provider             = 1;
+    string   machineset_name      = 2;
+    string   machineset_namespace = 3;
+    bool     role_master          = 4;
+    bool     role_worker          = 5;
+    bool     role_infra           = 6;
 }
 
 // Represents the capacity of a Kubernetes node

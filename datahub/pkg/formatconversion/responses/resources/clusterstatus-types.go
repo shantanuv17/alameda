@@ -38,6 +38,8 @@ func NewAlamedaApplicationSpec(applicationSpec *types.AlamedaApplicationSpec) *r
 	if applicationSpec != nil {
 		spec := resources.AlamedaApplicationSpec{}
 		spec.ScalingTool = resources.ScalingTool(resources.ScalingTool_value[applicationSpec.ScalingTool])
+		spec.MachinegroupName = applicationSpec.MachinegroupName
+		spec.MachinegroupNamespace = applicationSpec.MachinegroupNamespace
 		return &spec
 	}
 	return nil
@@ -56,6 +58,11 @@ func NewAlamedaNodeSpec(nodeSpec *types.AlamedaNodeSpec) *resources.AlamedaNodeS
 			spec.Provider.Role = nodeSpec.Provider.Role
 			spec.Provider.InstanceId = nodeSpec.Provider.InstanceId
 			spec.Provider.StorageSize = nodeSpec.Provider.StorageSize
+			spec.MachinesetName = nodeSpec.MachinesetName
+			spec.MachinesetNamespace = nodeSpec.MachinesetNamespace
+			spec.RoleMaster = nodeSpec.RoleMaster
+			spec.RoleWorker = nodeSpec.RoleWorker
+			spec.RoleInfra = nodeSpec.RoleInfra
 		}
 		return &spec
 	}

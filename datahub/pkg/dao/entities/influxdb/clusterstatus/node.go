@@ -13,18 +13,23 @@ const (
 	NodeClusterName influxdb.Tag = "cluster_name"
 	NodeUid         influxdb.Tag = "uid"
 
-	NodeCreateTime     influxdb.Field = "create_time"
-	NodeCPUCores       influxdb.Field = "node_cpu_cores"    // NodeCPUCores is the amount of cores in node
-	NodeMemoryBytes    influxdb.Field = "node_memory_bytes" // NodeMemoryBytes is the amount of memory bytes in node
-	NodeNetworkMbps    influxdb.Field = "node_network_mbps" // NodeNetworkMbps is mega bits per second
-	NodeIOProvider     influxdb.Field = "io_provider"       // Cloud service provider
-	NodeIOInstanceType influxdb.Field = "io_instance_type"
-	NodeIORegion       influxdb.Field = "io_region"
-	NodeIOZone         influxdb.Field = "io_zone"
-	NodeIOOS           influxdb.Field = "io_os"
-	NodeIORole         influxdb.Field = "io_role"
-	NodeIOInstanceID   influxdb.Field = "io_instance_id"
-	NodeIOStorageSize  influxdb.Field = "io_storage_size"
+	NodeCreateTime          influxdb.Field = "create_time"
+	NodeCPUCores            influxdb.Field = "node_cpu_cores"    // NodeCPUCores is the amount of cores in node
+	NodeMemoryBytes         influxdb.Field = "node_memory_bytes" // NodeMemoryBytes is the amount of memory bytes in node
+	NodeNetworkMbps         influxdb.Field = "node_network_mbps" // NodeNetworkMbps is mega bits per second
+	NodeIOProvider          influxdb.Field = "io_provider"       // Cloud service provider
+	NodeIOInstanceType      influxdb.Field = "io_instance_type"
+	NodeIORegion            influxdb.Field = "io_region"
+	NodeIOZone              influxdb.Field = "io_zone"
+	NodeIOOS                influxdb.Field = "io_os"
+	NodeIORole              influxdb.Field = "io_role"
+	NodeIOInstanceID        influxdb.Field = "io_instance_id"
+	NodeIOStorageSize       influxdb.Field = "io_storage_size"
+	NodeMachinesetName      influxdb.Field = "machineset_name"
+	NodeMachinesetNamespace influxdb.Field = "machineset_namespace"
+	NodeRoleMaster          influxdb.Field = "role_master"
+	NodeRoleWorker          influxdb.Field = "role_worker"
+	NodeRoleInfra           influxdb.Field = "role_infra"
 )
 
 var (
@@ -49,6 +54,11 @@ var (
 		NodeIORole,
 		NodeIOInstanceID,
 		NodeIOStorageSize,
+		NodeMachinesetName,
+		NodeMachinesetNamespace,
+		NodeRoleMaster,
+		NodeRoleWorker,
+		NodeRoleInfra,
 	}
 )
 
@@ -59,18 +69,23 @@ type NodeEntity struct {
 	ClusterName string
 	Uid         string
 
-	CreateTime     int64
-	CPUCores       int64
-	MemoryBytes    int64
-	NetworkMbps    int64
-	IOProvider     string
-	IOInstanceType string
-	IORegion       string
-	IOZone         string
-	IOOS           string
-	IORole         string
-	IOInstanceID   string
-	IOStorageSize  int64
+	CreateTime          int64
+	CPUCores            int64
+	MemoryBytes         int64
+	NetworkMbps         int64
+	IOProvider          string
+	IOInstanceType      string
+	IORegion            string
+	IOZone              string
+	IOOS                string
+	IORole              string
+	IOInstanceID        string
+	IOStorageSize       int64
+	MachinesetName      string
+	MachinesetNamespace string
+	RoleMaster          bool
+	RoleWorker          bool
+	RoleInfra           bool
 }
 
 // NewNodeEntityFromMap Build entity from map
@@ -133,6 +148,24 @@ func NewNodeEntity(data map[string]string) *NodeEntity {
 		valueInt64, _ := strconv.ParseInt(value, 10, 64)
 		entity.IOStorageSize = valueInt64
 	}
+	if value, exist := data[string(NodeMachinesetName)]; exist {
+		entity.MachinesetName = value
+	}
+	if value, exist := data[string(NodeMachinesetNamespace)]; exist {
+		entity.MachinesetNamespace = value
+	}
+	if value, exist := data[string(NodeRoleMaster)]; exist {
+		valueBool, _ := strconv.ParseBool(value)
+		entity.RoleMaster = valueBool
+	}
+	if value, exist := data[string(NodeRoleWorker)]; exist {
+		valueBool, _ := strconv.ParseBool(value)
+		entity.RoleWorker = valueBool
+	}
+	if value, exist := data[string(NodeRoleInfra)]; exist {
+		valueBool, _ := strconv.ParseBool(value)
+		entity.RoleInfra = valueBool
+	}
 
 	return &entity
 }
@@ -147,18 +180,23 @@ func (p *NodeEntity) BuildInfluxPoint(measurement string) (*InfluxClient.Point, 
 
 	// Pack influx fields
 	fields := map[string]interface{}{
-		string(NodeCreateTime):     p.CreateTime,
-		string(NodeCPUCores):       p.CPUCores,
-		string(NodeMemoryBytes):    p.MemoryBytes,
-		string(NodeNetworkMbps):    p.NetworkMbps,
-		string(NodeIOProvider):     p.IOProvider,
-		string(NodeIOInstanceType): p.IOInstanceType,
-		string(NodeIORegion):       p.IORegion,
-		string(NodeIOZone):         p.IOZone,
-		string(NodeIOOS):           p.IOOS,
-		string(NodeIORole):         p.IORole,
-		string(NodeIOInstanceID):   p.IOInstanceID,
-		string(NodeIOStorageSize):  p.IOStorageSize,
+		string(NodeCreateTime):          p.CreateTime,
+		string(NodeCPUCores):            p.CPUCores,
+		string(NodeMemoryBytes):         p.MemoryBytes,
+		string(NodeNetworkMbps):         p.NetworkMbps,
+		string(NodeIOProvider):          p.IOProvider,
+		string(NodeIOInstanceType):      p.IOInstanceType,
+		string(NodeIORegion):            p.IORegion,
+		string(NodeIOZone):              p.IOZone,
+		string(NodeIOOS):                p.IOOS,
+		string(NodeIORole):              p.IORole,
+		string(NodeIOInstanceID):        p.IOInstanceID,
+		string(NodeIOStorageSize):       p.IOStorageSize,
+		string(NodeMachinesetName):      p.MachinesetName,
+		string(NodeMachinesetNamespace): p.MachinesetNamespace,
+		string(NodeRoleMaster):          p.RoleMaster,
+		string(NodeRoleWorker):          p.RoleWorker,
+		string(NodeRoleInfra):           p.RoleInfra,
 	}
 
 	return InfluxClient.NewPoint(measurement, tags, fields, p.Time)

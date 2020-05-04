@@ -38,7 +38,12 @@ type Capacity struct {
 }
 
 type AlamedaNodeSpec struct {
-	Provider *Provider
+	Provider            *Provider
+	MachinesetName      string
+	MachinesetNamespace string
+	RoleMaster          bool
+	RoleWorker          bool
+	RoleInfra           bool
 }
 
 type Provider struct {
@@ -87,6 +92,11 @@ func NewCapacity(entity *clusterstatus.NodeEntity) *Capacity {
 func NewAlamedaNodeSpec(entity *clusterstatus.NodeEntity) *AlamedaNodeSpec {
 	spec := AlamedaNodeSpec{}
 	spec.Provider = NewProvider(entity)
+	spec.MachinesetName = entity.MachinesetName
+	spec.MachinesetNamespace = entity.MachinesetNamespace
+	spec.RoleMaster = entity.RoleMaster
+	spec.RoleWorker = entity.RoleWorker
+	spec.RoleInfra = entity.RoleInfra
 	return &spec
 }
 
@@ -134,6 +144,11 @@ func (p *Node) BuildEntity() *clusterstatus.NodeEntity {
 			entity.IORole = p.AlamedaNodeSpec.Provider.Role
 			entity.IOInstanceID = p.AlamedaNodeSpec.Provider.InstanceId
 			entity.IOStorageSize = p.AlamedaNodeSpec.Provider.StorageSize
+			entity.MachinesetName = p.AlamedaNodeSpec.MachinesetName
+			entity.MachinesetNamespace = p.AlamedaNodeSpec.MachinesetNamespace
+			entity.RoleMaster = p.AlamedaNodeSpec.RoleMaster
+			entity.RoleWorker = p.AlamedaNodeSpec.RoleWorker
+			entity.RoleInfra = p.AlamedaNodeSpec.RoleInfra
 		}
 	}
 
