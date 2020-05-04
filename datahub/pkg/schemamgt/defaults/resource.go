@@ -42,8 +42,7 @@ func SchemaResourceClusterStatusApplication() *schemas.Schema {
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("uid", true, schemas.Tag, common.String)
 	measurement.AddColumn("scaling_tool", true, schemas.Tag, common.String)
-	measurement.AddColumn("machinegroup_name", false, schemas.Field, common.String)
-	measurement.AddColumn("machinegroup_namespace", false, schemas.Field, common.String)
+	measurement.AddColumn("dummy", true, schemas.Field, common.String)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }

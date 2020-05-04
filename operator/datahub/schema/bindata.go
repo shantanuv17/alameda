@@ -8,7 +8,6 @@
 
 package schema
 
-
 import (
 	"bytes"
 	"compress/gzip"
@@ -40,7 +39,6 @@ func bindataRead(data []byte, name string) ([]byte, error) {
 
 	return buf.Bytes(), nil
 }
-
 
 type asset struct {
 	bytes []byte
@@ -91,8 +89,6 @@ func bindataKafkatopicjsonBytes() ([]byte, error) {
 	)
 }
 
-
-
 func bindataKafkatopicjson() (*asset, error) {
 	bytes, err := bindataKafkatopicjsonBytes()
 	if err != nil {
@@ -100,11 +96,11 @@ func bindataKafkatopicjson() (*asset, error) {
 	}
 
 	info := bindataFileInfo{
-		name: "kafka-topic.json",
-		size: 1396,
+		name:        "kafka-topic.json",
+		size:        1396,
 		md5checksum: "",
-		mode: os.FileMode(436),
-		modTime: time.Unix(1588064915, 0),
+		mode:        os.FileMode(436),
+		modTime:     time.Unix(1588064915, 0),
 	}
 
 	a := &asset{bytes: bytes, info: info}
@@ -121,8 +117,6 @@ func bindataKafkaconsumergroupjsonBytes() ([]byte, error) {
 	)
 }
 
-
-
 func bindataKafkaconsumergroupjson() (*asset, error) {
 	bytes, err := bindataKafkaconsumergroupjsonBytes()
 	if err != nil {
@@ -130,11 +124,11 @@ func bindataKafkaconsumergroupjson() (*asset, error) {
 	}
 
 	info := bindataFileInfo{
-		name: "kafka-consumergroup.json",
-		size: 4663,
+		name:        "kafka-consumergroup.json",
+		size:        4663,
 		md5checksum: "",
-		mode: os.FileMode(436),
-		modTime: time.Unix(1588064915, 0),
+		mode:        os.FileMode(436),
+		modTime:     time.Unix(1588064915, 0),
 	}
 
 	a := &asset{bytes: bytes, info: info}
@@ -151,8 +145,6 @@ func bindataNginxjsonBytes() ([]byte, error) {
 	)
 }
 
-
-
 func bindataNginxjson() (*asset, error) {
 	bytes, err := bindataNginxjsonBytes()
 	if err != nil {
@@ -160,11 +152,11 @@ func bindataNginxjson() (*asset, error) {
 	}
 
 	info := bindataFileInfo{
-		name: "nginx.json",
-		size: 4113,
+		name:        "nginx.json",
+		size:        4113,
 		md5checksum: "",
-		mode: os.FileMode(436),
-		modTime: time.Unix(1588064915, 0),
+		mode:        os.FileMode(436),
+		modTime:     time.Unix(1588064915, 0),
 	}
 
 	a := &asset{bytes: bytes, info: info}
@@ -181,8 +173,6 @@ func bindataMachinegroupjsonBytes() ([]byte, error) {
 	)
 }
 
-
-
 func bindataMachinegroupjson() (*asset, error) {
 	bytes, err := bindataMachinegroupjsonBytes()
 	if err != nil {
@@ -190,11 +180,11 @@ func bindataMachinegroupjson() (*asset, error) {
 	}
 
 	info := bindataFileInfo{
-		name: "machinegroup.json",
-		size: 837,
+		name:        "machinegroup.json",
+		size:        837,
 		md5checksum: "",
-		mode: os.FileMode(436),
-		modTime: time.Unix(1588234101, 0),
+		mode:        os.FileMode(436),
+		modTime:     time.Unix(1588234101, 0),
 	}
 
 	a := &asset{bytes: bytes, info: info}
@@ -211,8 +201,6 @@ func bindataMachinesetjsonBytes() ([]byte, error) {
 	)
 }
 
-
-
 func bindataMachinesetjson() (*asset, error) {
 	bytes, err := bindataMachinesetjsonBytes()
 	if err != nil {
@@ -220,18 +208,17 @@ func bindataMachinesetjson() (*asset, error) {
 	}
 
 	info := bindataFileInfo{
-		name: "machineset.json",
-		size: 1841,
+		name:        "machineset.json",
+		size:        1841,
 		md5checksum: "",
-		mode: os.FileMode(436),
-		modTime: time.Unix(1588328688, 0),
+		mode:        os.FileMode(436),
+		modTime:     time.Unix(1588328688, 0),
 	}
 
 	a := &asset{bytes: bytes, info: info}
 
 	return a, nil
 }
-
 
 //
 // Asset loads and returns the asset for the given name.
@@ -327,18 +314,18 @@ func AssetDir(name string) ([]string, error) {
 			node = node.Children[p]
 			if node == nil {
 				return nil, &os.PathError{
-					Op: "open",
+					Op:   "open",
 					Path: name,
-					Err: os.ErrNotExist,
+					Err:  os.ErrNotExist,
 				}
 			}
 		}
 	}
 	if node.Func != nil {
 		return nil, &os.PathError{
-			Op: "open",
+			Op:   "open",
 			Path: name,
-			Err: os.ErrNotExist,
+			Err:  os.ErrNotExist,
 		}
 	}
 	rv := make([]string, 0, len(node.Children))
@@ -348,7 +335,6 @@ func AssetDir(name string) ([]string, error) {
 	return rv, nil
 }
 
-
 type bintree struct {
 	Func     func() (*asset, error)
 	Children map[string]*bintree
@@ -356,10 +342,10 @@ type bintree struct {
 
 var _bintree = &bintree{Func: nil, Children: map[string]*bintree{
 	"kafka-consumergroup.json": {Func: bindataKafkaconsumergroupjson, Children: map[string]*bintree{}},
-	"kafka-topic.json": {Func: bindataKafkatopicjson, Children: map[string]*bintree{}},
-	"machinegroup.json": {Func: bindataMachinegroupjson, Children: map[string]*bintree{}},
-	"machineset.json": {Func: bindataMachinesetjson, Children: map[string]*bintree{}},
-	"nginx.json": {Func: bindataNginxjson, Children: map[string]*bintree{}},
+	"kafka-topic.json":         {Func: bindataKafkatopicjson, Children: map[string]*bintree{}},
+	"machinegroup.json":        {Func: bindataMachinegroupjson, Children: map[string]*bintree{}},
+	"machineset.json":          {Func: bindataMachinesetjson, Children: map[string]*bintree{}},
+	"nginx.json":               {Func: bindataNginxjson, Children: map[string]*bintree{}},
 }}
 
 // RestoreAsset restores an asset under the given directory

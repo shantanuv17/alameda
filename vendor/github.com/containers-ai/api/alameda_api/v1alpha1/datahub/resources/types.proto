@@ -25,9 +25,7 @@ message AlamedaControllerSpec {
 }
 
 message AlamedaApplicationSpec {
-    ScalingTool scaling_tool           = 1;
-    string      machinegroup_name      = 2;
-    string      machinegroup_namespace = 3;
+    ScalingTool scaling_tool = 1;
 }
 
 message AlamedaNodeSpec {

@@ -459,10 +459,6 @@ func (r *AlamedaScalerReconciler) syncDatahubApplicationsByAlamedaScaler(ctx con
 			ScalingTool: r.getAlamedaScalerDatahubScalingType(alamedaScaler),
 		},
 	}
-	if alamedaScaler.IsScalingToolTypeCA() {
-		appMeta.AlamedaApplicationSpec.MachinegroupNamespace = namespace
-		appMeta.AlamedaApplicationSpec.MachinegroupName = alamedaScaler.Spec.ScalingTool.MachineGroupScaler
-	}
 	applicationObjectMetas := []*datahub_resources.Application{
 		appMeta,
 	}

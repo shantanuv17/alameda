@@ -38,8 +38,6 @@ func NewAlamedaApplicationSpec(applicationSpec *resources.AlamedaApplicationSpec
 	if applicationSpec != nil {
 		spec := &types.AlamedaApplicationSpec{}
 		spec.ScalingTool = applicationSpec.GetScalingTool().String()
-		spec.MachinegroupName = applicationSpec.GetMachinegroupName()
-		spec.MachinegroupNamespace = applicationSpec.GetMachinegroupNamespace()
 		return spec
 	}
 	return nil

@@ -8,13 +8,12 @@ import (
 )
 
 const (
-	ApplicationName                  influxdb.Tag   = "name"
-	ApplicationNamespace             influxdb.Tag   = "namespace"
-	ApplicationClusterName           influxdb.Tag   = "cluster_name"
-	ApplicationUid                   influxdb.Tag   = "uid"
-	ApplicationScalingTool           influxdb.Tag   = "scaling_tool"
-	ApplicationMachinegroupName      influxdb.Field = "machinegroup_name"
-	ApplicationMachinegroupNamespace influxdb.Field = "machinegroup_namespace"
+	ApplicationName        influxdb.Tag   = "name"
+	ApplicationNamespace   influxdb.Tag   = "namespace"
+	ApplicationClusterName influxdb.Tag   = "cluster_name"
+	ApplicationUid         influxdb.Tag   = "uid"
+	ApplicationScalingTool influxdb.Tag   = "scaling_tool"
+	ApplicationDummy       influxdb.Field = "dummy"
 )
 
 var (
@@ -27,8 +26,7 @@ var (
 	}
 
 	ApplicationFields = []influxdb.Field{
-		ApplicationMachinegroupName,
-		ApplicationMachinegroupNamespace,
+		ApplicationDummy,
 	}
 
 	ApplicationColumns = []string{
@@ -37,8 +35,7 @@ var (
 		string(ApplicationClusterName),
 		string(ApplicationUid),
 		string(ApplicationScalingTool),
-		string(ApplicationMachinegroupName),
-		string(ApplicationMachinegroupNamespace),
+		string(ApplicationDummy),
 	}
 )
 
@@ -52,8 +49,7 @@ type ApplicationEntity struct {
 	ScalingTool string
 
 	// InfluxDB fields
-	MachinegroupName      string
-	MachinegroupNamespace string
+	Dummy string
 }
 
 func NewApplicationEntity(data map[string]string) *ApplicationEntity {
@@ -80,11 +76,8 @@ func NewApplicationEntity(data map[string]string) *ApplicationEntity {
 	}
 
 	// InfluxDB fields
-	if value, exist := data[string(ApplicationMachinegroupName)]; exist {
-		entity.MachinegroupName = value
-	}
-	if value, exist := data[string(ApplicationMachinegroupNamespace)]; exist {
-		entity.MachinegroupNamespace = value
+	if value, exist := data[string(ApplicationDummy)]; exist {
+		entity.Dummy = value
 	}
 
 	return &entity
@@ -102,8 +95,7 @@ func (p *ApplicationEntity) BuildInfluxPoint(measurement string) (*InfluxClient.
 
 	// Pack influx fields
 	fields := map[string]interface{}{
-		string(ApplicationMachinegroupName):      p.MachinegroupName,
-		string(ApplicationMachinegroupNamespace): p.MachinegroupNamespace,
+		string(ApplicationDummy): p.Dummy,
 	}
 
 	return InfluxClient.NewPoint(measurement, tags, fields, p.Time)
