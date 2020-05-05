@@ -327,6 +327,7 @@ func setupManager() (manager.Manager, error) {
 		MetricsBindAddress: metricsAddr,
 		LeaderElection:     enableLeaderElection,
 		Port:               9443,
+		LeaderElectionID:   "alameda-operator-leader-election",
 		SyncPeriod:         &syncPriod,
 	})
 }
