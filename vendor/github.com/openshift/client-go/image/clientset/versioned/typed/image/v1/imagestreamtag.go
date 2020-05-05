@@ -3,7 +3,6 @@
 package v1
 
 import (
-	"context"
 	"time"
 
 	v1 "github.com/openshift/api/image/v1"
@@ -20,11 +19,11 @@ type ImageStreamTagsGetter interface {
 
 // ImageStreamTagInterface has methods to work with ImageStreamTag resources.
 type ImageStreamTagInterface interface {
-	Create(ctx context.Context, imageStreamTag *v1.ImageStreamTag, opts metav1.CreateOptions) (*v1.ImageStreamTag, error)
-	Update(ctx context.Context, imageStreamTag *v1.ImageStreamTag, opts metav1.UpdateOptions) (*v1.ImageStreamTag, error)
-	Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error
-	Get(ctx context.Context, name string, opts metav1.GetOptions) (*v1.ImageStreamTag, error)
-	List(ctx context.Context, opts metav1.ListOptions) (*v1.ImageStreamTagList, error)
+	Create(*v1.ImageStreamTag) (*v1.ImageStreamTag, error)
+	Update(*v1.ImageStreamTag) (*v1.ImageStreamTag, error)
+	Delete(name string, options *metav1.DeleteOptions) error
+	Get(name string, options metav1.GetOptions) (*v1.ImageStreamTag, error)
+	List(opts metav1.ListOptions) (*v1.ImageStreamTagList, error)
 	ImageStreamTagExpansion
 }
 
@@ -43,20 +42,20 @@ func newImageStreamTags(c *ImageV1Client, namespace string) *imageStreamTags {
 }
 
 // Get takes name of the imageStreamTag, and returns the corresponding imageStreamTag object, and an error if there is any.
-func (c *imageStreamTags) Get(ctx context.Context, name string, options metav1.GetOptions) (result *v1.ImageStreamTag, err error) {
+func (c *imageStreamTags) Get(name string, options metav1.GetOptions) (result *v1.ImageStreamTag, err error) {
 	result = &v1.ImageStreamTag{}
 	err = c.client.Get().
 		Namespace(c.ns).
 		Resource("imagestreamtags").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // List takes label and field selectors, and returns the list of ImageStreamTags that match those selectors.
-func (c *imageStreamTags) List(ctx context.Context, opts metav1.ListOptions) (result *v1.ImageStreamTagList, err error) {
+func (c *imageStreamTags) List(opts metav1.ListOptions) (result *v1.ImageStreamTagList, err error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -67,45 +66,43 @@ func (c *imageStreamTags) List(ctx context.Context, opts metav1.ListOptions) (re
 		Resource("imagestreamtags").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Create takes the representation of a imageStreamTag and creates it.  Returns the server's representation of the imageStreamTag, and an error, if there is any.
-func (c *imageStreamTags) Create(ctx context.Context, imageStreamTag *v1.ImageStreamTag, opts metav1.CreateOptions) (result *v1.ImageStreamTag, err error) {
+func (c *imageStreamTags) Create(imageStreamTag *v1.ImageStreamTag) (result *v1.ImageStreamTag, err error) {
 	result = &v1.ImageStreamTag{}
 	err = c.client.Post().
 		Namespace(c.ns).
 		Resource("imagestreamtags").
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(imageStreamTag).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Update takes the representation of a imageStreamTag and updates it. Returns the server's representation of the imageStreamTag, and an error, if there is any.
-func (c *imageStreamTags) Update(ctx context.Context, imageStreamTag *v1.ImageStreamTag, opts metav1.UpdateOptions) (result *v1.ImageStreamTag, err error) {
+func (c *imageStreamTags) Update(imageStreamTag *v1.ImageStreamTag) (result *v1.ImageStreamTag, err error) {
 	result = &v1.ImageStreamTag{}
 	err = c.client.Put().
 		Namespace(c.ns).
 		Resource("imagestreamtags").
 		Name(imageStreamTag.Name).
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(imageStreamTag).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Delete takes name of the imageStreamTag and deletes it. Returns an error if one occurs.
-func (c *imageStreamTags) Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error {
+func (c *imageStreamTags) Delete(name string, options *metav1.DeleteOptions) error {
 	return c.client.Delete().
 		Namespace(c.ns).
 		Resource("imagestreamtags").
 		Name(name).
-		Body(&opts).
-		Do(ctx).
+		Body(options).
+		Do().
 		Error()
 }

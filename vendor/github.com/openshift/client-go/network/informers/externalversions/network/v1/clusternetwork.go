@@ -3,7 +3,6 @@
 package v1
 
 import (
-	"context"
 	time "time"
 
 	networkv1 "github.com/openshift/api/network/v1"
@@ -45,13 +44,13 @@ func NewFilteredClusterNetworkInformer(client versioned.Interface, resyncPeriod 
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.NetworkV1().ClusterNetworks().List(context.TODO(), options)
+				return client.NetworkV1().ClusterNetworks().List(options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.NetworkV1().ClusterNetworks().Watch(context.TODO(), options)
+				return client.NetworkV1().ClusterNetworks().Watch(options)
 			},
 		},
 		&networkv1.ClusterNetwork{},

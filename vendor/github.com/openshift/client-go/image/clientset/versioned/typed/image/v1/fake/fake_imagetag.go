@@ -3,8 +3,6 @@
 package fake
 
 import (
-	"context"
-
 	imagev1 "github.com/openshift/api/image/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
@@ -23,7 +21,7 @@ var imagetagsResource = schema.GroupVersionResource{Group: "image.openshift.io",
 var imagetagsKind = schema.GroupVersionKind{Group: "image.openshift.io", Version: "v1", Kind: "ImageTag"}
 
 // Get takes name of the imageTag, and returns the corresponding imageTag object, and an error if there is any.
-func (c *FakeImageTags) Get(ctx context.Context, name string, options v1.GetOptions) (result *imagev1.ImageTag, err error) {
+func (c *FakeImageTags) Get(name string, options v1.GetOptions) (result *imagev1.ImageTag, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(imagetagsResource, c.ns, name), &imagev1.ImageTag{})
 
@@ -34,7 +32,7 @@ func (c *FakeImageTags) Get(ctx context.Context, name string, options v1.GetOpti
 }
 
 // List takes label and field selectors, and returns the list of ImageTags that match those selectors.
-func (c *FakeImageTags) List(ctx context.Context, opts v1.ListOptions) (result *imagev1.ImageTagList, err error) {
+func (c *FakeImageTags) List(opts v1.ListOptions) (result *imagev1.ImageTagList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(imagetagsResource, imagetagsKind, c.ns, opts), &imagev1.ImageTagList{})
 
@@ -56,7 +54,7 @@ func (c *FakeImageTags) List(ctx context.Context, opts v1.ListOptions) (result *
 }
 
 // Create takes the representation of a imageTag and creates it.  Returns the server's representation of the imageTag, and an error, if there is any.
-func (c *FakeImageTags) Create(ctx context.Context, imageTag *imagev1.ImageTag, opts v1.CreateOptions) (result *imagev1.ImageTag, err error) {
+func (c *FakeImageTags) Create(imageTag *imagev1.ImageTag) (result *imagev1.ImageTag, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(imagetagsResource, c.ns, imageTag), &imagev1.ImageTag{})
 
@@ -67,7 +65,7 @@ func (c *FakeImageTags) Create(ctx context.Context, imageTag *imagev1.ImageTag, 
 }
 
 // Update takes the representation of a imageTag and updates it. Returns the server's representation of the imageTag, and an error, if there is any.
-func (c *FakeImageTags) Update(ctx context.Context, imageTag *imagev1.ImageTag, opts v1.UpdateOptions) (result *imagev1.ImageTag, err error) {
+func (c *FakeImageTags) Update(imageTag *imagev1.ImageTag) (result *imagev1.ImageTag, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(imagetagsResource, c.ns, imageTag), &imagev1.ImageTag{})
 
@@ -78,7 +76,7 @@ func (c *FakeImageTags) Update(ctx context.Context, imageTag *imagev1.ImageTag, 
 }
 
 // Delete takes name of the imageTag and deletes it. Returns an error if one occurs.
-func (c *FakeImageTags) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
+func (c *FakeImageTags) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(imagetagsResource, c.ns, name), &imagev1.ImageTag{})
 

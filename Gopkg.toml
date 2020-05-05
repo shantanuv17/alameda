@@ -57,7 +57,7 @@ version="v1.4.7"
 
 [[override]]
   name = "github.com/openshift/client-go"
-  revision = "2a6cd50aedd02a8b1573c0de49169a43061cf587"
+  revision = "92a2713fa240ea8a375a982d60b43ef5119f85ba"
 
 [[override]]
   name = "github.com/grpc-ecosystem/go-grpc-middleware"

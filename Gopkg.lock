@@ -536,7 +536,7 @@
   revision = "bbc4289c54e0f41709ed1ad57b96cd1a858005e0"
 
 [[projects]]
-  digest = "1:083f13b71c80275bad49ba5e120ff53c15ccd40fbfe698600ba7d879d003a191"
+  digest = "1:42a7de9016d52482883bcca8e40ac76597b7a4b15917443c1b604a6cb06b29e6"
   name = "github.com/openshift/client-go"
   packages = [
     "apps/clientset/versioned",
@@ -544,7 +544,7 @@
     "apps/clientset/versioned/typed/apps/v1",
   ]
   pruneopts = "T"
-  revision = "2a6cd50aedd02a8b1573c0de49169a43061cf587"
+  revision = "92a2713fa240ea8a375a982d60b43ef5119f85ba"
 
 [[projects]]
   branch = "master"

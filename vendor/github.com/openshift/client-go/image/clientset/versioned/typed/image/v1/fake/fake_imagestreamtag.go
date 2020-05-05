@@ -3,8 +3,6 @@
 package fake
 
 import (
-	"context"
-
 	imagev1 "github.com/openshift/api/image/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
@@ -23,7 +21,7 @@ var imagestreamtagsResource = schema.GroupVersionResource{Group: "image.openshif
 var imagestreamtagsKind = schema.GroupVersionKind{Group: "image.openshift.io", Version: "v1", Kind: "ImageStreamTag"}
 
 // Get takes name of the imageStreamTag, and returns the corresponding imageStreamTag object, and an error if there is any.
-func (c *FakeImageStreamTags) Get(ctx context.Context, name string, options v1.GetOptions) (result *imagev1.ImageStreamTag, err error) {
+func (c *FakeImageStreamTags) Get(name string, options v1.GetOptions) (result *imagev1.ImageStreamTag, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(imagestreamtagsResource, c.ns, name), &imagev1.ImageStreamTag{})
 
@@ -34,7 +32,7 @@ func (c *FakeImageStreamTags) Get(ctx context.Context, name string, options v1.G
 }
 
 // List takes label and field selectors, and returns the list of ImageStreamTags that match those selectors.
-func (c *FakeImageStreamTags) List(ctx context.Context, opts v1.ListOptions) (result *imagev1.ImageStreamTagList, err error) {
+func (c *FakeImageStreamTags) List(opts v1.ListOptions) (result *imagev1.ImageStreamTagList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(imagestreamtagsResource, imagestreamtagsKind, c.ns, opts), &imagev1.ImageStreamTagList{})
 
@@ -56,7 +54,7 @@ func (c *FakeImageStreamTags) List(ctx context.Context, opts v1.ListOptions) (re
 }
 
 // Create takes the representation of a imageStreamTag and creates it.  Returns the server's representation of the imageStreamTag, and an error, if there is any.
-func (c *FakeImageStreamTags) Create(ctx context.Context, imageStreamTag *imagev1.ImageStreamTag, opts v1.CreateOptions) (result *imagev1.ImageStreamTag, err error) {
+func (c *FakeImageStreamTags) Create(imageStreamTag *imagev1.ImageStreamTag) (result *imagev1.ImageStreamTag, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(imagestreamtagsResource, c.ns, imageStreamTag), &imagev1.ImageStreamTag{})
 
@@ -67,7 +65,7 @@ func (c *FakeImageStreamTags) Create(ctx context.Context, imageStreamTag *imagev
 }
 
 // Update takes the representation of a imageStreamTag and updates it. Returns the server's representation of the imageStreamTag, and an error, if there is any.
-func (c *FakeImageStreamTags) Update(ctx context.Context, imageStreamTag *imagev1.ImageStreamTag, opts v1.UpdateOptions) (result *imagev1.ImageStreamTag, err error) {
+func (c *FakeImageStreamTags) Update(imageStreamTag *imagev1.ImageStreamTag) (result *imagev1.ImageStreamTag, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(imagestreamtagsResource, c.ns, imageStreamTag), &imagev1.ImageStreamTag{})
 
@@ -78,7 +76,7 @@ func (c *FakeImageStreamTags) Update(ctx context.Context, imageStreamTag *imagev
 }
 
 // Delete takes name of the imageStreamTag and deletes it. Returns an error if one occurs.
-func (c *FakeImageStreamTags) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
+func (c *FakeImageStreamTags) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(imagestreamtagsResource, c.ns, name), &imagev1.ImageStreamTag{})
 

@@ -64,10 +64,6 @@ func (c *FakeConfigV1) OAuths() v1.OAuthInterface {
 	return &FakeOAuths{c}
 }
 
-func (c *FakeConfigV1) OperatorHubs() v1.OperatorHubInterface {
-	return &FakeOperatorHubs{c}
-}
-
 func (c *FakeConfigV1) Projects() v1.ProjectInterface {
 	return &FakeProjects{c}
 }

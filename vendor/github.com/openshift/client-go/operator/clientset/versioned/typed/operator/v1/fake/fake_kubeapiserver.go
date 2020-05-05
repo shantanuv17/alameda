@@ -3,8 +3,6 @@
 package fake
 
 import (
-	"context"
-
 	operatorv1 "github.com/openshift/api/operator/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
@@ -24,7 +22,7 @@ var kubeapiserversResource = schema.GroupVersionResource{Group: "operator.opensh
 var kubeapiserversKind = schema.GroupVersionKind{Group: "operator.openshift.io", Version: "v1", Kind: "KubeAPIServer"}
 
 // Get takes name of the kubeAPIServer, and returns the corresponding kubeAPIServer object, and an error if there is any.
-func (c *FakeKubeAPIServers) Get(ctx context.Context, name string, options v1.GetOptions) (result *operatorv1.KubeAPIServer, err error) {
+func (c *FakeKubeAPIServers) Get(name string, options v1.GetOptions) (result *operatorv1.KubeAPIServer, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootGetAction(kubeapiserversResource, name), &operatorv1.KubeAPIServer{})
 	if obj == nil {
@@ -34,7 +32,7 @@ func (c *FakeKubeAPIServers) Get(ctx context.Context, name string, options v1.Ge
 }
 
 // List takes label and field selectors, and returns the list of KubeAPIServers that match those selectors.
-func (c *FakeKubeAPIServers) List(ctx context.Context, opts v1.ListOptions) (result *operatorv1.KubeAPIServerList, err error) {
+func (c *FakeKubeAPIServers) List(opts v1.ListOptions) (result *operatorv1.KubeAPIServerList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootListAction(kubeapiserversResource, kubeapiserversKind, opts), &operatorv1.KubeAPIServerList{})
 	if obj == nil {
@@ -55,13 +53,13 @@ func (c *FakeKubeAPIServers) List(ctx context.Context, opts v1.ListOptions) (res
 }
 
 // Watch returns a watch.Interface that watches the requested kubeAPIServers.
-func (c *FakeKubeAPIServers) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeKubeAPIServers) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewRootWatchAction(kubeapiserversResource, opts))
 }
 
 // Create takes the representation of a kubeAPIServer and creates it.  Returns the server's representation of the kubeAPIServer, and an error, if there is any.
-func (c *FakeKubeAPIServers) Create(ctx context.Context, kubeAPIServer *operatorv1.KubeAPIServer, opts v1.CreateOptions) (result *operatorv1.KubeAPIServer, err error) {
+func (c *FakeKubeAPIServers) Create(kubeAPIServer *operatorv1.KubeAPIServer) (result *operatorv1.KubeAPIServer, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootCreateAction(kubeapiserversResource, kubeAPIServer), &operatorv1.KubeAPIServer{})
 	if obj == nil {
@@ -71,7 +69,7 @@ func (c *FakeKubeAPIServers) Create(ctx context.Context, kubeAPIServer *operator
 }
 
 // Update takes the representation of a kubeAPIServer and updates it. Returns the server's representation of the kubeAPIServer, and an error, if there is any.
-func (c *FakeKubeAPIServers) Update(ctx context.Context, kubeAPIServer *operatorv1.KubeAPIServer, opts v1.UpdateOptions) (result *operatorv1.KubeAPIServer, err error) {
+func (c *FakeKubeAPIServers) Update(kubeAPIServer *operatorv1.KubeAPIServer) (result *operatorv1.KubeAPIServer, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateAction(kubeapiserversResource, kubeAPIServer), &operatorv1.KubeAPIServer{})
 	if obj == nil {
@@ -82,7 +80,7 @@ func (c *FakeKubeAPIServers) Update(ctx context.Context, kubeAPIServer *operator
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeKubeAPIServers) UpdateStatus(ctx context.Context, kubeAPIServer *operatorv1.KubeAPIServer, opts v1.UpdateOptions) (*operatorv1.KubeAPIServer, error) {
+func (c *FakeKubeAPIServers) UpdateStatus(kubeAPIServer *operatorv1.KubeAPIServer) (*operatorv1.KubeAPIServer, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateSubresourceAction(kubeapiserversResource, "status", kubeAPIServer), &operatorv1.KubeAPIServer{})
 	if obj == nil {
@@ -92,22 +90,22 @@ func (c *FakeKubeAPIServers) UpdateStatus(ctx context.Context, kubeAPIServer *op
 }
 
 // Delete takes name of the kubeAPIServer and deletes it. Returns an error if one occurs.
-func (c *FakeKubeAPIServers) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
+func (c *FakeKubeAPIServers) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewRootDeleteAction(kubeapiserversResource, name), &operatorv1.KubeAPIServer{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeKubeAPIServers) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
-	action := testing.NewRootDeleteCollectionAction(kubeapiserversResource, listOpts)
+func (c *FakeKubeAPIServers) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+	action := testing.NewRootDeleteCollectionAction(kubeapiserversResource, listOptions)
 
 	_, err := c.Fake.Invokes(action, &operatorv1.KubeAPIServerList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched kubeAPIServer.
-func (c *FakeKubeAPIServers) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *operatorv1.KubeAPIServer, err error) {
+func (c *FakeKubeAPIServers) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *operatorv1.KubeAPIServer, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootPatchSubresourceAction(kubeapiserversResource, name, pt, data, subresources...), &operatorv1.KubeAPIServer{})
 	if obj == nil {

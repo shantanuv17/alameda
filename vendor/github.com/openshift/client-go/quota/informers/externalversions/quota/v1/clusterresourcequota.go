@@ -3,7 +3,6 @@
 package v1
 
 import (
-	"context"
 	time "time"
 
 	quotav1 "github.com/openshift/api/quota/v1"
@@ -45,13 +44,13 @@ func NewFilteredClusterResourceQuotaInformer(client versioned.Interface, resyncP
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.QuotaV1().ClusterResourceQuotas().List(context.TODO(), options)
+				return client.QuotaV1().ClusterResourceQuotas().List(options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.QuotaV1().ClusterResourceQuotas().Watch(context.TODO(), options)
+				return client.QuotaV1().ClusterResourceQuotas().Watch(options)
 			},
 		},
 		&quotav1.ClusterResourceQuota{},

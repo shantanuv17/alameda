@@ -3,8 +3,6 @@
 package fake
 
 import (
-	"context"
-
 	operatorv1 "github.com/openshift/api/operator/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
@@ -24,7 +22,7 @@ var servicecatalogcontrollermanagersResource = schema.GroupVersionResource{Group
 var servicecatalogcontrollermanagersKind = schema.GroupVersionKind{Group: "operator.openshift.io", Version: "v1", Kind: "ServiceCatalogControllerManager"}
 
 // Get takes name of the serviceCatalogControllerManager, and returns the corresponding serviceCatalogControllerManager object, and an error if there is any.
-func (c *FakeServiceCatalogControllerManagers) Get(ctx context.Context, name string, options v1.GetOptions) (result *operatorv1.ServiceCatalogControllerManager, err error) {
+func (c *FakeServiceCatalogControllerManagers) Get(name string, options v1.GetOptions) (result *operatorv1.ServiceCatalogControllerManager, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootGetAction(servicecatalogcontrollermanagersResource, name), &operatorv1.ServiceCatalogControllerManager{})
 	if obj == nil {
@@ -34,7 +32,7 @@ func (c *FakeServiceCatalogControllerManagers) Get(ctx context.Context, name str
 }
 
 // List takes label and field selectors, and returns the list of ServiceCatalogControllerManagers that match those selectors.
-func (c *FakeServiceCatalogControllerManagers) List(ctx context.Context, opts v1.ListOptions) (result *operatorv1.ServiceCatalogControllerManagerList, err error) {
+func (c *FakeServiceCatalogControllerManagers) List(opts v1.ListOptions) (result *operatorv1.ServiceCatalogControllerManagerList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootListAction(servicecatalogcontrollermanagersResource, servicecatalogcontrollermanagersKind, opts), &operatorv1.ServiceCatalogControllerManagerList{})
 	if obj == nil {
@@ -55,13 +53,13 @@ func (c *FakeServiceCatalogControllerManagers) List(ctx context.Context, opts v1
 }
 
 // Watch returns a watch.Interface that watches the requested serviceCatalogControllerManagers.
-func (c *FakeServiceCatalogControllerManagers) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeServiceCatalogControllerManagers) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewRootWatchAction(servicecatalogcontrollermanagersResource, opts))
 }
 
 // Create takes the representation of a serviceCatalogControllerManager and creates it.  Returns the server's representation of the serviceCatalogControllerManager, and an error, if there is any.
-func (c *FakeServiceCatalogControllerManagers) Create(ctx context.Context, serviceCatalogControllerManager *operatorv1.ServiceCatalogControllerManager, opts v1.CreateOptions) (result *operatorv1.ServiceCatalogControllerManager, err error) {
+func (c *FakeServiceCatalogControllerManagers) Create(serviceCatalogControllerManager *operatorv1.ServiceCatalogControllerManager) (result *operatorv1.ServiceCatalogControllerManager, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootCreateAction(servicecatalogcontrollermanagersResource, serviceCatalogControllerManager), &operatorv1.ServiceCatalogControllerManager{})
 	if obj == nil {
@@ -71,7 +69,7 @@ func (c *FakeServiceCatalogControllerManagers) Create(ctx context.Context, servi
 }
 
 // Update takes the representation of a serviceCatalogControllerManager and updates it. Returns the server's representation of the serviceCatalogControllerManager, and an error, if there is any.
-func (c *FakeServiceCatalogControllerManagers) Update(ctx context.Context, serviceCatalogControllerManager *operatorv1.ServiceCatalogControllerManager, opts v1.UpdateOptions) (result *operatorv1.ServiceCatalogControllerManager, err error) {
+func (c *FakeServiceCatalogControllerManagers) Update(serviceCatalogControllerManager *operatorv1.ServiceCatalogControllerManager) (result *operatorv1.ServiceCatalogControllerManager, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateAction(servicecatalogcontrollermanagersResource, serviceCatalogControllerManager), &operatorv1.ServiceCatalogControllerManager{})
 	if obj == nil {
@@ -82,7 +80,7 @@ func (c *FakeServiceCatalogControllerManagers) Update(ctx context.Context, servi
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeServiceCatalogControllerManagers) UpdateStatus(ctx context.Context, serviceCatalogControllerManager *operatorv1.ServiceCatalogControllerManager, opts v1.UpdateOptions) (*operatorv1.ServiceCatalogControllerManager, error) {
+func (c *FakeServiceCatalogControllerManagers) UpdateStatus(serviceCatalogControllerManager *operatorv1.ServiceCatalogControllerManager) (*operatorv1.ServiceCatalogControllerManager, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateSubresourceAction(servicecatalogcontrollermanagersResource, "status", serviceCatalogControllerManager), &operatorv1.ServiceCatalogControllerManager{})
 	if obj == nil {
@@ -92,22 +90,22 @@ func (c *FakeServiceCatalogControllerManagers) UpdateStatus(ctx context.Context,
 }
 
 // Delete takes name of the serviceCatalogControllerManager and deletes it. Returns an error if one occurs.
-func (c *FakeServiceCatalogControllerManagers) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
+func (c *FakeServiceCatalogControllerManagers) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewRootDeleteAction(servicecatalogcontrollermanagersResource, name), &operatorv1.ServiceCatalogControllerManager{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeServiceCatalogControllerManagers) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
-	action := testing.NewRootDeleteCollectionAction(servicecatalogcontrollermanagersResource, listOpts)
+func (c *FakeServiceCatalogControllerManagers) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+	action := testing.NewRootDeleteCollectionAction(servicecatalogcontrollermanagersResource, listOptions)
 
 	_, err := c.Fake.Invokes(action, &operatorv1.ServiceCatalogControllerManagerList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched serviceCatalogControllerManager.
-func (c *FakeServiceCatalogControllerManagers) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *operatorv1.ServiceCatalogControllerManager, err error) {
+func (c *FakeServiceCatalogControllerManagers) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *operatorv1.ServiceCatalogControllerManager, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootPatchSubresourceAction(servicecatalogcontrollermanagersResource, name, pt, data, subresources...), &operatorv1.ServiceCatalogControllerManager{})
 	if obj == nil {

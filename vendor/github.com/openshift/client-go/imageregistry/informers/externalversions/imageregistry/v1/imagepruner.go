@@ -3,7 +3,6 @@
 package v1
 
 import (
-	"context"
 	time "time"
 
 	imageregistryv1 "github.com/openshift/api/imageregistry/v1"
@@ -45,13 +44,13 @@ func NewFilteredImagePrunerInformer(client versioned.Interface, resyncPeriod tim
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ImageregistryV1().ImagePruners().List(context.TODO(), options)
+				return client.ImageregistryV1().ImagePruners().List(options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ImageregistryV1().ImagePruners().Watch(context.TODO(), options)
+				return client.ImageregistryV1().ImagePruners().Watch(options)
 			},
 		},
 		&imageregistryv1.ImagePruner{},

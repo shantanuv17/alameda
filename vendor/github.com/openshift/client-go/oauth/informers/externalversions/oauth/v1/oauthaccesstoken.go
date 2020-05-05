@@ -3,7 +3,6 @@
 package v1
 
 import (
-	"context"
 	time "time"
 
 	oauthv1 "github.com/openshift/api/oauth/v1"
@@ -45,13 +44,13 @@ func NewFilteredOAuthAccessTokenInformer(client versioned.Interface, resyncPerio
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.OauthV1().OAuthAccessTokens().List(context.TODO(), options)
+				return client.OauthV1().OAuthAccessTokens().List(options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.OauthV1().OAuthAccessTokens().Watch(context.TODO(), options)
+				return client.OauthV1().OAuthAccessTokens().Watch(options)
 			},
 		},
 		&oauthv1.OAuthAccessToken{},

@@ -3,7 +3,6 @@
 package v1
 
 import (
-	"context"
 	time "time"
 
 	networkv1 "github.com/openshift/api/network/v1"
@@ -45,13 +44,13 @@ func NewFilteredHostSubnetInformer(client versioned.Interface, resyncPeriod time
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.NetworkV1().HostSubnets().List(context.TODO(), options)
+				return client.NetworkV1().HostSubnets().List(options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.NetworkV1().HostSubnets().Watch(context.TODO(), options)
+				return client.NetworkV1().HostSubnets().Watch(options)
 			},
 		},
 		&networkv1.HostSubnet{},

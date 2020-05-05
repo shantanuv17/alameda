@@ -3,11 +3,7 @@
 package v1
 
 import (
-	"context"
-
 	v1 "github.com/openshift/api/image/v1"
-	scheme "github.com/openshift/client-go/image/clientset/versioned/scheme"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	rest "k8s.io/client-go/rest"
 )
 
@@ -19,7 +15,7 @@ type ImageStreamImportsGetter interface {
 
 // ImageStreamImportInterface has methods to work with ImageStreamImport resources.
 type ImageStreamImportInterface interface {
-	Create(ctx context.Context, imageStreamImport *v1.ImageStreamImport, opts metav1.CreateOptions) (*v1.ImageStreamImport, error)
+	Create(*v1.ImageStreamImport) (*v1.ImageStreamImport, error)
 	ImageStreamImportExpansion
 }
 
@@ -38,14 +34,13 @@ func newImageStreamImports(c *ImageV1Client, namespace string) *imageStreamImpor
 }
 
 // Create takes the representation of a imageStreamImport and creates it.  Returns the server's representation of the imageStreamImport, and an error, if there is any.
-func (c *imageStreamImports) Create(ctx context.Context, imageStreamImport *v1.ImageStreamImport, opts metav1.CreateOptions) (result *v1.ImageStreamImport, err error) {
+func (c *imageStreamImports) Create(imageStreamImport *v1.ImageStreamImport) (result *v1.ImageStreamImport, err error) {
 	result = &v1.ImageStreamImport{}
 	err = c.client.Post().
 		Namespace(c.ns).
 		Resource("imagestreamimports").
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(imageStreamImport).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
