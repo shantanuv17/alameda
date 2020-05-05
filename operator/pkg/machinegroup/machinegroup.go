@@ -3,6 +3,8 @@ package machinegroup
 type MachineGroup struct {
 	ClusterName string
 	ResourceMeta
+	AlamedaScalerNamespace string
+	AlamedaScalerName      string
 }
 
 type ResourceMeta struct {

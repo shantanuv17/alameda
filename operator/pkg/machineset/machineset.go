@@ -1,8 +1,9 @@
 package machineset
 
 type MachineSet struct {
-	ClusterName      string
-	MachineGroupName string
+	ClusterName           string
+	MachineGroupName      string
+	MachineGroupNamespace string
 	ResourceMeta
 	MinReplicas int32
 	MaxReplicas int32

@@ -1,5 +1,5 @@
 /*
-Copyright 2019 The Alameda Authors.
+Copyright 2020 The Alameda Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -201,7 +201,9 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 
 		mgs := []machinegroup.MachineGroup{
 			machinegroup.MachineGroup{
-				ClusterName: r.ClusterUID,
+				ClusterName:            r.ClusterUID,
+				AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
+				AlamedaScalerName:      alamedaScaler.GetName(),
 				ResourceMeta: machinegroup.ResourceMeta{
 					KubernetesMeta: machinegroup.KubernetesMeta{
 						Namespace: mgIns.Namespace,
@@ -229,8 +231,9 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 			for _, msSpec := range mgIns.Spec.MachineSets {
 				if ms.GetName() == msSpec.Name && ms.GetNamespace() == msSpec.Namespace {
 					mss = append(mss, machineset.MachineSet{
-						ClusterName:      r.ClusterUID,
-						MachineGroupName: mgIns.GetName(),
+						ClusterName:           r.ClusterUID,
+						MachineGroupName:      mgIns.GetName(),
+						MachineGroupNamespace: mgIns.GetNamespace(),
 						ResourceMeta: machineset.ResourceMeta{
 							KubernetesMeta: machineset.KubernetesMeta{
 								Namespace: ms.Namespace,
