@@ -121,6 +121,12 @@
                     "required": false,
                     "column_types": 2,
                     "data_types": 14
+                },
+                {
+                    "name": "replica_margin_percentage",
+                    "required": false,
+                    "column_types": 2,
+                    "data_types": 5
                 }
             ]
         }

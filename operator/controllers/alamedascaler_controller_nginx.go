@@ -452,6 +452,7 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(alamedaScaler autoscalingv1a
 					ReadyReplicas:    int32(len(deploy.Pods)),
 				},
 			},
+			ReplicaMarginPercentage: *alamedaScaler.Spec.Nginx.ReplicaMarginPercentage,
 		})
 	}
 	for _, dc := range alamedaScaler.Status.Nginx.AlamedaController.DeploymentConfigs {
@@ -475,6 +476,7 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(alamedaScaler autoscalingv1a
 					ReadyReplicas:    int32(len(dc.Pods)),
 				},
 			},
+			ReplicaMarginPercentage: *alamedaScaler.Spec.Nginx.ReplicaMarginPercentage,
 		})
 	}
 	for _, sts := range alamedaScaler.Status.Nginx.AlamedaController.StatefulSets {
@@ -498,6 +500,7 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(alamedaScaler autoscalingv1a
 					ReadyReplicas:    int32(len(sts.Pods)),
 				},
 			},
+			ReplicaMarginPercentage: *alamedaScaler.Spec.Nginx.ReplicaMarginPercentage,
 		})
 	}
 	return nginxs

@@ -15,8 +15,9 @@ type Nginx struct {
 	EnableExecution        bool
 	ResourceMeta
 	// Since value of min/max replicas are initialized from counts of topic's partition, define these fields in here rather than KubernetesMeta.
-	MinReplicas int32
-	MaxReplicas int32
+	MinReplicas             int32
+	MaxReplicas             int32
+	ReplicaMarginPercentage int32
 }
 
 type ResourceMeta struct {
