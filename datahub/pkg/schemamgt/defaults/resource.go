@@ -14,7 +14,12 @@ func SchemaResourceClusterAutoscalerMachinegroup() *schemas.Schema {
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("alameda_scaler_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("alameda_scaler_namespace", true, schemas.Tag, common.String)
-	measurement.AddColumn("dummy", true, schemas.Field, common.String)
+	measurement.AddColumn("cpu_metric_utilization_target", false, schemas.Field, common.Int32)
+	measurement.AddColumn("cpu_metric_scaleup_gap", false, schemas.Field, common.Int32)
+	measurement.AddColumn("cpu_metric_scaledown_gap", false, schemas.Field, common.Int32)
+	measurement.AddColumn("memory_metric_utilization_target", false, schemas.Field, common.Int32)
+	measurement.AddColumn("memory_metric_scaleup_gap", false, schemas.Field, common.Int32)
+	measurement.AddColumn("memory_metric_scaledown_gap", false, schemas.Field, common.Int32)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }
