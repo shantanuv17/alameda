@@ -210,6 +210,12 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 						Name:      mgIns.Name,
 					},
 				},
+				CPUMetricUtilizationTarget:    *mgIns.Spec.Metrics["cpu"].UtilizationTarget,
+				CPUMetricScaleupGap:           *mgIns.Spec.Metrics["cpu"].ScaleUpGap,
+				CPUMetricScaledownGap:         *mgIns.Spec.Metrics["cpu"].ScaleDownGap,
+				MemoryMetricUtilizationTarget: *mgIns.Spec.Metrics["memory"].UtilizationTarget,
+				MemoryMetricScaleupGap:        *mgIns.Spec.Metrics["memory"].ScaleUpGap,
+				MemoryMetricScaledownGap:      *mgIns.Spec.Metrics["memory"].ScaleDownGap,
 			},
 		}
 
