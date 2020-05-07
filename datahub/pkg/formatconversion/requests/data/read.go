@@ -10,6 +10,7 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/schemamgt"
 	"github.com/containers-ai/alameda/internal/pkg/database/common"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
+	Schemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 )
 
 type ReadDataRequestRequestExtended struct {
@@ -56,7 +57,7 @@ func (p *ReadDataRequestRequestExtended) ProduceRequest() *types.ReadDataRequest
 }
 
 func (p *ReadDataRequestRequestExtended) postProcessRequest(request *types.ReadDataRequest) {
-	if p.SchemaMeta.Category == "cluster_status" {
+	if (p.SchemaMeta.Scope == Schemas.Scope_SCOPE_PREDICTION) && (p.SchemaMeta.Category == "cluster_status") {
 		for i, w := range p.ReadData {
 			p.processColumnMetric(w, request.ReadData[i])
 			p.processColumnKind(w, request.ReadData[i])
