@@ -19,7 +19,6 @@
 package v1beta1
 
 import (
-	"context"
 	time "time"
 
 	machinev1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
@@ -62,13 +61,13 @@ func NewFilteredMachineInformer(client versioned.Interface, namespace string, re
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.MachineV1beta1().Machines(namespace).List(context.TODO(), options)
+				return client.MachineV1beta1().Machines(namespace).List(options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.MachineV1beta1().Machines(namespace).Watch(context.TODO(), options)
+				return client.MachineV1beta1().Machines(namespace).Watch(options)
 			},
 		},
 		&machinev1beta1.Machine{},

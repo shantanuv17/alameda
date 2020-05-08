@@ -246,6 +246,7 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 								Name:      ms.Name,
 							},
 						},
+						EnableExecution: alamedaScaler.IsEnableExecution(),
 					})
 				}
 				break

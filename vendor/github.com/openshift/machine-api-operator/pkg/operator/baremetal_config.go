@@ -1,7 +1,6 @@
 package operator
 
 import (
-	"context"
 	"fmt"
 	"net"
 
@@ -36,7 +35,7 @@ type BaremetalProvisioningConfig struct {
 
 func getBaremetalProvisioningConfig(dc dynamic.Interface, configName string) (BaremetalProvisioningConfig, error) {
 	provisioningClient := dc.Resource(provisioningGVR)
-	provisioningConfig, err := provisioningClient.Get(context.Background(), configName, metav1.GetOptions{})
+	provisioningConfig, err := provisioningClient.Get(configName, metav1.GetOptions{})
 	if err != nil {
 		glog.Errorf("Error getting config from Baremetal provisioning CR %s", configName)
 		return BaremetalProvisioningConfig{}, err

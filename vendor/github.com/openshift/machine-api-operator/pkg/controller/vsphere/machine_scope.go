@@ -22,9 +22,10 @@ const (
 // machineScopeParams defines the input parameters used to create a new MachineScope.
 type machineScopeParams struct {
 	context.Context
-	client    runtimeclient.Client
-	apiReader runtimeclient.Reader
-	machine   *machinev1.Machine
+	client        runtimeclient.Client
+	apiReader     runtimeclient.Reader
+	machine       *machinev1.Machine
+	vSphereConfig *vSphereConfig
 }
 
 // machineScope defines a scope defined around a machine and its cluster.
@@ -104,15 +105,11 @@ func (s *machineScope) PatchMachine() error {
 	}
 	s.machine.Status.ProviderStatus = providerStatus
 
-	statusCopy := *s.machine.Status.DeepCopy()
-
 	// patch machine
 	if err := s.client.Patch(context.Background(), s.machine, s.machineToBePatched); err != nil {
 		klog.Errorf("Failed to patch machine %q: %v", s.machine.GetName(), err)
 		return err
 	}
-
-	s.machine.Status = statusCopy
 
 	// patch status
 	if err := s.client.Status().Patch(context.Background(), s.machine, s.machineToBePatched); err != nil {
@@ -182,11 +179,6 @@ func getCredentialsSecret(client runtimeclient.Client, namespace string, spec ap
 			machineapierros.InvalidMachineConfiguration("credentials secret %v/%v not found: %v", namespace, spec.CredentialsSecret.Name, err.Error())
 		}
 		return "", "", fmt.Errorf("error getting credentials secret %v/%v: %v", namespace, spec.CredentialsSecret.Name, err)
-	}
-
-	// TODO: add provider spec validation logic and move this check there
-	if spec.Workspace == nil {
-		return "", "", errors.New("no workspace")
 	}
 
 	credentialsSecretUser := fmt.Sprintf("%s.username", spec.Workspace.Server)

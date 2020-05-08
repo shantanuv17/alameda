@@ -4,6 +4,7 @@ type MachineSet struct {
 	ClusterName           string
 	MachineGroupName      string
 	MachineGroupNamespace string
+	EnableExecution       bool
 	ResourceMeta
 	MinReplicas int32
 	MaxReplicas int32

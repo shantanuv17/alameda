@@ -1,17 +1,16 @@
 package operator
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"time"
 
 	"github.com/golang/glog"
 	osconfigv1 "github.com/openshift/api/config/v1"
-	osoperatorv1 "github.com/openshift/api/operator/v1"
 	osclientset "github.com/openshift/client-go/config/clientset/versioned"
 	configinformersv1 "github.com/openshift/client-go/config/informers/externalversions/config/v1"
 	configlistersv1 "github.com/openshift/client-go/config/listers/config/v1"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/apimachinery/pkg/util/wait"
@@ -51,17 +50,12 @@ type Operator struct {
 	deployLister       appslisterv1.DeploymentLister
 	deployListerSynced cache.InformerSynced
 
-	daemonsetLister       appslisterv1.DaemonSetLister
-	daemonsetListerSynced cache.InformerSynced
-
 	featureGateLister      configlistersv1.FeatureGateLister
 	featureGateCacheSynced cache.InformerSynced
 
 	// queue only ever has one item, but it has nice error handling backoff/retry semantics
 	queue           workqueue.RateLimitingInterface
 	operandVersions []osconfigv1.OperandVersion
-
-	generations []osoperatorv1.GenerationStatus
 }
 
 // New returns a new machine config operator.
@@ -72,7 +66,6 @@ func New(
 	config string,
 
 	deployInformer appsinformersv1.DeploymentInformer,
-	daemonsetInformer appsinformersv1.DaemonSetInformer,
 	featureGateInformer configinformersv1.FeatureGateInformer,
 
 	kubeClient kubernetes.Interface,
@@ -109,9 +102,6 @@ func New(
 	optr.deployLister = deployInformer.Lister()
 	optr.deployListerSynced = deployInformer.Informer().HasSynced
 
-	optr.daemonsetLister = daemonsetInformer.Lister()
-	optr.daemonsetListerSynced = daemonsetInformer.Informer().HasSynced
-
 	optr.featureGateLister = featureGateInformer.Lister()
 	optr.featureGateCacheSynced = featureGateInformer.Informer().HasSynced
 
@@ -128,7 +118,6 @@ func (optr *Operator) Run(workers int, stopCh <-chan struct{}) {
 
 	if !cache.WaitForCacheSync(stopCh,
 		optr.deployListerSynced,
-		optr.daemonsetListerSynced,
 		optr.featureGateCacheSynced) {
 		glog.Error("Failed to sync caches")
 		return
@@ -261,7 +250,7 @@ func (optr *Operator) sync(key string) error {
 }
 
 func (optr *Operator) maoConfigFromInfrastructure() (*OperatorConfig, error) {
-	infra, err := optr.osClient.ConfigV1().Infrastructures().Get(context.Background(), "cluster", metav1.GetOptions{})
+	infra, err := optr.osClient.ConfigV1().Infrastructures().Get("cluster", metav1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -281,11 +270,6 @@ func (optr *Operator) maoConfigFromInfrastructure() (*OperatorConfig, error) {
 		return nil, err
 	}
 
-	terminationHandlerImage, err := getTerminationHandlerFromImages(provider, *images)
-	if err != nil {
-		return nil, err
-	}
-
 	usingBareMetal := provider == osconfigv1.BareMetalPlatformType
 	baremetalControllers := newBaremetalControllers(*images, usingBareMetal)
 
@@ -298,10 +282,8 @@ func (optr *Operator) maoConfigFromInfrastructure() (*OperatorConfig, error) {
 		TargetNamespace: optr.namespace,
 		Controllers: Controllers{
 			Provider:           providerControllerImage,
-			MachineSet:         machineAPIOperatorImage,
 			NodeLink:           machineAPIOperatorImage,
 			MachineHealthCheck: machineAPIOperatorImage,
-			TerminationHandler: terminationHandlerImage,
 		},
 		BaremetalControllers: baremetalControllers,
 	}, nil

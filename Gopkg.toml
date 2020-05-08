@@ -57,7 +57,7 @@ version="v1.4.7"
 
 [[override]]
   name = "github.com/openshift/client-go"
-  revision = "92a2713fa240ea8a375a982d60b43ef5119f85ba"
+  branch = "release-4.4"
 
 [[override]]
   name = "github.com/grpc-ecosystem/go-grpc-middleware"
@@ -70,3 +70,7 @@ version="v1.4.7"
 [[constraint]]
   name = "github.com/containers-ai/api"
   branch = "master"
+
+[[constraint]]
+  branch = "release-4.4"
+  name = "github.com/openshift/machine-api-operator"

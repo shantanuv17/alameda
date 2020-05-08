@@ -31,7 +31,6 @@ spec:
     - mhcs
     singular: machinehealthcheck
   scope: Namespaced
-  preserveUnknownFields: false
   subresources:
     status: {}
   validation:
@@ -55,18 +54,12 @@ spec:
           properties:
             maxUnhealthy:
               anyOf:
-              - type: integer
               - type: string
+              - type: integer
               description: Any farther remediation is only allowed if at most "MaxUnhealthy"
                 machines selected by "selector" are not healthy.
-              x-kubernetes-int-or-string: true
-            nodeStartupTimeout:
-              description: Machines older than this duration without a node will be
-                considered to have failed and will be remediated.
-              type: string
             selector:
-              description: 'Label selector to match machines whose health will be
-                exercised. Note: An empty selector will match all machines.'
+              description: Label selector to match machines whose health will be exercised
               properties:
                 matchExpressions:
                   description: matchExpressions is a list of label selector requirements.

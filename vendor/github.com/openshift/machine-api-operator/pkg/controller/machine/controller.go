@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"time"
 
+	commonerrors "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	machinev1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	"github.com/openshift/machine-api-operator/pkg/util"
 	corev1 "k8s.io/api/core/v1"
@@ -58,9 +59,6 @@ const (
 
 	// MachineInstanceTypeLabelName as annotation name for a machine instance type
 	MachineInstanceTypeLabelName = "machine.openshift.io/instance-type"
-
-	// MachineInterruptibleInstanceLabelName as annotaiton name for interruptible instances
-	MachineInterruptibleInstanceLabelName = "machine.openshift.io/interruptible-instance"
 
 	// https://github.com/openshift/enhancements/blob/master/enhancements/machine-instance-lifecycle.md
 	// This is not a transient error, but
@@ -327,7 +325,7 @@ func (r *ReconcileMachine) drainNode(machine *machinev1.Machine) error {
 	if err != nil {
 		return fmt.Errorf("unable to build kube client: %v", err)
 	}
-	node, err := kubeClient.CoreV1().Nodes().Get(context.Background(), machine.Status.NodeRef.Name, metav1.GetOptions{})
+	node, err := kubeClient.CoreV1().Nodes().Get(machine.Status.NodeRef.Name, metav1.GetOptions{})
 	if err != nil {
 		if apierrors.IsNotFound(err) {
 			// If an admin deletes the node directly, we'll end up here.
@@ -356,6 +354,7 @@ func (r *ReconcileMachine) drainNode(machine *machinev1.Machine) error {
 		},
 		Out:    writer{klog.Info},
 		ErrOut: writer{klog.Error},
+		DryRun: false,
 	}
 
 	if nodeIsUnreachable(node) {
@@ -407,7 +406,7 @@ func delayIfRequeueAfterError(err error) (reconcile.Result, error) {
 func isInvalidMachineConfigurationError(err error) bool {
 	switch t := err.(type) {
 	case *MachineError:
-		if t.Reason == machinev1.InvalidConfigurationMachineError {
+		if t.Reason == commonerrors.InvalidConfigurationMachineError {
 			klog.Infof("Actuator returned invalid configuration error: %v", err)
 			return true
 		}
@@ -443,7 +442,10 @@ func machineHasNode(machine *machinev1.Machine) bool {
 }
 
 func machineIsFailed(machine *machinev1.Machine) bool {
-	return stringPointerDeref(machine.Status.Phase) == phaseFailed
+	if stringPointerDeref(machine.Status.Phase) == phaseFailed {
+		return true
+	}
+	return false
 }
 
 func nodeIsUnreachable(node *corev1.Node) bool {

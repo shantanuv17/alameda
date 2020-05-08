@@ -19,7 +19,6 @@
 package v1beta1
 
 import (
-	"context"
 	"time"
 
 	v1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
@@ -38,15 +37,15 @@ type MachineSetsGetter interface {
 
 // MachineSetInterface has methods to work with MachineSet resources.
 type MachineSetInterface interface {
-	Create(ctx context.Context, machineSet *v1beta1.MachineSet, opts v1.CreateOptions) (*v1beta1.MachineSet, error)
-	Update(ctx context.Context, machineSet *v1beta1.MachineSet, opts v1.UpdateOptions) (*v1beta1.MachineSet, error)
-	UpdateStatus(ctx context.Context, machineSet *v1beta1.MachineSet, opts v1.UpdateOptions) (*v1beta1.MachineSet, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.MachineSet, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.MachineSetList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.MachineSet, err error)
+	Create(*v1beta1.MachineSet) (*v1beta1.MachineSet, error)
+	Update(*v1beta1.MachineSet) (*v1beta1.MachineSet, error)
+	UpdateStatus(*v1beta1.MachineSet) (*v1beta1.MachineSet, error)
+	Delete(name string, options *v1.DeleteOptions) error
+	DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error
+	Get(name string, options v1.GetOptions) (*v1beta1.MachineSet, error)
+	List(opts v1.ListOptions) (*v1beta1.MachineSetList, error)
+	Watch(opts v1.ListOptions) (watch.Interface, error)
+	Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1beta1.MachineSet, err error)
 	MachineSetExpansion
 }
 
@@ -65,20 +64,20 @@ func newMachineSets(c *MachineV1beta1Client, namespace string) *machineSets {
 }
 
 // Get takes name of the machineSet, and returns the corresponding machineSet object, and an error if there is any.
-func (c *machineSets) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1beta1.MachineSet, err error) {
+func (c *machineSets) Get(name string, options v1.GetOptions) (result *v1beta1.MachineSet, err error) {
 	result = &v1beta1.MachineSet{}
 	err = c.client.Get().
 		Namespace(c.ns).
 		Resource("machinesets").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // List takes label and field selectors, and returns the list of MachineSets that match those selectors.
-func (c *machineSets) List(ctx context.Context, opts v1.ListOptions) (result *v1beta1.MachineSetList, err error) {
+func (c *machineSets) List(opts v1.ListOptions) (result *v1beta1.MachineSetList, err error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -89,13 +88,13 @@ func (c *machineSets) List(ctx context.Context, opts v1.ListOptions) (result *v1
 		Resource("machinesets").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Watch returns a watch.Interface that watches the requested machineSets.
-func (c *machineSets) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
+func (c *machineSets) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -106,90 +105,87 @@ func (c *machineSets) Watch(ctx context.Context, opts v1.ListOptions) (watch.Int
 		Resource("machinesets").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch(ctx)
+		Watch()
 }
 
 // Create takes the representation of a machineSet and creates it.  Returns the server's representation of the machineSet, and an error, if there is any.
-func (c *machineSets) Create(ctx context.Context, machineSet *v1beta1.MachineSet, opts v1.CreateOptions) (result *v1beta1.MachineSet, err error) {
+func (c *machineSets) Create(machineSet *v1beta1.MachineSet) (result *v1beta1.MachineSet, err error) {
 	result = &v1beta1.MachineSet{}
 	err = c.client.Post().
 		Namespace(c.ns).
 		Resource("machinesets").
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(machineSet).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Update takes the representation of a machineSet and updates it. Returns the server's representation of the machineSet, and an error, if there is any.
-func (c *machineSets) Update(ctx context.Context, machineSet *v1beta1.MachineSet, opts v1.UpdateOptions) (result *v1beta1.MachineSet, err error) {
+func (c *machineSets) Update(machineSet *v1beta1.MachineSet) (result *v1beta1.MachineSet, err error) {
 	result = &v1beta1.MachineSet{}
 	err = c.client.Put().
 		Namespace(c.ns).
 		Resource("machinesets").
 		Name(machineSet.Name).
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(machineSet).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *machineSets) UpdateStatus(ctx context.Context, machineSet *v1beta1.MachineSet, opts v1.UpdateOptions) (result *v1beta1.MachineSet, err error) {
+
+func (c *machineSets) UpdateStatus(machineSet *v1beta1.MachineSet) (result *v1beta1.MachineSet, err error) {
 	result = &v1beta1.MachineSet{}
 	err = c.client.Put().
 		Namespace(c.ns).
 		Resource("machinesets").
 		Name(machineSet.Name).
 		SubResource("status").
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(machineSet).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Delete takes name of the machineSet and deletes it. Returns an error if one occurs.
-func (c *machineSets) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
+func (c *machineSets) Delete(name string, options *v1.DeleteOptions) error {
 	return c.client.Delete().
 		Namespace(c.ns).
 		Resource("machinesets").
 		Name(name).
-		Body(&opts).
-		Do(ctx).
+		Body(options).
+		Do().
 		Error()
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *machineSets) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+func (c *machineSets) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
 	var timeout time.Duration
-	if listOpts.TimeoutSeconds != nil {
-		timeout = time.Duration(*listOpts.TimeoutSeconds) * time.Second
+	if listOptions.TimeoutSeconds != nil {
+		timeout = time.Duration(*listOptions.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
 		Namespace(c.ns).
 		Resource("machinesets").
-		VersionedParams(&listOpts, scheme.ParameterCodec).
+		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
-		Body(&opts).
-		Do(ctx).
+		Body(options).
+		Do().
 		Error()
 }
 
 // Patch applies the patch and returns the patched machineSet.
-func (c *machineSets) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.MachineSet, err error) {
+func (c *machineSets) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1beta1.MachineSet, err error) {
 	result = &v1beta1.MachineSet{}
 	err = c.client.Patch(pt).
 		Namespace(c.ns).
 		Resource("machinesets").
-		Name(name).
 		SubResource(subresources...).
-		VersionedParams(&opts, scheme.ParameterCodec).
+		Name(name).
 		Body(data).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }

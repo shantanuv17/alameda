@@ -10,6 +10,7 @@ type MachineSet struct {
 	ClusterName           string `datahubcolumntype:"tag" datahubcolumn:"cluster_name" datahubdatatype:"DATATYPE_STRING"`
 	MachineGroupName      string `datahubcolumntype:"tag" datahubcolumn:"machinegroup_name" datahubdatatype:"DATATYPE_STRING"`
 	MachineGroupNamespace string `datahubcolumntype:"tag" datahubcolumn:"machinegroup_namespace" datahubdatatype:"DATATYPE_STRING"`
+	EnableExecution       bool   `datahubcolumntype:"field" datahubcolumn:"enable_execution" datahubdatatype:"DATATYPE_BOOL"`
 	ReadyReplicas         int32  `datahubcolumntype:"field" datahubcolumn:"resource_k8s_replicas" datahubdatatype:"DATATYPE_INT32"`
 	SpecReplicas          int32  `datahubcolumntype:"field" datahubcolumn:"resource_k8s_spec_replicas" datahubdatatype:"DATATYPE_INT32"`
 	MinReplicas           int32  `datahubcolumntype:"field" datahubcolumn:"resource_k8s_min_replicas" datahubdatatype:"DATATYPE_INT32"`
@@ -23,6 +24,7 @@ func NewMachineSet(machineSet machineset.MachineSet) MachineSet {
 		ClusterName:           machineSet.ClusterName,
 		MachineGroupName:      machineSet.MachineGroupName,
 		MachineGroupNamespace: machineSet.MachineGroupNamespace,
+		EnableExecution:       machineSet.EnableExecution,
 		ReadyReplicas:         machineSet.ReadyReplicas,
 		SpecReplicas:          machineSet.SpecReplicas,
 		MinReplicas:           machineSet.MinReplicas,

@@ -2,11 +2,7 @@ package machinehealthcheck
 
 import (
 	"context"
-	"errors"
 	"fmt"
-	"math"
-	"strconv"
-	"strings"
 	"time"
 
 	"k8s.io/apimachinery/pkg/util/intstr"
@@ -33,13 +29,14 @@ import (
 const (
 	machineAnnotationKey          = "machine.openshift.io/machine"
 	machineExternalAnnotationKey  = "host.metal3.io/external-remediation"
+	ownerControllerKind           = "MachineSet"
 	nodeMasterLabel               = "node-role.kubernetes.io/master"
 	machineRoleLabel              = "machine.openshift.io/cluster-api-machine-role"
 	machineMasterRole             = "master"
 	machinePhaseFailed            = "Failed"
 	remediationStrategyAnnotation = "machine.openshift.io/remediation-strategy"
 	remediationStrategyExternal   = mapiv1.RemediationStrategyType("external-baremetal")
-	defaultNodeStartupTimeout     = 10 * time.Minute
+	timeoutForMachineToHaveNode   = 10 * time.Minute
 	machineNodeNameIndex          = "machineNodeNameIndex"
 	controllerName                = "machinehealthcheck-controller"
 
@@ -169,14 +166,8 @@ func (r *ReconcileMachineHealthCheck) Reconcile(request reconcile.Request) (reco
 	}
 	totalTargets := len(targets)
 
-	nodeStartupTimeout, err := getNodeStartupTimeout(mhc)
-	if err != nil {
-		glog.Errorf("Reconciling %s: error getting NodeStartupTimeout: %v", request.String(), err)
-		return reconcile.Result{}, err
-	}
-
 	// health check all targets and reconcile mhc status
-	currentHealthy, needRemediationTargets, nextCheckTimes, errList := r.healthCheckTargets(targets, nodeStartupTimeout)
+	currentHealthy, needRemediationTargets, nextCheckTimes, errList := r.healthCheckTargets(targets)
 	if err := r.reconcileStatus(mhc, totalTargets, currentHealthy); err != nil {
 		glog.Errorf("Reconciling %s: error patching status: %v", request.String(), err)
 		return reconcile.Result{}, err
@@ -237,7 +228,7 @@ func isAllowedRemediation(mhc *mapiv1.MachineHealthCheck) bool {
 	if mhc.Spec.MaxUnhealthy == nil {
 		return true
 	}
-	maxUnhealthy, err := getValueFromIntOrPercent(mhc.Spec.MaxUnhealthy, derefInt(mhc.Status.ExpectedMachines), false)
+	maxUnhealthy, err := intstr.GetValueFromIntOrPercent(mhc.Spec.MaxUnhealthy, derefInt(mhc.Status.ExpectedMachines), false)
 	if err != nil {
 		glog.Errorf("%s: error decoding maxUnhealthy, remediation won't be allowed: %v", namespacedName(mhc), err)
 		return false
@@ -268,14 +259,14 @@ func (r *ReconcileMachineHealthCheck) reconcileStatus(mhc *mapiv1.MachineHealthC
 
 // healthCheckTargets health checks a slice of targets
 // and gives a data to measure the average health
-func (r *ReconcileMachineHealthCheck) healthCheckTargets(targets []target, timeoutForMachineToHaveNode time.Duration) (int, []target, []time.Duration, []error) {
+func (r *ReconcileMachineHealthCheck) healthCheckTargets(targets []target) (int, []target, []time.Duration, []error) {
 	var nextCheckTimes []time.Duration
 	var errList []error
 	var needRemediationTargets []target
 	var currentHealthy int
 	for _, t := range targets {
 		glog.V(3).Infof("Reconciling %s: health checking", t.string())
-		needsRemediation, nextCheck, err := t.needsRemediation(timeoutForMachineToHaveNode)
+		needsRemediation, nextCheck, err := t.needsRemediation()
 		if err != nil {
 			glog.Errorf("Reconciling %s: error health checking: %v", t.string(), err)
 			errList = append(errList, err)
@@ -435,8 +426,8 @@ func (r *ReconcileMachineHealthCheck) mhcRequestsFromMachine(o handler.MapObject
 
 func (t *target) remediate(r *ReconcileMachineHealthCheck) error {
 	glog.Infof(" %s: start remediation logic", t.string())
-	if !t.hasControllerOwner() {
-		glog.Infof("%s: no controller owner, skipping remediation", t.string())
+	if !t.hasMachineSetOwner() {
+		glog.Infof("%s: no machineSet controller owner, skipping remediation", t.string())
 		return nil
 	}
 
@@ -445,6 +436,17 @@ func (t *target) remediate(r *ReconcileMachineHealthCheck) error {
 		if mapiv1.RemediationStrategyType(remediationStrategy) == remediationStrategyExternal {
 			return t.remediationStrategyExternal(r)
 		}
+	}
+	if t.isMaster() {
+		r.recorder.Eventf(
+			&t.Machine,
+			corev1.EventTypeNormal,
+			EventSkippedMaster,
+			"Machine %v is a master node, skipping remediation",
+			t.string(),
+		)
+		glog.Infof("%s: master node, skipping remediation", t.string())
+		return nil
 	}
 
 	glog.Infof("%s: deleting", t.string())
@@ -532,7 +534,22 @@ func (t *target) nodeName() string {
 	return ""
 }
 
-func (t *target) needsRemediation(timeoutForMachineToHaveNode time.Duration) (bool, time.Duration, error) {
+func (t *target) isMaster() bool {
+	if t.Node != nil {
+		if labels.Set(t.Node.Labels).Has(nodeMasterLabel) {
+			return true
+		}
+	}
+
+	// if the node is not found we fallback to check the machine
+	if labels.Set(t.Machine.Labels).Get(machineRoleLabel) == machineMasterRole {
+		return true
+	}
+
+	return false
+}
+
+func (t *target) needsRemediation() (bool, time.Duration, error) {
 	var nextCheckTimes []time.Duration
 	now := time.Now()
 
@@ -594,8 +611,14 @@ func (t *target) needsRemediation(timeoutForMachineToHaveNode time.Duration) (bo
 	return false, minDuration(nextCheckTimes), nil
 }
 
-func (t *target) hasControllerOwner() bool {
-	return metav1.GetControllerOf(&t.Machine) != nil
+func (t *target) hasMachineSetOwner() bool {
+	ownerRefs := t.Machine.ObjectMeta.GetOwnerReferences()
+	for _, or := range ownerRefs {
+		if or.Kind == ownerControllerKind {
+			return true
+		}
+	}
+	return false
 }
 
 func derefStringPointer(stringPointer *string) string {
@@ -603,6 +626,13 @@ func derefStringPointer(stringPointer *string) string {
 		return *stringPointer
 	}
 	return ""
+}
+
+func derefStringInt(intPointer *int) int {
+	if intPointer != nil {
+		return 0
+	}
+	return *intPointer
 }
 
 func minDuration(durations []time.Duration) time.Duration {
@@ -632,75 +662,14 @@ func hasMatchingLabels(machineHealthCheck *mapiv1.MachineHealthCheck, machine *m
 		glog.Warningf("unable to convert selector: %v", err)
 		return false
 	}
-	// If the selector is empty, all machines are considered to match
+	// If a deployment with a nil or empty selector creeps in, it should match nothing, not everything.
 	if selector.Empty() {
-		return true
+		glog.V(3).Infof("%q machineHealthCheck has empty selector", machineHealthCheck.GetName())
+		return false
 	}
 	if !selector.Matches(labels.Set(machine.Labels)) {
 		glog.V(4).Infof("%q machine has mismatched labels for MHC %q", machine.GetName(), machineHealthCheck.GetName())
 		return false
 	}
 	return true
-}
-
-func getNodeStartupTimeout(mhc *mapiv1.MachineHealthCheck) (time.Duration, error) {
-	if mhc.Spec.NodeStartupTimeout == "" {
-		return defaultNodeStartupTimeout, nil
-	}
-
-	timeout, err := time.ParseDuration(mhc.Spec.NodeStartupTimeout)
-	if err != nil {
-		return time.Duration(0), fmt.Errorf("error parsing NodeStartupTimeout: %v", err)
-	}
-	return timeout, nil
-}
-
-// getValueFromIntOrPercent returns the integer number value based on the
-// percentage of the total or absolute number dependent on the IntOrString given
-//
-// The following code is copied from https://github.com/kubernetes/apimachinery/blob/1a505bc60c6dfb15cb18a8cdbfa01db042156fe2/pkg/util/intstr/intstr.go#L154-L185
-// But fixed so that string values aren't always assumed to be percentages
-// See https://github.com/kubernetes/kubernetes/issues/89082 for details
-func getValueFromIntOrPercent(intOrPercent *intstr.IntOrString, total int, roundUp bool) (int, error) {
-	if intOrPercent == nil {
-		return 0, errors.New("nil value for IntOrString")
-	}
-	value, isPercent, err := getIntOrPercentValue(intOrPercent)
-	if err != nil {
-		return 0, fmt.Errorf("invalid value for IntOrString: %v", err)
-	}
-	if isPercent {
-		if roundUp {
-			value = int(math.Ceil(float64(value) * (float64(total)) / 100))
-		} else {
-			value = int(math.Floor(float64(value) * (float64(total)) / 100))
-		}
-	}
-	return value, nil
-}
-
-// getIntOrPercentValue returns the integer value of the IntOrString and
-// determines if this value is a percentage or absolute number
-//
-// The following code is copied from https://github.com/kubernetes/apimachinery/blob/1a505bc60c6dfb15cb18a8cdbfa01db042156fe2/pkg/util/intstr/intstr.go#L154-L185
-// But fixed so that string values aren't always assumed to be percentages
-// See https://github.com/kubernetes/kubernetes/issues/89082 for details
-func getIntOrPercentValue(intOrStr *intstr.IntOrString) (int, bool, error) {
-	switch intOrStr.Type {
-	case intstr.Int:
-		return intOrStr.IntValue(), false, nil
-	case intstr.String:
-		isPercent := false
-		s := intOrStr.StrVal
-		if strings.Contains(s, "%") {
-			isPercent = true
-			s = strings.Replace(intOrStr.StrVal, "%", "", -1)
-		}
-		v, err := strconv.Atoi(s)
-		if err != nil {
-			return 0, isPercent, fmt.Errorf("invalid value %q: %v", intOrStr.StrVal, err)
-		}
-		return int(v), isPercent, nil
-	}
-	return 0, false, fmt.Errorf("invalid type: neither int nor percentage")
 }

@@ -39,6 +39,12 @@
                     "data_types": 14
                 },
                 {
+                    "name": "enable_execution",
+                    "required": false,
+                    "column_types": 2,
+                    "data_types": 1
+                },
+                {
                     "name": "resource_k8s_spec_replicas",
                     "required": true,
                     "column_types": 2,

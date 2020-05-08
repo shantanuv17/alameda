@@ -23,14 +23,14 @@ Ensure presence of expected number of replicas and a given provider config for a
 - Machine Controller
 
   - [cluster-api-provider-aws](https://github.com/openshift/cluster-api-provider-aws)
-
+  
   - [cluster-api-provider-gcp](https://github.com/openshift/cluster-api-provider-gcp)
 
   - [cluster-api-provider-azure](https://github.com/openshift/cluster-api-provider-azure)
-
+  
   - [cluster-api-provider-libvirt](https://github.com/openshift/cluster-api-provider-libvirt)
 
-  - [cluster-api-provider-openstack](https://github.com/openshift/cluster-api-provider-openstack)
+  - [cluster-api-provider-openstack](https://github.com/kubernetes-sigs/cluster-api-provider-openstack)
 
   - [cluster-api-provider-baremetal](https://github.com/metal3-io/cluster-api-provider-baremetal)
 
@@ -96,7 +96,7 @@ However you can run it in a vanilla Kubernetes cluster by precreating some asset
 - Create a [CRD Machine definition](install/0000_30_machine-api-operator_02_machine.crd.yaml)
 - Create a [CRD MachineSet definition](install/0000_30_machine-api-operator_03_machineset.crd.yaml)
 - Create a [Installer config](config/kubemark-config-infra.yaml)
-- Then you can run it as a [deployment](install/0000_30_machine-api-operator_11_deployment.yaml)
+- Then you can run it as a [deployment](install/0000_30_machine-api-operator_09_deployment.yaml)
 - You should then be able to deploy a [machineSet](config/machineset.yaml) object
 
 ## Machine API operator with Kubemark over Kubernetes
@@ -172,7 +172,7 @@ More information about those files can be found in [ci-operator onboarding file]
 [1]: https://github.com/openshift/machine-api-operator
 [2]: https://github.com/openshift/release
 [3]: https://github.com/openshift/release/blob/master/cluster/ci/config/prow/plugins.yaml
-[4]: https://github.com/openshift/release/blob/master/ci-operator/config/openshift/machine-api-operator/openshift-machine-api-operator-master.yaml
+[4]: https://github.com/openshift/release/blob/master/ci-operator/config/openshift/machine-api-operator/master.yaml
 [5]: https://github.com/openshift/release/blob/master/ci-operator/jobs/openshift/machine-api-operator/openshift-machine-api-operator-master-presubmits.yaml
 [6]: https://github.com/openshift/release/blob/master/ci-operator/jobs/openshift/machine-api-operator/openshift-machine-api-operator-master-postsubmits.yaml
 [7]: https://github.com/openshift/ci-operator/blob/master/ONBOARD.md

@@ -13,9 +13,9 @@ import (
 	"github.com/openshift/machine-api-operator/pkg/metrics"
 	"github.com/openshift/machine-api-operator/pkg/operator"
 	"github.com/openshift/machine-api-operator/pkg/version"
-	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/cobra"
+
+	"github.com/prometheus/client_golang/prometheus"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/kubernetes"
@@ -121,7 +121,6 @@ func startControllers(ctx *ControllerContext) {
 		startOpts.imagesFile,
 		config,
 		ctx.KubeNamespacedInformerFactory.Apps().V1().Deployments(),
-		ctx.KubeNamespacedInformerFactory.Apps().V1().DaemonSets(),
 		ctx.ConfigInformerFactory.Config().V1().FeatureGates(),
 		ctx.ClientBuilder.KubeClientOrDie(componentName),
 		ctx.ClientBuilder.OpenshiftClientOrDie(componentName),
@@ -152,7 +151,8 @@ func startMetricsCollectionAndServer(ctx *ControllerContext) {
 
 func startHTTPMetricServer(metricsPort string) {
 	mux := http.NewServeMux()
-	mux.Handle("/metrics", promhttp.Handler())
+	//TODO(vikasc): Use promhttp package for handler. This is Deprecated
+	mux.Handle("/metrics", prometheus.Handler())
 
 	server := &http.Server{
 		Addr:    metricsPort,

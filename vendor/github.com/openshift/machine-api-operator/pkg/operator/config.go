@@ -27,10 +27,8 @@ type OperatorConfig struct {
 
 type Controllers struct {
 	Provider           string
-	MachineSet         string
 	NodeLink           string
 	MachineHealthCheck string
-	TerminationHandler string
 }
 
 type BaremetalControllers struct {
@@ -52,7 +50,6 @@ type Images struct {
 	ClusterAPIControllerAzure     string `json:"clusterAPIControllerAzure"`
 	ClusterAPIControllerGCP       string `json:"clusterAPIControllerGCP"`
 	ClusterAPIControllerOvirt     string `json:"clusterAPIControllerOvirt"`
-	ClusterAPIControllerVSphere   string `json:"clusterAPIControllerVSphere"`
 	// Images required for the metal3 pod
 	BaremetalOperator            string `json:"baremetalOperator"`
 	BaremetalIronic              string `json:"baremetalIronic"`
@@ -98,22 +95,8 @@ func getProviderControllerFromImages(platform configv1.PlatformType, images Imag
 		return images.ClusterAPIControllerBareMetal, nil
 	case configv1.OvirtPlatformType:
 		return images.ClusterAPIControllerOvirt, nil
-	case configv1.VSpherePlatformType:
-		return images.ClusterAPIControllerVSphere, nil
 	case kubemarkPlatform:
 		return clusterAPIControllerKubemark, nil
-	default:
-		return clusterAPIControllerNoOp, nil
-	}
-}
-
-// getTerminationHandlerFromImages returns the image to use for the Termination Handler DaemonSet
-// based on the platform provided.
-// Defaults to NoOp if not supported by the platform.
-func getTerminationHandlerFromImages(platform configv1.PlatformType, images Images) (string, error) {
-	switch platform {
-	case configv1.AWSPlatformType:
-		return images.ClusterAPIControllerAWS, nil
 	default:
 		return clusterAPIControllerNoOp, nil
 	}

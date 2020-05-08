@@ -8,9 +8,8 @@ import (
 
 	"github.com/google/uuid"
 	machinev1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
-	vspherev1 "github.com/openshift/machine-api-operator/pkg/apis/vsphereprovider/v1alpha1"
+	vsphereapi "github.com/openshift/machine-api-operator/pkg/apis/vsphereprovider/v1alpha1"
 	machinecontroller "github.com/openshift/machine-api-operator/pkg/controller/machine"
-	"github.com/openshift/machine-api-operator/pkg/controller/vsphere/session"
 	"github.com/pkg/errors"
 	"github.com/vmware/govmomi/object"
 	"github.com/vmware/govmomi/property"
@@ -24,14 +23,13 @@ import (
 )
 
 const (
-	minMemMB              = 2048
-	minCPU                = 2
-	fullCloneDiskMoveType = string(types.VirtualMachineRelocateDiskMoveOptionsMoveAllDiskBackingsAndConsolidate)
-	linkCloneDiskMoveType = string(types.VirtualMachineRelocateDiskMoveOptionsCreateNewChildDiskBacking)
-	ethCardType           = "vmxnet3"
-	providerIDPrefix      = "vsphere://"
-	regionKey             = "region"
-	zoneKey               = "zone"
+	minMemMB         = 2048
+	minCPU           = 2
+	diskMoveType     = string(types.VirtualMachineRelocateDiskMoveOptionsMoveAllDiskBackingsAndConsolidate)
+	ethCardType      = "vmxnet3"
+	providerIDPrefix = "vsphere://"
+	regionKey        = "region"
+	zoneKey          = "zone"
 )
 
 // These are the guestinfo variables used by Ignition.
@@ -39,7 +37,6 @@ const (
 const (
 	GuestInfoIgnitionData     = "guestinfo.ignition.config.data"
 	GuestInfoIgnitionEncoding = "guestinfo.ignition.config.data.encoding"
-	GuestInfoHostname         = "guestinfo.hostname"
 )
 
 // Reconciler runs the logic to reconciles a machine resource towards its desired state
@@ -55,7 +52,7 @@ func newReconciler(scope *machineScope) *Reconciler {
 
 // create creates machine if it does not exists.
 func (r *Reconciler) create() error {
-	if err := validateMachine(*r.machine); err != nil {
+	if err := validateMachine(*r.machine, *r.providerSpec); err != nil {
 		return fmt.Errorf("%v: failed validating machine provider spec: %v", r.machine.GetName(), err)
 	}
 
@@ -73,23 +70,12 @@ func (r *Reconciler) create() error {
 	}
 
 	if _, err := findVM(r.machineScope); err != nil {
-		if !isNotFound(err) {
+		if !IsNotFound(err) {
 			return err
 		}
 		if r.machineScope.session.IsVC() {
 			klog.Infof("%v: cloning", r.machine.GetName())
-			task, err := clone(r.machineScope)
-			if err != nil {
-				conditionFailed := conditionFailed()
-				conditionFailed.Message = err.Error()
-				statusError := setProviderStatus(task, conditionFailed, r.machineScope, nil)
-				if statusError != nil {
-					return errors.Wrap(err, "Failed to set provider status")
-				}
-				return err
-			}
-
-			return setProviderStatus(task, conditionSuccess(), r.machineScope, nil)
+			return clone(r.machineScope)
 		}
 		return fmt.Errorf("%v: not connected to a vCenter", r.machine.GetName())
 	}
@@ -99,7 +85,7 @@ func (r *Reconciler) create() error {
 
 // update finds a vm and reconciles the machine resource status against it.
 func (r *Reconciler) update() error {
-	if err := validateMachine(*r.machine); err != nil {
+	if err := validateMachine(*r.machine, *r.providerSpec); err != nil {
 		return fmt.Errorf("%v: failed validating machine provider spec: %v", r.machine.GetName(), err)
 	}
 
@@ -118,7 +104,7 @@ func (r *Reconciler) update() error {
 
 	vmRef, err := findVM(r.machineScope)
 	if err != nil {
-		if !isNotFound(err) {
+		if !IsNotFound(err) {
 			return err
 		}
 		return errors.Wrap(err, "vm not found on update")
@@ -130,28 +116,22 @@ func (r *Reconciler) update() error {
 		Ref:     vmRef,
 	}
 
-	if err := vm.reconcileTags(r.Context, r.session, r.machine); err != nil {
-		return errors.Wrapf(err, "failed to reconcile tags")
-	}
-
 	// TODO: we won't always want to reconcile power state
 	//  but as per comment in clone() function, powering on right on creation might be problematic
-	ok, task, err := vm.reconcilePowerState()
-	if err != nil || !ok {
+	if ok, err := vm.reconcilePowerState(); err != nil || !ok {
 		return err
 	}
-
-	return r.reconcileMachineWithCloudState(vm, task)
+	return r.reconcileMachineWithCloudState(vm)
 }
 
 // exists returns true if machine exists.
 func (r *Reconciler) exists() (bool, error) {
-	if err := validateMachine(*r.machine); err != nil {
+	if err := validateMachine(*r.machine, *r.providerSpec); err != nil {
 		return false, fmt.Errorf("%v: failed validating machine provider spec: %v", r.machine.GetName(), err)
 	}
 
 	if _, err := findVM(r.machineScope); err != nil {
-		if !isNotFound(err) {
+		if !IsNotFound(err) {
 			return false, err
 		}
 		klog.Infof("%v: does not exist", r.machine.GetName())
@@ -177,7 +157,7 @@ func (r *Reconciler) delete() error {
 
 	vmRef, err := findVM(r.machineScope)
 	if err != nil {
-		if !isNotFound(err) {
+		if !IsNotFound(err) {
 			return err
 		}
 		klog.Infof("%v: vm does not exist", r.machine.GetName())
@@ -198,16 +178,13 @@ func (r *Reconciler) delete() error {
 	if err != nil {
 		return fmt.Errorf("%v: failed to destroy vm: %v", r.machine.GetName(), err)
 	}
-
-	if err := setProviderStatus(task.Reference().Value, conditionSuccess(), r.machineScope, vm); err != nil {
-		return errors.Wrap(err, "Failed to set provider status")
-	}
+	r.providerStatus.TaskRef = task.Reference().Value
 
 	return fmt.Errorf("destroying vm in progress, reconciling")
 }
 
 // reconcileMachineWithCloudState reconcile machineSpec and status with the latest cloud state
-func (r *Reconciler) reconcileMachineWithCloudState(vm *virtualMachine, taskRef string) error {
+func (r *Reconciler) reconcileMachineWithCloudState(vm *virtualMachine) error {
 	klog.V(3).Infof("%v: reconciling machine with cloud state", r.machine.GetName())
 	// TODO: reconcile task
 
@@ -220,13 +197,8 @@ func (r *Reconciler) reconcileMachineWithCloudState(vm *virtualMachine, taskRef 
 	if err := r.reconcileProviderID(vm); err != nil {
 		return err
 	}
-
 	klog.V(3).Infof("%v: reconciling network", r.machine.GetName())
-	if err := r.reconcileNetwork(vm); err != nil {
-		return err
-	}
-
-	return setProviderStatus(taskRef, conditionSuccess(), r.machineScope, vm)
+	return r.reconcileNetwork(vm)
 }
 
 // reconcileRegionAndZoneLabels reconciles the labels on the Machine containing
@@ -307,26 +279,12 @@ func (r *Reconciler) reconcileNetwork(vm *virtualMachine) error {
 		}
 	}
 
-	// Using Name() if InventoryPath is empty will return empty name
-	// see: https://github.com/vmware/govmomi/blob/master/object/common.go#L66-L75
-	// Using ObjectName() as it will query from VirtualMachine properties
-
-	vmName, err := vm.Obj.ObjectName(vm.Context)
-	if err != nil {
-		return fmt.Errorf("error getting virtual machine name: %v", err)
-	}
-
-	ipAddrs = append(ipAddrs, corev1.NodeAddress{
-		Type:    corev1.NodeInternalDNS,
-		Address: vmName,
-	})
-
 	klog.V(3).Infof("%v: reconciling network: IP addresses: %v", r.machine.GetName(), ipAddrs)
 	r.machine.Status.Addresses = ipAddrs
 	return nil
 }
 
-func validateMachine(machine machinev1.Machine) error {
+func validateMachine(machine machinev1.Machine, providerSpec vsphereapi.VSphereMachineProviderSpec) error {
 	if machine.Labels[machinev1.MachineClusterIDLabel] == "" {
 		return machinecontroller.InvalidMachineConfiguration("%v: missing %q label", machine.GetName(), machinev1.MachineClusterIDLabel)
 	}
@@ -359,7 +317,7 @@ func (e errNotFound) Error() string {
 	return fmt.Sprintf("vm with bios uuid %s not found", e.uuid)
 }
 
-func isNotFound(err error) bool {
+func IsNotFound(err error) bool {
 	switch err.(type) {
 	case errNotFound, *errNotFound:
 		return true
@@ -372,49 +330,15 @@ func isRetrieveMONotFound(taskRef string, err error) bool {
 	return err.Error() == fmt.Sprintf("ServerFaultCode: The object 'vim.Task:%v' has already been deleted or has not been completely created", taskRef)
 }
 
-func clone(s *machineScope) (string, error) {
+func clone(s *machineScope) error {
 	userData, err := s.GetUserData()
 	if err != nil {
-		return "", err
+		return err
 	}
 
 	vmTemplate, err := s.GetSession().FindVM(*s, s.providerSpec.Template)
 	if err != nil {
-		return "", err
-	}
-
-	var snapshotRef *types.ManagedObjectReference
-
-	// If a linked clone is requested then a MoRef for a snapshot must be
-	// found with which to perform the linked clone.
-	// Empty clone mode is linked clone
-	if s.providerSpec.CloneMode == "" || s.providerSpec.CloneMode == vspherev1.LinkedClone {
-		if s.providerSpec.Snapshot == "" {
-			klog.V(3).Infof("%v: no snapshot name provided, getting snapshot using template", s.machine.GetName())
-			var vm mo.VirtualMachine
-			if err := vmTemplate.Properties(s.Context, vmTemplate.Reference(), []string{"snapshot"}, &vm); err != nil {
-				return "", errors.Wrapf(err, "error getting snapshot information for template %s", vmTemplate.Name())
-			}
-
-			if vm.Snapshot != nil {
-				snapshotRef = vm.Snapshot.CurrentSnapshot
-			}
-		} else {
-			klog.V(3).Infof("%v: searching for snapshot by name %s", s.machine.GetName(), s.providerSpec.Snapshot)
-			var err error
-			snapshotRef, err = vmTemplate.FindSnapshot(s.Context, s.providerSpec.Snapshot)
-			if err != nil {
-				klog.V(3).Infof("%v: failed to find snapshot %s", s.machine.GetName(), s.providerSpec.Snapshot)
-			}
-		}
-	}
-
-	// The type of clone operation depends on whether or not there is a snapshot
-	// from which to do a linked clone.
-	diskMoveType := fullCloneDiskMoveType
-	if snapshotRef != nil {
-		// TODO: write clone mode to status
-		diskMoveType = linkCloneDiskMoveType
+		return err
 	}
 
 	var folderPath, datastorePath, resourcepoolPath string
@@ -426,17 +350,17 @@ func clone(s *machineScope) (string, error) {
 
 	folder, err := s.GetSession().Finder.FolderOrDefault(s, folderPath)
 	if err != nil {
-		return "", errors.Wrapf(err, "unable to get folder for %q", folderPath)
+		return errors.Wrapf(err, "unable to get folder for %q", folderPath)
 	}
 
 	datastore, err := s.GetSession().Finder.DatastoreOrDefault(s, datastorePath)
 	if err != nil {
-		return "", errors.Wrapf(err, "unable to get datastore for %q", datastorePath)
+		return errors.Wrapf(err, "unable to get datastore for %q", datastorePath)
 	}
 
 	resourcepool, err := s.GetSession().Finder.ResourcePoolOrDefault(s, resourcepoolPath)
 	if err != nil {
-		return "", errors.Wrapf(err, "unable to get resource pool for %q", resourcepool)
+		return errors.Wrapf(err, "unable to get resource pool for %q", resourcepool)
 	}
 
 	numCPUs := s.providerSpec.NumCPUs
@@ -454,36 +378,17 @@ func clone(s *machineScope) (string, error) {
 
 	devices, err := vmTemplate.Device(s.Context)
 	if err != nil {
-		return "", fmt.Errorf("error getting devices %v", err)
-	}
-
-	// Create a new list of device specs for cloning the VM.
-	deviceSpecs := []types.BaseVirtualDeviceConfigSpec{}
-
-	// Only non-linked clones may expand the size of the template's disk.
-	if snapshotRef == nil {
-		diskSpec, err := getDiskSpec(s, devices)
-		if err != nil {
-			return "", errors.Wrapf(err, "error getting disk spec for %q", s.providerSpec.Snapshot)
-		}
-		deviceSpecs = append(deviceSpecs, diskSpec)
+		return fmt.Errorf("error getting devices %v", err)
 	}
 
 	klog.V(3).Infof("Getting network devices")
 	networkDevices, err := getNetworkDevices(s, devices)
 	if err != nil {
-		return "", fmt.Errorf("error getting network specs: %v", err)
+		return fmt.Errorf("error getting network specs: %v", err)
 	}
 
+	var deviceSpecs []types.BaseVirtualDeviceConfigSpec
 	deviceSpecs = append(deviceSpecs, networkDevices...)
-
-	extraConfig := []types.BaseOptionValue{}
-
-	extraConfig = append(extraConfig, IgnitionConfig(userData)...)
-	extraConfig = append(extraConfig, &types.OptionValue{
-		Key:   GuestInfoHostname,
-		Value: s.machine.GetName(),
-	})
 
 	spec := types.VirtualMachineCloneSpec{
 		Config: &types.VirtualMachineConfigSpec{
@@ -491,9 +396,10 @@ func clone(s *machineScope) (string, error) {
 			// Assign the clone's InstanceUUID the value of the Kubernetes Machine
 			// object's UID. This allows lookup of the cloned VM prior to knowing
 			// the VM's UUID.
-			InstanceUuid:      string(s.machine.UID),
-			Flags:             newVMFlagInfo(),
-			ExtraConfig:       extraConfig,
+			InstanceUuid: string(s.machine.UID),
+			Flags:        newVMFlagInfo(),
+			ExtraConfig:  IgnitionConfig(userData),
+			// TODO: set disk devices
 			DeviceChange:      deviceSpecs,
 			NumCPUs:           numCPUs,
 			NumCoresPerSocket: numCoresPerSocket,
@@ -501,40 +407,25 @@ func clone(s *machineScope) (string, error) {
 		},
 		Location: types.VirtualMachineRelocateSpec{
 			Datastore:    types.NewReference(datastore.Reference()),
+			DiskMoveType: diskMoveType,
 			Folder:       types.NewReference(folder.Reference()),
 			Pool:         types.NewReference(resourcepool.Reference()),
-			DiskMoveType: diskMoveType,
 		},
 		// This is implicit, but making it explicit as it is important to not
 		// power the VM on before its virtual hardware is created and the MAC
 		// address(es) used to build and inject the VM with cloud-init metadata
 		// are generated.
-		PowerOn:  false,
-		Snapshot: snapshotRef,
+		PowerOn: false,
 	}
 
 	task, err := vmTemplate.Clone(s, folder, s.machine.GetName(), spec)
 	if err != nil {
-		return "", errors.Wrapf(err, "error triggering clone op for machine %v", s)
+		return errors.Wrapf(err, "error triggering clone op for machine %v", s)
 	}
 
+	s.providerStatus.TaskRef = task.Reference().Value
 	klog.V(3).Infof("%v: running task: %+v", s.machine.GetName(), s.providerStatus.TaskRef)
-	return task.Reference().Value, nil
-}
-
-func getDiskSpec(s *machineScope, devices object.VirtualDeviceList) (types.BaseVirtualDeviceConfigSpec, error) {
-	disks := devices.SelectByType((*types.VirtualDisk)(nil))
-	if len(disks) != 1 {
-		return nil, errors.Errorf("invalid disk count: %d", len(disks))
-	}
-
-	disk := disks[0].(*types.VirtualDisk)
-	disk.CapacityInKB = int64(s.providerSpec.DiskGiB) * 1024 * 1024
-
-	return &types.VirtualDeviceConfigSpec{
-		Operation: types.VirtualDeviceConfigSpecOperationEdit,
-		Device:    disk,
-	}, nil
+	return nil
 }
 
 func getNetworkDevices(s *machineScope, devices object.VirtualDeviceList) ([]types.BaseVirtualDeviceConfigSpec, error) {
@@ -614,32 +505,6 @@ func taskIsFinished(task *mo.Task) (bool, error) {
 	}
 }
 
-func setProviderStatus(taskRef string, condition vspherev1.VSphereMachineProviderCondition, scope *machineScope, vm *virtualMachine) error {
-	klog.Infof("%s: Updating provider status", scope.machine.Name)
-
-	if vm != nil {
-		id := vm.Obj.UUID(scope.Context)
-		scope.providerStatus.InstanceID = &id
-
-		// This can return an error if machine is being deleted
-		powerState, err := vm.getPowerState()
-		if err != nil {
-			klog.V(3).Infof("%s: Failed to get power state during provider status update: %v", scope.machine.Name, err)
-		} else {
-			powerStateString := string(powerState)
-			scope.providerStatus.InstanceState = &powerStateString
-		}
-	}
-
-	if taskRef != "" {
-		scope.providerStatus.TaskRef = taskRef
-	}
-
-	scope.providerStatus.Conditions = setVSphereMachineProviderConditions(condition, scope.providerStatus.Conditions)
-
-	return nil
-}
-
 type virtualMachine struct {
 	context.Context
 	Ref types.ManagedObjectReference
@@ -711,27 +576,28 @@ func (vm *virtualMachine) getRegionAndZone(c *rest.Client, regionLabel, zoneLabe
 	return result, nil
 }
 
-func (vm *virtualMachine) reconcilePowerState() (bool, string, error) {
+func (vm *virtualMachine) reconcilePowerState() (bool, error) {
 	powerState, err := vm.getPowerState()
 	if err != nil {
-		return false, "", err
+		return false, err
 	}
 	switch powerState {
 	case types.VirtualMachinePowerStatePoweredOff:
 		klog.Infof("%v: powering on", vm.Obj.Reference().Value)
-		task, err := vm.powerOnVM()
+		_, err := vm.powerOnVM()
 		if err != nil {
-			return false, "", errors.Wrapf(err, "failed to trigger power on op for vm %q", vm)
+			return false, errors.Wrapf(err, "failed to trigger power on op for vm %q", vm)
 		}
-
+		// TODO: store task in providerStatus/conditions?
 		klog.Infof("%v: requeue to wait for power on state", vm.Obj.Reference().Value)
-		return false, task, nil
+		return false, nil
 	case types.VirtualMachinePowerStatePoweredOn:
 		klog.Infof("%v: powered on", vm.Obj.Reference().Value)
-		return true, "", nil
 	default:
-		return false, "", errors.Errorf("unexpected power state %q for vm %q", powerState, vm)
+		return false, errors.Errorf("unexpected power state %q for vm %q", powerState, vm)
 	}
+
+	return true, nil
 }
 
 func (vm *virtualMachine) powerOnVM() (string, error) {
@@ -766,29 +632,6 @@ func (vm *virtualMachine) getPowerState() (types.VirtualMachinePowerState, error
 	default:
 		return "", errors.Errorf("unexpected power state %q for vm %v", powerState, vm)
 	}
-}
-
-// reconcileTags ensures that the required tags are present on the virtual machine, eg the Cluster ID
-// that is used by the installer on cluster deletion to ensure ther are no leaked resources.
-func (vm *virtualMachine) reconcileTags(ctx context.Context, session *session.Session, machine *machinev1.Machine) error {
-	if err := session.WithRestClient(vm.Context, func(c *rest.Client) error {
-		klog.Infof("%v: Reconciling attached tags", machine.GetName())
-
-		m := tags.NewManager(c)
-
-		clusterID := machine.Labels[machinev1.MachineClusterIDLabel]
-
-		// the tag should already be created by installer
-		if err := m.AttachTag(ctx, clusterID, vm.Ref); err != nil {
-			return err
-		}
-
-		return nil
-	}); err != nil {
-		return err
-	}
-
-	return nil
 }
 
 type NetworkStatus struct {
