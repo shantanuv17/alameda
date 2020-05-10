@@ -2,6 +2,8 @@ package dispatcher
 
 import (
 	"fmt"
+	"sort"
+	"strconv"
 	"strings"
 	"time"
 
@@ -230,8 +232,9 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 	}
 }
 
-func (dispatcher *modelJobSender) driftEval(modelID string, metricType datahub_common.MetricType, rawData []*datahub_data.Rawdata, queueSender queue.QueueSender,
-	unit *config.Unit, granularity int64) {
+func (dispatcher *modelJobSender) driftEval(modelID string,
+	metricType datahub_common.MetricType, rawData []*datahub_data.Rawdata,
+	queueSender queue.QueueSender, unit *config.Unit, granularity int64) {
 	for _, rawDatum := range rawData {
 		for _, grp := range rawDatum.GetGroups() {
 			rawDatumColumns := grp.GetColumns()
@@ -298,55 +301,9 @@ func (dispatcher *modelJobSender) driftEval(modelID string, metricType datahub_c
 							continue
 						}
 
-						whereVals := []string{}
-						whereOps := []string{}
-						whereTypes := []datahub_common.DataType{}
-						toQueryMetric := true
-						for _, idK := range unit.IDKeys {
-							whereVal, err := utils.GetRowValue(row.GetValues(), rawDatumColumns, idK)
-							if err != nil {
-								scope.Errorf("[%s] Cannot query metric for drift evaluation due to %s", jobID, err.Error())
-								toQueryMetric = false
-								break
-							}
-							whereVals = append(whereVals, whereVal)
-							whereOps = append(whereOps, "=")
-							whereTypes = append(whereTypes, datahub_common.DataType_DATATYPE_STRING)
-						}
-						if !toQueryMetric {
-							continue
-						}
-						metricReadData := []*datahub_data.ReadData{&datahub_data.ReadData{
-							MetricType: metricType,
-							QueryCondition: &datahub_common.QueryCondition{
-								Order:   datahub_common.QueryCondition_DESC,
-								Selects: []string{unit.Metric.MetricValueKeys.Value},
-								Groups:  unit.IDKeys,
-								TimeRange: &datahub_common.TimeRange{
-									Step: &duration.Duration{
-										Seconds: granularity,
-									},
-									StartTime: &timestamp.Timestamp{
-										Seconds: metricStartT,
-									},
-									AggregateFunction: unit.Metric.Aggregation,
-								},
-								WhereCondition: []*datahub_common.Condition{
-									&datahub_common.Condition{
-										Keys:      unit.IDKeys,
-										Values:    whereVals,
-										Operators: whereOps,
-										Types:     whereTypes,
-									},
-								},
-							},
-						}}
-
-						metricReadDataRes, err := utils.ReadData(dispatcher.datahubServiceClnt, &datahub_schemas.SchemaMeta{
-							Scope:    unit.Metric.Scope,
-							Category: unit.Metric.Category,
-							Type:     unit.Metric.Type,
-						}, metricReadData)
+						metricReadDataRes, err := dispatcher.formatMetrics(
+							metricStartT, jobID, row, rawDatumColumns,
+							metricType, unit, granularity)
 						if err != nil {
 							jobID, _ := utils.GetJobID(unit, row.GetValues(), rawDatumColumns,
 								datahub_common.MetricType_METRICS_TYPE_UNDEFINED, granularity)
@@ -447,4 +404,267 @@ func (dispatcher *modelJobSender) isUnitWatchedByScaler(unit *config.Unit, rowVa
 		return false, nil
 	}
 	return true, nil
+}
+
+func (dispatcher *modelJobSender) formatMetrics(metricStartT int64, jobID string,
+	row *datahub_common.Row, rawDatumColumns []string, metricType datahub_common.MetricType,
+	unit *config.Unit, granularity int64) (*datahub_data.ReadDataResponse, error) {
+	if unit.Category == "cluster_autoscaler" && unit.Type == "machinegroup" &&
+		unit.UnitParameters != nil && unit.UnitValueKeys != nil {
+		return dispatcher.formatMachineGroupMetrics(metricStartT, jobID,
+			row, rawDatumColumns, metricType,
+			unit, granularity)
+	}
+	whereVals := []string{}
+	whereOps := []string{}
+	whereTypes := []datahub_common.DataType{}
+	for _, idK := range unit.IDKeys {
+		whereVal, err := utils.GetRowValue(row.GetValues(), rawDatumColumns, idK)
+		if err != nil {
+			return nil, fmt.Errorf("[%s] Cannot query metric for drift evaluation due to %s", jobID, err.Error())
+		}
+		whereVals = append(whereVals, whereVal)
+		whereOps = append(whereOps, "=")
+		whereTypes = append(whereTypes, datahub_common.DataType_DATATYPE_STRING)
+	}
+
+	metricReadData := []*datahub_data.ReadData{&datahub_data.ReadData{
+		MetricType: metricType,
+		QueryCondition: &datahub_common.QueryCondition{
+			Order:   datahub_common.QueryCondition_DESC,
+			Selects: []string{unit.Metric.MetricValueKeys.Value},
+			Groups:  unit.IDKeys,
+			TimeRange: &datahub_common.TimeRange{
+				Step: &duration.Duration{
+					Seconds: granularity,
+				},
+				StartTime: &timestamp.Timestamp{
+					Seconds: metricStartT,
+				},
+				AggregateFunction: unit.Metric.Aggregation,
+			},
+			WhereCondition: []*datahub_common.Condition{
+				&datahub_common.Condition{
+					Keys:      unit.IDKeys,
+					Values:    whereVals,
+					Operators: whereOps,
+					Types:     whereTypes,
+				},
+			},
+		},
+	}}
+
+	return utils.ReadData(dispatcher.datahubServiceClnt, &datahub_schemas.SchemaMeta{
+		Scope:    unit.Metric.Scope,
+		Category: unit.Metric.Category,
+		Type:     unit.Metric.Type,
+	}, metricReadData)
+}
+
+func (dispatcher *modelJobSender) formatMachineGroupMetrics(metricStartT int64, jobID string,
+	row *datahub_common.Row, rawDatumColumns []string, metricType datahub_common.MetricType,
+	unit *config.Unit, granularity int64) (*datahub_data.ReadDataResponse, error) {
+
+	nodes := []string{}
+	clusterName, err := utils.GetRowValue(row.GetValues(),
+		rawDatumColumns, unit.UnitValueKeys.ClusterName)
+	if err != nil {
+		return nil, err
+	}
+	name, err := utils.GetRowValue(row.GetValues(),
+		rawDatumColumns, unit.UnitValueKeys.Name)
+	if err != nil {
+		return nil, err
+	}
+	namespace, err := utils.GetRowValue(row.GetValues(),
+		rawDatumColumns, unit.UnitValueKeys.Namespace)
+	if err != nil {
+		return nil, err
+	}
+
+	machinesetReadData := []*datahub_data.ReadData{&datahub_data.ReadData{
+		QueryCondition: &datahub_common.QueryCondition{
+			Order: datahub_common.QueryCondition_DESC,
+			WhereCondition: []*datahub_common.Condition{
+				&datahub_common.Condition{
+					Keys:      unit.UnitParameters.MachineSetQueryKeys,
+					Values:    []string{clusterName, namespace, name},
+					Operators: []string{"=", "=", "="},
+					Types: []datahub_common.DataType{
+						datahub_common.DataType_DATATYPE_STRING,
+						datahub_common.DataType_DATATYPE_STRING,
+						datahub_common.DataType_DATATYPE_STRING,
+					},
+				},
+			},
+		},
+	}}
+	machineSetReadDataRes, err := utils.ReadData(dispatcher.datahubServiceClnt, &datahub_schemas.SchemaMeta{
+		Scope:    unit.Scope,
+		Category: unit.Category,
+		Type:     unit.UnitParameters.MachineSetType,
+	}, machinesetReadData)
+	if err != nil {
+		return nil, err
+	}
+	for _, machineSetReadDatum := range machineSetReadDataRes.GetData().GetRawdata() {
+		for _, machineSetReadDatumGrp := range machineSetReadDatum.GetGroups() {
+			machineSetColumns := machineSetReadDatumGrp.GetColumns()
+			for _, machinesetRow := range machineSetReadDatumGrp.GetRows() {
+				machineSetNamespace, err := utils.GetRowValue(machinesetRow.GetValues(),
+					machineSetColumns, unit.UnitValueKeys.Namespace)
+				if err != nil {
+					return nil, err
+				}
+				machineSetName, err := utils.GetRowValue(machinesetRow.GetValues(),
+					machineSetColumns, unit.UnitValueKeys.Name)
+				if err != nil {
+					return nil, err
+				}
+				nodeReadData := []*datahub_data.ReadData{&datahub_data.ReadData{
+					QueryCondition: &datahub_common.QueryCondition{
+						Order: datahub_common.QueryCondition_DESC,
+						WhereCondition: []*datahub_common.Condition{
+							&datahub_common.Condition{
+								Keys:      unit.UnitParameters.NodeQueryKeys,
+								Values:    []string{clusterName, machineSetNamespace, machineSetName},
+								Operators: []string{"=", "=", "="},
+								Types: []datahub_common.DataType{
+									datahub_common.DataType_DATATYPE_STRING,
+									datahub_common.DataType_DATATYPE_STRING,
+									datahub_common.DataType_DATATYPE_STRING,
+								},
+							},
+						},
+					},
+				}}
+				nodeReadDataRes, err := utils.ReadData(dispatcher.datahubServiceClnt, &datahub_schemas.SchemaMeta{
+					Scope:    unit.Scope,
+					Category: unit.UnitParameters.ClusterStatusCategory,
+					Type:     unit.UnitParameters.NodeType,
+				}, nodeReadData)
+				if err != nil {
+					return nil, err
+				}
+				for _, nodeReadDatum := range nodeReadDataRes.GetData().GetRawdata() {
+					for _, nodeReadDatumGrp := range nodeReadDatum.GetGroups() {
+						nodeColumns := nodeReadDatumGrp.GetColumns()
+						for _, nodeRow := range nodeReadDatumGrp.GetRows() {
+							nodeName, err := utils.GetRowValue(nodeRow.GetValues(), nodeColumns, unit.UnitValueKeys.Name)
+							if err != nil {
+								return nil, err
+							}
+							nodes = append(nodes, nodeName)
+						}
+					}
+				}
+			}
+		}
+	}
+	metricReadData := []*datahub_data.ReadData{}
+	for _, node := range nodes {
+		metricReadData = append(metricReadData, &datahub_data.ReadData{
+			MetricType: metricType,
+			QueryCondition: &datahub_common.QueryCondition{
+				Order:   datahub_common.QueryCondition_DESC,
+				Selects: []string{unit.Metric.MetricValueKeys.Value},
+				Groups:  []string{unit.UnitValueKeys.ClusterName, unit.UnitValueKeys.Name},
+				TimeRange: &datahub_common.TimeRange{
+					Step: &duration.Duration{
+						Seconds: granularity,
+					},
+					StartTime: &timestamp.Timestamp{
+						Seconds: metricStartT,
+					},
+					AggregateFunction: unit.Metric.Aggregation,
+				},
+				WhereCondition: []*datahub_common.Condition{
+					&datahub_common.Condition{
+						Keys:      []string{unit.UnitValueKeys.ClusterName, unit.UnitValueKeys.Name},
+						Values:    []string{clusterName, node},
+						Operators: []string{"=", "="},
+						Types: []datahub_common.DataType{
+							datahub_common.DataType_DATATYPE_STRING,
+							datahub_common.DataType_DATATYPE_STRING,
+						},
+					},
+				},
+			},
+		})
+	}
+
+	metricReadDataRes, err := utils.ReadData(dispatcher.datahubServiceClnt, &datahub_schemas.SchemaMeta{
+		Scope:    unit.Metric.Scope,
+		Category: unit.UnitParameters.ClusterStatusCategory,
+		Type:     unit.UnitParameters.NodeType,
+	}, metricReadData)
+
+	if err != nil {
+		return nil, err
+	}
+	mainRows := []*datahub_common.Row{}
+	if len(metricReadDataRes.GetData().GetRawdata()) == 1 {
+		return metricReadDataRes, err
+	} else if len(metricReadDataRes.GetData().GetRawdata()) == 0 {
+		return nil, nil
+	}
+	for _, metricReadDatum := range metricReadDataRes.GetData().GetRawdata() {
+		for _, metricReadDatumGrp := range metricReadDatum.GetGroups() {
+			for _, metricReadDatumRow := range metricReadDatumGrp.GetRows() {
+				metricValueStr, err := utils.GetRowValue(metricReadDatumRow.GetValues(),
+					metricReadDatumGrp.GetColumns(), unit.Metric.MetricValueKeys.Value)
+				if err != nil {
+					return nil, err
+				}
+				timeFound := false
+				for mainRowIdx, mainRow := range mainRows {
+					if mainRow.GetTime().GetSeconds() == metricReadDatumRow.GetTime().GetSeconds() {
+						timeFound = true
+						metricValue, err := strconv.ParseFloat(metricValueStr, 64)
+						if err != nil {
+							return nil, err
+						}
+						existingMetricValue, err := strconv.ParseFloat(mainRows[mainRowIdx].Values[0], 64)
+						if err != nil {
+							return nil, err
+						}
+						mainRows[mainRowIdx].Values[0] = fmt.Sprintf("%f", existingMetricValue+metricValue)
+						break
+					}
+				}
+				if !timeFound {
+					mainRows = append(mainRows, &datahub_common.Row{
+						Time:   metricReadDatumRow.GetTime(),
+						Values: []string{metricValueStr},
+					})
+				}
+			}
+		}
+	}
+
+	sort.SliceStable(mainRows, func(i, j int) bool {
+		if metricReadData[0].QueryCondition.Order == datahub_common.QueryCondition_ASC {
+			return mainRows[i].GetTime().GetSeconds() < mainRows[j].GetTime().GetSeconds()
+		}
+		return mainRows[i].GetTime().GetSeconds() > mainRows[j].GetTime().GetSeconds()
+	})
+
+	machineScalerReadDataRes := &datahub_data.ReadDataResponse{
+		Data: &datahub_data.Data{
+			SchemaMeta: &datahub_schemas.SchemaMeta{},
+			Rawdata: []*datahub_data.Rawdata{
+				&datahub_data.Rawdata{
+					MetricType: metricType,
+					Groups: []*datahub_common.Group{
+						&datahub_common.Group{
+							Columns: []string{unit.Metric.MetricValueKeys.Value},
+							Rows:    mainRows,
+						},
+					},
+				},
+			},
+		},
+	}
+
+	return machineScalerReadDataRes, nil
 }

@@ -62,7 +62,17 @@ type Unit struct {
 	IDKeys         []string                    `mapstructure:"idKeys"`
 	Measurement    string                      `mapstructure:"measurement"`
 	UnitValueKeys  *unitValueKeys              `mapstructure:"valueKeys"`
+	UnitParameters *unitParameters             `mapstructure:"parameters"`
 	MetricTypes    []datahub_common.MetricType `mapstructure:"-"`
+}
+
+type unitParameters struct {
+	// CA
+	MachineSetQueryKeys   []string `mapstructure:"machineSetQueryKeys"`
+	NodeQueryKeys         []string `mapstructure:"nodeQueryKeys"`
+	ClusterStatusCategory string   `mapstructure:"clusterStatusCategory"`
+	MachineSetType        string   `mapstructure:"machineSetType"`
+	NodeType              string   `mapstructure:"nodeType"`
 }
 
 type metricSeriesMeta struct {
@@ -84,6 +94,9 @@ type predictSeriesMeta struct {
 }
 
 type unitValueKeys struct {
+	ClusterName          string  `mapstructure:"clusterName"`
+	Namespace            string  `mapstructure:"namespace"`
+	Name                 string  `mapstructure:"name"`
 	ScaleNamespace       string  `mapstructure:"scalerNamespace"`
 	ScaleName            string  `mapstructure:"scalerName"`
 	ResourceK8SNamespace *string `mapstructure:"resourceK8SNamespace"`
