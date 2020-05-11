@@ -69,7 +69,7 @@ func (r *AlamedaMachineGroupScalerReconciler) Reconcile(req ctrl.Request) (ctrl.
 	if err != nil && k8sErrors.IsNotFound(err) {
 		err = r.DatahubMachineGroupRepo.DeleteMachineGroups(ctx, mgs)
 		if err != nil {
-			scope.Errorf("Delete machinegroup (%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
+			scope.Errorf("Delete AlamedaMachineGroupScaler (%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
 			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
 		}
 		return ctrl.Result{Requeue: false}, nil

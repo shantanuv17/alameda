@@ -31,8 +31,9 @@ func TestReadData(t *testing.T) {
 		metricReadData = append(metricReadData, &datahub_data.ReadData{
 			MetricType: datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
 			QueryCondition: &datahub_common.QueryCondition{
-				Order:  datahub_common.QueryCondition_DESC,
-				Groups: []string{"cluster_name", "name"},
+				Selects: []string{"value"},
+				Order:   datahub_common.QueryCondition_DESC,
+				Groups:  []string{"cluster_name", "name"},
 				TimeRange: &datahub_common.TimeRange{
 					Step: &duration.Duration{
 						Seconds: 60,

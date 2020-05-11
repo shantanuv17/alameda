@@ -247,6 +247,8 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 							},
 						},
 						EnableExecution: alamedaScaler.IsEnableExecution(),
+						MaxReplicas:     *msSpec.MaxReplicas,
+						MinReplicas:     *msSpec.MinReplicas,
 					})
 				}
 				break
