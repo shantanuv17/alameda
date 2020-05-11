@@ -44,7 +44,7 @@ func TestReadData(t *testing.T) {
 					AggregateFunction: datahub_common.TimeRange_AVG,
 				},
 				WhereCondition: []*datahub_common.Condition{
-					&datahub_common.Condition{
+					{
 						Keys:      []string{"cluster_name", "name"},
 						Values:    []string{"7ebc85ee-9c96-4940-a76e-dc7a60e1d2f2", node},
 						Operators: []string{"=", "="},

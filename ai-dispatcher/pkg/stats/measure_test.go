@@ -2,6 +2,7 @@ package stats
 
 import (
 	"testing"
+
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 )
 
@@ -19,7 +20,7 @@ func TestMAPE(t *testing.T) {
 			name: "case 1",
 			args: args{
 				measurementDataSet: map[int64]*MeasurementData{
-					1: &MeasurementData{
+					1: {
 						predictData: data{
 							value: 90,
 						},
@@ -27,7 +28,7 @@ func TestMAPE(t *testing.T) {
 							value: 100,
 						},
 					},
-					2: &MeasurementData{
+					2: {
 						predictData: data{
 							value: 100,
 						},
@@ -35,7 +36,7 @@ func TestMAPE(t *testing.T) {
 							value: 80,
 						},
 					},
-					3: &MeasurementData{
+					3: {
 						predictData: data{
 							value: 150,
 						},
@@ -43,7 +44,7 @@ func TestMAPE(t *testing.T) {
 							value: 100,
 						},
 					},
-					4: &MeasurementData{
+					4: {
 						predictData: data{
 							value: 100,
 						},
@@ -51,7 +52,7 @@ func TestMAPE(t *testing.T) {
 							value: 200,
 						},
 					},
-					5: &MeasurementData{
+					5: {
 						predictData: data{
 							value: 100,
 						},

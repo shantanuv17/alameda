@@ -25,6 +25,7 @@ import (
 	"strings"
 	"time"
 
+	alamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	openshift_machineapi_v1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
 
@@ -114,11 +115,11 @@ var (
 
 	clusterUID     string
 	datahubSchemas = map[string]datahubschemas.Schema{
-		"kafkaTopic":         datahubschemas.Schema{},
-		"kafkaConsumerGroup": datahubschemas.Schema{},
-		"nginx":              datahubschemas.Schema{},
-		"machineGroup":       datahubschemas.Schema{},
-		"machineSet":         datahubschemas.Schema{},
+		"kafkaTopic":         {},
+		"kafkaConsumerGroup": {},
+		"nginx":              {},
+		"machineGroup":       {},
+		"machineSet":         {},
 	}
 
 	// Third party clients
@@ -324,11 +325,12 @@ func initDatahubResourceRepsitories() {
 
 func setupManager() (manager.Manager, error) {
 	return ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
-		MetricsBindAddress: metricsAddr,
-		LeaderElection:     enableLeaderElection,
-		Port:               9443,
-		LeaderElectionID:   "alameda-operator-leader-election",
-		SyncPeriod:         &syncPriod,
+		MetricsBindAddress:      metricsAddr,
+		LeaderElection:          enableLeaderElection,
+		LeaderElectionNamespace: alamedaUtils.GetRunningNamespace(),
+		Port:                    9443,
+		LeaderElectionID:        "alameda-operator-leader-election",
+		SyncPeriod:              &syncPriod,
 	})
 }
 

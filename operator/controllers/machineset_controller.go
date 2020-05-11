@@ -46,7 +46,7 @@ func (r *MachineSetReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) 
 	ctx, cancel := context.WithTimeout(context.Background(), r.ReconcileTimeout)
 	defer cancel()
 	mss := []machineset.MachineSet{
-		machineset.MachineSet{
+		{
 			ClusterName: r.ClusterUID,
 			ResourceMeta: machineset.ResourceMeta{
 				KubernetesMeta: machineset.KubernetesMeta{

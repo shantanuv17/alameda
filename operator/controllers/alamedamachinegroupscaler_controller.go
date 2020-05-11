@@ -53,7 +53,7 @@ func (r *AlamedaMachineGroupScalerReconciler) Reconcile(req ctrl.Request) (ctrl.
 	defer cancel()
 
 	mgs := []machinegroup.MachineGroup{
-		machinegroup.MachineGroup{
+		{
 			ClusterName: r.ClusterUID,
 			ResourceMeta: machinegroup.ResourceMeta{
 				KubernetesMeta: machinegroup.KubernetesMeta{

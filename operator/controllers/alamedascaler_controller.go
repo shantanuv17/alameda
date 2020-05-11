@@ -199,8 +199,18 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
 		}
 
+		err = r.DatahubMachineGroupRepo.DeleteMachineGroupsByOption(ctx, machinegrouprepository.DeleteMachineGroupsOption{
+			ClusterName:            r.ClusterUID,
+			AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
+			AlamedaScalerName:      alamedaScaler.GetName(),
+		})
+		if err != nil {
+			scope.Errorf("Delete machinegroups with alamedascaler (%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
+			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
+		}
+
 		mgs := []machinegroup.MachineGroup{
-			machinegroup.MachineGroup{
+			{
 				ClusterName:            r.ClusterUID,
 				AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
 				AlamedaScalerName:      alamedaScaler.GetName(),
@@ -222,6 +232,16 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 		err = r.DatahubMachineGroupRepo.CreateMachineGroups(ctx, mgs)
 		if err != nil {
 			scope.Errorf("Create machinegroup (%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
+			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
+		}
+
+		err = r.DatahubMachineSetRepo.DeleteMachineSetsByOption(ctx, machinesetrepository.DeleteMachineSetsOption{
+			ClusterName:           r.ClusterUID,
+			MachineGroupNamespace: mgIns.Namespace,
+			MachineGroupName:      mgIns.Name,
+		})
+		if err != nil {
+			scope.Errorf("Delete machinesets with machinegroup (%s/%s) failed: %s", mgIns.Namespace, mgIns.Name, err.Error())
 			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
 		}
 
