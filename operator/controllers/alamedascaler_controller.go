@@ -262,8 +262,10 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 						MachineGroupNamespace: mgIns.GetNamespace(),
 						ResourceMeta: machineset.ResourceMeta{
 							KubernetesMeta: machineset.KubernetesMeta{
-								Namespace: ms.Namespace,
-								Name:      ms.Name,
+								Namespace:     ms.Namespace,
+								Name:          ms.Name,
+								ReadyReplicas: ms.Status.ReadyReplicas,
+								SpecReplicas:  *ms.Spec.Replicas,
 							},
 						},
 						EnableExecution: alamedaScaler.IsEnableExecution(),
