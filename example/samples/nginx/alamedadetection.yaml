@@ -24,8 +24,8 @@ spec:
     - name: ns1
       resourceType: namespace
       selector:
-        name: ""
-        namespace: federatorai
+        name: federatorai
+        namespace: ""
         match: exact
       inheritedRule: highly-utilized
       detectionMode: ""
