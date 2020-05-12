@@ -19,7 +19,7 @@ package controllers
 import (
 	"context"
 	"time"
-
+	machinesetrepository "github.com/containers-ai/alameda/operator/datahub/client/machineset"
 	machinegrouprepository "github.com/containers-ai/alameda/operator/datahub/client/machinegroup"
 	"github.com/containers-ai/alameda/operator/pkg/machinegroup"
 	datahubschemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
@@ -39,6 +39,7 @@ type AlamedaMachineGroupScalerReconciler struct {
 	ClusterUID                       string
 	Log                              logr.Logger
 	Scheme                           *runtime.Scheme
+	DatahubMachineSetRepo   *machinesetrepository.MachineSetRepository
 	DatahubMachineGroupRepo          machinegrouprepository.MachineGroupRepository
 	DatahubCAMachineGroupSchema      datahubschemas.Schema
 	DatahubCAMachineGroupMeasurement datahubschemas.Measurement
@@ -78,6 +79,28 @@ func (r *AlamedaMachineGroupScalerReconciler) Reconcile(req ctrl.Request) (ctrl.
 		return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
 	}
 
+	alamedaScalerList := &autoscalingv1alpha1.AlamedaScalerList{}
+	if err = r.List(ctx, alamedaScalerList); err != nil {
+		scope.Errorf("List AlamedaScaler failed: %s", err.Error())
+		return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
+	}
+	for _, alamedaScaler := range alamedaScalerList.Items {
+		if alamedaScaler.GetNamespace() == req.Namespace &&
+			alamedaScaler.GetType() == autoscalingv1alpha1.AlamedaScalerTypeDefault &&
+			alamedaScaler.Spec.ScalingTool.Type == autoscalingv1alpha1.ScalingToolTypeCA &&
+			alamedaScaler.Spec.ScalingTool.MachineGroupScaler == req.Name {
+			scope.Infof("AlamedaScaler (%s/%s) is matched for MachineGroupScaler (%s/%s)",
+				alamedaScaler.GetNamespace(), alamedaScaler.GetName(),
+				req.Namespace, req.Name)
+			if err = r.syncCAInfoWithScalerAndMachineGroup(ctx, alamedaScaler, instance); err != nil {
+				scope.Errorf("sync CA info with alamedascaler (%s/%s) and machinegroupscaler (%s/%s) failed",
+					alamedaScaler.GetNamespace(), alamedaScaler.GetName(), instance.GetNamespace(), instance.GetName())
+				return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
+			}
+			break
+		}
+	}
+
 	return ctrl.Result{}, nil
 }
 
@@ -85,4 +108,11 @@ func (r *AlamedaMachineGroupScalerReconciler) SetupWithManager(mgr ctrl.Manager)
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&autoscalingv1alpha1.AlamedaMachineGroupScaler{}).
 		Complete(r)
+}
+
+func (r *AlamedaMachineGroupScalerReconciler) syncCAInfoWithScalerAndMachineGroup(ctx context.Context,
+	alamedaScaler autoscalingv1alpha1.AlamedaScaler,
+	mgIns autoscalingv1alpha1.AlamedaMachineGroupScaler) error {
+	return SyncCAInfoWithScalerAndMachineGroup(ctx, r.ClusterUID, r.Client,
+		r.DatahubMachineSetRepo, &r.DatahubMachineGroupRepo, alamedaScaler, mgIns)
 }

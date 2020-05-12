@@ -166,7 +166,6 @@ type ScalingToolSpec struct {
 	// +kubebuilder:validation:Enum="";vpa;hpa;ca;N/A
 	Type               string             `json:"type,omitempty" protobuf:"bytes,1,name=type"`
 	ExecutionStrategy  *ExecutionStrategy `json:"executionStrategy,omitempty" protobuf:"bytes,2,name=execution_strategy"`
-	MachineScalers     []string           `json:"machineScalers,omitempty" protobuf:"bytes,3,name=machineScalers"`
 	CASafeToEvict      bool               `json:"caSafeToEvict,omitempty" protobuf:"bytes,4,name=caSafeToEvict"`
 	MachineGroupScaler string             `json:"machineGroupScaler,omitempty" protobuf:"bytes,5,name=machineGroupScaler"`
 }

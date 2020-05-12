@@ -494,6 +494,7 @@ func addControllersToManager(mgr manager.Manager) error {
 		Client:                           mgr.GetClient(),
 		Log:                              ctrl.Log.WithName("controllers").WithName("AlamedaMachineGroupScaler"),
 		Scheme:                           mgr.GetScheme(),
+		DatahubMachineSetRepo:            datahubMachineSetRepo,
 		DatahubMachineGroupRepo:          datahubMachineGroupRepo,
 		DatahubCAMachineGroupSchema:      datahubSchemas["machineGroup"],
 		DatahubCAMachineGroupMeasurement: *datahubSchemas["machineGroup"].Measurements[0],
