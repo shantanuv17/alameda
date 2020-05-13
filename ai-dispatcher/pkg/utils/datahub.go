@@ -3,6 +3,7 @@ package utils
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"time"
 
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
@@ -52,29 +53,30 @@ func ReadData(datahubServiceClnt datahub_v1alpha1.DatahubServiceClient,
 func GetGranularityStr(granularitySec int64) string {
 	if granularitySec == 30 {
 		return "30s"
-	} else if granularitySec == 60 {
-		return "1m"
-	} else if granularitySec == 3600 {
-		return "1h"
-	} else if granularitySec == 21600 {
-		return "6h"
-	} else if granularitySec == 86400 {
-		return "24h"
+	} else if granularitySec%60 == 0 &&
+		granularitySec/60 > 0 && granularitySec/60 < 60 {
+		return fmt.Sprintf("%dm", granularitySec/60)
+	} else if granularitySec%3600 == 0 &&
+		granularitySec/3600 > 0 && granularitySec/3600 <= 24 {
+		return fmt.Sprintf("%dh", granularitySec/3600)
 	}
 	return "30s"
 }
 
 func GetGranularitySec(granularityStr string) int64 {
-	if granularityStr == "30s" {
+	theUnit := granularityStr[len(granularityStr)-1:]
+	valStr := granularityStr[0 : len(granularityStr)-1]
+	val, err := strconv.ParseInt(valStr, 10, 64)
+	if err != nil {
 		return 30
-	} else if granularityStr == "1m" {
-		return 60
-	} else if granularityStr == "1h" {
-		return 3600
-	} else if granularityStr == "6h" {
-		return 21600
-	} else if granularityStr == "24h" {
-		return 86400
 	}
+	if theUnit == "s" {
+		return val
+	} else if theUnit == "m" {
+		return val * 60
+	} else if theUnit == "h" {
+		return val * 3600
+	}
+
 	return 30
 }

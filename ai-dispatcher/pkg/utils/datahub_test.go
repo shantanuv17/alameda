@@ -101,3 +101,143 @@ func TestReadData(t *testing.T) {
 		})
 	}
 }
+
+func TestGetGranularityStr(t *testing.T) {
+	type args struct {
+		granularitySec int64
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "30",
+			args: args{
+				granularitySec: 30,
+			},
+			want: "30s",
+		},
+		{
+			name: "60",
+			args: args{
+				granularitySec: 60,
+			},
+			want: "1m",
+		},
+		{
+			name: "120",
+			args: args{
+				granularitySec: 120,
+			},
+			want: "2m",
+		},
+		{
+			name: "180",
+			args: args{
+				granularitySec: 180,
+			},
+			want: "3m",
+		},
+		{
+			name: "3600",
+			args: args{
+				granularitySec: 3600,
+			},
+			want: "1h",
+		},
+		{
+			name: "21600",
+			args: args{
+				granularitySec: 21600,
+			},
+			want: "6h",
+		},
+		{
+			name: "86400",
+			args: args{
+				granularitySec: 86400,
+			},
+			want: "24h",
+		},
+	}
+	for _, ttt := range tests {
+		tt := ttt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			if got := GetGranularityStr(tt.args.granularitySec); got != tt.want {
+				t.Errorf("GetGranularityStr() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestGetGranularitySec(t *testing.T) {
+	type args struct {
+		granularityStr string
+	}
+	tests := []struct {
+		name string
+		args args
+		want int64
+	}{
+		{
+			name: "30s",
+			args: args{
+				granularityStr: "30s",
+			},
+			want: 30,
+		},
+		{
+			name: "1m",
+			args: args{
+				granularityStr: "1m",
+			},
+			want: 60,
+		},
+		{
+			name: "2m",
+			args: args{
+				granularityStr: "2m",
+			},
+			want: 120,
+		},
+		{
+			name: "3m",
+			args: args{
+				granularityStr: "3m",
+			},
+			want: 180,
+		},
+		{
+			name: "1h",
+			args: args{
+				granularityStr: "1h",
+			},
+			want: 3600,
+		},
+		{
+			name: "6h",
+			args: args{
+				granularityStr: "6h",
+			},
+			want: 21600,
+		},
+		{
+			name: "24h",
+			args: args{
+				granularityStr: "24h",
+			},
+			want: 86400,
+		},
+	}
+	for _, ttt := range tests {
+		tt := ttt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			if got := GetGranularitySec(tt.args.granularityStr); got != tt.want {
+				t.Errorf("GetGranularitySec() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
