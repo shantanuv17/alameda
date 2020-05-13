@@ -88,7 +88,6 @@ func (p *ReadDataRequestRequestExtended) processColumnMetric(before *data.ReadDa
 			condition.Keys = append(condition.Keys, "metric")
 			condition.Values = append(condition.Values, metric)
 			condition.Operators = append(condition.Operators, "=")
-			condition.Types = append(condition.Types, common.String)
 		}
 	}
 
@@ -97,7 +96,6 @@ func (p *ReadDataRequestRequestExtended) processColumnMetric(before *data.ReadDa
 		condition.Keys = append(condition.Keys, "metric")
 		condition.Values = append(condition.Values, metric)
 		condition.Operators = append(condition.Operators, "=")
-		condition.Types = append(condition.Types, common.String)
 		after.QueryCondition.WhereCondition = append(after.QueryCondition.WhereCondition, &condition)
 	}
 }
@@ -125,7 +123,6 @@ func (p *ReadDataRequestRequestExtended) processColumnKind(before *data.ReadData
 			condition.Keys = append(condition.Keys, "kind")
 			condition.Values = append(condition.Values, kind)
 			condition.Operators = append(condition.Operators, "=")
-			condition.Types = append(condition.Types, common.String)
 		}
 	}
 
@@ -134,7 +131,6 @@ func (p *ReadDataRequestRequestExtended) processColumnKind(before *data.ReadData
 		condition.Keys = append(condition.Keys, "kind")
 		condition.Values = append(condition.Values, kind)
 		condition.Operators = append(condition.Operators, "=")
-		condition.Types = append(condition.Types, common.String)
 		after.QueryCondition.WhereCondition = append(after.QueryCondition.WhereCondition, &condition)
 	}
 }

@@ -27,8 +27,9 @@ func NewMeasurement(database string, measurement *schemas.Measurement, config Co
 
 func (p *InfluxMeasurement) Read(query *InfluxQuery) ([]*common.Group, error) {
 	groups := make([]*common.Group, 0)
+	p.genDataType(query)
 	cmd := query.BuildQueryCmd()
-	
+
 	response, err := p.Client.QueryDB(cmd, p.Database)
 	if err != nil {
 		scope.Errorf("failed to read from InfluxDB: %v", err)
@@ -89,6 +90,21 @@ func (p *InfluxMeasurement) Drop(query *InfluxQuery) error {
 		return err
 	}
 	return nil
+}
+
+func (p *InfluxMeasurement) genDataType(query *InfluxQuery) {
+	for _, condition := range query.QueryCondition.WhereCondition {
+		if len(condition.Types) == 0 {
+			for _, key := range condition.Keys {
+				for _, column := range p.Measurement.Columns {
+					if key == column.Name {
+						condition.Types = append(condition.Types, column.DataType)
+						break
+					}
+				}
+			}
+		}
+	}
 }
 
 func (p *InfluxMeasurement) buildPoints(columnTypes []schemas.ColumnType, dataTypes []common.DataType, columns []string, rows []*common.Row) ([]*InfluxDB.Point, error)  {

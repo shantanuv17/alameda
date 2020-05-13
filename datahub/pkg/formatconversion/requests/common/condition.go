@@ -1,7 +1,6 @@
 package common
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/enumconv"
 	"github.com/containers-ai/alameda/internal/pkg/database/common"
 	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 )
@@ -23,9 +22,7 @@ func NewCondition(condition *ApiCommon.Condition) *common.Condition {
 		c.Keys = condition.GetKeys()
 		c.Values = condition.GetValues()
 		c.Operators = condition.GetOperators()
-		for _, dataType := range condition.GetTypes() {
-			c.Types = append(c.Types, enumconv.DataTypeNameMap[dataType])
-		}
+		c.Types = make([]common.DataType, 0)
 		return &c
 	}
 	return nil
