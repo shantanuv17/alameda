@@ -166,7 +166,7 @@ func (dispatcher *Dispatcher) dispatch(granularity string, predictionStep int64,
 				predictionStep, queueJobType)
 		}
 
-		if granularity != "1m" {
+		if granularity != "1m" && granularity != "3m" {
 			for _, pdUnit := range dispatcher.svcPredictUnits {
 				if queueJobType == "predictionJobSendIntervalSec" {
 					err := utils.TouchFile(fmt.Sprintf("%s/%v", viper.GetString("watchdog.predict.directory"), granularitySec))
