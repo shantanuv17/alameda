@@ -83,6 +83,7 @@ func (p *InfluxMeasurement) Write(columns []string, rows []*common.Row) error {
 }
 
 func (p *InfluxMeasurement) Drop(query *InfluxQuery) error {
+	p.genDataType(query)
 	cmd := query.BuildDropCmd()
 	_, err := p.Client.QueryDB(cmd, p.Database)
 	if err != nil {
