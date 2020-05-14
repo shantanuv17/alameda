@@ -141,6 +141,13 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 	instance := autoscalingv1alpha1.AlamedaScaler{}
 	err := r.Get(ctx, types.NamespacedName{Namespace: req.Namespace, Name: req.Name}, &instance)
 	if err != nil && k8sErrors.IsNotFound(err) {
+		scope.Infof("Handling deletion of AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
+		if err := r.handleAlamedaScalerDeletion(req.Namespace, req.Name); err != nil {
+			scope.Warnf("Handle deletion of AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+				req.Namespace, req.Name, err)
+			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+		}
+		scope.Infof("Handle deletion of AlamedaScaler(%s/%s) done.", req.Namespace, req.Name)
 		return ctrl.Result{Requeue: false}, nil
 	} else if err != nil {
 		scope.Errorf("Get AlamedaScaler(%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
@@ -163,7 +170,7 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 	if alamedaScaler.GetDeletionTimestamp() != nil {
 		scope.Infof("Handling deletion of AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
 		if err := r.handleAlamedaScalerDeletion(alamedaScaler.Namespace, alamedaScaler.Name); err != nil {
-			scope.Warnf("Handle deleteion of AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+			scope.Warnf("Handle deletion of AlamedaScaler(%s/%s) failed, retry reconciling: %s",
 				req.Namespace, req.Name, err)
 			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 		}
