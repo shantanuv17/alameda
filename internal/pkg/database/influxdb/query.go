@@ -172,7 +172,9 @@ func (p *InfluxQuery) where(conditions []*common.Condition) string {
 	where := make([]string, 0)
 	for index := 0; index < len(conditions); index++ {
 		condition := p.condition(conditions[index].Keys, conditions[index].Operators, conditions[index].Values, conditions[index].Types)
-		where = append(where, condition)
+		if condition != "" {
+			where = append(where, condition)
+		}
 	}
 	if len(where) != 0 {
 		return fmt.Sprintf("(%s)", strings.Join(where, " OR "))

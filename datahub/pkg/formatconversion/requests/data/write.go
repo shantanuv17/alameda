@@ -37,12 +37,14 @@ func (p *WriteDataRequestRequestExtended) Validate() error {
 		metricType := enumconv.MetricTypeNameMap[w.GetMetricType()]
 		boundary := enumconv.ResourceBoundaryNameMap[w.GetResourceBoundary()]
 		quota := enumconv.ResourceQuotaNameMap[w.GetResourceQuota()]
-		measurement := schema[0].GetMeasurement(w.GetMeasurement(), metricType, boundary, quota)
-		if measurement == nil {
-			return errors.New("measurement is not supported in this schema meta")
-		}
-		err := measurement.Validate(w.GetColumns())
+		m, err := isMeasurementFound(schema[0], w.GetMeasurement(), metricType, boundary, quota)
 		if err != nil {
+			return err
+		}
+		if err := m.ColumnRequired(w.GetColumns()); err != nil {
+			return err
+		}
+		if err := m.ColumnSupported(w.GetColumns()); err != nil {
 			return err
 		}
 	}

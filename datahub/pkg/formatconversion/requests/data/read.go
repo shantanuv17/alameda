@@ -38,8 +38,14 @@ func (p *ReadDataRequestRequestExtended) Validate() error {
 		metricType := enumconv.MetricTypeNameMap[r.GetMetricType()]
 		boundary := enumconv.ResourceBoundaryNameMap[r.GetResourceBoundary()]
 		quota := enumconv.ResourceQuotaNameMap[r.GetResourceQuota()]
-		if err := isMeasurementFound(schema[0], r.Measurement, metricType, boundary, quota); err != nil {
+		m, err := isMeasurementFound(schema[0], r.Measurement, metricType, boundary, quota)
+		if err != nil {
 			return err
+		}
+		for _, w := range r.GetQueryCondition().GetWhereCondition() {
+			if err := m.ColumnSupported(w.GetKeys()); err != nil {
+				return err
+			}
 		}
 	}
 

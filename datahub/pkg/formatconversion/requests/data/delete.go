@@ -34,8 +34,14 @@ func (p *DeleteDataRequestRequestExtended) Validate() error {
 		metricType := enumconv.MetricTypeNameMap[d.GetMetricType()]
 		boundary := enumconv.ResourceBoundaryNameMap[d.GetResourceBoundary()]
 		quota := enumconv.ResourceQuotaNameMap[d.GetResourceQuota()]
-		if err := isMeasurementFound(schema[0], d.Measurement, metricType, boundary, quota); err != nil {
+		m, err := isMeasurementFound(schema[0], d.Measurement, metricType, boundary, quota)
+		if err != nil {
 			return err
+		}
+		for _, w := range d.GetQueryCondition().GetWhereCondition() {
+			if err := m.ColumnSupported(w.GetKeys()); err != nil {
+				return err
+			}
 		}
 	}
 

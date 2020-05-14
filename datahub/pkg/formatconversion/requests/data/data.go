@@ -62,10 +62,10 @@ func isSchemaMetaComplete(schemaMeta *schemas.SchemaMeta) error {
 	return nil
 }
 
-func isMeasurementFound(schema *schemas.Schema, measurement string, metricType schemas.MetricType, boundary schemas.ResourceBoundary, quota schemas.ResourceQuota) error {
+func isMeasurementFound(schema *schemas.Schema, measurement string, metricType schemas.MetricType, boundary schemas.ResourceBoundary, quota schemas.ResourceQuota) (*schemas.Measurement, error) {
 	m := schema.GetMeasurement(measurement, metricType, boundary, quota)
 	if m == nil {
-		return errors.New("measurement is not found in schema meta")
+		return nil, errors.New("measurement is not found in schema meta")
 	}
-	return nil
+	return m, nil
 }
