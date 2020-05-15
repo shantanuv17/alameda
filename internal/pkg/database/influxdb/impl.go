@@ -96,7 +96,7 @@ func (p *InfluxClient) QueryDB(cmd, database string) (res []Client.Result, err e
 
 	if response, err := client.Query(q); err == nil {
 		if response.Error() != nil {
-			return res, response.Error()
+			scope.Error(response.Error().Error())
 		}
 		res = response.Results
 	} else {
