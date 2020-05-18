@@ -68,6 +68,8 @@ func SchemaApplicationNginx() *schemas.Schema {
 	measurement.AddColumn("resource_k8s_max_replicas", false, schemas.Field, common.Int32)
 	measurement.AddColumn("resource_k8s_route_name", false, schemas.Field, common.String)
 	measurement.AddColumn("resource_k8s_route_namespace", false, schemas.Field, common.String)
+	measurement.AddColumn("exporter_pods", false, schemas.Field, common.String)
+	measurement.AddColumn("exporter_namespace", false, schemas.Field, common.String)
 	measurement.AddColumn("policy", false, schemas.Field, common.String)
 	measurement.AddColumn("enable_execution", false, schemas.Field, common.Bool)
 	measurement.AddColumn("resource_cpu_limit", false, schemas.Field, common.String)
