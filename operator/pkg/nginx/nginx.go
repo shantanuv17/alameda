@@ -18,6 +18,7 @@ type Nginx struct {
 	MinReplicas             int32
 	MaxReplicas             int32
 	ReplicaMarginPercentage int32
+	ExporterPods            string
 }
 
 type ResourceMeta struct {
@@ -29,6 +30,8 @@ type KubernetesMeta struct {
 	Name             string
 	ServiceNamespace string
 	ServiceName      string
+	RouteNamespace   string
+	RouteName        string
 	Kind             string
 	ReadyReplicas    int32
 	SpecReplicas     int32

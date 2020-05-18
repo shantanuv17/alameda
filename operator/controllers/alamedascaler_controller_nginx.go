@@ -22,19 +22,19 @@ import (
 	"time"
 
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
+	nginxrepository "github.com/containers-ai/alameda/operator/datahub/client/nginx"
 	"github.com/containers-ai/alameda/operator/pkg/nginx"
 	nginxmodel "github.com/containers-ai/alameda/operator/pkg/nginx"
 	alamedascaler_reconciler "github.com/containers-ai/alameda/operator/pkg/reconciler/alamedascaler"
 	utilsresource "github.com/containers-ai/alameda/operator/pkg/utils/resources"
-	appsapi_v1 "github.com/openshift/api/apps/v1"
-	appsv1 "k8s.io/api/apps/v1"
-	corev1 "k8s.io/api/core/v1"
-
-	nginxrepository "github.com/containers-ai/alameda/operator/datahub/client/nginx"
 	"github.com/containers-ai/alameda/pkg/utils/log"
 	datahubschemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
+	appsapi_v1 "github.com/openshift/api/apps/v1"
+	routeapi_v1 "github.com/openshift/api/route/v1"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
+	appsv1 "k8s.io/api/apps/v1"
+	corev1 "k8s.io/api/core/v1"
 
 	k8serrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -85,6 +85,7 @@ type AlamedaScalerNginxReconciler struct {
 	DatahubApplicationNginxMeasurement datahubschemas.Measurement
 	Logger                             *log.Scope
 	ReconcileTimeout                   time.Duration
+	HasOpenShiftAPIAppsv1              bool
 }
 
 // Reconcile reads that state of the cluster for a AlamedaScaler object and makes changes based on the state read
@@ -176,7 +177,7 @@ func (r *AlamedaScalerNginxReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 		return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
 	}
 
-	nginxs := r.prepareNginxs(alamedaScaler)
+	nginxs := r.prepareNginxs(ctx, alamedaScaler)
 	err = r.syncWithDatahub(ctx, alamedaScaler, nginxs)
 	if err != nil {
 		r.Logger.Warnf("Synchornize nginx with remote of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
@@ -429,8 +430,40 @@ func (r AlamedaScalerNginxReconciler) syncWithDatahub(ctx context.Context, alame
 	return wg.Wait()
 }
 
-func (r AlamedaScalerNginxReconciler) prepareNginxs(alamedaScaler autoscalingv1alpha1.AlamedaScaler) []nginxmodel.Nginx {
+func (r AlamedaScalerNginxReconciler) prepareNginxs(ctx context.Context,
+	alamedaScaler autoscalingv1alpha1.AlamedaScaler) []nginxmodel.Nginx {
 	nginxs := []nginxmodel.Nginx{}
+	routeList := &routeapi_v1.RouteList{}
+	routePodList := &corev1.PodList{}
+	if r.HasOpenShiftAPIAppsv1 {
+		err := r.List(ctx, routeList, &client.ListOptions{Namespace: alamedaScaler.GetNamespace()})
+		if err != nil {
+			scope.Errorf("List routes for nginx application in alamedascaler (%s/%s) failed: %s",
+				alamedaScaler.GetNamespace(), alamedaScaler.GetName(), err.Error())
+		}
+		err = r.List(ctx, routePodList, &client.ListOptions{Namespace: alamedaScaler.Spec.Nginx.ExporterNamespace})
+		if err != nil {
+			scope.Errorf("List route pods in namespace %s for nginx application in alamedascaler (%s/%s) failed: %s",
+				alamedaScaler.Spec.Nginx.ExporterNamespace, alamedaScaler.GetNamespace(), alamedaScaler.GetName(), err.Error())
+		}
+	}
+	routeName := ""
+	for _, route := range routeList.Items {
+		if route.Spec.To.Kind == "Service" &&
+			route.Spec.To.Name == alamedaScaler.Spec.Nginx.Service {
+			routeName = route.Name
+		}
+	}
+
+	exporterPods := ""
+	for _, routePod := range routePodList.Items {
+		if exporterPods == "" {
+			exporterPods = routePod.GetName()
+		} else {
+			exporterPods = fmt.Sprintf("%s,%s", exporterPods, routePod.GetName())
+		}
+	}
+
 	for _, deploy := range alamedaScaler.Status.Nginx.AlamedaController.Deployments {
 		nginxs = append(nginxs, nginxmodel.Nginx{
 			MinReplicas:            *alamedaScaler.Spec.Nginx.MinReplicas,
@@ -439,6 +472,7 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(alamedaScaler autoscalingv1a
 			ClusterName:            r.ClusterUID,
 			AlamedaScalerName:      alamedaScaler.GetName(),
 			AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
+			ExporterPods:           exporterPods,
 			Policy:                 alamedaScaler.Spec.Policy,
 			EnableExecution:        alamedaScaler.IsEnableExecution(),
 			ResourceMeta: nginx.ResourceMeta{
@@ -449,6 +483,8 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(alamedaScaler autoscalingv1a
 					SpecReplicas:     *deploy.SpecReplicas,
 					ServiceName:      alamedaScaler.Spec.Nginx.Service,
 					ServiceNamespace: alamedaScaler.GetNamespace(),
+					RouteName:        routeName,
+					RouteNamespace:   alamedaScaler.GetNamespace(),
 					ReadyReplicas:    int32(len(deploy.Pods)),
 				},
 			},
@@ -463,6 +499,7 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(alamedaScaler autoscalingv1a
 			ClusterName:            r.ClusterUID,
 			AlamedaScalerName:      alamedaScaler.GetName(),
 			AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
+			ExporterPods:           exporterPods,
 			Policy:                 alamedaScaler.Spec.Policy,
 			EnableExecution:        alamedaScaler.IsEnableExecution(),
 			ResourceMeta: nginx.ResourceMeta{
@@ -472,6 +509,8 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(alamedaScaler autoscalingv1a
 					Kind:             "DeploymentConfig",
 					ServiceName:      alamedaScaler.Spec.Nginx.Service,
 					ServiceNamespace: alamedaScaler.GetNamespace(),
+					RouteName:        routeName,
+					RouteNamespace:   alamedaScaler.GetNamespace(),
 					SpecReplicas:     *dc.SpecReplicas,
 					ReadyReplicas:    int32(len(dc.Pods)),
 				},
@@ -487,6 +526,7 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(alamedaScaler autoscalingv1a
 			ClusterName:            r.ClusterUID,
 			AlamedaScalerName:      alamedaScaler.GetName(),
 			AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
+			ExporterPods:           exporterPods,
 			Policy:                 alamedaScaler.Spec.Policy,
 			EnableExecution:        alamedaScaler.IsEnableExecution(),
 			ResourceMeta: nginx.ResourceMeta{
@@ -496,6 +536,8 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(alamedaScaler autoscalingv1a
 					Kind:             "StatefulSet",
 					ServiceName:      alamedaScaler.Spec.Nginx.Service,
 					ServiceNamespace: alamedaScaler.GetNamespace(),
+					RouteName:        routeName,
+					RouteNamespace:   alamedaScaler.GetNamespace(),
 					SpecReplicas:     *sts.SpecReplicas,
 					ReadyReplicas:    int32(len(sts.Pods)),
 				},

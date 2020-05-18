@@ -26,6 +26,7 @@ import (
 	"time"
 
 	alamedaUtils "github.com/containers-ai/alameda/pkg/utils"
+	routeapi_v1 "github.com/openshift/api/route/v1"
 	openshift_machineapi_v1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
 
@@ -342,6 +343,9 @@ func addNecessaryAPIToScheme(scheme *runtime.Scheme) error {
 		if err := osappsapi.AddToScheme(scheme); err != nil {
 			return err
 		}
+		if err := routeapi_v1.AddToScheme(scheme); err != nil {
+			return err
+		}
 	}
 	_ = autoscalingv1alpha1.AddToScheme(scheme)
 	// +kubebuilder:scaffold:scheme
@@ -482,9 +486,9 @@ func addControllersToManager(mgr manager.Manager) error {
 		DatahubApplicationNginxSchema:      datahubSchemas["nginx"],
 		DatahubApplicationNginxMeasurement: *datahubSchemas["nginx"].Measurements[0],
 
-		ReconcileTimeout: 3 * time.Second,
-
-		Logger: alamedaScalerNginxControllerLogger,
+		ReconcileTimeout:      3 * time.Second,
+		HasOpenShiftAPIAppsv1: hasOpenShiftAPIAppsv1,
+		Logger:                alamedaScalerNginxControllerLogger,
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}

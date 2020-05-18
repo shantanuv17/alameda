@@ -10,6 +10,10 @@ type Nginx struct {
 	ResourceK8SServiceName      string `datahubcolumntype:"tag" datahubcolumn:"resource_k8s_service_name" datahubdatatype:"DATATYPE_STRING"`
 	ResourceK8SServiceNamespace string `datahubcolumntype:"tag" datahubcolumn:"resource_k8s_service_namespace" datahubdatatype:"DATATYPE_STRING"`
 	ResourceK8SKind             string `datahubcolumntype:"tag" datahubcolumn:"resource_k8s_kind" datahubdatatype:"DATATYPE_STRING"`
+	ResourceK8SRouteName        string `datahubcolumntype:"field" datahubcolumn:"resource_k8s_route_name" datahubdatatype:"DATATYPE_STRING"`
+	ResourceK8SRouteNamespace   string `datahubcolumntype:"field" datahubcolumn:"resource_k8s_route_namespace" datahubdatatype:"DATATYPE_STRING"`
+	ExporterPods                string `datahubcolumntype:"field" datahubcolumn:"exporter_pods" datahubdatatype:"DATATYPE_STRING"`
+	ExporterNamespace           string `datahubcolumntype:"field" datahubcolumn:"exporter_namespace" datahubdatatype:"DATATYPE_STRING"`
 	Policy                      string `datahubcolumntype:"field" datahubcolumn:"policy" datahubdatatype:"DATATYPE_STRING"`
 	EnableExecution             bool   `datahubcolumntype:"field" datahubcolumn:"enable_execution" datahubdatatype:"DATATYPE_BOOL"`
 	ResourceK8SNamespace        string `datahubcolumntype:"field" datahubcolumn:"resource_k8s_namespace" datahubdatatype:"DATATYPE_STRING"`
@@ -31,6 +35,10 @@ func NewNginx(nginx nginx.Nginx) Nginx {
 		ClusterName:                 nginx.ClusterName,
 		AlamedaScalerName:           nginx.AlamedaScalerName,
 		AlamedaScalerNamespace:      nginx.AlamedaScalerNamespace,
+		ExporterNamespace:           nginx.ExporterNamespace,
+		ExporterPods:                nginx.ExporterPods,
+		ResourceK8SRouteNamespace:   nginx.RouteNamespace,
+		ResourceK8SRouteName:        nginx.RouteName,
 		Policy:                      nginx.Policy,
 		EnableExecution:             nginx.EnableExecution,
 		ResourceK8SServiceName:      nginx.ResourceMeta.KubernetesMeta.ServiceName,

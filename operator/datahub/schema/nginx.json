@@ -87,6 +87,30 @@
                     "data_types": 5
                 },                
                 {
+                    "name": "resource_k8s_route_name",
+                    "required": false,
+                    "column_types": 2,
+                    "data_types": 14
+                },
+                {
+                    "name": "resource_k8s_route_namespace",
+                    "required": false,
+                    "column_types": 2,
+                    "data_types": 14
+                },
+                {
+                    "name": "exporter_pods",
+                    "required": false,
+                    "column_types": 2,
+                    "data_types": 14
+                },
+                {
+                    "name": "exporter_namespace",
+                    "required": false,
+                    "column_types": 2,
+                    "data_types": 14
+                },
+                {
                     "name": "policy",
                     "required": false,
                     "column_types": 2,
