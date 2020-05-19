@@ -35,7 +35,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:c71f88f9ba71cf5af306673f3cfa82a9f853f1b7a7bd5ccce8cc356dd7c92bf5"
+  digest = "1:c1ecf59b38c7c200edd957ccedf0460e6a7d8cac02d22358c93660032674fec9"
   name = "github.com/containers-ai/api"
   packages = [
     "alameda_api/v1alpha1/datahub",
@@ -58,7 +58,7 @@
     "datahub/keycodes",
   ]
   pruneopts = "T"
-  revision = "33fc69310ab25e069030f9ef0ab2bc2880817a78"
+  revision = "05c79ec8e6bb8fb7ac5c21930e6e2616c4b87588"
 
 [[projects]]
   digest = "1:9f42202ac457c462ad8bb9642806d275af9ab4850cf0b1960b9c6f083d4a309a"
@@ -531,6 +531,7 @@
   packages = [
     "apps",
     "apps/v1",
+    "route/v1",
   ]
   pruneopts = "T"
   revision = "bbc4289c54e0f41709ed1ad57b96cd1a858005e0"
@@ -1521,6 +1522,7 @@
     "github.com/onsi/gomega",
     "github.com/openshift/api/apps",
     "github.com/openshift/api/apps/v1",
+    "github.com/openshift/api/route/v1",
     "github.com/openshift/client-go/apps/clientset/versioned",
     "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1",
     "github.com/pkg/errors",
