@@ -14,6 +14,9 @@ func DefaultSchemasInit() {
 	schemaList = append(schemaList, defaults.SchemaApplicationKafkaCG())
 	schemaList = append(schemaList, defaults.SchemaApplicationNginx())
 
+	// Execution
+	schemaList = append(schemaList, defaults.SchemaExecutionClusterAutoscalerMachineset())
+
 	// Metric
 	schemaList = append(schemaList, defaults.SchemaMetricKafkaTopic())
 	schemaList = append(schemaList, defaults.SchemaMetricKafkaCG())
