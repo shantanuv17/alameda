@@ -196,6 +196,7 @@ type NginxSpec struct {
 	MinReplicas             *int32                `json:"minReplicas,omitempty" protobuf:"bytes,5,opt,name=min_replicas"`
 	MaxReplicas             *int32                `json:"maxReplicas,omitempty" protobuf:"bytes,6,opt,name=max_replicas"`
 	Service                 string                `json:"service,omitempty" protobuf:"bytes,7,opt,name=service"`
+	HTTPResponseTime        *int64                `json:"httpResponseTime,omitempty" protobuf:"bytes,8,opt,name=http_response_time"`
 }
 
 type KafkaConsumerGroupSpec struct {
@@ -275,6 +276,7 @@ type AlamedaScalerStatus struct {
 
 // AlamedaScaler is the Schema for the alamedascalers API
 // +kubebuilder:object:root=true
+// +kubebuilder:printcolumn:name="Scaling Type",type=string,JSONPath=`.spec.type`,description="The type of scaling"
 // +kubebuilder:printcolumn:name="Scaling Tool",type=string,JSONPath=`.spec.scalingTool.type`,description="The type of scaling tool"
 // +kubebuilder:printcolumn:name="Execution",type=boolean,JSONPath=`.spec.enableExecution`,description="The enable of execution"
 // +kubebuilder:printcolumn:name="Selector",type=string,JSONPath=`.spec.selector.matchLabels`,description="The match labels of selector"

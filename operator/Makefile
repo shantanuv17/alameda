@@ -82,6 +82,7 @@ controller-gen:
 ifeq (, $(shell which controller-gen))
 	@{ \
 	set -e ;\
+	export GO111MODULE=on ;\
 	CONTROLLER_GEN_TMP_DIR=$$(mktemp -d) ;\
 	cd $$CONTROLLER_GEN_TMP_DIR ;\
 	go mod init tmp ;\

@@ -151,7 +151,13 @@
                     "required": false,
                     "column_types": 2,
                     "data_types": 5
-                }
+                },
+                {
+                    "name": "http_response_time",
+                    "required": false,
+                    "column_types": 2,
+                    "data_types": 6
+                }                
             ]
         }
     ]

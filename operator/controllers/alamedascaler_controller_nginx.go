@@ -465,7 +465,7 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(ctx context.Context,
 	}
 
 	for _, deploy := range alamedaScaler.Status.Nginx.AlamedaController.Deployments {
-		nginxs = append(nginxs, nginxmodel.Nginx{
+		nginx := nginxmodel.Nginx{
 			MinReplicas:            *alamedaScaler.Spec.Nginx.MinReplicas,
 			MaxReplicas:            *alamedaScaler.Spec.Nginx.MaxReplicas,
 			ExporterNamespace:      alamedaScaler.Spec.Nginx.ExporterNamespace,
@@ -489,10 +489,14 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(ctx context.Context,
 				},
 			},
 			ReplicaMarginPercentage: *alamedaScaler.Spec.Nginx.ReplicaMarginPercentage,
-		})
+		}
+		if alamedaScaler.Spec.Nginx.HTTPResponseTime != nil {
+			nginx.HTTPResponseTime = *alamedaScaler.Spec.Nginx.HTTPResponseTime
+		}
+		nginxs = append(nginxs, nginx)
 	}
 	for _, dc := range alamedaScaler.Status.Nginx.AlamedaController.DeploymentConfigs {
-		nginxs = append(nginxs, nginxmodel.Nginx{
+		nginx := nginxmodel.Nginx{
 			MinReplicas:            *alamedaScaler.Spec.Nginx.MinReplicas,
 			MaxReplicas:            *alamedaScaler.Spec.Nginx.MaxReplicas,
 			ExporterNamespace:      alamedaScaler.Spec.Nginx.ExporterNamespace,
@@ -516,10 +520,14 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(ctx context.Context,
 				},
 			},
 			ReplicaMarginPercentage: *alamedaScaler.Spec.Nginx.ReplicaMarginPercentage,
-		})
+		}
+		if alamedaScaler.Spec.Nginx.HTTPResponseTime != nil {
+			nginx.HTTPResponseTime = *alamedaScaler.Spec.Nginx.HTTPResponseTime
+		}
+		nginxs = append(nginxs, nginx)
 	}
 	for _, sts := range alamedaScaler.Status.Nginx.AlamedaController.StatefulSets {
-		nginxs = append(nginxs, nginxmodel.Nginx{
+		nginx := nginxmodel.Nginx{
 			MinReplicas:            *alamedaScaler.Spec.Nginx.MinReplicas,
 			MaxReplicas:            *alamedaScaler.Spec.Nginx.MaxReplicas,
 			ExporterNamespace:      alamedaScaler.Spec.Nginx.ExporterNamespace,
@@ -543,7 +551,11 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(ctx context.Context,
 				},
 			},
 			ReplicaMarginPercentage: *alamedaScaler.Spec.Nginx.ReplicaMarginPercentage,
-		})
+		}
+		if alamedaScaler.Spec.Nginx.HTTPResponseTime != nil {
+			nginx.HTTPResponseTime = *alamedaScaler.Spec.Nginx.HTTPResponseTime
+		}
+		nginxs = append(nginxs, nginx)
 	}
 	return nginxs
 }

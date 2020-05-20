@@ -27,6 +27,7 @@ type Nginx struct {
 	ResourceK8SMemoryLimit      string `datahubcolumntype:"field" datahubcolumn:"resource_memory_limit" datahubdatatype:"DATATYPE_STRING"`
 	ResourceK8SMemoryRequest    string `datahubcolumntype:"field" datahubcolumn:"resource_memory_request" datahubdatatype:"DATATYPE_STRING"`
 	ReplicaMarginPercentage     int32  `datahubcolumntype:"field" datahubcolumn:"replica_margin_percentage" datahubdatatype:"DATATYPE_INT32"`
+	HTTPResponseTime            int64  `datahubcolumntype:"field" datahubcolumn:"http_response_time" datahubdatatype:"DATATYPE_INT64"`
 }
 
 func NewNginx(nginx nginx.Nginx) Nginx {
@@ -55,5 +56,6 @@ func NewNginx(nginx nginx.Nginx) Nginx {
 		ResourceK8SMemoryLimit:      nginx.ResourceMeta.KubernetesMeta.MemoryLimit,
 		ResourceK8SMemoryRequest:    nginx.ResourceMeta.KubernetesMeta.MemoryRequest,
 		ReplicaMarginPercentage:     nginx.ReplicaMarginPercentage,
+		HTTPResponseTime:            nginx.HTTPResponseTime,
 	}
 }

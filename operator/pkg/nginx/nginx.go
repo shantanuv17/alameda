@@ -19,6 +19,7 @@ type Nginx struct {
 	MaxReplicas             int32
 	ReplicaMarginPercentage int32
 	ExporterPods            string
+	HTTPResponseTime        int64
 }
 
 type ResourceMeta struct {
