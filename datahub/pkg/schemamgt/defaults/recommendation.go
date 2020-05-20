@@ -36,6 +36,8 @@ func SchemaRecommendationNginx() *schemas.Schema {
 	measurement.AddColumn("execution_time", true, schemas.Field, common.String)
 	measurement.AddColumn("replica_capacity", true, schemas.Field, common.Float64)
 	measurement.AddColumn("current_numerator", true, schemas.Field, common.Float64)
+	measurement.AddColumn("http_response_time", false, schemas.Field, common.Int64)
+	measurement.AddColumn("alpha", false, schemas.Field, common.Float64)
 	measurement.AddColumn("mape0", true, schemas.Field, common.Float64)
 	measurement.AddColumn("mape1", true, schemas.Field, common.Float64)
 	measurement.AddColumn("mape2", true, schemas.Field, common.Float64)

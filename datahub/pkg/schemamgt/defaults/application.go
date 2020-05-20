@@ -77,6 +77,7 @@ func SchemaApplicationNginx() *schemas.Schema {
 	measurement.AddColumn("resource_memory_limit", false, schemas.Field, common.String)
 	measurement.AddColumn("resource_memory_request", false, schemas.Field, common.String)
 	measurement.AddColumn("replica_margin_percentage", false, schemas.Field, common.Int32)
+	measurement.AddColumn("http_response_time", false, schemas.Field, common.Int64)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }
