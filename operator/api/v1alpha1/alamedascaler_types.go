@@ -196,7 +196,7 @@ type NginxSpec struct {
 	MinReplicas             *int32                `json:"minReplicas,omitempty" protobuf:"bytes,5,opt,name=min_replicas"`
 	MaxReplicas             *int32                `json:"maxReplicas,omitempty" protobuf:"bytes,6,opt,name=max_replicas"`
 	Service                 string                `json:"service,omitempty" protobuf:"bytes,7,opt,name=service"`
-	HTTPResponseTime        *int64                `json:"httpResponseTime,omitempty" protobuf:"bytes,8,opt,name=http_response_time"`
+	TargetResponseTime      *int64                `json:"targetResponseTime,omitempty" protobuf:"bytes,8,opt,name=target_response_time"`
 }
 
 type KafkaConsumerGroupSpec struct {

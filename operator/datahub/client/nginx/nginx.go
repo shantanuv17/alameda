@@ -80,7 +80,7 @@ func (n NginxRepository) ListNginxs(ctx context.Context, option ListNginxsOption
 			Policy:                 e.Policy,
 			EnableExecution:        e.EnableExecution,
 			ExporterPods:           e.ExporterPods,
-			HTTPResponseTime:       e.HTTPResponseTime,
+			TargetResponseTime:     e.HTTPResponseTime,
 			ResourceMeta: nginx.ResourceMeta{
 				KubernetesMeta: nginx.KubernetesMeta{
 					Namespace:        e.ResourceK8SNamespace,

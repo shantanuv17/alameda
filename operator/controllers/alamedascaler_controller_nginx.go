@@ -490,8 +490,8 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(ctx context.Context,
 			},
 			ReplicaMarginPercentage: *alamedaScaler.Spec.Nginx.ReplicaMarginPercentage,
 		}
-		if alamedaScaler.Spec.Nginx.HTTPResponseTime != nil {
-			nginx.HTTPResponseTime = *alamedaScaler.Spec.Nginx.HTTPResponseTime
+		if alamedaScaler.Spec.Nginx.TargetResponseTime != nil {
+			nginx.TargetResponseTime = *alamedaScaler.Spec.Nginx.TargetResponseTime
 		}
 		nginxs = append(nginxs, nginx)
 	}
@@ -521,8 +521,8 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(ctx context.Context,
 			},
 			ReplicaMarginPercentage: *alamedaScaler.Spec.Nginx.ReplicaMarginPercentage,
 		}
-		if alamedaScaler.Spec.Nginx.HTTPResponseTime != nil {
-			nginx.HTTPResponseTime = *alamedaScaler.Spec.Nginx.HTTPResponseTime
+		if alamedaScaler.Spec.Nginx.TargetResponseTime != nil {
+			nginx.TargetResponseTime = *alamedaScaler.Spec.Nginx.TargetResponseTime
 		}
 		nginxs = append(nginxs, nginx)
 	}
@@ -552,8 +552,8 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(ctx context.Context,
 			},
 			ReplicaMarginPercentage: *alamedaScaler.Spec.Nginx.ReplicaMarginPercentage,
 		}
-		if alamedaScaler.Spec.Nginx.HTTPResponseTime != nil {
-			nginx.HTTPResponseTime = *alamedaScaler.Spec.Nginx.HTTPResponseTime
+		if alamedaScaler.Spec.Nginx.TargetResponseTime != nil {
+			nginx.TargetResponseTime = *alamedaScaler.Spec.Nginx.TargetResponseTime
 		}
 		nginxs = append(nginxs, nginx)
 	}

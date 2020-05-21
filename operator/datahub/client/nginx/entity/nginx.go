@@ -56,6 +56,6 @@ func NewNginx(nginx nginx.Nginx) Nginx {
 		ResourceK8SMemoryLimit:      nginx.ResourceMeta.KubernetesMeta.MemoryLimit,
 		ResourceK8SMemoryRequest:    nginx.ResourceMeta.KubernetesMeta.MemoryRequest,
 		ReplicaMarginPercentage:     nginx.ReplicaMarginPercentage,
-		HTTPResponseTime:            nginx.HTTPResponseTime,
+		HTTPResponseTime:            nginx.TargetResponseTime,
 	}
 }
