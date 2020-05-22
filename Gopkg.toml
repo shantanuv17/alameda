@@ -23,11 +23,11 @@ required = [
 
 [[override]]
   name="sigs.k8s.io/controller-runtime"
-  version="v0.5.0"
+  version="v0.5.3"
 
 [[override]]
   name="sigs.k8s.io/controller-tools"
-  version="v0.2.8"
+  version="v0.3.0"
 
 [[override]]
   name="github.com/robfig/cron"
@@ -37,23 +37,23 @@ required = [
 [[override]]
 name = "gopkg.in/fsnotify.v1"
 source = "https://github.com/fsnotify/fsnotify.git"
-version="v1.4.7"
+version="v1.4.9"
 
 [[override]]
   name="k8s.io/api"
-  version="v0.17.5"
+  version="v0.17.6"
 
 [[override]]
   name="k8s.io/apiextensions-apiserver"
-  version="v0.17.5"
+  version="v0.17.6"
 
 [[override]]
   name="k8s.io/apimachinery"
-  version="v0.17.5"
+  version="v0.17.6"
 
 [[override]]
   name="k8s.io/client-go"
-  version="v0.17.5"
+  version="v0.17.6"
 
 [[override]]
   name = "github.com/openshift/client-go"

@@ -1001,13 +1001,13 @@
   revision = "2caba252f4dc53eaf6b553000885530023f54623"
 
 [[projects]]
-  digest = "1:7fc160b460a6fc506b37fcca68332464c3f2cd57b6e3f111f26c5bbfd2d5518e"
+  digest = "1:a10819dde802bfa6fd6ed6ff07db3a70a514cacbf487f542f11af0250a78f0fd"
   name = "gopkg.in/fsnotify.v1"
   packages = ["."]
   pruneopts = "T"
-  revision = "c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9"
+  revision = "45d7d09e39ef4ac08d493309fa031790c15bfe8a"
   source = "https://github.com/fsnotify/fsnotify.git"
-  version = "v1.4.7"
+  version = "v1.4.9"
 
 [[projects]]
   digest = "1:2d1fbdc6777e5408cabeb02bf336305e724b925ff4546ded0fa8715a7267922a"
@@ -1124,7 +1124,7 @@
   revision = "0b070bb63a1840d358e283258faa3b4022ed0396"
 
 [[projects]]
-  digest = "1:25fcbd87ac9242589d10373c838d2ba0a7b056baa4e5933e61abed936266455a"
+  digest = "1:0b71289f66f454b126453d125f5d5470cbb1238acb41c5f32fd8afd8428324ba"
   name = "k8s.io/api"
   packages = [
     "admission/v1beta1",
@@ -1170,11 +1170,11 @@
     "storage/v1beta1",
   ]
   pruneopts = "T"
-  revision = "8bc5d3899d8f1d602c4c88867ae830db7d9edc6c"
-  version = "v0.17.5"
+  revision = "12da1c38d2e36689cf2e01c752936a5b9520960e"
+  version = "v0.17.6"
 
 [[projects]]
-  digest = "1:b93514e819c176088902d4d14784092e641c7e55ef710195b4902df2af45fc61"
+  digest = "1:075d01e87482a45ba9df20b21736014be60f22e2138d3b28d39f098da4e29670"
   name = "k8s.io/apiextensions-apiserver"
   packages = [
     "pkg/apis/apiextensions",
@@ -1186,11 +1186,11 @@
     "pkg/client/clientset/clientset/typed/apiextensions/v1beta1",
   ]
   pruneopts = "T"
-  revision = "a88221d77f7f1e19e61d43e53fa0e49a86f70397"
-  version = "v0.17.5"
+  revision = "c9e15eccb82031e2d1546c1102cf6b4e5bf04ada"
+  version = "v0.17.6"
 
 [[projects]]
-  digest = "1:7b98d807c38bbaba5627525dc2847e377a65d80609b0fec869d75378be78c4d5"
+  digest = "1:5832024d87b5f92a647f8be098c5bdd076b5a6b48b238fd6d12020e0cc0f70ce"
   name = "k8s.io/apimachinery"
   packages = [
     "pkg/api/equality",
@@ -1240,11 +1240,11 @@
     "third_party/forked/golang/reflect",
   ]
   pruneopts = "T"
-  revision = "7378bafd8ae2c59d75cb410dd6f93a5196edc108"
-  version = "v0.17.5"
+  revision = "0da73201eee14a28f587e2d022e1c4ffb05d66d5"
+  version = "v0.17.6"
 
 [[projects]]
-  digest = "1:c1947679f2b49d7df582f39a56eed34fca9eeaf5dd0544134a670c567fb1ad5b"
+  digest = "1:676bd9f52f880bc2d4ccede08c294b2d62c11092583cddb95edfa3d3bb1dc947"
   name = "k8s.io/client-go"
   packages = [
     "discovery",
@@ -1325,8 +1325,8 @@
     "util/workqueue",
   ]
   pruneopts = "T"
-  revision = "83ff4b85fd207d431c21e3931d1b2297be73c2ae"
-  version = "v0.17.5"
+  revision = "1dc8aba5ffa606ccb46b1cd1b300e0970bbbf96f"
+  version = "v0.17.6"
 
 [[projects]]
   branch = "master"
@@ -1386,7 +1386,7 @@
   revision = "6ca3b61696b65b0e81f1a39b4937fc2d2994ed6a"
 
 [[projects]]
-  digest = "1:349a7aa873ede3c0e5eea50092f055a6b63e180748e6f5e202b51e224eb91972"
+  digest = "1:c36fab79c6a14befa3d9b5869bd3a8fd10a4268eeae0ca1314bfe3c45d4a7428"
   name = "sigs.k8s.io/controller-runtime"
   packages = [
     ".",
@@ -1433,11 +1433,11 @@
     "pkg/webhook/internal/metrics",
   ]
   pruneopts = "T"
-  revision = "67ee49a35456387c35b01aaaf26a6add1fe49c32"
-  version = "v0.5.2"
+  revision = "f31eaf7d8b3e67ee60ae236f0447c8b18b602146"
+  version = "v0.5.3"
 
 [[projects]]
-  digest = "1:537bcd8ac66f2b9496579aec197f802770af2d4ffd33e6d6258be2547b6c6c72"
+  digest = "1:1a8ea61f499dda1822ac17378350462fc2b8939a42ca16c87b8d2436171b929a"
   name = "sigs.k8s.io/controller-tools"
   packages = [
     "cmd/controller-gen",
@@ -1456,8 +1456,8 @@
     "pkg/webhook",
   ]
   pruneopts = "T"
-  revision = "15412e27a156d69c755d2896416f7efebb8112ac"
-  version = "v0.2.8"
+  revision = "44656d3c15ecaef499d9157825afd843415cbfea"
+  version = "v0.3.0"
 
 [[projects]]
   digest = "1:290b4da306982122bcdff12dbababbb95c6e4a94a2995db88baf235ef2f6e93e"
