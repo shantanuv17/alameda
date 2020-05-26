@@ -19,6 +19,7 @@ func SchemaRecommendationKafkaCG() *schemas.Schema {
 	measurement.AddColumn("current_replicas", true, schemas.Field, common.Int32)
 	measurement.AddColumn("desired_replicas", true, schemas.Field, common.Int32)
 	measurement.AddColumn("execution_time", true, schemas.Field, common.String)
+	measurement.AddColumn("per_consumer_capability", false, schemas.Field, common.Float64)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }
