@@ -47,7 +47,8 @@ func (listResources *ListResources) ListAllNodes() ([]*corev1.Node, error) {
 }
 
 // ListPodsByLabels return pods by labels
-func (listResources *ListResources) ListPodsByLabels(labels map[string]string) ([]corev1.Pod, error) {
+func (listResources *ListResources) ListPodsByLabels(
+	labels map[string]string) ([]corev1.Pod, error) {
 	podList := &corev1.PodList{}
 	if err := listResources.listResourcesByLabels(podList, labels); err != nil {
 		return []corev1.Pod{}, err
@@ -57,7 +58,8 @@ func (listResources *ListResources) ListPodsByLabels(labels map[string]string) (
 }
 
 // ListDeploymentsByLabels return deployments by labels
-func (listResources *ListResources) ListDeploymentsByLabels(labels map[string]string) ([]appsv1.Deployment, error) {
+func (listResources *ListResources) ListDeploymentsByLabels(
+	labels map[string]string) ([]appsv1.Deployment, error) {
 	deploymentList := &appsv1.DeploymentList{}
 	if err := listResources.listResourcesByLabels(deploymentList, labels); err != nil {
 		return []appsv1.Deployment{}, err
@@ -67,10 +69,12 @@ func (listResources *ListResources) ListDeploymentsByLabels(labels map[string]st
 }
 
 // ListDeploymentsByNamespaceLabels return deployments by namespace and labels
-func (listResources *ListResources) ListDeploymentsByNamespaceLabels(namespace string, labels map[string]string) ([]appsv1.Deployment, error) {
+func (listResources *ListResources) ListDeploymentsByNamespaceLabels(
+	namespace string, labels map[string]string) ([]appsv1.Deployment, error) {
 	deploymentList := &appsv1.DeploymentList{}
 
-	if err := listResources.listResourcesByNamespaceLabels(deploymentList, namespace, labels); err != nil {
+	if err := listResources.listResourcesByNamespaceLabels(
+		deploymentList, namespace, labels); err != nil {
 		return []appsv1.Deployment{}, err
 	}
 
@@ -78,10 +82,13 @@ func (listResources *ListResources) ListDeploymentsByNamespaceLabels(namespace s
 }
 
 // ListDeploymentConfigsByNamespaceLabels return deploymentconfigs by namespace and labels
-func (listResources *ListResources) ListDeploymentConfigsByNamespaceLabels(namespace string, labels map[string]string) ([]appsapi_v1.DeploymentConfig, error) {
+func (listResources *ListResources) ListDeploymentConfigsByNamespaceLabels(
+	namespace string, labels map[string]string) (
+	[]appsapi_v1.DeploymentConfig, error) {
 	deploymentConfigList := &appsapi_v1.DeploymentConfigList{}
 
-	if err := listResources.listResourcesByNamespaceLabels(deploymentConfigList, namespace, labels); err != nil {
+	if err := listResources.listResourcesByNamespaceLabels(
+		deploymentConfigList, namespace, labels); err != nil {
 		return []appsapi_v1.DeploymentConfig{}, err
 	}
 
@@ -89,10 +96,12 @@ func (listResources *ListResources) ListDeploymentConfigsByNamespaceLabels(names
 }
 
 // ListStatefulSetsByNamespaceLabels return statefulsets by namespace and labels
-func (listResources *ListResources) ListStatefulSetsByNamespaceLabels(namespace string, labels map[string]string) ([]appsv1.StatefulSet, error) {
+func (listResources *ListResources) ListStatefulSetsByNamespaceLabels(
+	namespace string, labels map[string]string) ([]appsv1.StatefulSet, error) {
 	statefulSetList := &appsv1.StatefulSetList{}
 
-	if err := listResources.listResourcesByNamespaceLabels(statefulSetList, namespace, labels); err != nil {
+	if err := listResources.listResourcesByNamespaceLabels(
+		statefulSetList, namespace, labels); err != nil {
 		return []appsv1.StatefulSet{}, err
 	}
 
@@ -100,16 +109,19 @@ func (listResources *ListResources) ListStatefulSetsByNamespaceLabels(namespace 
 }
 
 // ListDeploymentConfigsByLabels return DeploymentConfigs by labels
-func (listResources *ListResources) ListDeploymentConfigsByLabels(labels map[string]string) ([]appsapi_v1.DeploymentConfig, error) {
+func (listResources *ListResources) ListDeploymentConfigsByLabels(
+	labels map[string]string) ([]appsapi_v1.DeploymentConfig, error) {
 	deploymentConfigList := &appsapi_v1.DeploymentConfigList{}
-	if err := listResources.listResourcesByLabels(deploymentConfigList, labels); err != nil {
+	if err := listResources.listResourcesByLabels(
+		deploymentConfigList, labels); err != nil {
 		return []appsapi_v1.DeploymentConfig{}, err
 	}
 
 	return deploymentConfigList.Items, nil
 }
 
-func (listResources *ListResources) ListPodsByController(namespace, name, kind string) ([]corev1.Pod, error) {
+func (listResources *ListResources) ListPodsByController(
+	namespace, name, kind string) ([]corev1.Pod, error) {
 
 	var pods []corev1.Pod
 	var err error
@@ -129,14 +141,16 @@ func (listResources *ListResources) ListPodsByController(namespace, name, kind s
 }
 
 // ListPodsByDeployment return pods by deployment namespace and name
-func (listResources *ListResources) ListPodsByDeployment(deployNS, deployName string) ([]corev1.Pod, error) {
+func (listResources *ListResources) ListPodsByDeployment(
+	deployNS, deployName string) ([]corev1.Pod, error) {
 	pods := []corev1.Pod{}
 	deploymentIns := &appsv1.Deployment{}
 
-	err := listResources.client.Get(context.TODO(), types.NamespacedName{
-		Namespace: deployNS,
-		Name:      deployName,
-	}, deploymentIns)
+	err := listResources.client.Get(context.TODO(),
+		types.NamespacedName{
+			Namespace: deployNS,
+			Name:      deployName,
+		}, deploymentIns)
 	if err != nil {
 		return pods, err
 	}
@@ -151,20 +165,24 @@ func (listResources *ListResources) ListPodsByDeployment(deployNS, deployName st
 
 	for _, replicasetIns := range replicasetListIns.Items {
 		for _, or := range replicasetIns.GetOwnerReferences() {
-			if or.Controller != nil && *or.Controller && strings.ToLower(or.Kind) == "deployment" && or.Name == deployName {
+			if or.Controller != nil && *or.Controller &&
+				strings.ToLower(or.Kind) == "deployment" &&
+				or.Name == deployName {
 				podListIns := &corev1.PodList{}
 				err = listResources.client.List(
 					context.TODO(), podListIns,
 					client.InNamespace(deployNS),
-					client.MatchingLabels(replicasetIns.Spec.Selector.MatchLabels))
-
+					client.MatchingLabels(
+						replicasetIns.Spec.Selector.MatchLabels))
 				if err != nil {
 					scope.Error(err.Error())
 					continue
 				}
 				for _, pod := range podListIns.Items {
 					for _, or := range pod.GetOwnerReferences() {
-						if or.Controller != nil && *or.Controller && strings.ToLower(or.Kind) == "replicaset" && or.Name == replicasetIns.Name {
+						if or.Controller != nil && *or.Controller &&
+							strings.ToLower(or.Kind) == "replicaset" &&
+							or.Name == replicasetIns.Name {
 							pods = append(pods, pod)
 						}
 					}
@@ -177,7 +195,8 @@ func (listResources *ListResources) ListPodsByDeployment(deployNS, deployName st
 }
 
 // ListPodsByDeploymentConfig return pods by deployment namespace and name
-func (listResources *ListResources) ListPodsByDeploymentConfig(deployConfigNS, deployConfigName string) ([]corev1.Pod, error) {
+func (listResources *ListResources) ListPodsByDeploymentConfig(
+	deployConfigNS, deployConfigName string) ([]corev1.Pod, error) {
 	pods := []corev1.Pod{}
 	deploymentConfigIns := &openshift_apps_v1.DeploymentConfig{}
 
@@ -199,18 +218,23 @@ func (listResources *ListResources) ListPodsByDeploymentConfig(deployConfigNS, d
 
 	for _, replicationControllerIns := range replicationControllerListIns.Items {
 		for _, or := range replicationControllerIns.GetOwnerReferences() {
-			if or.Controller != nil && *or.Controller && strings.ToLower(or.Kind) == "deploymentconfig" && or.Name == deployConfigName {
+			if or.Controller != nil && *or.Controller &&
+				strings.ToLower(or.Kind) == "deploymentconfig" &&
+				or.Name == deployConfigName {
 				podListIns := &corev1.PodList{}
 				err = listResources.client.List(context.TODO(), podListIns,
 					client.InNamespace(deployConfigNS),
-					client.MatchingLabels(replicationControllerIns.Spec.Selector))
+					client.MatchingLabels(
+						replicationControllerIns.Spec.Selector))
 				if err != nil {
 					scope.Error(err.Error())
 					continue
 				}
 				for _, pod := range podListIns.Items {
 					for _, or := range pod.GetOwnerReferences() {
-						if or.Controller != nil && *or.Controller && strings.ToLower(or.Kind) == "replicationcontroller" && or.Name == replicationControllerIns.Name {
+						if or.Controller != nil && *or.Controller &&
+							strings.ToLower(or.Kind) == "replicationcontroller" &&
+							or.Name == replicationControllerIns.Name {
 							pods = append(pods, pod)
 						}
 					}
@@ -223,18 +247,21 @@ func (listResources *ListResources) ListPodsByDeploymentConfig(deployConfigNS, d
 }
 
 // ListPodsByStatefulSet return pods by statefulSet namespace and name
-func (listResources *ListResources) ListPodsByStatefulSet(namespace, name string) ([]corev1.Pod, error) {
+func (listResources *ListResources) ListPodsByStatefulSet(
+	namespace, name string) ([]corev1.Pod, error) {
 
 	pods := []corev1.Pod{}
 	statefulSet := &appsv1.StatefulSet{}
 
 	// Get statefulSet
-	err := listResources.client.Get(context.TODO(), types.NamespacedName{
-		Namespace: namespace,
-		Name:      name,
-	}, statefulSet)
+	err := listResources.client.Get(context.TODO(),
+		types.NamespacedName{
+			Namespace: namespace,
+			Name:      name,
+		}, statefulSet)
 	if err != nil {
-		return pods, errors.Errorf("get StatefulSet (%s/%s) failed: %s", namespace, name, err.Error())
+		return pods, errors.Errorf("get StatefulSet (%s/%s) failed: %s",
+			namespace, name, err.Error())
 	}
 
 	// List pods containing labels that statefulSet selects in the same namespace
@@ -244,11 +271,15 @@ func (listResources *ListResources) ListPodsByStatefulSet(namespace, name string
 		client.InNamespace(namespace),
 		client.MatchingLabels(statefulSet.Spec.Selector.MatchLabels))
 	if err != nil {
-		return pods, errors.Errorf("list pods with labels same with StatefulSet.Spec.Selector.MatchLabels (%s/%s) failed: %s", namespace, name, err.Error())
+		return pods,
+			errors.Errorf("list pods with labels same with StatefulSet.Spec.Selector.MatchLabels (%s/%s) failed: %s",
+				namespace, name, err.Error())
 	}
 	for _, pod := range podList.Items {
 		for _, or := range pod.GetOwnerReferences() {
-			if or.Controller != nil && *or.Controller && strings.ToLower(or.Kind) == "statefulset" && or.Name == name {
+			if or.Controller != nil && *or.Controller &&
+				strings.ToLower(or.Kind) == "statefulset" &&
+				or.Name == name {
 				pods = append(pods, pod)
 			}
 		}
@@ -258,7 +289,8 @@ func (listResources *ListResources) ListPodsByStatefulSet(namespace, name string
 }
 
 // ListAllAlamedaScaler return all AlamedaScaler in cluster
-func (listResources *ListResources) ListAllAlamedaScaler() ([]autuscaling.AlamedaScaler, error) {
+func (listResources *ListResources) ListAllAlamedaScaler() (
+	[]autuscaling.AlamedaScaler, error) {
 	alamedaScalerList := &autuscaling.AlamedaScalerList{}
 	if err := listResources.listAllResources(alamedaScalerList); err != nil {
 		return []autuscaling.AlamedaScaler{}, err
@@ -267,16 +299,20 @@ func (listResources *ListResources) ListAllAlamedaScaler() ([]autuscaling.Alamed
 }
 
 // ListNamespaceAlamedaScaler return all AlamedaScaler in specific namespace
-func (listResources *ListResources) ListNamespaceAlamedaScaler(namespace string) ([]autuscaling.AlamedaScaler, error) {
+func (listResources *ListResources) ListNamespaceAlamedaScaler(
+	namespace string) ([]autuscaling.AlamedaScaler, error) {
 	alamedaScalerList := &autuscaling.AlamedaScalerList{}
-	if err := listResources.listResourcesByNamespace(alamedaScalerList, namespace); err != nil {
+	if err := listResources.listResourcesByNamespace(
+		alamedaScalerList, namespace); err != nil {
 		return []autuscaling.AlamedaScaler{}, err
 	}
 	return alamedaScalerList.Items, nil
 }
 
 // ListAlamedaRecommendationOwnedByAlamedaScaler return all AlamedaRecommendation created by input AlamedaScaler
-func (listResources *ListResources) ListAlamedaRecommendationOwnedByAlamedaScaler(alamedaScaler *autuscaling.AlamedaScaler) ([]autuscaling.AlamedaRecommendation, error) {
+func (listResources *ListResources) ListAlamedaRecommendationOwnedByAlamedaScaler(
+	alamedaScaler *autuscaling.AlamedaScaler) (
+	[]autuscaling.AlamedaRecommendation, error) {
 
 	alamedaRecommendationList := &autuscaling.AlamedaRecommendationList{}
 
@@ -285,14 +321,16 @@ func (listResources *ListResources) ListAlamedaRecommendationOwnedByAlamedaScale
 		lbls[k] = v
 	}
 
-	if err := listResources.listResourcesByNamespaceLabels(alamedaRecommendationList, alamedaScaler.Namespace, lbls); err != nil {
+	if err := listResources.listResourcesByNamespaceLabels(
+		alamedaRecommendationList, alamedaScaler.Namespace, lbls); err != nil {
 		return []autuscaling.AlamedaRecommendation{}, err
 	}
 
 	return alamedaRecommendationList.Items, nil
 }
 
-func (listResources *ListResources) listAllResources(resourceList runtime.Object) error {
+func (listResources *ListResources) listAllResources(
+	resourceList runtime.Object) error {
 	if err := listResources.client.List(context.TODO(),
 		resourceList); err != nil {
 		scope.Error(err.Error())
@@ -301,9 +339,10 @@ func (listResources *ListResources) listAllResources(resourceList runtime.Object
 	return nil
 }
 
-func (listResources *ListResources) listResourcesByNamespace(resourceList runtime.Object, namespace string) error {
-	if err := listResources.client.List(context.TODO(), resourceList,
-		&client.ListOptions{
+func (listResources *ListResources) listResourcesByNamespace(
+	resourceList runtime.Object, namespace string) error {
+	if err := listResources.client.List(
+		context.TODO(), resourceList, &client.ListOptions{
 			Namespace: namespace,
 		}); err != nil {
 		scope.Error(err.Error())
@@ -312,7 +351,8 @@ func (listResources *ListResources) listResourcesByNamespace(resourceList runtim
 	return nil
 }
 
-func (listResources *ListResources) listResourcesByLabels(resourceList runtime.Object, lbls map[string]string) error {
+func (listResources *ListResources) listResourcesByLabels(
+	resourceList runtime.Object, lbls map[string]string) error {
 	if err := listResources.client.List(context.TODO(),
 		resourceList,
 		client.MatchingLabels(lbls)); err != nil {
@@ -322,7 +362,8 @@ func (listResources *ListResources) listResourcesByLabels(resourceList runtime.O
 	return nil
 }
 
-func (listResources *ListResources) listResourcesByNamespaceLabels(resourceList runtime.Object, namespace string, lbls map[string]string) error {
+func (listResources *ListResources) listResourcesByNamespaceLabels(
+	resourceList runtime.Object, namespace string, lbls map[string]string) error {
 	if err := listResources.client.List(context.TODO(),
 		resourceList, client.InNamespace(namespace),
 		client.MatchingLabels(lbls)); err != nil {

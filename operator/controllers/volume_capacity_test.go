@@ -18,7 +18,7 @@ func TestAdd(t *testing.T) {
 	}
 
 	testCases := []testCase{
-		testCase{
+		{
 			have: testCaseHave{
 				src: VolumeCapacity{
 					Total: 10,

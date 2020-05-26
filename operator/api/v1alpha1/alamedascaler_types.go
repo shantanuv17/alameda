@@ -392,7 +392,8 @@ func (as *AlamedaScaler) GetRequestCPUMilliCores() string {
 		if executionStrategy.Resources != nil {
 			if executionStrategy.Resources.Requests != nil {
 				if executionStrategy.Resources.Requests.Cpu() != nil {
-					cpuMilliCores = fmt.Sprintf("%d", executionStrategy.Resources.Requests.Cpu().MilliValue())
+					cpuMilliCores = fmt.Sprintf("%d",
+						executionStrategy.Resources.Requests.Cpu().MilliValue())
 				}
 			}
 		}
@@ -410,7 +411,8 @@ func (as *AlamedaScaler) GetRequestMemoryBytes() string {
 		if executionStrategy.Resources != nil {
 			if executionStrategy.Resources.Requests != nil {
 				if executionStrategy.Resources.Requests.Memory() != nil {
-					memoryBytes = fmt.Sprintf("%d", executionStrategy.Resources.Requests.Memory().Value())
+					memoryBytes = fmt.Sprintf("%d",
+						executionStrategy.Resources.Requests.Memory().Value())
 				}
 			}
 		}
@@ -428,7 +430,8 @@ func (as *AlamedaScaler) GetLimitCPUMilliCores() string {
 		if executionStrategy.Resources != nil {
 			if executionStrategy.Resources.Limits != nil {
 				if executionStrategy.Resources.Limits.Cpu() != nil {
-					cpuMilliCores = fmt.Sprintf("%d", executionStrategy.Resources.Limits.Cpu().MilliValue())
+					cpuMilliCores = fmt.Sprintf("%d",
+						executionStrategy.Resources.Limits.Cpu().MilliValue())
 				}
 			}
 		}
@@ -446,7 +449,8 @@ func (as *AlamedaScaler) GetLimitMemoryBytes() string {
 		if executionStrategy.Resources != nil {
 			if executionStrategy.Resources.Limits != nil {
 				if executionStrategy.Resources.Limits.Memory() != nil {
-					memoryBytes = fmt.Sprintf("%d", executionStrategy.Resources.Limits.Memory().Value())
+					memoryBytes = fmt.Sprintf("%d",
+						executionStrategy.Resources.Limits.Memory().Value())
 				}
 			}
 		}
@@ -456,7 +460,8 @@ func (as *AlamedaScaler) GetLimitMemoryBytes() string {
 }
 
 func (as *AlamedaScaler) IsEnableExecution() bool {
-	if as.Spec.EnableExecution == nil || *as.Spec.EnableExecution == false {
+	if as.Spec.EnableExecution == nil ||
+		*as.Spec.EnableExecution == false {
 		return false
 	}
 	return true
@@ -505,7 +510,8 @@ func (as *AlamedaScaler) HasAlamedaPod(namespace, name string) bool {
 	return false
 }
 
-func (as *AlamedaScaler) AddAlamedaResourceIntoStatus(arType AlamedaControllerType, ar AlamedaResource) {
+func (as *AlamedaScaler) AddAlamedaResourceIntoStatus(
+	arType AlamedaControllerType, ar AlamedaResource) {
 	ac := as.Status.AlamedaController
 	switch arType {
 	case DeploymentController:
@@ -534,18 +540,23 @@ func (as *AlamedaScaler) setDefaultScalingTool() {
 		if as.Spec.ScalingTool.ExecutionStrategy == nil {
 			as.setDefaultExecutionStrategy()
 		}
-		if as.Spec.ScalingTool.ExecutionStrategy.MaxUnavailable == "" || as.Spec.ScalingTool.ExecutionStrategy.MaxUnavailable == "0" || as.Spec.ScalingTool.ExecutionStrategy.MaxUnavailable == "0%" {
-			as.Spec.ScalingTool.ExecutionStrategy.MaxUnavailable = DefaultMaxUnavailablePercentage
+		if as.Spec.ScalingTool.ExecutionStrategy.MaxUnavailable == "" ||
+			as.Spec.ScalingTool.ExecutionStrategy.MaxUnavailable == "0" ||
+			as.Spec.ScalingTool.ExecutionStrategy.MaxUnavailable == "0%" {
+			as.Spec.ScalingTool.ExecutionStrategy.MaxUnavailable =
+				DefaultMaxUnavailablePercentage
 		}
 
 		if as.Spec.ScalingTool.ExecutionStrategy.TriggerThreshold == nil {
 			as.setDefaultTriggerThreshold()
 		}
 		if as.Spec.ScalingTool.ExecutionStrategy.TriggerThreshold.CPU == "" {
-			as.Spec.ScalingTool.ExecutionStrategy.TriggerThreshold.CPU = DefaultTriggerThresholdCPUPercentage
+			as.Spec.ScalingTool.ExecutionStrategy.TriggerThreshold.CPU =
+				DefaultTriggerThresholdCPUPercentage
 		}
 		if as.Spec.ScalingTool.ExecutionStrategy.TriggerThreshold.Memory == "" {
-			as.Spec.ScalingTool.ExecutionStrategy.TriggerThreshold.Memory = DefaultTriggerThresholdMemoryPercentage
+			as.Spec.ScalingTool.ExecutionStrategy.TriggerThreshold.Memory =
+				DefaultTriggerThresholdMemoryPercentage
 		}
 	}
 }
@@ -557,7 +568,8 @@ func (as *AlamedaScaler) setDefaultExecutionStrategy() {
 
 func (as *AlamedaScaler) setDefaultTriggerThreshold() {
 	defaultTriggerThreshold := NewDefaultTriggerThreshold()
-	as.Spec.ScalingTool.ExecutionStrategy.TriggerThreshold = &defaultTriggerThreshold
+	as.Spec.ScalingTool.ExecutionStrategy.TriggerThreshold =
+		&defaultTriggerThreshold
 }
 
 // +kubebuilder:object:root=true

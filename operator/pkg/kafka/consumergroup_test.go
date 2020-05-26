@@ -1,8 +1,9 @@
 package kafka
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
@@ -20,7 +21,7 @@ func TestSetResourceRequirements(t *testing.T) {
 	memRequest := resource.MustParse("1M")
 
 	testCases := []testCase{
-		testCase{
+		{
 			have: corev1.ResourceRequirements{
 				Limits: corev1.ResourceList{
 					corev1.ResourceCPU:    cpuLimit,

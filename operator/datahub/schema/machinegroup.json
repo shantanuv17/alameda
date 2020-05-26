@@ -1,6 +1,6 @@
 {
     "schema_meta": {
-        "table": 6,
+        "table": 7,
         "category": "cluster_autoscaler",
         "type": "machinegroup"
     },

@@ -40,7 +40,7 @@ var defaultConfig = config{
 					type_:    "machinegroup",
 				},
 				measurements: []measurement{
-					measurement{
+					{
 						name: "machinegroup",
 					},
 				},
@@ -52,7 +52,7 @@ var defaultConfig = config{
 					type_:    "machinegroup",
 				},
 				measurements: []measurement{
-					measurement{
+					{
 						name: "machinegroup",
 					},
 				},
@@ -64,7 +64,7 @@ var defaultConfig = config{
 					type_:    "machinegroup",
 				},
 				measurements: []measurement{
-					measurement{
+					{
 						name: "machinegroup",
 					},
 				},

@@ -208,8 +208,8 @@ func SyncCAInfoWithScalerAndMachineGroup(ctx context.Context,
 					MaxReplicas:     *msSpec.MaxReplicas,
 					MinReplicas:     *msSpec.MinReplicas,
 				})
+				break
 			}
-			break
 		}
 	}
 	err = datahubMachineSetRepo.CreateMachineSets(ctx, mss)

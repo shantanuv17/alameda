@@ -40,7 +40,7 @@ var defaultConfig = config{
 					type_:    "nginx",
 				},
 				measurements: []measurement{
-					measurement{
+					{
 						name: "nginx",
 					},
 				},
@@ -52,7 +52,7 @@ var defaultConfig = config{
 					type_:    "nginx",
 				},
 				measurements: []measurement{
-					measurement{
+					{
 						name: "nginx",
 					},
 				},
@@ -64,7 +64,7 @@ var defaultConfig = config{
 					type_:    "nginx",
 				},
 				measurements: []measurement{
-					measurement{
+					{
 						name: "nginx",
 					},
 				},

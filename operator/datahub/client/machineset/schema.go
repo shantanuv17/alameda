@@ -40,7 +40,7 @@ var defaultConfig = config{
 					type_:    "machineset",
 				},
 				measurements: []measurement{
-					measurement{
+					{
 						name: "machineset",
 					},
 				},
@@ -52,7 +52,7 @@ var defaultConfig = config{
 					type_:    "machineset",
 				},
 				measurements: []measurement{
-					measurement{
+					{
 						name: "machineset",
 					},
 				},
@@ -64,7 +64,7 @@ var defaultConfig = config{
 					type_:    "machineset",
 				},
 				measurements: []measurement{
-					measurement{
+					{
 						name: "machineset",
 					},
 				},
