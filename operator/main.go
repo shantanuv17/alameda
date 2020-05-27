@@ -378,7 +378,7 @@ func addControllersToManager(mgr manager.Manager) error {
 		Client:        mgr.GetClient(),
 		Scheme:        mgr.GetScheme(),
 		ClusterUID:    clusterUID,
-		DatahubClient: datahubv1alpha1.NewDatahubServiceClient(datahubConn),
+		DatahubClient: datahubClient,
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}
@@ -408,6 +408,7 @@ func addControllersToManager(mgr manager.Manager) error {
 			DatahubCAMachineSetSchema:      datahubSchemas["machineSet"],
 			DatahubCAMachineSetMeasurement: *datahubSchemas["machineSet"].Measurements[0],
 			ReconcileTimeout:               3 * time.Second,
+			DatahubClient:                  datahubClient,
 		}).SetupWithManager(mgr); err != nil {
 			return err
 		}

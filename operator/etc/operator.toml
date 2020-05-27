@@ -26,6 +26,10 @@ version = "2.4.0"
   username = ""
   password = ""
 
+[ca]
+deltaUpTime = 1200
+deltaUpDown = 1200
+
 [prometheus]
 requiredMetrics = ["kafka_topic_partition_current_offset", "kafka_consumergroup_current_offset"]
 url = "https://prometheus-k8s.openshift-monitoring:9091"
@@ -45,4 +49,3 @@ bearerTokenFile = "/var/run/secrets/kubernetes.io/serviceaccount/token"
 #   [k8sWebhookServer.service]
 #   name = "alameda-operator-webhook-service"
 #   port = 443
-  
