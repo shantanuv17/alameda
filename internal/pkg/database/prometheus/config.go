@@ -12,10 +12,11 @@ const (
 
 // Configuration of prometheus data source
 type Config struct {
-	URL             string     `mapstructure:"url"`
-	BearerTokenFile string     `mapstructure:"bearerTokenFile"`
-	TLSConfig       *TLSConfig `mapstructure:"tlsConfig"`
-	bearerToken     string
+	URL                 string     `mapstructure:"url"`
+	BearerTokenFile     string     `mapstructure:"bearerTokenFile"`
+	ReadinessSkipVerify bool       `mapstructure:"readinessSkipVerify"`
+	TLSConfig           *TLSConfig `mapstructure:"tlsConfig"`
+	bearerToken         string
 }
 
 // Configuration of tls connection
@@ -26,8 +27,9 @@ type TLSConfig struct {
 // Provide default configuration for prometheus
 func NewDefaultConfig() *Config {
 	var config = Config{
-		URL:             defaultURL,
-		BearerTokenFile: defaultBearerTokenFile,
+		URL:                 defaultURL,
+		BearerTokenFile:     defaultBearerTokenFile,
+		ReadinessSkipVerify: false,
 		TLSConfig: &TLSConfig{
 			InsecureSkipVerify: true,
 		},
