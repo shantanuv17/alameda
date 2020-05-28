@@ -19,22 +19,12 @@ func LivenessProbe(cfg *LivenessProbeConfig) {
 
 func ReadinessProbe(cfg *ReadinessProbeConfig) {
 	influxdbCfg := cfg.InfluxdbCfg
-	prometheusCfg := cfg.PrometheusCfg
 	queueCfg := cfg.RabbitMQCfg
 
 	err := queryInfluxdb(influxdbCfg)
 	if err != nil {
 		scope.Errorf("Readiness probe: failed to ping influxdb with address (%s) due to %s", influxdbCfg.Address, err.Error())
 		os.Exit(1)
-	}
-
-	err = queryPrometheus(prometheusCfg)
-	if err != nil {
-		scope.Errorf("Readiness probe: failed to query prometheus with url (%s) due to %s", prometheusCfg.URL, err.Error())
-		if prometheusCfg.ReadinessSkipVerify == false {
-			os.Exit(1)
-		}
-		scope.Errorf("ignore error of readiness probe to prometheus")
 	}
 
 	err = queryQueue(queueCfg)
