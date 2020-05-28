@@ -4,6 +4,7 @@ bindAddress = ":50050"
 [prometheus]
 url = "https://prometheus-k8s.openshift-monitoring:9091"
 bearerTokenFile = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+readinessSkipVerify = false
   [prometheus.tlsConfig]
   insecureSkipVerify = true
 

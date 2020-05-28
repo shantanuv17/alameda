@@ -31,7 +31,10 @@ func ReadinessProbe(cfg *ReadinessProbeConfig) {
 	err = queryPrometheus(prometheusCfg)
 	if err != nil {
 		scope.Errorf("Readiness probe: failed to query prometheus with url (%s) due to %s", prometheusCfg.URL, err.Error())
-		os.Exit(1)
+		if prometheusCfg.ReadinessSkipVerify == false {
+			os.Exit(1)
+		}
+		scope.Errorf("ignore error of readiness probe to prometheus")
 	}
 
 	err = queryQueue(queueCfg)
