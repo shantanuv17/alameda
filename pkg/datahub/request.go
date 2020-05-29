@@ -12,14 +12,14 @@ func NewWriteDataRequest(entities interface{}, fields []string) *data.WriteDataR
 	return &request
 }
 
-func NewReadDataRequest(entities interface{}, startTime, endTime *time.Time, opts ...ListOption) *data.ReadDataRequest {
+func NewReadDataRequest(entities interface{}, startTime, endTime *time.Time, opts ...Option) *data.ReadDataRequest {
 	request := data.ReadDataRequest{}
 	request.SchemaMeta = NewSchemaMeta(entities)
 	request.ReadData = append(request.ReadData, NewReadData(entities, startTime, endTime, opts...))
 	return &request
 }
 
-func NewDeleteDataRequest(entities interface{}, opts ...ListOption) *data.DeleteDataRequest {
+func NewDeleteDataRequest(entities interface{}, opts ...Option) *data.DeleteDataRequest {
 	request := data.DeleteDataRequest{}
 	request.SchemaMeta = NewSchemaMeta(entities)
 	request.DeleteData = append(request.DeleteData, NewDeleteData(entities, opts...))
