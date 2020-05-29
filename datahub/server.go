@@ -157,6 +157,7 @@ func (s *Server) createInfluxdbDatabase() {
 		"alameda_application",
 		"alameda_cluster_status",
 		"alameda_event",
+		"alameda_execution",
 		"alameda_gpu",
 		"alameda_gpu_prediction",
 		"alameda_metric",

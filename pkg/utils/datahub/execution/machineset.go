@@ -81,7 +81,7 @@ func CreateMachineSetExecution(datahubClient datahub.DatahubServiceClient,
 			{
 				Measurement: consts.MeasurementMachineset,
 				Columns:     entityRow.Columns,
-				Rows: *&[]*common.Row{
+				Rows: []*common.Row{
 					{
 						Time:   entityRow.Time,
 						Values: entityRow.Values,

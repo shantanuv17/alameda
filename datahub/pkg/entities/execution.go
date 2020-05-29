@@ -1,7 +1,7 @@
 package entities
 
 type ExecutionMachineset struct {
-	DatahubEntity    `scope:"SCOPE_EXECUTION"  category:"cluster_autoscaler"   type:"machineset"`
+	DatahubEntity    `scope:"2" category:"cluster_autoscaler" type:"machineset" measurement:"machineset" metric:"0" boundary:"0" quota:"0"`
 	Name             string `json:"name"              required:"true"  column:"tag"   type:"DATATYPE_STRING"`
 	Namespace        string `json:"namespace"         required:"true"  column:"tag"   type:"DATATYPE_STRING"`
 	ClusterName      string `json:"cluster_name"      required:"true"  column:"tag"   type:"DATATYPE_STRING"`
