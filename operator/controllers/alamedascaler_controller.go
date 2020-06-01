@@ -628,9 +628,9 @@ func (r *AlamedaScalerReconciler) deleteAlamedaWatchedResourcesToDatahub(ctx con
 	scaler *autoscalingv1alpha1.AlamedaScaler, ctlrsFromDH []*datahub_resources.Controller) error {
 
 	controllerMap := map[datahub_resources.Kind][]*datahub_resources.ObjectMeta{
-		datahub_resources.Kind_DEPLOYMENT:       []*datahub_resources.ObjectMeta{},
-		datahub_resources.Kind_DEPLOYMENTCONFIG: []*datahub_resources.ObjectMeta{},
-		datahub_resources.Kind_STATEFULSET:      []*datahub_resources.ObjectMeta{},
+		datahub_resources.Kind_DEPLOYMENT:       {},
+		datahub_resources.Kind_DEPLOYMENTCONFIG: {},
+		datahub_resources.Kind_STATEFULSET:      {},
 	}
 	for _, ctlr := range ctlrsFromDH {
 		if !r.isControllerHasAlamedaScalerInfo(*ctlr, *scaler) {
@@ -657,17 +657,19 @@ func (r *AlamedaScalerReconciler) deleteAlamedaWatchedResourcesToDatahub(ctx con
 	return nil
 }
 
-func (r *AlamedaScalerReconciler) createPodsToDatahubByAlamedaScaler(ctx context.Context,
-	scaler autoscalingv1alpha1.AlamedaScaler) error {
+func (r *AlamedaScalerReconciler) createPodsToDatahubByAlamedaScaler(
+	ctx context.Context, scaler autoscalingv1alpha1.AlamedaScaler) error {
 
 	pods := scaler.GetMonitoredPods()
 
 	getResource := utilsresource.NewGetResource(r)
 
 	policy := datahub_resources.RecommendationPolicy_STABLE
-	if strings.ToLower(string(scaler.Spec.Policy)) == strings.ToLower(string(autoscalingv1alpha1.RecommendationPolicyCOMPACT)) {
+	if strings.ToLower(string(scaler.Spec.Policy)) ==
+		strings.ToLower(string(autoscalingv1alpha1.RecommendationPolicyCOMPACT)) {
 		policy = datahub_resources.RecommendationPolicy_COMPACT
-	} else if strings.ToLower(string(scaler.Spec.Policy)) == strings.ToLower(string(autoscalingv1alpha1.RecommendationPolicySTABLE)) {
+	} else if strings.ToLower(string(scaler.Spec.Policy)) ==
+		strings.ToLower(string(autoscalingv1alpha1.RecommendationPolicySTABLE)) {
 		policy = datahub_resources.RecommendationPolicy_STABLE
 	}
 
@@ -696,41 +698,13 @@ func (r *AlamedaScalerReconciler) createPodsToDatahubByAlamedaScaler(ctx context
 			for _, containerStatus := range corePod.Status.ContainerStatuses {
 				for containerIdx := range containers {
 					if containerStatus.Name == containers[containerIdx].GetName() {
-						containers[containerIdx].Status = datahubutilscontainer.NewStatus(&containerStatus)
+						containers[containerIdx].Status =
+							datahubutilscontainer.NewStatus(&containerStatus)
 						break
 					}
 				}
 			}
-
-			for _, podContainer := range corePod.Spec.Containers {
-				for containerIdx := range containers {
-					if podContainer.Name == containers[containerIdx].GetName() {
-						for _, resourceType := range []corev1.ResourceName{
-							corev1.ResourceCPU, corev1.ResourceMemory,
-						} {
-							if &podContainer.Resources != nil && podContainer.Resources.Limits != nil {
-								resVal, ok := podContainer.Resources.Limits[resourceType]
-								if ok && resourceType == corev1.ResourceCPU {
-									containers[containerIdx].Resources.Limits[int32(datahub_common.ResourceName_CPU)] = strconv.FormatInt(resVal.MilliValue(), 10)
-								}
-								if ok && resourceType == corev1.ResourceMemory {
-									containers[containerIdx].Resources.Limits[int32(datahub_common.ResourceName_MEMORY)] = strconv.FormatInt(resVal.Value(), 10)
-								}
-							}
-							if &podContainer.Resources != nil && podContainer.Resources.Requests != nil {
-								resVal, ok := podContainer.Resources.Requests[resourceType]
-								if ok && resourceType == corev1.ResourceCPU {
-									containers[containerIdx].Resources.Requests[int32(datahub_common.ResourceName_CPU)] = strconv.FormatInt(resVal.MilliValue(), 10)
-								}
-								if ok && resourceType == corev1.ResourceMemory {
-									containers[containerIdx].Resources.Requests[int32(datahub_common.ResourceName_MEMORY)] = strconv.FormatInt(resVal.Value(), 10)
-								}
-							}
-						}
-						break
-					}
-				}
-			}
+			r.setResourceForContainers(corePod, containers)
 
 			nodeName = corePod.Spec.NodeName
 			startTime = &timestamp.Timestamp{
@@ -817,6 +791,72 @@ func (r *AlamedaScalerReconciler) createPodsToDatahubByAlamedaScaler(ctx context
 	return nil
 }
 
+func (r *AlamedaScalerReconciler) setResourceForContainers(
+	corePod *corev1.Pod, containers []*datahub_resources.Container) {
+	for _, podContainer := range corePod.Spec.Containers {
+		for containerIdx := range containers {
+			if podContainer.Name == containers[containerIdx].GetName() {
+				r.setContainerResource(
+					corePod, podContainer, containers[containerIdx])
+				break
+			}
+		}
+	}
+}
+
+func (r *AlamedaScalerReconciler) setContainerResource(corePod *corev1.Pod,
+	podContainer corev1.Container, container *datahub_resources.Container) {
+	for _, resourceType := range []corev1.ResourceName{
+		corev1.ResourceCPU, corev1.ResourceMemory,
+	} {
+		if &podContainer.Resources != nil && podContainer.Resources.Limits != nil {
+			resVal, ok := podContainer.Resources.Limits[resourceType]
+			if ok && resourceType == corev1.ResourceCPU {
+				container.Resources.Limits[int32(datahub_common.ResourceName_CPU)] =
+					strconv.FormatInt(resVal.MilliValue(), 10)
+			} else {
+				scope.Errorf("Recommendation %s will not generate if container %s of pod (%s/%s) does not set %s limit",
+					datahub_common.ResourceName_CPU, container.GetName(), corePod.GetNamespace(),
+					corePod.GetName(), datahub_common.ResourceName_CPU)
+			}
+			if ok && resourceType == corev1.ResourceMemory {
+				container.Resources.Limits[int32(datahub_common.ResourceName_MEMORY)] =
+					strconv.FormatInt(resVal.Value(), 10)
+			} else {
+				scope.Errorf("Recommendation %s will not generate if container %s of pod (%s/%s) does not set %s limit",
+					datahub_common.ResourceName_MEMORY, container.GetName(), corePod.GetNamespace(),
+					corePod.GetName(), datahub_common.ResourceName_MEMORY)
+			}
+		} else {
+			scope.Errorf("Recommendation will not generate if container %s of pod (%s/%s) does not set any limit",
+				container.GetName(), corePod.GetNamespace(), corePod.GetName())
+		}
+
+		if &podContainer.Resources != nil && podContainer.Resources.Requests != nil {
+			resVal, ok := podContainer.Resources.Requests[resourceType]
+			if ok && resourceType == corev1.ResourceCPU {
+				container.Resources.Requests[int32(datahub_common.ResourceName_CPU)] =
+					strconv.FormatInt(resVal.MilliValue(), 10)
+			} else {
+				scope.Errorf("Recommendation %s will not generate if container %s of pod (%s/%s) does not set %s request",
+					datahub_common.ResourceName_CPU, container.GetName(), corePod.GetNamespace(),
+					corePod.GetName(), datahub_common.ResourceName_CPU)
+			}
+			if ok && resourceType == corev1.ResourceMemory {
+				container.Resources.Requests[int32(datahub_common.ResourceName_MEMORY)] =
+					strconv.FormatInt(resVal.Value(), 10)
+			} else {
+				scope.Errorf("Recommendation %s will not generate if container %s of pod (%s/%s) does not set %s request",
+					datahub_common.ResourceName_MEMORY, container.GetName(), corePod.GetNamespace(),
+					corePod.GetName(), datahub_common.ResourceName_MEMORY)
+			}
+		} else {
+			scope.Errorf("Recommendation will not generate if container %s of pod (%s/%s) does not set any request",
+				container.GetName(), corePod.GetNamespace(), corePod.GetName())
+		}
+	}
+}
+
 func (r *AlamedaScalerReconciler) handleAlamedaScalerDeletion(namespace, name string) error {
 
 	ctx := context.TODO()
@@ -837,7 +877,7 @@ func (r *AlamedaScalerReconciler) handleAlamedaScalerDeletion(namespace, name st
 	})
 	wg.Go(func() error {
 		applicationObejctMetas := []*datahub_resources.ObjectMeta{
-			&datahub_resources.ObjectMeta{
+			{
 				Namespace:   namespace,
 				Name:        name,
 				ClusterName: r.ClusterUID,
@@ -850,7 +890,7 @@ func (r *AlamedaScalerReconciler) handleAlamedaScalerDeletion(namespace, name st
 		} else {
 			if r.DatahubNamespaceRepo.IsNSExcluded(namespace) {
 				namespaceObejctMetas := []*datahub_resources.Namespace{
-					&datahub_resources.Namespace{
+					{
 						ObjectMeta: &datahub_resources.ObjectMeta{
 							Name:        namespace,
 							ClusterName: r.ClusterUID,
@@ -888,9 +928,9 @@ func (r *AlamedaScalerReconciler) deleteControllersFromDatahubByAlamedaScaler(
 	}
 
 	controllerMap := map[datahub_resources.Kind][]*datahub_resources.ObjectMeta{
-		datahub_resources.Kind_DEPLOYMENT:       []*datahub_resources.ObjectMeta{},
-		datahub_resources.Kind_DEPLOYMENTCONFIG: []*datahub_resources.ObjectMeta{},
-		datahub_resources.Kind_STATEFULSET:      []*datahub_resources.ObjectMeta{},
+		datahub_resources.Kind_DEPLOYMENT:       {},
+		datahub_resources.Kind_DEPLOYMENTCONFIG: {},
+		datahub_resources.Kind_STATEFULSET:      {},
 	}
 	for _, controller := range application.Controllers {
 		controllerMap[controller.Kind] = append(controllerMap[controller.Kind], controller.ObjectMeta)
