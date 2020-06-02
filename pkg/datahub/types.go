@@ -2,7 +2,6 @@ package datahub
 
 import (
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/enumconv"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
@@ -22,13 +21,13 @@ type Option struct {
 type TimeRange struct {
 	StartTime *time.Time
 	EndTime   *time.Time
-	Order     DBCommon.Order
+	Order     Order
 	Limit     uint64
 	Step      int
 }
 
 type Function struct {
-	Type              DBCommon.FunctionType
+	Type              FunctionType
 	Fields            []string
 	Tags              []string
 	RegularExpression string
