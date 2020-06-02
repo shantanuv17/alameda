@@ -17,6 +17,7 @@ func NewQueryCondition(queryCondition *ApiCommon.QueryCondition) *DBCommon.Query
 		qc.Selects = queryCondition.GetSelects()
 		qc.Groups = queryCondition.GetGroups()
 		qc.Limit = int(queryCondition.GetLimit())
+		qc.Function = NewFunction(queryCondition.GetFunction())
 		if queryCondition.GetTimeRange() != nil {
 			timeRange := queryCondition.GetTimeRange()
 			if timeRange.GetStartTime() != nil {

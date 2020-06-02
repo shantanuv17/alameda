@@ -30,6 +30,21 @@ var DataTypeNameMap = map[ApiCommon.DataType]DBCommon.DataType{
 	ApiCommon.DataType_DATATYPE_STRING:    DBCommon.String,
 }
 
+var QueryConditionFunctionNameMap = map[ApiCommon.FunctionType]DBCommon.FunctionType{
+	ApiCommon.FunctionType_FUNCTIONTYPE_UNDEFINED: DBCommon.NoneFunction,
+	ApiCommon.FunctionType_FUNCTIONTYPE_COUNT:     DBCommon.FunctionCount,
+	ApiCommon.FunctionType_FUNCTIONTYPE_MEAN:      DBCommon.FunctionMean,
+	ApiCommon.FunctionType_FUNCTIONTYPE_MEDIAN:    DBCommon.FunctionMedian,
+	ApiCommon.FunctionType_FUNCTIONTYPE_STDDEV:    DBCommon.FunctionStddev,
+	ApiCommon.FunctionType_FUNCTIONTYPE_SUM:       DBCommon.FunctionSum,
+	ApiCommon.FunctionType_FUNCTIONTYPE_BOTTOM:    DBCommon.FunctionBottom,
+	ApiCommon.FunctionType_FUNCTIONTYPE_FIRST:     DBCommon.FunctionFirst,
+	ApiCommon.FunctionType_FUNCTIONTYPE_LAST:      DBCommon.FunctionLast,
+	ApiCommon.FunctionType_FUNCTIONTYPE_MAX:       DBCommon.FunctionMax,
+	ApiCommon.FunctionType_FUNCTIONTYPE_MIN:       DBCommon.FunctionMin,
+	ApiCommon.FunctionType_FUNCTIONTYPE_TOP:       DBCommon.FunctionTop,
+}
+
 var QueryConditionOrderNameMap = map[ApiCommon.QueryCondition_Order]DBCommon.Order{
 	ApiCommon.QueryCondition_NONE: DBCommon.NoneOrder,
 	ApiCommon.QueryCondition_ASC:  DBCommon.Asc,

@@ -1,10 +1,13 @@
 package datahub
 
 import (
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/enumconv"
+	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	"github.com/golang/protobuf/ptypes"
+	"github.com/golang/protobuf/ptypes/duration"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"reflect"
 	"strconv"
@@ -12,8 +15,25 @@ import (
 )
 
 type Option struct {
-	Entity    interface{}
-	Fields    []string
+	Entity interface{}
+	Fields []string
+}
+
+type TimeRange struct {
+	StartTime *time.Time
+	EndTime   *time.Time
+	Order     DBCommon.Order
+	Limit     uint64
+	Step      int
+}
+
+type Function struct {
+	Type              DBCommon.FunctionType
+	Fields            []string
+	Tags              []string
+	RegularExpression string
+	IntoClause        string
+	Number            int64
 }
 
 func NewWriteData(entities interface{}, fields []string) *data.WriteData {
@@ -31,8 +51,9 @@ func NewWriteData(entities interface{}, fields []string) *data.WriteData {
 	return &writeData
 }
 
-func NewReadData(entities interface{}, startTime, endTime *time.Time, opts ...Option) *data.ReadData {
+func NewReadData(entities interface{}, fields []string, timeRange *TimeRange, function *Function, opts ...Option) *data.ReadData {
 	readData := data.ReadData{}
+	selects := make([]string, 0)
 	datahubEntity, _ := reflect.TypeOf(entities).Elem().Elem().FieldByName("DatahubEntity")
 	readData.Measurement = datahubEntity.Tag.Get("measurement")
 	metric, _ := strconv.ParseInt(datahubEntity.Tag.Get("metric"), 10, 32)
@@ -41,7 +62,12 @@ func NewReadData(entities interface{}, startTime, endTime *time.Time, opts ...Op
 	readData.MetricType = common.MetricType(metric)
 	readData.ResourceBoundary = common.ResourceBoundary(boundary)
 	readData.ResourceQuota = common.ResourceQuota(quota)
-	readData.QueryCondition = NewQueryCondition(startTime, endTime, opts...)
+	entityType := reflect.TypeOf(entities).Elem().Elem()
+	for _, field := range fields {
+		f, _ := entityType.FieldByName(field)
+		selects = append(selects, f.Tag.Get("json"))
+	}
+	readData.QueryCondition = NewQueryCondition(selects, timeRange, function, opts...)
 	return &readData
 }
 
@@ -55,7 +81,7 @@ func NewDeleteData(entities interface{}, opts ...Option) *data.DeleteData {
 	deleteData.MetricType = common.MetricType(metric)
 	deleteData.ResourceBoundary = common.ResourceBoundary(boundary)
 	deleteData.ResourceQuota = common.ResourceQuota(quota)
-	deleteData.QueryCondition = NewQueryCondition(nil, nil, opts...)
+	deleteData.QueryCondition = NewQueryCondition(nil, nil, nil, opts...)
 	return &deleteData
 }
 
@@ -83,7 +109,7 @@ func NewColumns(entities interface{}, fields []string) []string {
 
 	// Read the tag of field to generate the column list
 	for _, field := range fieldNames {
-		fieldType, _ :=entityType.FieldByName(field)
+		fieldType, _ := entityType.FieldByName(field)
 		columns = append(columns, fieldType.Tag.Get("json"))
 	}
 
@@ -133,13 +159,23 @@ func NewRow(value reflect.Value, columns []string) *common.Row {
 	return &row
 }
 
-func NewQueryCondition(startTime, endTime *time.Time, opts ...Option) *common.QueryCondition {
-	if startTime == nil && endTime == nil && len(opts) == 0 {
+func NewQueryCondition(selects []string, timeRange *TimeRange, function *Function, opts ...Option) *common.QueryCondition {
+	if len(selects) == 0 && timeRange == nil && function == nil && len(opts) == 0 {
 		return nil
 	}
 
 	queryCondition := common.QueryCondition{}
-	queryCondition.TimeRange = NewTimeRange(startTime, endTime)
+	queryCondition.TimeRange = NewTimeRange(timeRange)
+	queryCondition.Function = NewFunction(function)
+	queryCondition.Selects = selects
+	if timeRange != nil {
+		if timeRange.Order != 0 {
+			queryCondition.Order = enumconv.QueryConditionOrderNameMap[timeRange.Order]
+		}
+		if timeRange.Limit != 0 {
+			queryCondition.Limit = timeRange.Limit
+		}
+	}
 	for _, opt := range opts {
 		queryCondition.WhereCondition = append(queryCondition.WhereCondition, NewCondition(opt))
 	}
@@ -181,16 +217,37 @@ func NewCondition(opt Option) *common.Condition {
 	return &condition
 }
 
-func NewTimeRange(startTime, endTime *time.Time) *common.TimeRange {
-	if startTime != nil || endTime != nil {
+func NewTimeRange(tr *TimeRange) *common.TimeRange {
+	if tr != nil {
 		timeRange := common.TimeRange{}
-		if startTime != nil {
-			timeRange.StartTime = NewTimestampProto(startTime)
+		if tr.StartTime != nil {
+			timeRange.StartTime = NewTimestampProto(tr.StartTime)
 		}
-		if endTime != nil {
-			timeRange.EndTime = NewTimestampProto(endTime)
+		if tr.EndTime != nil {
+			timeRange.EndTime = NewTimestampProto(tr.EndTime)
+		}
+		if tr.Step != 0 {
+			timeRange.Step = &duration.Duration{Seconds: int64(tr.Step)}
 		}
 		return &timeRange
+	}
+	return nil
+}
+
+func NewFunction(function *Function) *common.Function {
+	if function != nil {
+		f := common.Function{}
+		f.Type = enumconv.QueryConditionFunctionNameMap[function.Type]
+		f.RegularExpression = function.RegularExpression
+		f.IntoClause = function.IntoClause
+		f.Number = function.Number
+		if function.Fields != nil {
+			f.Fields = function.Fields
+		}
+		if function.Tags != nil {
+			f.Tags = function.Tags
+		}
+		return &f
 	}
 	return nil
 }
@@ -209,7 +266,7 @@ func DeepCopyEntity(entities interface{}, results *data.Data) {
 	entityType := reflect.TypeOf(entities).Elem().Elem()
 
 	entityPtr := reflect.ValueOf(entities)
-    entityValue := entityPtr.Elem()
+	entityValue := entityPtr.Elem()
 
 	for _, rawdata := range results.Rawdata {
 		for _, group := range rawdata.Groups {

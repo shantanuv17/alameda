@@ -44,3 +44,22 @@ enum ColumnType {
     COLUMNTYPE_TAG      = 1;
     COLUMNTYPE_FIELD    = 2;
 }
+
+enum FunctionType {
+    FUNCTIONTYPE_UNDEFINED = 0;
+
+    // Aggregation function
+    FUNCTIONTYPE_COUNT     = 1;  // Returns the number of non-null field values
+    FUNCTIONTYPE_MEAN      = 2;  // Returns the arithmetic mean (average) of field values.
+    FUNCTIONTYPE_MEDIAN    = 3;  // Returns the middle value from a sorted list of field values.
+    FUNCTIONTYPE_STDDEV    = 4;  // Returns the standard deviation of field values.
+    FUNCTIONTYPE_SUM       = 5;  // Returns the sum of field values.
+
+    // Selector function
+    FUNCTIONTYPE_BOTTOM    = 6;  // Returns the smallest N field values.
+    FUNCTIONTYPE_FIRST     = 7;  // Returns the field value with the oldest timestamp.
+    FUNCTIONTYPE_LAST      = 8;  // Returns the field value with the most recent timestamp.
+    FUNCTIONTYPE_MAX       = 9;  // Returns the greatest field value.
+    FUNCTIONTYPE_MIN       = 10; // Returns the lowest field value.
+    FUNCTIONTYPE_TOP       = 11; // Returns the greatest N field values.
+}

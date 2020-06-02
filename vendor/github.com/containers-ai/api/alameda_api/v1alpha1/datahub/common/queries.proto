@@ -34,6 +34,15 @@ message Condition {
     repeated common.DataType types     = 4;
 }
 
+message Function {
+    FunctionType    type               = 1;
+    repeated string fields             = 2;
+    repeated string tags               = 3;
+    string          regular_expression = 4;
+    string          into_clause        = 5;
+    int64           number             = 6;
+}
+
 message QueryCondition {
     TimeRange time_range = 1;
     enum Order {
@@ -42,9 +51,10 @@ message QueryCondition {
         DESC = 2;
     }
     Order              order           = 2;
-    string             where_clause    = 3;
-    repeated Condition where_condition = 4;
-    repeated string    selects         = 5;
-    repeated string    groups          = 6;
-    uint64             limit           = 7;
+    Function           function        = 3;
+    string             where_clause    = 4;
+    repeated Condition where_condition = 5;
+    repeated string    selects         = 6;
+    repeated string    groups          = 7;
+    uint64             limit           = 8;
 }

@@ -11,6 +11,9 @@ type Order = int
 // Aggregate function enumerator
 type AggregateFunction = int
 
+// Function type enumerator
+type FunctionType = int
+
 // Data type enumerator
 type DataType int
 
@@ -26,6 +29,25 @@ const (
 	None        AggregateFunction = 0
 	MaxOverTime AggregateFunction = 1
 	AvgOverTime AggregateFunction = 2
+)
+
+const (
+	NoneFunction FunctionType = iota
+
+	// Aggregation Function
+	FunctionCount  // Returns the number of non-null field values
+    FunctionMean   // Returns the arithmetic mean (average) of field values.
+    FunctionMedian // Returns the middle value from a sorted list of field values.
+    FunctionStddev // Returns the standard deviation of field values.
+    FunctionSum    // Returns the sum of field values.
+
+    // Selector function
+    FunctionBottom // Returns the smallest N field values.
+    FunctionFirst  // Returns the field value with the oldest timestamp.
+    FunctionLast   // Returns the field value with the most recent timestamp.
+    FunctionMax    // Returns the greatest field value.
+    FunctionMin    // Returns the lowest field value.
+    FunctionTop    // Returns the greatest N field values.
 )
 
 // Data type definition

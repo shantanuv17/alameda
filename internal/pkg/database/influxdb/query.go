@@ -108,12 +108,86 @@ func (p *InfluxQuery) selects() string {
 			}
 		}
 	}
+
+	// Handle aggregate over time function
 	aggregateFunc := p.QueryCondition.AggregateOverTimeFunction
 	if aggregateFunc != common.None {
 		aggregateName := AggregateFuncMap[aggregateFunc]
 		return fmt.Sprintf("%s(%s) as %s", aggregateName, strings.Join(selects, ","), selects[0])
 	}
+
+	// Handle query function
+	if p.QueryCondition.Function != nil {
+		return p.functionClause()
+	}
+
 	return strings.Join(selects, ",")
+}
+
+func (p *InfluxQuery) functionClause() string {
+	/* Format: LAST(<field_key>)[,<tag_key(s)>|<field_keys(s)>] [INTO_clause]
+	   Example: LAST(*)
+	            LAST(/level/)
+	            LAST("level description")
+	            LAST("level description"),"location","water_level"
+	*/
+
+	funcArgs := make([]string, 0)
+
+	// Handle field-key and regular-expression inside function
+	fields := make([]string, 0)
+	if p.QueryCondition.Function.RegularExpression != "" {
+		fields = append(fields, p.QueryCondition.Function.RegularExpression)
+	} else {
+		if p.QueryCondition.Selects == nil {
+			fields = append(fields, "*")
+		} else {
+			fields = p.QueryCondition.Selects
+		}
+	}
+
+	// Generate function string
+	functionName := FunctionNameMap[p.QueryCondition.Function.Type]
+	number := p.QueryCondition.Function.Number
+	if len(fields) == 1 {
+		if fields[0] == "*" || p.QueryCondition.Function.RegularExpression != "" {
+			if number == 0 {
+				funcArgs = append(funcArgs, fmt.Sprintf("%s(%s)", functionName, fields[0]))
+			} else {
+				funcArgs = append(funcArgs, fmt.Sprintf("%s(%s, %d)", functionName, fields[0], number))
+			}
+		} else {
+			if number == 0 {
+				funcArgs = append(funcArgs, fmt.Sprintf("%s(%s) as %s", functionName, fields[0], fields[0]))
+			} else {
+				funcArgs = append(funcArgs, fmt.Sprintf("%s(%s, %d) as %s", functionName, fields[0], number, fields[0]))
+			}
+		}
+	} else {
+		if number == 0 {
+			funcArgs = append(funcArgs, fmt.Sprintf(`%s("%s")`, functionName, strings.Join(fields, " ")))
+		} else {
+			funcArgs = append(funcArgs, fmt.Sprintf(`%s("%s", %d)`, functionName, strings.Join(fields, " "), number))
+		}
+	}
+
+	// Handle optional field-key and tag-key
+	for _, field := range p.QueryCondition.Function.Fields {
+		funcArgs = append(funcArgs, fmt.Sprintf(`"%s"`, field))
+	}
+	for _, tag := range p.QueryCondition.Function.Tags {
+		funcArgs = append(funcArgs, fmt.Sprintf(`"%s"`, tag))
+	}
+
+	// Generate result string
+	result := ""
+	if p.QueryCondition.Function.IntoClause == "" {
+		result = strings.Join(funcArgs, ",")
+	} else {
+		result = fmt.Sprintf("%s INTO %s", strings.Join(funcArgs, ","), fmt.Sprintf(`"%s"`, p.QueryCondition.Function.IntoClause))
+	}
+
+	return result
 }
 
 func (p *InfluxQuery) whereClause() string {

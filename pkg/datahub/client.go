@@ -6,7 +6,6 @@ import (
 	"github.com/containers-ai/alameda/pkg/utils/log"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	"google.golang.org/grpc"
-	"time"
 )
 
 var (
@@ -59,7 +58,7 @@ func (p *Client) List(entities interface{}, opts ...Option) error {
 
 	// Read data from datahub
 	client := datahub.NewDatahubServiceClient(conn)
-	request := NewReadDataRequest(entities, nil, nil, opts...)
+	request := NewReadDataRequest(entities, nil, nil, nil, opts...)
 	response, err := client.ReadData(context.Background(), request)
 
 	// Check error
@@ -78,7 +77,8 @@ func (p *Client) List(entities interface{}, opts ...Option) error {
 	return nil
 }
 
-func (p *Client) ListTS(entities interface{}, startTime, endTime *time.Time, opts ...Option) error {
+func (p *Client) ListTS(entities interface{}, fields []string, timeRange *TimeRange, function *Function, opts ...Option) error {
+// func (p *Client) ListTS(entities interface{}, startTime, endTime *time.Time, opts ...Option) error {
 	// Create connection to datahub
 	conn, err := grpc.Dial(p.Address, grpc.WithInsecure())
 	if err != nil {
@@ -88,7 +88,7 @@ func (p *Client) ListTS(entities interface{}, startTime, endTime *time.Time, opt
 
 	// Read data from datahub
 	client := datahub.NewDatahubServiceClient(conn)
-	request := NewReadDataRequest(entities, startTime, endTime, opts...)
+	request := NewReadDataRequest(entities, fields, timeRange, function, opts...)
 	response, err := client.ReadData(context.Background(), request)
 
 	// Check error
