@@ -5,7 +5,9 @@ import (
 	"errors"
 	"github.com/containers-ai/alameda/pkg/utils/log"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	"github.com/grpc-ecosystem/go-grpc-middleware/retry"
 	"google.golang.org/grpc"
+	"time"
 )
 
 var (
@@ -13,27 +15,40 @@ var (
 )
 
 type Client struct {
-	Address string
+	datahub.DatahubServiceClient
+	Connection *grpc.ClientConn
+	Address    string
 }
 
 func NewClient(address string) *Client {
-	client := Client{}
+	// Create a client connection to datahub
+	conn, err := grpc.Dial(address,
+		grpc.WithBlock(),
+		grpc.WithTimeout(30*time.Second),
+		grpc.WithInsecure(),
+		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(3)))),
+	)
+
+	if err != nil {
+		scope.Errorf("failed to dial to datahub via address(%s): %s", address, err.Error())
+		return nil
+	}
+
+	// Create datahub service client and initialize member variable
+	client := Client{DatahubServiceClient: datahub.NewDatahubServiceClient(conn)}
 	client.Address = address
+	client.Connection = conn
+
 	return &client
 }
 
-func (p *Client) Create(entities interface{}, fields []string) error {
-	// Create connection to datahub
-	conn, err := grpc.Dial(p.Address, grpc.WithInsecure())
-	if err != nil {
-		return err
-	}
-	defer conn.Close()
+func (p *Client) Close() error {
+	return p.Connection.Close()
+}
 
-	// Write data to datahub
-	client := datahub.NewDatahubServiceClient(conn)
+func (p *Client) Create(entities interface{}, fields []string) error {
 	request := NewWriteDataRequest(entities, fields)
-	status, err := client.WriteData(context.Background(), request)
+	status, err := p.WriteData(context.Background(), request)
 
 	// Check error
 	if err != nil {
@@ -49,17 +64,8 @@ func (p *Client) Create(entities interface{}, fields []string) error {
 }
 
 func (p *Client) List(entities interface{}, opts ...Option) error {
-	// Create connection to datahub
-	conn, err := grpc.Dial(p.Address, grpc.WithInsecure())
-	if err != nil {
-		return err
-	}
-	defer conn.Close()
-
-	// Read data from datahub
-	client := datahub.NewDatahubServiceClient(conn)
 	request := NewReadDataRequest(entities, nil, nil, nil, opts...)
-	response, err := client.ReadData(context.Background(), request)
+	response, err := p.ReadData(context.Background(), request)
 
 	// Check error
 	if err != nil {
@@ -78,18 +84,8 @@ func (p *Client) List(entities interface{}, opts ...Option) error {
 }
 
 func (p *Client) ListTS(entities interface{}, fields []string, timeRange *TimeRange, function *Function, opts ...Option) error {
-// func (p *Client) ListTS(entities interface{}, startTime, endTime *time.Time, opts ...Option) error {
-	// Create connection to datahub
-	conn, err := grpc.Dial(p.Address, grpc.WithInsecure())
-	if err != nil {
-		return err
-	}
-	defer conn.Close()
-
-	// Read data from datahub
-	client := datahub.NewDatahubServiceClient(conn)
 	request := NewReadDataRequest(entities, fields, timeRange, function, opts...)
-	response, err := client.ReadData(context.Background(), request)
+	response, err := p.ReadData(context.Background(), request)
 
 	// Check error
 	if err != nil {
@@ -108,17 +104,8 @@ func (p *Client) ListTS(entities interface{}, fields []string, timeRange *TimeRa
 }
 
 func (p *Client) Delete(entities interface{}, opts ...Option) error {
-	// Create connection to datahub
-	conn, err := grpc.Dial(p.Address, grpc.WithInsecure())
-	if err != nil {
-		return err
-	}
-	defer conn.Close()
-
-	// Write data to datahub
-	client := datahub.NewDatahubServiceClient(conn)
 	request := NewDeleteDataRequest(entities, opts...)
-	status, err := client.DeleteData(context.Background(), request)
+	status, err := p.DeleteData(context.Background(), request)
 
 	// Check error
 	if err != nil {
