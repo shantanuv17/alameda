@@ -8,7 +8,7 @@ import (
 func SchemaResourceClusterAutoscalerMachinegroup() *schemas.Schema {
 	// cluster-autoscaler machinegroup
 	schema := schemas.NewSchema(schemas.Resource, "cluster_autoscaler", "machinegroup")
-	measurement := schemas.NewMeasurement("machinegroup", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement := schemas.NewMeasurement("cluster_autoscaler_machinegroup", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -27,7 +27,7 @@ func SchemaResourceClusterAutoscalerMachinegroup() *schemas.Schema {
 func SchemaResourceClusterAutoscalerMachineset() *schemas.Schema {
 	// cluster-autoscaler machineset
 	schema := schemas.NewSchema(schemas.Resource, "cluster_autoscaler", "machineset")
-	measurement := schemas.NewMeasurement("machineset", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement := schemas.NewMeasurement("cluster_autoscaler_machineset", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)

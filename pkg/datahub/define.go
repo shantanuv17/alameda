@@ -1,5 +1,10 @@
 package datahub
 
+import (
+	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
+	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
+)
+
 // Order enumerator
 type Order = int
 
@@ -31,3 +36,42 @@ const (
     FunctionMin    // Returns the lowest field value.
     FunctionTop    // Returns the greatest N field values.
 )
+
+var ScopeValue = map[string]schemas.Scope{
+	"undefined":      schemas.Scope_SCOPE_UNDEFINED,
+	"application":    schemas.Scope_SCOPE_APPLICATION,
+	"execution":      schemas.Scope_SCOPE_EXECUTION,
+	"metric":         schemas.Scope_SCOPE_METRIC,
+	"planning":       schemas.Scope_SCOPE_PLANNING,
+	"prediction":     schemas.Scope_SCOPE_PREDICTION,
+	"recommendation": schemas.Scope_SCOPE_RECOMMENDATION,
+	"resource":       schemas.Scope_SCOPE_RESOURCE,
+}
+
+var MetricTypeValue = map[string]common.MetricType{
+	"undefined":            common.MetricType_METRICS_TYPE_UNDEFINED,
+	"cpu_usage_percentage": common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+	"memory_usage_bytes":   common.MetricType_MEMORY_USAGE_BYTES,
+	"power_usage_watts":    common.MetricType_POWER_USAGE_WATTS,
+	"temperature_celsius":  common.MetricType_TEMPERATURE_CELSIUS,
+	"duty_cycle":           common.MetricType_DUTY_CYCLE,
+	"current_offset":       common.MetricType_CURRENT_OFFSET,
+	"lag":                  common.MetricType_LAG,
+	"latency":              common.MetricType_LATENCY,
+	"number":               common.MetricType_NUMBER,
+}
+
+var ResourceBoundaryValue = map[string]common.ResourceBoundary{
+	"undefined":   common.ResourceBoundary_RESOURCE_BOUNDARY_UNDEFINED,
+	"raw":         common.ResourceBoundary_RESOURCE_RAW,
+	"upper_bound": common.ResourceBoundary_RESOURCE_UPPER_BOUND,
+	"lower_bound": common.ResourceBoundary_RESOURCE_LOWER_BOUND,
+}
+
+var ResourceQuotaValue = map[string]common.ResourceQuota{
+	"undefined":       common.ResourceQuota_RESOURCE_QUOTA_UNDEFINED,
+	"limit":           common.ResourceQuota_RESOURCE_LIMIT,
+	"request":         common.ResourceQuota_RESOURCE_REQUEST,
+	"initial_limit":   common.ResourceQuota_RESOURCE_INITIAL_LIMIT,
+	"initial_request": common.ResourceQuota_RESOURCE_INITIAL_REQUEST,
+}

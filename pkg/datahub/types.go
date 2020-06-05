@@ -39,12 +39,9 @@ func NewWriteData(entities interface{}, fields []string) *data.WriteData {
 	writeData := data.WriteData{}
 	datahubEntity, _ := reflect.TypeOf(entities).Elem().Elem().FieldByName("DatahubEntity")
 	writeData.Measurement = datahubEntity.Tag.Get("measurement")
-	metric, _ := strconv.ParseInt(datahubEntity.Tag.Get("metric"), 10, 32)
-	boundary, _ := strconv.ParseInt(datahubEntity.Tag.Get("boundary"), 10, 32)
-	quota, _ := strconv.ParseInt(datahubEntity.Tag.Get("quota"), 10, 32)
-	writeData.MetricType = common.MetricType(metric)
-	writeData.ResourceBoundary = common.ResourceBoundary(boundary)
-	writeData.ResourceQuota = common.ResourceQuota(quota)
+	writeData.MetricType = MetricTypeValue[datahubEntity.Tag.Get("metric")]
+	writeData.ResourceBoundary = ResourceBoundaryValue[datahubEntity.Tag.Get("boundary")]
+	writeData.ResourceQuota = ResourceQuotaValue[datahubEntity.Tag.Get("quota")]
 	writeData.Columns = NewColumns(entities, fields)
 	writeData.Rows = NewRows(entities, writeData.Columns)
 	return &writeData
@@ -55,12 +52,9 @@ func NewReadData(entities interface{}, fields []string, timeRange *TimeRange, fu
 	selects := make([]string, 0)
 	datahubEntity, _ := reflect.TypeOf(entities).Elem().Elem().FieldByName("DatahubEntity")
 	readData.Measurement = datahubEntity.Tag.Get("measurement")
-	metric, _ := strconv.ParseInt(datahubEntity.Tag.Get("metric"), 10, 32)
-	boundary, _ := strconv.ParseInt(datahubEntity.Tag.Get("boundary"), 10, 32)
-	quota, _ := strconv.ParseInt(datahubEntity.Tag.Get("quota"), 10, 32)
-	readData.MetricType = common.MetricType(metric)
-	readData.ResourceBoundary = common.ResourceBoundary(boundary)
-	readData.ResourceQuota = common.ResourceQuota(quota)
+	readData.MetricType = MetricTypeValue[datahubEntity.Tag.Get("metric")]
+	readData.ResourceBoundary = ResourceBoundaryValue[datahubEntity.Tag.Get("boundary")]
+	readData.ResourceQuota = ResourceQuotaValue[datahubEntity.Tag.Get("quota")]
 	entityType := reflect.TypeOf(entities).Elem().Elem()
 	for _, field := range fields {
 		f, _ := entityType.FieldByName(field)
@@ -74,12 +68,9 @@ func NewDeleteData(entities interface{}, opts ...Option) *data.DeleteData {
 	deleteData := data.DeleteData{}
 	datahubEntity, _ := reflect.TypeOf(entities).Elem().Elem().FieldByName("DatahubEntity")
 	deleteData.Measurement = datahubEntity.Tag.Get("measurement")
-	metric, _ := strconv.ParseInt(datahubEntity.Tag.Get("metric"), 10, 32)
-	boundary, _ := strconv.ParseInt(datahubEntity.Tag.Get("boundary"), 10, 32)
-	quota, _ := strconv.ParseInt(datahubEntity.Tag.Get("quota"), 10, 32)
-	deleteData.MetricType = common.MetricType(metric)
-	deleteData.ResourceBoundary = common.ResourceBoundary(boundary)
-	deleteData.ResourceQuota = common.ResourceQuota(quota)
+	deleteData.MetricType = MetricTypeValue[datahubEntity.Tag.Get("metric")]
+	deleteData.ResourceBoundary = ResourceBoundaryValue[datahubEntity.Tag.Get("boundary")]
+	deleteData.ResourceQuota = ResourceQuotaValue[datahubEntity.Tag.Get("quota")]
 	deleteData.QueryCondition = NewQueryCondition(nil, nil, nil, opts...)
 	return &deleteData
 }
@@ -87,8 +78,7 @@ func NewDeleteData(entities interface{}, opts ...Option) *data.DeleteData {
 func NewSchemaMeta(entities interface{}) *schemas.SchemaMeta {
 	schemaMeta := schemas.SchemaMeta{}
 	datahubEntity, _ := reflect.TypeOf(entities).Elem().Elem().FieldByName("DatahubEntity")
-	scope, _ := strconv.ParseInt(datahubEntity.Tag.Get("scope"), 10, 32)
-	schemaMeta.Scope = schemas.Scope(scope)
+	schemaMeta.Scope = ScopeValue[datahubEntity.Tag.Get("scope")]
 	schemaMeta.Category = datahubEntity.Tag.Get("category")
 	schemaMeta.Type = datahubEntity.Tag.Get("type")
 	return &schemaMeta

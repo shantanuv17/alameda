@@ -8,7 +8,7 @@ import (
 func SchemaExecutionClusterAutoscalerMachineset() *schemas.Schema {
 	// cluster-autoscaler machineset
 	schema := schemas.NewSchema(schemas.Execution, "cluster_autoscaler", "machineset")
-	measurement := schemas.NewMeasurement("machineset", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement := schemas.NewMeasurement("cluster_autoscaler_machineset", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
