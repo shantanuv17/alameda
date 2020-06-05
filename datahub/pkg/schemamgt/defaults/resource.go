@@ -37,7 +37,7 @@ func SchemaResourceClusterAutoscalerMachineset() *schemas.Schema {
 	measurement.AddColumn("resource_k8s_replicas", false, schemas.Field, common.Int32)
 	measurement.AddColumn("resource_k8s_min_replicas", false, schemas.Field, common.Int32)
 	measurement.AddColumn("resource_k8s_max_replicas", false, schemas.Field, common.Int32)
-	measurement.AddColumn("enable_execution", false, schemas.Field, common.String)
+	measurement.AddColumn("enable_execution", false, schemas.Field, common.Bool)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }

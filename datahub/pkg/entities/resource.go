@@ -26,7 +26,7 @@ type ResourceClusterAutoscalerMachineset struct {
 	ResourceK8sReplicas     int32  `json:"resource_k8s_replicas"      required:"false" column:"field" type:"int32"`
 	ResourceK8sMinReplicas  int32  `json:"resource_k8s_min_replicas"  required:"false" column:"field" type:"int32"`
 	ResourceK8sMaxReplicas  int32  `json:"resource_k8s_max_replicas"  required:"false" column:"field" type:"int32"`
-	EnableExecution         string `json:"enable_execution"           required:"false" column:"field" type:"string"`
+	EnableExecution         bool   `json:"enable_execution"           required:"false" column:"field" type:"bool"`
 }
 
 type ResourceClusterStatusApplication struct {
