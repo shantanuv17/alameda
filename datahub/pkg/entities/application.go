@@ -10,7 +10,7 @@ type ApplicationKafkaTopic struct {
 	Dummy                  string `json:"dummy"                    required:"true" column:"field" type:"string"`
 }
 
-type ApplicationKafkaCG struct {
+type ApplicationKafkaConsumerGroup struct {
 	DatahubEntity           `scope:"application" category:"kafka" type:"consumer_group" measurement:"kafka_consumer_group" metric:"undefined" boundary:"undefined" quota:"undefined"`
 	Name                    string `json:"name"                       required:"true"  column:"tag"   type:"string"`
 	Namespace               string `json:"namespace"                  required:"true"  column:"tag"   type:"string"`
