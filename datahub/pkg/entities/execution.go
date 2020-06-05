@@ -9,6 +9,6 @@ type ExecutionClusterAutoscalerMachineset struct {
 	ExecutionTime    string `json:"execution_time"    required:"false" column:"field" type:"string"`
 	ReplicasFrom     int32  `json:"replicas_from"     required:"false" column:"field" type:"int32"`
 	ReplicasTo       int32  `json:"replicas_to"       required:"false" column:"field" type:"int32"`
-	DeltaUpTime      int64  `json:"delta_up_time​"     required:"false" column:"field" type:"int64"`
+	DeltaUpTime      int64  `json:"delta_up_time"     required:"false" column:"field" type:"int64"`
 	DeltaDownTime    int64  `json:"delta_down_time"   required:"false" column:"field" type:"int64"`
 }
