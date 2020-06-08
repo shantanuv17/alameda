@@ -13,11 +13,11 @@ import (
 
 func ListMachineSetExecutionByNamespacedName(
 	datahubClient datahub.DatahubServiceClient, clusterName, machineNS,
-	machineName string, limit uint64) ([]*entities.ExecutionMachineset, error) {
+	machineName string, limit uint64) ([]*entities.ExecutionClusterAutoscalerMachineset, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), consts.DatahubTimeout)
 	defer cancel()
 
-	machineSetExecutionList := []*entities.ExecutionMachineset{}
+	machineSetExecutionList := []*entities.ExecutionClusterAutoscalerMachineset{}
 	whereCondition := &common.Condition{
 		Keys:      []string{"cluster_name", "namespace", "name"},
 		Values:    []string{clusterName, machineNS, machineName},
@@ -55,7 +55,7 @@ func ListMachineSetExecutionByNamespacedName(
 		for _, grp := range rd.GetGroups() {
 			cols := grp.GetColumns()
 			for _, row := range grp.GetRows() {
-				entity := &entities.ExecutionMachineset{}
+				entity := &entities.ExecutionClusterAutoscalerMachineset{}
 				entity.Populate(entity, row.GetTime(), cols, row.GetValues())
 				machineSetExecutionList = append(machineSetExecutionList, entity)
 			}
@@ -65,7 +65,7 @@ func ListMachineSetExecutionByNamespacedName(
 }
 
 func CreateMachineSetExecution(datahubClient datahub.DatahubServiceClient,
-	execution *entities.ExecutionMachineset, fields []string) error {
+	execution *entities.ExecutionClusterAutoscalerMachineset, fields []string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), consts.DatahubTimeout)
 	defer cancel()
 
