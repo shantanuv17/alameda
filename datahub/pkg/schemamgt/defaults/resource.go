@@ -150,6 +150,7 @@ func SchemaResourceClusterStatusNode() *schemas.Schema {
 	measurement.AddColumn("role_worker", false, schemas.Field, common.Bool)
 	measurement.AddColumn("role_infra", false, schemas.Field, common.Bool)
 	measurement.AddColumn("create_time", false, schemas.Field, common.Int64)
+	measurement.AddColumn("machine_create_time", false, schemas.Field, common.Int64)
 	measurement.AddColumn("node_cpu_cores", false, schemas.Field, common.Int64)    // NodeCPUCores is the amount of cores in node
 	measurement.AddColumn("node_memory_bytes", false, schemas.Field, common.Int64) // NodeMemoryBytes is the amount of memory bytes in node
 	measurement.AddColumn("node_network_mbps", false, schemas.Field, common.Int64) // NodeNetworkMbps is mega bits per second

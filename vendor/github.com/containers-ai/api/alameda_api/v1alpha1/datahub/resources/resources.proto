@@ -53,8 +53,9 @@ message Namespace {
 message Node {
     ObjectMeta                object_meta        = 1;
     google.protobuf.Timestamp start_time         = 2;
-    Capacity                  capacity           = 3;
-    AlamedaNodeSpec           alameda_node_spec  = 4;
+    google.protobuf.Timestamp machine_start_time = 3;
+    Capacity                  capacity           = 4;
+    AlamedaNodeSpec           alameda_node_spec  = 5;
 }
 
 message Cluster {

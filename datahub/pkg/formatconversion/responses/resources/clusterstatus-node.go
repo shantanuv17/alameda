@@ -13,6 +13,7 @@ func (p *NodeExtended) ProduceNode() *resources.Node {
 	node := resources.Node{}
 	node.ObjectMeta = NewObjectMeta(p.ObjectMeta)
 	node.StartTime = p.CreateTime
+	node.MachineStartTime = p.MachineCreateTime
 	node.Capacity = NewCapacity(p.Capacity)
 	node.AlamedaNodeSpec = NewAlamedaNodeSpec(p.AlamedaNodeSpec)
 	return &node

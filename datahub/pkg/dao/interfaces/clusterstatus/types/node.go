@@ -16,10 +16,11 @@ type NodeDAO interface {
 }
 
 type Node struct {
-	ObjectMeta      *metadata.ObjectMeta
-	CreateTime      *timestamp.Timestamp
-	Capacity        *Capacity
-	AlamedaNodeSpec *AlamedaNodeSpec
+	ObjectMeta        *metadata.ObjectMeta
+	CreateTime        *timestamp.Timestamp
+	MachineCreateTime *timestamp.Timestamp
+	Capacity          *Capacity
+	AlamedaNodeSpec   *AlamedaNodeSpec
 }
 
 type ListNodesRequest struct {
@@ -64,6 +65,7 @@ func NewNode(entity *clusterstatus.NodeEntity) *Node {
 	node.ObjectMeta.ClusterName = entity.ClusterName
 	node.ObjectMeta.Uid = entity.Uid
 	node.CreateTime = &timestamp.Timestamp{Seconds: entity.CreateTime}
+	node.MachineCreateTime = &timestamp.Timestamp{Seconds: entity.MachineCreateTime}
 	node.Capacity = NewCapacity(entity)
 	node.AlamedaNodeSpec = NewAlamedaNodeSpec(entity)
 	return &node
@@ -126,6 +128,10 @@ func (p *Node) BuildEntity() *clusterstatus.NodeEntity {
 
 	if p.CreateTime != nil {
 		entity.CreateTime = p.CreateTime.GetSeconds()
+	}
+
+	if p.MachineCreateTime != nil {
+		entity.MachineCreateTime = p.MachineCreateTime.GetSeconds()
 	}
 
 	if p.Capacity != nil {

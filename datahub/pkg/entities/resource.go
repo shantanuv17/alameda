@@ -115,6 +115,7 @@ type ResourceClusterStatusNode struct {
 	RoleWorker          bool   `json:"role_worker"          required:"false" column:"field" type:"bool"`
 	RoleInfra           bool   `json:"role_infra"           required:"false" column:"field" type:"bool"`
 	CreateTime          int64  `json:"create_time"          required:"false" column:"field" type:"int64"`
+	MachineCreateTime   int64  `json:"machine_create_time"  required:"false" column:"field" type:"int64"`
 	NodeCPUCores        int64  `json:"node_cpu_cores"       required:"false" column:"field" type:"int64"`  // NodeCPUCores is the amount of cores in node
 	NodeMemoryBytes     int64  `json:"node_memory_bytes"    required:"false" column:"field" type:"int64"`  // NodeMemoryBytes is the amount of memory bytes in node
 	NodeNetworkMbps     int64  `json:"node_network_mbps"    required:"false" column:"field" type:"int64"`  // NodeNetworkMbps is mega bits per second

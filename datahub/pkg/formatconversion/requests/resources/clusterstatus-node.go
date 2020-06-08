@@ -28,6 +28,7 @@ func NewNode(node *ApiResources.Node) *DaoClusterTypes.Node {
 		n := DaoClusterTypes.Node{}
 		n.ObjectMeta = &objectMeta
 		n.CreateTime = node.GetStartTime()
+		n.MachineCreateTime = node.GetMachineStartTime()
 		n.Capacity = NewCapacity(node.GetCapacity())
 		n.AlamedaNodeSpec = NewAlamedaNodeSpec(node.GetAlamedaNodeSpec())
 
