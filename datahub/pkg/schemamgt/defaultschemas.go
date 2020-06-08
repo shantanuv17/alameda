@@ -51,7 +51,7 @@ func DefaultSchemasInit() {
 	// Recommendation
 	schemaList = append(schemaList, defaults.SchemaRecommendationKafkaCG())
 	schemaList = append(schemaList, defaults.SchemaRecommendationNginx())
-	schemaList = append(schemaList, defaults.SchemaRecommendationClusterAutoscalerMachineset())
+	schemaList = append(schemaList, defaults.SchemaRecommendationClusterAutoscalerMachinegroup())
 	schemaList = append(schemaList, defaults.SchemaRecommendationClusterStatusApplication())
 	schemaList = append(schemaList, defaults.SchemaRecommendationClusterStatusCluster())
 	schemaList = append(schemaList, defaults.SchemaRecommendationClusterStatusContainer())

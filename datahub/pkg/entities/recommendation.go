@@ -33,16 +33,17 @@ type RecommendationNginx struct {
 	Mape2            float64 `json:"mape2"              required:"true"  column:"field" type:"float64"`
 }
 
-type RecommendationClusterAutoscalerMachineset struct {
-	DatahubEntity    `scope:"recommendation" category:"cluster_autoscaler" type:"machineset" measurement:"machineset" metric:"undefined" boundary:"undefined" quota:"undefined"`
-	Name             string `json:"name"              required:"true" column:"tag"   type:"string"`
-	Namespace        string `json:"namespace"         required:"true" column:"tag"   type:"string"`
-	ClusterName      string `json:"cluster_name"      required:"true" column:"tag"   type:"string"`
-	MachinegroupName string `json:"machinegroup_name" required:"true" column:"tag"   type:"string"`
-	CreateTime       string `json:"create_time"       required:"true" column:"field" type:"string"`
-	ExecutionTime    string `json:"execution_time"    required:"true" column:"field" type:"string"`
-	CurrentReplicas  int32  `json:"current_replicas"  required:"true" column:"field" type:"int32"`
-	DesiredReplicas  int32  `json:"desired_replicas"  required:"true" column:"field" type:"int32"`
+type RecommendationClusterAutoscalerMachinegroup struct {
+	DatahubEntity       `scope:"recommendation" category:"cluster_autoscaler" type:"machinegroup" measurement:"machinegroup" metric:"undefined" boundary:"undefined" quota:"undefined"`
+	Name                string `json:"name"                 required:"true" column:"tag"   type:"string"`
+	Namespace           string `json:"namespace"            required:"true" column:"tag"   type:"string"`
+	ClusterName         string `json:"cluster_name"         required:"true" column:"tag"   type:"string"`
+	MachinesetName      string `json:"machineset_name"      required:"true" column:"field" type:"string"`
+	MachinesetNamespace string `json:"machineset_namespace" required:"true" column:"field" type:"String"`
+	CreateTime          string `json:"create_time"          required:"true" column:"field" type:"string"`
+	ExecutionTime       string `json:"execution_time"       required:"true" column:"field" type:"string"`
+	CurrentReplicas     int32  `json:"current_replicas"     required:"true" column:"field" type:"int32"`
+	DesiredReplicas     int32  `json:"desired_replicas"     required:"true" column:"field" type:"int32"`
 }
 
 type RecommendationClusterStatusApplication struct {

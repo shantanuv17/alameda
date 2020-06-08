@@ -46,14 +46,15 @@ func SchemaRecommendationNginx() *schemas.Schema {
 	return schema
 }
 
-func SchemaRecommendationClusterAutoscalerMachineset() *schemas.Schema {
-	// cluster-autoscaler machineset
-	schema := schemas.NewSchema(schemas.Recommendation, "cluster_autoscaler", "machineset")
-	measurement := schemas.NewMeasurement("machineset", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+func SchemaRecommendationClusterAutoscalerMachinegroup() *schemas.Schema {
+	// cluster-autoscaler machinegroup
+	schema := schemas.NewSchema(schemas.Recommendation, "cluster_autoscaler", "machinegroup")
+	measurement := schemas.NewMeasurement("machinegroup", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("machinegroup_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("machineset_name", true, schemas.Field, common.String)
+	measurement.AddColumn("machineset_namespace", true, schemas.Field, common.String)
 	measurement.AddColumn("create_time", true, schemas.Field, common.String)
 	measurement.AddColumn("execution_time", true, schemas.Field, common.String)
 	measurement.AddColumn("current_replicas", true, schemas.Field, common.Int32)
