@@ -1,18 +1,22 @@
 package entities
 
 type ResourceClusterAutoscalerMachinegroup struct {
-	DatahubEntity                 `scope:"resource" category:"cluster_autoscaler" type:"machinegroup" measurement:"cluster_autoscaler_machinegroup" metric:"undefined" boundary:"undefined" quota:"undefined"`
-	Name                          string `json:"name"                             required:"true"  column:"tag"   type:"string"`
-	Namespace                     string `json:"namespace"                        required:"true"  column:"tag"   type:"string"`
-	ClusterName                   string `json:"cluster_name"                     required:"true"  column:"tag"   type:"string"`
-	AlamedaScalerName             string `json:"alameda_scaler_name"              required:"true"  column:"tag"   type:"string"`
-	AlamedaScalerNamespace        string `json:"alameda_scaler_namespace"         required:"true"  column:"tag"   type:"string"`
-	CPUMetricUtilizationTarget    int32  `json:"cpu_metric_utilization_target"    required:"false" column:"field" type:"int32"`
-	CPUMetricScaleUpGap           int32  `json:"cpu_metric_scaleup_gap"           required:"false" column:"field" type:"int32"`
-	CPUMetricScaleDownGap         int32  `json:"cpu_metric_scaledown_gap"         required:"false" column:"field" type:"int32"`
-	MemoryMetricUtilizationTarget int32  `json:"memory_metric_utilization_target" required:"false" column:"field" type:"int32"`
-	MemoryMetricScaleUpGap        int32  `json:"memory_metric_scaleup_gap"        required:"false" column:"field" type:"int32"`
-	MemoryMetricScaleDownGap      int32  `json:"memory_metric_scaledown_gap"      required:"false" column:"field" type:"int32"`
+	DatahubEntity                         `scope:"resource" category:"cluster_autoscaler" type:"machinegroup" measurement:"cluster_autoscaler_machinegroup" metric:"undefined" boundary:"undefined" quota:"undefined"`
+	Name                                  string `json:"name"                                      required:"true"  column:"tag"   type:"string"`
+	Namespace                             string `json:"namespace"                                 required:"true"  column:"tag"   type:"string"`
+	ClusterName                           string `json:"cluster_name"                              required:"true"  column:"tag"   type:"string"`
+	AlamedaScalerName                     string `json:"alameda_scaler_name"                       required:"true"  column:"tag"   type:"string"`
+	AlamedaScalerNamespace                string `json:"alameda_scaler_namespace"                  required:"true"  column:"tag"   type:"string"`
+	CPUMetricUtilizationTarget            int32  `json:"cpu_metric_utilization_target"             required:"false" column:"field" type:"int32"`
+	CPUMetricScaleUpGap                   int32  `json:"cpu_metric_scaleup_gap"                    required:"false" column:"field" type:"int32"`
+	CPUMetricScaleDownGap                 int32  `json:"cpu_metric_scaledown_gap"                  required:"false" column:"field" type:"int32"`
+	MemoryMetricUtilizationTarget         int32  `json:"memory_metric_utilization_target"          required:"false" column:"field" type:"int32"`
+	MemoryMetricScaleUpGap                int32  `json:"memory_metric_scaleup_gap"                 required:"false" column:"field" type:"int32"`
+	MemoryMetricScaleDownGap              int32  `json:"memory_metric_scaledown_gap"               required:"false" column:"field" type:"int32"`
+	CPUDurationUpThresholdPercentage      int32  `json:"cpu_duration_up_threshold_percentage"      required:"false" column:"field" type:"int32"`
+	CPUDurationDownThresholdPercentage    int32  `json:"cpu_duration_down_threshold_percentage"    required:"false" column:"field" type:"int32"`
+	MemoryDurationUpThresholdPercentage   int32  `json:"memory_duration_up_threshold_percentage"   required:"false" column:"field" type:"int32"`
+	MemoryDurationDownThresholdPercentage int32  `json:"memory_duration_down_threshold_percentage" required:"false" column:"field" type:"int32"`
 }
 
 type ResourceClusterAutoscalerMachineset struct {

@@ -20,6 +20,10 @@ func SchemaResourceClusterAutoscalerMachinegroup() *schemas.Schema {
 	measurement.AddColumn("memory_metric_utilization_target", false, schemas.Field, common.Int32)
 	measurement.AddColumn("memory_metric_scaleup_gap", false, schemas.Field, common.Int32)
 	measurement.AddColumn("memory_metric_scaledown_gap", false, schemas.Field, common.Int32)
+	measurement.AddColumn("cpu_duration_up_threshold_percentage", false, schemas.Field, common.Int32)
+	measurement.AddColumn("cpu_duration_down_threshold_percentage", false, schemas.Field, common.Int32)
+	measurement.AddColumn("memory_duration_up_threshold_percentage", false, schemas.Field, common.Int32)
+	measurement.AddColumn("memory_duration_down_threshold_percentage", false, schemas.Field, common.Int32)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }
