@@ -11,7 +11,6 @@ type RecommendationKafkaConsumerGroup struct {
 	CreateTime            string  `json:"create_time"             required:"true"  column:"field" type:"string"`
 	CurrentReplicas       int32   `json:"current_replicas"        required:"true"  column:"field" type:"int32"`
 	DesiredReplicas       int32   `json:"desired_replicas"        required:"true"  column:"field" type:"int32"`
-	ExecutionTime         string  `json:"execution_time"          required:"true"  column:"field" type:"string"`
 	PerConsumerCapability float64 `json:"per_consumer_capability" required:"false" column:"field" type:"float64"`
 }
 
@@ -23,7 +22,6 @@ type RecommendationNginx struct {
 	Kind             string  `json:"kind"               required:"true"  column:"tag"   type:"string"`
 	CurrentReplicas  int32   `json:"current_replicas"   required:"true"  column:"field" type:"int32"`
 	DesiredReplicas  int32   `json:"desired_replicas"   required:"true"  column:"field" type:"int32"`
-	ExecutionTime    string  `json:"execution_time"     required:"true"  column:"field" type:"string"`
 	ReplicaCapacity  float64 `json:"replica_capacity"   required:"true"  column:"field" type:"float64"`
 	CurrentNumerator float64 `json:"current_numerator"  required:"true"  column:"field" type:"float64"`
 	HttpResponseTime int64   `json:"http_response_time" required:"false" column:"field" type:"int64"`
@@ -41,7 +39,6 @@ type RecommendationClusterAutoscalerMachinegroup struct {
 	MachinesetName      string `json:"machineset_name"      required:"true" column:"field" type:"string"`
 	MachinesetNamespace string `json:"machineset_namespace" required:"true" column:"field" type:"String"`
 	CreateTime          string `json:"create_time"          required:"true" column:"field" type:"string"`
-	ExecutionTime       string `json:"execution_time"       required:"true" column:"field" type:"string"`
 	CurrentReplicas     int32  `json:"current_replicas"     required:"true" column:"field" type:"int32"`
 	DesiredReplicas     int32  `json:"desired_replicas"     required:"true" column:"field" type:"int32"`
 }

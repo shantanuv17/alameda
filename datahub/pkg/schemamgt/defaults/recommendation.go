@@ -18,7 +18,6 @@ func SchemaRecommendationKafkaCG() *schemas.Schema {
 	measurement.AddColumn("create_time", true, schemas.Field, common.String)
 	measurement.AddColumn("current_replicas", true, schemas.Field, common.Int32)
 	measurement.AddColumn("desired_replicas", true, schemas.Field, common.Int32)
-	measurement.AddColumn("execution_time", true, schemas.Field, common.String)
 	measurement.AddColumn("per_consumer_capability", false, schemas.Field, common.Float64)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
@@ -34,7 +33,6 @@ func SchemaRecommendationNginx() *schemas.Schema {
 	measurement.AddColumn("kind", true, schemas.Tag, common.String)
 	measurement.AddColumn("current_replicas", true, schemas.Field, common.Int32)
 	measurement.AddColumn("desired_replicas", true, schemas.Field, common.Int32)
-	measurement.AddColumn("execution_time", true, schemas.Field, common.String)
 	measurement.AddColumn("replica_capacity", true, schemas.Field, common.Float64)
 	measurement.AddColumn("current_numerator", true, schemas.Field, common.Float64)
 	measurement.AddColumn("http_response_time", false, schemas.Field, common.Int64)
@@ -56,7 +54,6 @@ func SchemaRecommendationClusterAutoscalerMachinegroup() *schemas.Schema {
 	measurement.AddColumn("machineset_name", true, schemas.Field, common.String)
 	measurement.AddColumn("machineset_namespace", true, schemas.Field, common.String)
 	measurement.AddColumn("create_time", true, schemas.Field, common.String)
-	measurement.AddColumn("execution_time", true, schemas.Field, common.String)
 	measurement.AddColumn("current_replicas", true, schemas.Field, common.Int32)
 	measurement.AddColumn("desired_replicas", true, schemas.Field, common.Int32)
 	schema.Measurements = append(schema.Measurements, measurement)
