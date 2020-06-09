@@ -8,7 +8,7 @@ type RecommendationKafkaConsumerGroup struct {
 	ResourceK8sName       string  `json:"resource_k8s_name"       required:"true"  column:"tag"   type:"string"`
 	ResourceK8sNamespace  string  `json:"resource_k8s_namespace"  required:"true"  column:"tag"   type:"string"`
 	Kind                  string  `json:"kind"                    required:"true"  column:"tag"   type:"string"`
-	CreateTime            string  `json:"create_time"             required:"true"  column:"field" type:"int64"`
+	CreateTime            int64   `json:"create_time"             required:"true"  column:"field" type:"int64"`
 	CurrentReplicas       int32   `json:"current_replicas"        required:"true"  column:"field" type:"int32"`
 	DesiredReplicas       int32   `json:"desired_replicas"        required:"true"  column:"field" type:"int32"`
 	PerConsumerCapability float64 `json:"per_consumer_capability" required:"false" column:"field" type:"float64"`
@@ -39,7 +39,7 @@ type RecommendationClusterAutoscalerMachinegroup struct {
 	ClusterName         string `json:"cluster_name"         required:"true" column:"tag"   type:"string"`
 	MachinesetName      string `json:"machineset_name"      required:"true" column:"field" type:"string"`
 	MachinesetNamespace string `json:"machineset_namespace" required:"true" column:"field" type:"string"`
-	CreateTime          string `json:"create_time"          required:"true" column:"field" type:"int64"`
+	CreateTime          int64  `json:"create_time"          required:"true" column:"field" type:"int64"`
 	CurrentReplicas     int32  `json:"current_replicas"     required:"true" column:"field" type:"int32"`
 	DesiredReplicas     int32  `json:"desired_replicas"     required:"true" column:"field" type:"int32"`
 }
