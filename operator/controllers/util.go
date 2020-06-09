@@ -5,11 +5,12 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	machinegrouprepository "github.com/containers-ai/alameda/operator/datahub/client/machinegroup"
 	machinesetrepository "github.com/containers-ai/alameda/operator/datahub/client/machineset"
-	"github.com/containers-ai/alameda/operator/pkg/machinegroup"
 	"github.com/containers-ai/alameda/operator/pkg/machineset"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	mahcinev1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -108,11 +109,15 @@ func SyncCAInfoWithScalerAndMachineGroup(ctx context.Context,
 	alamedaScaler autoscalingv1alpha1.AlamedaScaler,
 	mgIns autoscalingv1alpha1.AlamedaMachineGroupScaler) error {
 
-	mgsInScaler, err := datahubMachineGroupRepo.ListMachineGroups(ctx,
-		machinegrouprepository.ListMachineGroupsOption{
-			ClusterName:            clusterUID,
-			AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
-			AlamedaScalerName:      alamedaScaler.GetName(),
+	mgsInScaler := []entities.ResourceClusterAutoscalerMachinegroup{}
+	err := datahubMachineGroupRepo.GetDatahubClient().List(
+		&mgsInScaler, datahubpkg.Option{
+			Entity: entities.ResourceClusterAutoscalerMachinegroup{
+				ClusterName:            clusterUID,
+				AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
+				AlamedaScalerName:      alamedaScaler.GetName(),
+			},
+			Fields: []string{"ClusterName", "AlamedaScalerNamespace", "AlamedaScalerName"},
 		})
 	if err != nil {
 		return fmt.Errorf("List machinegroups with alamedascaler (%s/%s) failed: %s",
@@ -144,27 +149,48 @@ func SyncCAInfoWithScalerAndMachineGroup(ctx context.Context,
 			alamedaScaler.GetNamespace(), alamedaScaler.GetName(), err.Error())
 	}
 
-	mgs := []machinegroup.MachineGroup{
-		{
-			ClusterName:            clusterUID,
-			AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
-			AlamedaScalerName:      alamedaScaler.GetName(),
-			ResourceMeta: machinegroup.ResourceMeta{
-				KubernetesMeta: machinegroup.KubernetesMeta{
-					Namespace: mgIns.Namespace,
-					Name:      mgIns.Name,
-				},
-			},
-			CPUMetricUtilizationTarget:    *mgIns.Spec.Metrics["cpu"].UtilizationTarget,
-			CPUMetricScaleupGap:           *mgIns.Spec.Metrics["cpu"].ScaleUpGap,
-			CPUMetricScaledownGap:         *mgIns.Spec.Metrics["cpu"].ScaleDownGap,
-			MemoryMetricUtilizationTarget: *mgIns.Spec.Metrics["memory"].UtilizationTarget,
-			MemoryMetricScaleupGap:        *mgIns.Spec.Metrics["memory"].ScaleUpGap,
-			MemoryMetricScaledownGap:      *mgIns.Spec.Metrics["memory"].ScaleDownGap,
-		},
+	newMg := entities.ResourceClusterAutoscalerMachinegroup{
+		ClusterName:            clusterUID,
+		AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
+		AlamedaScalerName:      alamedaScaler.GetName(),
+		Name:                   mgIns.Name,
+		Namespace:              mgIns.Namespace,
+	}
+	if mgIns.Spec.Metrics["cpu"].UtilizationTarget != nil {
+		newMg.CPUMetricUtilizationTarget = *mgIns.Spec.Metrics["cpu"].UtilizationTarget
+	}
+	if mgIns.Spec.Metrics["cpu"].ScaleUpGap != nil {
+		newMg.CPUMetricScaleUpGap = *mgIns.Spec.Metrics["cpu"].ScaleUpGap
+	}
+	if mgIns.Spec.Metrics["cpu"].ScaleDownGap != nil {
+		newMg.CPUMetricScaleDownGap = *mgIns.Spec.Metrics["cpu"].ScaleDownGap
+	}
+	if mgIns.Spec.Metrics["cpu"].DurationUpThresholdPercentage != nil {
+		newMg.CPUDurationUpThresholdPercentage = *mgIns.Spec.Metrics["cpu"].DurationUpThresholdPercentage
+	}
+	if mgIns.Spec.Metrics["cpu"].DurationDownThresholdPercentage != nil {
+		newMg.CPUDurationDownThresholdPercentage = *mgIns.Spec.Metrics["cpu"].DurationDownThresholdPercentage
+	}
+	if mgIns.Spec.Metrics["memory"].UtilizationTarget != nil {
+		newMg.MemoryMetricUtilizationTarget = *mgIns.Spec.Metrics["memory"].UtilizationTarget
+	}
+	if mgIns.Spec.Metrics["memory"].ScaleUpGap != nil {
+		newMg.MemoryMetricScaleUpGap = *mgIns.Spec.Metrics["memory"].ScaleUpGap
+	}
+	if mgIns.Spec.Metrics["memory"].ScaleDownGap != nil {
+		newMg.MemoryMetricScaleDownGap = *mgIns.Spec.Metrics["memory"].ScaleDownGap
+	}
+	if mgIns.Spec.Metrics["memory"].DurationUpThresholdPercentage != nil {
+		newMg.MemoryDurationUpThresholdPercentage = *mgIns.Spec.Metrics["memory"].DurationUpThresholdPercentage
+	}
+	if mgIns.Spec.Metrics["memory"].DurationDownThresholdPercentage != nil {
+		newMg.MemoryDurationDownThresholdPercentage = *mgIns.Spec.Metrics["memory"].DurationDownThresholdPercentage
+	}
+	mgs := []entities.ResourceClusterAutoscalerMachinegroup{
+		newMg,
 	}
 
-	err = datahubMachineGroupRepo.CreateMachineGroups(ctx, mgs)
+	err = datahubMachineGroupRepo.CreateMachineGroups(mgs)
 	if err != nil {
 		return fmt.Errorf("Create machinegroup (%s/%s) failed: %s",
 			alamedaScaler.GetNamespace(), alamedaScaler.GetName(), err.Error())

@@ -37,8 +37,6 @@ spec:
             AlamedaMachineGroupScaler
           properties:
             machineSets:
-              description: Foo is an example field of AlamedaMachineGroupScaler. Edit
-                AlamedaMachineGroupScaler_types.go to remove/update
               items:
                 properties:
                   maxReplicas:
@@ -65,6 +63,12 @@ spec:
             metrics:
               additionalProperties:
                 properties:
+                  durationDownThresholdPercentage:
+                    format: int32
+                    type: integer
+                  durationUpThresholdPercentage:
+                    format: int32
+                    type: integer
                   scaleDownGap:
                     format: int32
                     type: integer

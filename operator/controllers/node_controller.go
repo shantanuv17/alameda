@@ -27,8 +27,8 @@ import (
 	nodeinfo "github.com/containers-ai/alameda/operator/pkg/nodeinfo"
 
 	datahubv1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
-	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	corev1 "k8s.io/api/core/v1"
 	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -95,10 +95,10 @@ func (r *NodeReconciler) createNodesToDatahub(nodes []*corev1.Node) error {
 		return errors.Wrap(err, "create nodeInfos failed")
 	}
 
-	datahubNodes := make([]*datahub_resources.Node, len(nodes))
+	datahubNodes := make([]entities.ResourceClusterStatusNode, len(nodes))
 	for i, nodeInfo := range nodeInfos {
 		n := nodeInfo.DatahubNode(r.ClusterUID)
-		datahubNodes[i] = &n
+		datahubNodes[i] = n
 	}
 
 	return r.DatahubNodeRepo.CreateNodes(datahubNodes)
@@ -111,10 +111,10 @@ func (r *NodeReconciler) deleteNodesFromDatahub(nodes []*corev1.Node) error {
 		return errors.Wrap(err, "create nodeInfos failed")
 	}
 
-	datahubNodes := make([]*datahub_resources.Node, len(nodes))
+	datahubNodes := make([]entities.ResourceClusterStatusNode, len(nodes))
 	for i, nodeInfo := range nodeInfos {
 		n := nodeInfo.DatahubNode(r.ClusterUID)
-		datahubNodes[i] = &n
+		datahubNodes[i] = n
 	}
 
 	return r.DatahubNodeRepo.DeleteNodes(datahubNodes)

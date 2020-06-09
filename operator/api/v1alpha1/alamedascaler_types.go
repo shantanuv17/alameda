@@ -203,7 +203,7 @@ type KafkaConsumerGroupSpec struct {
 	// +kubebuilder:validation:MinLength=1
 	Name        string                         `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
 	Resource    KafkaConsumerGroupResourceSpec `json:"resource,omitempty" protobuf:"bytes,2,opt,name=resource"`
-	MajorTopic  string                         `json:"majorTopic,omitempty" protobuf:"bytes,3,opt,name=major_topic"`
+	MajorTopic  string                         `json:"majorTopic" protobuf:"bytes,3,opt,name=major_topic"`
 	MinReplicas *int32                         `json:"minReplicas,omitempty" protobuf:"bytes,4,opt,name=min_replicas"`
 	MaxReplicas *int32                         `json:"maxReplicas,omitempty" protobuf:"bytes,5,opt,name=max_replicas"`
 }

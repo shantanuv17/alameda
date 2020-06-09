@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
 
 	nodeinfo "github.com/containers-ai/alameda/operator/pkg/nodeinfo"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
-	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 
 	corev1 "k8s.io/api/core/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -31,14 +31,14 @@ func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
 	}
 
 	datahubNodeRepo := NewNodeRepository(conn, clusterUID)
-	nodes := make([]*datahub_resources.Node, len(nodeList.Items))
+	nodes := make([]entities.ResourceClusterStatusNode, len(nodeList.Items))
 	for i, node := range nodeList.Items {
 		nodeInfo, err := nodeinfo.NewNodeInfo(node, client)
 		if err != nil {
 			return errors.Wrap(err, "new nodeInfo failed")
 		}
 		node := nodeInfo.DatahubNode(clusterUID)
-		nodes[i] = &node
+		nodes[i] = node
 	}
 	if err := datahubNodeRepo.CreateNodes(nodes); err != nil {
 		return fmt.Errorf(
@@ -56,9 +56,9 @@ func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
 		return fmt.Errorf(
 			"Sync nodes with datahub failed due to list nodes from datahub failed: %s", err.Error())
 	}
-	nodesNeedDeleting := make([]*datahub_resources.Node, 0)
+	nodesNeedDeleting := []entities.ResourceClusterStatusNode{}
 	for _, n := range nodesFromDatahub {
-		if _, exist := existingNodeMap[n.ObjectMeta.GetName()]; exist {
+		if _, exist := existingNodeMap[n.Name]; exist {
 			continue
 		}
 		nodesNeedDeleting = append(nodesNeedDeleting, n)

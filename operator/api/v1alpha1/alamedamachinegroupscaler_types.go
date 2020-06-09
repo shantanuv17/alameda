@@ -28,7 +28,6 @@ type AlamedaMachineGroupScalerSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of AlamedaMachineGroupScaler. Edit AlamedaMachineGroupScaler_types.go to remove/update
 	MachineSets []MachineSet          `json:"machineSets"`
 	Metrics     map[string]MetricRule `json:"metrics"`
 }
@@ -69,9 +68,11 @@ type MachineSet struct {
 }
 
 type MetricRule struct {
-	UtilizationTarget *int32 `json:"utilizationTarget,omitempty"`
-	ScaleUpGap        *int32 `json:"scaleUpGap,omitempty"`
-	ScaleDownGap      *int32 `json:"scaleDownGap,omitempty"`
+	UtilizationTarget               *int32 `json:"utilizationTarget,omitempty"`
+	ScaleUpGap                      *int32 `json:"scaleUpGap,omitempty"`
+	ScaleDownGap                    *int32 `json:"scaleDownGap,omitempty"`
+	DurationUpThresholdPercentage   *int32 `json:"durationUpThresholdPercentage,omitempty"`
+	DurationDownThresholdPercentage *int32 `json:"durationDownThresholdPercentage,omitempty"`
 }
 
 func init() {

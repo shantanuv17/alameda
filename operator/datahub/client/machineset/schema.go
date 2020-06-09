@@ -41,7 +41,7 @@ var defaultConfig = config{
 				},
 				measurements: []measurement{
 					{
-						name: "machineset",
+						name: "cluster_autoscaler_machineset",
 					},
 				},
 			},
@@ -53,7 +53,7 @@ var defaultConfig = config{
 				},
 				measurements: []measurement{
 					{
-						name: "machineset",
+						name: "cluster_autoscaler_machineset",
 					},
 				},
 			},
@@ -65,7 +65,7 @@ var defaultConfig = config{
 				},
 				measurements: []measurement{
 					{
-						name: "machineset",
+						name: "cluster_autoscaler_machineset",
 					},
 				},
 			},

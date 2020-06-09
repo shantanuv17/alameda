@@ -7,10 +7,9 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	operatorutils "github.com/containers-ai/alameda/operator/pkg/utils"
 	"github.com/containers-ai/alameda/pkg/provider"
-	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
-	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	mahcinev1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	"github.com/pkg/errors"
 	corev1 "k8s.io/api/core/v1"
@@ -52,6 +51,7 @@ type NodeInfo struct {
 	MemoryBytes         int64
 	MachineSetNamespace string
 	MachineSetName      string
+	MachineCreateTime   int64
 }
 
 // NewNodeInfo creates node from k8s node
@@ -68,6 +68,7 @@ func NewNodeInfo(k8sNode corev1.Node, k8sClient client.Client) (NodeInfo, error)
 				if or.Kind == "MachineSet" {
 					node.MachineSetNamespace = ms.GetNamespace()
 					node.MachineSetName = or.Name
+					node.MachineCreateTime = ms.GetCreationTimestamp().Unix()
 					break
 				}
 			}
@@ -134,34 +135,24 @@ func NewNodeInfo(k8sNode corev1.Node, k8sClient client.Client) (NodeInfo, error)
 }
 
 // DatahubNode converts nodeInfo to Datahub Node
-func (n NodeInfo) DatahubNode(clusterUID string) datahub_resources.Node {
+func (n NodeInfo) DatahubNode(clusterUID string) entities.ResourceClusterStatusNode {
 
-	node := datahub_resources.Node{
-		ObjectMeta: &datahub_resources.ObjectMeta{
-			Name:        n.Name,
-			ClusterName: clusterUID,
-		},
-		Capacity: &datahub_resources.Capacity{
-			CpuCores:    n.CPUCores,
-			MemoryBytes: n.MemoryBytes,
-		},
-		StartTime: &timestamp.Timestamp{
-			Seconds: n.CreatedTime,
-		},
-		AlamedaNodeSpec: &datahub_resources.AlamedaNodeSpec{
-			Provider: &datahub_resources.Provider{
-				Provider:     n.Provider,
-				InstanceType: n.InstanceType,
-				Region:       n.Region,
-				Zone:         n.Zone,
-				Os:           n.OS,
-				Role:         n.Role,
-				InstanceId:   n.InstanceID,
-				StorageSize:  n.StorageSize,
-			},
-			MachinesetNamespace: n.MachineSetNamespace,
-			MachinesetName:      n.MachineSetName,
-		},
+	node := entities.ResourceClusterStatusNode{
+		Name:                n.Name,
+		ClusterName:         clusterUID,
+		NodeCPUCores:        n.CPUCores,
+		NodeMemoryBytes:     n.MemoryBytes,
+		CreateTime:          n.CreatedTime,
+		MachinesetNamespace: n.MachineSetNamespace,
+		MachinesetName:      n.MachineSetName,
+		IOProvider:          n.Provider,
+		IOInstanceType:      n.InstanceType,
+		IORegion:            n.Region,
+		IOZone:              n.Zone,
+		IOOs:                n.OS,
+		IORole:              n.Role,
+		IOInstanceId:        n.InstanceID,
+		IOStorageSize:       n.StorageSize,
 	}
 
 	return node

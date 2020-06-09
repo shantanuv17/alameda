@@ -5,6 +5,8 @@ import (
 	"reflect"
 	"strconv"
 
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/pkg/errors"
 	"google.golang.org/genproto/googleapis/rpc/code"
 
@@ -13,7 +15,6 @@ import (
 	"github.com/containers-ai/alameda/operator/datahub/client/machinegroup/entity"
 	"github.com/containers-ai/alameda/operator/pkg/machinegroup"
 	"github.com/containers-ai/alameda/pkg/utils/log"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
@@ -26,12 +27,12 @@ const (
 )
 
 type MachineGroupRepository struct {
-	datahubClient datahub.DatahubServiceClient
+	datahubClient *datahubpkg.Client
 	schemaConfig  config
 	logger        *log.Scope
 }
 
-func NewMachineGroupRepository(datahubClient datahub.DatahubServiceClient, logger *log.Scope) MachineGroupRepository {
+func NewMachineGroupRepository(datahubClient *datahubpkg.Client, logger *log.Scope) MachineGroupRepository {
 	if logger == nil {
 		logger = log.RegisterScope("datahub-client", "", 0)
 	}
@@ -43,46 +44,16 @@ func NewMachineGroupRepository(datahubClient datahub.DatahubServiceClient, logge
 	}
 }
 
-func (n MachineGroupRepository) CreateMachineGroups(ctx context.Context, machineGroups []machinegroup.MachineGroup) error {
+func (n MachineGroupRepository) GetDatahubClient() *datahubpkg.Client {
+	return n.datahubClient
+}
+
+func (n MachineGroupRepository) CreateMachineGroups(
+	machineGroups []entities.ResourceClusterAutoscalerMachinegroup) error {
 	if len(machineGroups) == 0 {
 		return nil
 	}
-	req, err := n.newWriteDataRequestByMachineGroups(machineGroups)
-	if err != nil {
-		return errors.Wrap(err, "new WriteDataRequest by machineGroups failed")
-	}
-	if err := n.sendWriteDataRequest(ctx, req); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (n MachineGroupRepository) ListMachineGroups(ctx context.Context, option ListMachineGroupsOption) ([]machinegroup.MachineGroup, error) {
-	req, err := n.newReadDataRequestForMachineGroups(option)
-	if err != nil {
-		return nil, errors.Wrap(err, "new ReadDataRequest failed")
-	}
-	data, err := n.sendReadDataRequest(ctx, req)
-	if err != nil {
-		return nil, err
-	}
-	entities := make([]entity.MachineGroup, 0)
-	if err := decodeSlice(data, &entities); err != nil {
-		return nil, errors.Wrap(err, "decode data failed")
-	}
-	machineGroups := make([]machinegroup.MachineGroup, 0, len(entities))
-	for _, e := range entities {
-		machineGroups = append(machineGroups, machinegroup.MachineGroup{
-			ClusterName: e.ClusterName,
-			ResourceMeta: machinegroup.ResourceMeta{
-				KubernetesMeta: machinegroup.KubernetesMeta{
-					Namespace: e.Namespace,
-					Name:      e.Name,
-				},
-			},
-		})
-	}
-	return machineGroups, nil
+	return n.datahubClient.Create(&machineGroups, []string{})
 }
 
 func (n MachineGroupRepository) DeleteMachineGroups(ctx context.Context, machineGroups []machinegroup.MachineGroup) error {

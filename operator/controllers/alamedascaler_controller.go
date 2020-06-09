@@ -217,8 +217,9 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 		}
 
 		if err = r.syncCAInfoWithScalerAndMachineGroup(ctx, alamedaScaler, mgIns); err != nil {
-			scope.Errorf("sync CA info with alamedascaler (%s/%s) and machinegroupscaler (%s/%s) failed",
-				alamedaScaler.GetNamespace(), alamedaScaler.GetName(), mgIns.GetNamespace(), mgIns.GetName())
+			scope.Errorf("sync CA info with alamedascaler (%s/%s) and machinegroupscaler (%s/%s) failed: %s",
+				alamedaScaler.GetNamespace(), alamedaScaler.GetName(), mgIns.GetNamespace(), mgIns.GetName(),
+				err.Error())
 			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
 		}
 	}

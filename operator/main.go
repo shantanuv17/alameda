@@ -25,6 +25,7 @@ import (
 	"strings"
 	"time"
 
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	alamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	routeapi_v1 "github.com/openshift/api/route/v1"
 	openshift_machineapi_v1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
@@ -45,7 +46,6 @@ import (
 	"github.com/containers-ai/alameda/pkg/provider"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
-	datahubv1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahubschemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
@@ -126,7 +126,7 @@ var (
 	// Third party clients
 	k8sClient        client.Client
 	datahubConn      *grpc.ClientConn
-	datahubClient    datahubv1alpha1.DatahubServiceClient
+	datahubClient    *datahubpkg.Client
 	kafkaClient      kafka.Client
 	prometheusClient prometheus.Prometheus
 
@@ -234,7 +234,7 @@ func initThirdPartyClient() error {
 	if err != nil {
 		return errors.Wrap(err, "new connection to datahub failed")
 	}
-	datahubClient = datahubv1alpha1.NewDatahubServiceClient(datahubConn)
+	datahubClient = datahubpkg.NewClient(operatorConf.Datahub.Address)
 
 	if cli, err := kafkaclient.NewClient(*operatorConf.Kafka); err != nil {
 		return errors.Wrap(err, "new Kafka client failed")

@@ -136,6 +136,8 @@ spec:
                                 type: object
                             type: object
                         type: object
+                    required:
+                    - majorTopic
                     type: object
                   minItems: 1
                   type: array
