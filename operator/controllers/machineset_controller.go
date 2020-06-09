@@ -22,11 +22,9 @@ import (
 
 	machinesetrepository "github.com/containers-ai/alameda/operator/datahub/client/machineset"
 	"github.com/containers-ai/alameda/operator/pkg/machineset"
-	"github.com/containers-ai/alameda/pkg/utils/datahub/execution"
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahubschemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	mahcinev1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
-	"github.com/spf13/viper"
 	k8serrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -74,29 +72,6 @@ func (r *MachineSetReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) 
 		scope.Warnf("Get MachineSet(%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
-
-	msExecList, err := execution.ListMachineSetExecutionByNamespacedName(
-		r.DatahubClient, r.ClusterUID, req.Namespace, req.Name, 1)
-	if err != nil {
-		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
-	}
-	if len(msExecList) == 0 {
-		return ctrl.Result{}, nil
-	}
-	theLastMSExec := msExecList[0]
-	if theLastMSExec.DeltaUpTime == 0 || theLastMSExec.DeltaDownTime == 0 {
-		theLastMSExec.DeltaUpTime = viper.GetInt64("ca.deltaUpTime")
-		theLastMSExec.DeltaDownTime = viper.GetInt64("ca.deltaUpDown")
-		err = execution.CreateMachineSetExecution(
-			r.DatahubClient, theLastMSExec, []string{})
-		if err != nil {
-			return ctrl.Result{
-				Requeue:      true,
-				RequeueAfter: requeueAfter,
-			}, nil
-		}
-	}
-
 	return ctrl.Result{}, nil
 }
 

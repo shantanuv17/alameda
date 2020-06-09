@@ -20,15 +20,13 @@ import (
 	"context"
 	"time"
 
+	datahub_node "github.com/containers-ai/alameda/operator/datahub/client/node"
+	nodeinfo "github.com/containers-ai/alameda/operator/pkg/nodeinfo"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
 
-	datahub_node "github.com/containers-ai/alameda/operator/datahub/client/node"
-	nodeinfo "github.com/containers-ai/alameda/operator/pkg/nodeinfo"
-
-	datahubv1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
-
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	corev1 "k8s.io/api/core/v1"
 	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -43,8 +41,8 @@ type NodeReconciler struct {
 	Scheme *runtime.Scheme
 
 	conn            *grpc.ClientConn
-	datahubClient   datahubv1alpha1.DatahubServiceClient
 	DatahubNodeRepo datahub_node.AlamedaNodeRepository
+	DatahubClient   *datahubpkg.Client
 
 	Cloudprovider string
 	RegionName    string
@@ -71,21 +69,81 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 		scope.Error(err.Error())
 	}
 
+	datahubNode, err := r.getNodeFromDatahub(request.Name)
+	if err != nil {
+		scope.Errorf("Get node %s from Datahub failed: %s", request.Name, err.Error())
+		return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
+	}
+
+	msExecution := []entities.ExecutionClusterAutoscalerMachineset{}
+	err = r.DatahubClient.ListTS(&msExecution, nil, &datahubpkg.TimeRange{
+		Order: datahubpkg.Desc,
+		Limit: 1,
+	}, nil, datahubpkg.Option{
+		Entity: entities.ExecutionClusterAutoscalerMachineset{
+			ClusterName: r.ClusterUID,
+			Namespace:   datahubNode.MachinesetNamespace,
+			Name:        datahubNode.MachinesetName,
+		},
+		Fields: []string{"ClusterName", "Namespace", "Name"},
+	})
+	if err != nil {
+		scope.Errorf("Get last execution of machineset %s/%s for node %s from Datahub failed: %s",
+			datahubNode.MachinesetNamespace, datahubNode.MachinesetName, request.Name, err.Error())
+		return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
+	}
+
 	nodes := make([]*corev1.Node, 1)
 	nodes[0] = instance
-	switch nodeIsDeleted {
-	case false:
-		if err := r.createNodesToDatahub(nodes); err != nil {
-			scope.Errorf("Create node to Datahub failed failed: %s", err.Error())
-			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
+
+	if nodeIsDeleted {
+		if len(msExecution) == 1 {
+			msExecution[0].DeltaDownTime = time.Now().Unix() - msExecution[0].Time.Unix()
+			if err := r.DatahubClient.Create(&msExecution[0], []string{}); err != nil {
+				scope.Errorf(
+					"Update delta down time for machineset %s/%s at execution time %v for node %s failed: %s",
+					datahubNode.MachinesetNamespace, datahubNode.MachinesetName,
+					msExecution[0].Time, request.Name, err.Error())
+				return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
+			}
 		}
-	case true:
 		if err := r.deleteNodesFromDatahub(nodes); err != nil {
 			scope.Errorf("Delete nodes from Datahub failed: %s", err.Error())
 			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
 		}
+	} else {
+		if len(msExecution) == 1 {
+			msExecution[0].DeltaUpTime = datahubNode.CreateTime - datahubNode.MachineCreateTime
+		}
+		if err := r.DatahubClient.Create(&msExecution[0], []string{}); err != nil {
+			scope.Errorf(
+				"Update delta up time for machineset %s/%s at execution time %v for node %s failed: %s",
+				datahubNode.MachinesetNamespace, datahubNode.MachinesetName,
+				msExecution[0].Time, request.Name, err.Error())
+			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
+		}
+		if err := r.createNodesToDatahub(nodes); err != nil {
+			scope.Errorf("Create node to Datahub failed failed: %s", err.Error())
+			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
+		}
 	}
 	return reconcile.Result{}, nil
+}
+
+func (r *NodeReconciler) getNodeFromDatahub(nodeName string) (
+	*entities.ResourceClusterStatusNode, error) {
+	nodes := []entities.ResourceClusterStatusNode{}
+	err := r.DatahubClient.List(&nodes, datahubpkg.Option{
+		Entity: entities.ResourceClusterStatusNode{
+			ClusterName: r.ClusterUID,
+			Name:        nodeName,
+		},
+		Fields: []string{"ClusterName", "Name"},
+	})
+	if len(nodes) == 0 {
+		return nil, err
+	}
+	return &nodes[0], err
 }
 
 func (r *NodeReconciler) createNodesToDatahub(nodes []*corev1.Node) error {

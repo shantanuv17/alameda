@@ -440,6 +440,7 @@ func addControllersToManager(mgr manager.Manager) error {
 		ClusterUID:      clusterUID,
 		Cloudprovider:   cloudprovider,
 		RegionName:      regionName,
+		DatahubClient:   datahubClient,
 		DatahubNodeRepo: *datahub_client_node.NewNodeRepository(datahubConn, clusterUID),
 	}).SetupWithManager(mgr); err != nil {
 		return err
