@@ -20,6 +20,7 @@ type RecommendationNginx struct {
 	Namespace        string  `json:"namespace"          required:"true"  column:"tag"   type:"string"`
 	ClusterName      string  `json:"cluster_name"       required:"true"  column:"tag"   type:"string"`
 	Kind             string  `json:"kind"               required:"true"  column:"tag"   type:"string"`
+	CreateTime       int64   `json:"create_time"        required:"true"  column:"field" type:"int64"`
 	CurrentReplicas  int32   `json:"current_replicas"   required:"true"  column:"field" type:"int32"`
 	DesiredReplicas  int32   `json:"desired_replicas"   required:"true"  column:"field" type:"int32"`
 	ReplicaCapacity  float64 `json:"replica_capacity"   required:"true"  column:"field" type:"float64"`
