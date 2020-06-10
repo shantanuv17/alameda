@@ -76,10 +76,10 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 	}
 
 	msExecution := []entities.ExecutionClusterAutoscalerMachineset{}
-	err = r.DatahubClient.ListTS(&msExecution, nil, &datahubpkg.TimeRange{
+	err = r.DatahubClient.ListTS(&msExecution, &datahubpkg.TimeRange{
 		Order: datahubpkg.Desc,
 		Limit: 1,
-	}, nil, datahubpkg.Option{
+	}, nil, nil, datahubpkg.Option{
 		Entity: entities.ExecutionClusterAutoscalerMachineset{
 			ClusterName: r.ClusterUID,
 			Namespace:   datahubNode.MachinesetNamespace,
