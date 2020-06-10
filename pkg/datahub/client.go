@@ -83,7 +83,7 @@ func (p *Client) List(entities interface{}, opts ...Option) error {
 	return nil
 }
 
-func (p *Client) ListTS(entities interface{}, fields []string, timeRange *TimeRange, function *Function, opts ...Option) error {
+func (p *Client) ListTS(entities interface{}, timeRange *TimeRange, function *Function, fields []string, opts ...Option) error {
 	request := NewReadDataRequest(entities, fields, timeRange, function, opts...)
 	response, err := p.ReadData(context.Background(), request)
 
