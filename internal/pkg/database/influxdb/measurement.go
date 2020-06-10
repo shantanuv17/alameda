@@ -37,13 +37,17 @@ func (p *InfluxMeasurement) Read(query *InfluxQuery) ([]*common.Group, error) {
 	}
 
 	results := models.NewInfluxResults(response)
-	switch query.QueryCondition.AggregateOverTimeFunction {
-	case common.MaxOverTime:
+	if query.QueryCondition.Function != nil {
 		groups = p.aggregationData(results)
-	case common.AvgOverTime:
-		groups = p.aggregationData(results)
-	default:
-		groups = p.regularData(results)
+	} else {
+		switch query.QueryCondition.AggregateOverTimeFunction {
+		case common.MaxOverTime:
+			groups = p.aggregationData(results)
+		case common.AvgOverTime:
+			groups = p.aggregationData(results)
+		default:
+			groups = p.regularData(results)
+		}
 	}
 
 	return groups, nil
@@ -158,6 +162,10 @@ func (p *InfluxMeasurement) regularData(results []*models.InfluxResultExtend) []
 	groups := make([]*common.Group, 0)
 
 	for _, result := range results {
+		if result.Err != "" {
+			scope.Errorf("failed to read regular data: %s", result.Err)
+			scope.Error("return empty result")
+		}
 		for i := 0; i < result.GetGroupNum(); i++ {
 			g := result.GetGroup(i)
 			group := common.Group{}
@@ -190,6 +198,10 @@ func (p *InfluxMeasurement) aggregationData(results []*models.InfluxResultExtend
 	groups := make([]*common.Group, 0)
 
 	for _, result := range results {
+		if result.Err != "" {
+			scope.Errorf("failed to read aggregation data: %s", result.Err)
+			scope.Error("return empty result")
+		}
 		for i := 0; i < result.GetGroupNum(); i++ {
 			g := result.GetGroup(i)
 			group := common.Group{}

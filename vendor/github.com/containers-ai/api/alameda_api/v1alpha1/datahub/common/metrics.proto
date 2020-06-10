@@ -22,6 +22,7 @@ enum MetricType {
     LAG                          = 7;
     LATENCY                      = 8;
     NUMBER                       = 9;
+    CPU_CORES                    = 10;
 }
 
 enum ResourceName {

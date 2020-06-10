@@ -16,4 +16,5 @@ var MetricTypeNameMap = map[ApiCommon.MetricType]schemas.MetricType{
 	ApiCommon.MetricType_LAG:                          schemas.Lag,
 	ApiCommon.MetricType_LATENCY:                      schemas.Latency,
 	ApiCommon.MetricType_NUMBER:                       schemas.Number,
+	ApiCommon.MetricType_CPU_CORES:                    schemas.CPUCores,
 }

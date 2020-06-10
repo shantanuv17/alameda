@@ -17,6 +17,7 @@ var MetricTypeNameMap = map[schemas.MetricType]common.MetricType{
 	schemas.Lag:                       common.MetricType_LAG,
 	schemas.Latency:                   common.MetricType_LATENCY,
 	schemas.Number:                    common.MetricType_NUMBER,
+	schemas.CPUCores:                  common.MetricType_CPU_CORES,
 }
 
 var ResourceBoundaryNameMap = map[schemas.ResourceBoundary]common.ResourceBoundary{

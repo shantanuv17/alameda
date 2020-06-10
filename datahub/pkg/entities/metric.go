@@ -153,3 +153,11 @@ type MetricClusterStatusNodeMemory struct {
 	Uid           string  `json:"uid"          required:"true" column:"tag"   type:"string"`
 	Value         float64 `json:"value"        required:"true" column:"field" type:"float64"`
 }
+
+type MetricClusterStatusNodeCPUCores struct {
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_cpu_cores" metric:"cpu_cores" boundary:"undefined" quota:"undefined"`
+	Name          string  `json:"name"         required:"true" column:"tag"   type:"string"`
+	ClusterName   string  `json:"cluster_name" required:"true" column:"tag"   type:"string"`
+	Uid           string  `json:"uid"          required:"true" column:"tag"   type:"string"`
+	Value         float64 `json:"value"        required:"true" column:"field" type:"float64"`
+}

@@ -59,6 +59,7 @@ var MetricTypeValue = map[string]common.MetricType{
 	"lag":                  common.MetricType_LAG,
 	"latency":              common.MetricType_LATENCY,
 	"number":               common.MetricType_NUMBER,
+	"cpu_cores":            common.MetricType_CPU_CORES,
 }
 
 var ResourceBoundaryValue = map[string]common.ResourceBoundary{

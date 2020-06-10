@@ -28,6 +28,7 @@ const (
 	Lag
 	Latency
 	Number
+	CPUCores
 )
 
 type ResourceBoundary int
