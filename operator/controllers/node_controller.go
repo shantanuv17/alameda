@@ -114,14 +114,15 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 	} else {
 		if len(msExecution) == 1 {
 			msExecution[0].DeltaUpTime = datahubNode.CreateTime - datahubNode.MachineCreateTime
+			if err := r.DatahubClient.Create(&msExecution[0], []string{}); err != nil {
+				scope.Errorf(
+					"Update delta up time for machineset %s/%s at execution time %v for node %s failed: %s",
+					datahubNode.MachinesetNamespace, datahubNode.MachinesetName,
+					msExecution[0].Time, request.Name, err.Error())
+				return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
+			}
 		}
-		if err := r.DatahubClient.Create(&msExecution[0], []string{}); err != nil {
-			scope.Errorf(
-				"Update delta up time for machineset %s/%s at execution time %v for node %s failed: %s",
-				datahubNode.MachinesetNamespace, datahubNode.MachinesetName,
-				msExecution[0].Time, request.Name, err.Error())
-			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
-		}
+
 		if err := r.createNodesToDatahub(nodes); err != nil {
 			scope.Errorf("Create node to Datahub failed failed: %s", err.Error())
 			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
