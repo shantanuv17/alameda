@@ -36,18 +36,25 @@ var ResourceQuotaNameMap = map[schemas.ResourceQuota]common.ResourceQuota{
 }
 
 var QueryConditionFunctionNameMap = map[DBCommon.FunctionType]common.FunctionType{
-	DBCommon.NoneFunction:   common.FunctionType_FUNCTIONTYPE_UNDEFINED,
-	DBCommon.FunctionCount:  common.FunctionType_FUNCTIONTYPE_COUNT,
-	DBCommon.FunctionMean:   common.FunctionType_FUNCTIONTYPE_MEAN,
-	DBCommon.FunctionMedian: common.FunctionType_FUNCTIONTYPE_MEDIAN,
-	DBCommon.FunctionStddev: common.FunctionType_FUNCTIONTYPE_STDDEV,
-	DBCommon.FunctionSum:    common.FunctionType_FUNCTIONTYPE_SUM,
-	DBCommon.FunctionBottom: common.FunctionType_FUNCTIONTYPE_BOTTOM,
-	DBCommon.FunctionFirst:  common.FunctionType_FUNCTIONTYPE_FIRST,
-	DBCommon.FunctionLast:   common.FunctionType_FUNCTIONTYPE_LAST,
-	DBCommon.FunctionMax:    common.FunctionType_FUNCTIONTYPE_MAX,
-	DBCommon.FunctionMin:    common.FunctionType_FUNCTIONTYPE_MIN,
-	DBCommon.FunctionTop:    common.FunctionType_FUNCTIONTYPE_TOP,
+	DBCommon.NoneFunction:       common.FunctionType_FUNCTIONTYPE_UNDEFINED,
+	DBCommon.FunctionCount:      common.FunctionType_FUNCTIONTYPE_COUNT,
+	DBCommon.FuncDistinct:       common.FunctionType_FUNCTIONTYPE_DISTINCT,
+	DBCommon.FuncIntegral:       common.FunctionType_FUNCTIONTYPE_INTEGRAL,
+	DBCommon.FunctionMean:       common.FunctionType_FUNCTIONTYPE_MEAN,
+	DBCommon.FunctionMedian:     common.FunctionType_FUNCTIONTYPE_MEDIAN,
+	DBCommon.FunctionMode:       common.FunctionType_FUNCTIONTYPE_MODE,
+	DBCommon.FunctionSpread:     common.FunctionType_FUNCTIONTYPE_SPREAD,
+	DBCommon.FunctionStddev:     common.FunctionType_FUNCTIONTYPE_STDDEV,
+	DBCommon.FunctionSum:        common.FunctionType_FUNCTIONTYPE_SUM,
+	DBCommon.FunctionBottom:     common.FunctionType_FUNCTIONTYPE_BOTTOM,
+	DBCommon.FunctionFirst:      common.FunctionType_FUNCTIONTYPE_FIRST,
+	DBCommon.FunctionLast:       common.FunctionType_FUNCTIONTYPE_LAST,
+	DBCommon.FunctionMax:        common.FunctionType_FUNCTIONTYPE_MAX,
+	DBCommon.FunctionMin:        common.FunctionType_FUNCTIONTYPE_MIN,
+	DBCommon.FunctionPercentile: common.FunctionType_FUNCTIONTYPE_PERCENTILE,
+	DBCommon.FunctionSample:     common.FunctionType_FUNCTIONTYPE_SAMPLE,
+	DBCommon.FunctionTop:        common.FunctionType_FUNCTIONTYPE_TOP,
+	DBCommon.FuncDerivative:     common.FunctionType_FUNCTIONTYPE_DERIVATIVE,
 }
 
 var QueryConditionOrderNameMap = map[DBCommon.Order]common.QueryCondition_Order{

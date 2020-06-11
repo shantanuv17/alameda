@@ -28,10 +28,8 @@ type TimeRange struct {
 
 type Function struct {
 	Type              FunctionType
-	Fields            []string
-	Tags              []string
-	RegularExpression string
-	IntoClause        string
+	Target            string
+	Unit              string
 	Number            int64
 }
 
@@ -227,15 +225,9 @@ func NewFunction(function *Function) *common.Function {
 	if function != nil {
 		f := common.Function{}
 		f.Type = enumconv.QueryConditionFunctionNameMap[function.Type]
-		f.RegularExpression = function.RegularExpression
-		f.IntoClause = function.IntoClause
+		f.Target = function.Target
+		f.Unit = function.Unit
 		f.Number = function.Number
-		if function.Fields != nil {
-			f.Fields = function.Fields
-		}
-		if function.Tags != nil {
-			f.Tags = function.Tags
-		}
 		return &f
 	}
 	return nil

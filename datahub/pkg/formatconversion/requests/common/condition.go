@@ -12,10 +12,24 @@ func NewFunction(function *ApiCommon.Function) *common.Function {
 		f.Type = enumconv.QueryConditionFunctionNameMap[function.GetType()]
 		f.Fields = function.GetFields()
 		f.Tags = function.GetTags()
-		f.IntoClause = function.GetIntoClause()
+		f.Target = function.GetTarget()
 		f.RegularExpression = function.GetRegularExpression()
+		f.Unit = function.GetUnit()
 		f.Number = function.GetNumber()
 		return &f
+	}
+	return nil
+}
+
+func NewInto(into *ApiCommon.Into) *common.Into {
+	if into != nil {
+		i := common.Into{}
+		i.Database = into.Database
+		i.RetentionPolicy = into.RetentionPolicy
+		i.Measurement = into.Measurement
+		i.IsDefaultRetentionPolicy = into.IsDefaultRetentionPolicy
+		i.IsAllMeasurements = into.IsAllMeasurements
+		return &i
 	}
 	return nil
 }

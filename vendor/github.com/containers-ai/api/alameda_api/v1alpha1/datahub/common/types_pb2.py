@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='containersai.alameda.v1alpha1.datahub.common',
   syntax='proto3',
   serialized_options=b'Z@github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common',
-  serialized_pb=b'\n/alameda_api/v1alpha1/datahub/common/types.proto\x12,containersai.alameda.v1alpha1.datahub.common*y\n\x10ResourceBoundary\x12\x1f\n\x1bRESOURCE_BOUNDARY_UNDEFINED\x10\x00\x12\x10\n\x0cRESOURCE_RAW\x10\x01\x12\x18\n\x14RESOURCE_UPPER_BOUND\x10\x02\x12\x18\n\x14RESOURCE_LOWER_BOUND\x10\x03*\x91\x01\n\rResourceQuota\x12\x1c\n\x18RESOURCE_QUOTA_UNDEFINED\x10\x00\x12\x12\n\x0eRESOURCE_LIMIT\x10\x01\x12\x14\n\x10RESOURCE_REQUEST\x10\x02\x12\x1a\n\x16RESOURCE_INITIAL_LIMIT\x10\x03\x12\x1c\n\x18RESOURCE_INITIAL_REQUEST\x10\x04*\xbd\x02\n\x08\x44\x61taType\x12\x16\n\x12\x44\x41TATYPE_UNDEFINED\x10\x00\x12\x11\n\rDATATYPE_BOOL\x10\x01\x12\x10\n\x0c\x44\x41TATYPE_INT\x10\x02\x12\x11\n\rDATATYPE_INT8\x10\x03\x12\x12\n\x0e\x44\x41TATYPE_INT16\x10\x04\x12\x12\n\x0e\x44\x41TATYPE_INT32\x10\x05\x12\x12\n\x0e\x44\x41TATYPE_INT64\x10\x06\x12\x11\n\rDATATYPE_UINT\x10\x07\x12\x12\n\x0e\x44\x41TATYPE_UINT8\x10\x08\x12\x13\n\x0f\x44\x41TATYPE_UINT16\x10\t\x12\x13\n\x0f\x44\x41TATYPE_UINT32\x10\n\x12\x13\n\x0f\x44\x41TATYPE_UTIN64\x10\x0b\x12\x14\n\x10\x44\x41TATYPE_FLOAT32\x10\x0c\x12\x14\n\x10\x44\x41TATYPE_FLOAT64\x10\r\x12\x13\n\x0f\x44\x41TATYPE_STRING\x10\x0e*O\n\nColumnType\x12\x17\n\x13\x43OLUMNTYPE_UDEFINED\x10\x00\x12\x12\n\x0e\x43OLUMNTYPE_TAG\x10\x01\x12\x14\n\x10\x43OLUMNTYPE_FIELD\x10\x02*\xab\x02\n\x0c\x46unctionType\x12\x1a\n\x16\x46UNCTIONTYPE_UNDEFINED\x10\x00\x12\x16\n\x12\x46UNCTIONTYPE_COUNT\x10\x01\x12\x15\n\x11\x46UNCTIONTYPE_MEAN\x10\x02\x12\x17\n\x13\x46UNCTIONTYPE_MEDIAN\x10\x03\x12\x17\n\x13\x46UNCTIONTYPE_STDDEV\x10\x04\x12\x14\n\x10\x46UNCTIONTYPE_SUM\x10\x05\x12\x17\n\x13\x46UNCTIONTYPE_BOTTOM\x10\x06\x12\x16\n\x12\x46UNCTIONTYPE_FIRST\x10\x07\x12\x15\n\x11\x46UNCTIONTYPE_LAST\x10\x08\x12\x14\n\x10\x46UNCTIONTYPE_MAX\x10\t\x12\x14\n\x10\x46UNCTIONTYPE_MIN\x10\n\x12\x14\n\x10\x46UNCTIONTYPE_TOP\x10\x0b\x42\x42Z@github.com/containers-ai/api/alameda_api/v1alpha1/datahub/commonb\x06proto3'
+  serialized_pb=b'\n/alameda_api/v1alpha1/datahub/common/types.proto\x12,containersai.alameda.v1alpha1.datahub.common*y\n\x10ResourceBoundary\x12\x1f\n\x1bRESOURCE_BOUNDARY_UNDEFINED\x10\x00\x12\x10\n\x0cRESOURCE_RAW\x10\x01\x12\x18\n\x14RESOURCE_UPPER_BOUND\x10\x02\x12\x18\n\x14RESOURCE_LOWER_BOUND\x10\x03*\x91\x01\n\rResourceQuota\x12\x1c\n\x18RESOURCE_QUOTA_UNDEFINED\x10\x00\x12\x12\n\x0eRESOURCE_LIMIT\x10\x01\x12\x14\n\x10RESOURCE_REQUEST\x10\x02\x12\x1a\n\x16RESOURCE_INITIAL_LIMIT\x10\x03\x12\x1c\n\x18RESOURCE_INITIAL_REQUEST\x10\x04*\xbd\x02\n\x08\x44\x61taType\x12\x16\n\x12\x44\x41TATYPE_UNDEFINED\x10\x00\x12\x11\n\rDATATYPE_BOOL\x10\x01\x12\x10\n\x0c\x44\x41TATYPE_INT\x10\x02\x12\x11\n\rDATATYPE_INT8\x10\x03\x12\x12\n\x0e\x44\x41TATYPE_INT16\x10\x04\x12\x12\n\x0e\x44\x41TATYPE_INT32\x10\x05\x12\x12\n\x0e\x44\x41TATYPE_INT64\x10\x06\x12\x11\n\rDATATYPE_UINT\x10\x07\x12\x12\n\x0e\x44\x41TATYPE_UINT8\x10\x08\x12\x13\n\x0f\x44\x41TATYPE_UINT16\x10\t\x12\x13\n\x0f\x44\x41TATYPE_UINT32\x10\n\x12\x13\n\x0f\x44\x41TATYPE_UTIN64\x10\x0b\x12\x14\n\x10\x44\x41TATYPE_FLOAT32\x10\x0c\x12\x14\n\x10\x44\x41TATYPE_FLOAT64\x10\r\x12\x13\n\x0f\x44\x41TATYPE_STRING\x10\x0e*O\n\nColumnType\x12\x17\n\x13\x43OLUMNTYPE_UDEFINED\x10\x00\x12\x12\n\x0e\x43OLUMNTYPE_TAG\x10\x01\x12\x14\n\x10\x43OLUMNTYPE_FIELD\x10\x02*\xe4\x03\n\x0c\x46unctionType\x12\x1a\n\x16\x46UNCTIONTYPE_UNDEFINED\x10\x00\x12\x16\n\x12\x46UNCTIONTYPE_COUNT\x10\x01\x12\x19\n\x15\x46UNCTIONTYPE_DISTINCT\x10\x02\x12\x19\n\x15\x46UNCTIONTYPE_INTEGRAL\x10\x03\x12\x15\n\x11\x46UNCTIONTYPE_MEAN\x10\x04\x12\x17\n\x13\x46UNCTIONTYPE_MEDIAN\x10\x05\x12\x15\n\x11\x46UNCTIONTYPE_MODE\x10\x06\x12\x17\n\x13\x46UNCTIONTYPE_SPREAD\x10\x07\x12\x17\n\x13\x46UNCTIONTYPE_STDDEV\x10\x08\x12\x14\n\x10\x46UNCTIONTYPE_SUM\x10\t\x12\x17\n\x13\x46UNCTIONTYPE_BOTTOM\x10\n\x12\x16\n\x12\x46UNCTIONTYPE_FIRST\x10\x0b\x12\x15\n\x11\x46UNCTIONTYPE_LAST\x10\x0c\x12\x14\n\x10\x46UNCTIONTYPE_MAX\x10\r\x12\x14\n\x10\x46UNCTIONTYPE_MIN\x10\x0e\x12\x1b\n\x17\x46UNCTIONTYPE_PERCENTILE\x10\x0f\x12\x17\n\x13\x46UNCTIONTYPE_SAMPLE\x10\x10\x12\x14\n\x10\x46UNCTIONTYPE_TOP\x10\x11\x12\x1b\n\x17\x46UNCTIONTYPE_DERIVATIVE\x10\x12\x42\x42Z@github.com/containers-ai/api/alameda_api/v1alpha1/datahub/commonb\x06proto3'
 )
 
 _RESOURCEBOUNDARY = _descriptor.EnumDescriptor(
@@ -205,50 +205,78 @@ _FUNCTIONTYPE = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='FUNCTIONTYPE_MEAN', index=2, number=2,
+      name='FUNCTIONTYPE_DISTINCT', index=2, number=2,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='FUNCTIONTYPE_MEDIAN', index=3, number=3,
+      name='FUNCTIONTYPE_INTEGRAL', index=3, number=3,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='FUNCTIONTYPE_STDDEV', index=4, number=4,
+      name='FUNCTIONTYPE_MEAN', index=4, number=4,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='FUNCTIONTYPE_SUM', index=5, number=5,
+      name='FUNCTIONTYPE_MEDIAN', index=5, number=5,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='FUNCTIONTYPE_BOTTOM', index=6, number=6,
+      name='FUNCTIONTYPE_MODE', index=6, number=6,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='FUNCTIONTYPE_FIRST', index=7, number=7,
+      name='FUNCTIONTYPE_SPREAD', index=7, number=7,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='FUNCTIONTYPE_LAST', index=8, number=8,
+      name='FUNCTIONTYPE_STDDEV', index=8, number=8,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='FUNCTIONTYPE_MAX', index=9, number=9,
+      name='FUNCTIONTYPE_SUM', index=9, number=9,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='FUNCTIONTYPE_MIN', index=10, number=10,
+      name='FUNCTIONTYPE_BOTTOM', index=10, number=10,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='FUNCTIONTYPE_TOP', index=11, number=11,
+      name='FUNCTIONTYPE_FIRST', index=11, number=11,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='FUNCTIONTYPE_LAST', index=12, number=12,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='FUNCTIONTYPE_MAX', index=13, number=13,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='FUNCTIONTYPE_MIN', index=14, number=14,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='FUNCTIONTYPE_PERCENTILE', index=15, number=15,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='FUNCTIONTYPE_SAMPLE', index=16, number=16,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='FUNCTIONTYPE_TOP', index=17, number=17,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='FUNCTIONTYPE_DERIVATIVE', index=18, number=18,
       serialized_options=None,
       type=None),
   ],
   containing_type=None,
   serialized_options=None,
   serialized_start=770,
-  serialized_end=1069,
+  serialized_end=1254,
 )
 _sym_db.RegisterEnumDescriptor(_FUNCTIONTYPE)
 
@@ -282,16 +310,23 @@ COLUMNTYPE_TAG = 1
 COLUMNTYPE_FIELD = 2
 FUNCTIONTYPE_UNDEFINED = 0
 FUNCTIONTYPE_COUNT = 1
-FUNCTIONTYPE_MEAN = 2
-FUNCTIONTYPE_MEDIAN = 3
-FUNCTIONTYPE_STDDEV = 4
-FUNCTIONTYPE_SUM = 5
-FUNCTIONTYPE_BOTTOM = 6
-FUNCTIONTYPE_FIRST = 7
-FUNCTIONTYPE_LAST = 8
-FUNCTIONTYPE_MAX = 9
-FUNCTIONTYPE_MIN = 10
-FUNCTIONTYPE_TOP = 11
+FUNCTIONTYPE_DISTINCT = 2
+FUNCTIONTYPE_INTEGRAL = 3
+FUNCTIONTYPE_MEAN = 4
+FUNCTIONTYPE_MEDIAN = 5
+FUNCTIONTYPE_MODE = 6
+FUNCTIONTYPE_SPREAD = 7
+FUNCTIONTYPE_STDDEV = 8
+FUNCTIONTYPE_SUM = 9
+FUNCTIONTYPE_BOTTOM = 10
+FUNCTIONTYPE_FIRST = 11
+FUNCTIONTYPE_LAST = 12
+FUNCTIONTYPE_MAX = 13
+FUNCTIONTYPE_MIN = 14
+FUNCTIONTYPE_PERCENTILE = 15
+FUNCTIONTYPE_SAMPLE = 16
+FUNCTIONTYPE_TOP = 17
+FUNCTIONTYPE_DERIVATIVE = 18
 
 
 DESCRIPTOR.enum_types_by_name['ResourceBoundary'] = _RESOURCEBOUNDARY

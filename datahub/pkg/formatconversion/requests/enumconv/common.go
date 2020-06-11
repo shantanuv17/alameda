@@ -31,18 +31,25 @@ var DataTypeNameMap = map[ApiCommon.DataType]DBCommon.DataType{
 }
 
 var QueryConditionFunctionNameMap = map[ApiCommon.FunctionType]DBCommon.FunctionType{
-	ApiCommon.FunctionType_FUNCTIONTYPE_UNDEFINED: DBCommon.NoneFunction,
-	ApiCommon.FunctionType_FUNCTIONTYPE_COUNT:     DBCommon.FunctionCount,
-	ApiCommon.FunctionType_FUNCTIONTYPE_MEAN:      DBCommon.FunctionMean,
-	ApiCommon.FunctionType_FUNCTIONTYPE_MEDIAN:    DBCommon.FunctionMedian,
-	ApiCommon.FunctionType_FUNCTIONTYPE_STDDEV:    DBCommon.FunctionStddev,
-	ApiCommon.FunctionType_FUNCTIONTYPE_SUM:       DBCommon.FunctionSum,
-	ApiCommon.FunctionType_FUNCTIONTYPE_BOTTOM:    DBCommon.FunctionBottom,
-	ApiCommon.FunctionType_FUNCTIONTYPE_FIRST:     DBCommon.FunctionFirst,
-	ApiCommon.FunctionType_FUNCTIONTYPE_LAST:      DBCommon.FunctionLast,
-	ApiCommon.FunctionType_FUNCTIONTYPE_MAX:       DBCommon.FunctionMax,
-	ApiCommon.FunctionType_FUNCTIONTYPE_MIN:       DBCommon.FunctionMin,
-	ApiCommon.FunctionType_FUNCTIONTYPE_TOP:       DBCommon.FunctionTop,
+	ApiCommon.FunctionType_FUNCTIONTYPE_UNDEFINED:  DBCommon.NoneFunction,
+	ApiCommon.FunctionType_FUNCTIONTYPE_COUNT:      DBCommon.FunctionCount,
+	ApiCommon.FunctionType_FUNCTIONTYPE_DISTINCT:   DBCommon.FuncDistinct,
+	ApiCommon.FunctionType_FUNCTIONTYPE_INTEGRAL:   DBCommon.FuncIntegral,
+	ApiCommon.FunctionType_FUNCTIONTYPE_MEAN:       DBCommon.FunctionMean,
+	ApiCommon.FunctionType_FUNCTIONTYPE_MEDIAN:     DBCommon.FunctionMedian,
+	ApiCommon.FunctionType_FUNCTIONTYPE_MODE:       DBCommon.FunctionMode,
+	ApiCommon.FunctionType_FUNCTIONTYPE_SPREAD:     DBCommon.FunctionSpread,
+	ApiCommon.FunctionType_FUNCTIONTYPE_STDDEV:     DBCommon.FunctionStddev,
+	ApiCommon.FunctionType_FUNCTIONTYPE_SUM:        DBCommon.FunctionSum,
+	ApiCommon.FunctionType_FUNCTIONTYPE_BOTTOM:     DBCommon.FunctionBottom,
+	ApiCommon.FunctionType_FUNCTIONTYPE_FIRST:      DBCommon.FunctionFirst,
+	ApiCommon.FunctionType_FUNCTIONTYPE_LAST:       DBCommon.FunctionLast,
+	ApiCommon.FunctionType_FUNCTIONTYPE_MAX:        DBCommon.FunctionMax,
+	ApiCommon.FunctionType_FUNCTIONTYPE_MIN:        DBCommon.FunctionMin,
+	ApiCommon.FunctionType_FUNCTIONTYPE_PERCENTILE: DBCommon.FunctionPercentile,
+	ApiCommon.FunctionType_FUNCTIONTYPE_SAMPLE:     DBCommon.FunctionSample,
+	ApiCommon.FunctionType_FUNCTIONTYPE_TOP:        DBCommon.FunctionTop,
+	ApiCommon.FunctionType_FUNCTIONTYPE_DERIVATIVE: DBCommon.FuncDerivative,
 }
 
 var QueryConditionOrderNameMap = map[ApiCommon.QueryCondition_Order]DBCommon.Order{
