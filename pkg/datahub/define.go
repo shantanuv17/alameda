@@ -25,25 +25,25 @@ const (
 	FunctionCount  // Returns the number of non-null field values
 	FuncDistinct   // Returns the list of unique field values
 	FuncIntegral   // Returns the area under the curve for subsequent field values
-    FunctionMean   // Returns the arithmetic mean (average) of field values
-    FunctionMedian // Returns the middle value from a sorted list of field values
-    FunctionMode   // Returns the most frequent value in a list of field values
-    FunctionSpread // Returns the difference between the minimum and maximum field values
-    FunctionStddev // Returns the standard deviation of field values
-    FunctionSum    // Returns the sum of field values
+	FunctionMean   // Returns the arithmetic mean (average) of field values
+	FunctionMedian // Returns the middle value from a sorted list of field values
+	FunctionMode   // Returns the most frequent value in a list of field values
+	FunctionSpread // Returns the difference between the minimum and maximum field values
+	FunctionStddev // Returns the standard deviation of field values
+	FunctionSum    // Returns the sum of field values
 
-    // Selector function
-    FunctionBottom     // Returns the smallest N field values
-    FunctionFirst      // Returns the field value with the oldest timestamp
-    FunctionLast       // Returns the field value with the most recent timestamp
-    FunctionMax        // Returns the greatest field value
-    FunctionMin        // Returns the lowest field value
-    FunctionPercentile // Returns the Nth percentile field value
-    FunctionSample     // Returns a random sample of N field values. SAMPLE() uses reservoir sampling to generate the random points
-    FunctionTop        // Returns the greatest N field values
+	// Selector function
+	FunctionBottom     // Returns the smallest N field values
+	FunctionFirst      // Returns the field value with the oldest timestamp
+	FunctionLast       // Returns the field value with the most recent timestamp
+	FunctionMax        // Returns the greatest field value
+	FunctionMin        // Returns the lowest field value
+	FunctionPercentile // Returns the Nth percentile field value
+	FunctionSample     // Returns a random sample of N field values. SAMPLE() uses reservoir sampling to generate the random points
+	FunctionTop        // Returns the greatest N field values
 
-    // Transformation function
-    FuncDerivative // Returns the rate of change between subsequent field values
+	// Transformation function
+	FuncDerivative // Returns the rate of change between subsequent field values
 )
 
 var ScopeValue = map[string]schemas.Scope{
