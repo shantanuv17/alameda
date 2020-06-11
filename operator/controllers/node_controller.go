@@ -105,6 +105,11 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 					datahubNode.MachinesetNamespace, datahubNode.MachinesetName,
 					msExecution[0].Time, request.Name, err.Error())
 				return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
+			} else {
+				scope.Infof(
+					"Update delta down time to %v seconds for machineset %s/%s at execution time %v for node %s",
+					msExecution[0].DeltaDownTime, datahubNode.MachinesetNamespace,
+					datahubNode.MachinesetName, msExecution[0].Time, request.Name)
 			}
 		}
 		if err := r.deleteNodesFromDatahub(nodes); err != nil {
@@ -112,6 +117,10 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
 		}
 	} else {
+		if err := r.createNodesToDatahub(nodes); err != nil {
+			scope.Errorf("Create node to Datahub failed failed: %s", err.Error())
+			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
+		}
 		if len(msExecution) == 1 {
 			msExecution[0].DeltaUpTime = datahubNode.CreateTime - datahubNode.MachineCreateTime
 			if err := r.DatahubClient.Create(&msExecution[0], []string{}); err != nil {
@@ -120,12 +129,12 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 					datahubNode.MachinesetNamespace, datahubNode.MachinesetName,
 					msExecution[0].Time, request.Name, err.Error())
 				return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
+			} else {
+				scope.Infof(
+					"Update delta up time to %v seconds for machineset %s/%s at execution time %v for node %s",
+					msExecution[0].DeltaUpTime, datahubNode.MachinesetNamespace,
+					datahubNode.MachinesetName, msExecution[0].Time, request.Name)
 			}
-		}
-
-		if err := r.createNodesToDatahub(nodes); err != nil {
-			scope.Errorf("Create node to Datahub failed failed: %s", err.Error())
-			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
 		}
 	}
 	return reconcile.Result{}, nil
