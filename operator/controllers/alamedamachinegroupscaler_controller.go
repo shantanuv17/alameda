@@ -19,8 +19,9 @@ package controllers
 import (
 	"context"
 	"time"
-	machinesetrepository "github.com/containers-ai/alameda/operator/datahub/client/machineset"
+
 	machinegrouprepository "github.com/containers-ai/alameda/operator/datahub/client/machinegroup"
+	machinesetrepository "github.com/containers-ai/alameda/operator/datahub/client/machineset"
 	"github.com/containers-ai/alameda/operator/pkg/machinegroup"
 	datahubschemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	"github.com/go-logr/logr"
@@ -39,7 +40,7 @@ type AlamedaMachineGroupScalerReconciler struct {
 	ClusterUID                       string
 	Log                              logr.Logger
 	Scheme                           *runtime.Scheme
-	DatahubMachineSetRepo   *machinesetrepository.MachineSetRepository
+	DatahubMachineSetRepo            *machinesetrepository.MachineSetRepository
 	DatahubMachineGroupRepo          machinegrouprepository.MachineGroupRepository
 	DatahubCAMachineGroupSchema      datahubschemas.Schema
 	DatahubCAMachineGroupMeasurement datahubschemas.Measurement
@@ -49,8 +50,10 @@ type AlamedaMachineGroupScalerReconciler struct {
 // +kubebuilder:rbac:groups=autoscaling.containers.ai,resources=alamedamachinegroupscalers,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=autoscaling.containers.ai,resources=alamedamachinegroupscalers/status,verbs=get;update;patch
 
-func (r *AlamedaMachineGroupScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), r.ReconcileTimeout)
+func (r *AlamedaMachineGroupScalerReconciler) Reconcile(req ctrl.Request) (
+	ctrl.Result, error) {
+	ctx, cancel := context.WithTimeout(
+		context.Background(), r.ReconcileTimeout)
 	defer cancel()
 
 	mgs := []machinegroup.MachineGroup{
@@ -66,16 +69,28 @@ func (r *AlamedaMachineGroupScalerReconciler) Reconcile(req ctrl.Request) (ctrl.
 	}
 
 	instance := autoscalingv1alpha1.AlamedaMachineGroupScaler{}
-	err := r.Get(ctx, types.NamespacedName{Namespace: req.Namespace, Name: req.Name}, &instance)
+	err := r.Get(ctx, types.NamespacedName{
+		Namespace: req.Namespace,
+		Name:      req.Name,
+	}, &instance)
+
 	if err != nil && k8sErrors.IsNotFound(err) {
 		err = r.DatahubMachineGroupRepo.DeleteMachineGroups(ctx, mgs)
 		if err != nil {
-			scope.Errorf("Delete AlamedaMachineGroupScaler (%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
+			scope.Errorf("Delete AlamedaMachineGroupScaler (%s/%s) failed: %s",
+				req.Namespace, req.Name, err.Error())
 			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
 		}
 		return ctrl.Result{Requeue: false}, nil
 	} else if err != nil {
-		scope.Errorf("Get AlamedaMachineGroupScaler(%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
+		scope.Errorf("Get AlamedaMachineGroupScaler(%s/%s) failed: %s",
+			req.Namespace, req.Name, err.Error())
+		return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
+	}
+
+	if err = r.setDefaultValue(ctx, &instance); err != nil {
+		scope.Errorf("Set AlamedaMachineGroupScaler(%s/%s) default value failed: %s",
+			req.Namespace, req.Name, err.Error())
 		return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
 	}
 
@@ -93,8 +108,10 @@ func (r *AlamedaMachineGroupScalerReconciler) Reconcile(req ctrl.Request) (ctrl.
 				alamedaScaler.GetNamespace(), alamedaScaler.GetName(),
 				req.Namespace, req.Name)
 			if err = r.syncCAInfoWithScalerAndMachineGroup(ctx, alamedaScaler, instance); err != nil {
-				scope.Errorf("sync CA info with alamedascaler (%s/%s) and machinegroupscaler (%s/%s) failed",
-					alamedaScaler.GetNamespace(), alamedaScaler.GetName(), instance.GetNamespace(), instance.GetName())
+				scope.Errorf(
+					"sync CA info with alamedascaler (%s/%s) and machinegroupscaler (%s/%s) failed",
+					alamedaScaler.GetNamespace(), alamedaScaler.GetName(),
+					instance.GetNamespace(), instance.GetName())
 				return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
 			}
 			break
@@ -110,9 +127,46 @@ func (r *AlamedaMachineGroupScalerReconciler) SetupWithManager(mgr ctrl.Manager)
 		Complete(r)
 }
 
-func (r *AlamedaMachineGroupScalerReconciler) syncCAInfoWithScalerAndMachineGroup(ctx context.Context,
-	alamedaScaler autoscalingv1alpha1.AlamedaScaler,
+func (r *AlamedaMachineGroupScalerReconciler) syncCAInfoWithScalerAndMachineGroup(
+	ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler,
 	mgIns autoscalingv1alpha1.AlamedaMachineGroupScaler) error {
 	return SyncCAInfoWithScalerAndMachineGroup(ctx, r.ClusterUID, r.Client,
 		r.DatahubMachineSetRepo, &r.DatahubMachineGroupRepo, alamedaScaler, mgIns)
+}
+
+func (r *AlamedaMachineGroupScalerReconciler) setDefaultValue(
+	ctx context.Context, instance *autoscalingv1alpha1.AlamedaMachineGroupScaler) error {
+	defaultDurationThresholdPercentage := int32(25)
+	defaultScaleDownGap := int32(10)
+	defaultScaleUpGap := int32(20)
+	defaultUtilizationTarget := int32(60)
+	needUpdate := false
+	for metric := range instance.Spec.Metrics {
+		metricRule := instance.Spec.Metrics[metric]
+		if metricRule.DurationDownThresholdPercentage == nil {
+			needUpdate = true
+			metricRule.DurationDownThresholdPercentage = &defaultDurationThresholdPercentage
+		}
+		if metricRule.DurationUpThresholdPercentage == nil {
+			needUpdate = true
+			metricRule.DurationUpThresholdPercentage = &defaultDurationThresholdPercentage
+		}
+		if metricRule.ScaleDownGap == nil {
+			needUpdate = true
+			metricRule.ScaleDownGap = &defaultScaleDownGap
+		}
+		if metricRule.ScaleUpGap == nil {
+			needUpdate = true
+			metricRule.ScaleUpGap = &defaultScaleUpGap
+		}
+		if metricRule.UtilizationTarget == nil {
+			needUpdate = true
+			metricRule.UtilizationTarget = &defaultUtilizationTarget
+		}
+		instance.Spec.Metrics[metric] = metricRule
+	}
+	if needUpdate {
+		return r.Client.Update(ctx, instance)
+	}
+	return nil
 }
