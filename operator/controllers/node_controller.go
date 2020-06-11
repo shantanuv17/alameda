@@ -76,21 +76,23 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 	}
 
 	msExecution := []entities.ExecutionClusterAutoscalerMachineset{}
-	err = r.DatahubClient.ListTS(&msExecution, &datahubpkg.TimeRange{
-		Order: datahubpkg.Desc,
-		Limit: 1,
-	}, nil, nil, datahubpkg.Option{
-		Entity: entities.ExecutionClusterAutoscalerMachineset{
-			ClusterName: r.ClusterUID,
-			Namespace:   datahubNode.MachinesetNamespace,
-			Name:        datahubNode.MachinesetName,
-		},
-		Fields: []string{"ClusterName", "Namespace", "Name"},
-	})
-	if err != nil {
-		scope.Errorf("Get last execution of machineset %s/%s for node %s from Datahub failed: %s",
-			datahubNode.MachinesetNamespace, datahubNode.MachinesetName, request.Name, err.Error())
-		return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
+	if datahubNode != nil {
+		err = r.DatahubClient.ListTS(&msExecution, &datahubpkg.TimeRange{
+			Order: datahubpkg.Desc,
+			Limit: 1,
+		}, nil, nil, datahubpkg.Option{
+			Entity: entities.ExecutionClusterAutoscalerMachineset{
+				ClusterName: r.ClusterUID,
+				Namespace:   datahubNode.MachinesetNamespace,
+				Name:        datahubNode.MachinesetName,
+			},
+			Fields: []string{"ClusterName", "Namespace", "Name"},
+		})
+		if err != nil {
+			scope.Errorf("Get last execution of machineset %s/%s for node %s from Datahub failed: %s",
+				datahubNode.MachinesetNamespace, datahubNode.MachinesetName, request.Name, err.Error())
+			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
+		}
 	}
 
 	nodes := make([]*corev1.Node, 1)
