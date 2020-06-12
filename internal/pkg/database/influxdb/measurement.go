@@ -101,6 +101,11 @@ func (p *InfluxMeasurement) genDataType(query *InfluxQuery) {
 	for _, condition := range query.QueryCondition.WhereCondition {
 		if len(condition.Types) == 0 {
 			for _, key := range condition.Keys {
+				// Since time field is not in schema, so we have to add its data type manually
+				if key == "time" {
+					condition.Types = append(condition.Types, common.String)
+					continue
+				}
 				for _, column := range p.Measurement.Columns {
 					if key == column.Name {
 						condition.Types = append(condition.Types, column.DataType)

@@ -25,13 +25,17 @@ type Entity interface {
 }
 
 type DatahubEntity struct {
-	Time *time.Time
 }
 
 func (p *DatahubEntity) Populate(entity interface{}, timestamp *timestamp.Timestamp, columns, values []string) {
-	p.Time = p.timestamp(timestamp)
-
 	fields := reflect.TypeOf(entity).Elem()
+
+	// Populate Time filed
+	ts := Timestamp(timestamp)
+	timeField := reflect.ValueOf(entity).Elem().FieldByName("Time")
+	timeField.Set(reflect.ValueOf(ts))
+
+	// Populate other tags and fields
 	for index, column := range columns {
 		for i := 1; i < fields.NumField(); i++ {
 			if column == fields.Field(i).Tag.Get("json") {
@@ -64,7 +68,7 @@ func (p *DatahubEntity) Populate(entity interface{}, timestamp *timestamp.Timest
 }
 
 func (p *DatahubEntity) Row(entity interface{}, fields []string) *Row {
-	row := Row{Time: p.timestampProto()}
+	row := Row{Time: TimestampProto(reflect.ValueOf(entity).Elem().FieldByName("Time").Interface().(*time.Time))}
 
 	// If fields is empty which means to iterate through all the fields of the entity
 	values := reflect.TypeOf(entity).Elem()
@@ -98,6 +102,7 @@ func (p *DatahubEntity) Row(entity interface{}, fields []string) *Row {
 				default:
 					scope.Errorf("field type(%s) not supported", fieldValue.Kind().String())
 				}
+				break
 			}
 		}
 	}
@@ -105,17 +110,17 @@ func (p *DatahubEntity) Row(entity interface{}, fields []string) *Row {
 	return &row
 }
 
-func (p *DatahubEntity) timestamp(timestamp *timestamp.Timestamp) *time.Time {
+func Timestamp(timestamp *timestamp.Timestamp) *time.Time {
 	ts, _ := ptypes.Timestamp(timestamp)
 	return &ts
 }
 
-func (p *DatahubEntity) timestampProto() *timestamp.Timestamp {
-	ts := &timestamp.Timestamp{}
-	if p.Time == nil {
-		ts, _ = ptypes.TimestampProto(time.Unix(0, 0).UTC())
+func TimestampProto(ts *time.Time) *timestamp.Timestamp {
+	var t *timestamp.Timestamp
+	if ts == nil {
+		t, _ = ptypes.TimestampProto(time.Unix(0, 0).UTC())
 	} else {
-		ts, _ = ptypes.TimestampProto(*p.Time)
+		t, _ = ptypes.TimestampProto(*ts)
 	}
-	return ts
+	return t
 }

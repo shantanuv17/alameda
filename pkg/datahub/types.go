@@ -181,15 +181,17 @@ func NewCondition(opt Option) *common.Condition {
 				fieldValue := values.FieldByName(field)
 				value := ""
 
-				switch fieldValue.Kind() {
-				case reflect.Bool:
+				switch fieldValue.Interface().(type) {
+				case bool:
 					value = strconv.FormatBool(reflect.ValueOf(fieldValue.Interface()).Bool())
-				case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+				case int, int8, int16, int32, int64:
 					value = strconv.FormatInt(reflect.ValueOf(fieldValue.Interface()).Int(), 10)
-				case reflect.Float32, reflect.Float64:
+				case float32, float64:
 					value = strconv.FormatFloat(reflect.ValueOf(fieldValue.Interface()).Float(), 'f', -1, 64)
-				case reflect.String:
+				case string:
 					value = reflect.ValueOf(fieldValue.Interface()).String()
+				case *time.Time:
+					value = fieldValue.Interface().(*time.Time).Format(time.RFC3339)
 				default:
 					scope.Errorf("field type(%s) not supported", fieldValue.Kind().String())
 				}
@@ -197,6 +199,7 @@ func NewCondition(opt Option) *common.Condition {
 				condition.Keys = append(condition.Keys, fieldType.Tag.Get("json"))
 				condition.Values = append(condition.Values, value)
 				condition.Operators = append(condition.Operators, "=")
+				break
 			}
 		}
 	}

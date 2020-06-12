@@ -71,6 +71,10 @@ func (p *Measurement) ColumnSupported(columns []string) error {
 	// Check if column supported
 	for _, name := range columns {
 		found := false
+		// Since time field is not in schema, we have to skip its column supported check
+		if name == "time" {
+			continue
+		}
 		for _, column := range p.Columns {
 			if name == column.Name {
 				found = true
