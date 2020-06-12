@@ -4,7 +4,7 @@
 To build Alameda images from source code, [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Docker](https://docs.docker.com/install/#supported-platforms) environment are required.
 > **Note**: It is recommended to use Docker engine 18.09 or greater
 
-As showed in the [Alameda architecture design](https://github.com/containers-ai/alameda/blob/master/design/architecture.md), Running Alameda requires several components. Some of the components leverage existing open-source solutions such as InfluxDB and Grafana. Some of them are implemented in Alameda. The following sections show how to build those components implemented in Alameda from source code.
+As showed in the [Alameda architecture design](https://github.com/containers-ai/alameda/blob/master/design/architecture.md), Running Alameda requires several components. Some of the components leverage existing open-source solutions such as InfluxDB. Some of them are implemented in Alameda. The following sections show how to build those components implemented in Alameda from source code.
 
 ## Build alameda-operator
 ```
