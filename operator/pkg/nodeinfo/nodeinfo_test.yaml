@@ -409,11 +409,7 @@ items:
       - docker.io/openshift/origin-pod@sha256:9fb8b480fbc9f2f7a8f3aab970b83b559d2392df39cbcdd21e04c32e0400013a
       - docker.io/openshift/origin-pod:v3.11
       - docker.io/openshift/origin-pod:v3.11.0
-      sizeBytes: 262555989
-    - names:
-      - docker.io/grafana/grafana@sha256:104f434d47c8830be44560edc012c31114a104301cdb81bad6e8abc52a2304f9
-      - docker.io/grafana/grafana:5.2.1
-      sizeBytes: 245293540
+      sizeBytes: 262555989    
     - names:
       - docker.io/openshift/oauth-proxy@sha256:731c1fdad1de4bf68ae9eece5e99519f063fd8d9990da312082b4c995c4e4e33
       - docker.io/openshift/oauth-proxy:v1.1.0
@@ -565,11 +561,7 @@ items:
       - docker.io/openshift/origin-pod@sha256:9fb8b480fbc9f2f7a8f3aab970b83b559d2392df39cbcdd21e04c32e0400013a
       - docker.io/openshift/origin-pod:v3.11
       - docker.io/openshift/origin-pod:v3.11.0
-      sizeBytes: 262555989
-    - names:
-      - docker.io/grafana/grafana@sha256:104f434d47c8830be44560edc012c31114a104301cdb81bad6e8abc52a2304f9
-      - docker.io/grafana/grafana:5.2.1
-      sizeBytes: 245293540
+      sizeBytes: 262555989    
     - names:
       - docker.io/openshift/oauth-proxy@sha256:731c1fdad1de4bf68ae9eece5e99519f063fd8d9990da312082b4c995c4e4e33
       - docker.io/openshift/oauth-proxy:v1.1.0
@@ -763,11 +755,7 @@ items:
       - docker.io/openshift/origin-pod@sha256:9fb8b480fbc9f2f7a8f3aab970b83b559d2392df39cbcdd21e04c32e0400013a
       - docker.io/openshift/origin-pod:v3.11
       - docker.io/openshift/origin-pod:v3.11.0
-      sizeBytes: 262555989
-    - names:
-      - quay.io/prophetstor/alameda-grafana@sha256:b4220ecb0c6d7433081c776e861f7665fc1d9f73cb874709e4d36ee2bc8bfbc6
-      - quay.io/prophetstor/alameda-grafana:v4.2.155
-      sizeBytes: 248316159
+      sizeBytes: 262555989    
     - names:
       - docker.io/openshift/oauth-proxy@sha256:731c1fdad1de4bf68ae9eece5e99519f063fd8d9990da312082b4c995c4e4e33
       - docker.io/openshift/oauth-proxy:v1.1.0
@@ -977,15 +965,7 @@ items:
       - docker.io/openshift/origin-pod@sha256:9fb8b480fbc9f2f7a8f3aab970b83b559d2392df39cbcdd21e04c32e0400013a
       - docker.io/openshift/origin-pod:v3.11
       - docker.io/openshift/origin-pod:v3.11.0
-      sizeBytes: 262555989
-    - names:
-      - quay.io/prophetstor/alameda-grafana@sha256:6c71fcaae84c6a58196a01c8d16fbfa30ba66dd628765b9be750c0a3ab54db5b
-      - quay.io/prophetstor/alameda-grafana:v4.2.297
-      sizeBytes: 248656283
-    - names:
-      - quay.io/prophetstor/alameda-grafana@sha256:b4220ecb0c6d7433081c776e861f7665fc1d9f73cb874709e4d36ee2bc8bfbc6
-      - quay.io/prophetstor/alameda-grafana:v4.2.155
-      sizeBytes: 248316159
+      sizeBytes: 262555989    
     - names:
       - quay.io/prophetstor/federatorai-agent-ubi@sha256:e6af5d85966da148ca09207eee2f87c799416577675d6c400bd53f7c801a968d
       - quay.io/prophetstor/federatorai-agent-ubi:v4.2.297

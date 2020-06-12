@@ -15,7 +15,6 @@ According to Alameda [architecture](https://github.com/containers-ai/alameda/blo
 - alameda-evictioner
 - admission-controller
 - alameda-influxdb (leverage the opensource InfluxDB)
-- alameda-grafana (leverage the opensource Grafana)
 
 and assumes **Prometheus** is running in your cluster.
 
@@ -40,13 +39,7 @@ $ helm install --name alameda --namespace alameda ./alameda
 > **Note 1**: Alameda needs to collaborate with Prometheus to see historical pod/node metrics. The default URL is set to _http://prometheus-prometheus-oper-prometheus.monitoring:9090_ in this chart. Please modify it according to your environment before installing this chart.  
 > **Note 2**: The images of Alameda components are assumed existed in local docker environment and pulled from it. Please refer to [build guide](../docs/build.md) for building images from source code or change the image repository settings before installing this chart.
 
-4. Install Grafana chart by executing:
-```
-$ helm install --name alameda-grafana --namespace alameda ./grafana/
-```
-> **Note**: This chart is fetched from https://kubernetes-charts.storage.googleapis.com with version 3.8.4 with customized dashboards.
-
-5. (Optional) If your environment does not have a running Prometheus, you can install it by executing:
+4. (Optional) If your environment does not have a running Prometheus, you can install it by executing:
 ```
 $ helm install stable/prometheus-operator --version 6.4.4 --name prometheus --namespace monitoring
 ```
@@ -61,6 +54,5 @@ $ helm install stable/influxdb --version 1.3.3 --set persistence.enabled=false -
 ### Install Prometheus if no existed one
 # $ helm install stable/prometheus-operator --version 6.4.4 --name prometheus --namespace monitoring
 $ helm install --name alameda --namespace alameda ./alameda/
-$ helm install --name alameda-grafana --namespace alameda ./grafana/
 ```
 

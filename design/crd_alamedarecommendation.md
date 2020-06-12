@@ -4,7 +4,6 @@ _AlamedaRecommendation_ CRD is one of the three ways to expose Alameda recommend
 
 > **Note**: Currently there are three ways to see Alameda recommendation results:
 - _AlamedaRecommendation_ CR. Users can get it by calling K8s api calls or watch it to get notification when the CR is updated.
-- Visualized with Grafana dashboards. The data is pulled directly from InfluxDB.
 - gRPC API calls to **datahub** component. **Datahub** component runs as a gRPC server to handle all the data access of Alameda including recommendation results.
 
 Here is an example _alamedarecommendation_ CR:

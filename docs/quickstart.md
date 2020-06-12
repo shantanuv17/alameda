@@ -4,7 +4,7 @@ This document helps you get started to use Alameda. If you do not have Alameda d
 
 ## Using Alameda
 
-To have Alameda makes resource usage recommendations for you, first thing is to tell Alameda what are the target containers by creating [_AlamedaScaler_](../design/crd_alamedascaler.md) CRs. Then you can see the recommendations by checking the [_alamedarecommendation_](../design/crd_alamedarecommendation.md) CRs or Grafana dashboards visualize them.
+To have Alameda makes resource usage recommendations for you, first thing is to tell Alameda what are the target containers by creating [_AlamedaScaler_](../design/crd_alamedascaler.md) CRs. Then you can see the recommendations by checking the [_alamedarecommendation_](../design/crd_alamedarecommendation.md) CRs.
 
 ### Specify a target object
 
@@ -48,11 +48,6 @@ $ kubectl get alamedarecommendation -n <your namespace>
 and see the details by adding `-o yaml` flag.
 
 This _AlamedaRecommendation_ CR serves as a good intermediate for programs (including Alameda itself) to reference the recommendations and react to them. For more details, please refer to the [*alamedarecommendation* CRD design](./design/crd_alamedarecommendation.md).
-
-### Visualize Alameda recommendations
-
-If alameda-grafana is deployed, users can also visualize Alameda workload predictions and recommendations through the pre-installed dashboards.
-The Grafana URL can be figured out by checking the _alameda-grafana_ service name. To access it from outside the cluster, please either modify the service to  _NodePort_ type or consider to enable [_ingress_](https://kubernetes.io/docs/concepts/services-networking/ingress/) or [_route_](https://docs.openshift.com/container-platform/3.11/architecture/networking/routes.html). The default account is _admin_ with password _admin_.
 
 ## An Example Use Case
 
@@ -191,5 +186,3 @@ metadata:
   resourceVersion: ""
   selfLink: ""
 ```
-By checking the Grafana dashboards, users can also visualize the resource prediction and recommendations.
-
