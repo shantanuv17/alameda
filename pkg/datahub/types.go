@@ -89,7 +89,8 @@ func NewColumns(entities interface{}, fields []string) []string {
 	entityType := reflect.TypeOf(entities).Elem().Elem()
 	fieldNames := fields
 	if len(fieldNames) == 0 {
-		for i := 1; i < entityType.NumField(); i++ {
+		// Index is started at 2 to skip time field
+		for i := 2; i < entityType.NumField(); i++ {
 			fieldNames = append(fieldNames, entityType.Field(i).Name)
 		}
 	}
@@ -116,7 +117,7 @@ func NewRows(entities interface{}, columns []string) []*common.Row {
 
 func NewRow(value reflect.Value, columns []string) *common.Row {
 	row := common.Row{}
-	row.Time = NewTimestampProto(value.FieldByName("DatahubEntity").FieldByName("Time").Interface().(*time.Time))
+	row.Time = NewTimestampProto(value.FieldByName("Time").Interface().(*time.Time))
 
 	for _, column := range columns {
 		for i := 1; i < value.NumField(); i++ {
@@ -133,6 +134,9 @@ func NewRow(value reflect.Value, columns []string) *common.Row {
 					value = strconv.FormatFloat(reflect.ValueOf(fieldValue.Interface()).Float(), 'f', -1, 64)
 				case reflect.String:
 					value = reflect.ValueOf(fieldValue.Interface()).String()
+				case reflect.Ptr:
+					// Since only Time field is pointer type, skip this type currently
+					continue
 				default:
 					scope.Errorf("field type(%s) not supported", fieldValue.Kind().String())
 				}

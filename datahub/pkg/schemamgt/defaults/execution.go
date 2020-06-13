@@ -15,7 +15,7 @@ func SchemaExecutionClusterAutoscalerMachineset() *schemas.Schema {
 	measurement.AddColumn("machinegroup_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("replicas_from", false, schemas.Field, common.Int32)
 	measurement.AddColumn("replicas_to", false, schemas.Field, common.Int32)
-	measurement.AddColumn("delta_up_time​", false, schemas.Field, common.Int64)
+	measurement.AddColumn("delta_up_time", false, schemas.Field, common.Int64)
 	measurement.AddColumn("delta_down_time", false, schemas.Field, common.Int64)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
