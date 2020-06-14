@@ -55,7 +55,6 @@ import (
 	datahub_client_controller "github.com/containers-ai/alameda/operator/datahub/client/controller"
 	datahub_client_kafka "github.com/containers-ai/alameda/operator/datahub/client/kafka"
 	datahub_client_machinegroup "github.com/containers-ai/alameda/operator/datahub/client/machinegroup"
-	datahub_client_machineset "github.com/containers-ai/alameda/operator/datahub/client/machineset"
 	datahub_client_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
 	datahub_client_nginx "github.com/containers-ai/alameda/operator/datahub/client/nginx"
 	datahub_client_node "github.com/containers-ai/alameda/operator/datahub/client/node"
@@ -134,7 +133,6 @@ var (
 	datahubKafkaRepo        datahub_client_kafka.KafkaRepository
 	datahubNginxRepo        datahub_client_nginx.NginxRepository
 	datahubMachineGroupRepo datahub_client_machinegroup.MachineGroupRepository
-	datahubMachineSetRepo   *datahub_client_machineset.MachineSetRepository
 )
 
 func init() {
@@ -321,7 +319,6 @@ func initDatahubResourceRepsitories() {
 	datahubKafkaRepo = datahub_client_kafka.NewKafkaRepository(datahubClient, datahubClientLogger)
 	datahubNginxRepo = datahub_client_nginx.NewNginxRepository(datahubClient, datahubClientLogger)
 	datahubMachineGroupRepo = datahub_client_machinegroup.NewMachineGroupRepository(datahubClient, datahubClientLogger)
-	datahubMachineSetRepo = datahub_client_machineset.NewMachineSetRepository(datahubClient, datahubClientLogger)
 }
 
 func setupManager() (manager.Manager, error) {
@@ -362,12 +359,12 @@ func addControllersToManager(mgr manager.Manager) error {
 		Client:                  mgr.GetClient(),
 		Scheme:                  mgr.GetScheme(),
 		ClusterUID:              clusterUID,
-		DatahubMachineSetRepo:   datahubMachineSetRepo,
 		DatahubApplicationRepo:  datahub_client_application.NewApplicationRepository(datahubConn, clusterUID),
 		DatahubControllerRepo:   datahubControllerRepo,
 		DatahubNamespaceRepo:    datahubNamespaceRepo,
 		DatahubPodRepo:          datahubPodRepo,
 		DatahubMachineGroupRepo: datahubMachineGroupRepo,
+		DatahubClient:           datahubClient,
 		ReconcileTimeout:        3 * time.Second,
 		ForceReconcileInterval:  1 * time.Minute,
 	}).SetupWithManager(mgr); err != nil {
@@ -404,7 +401,6 @@ func addControllersToManager(mgr manager.Manager) error {
 			Client:                         mgr.GetClient(),
 			Scheme:                         mgr.GetScheme(),
 			ClusterUID:                     clusterUID,
-			DatahubMachineSetRepo:          datahubMachineSetRepo,
 			DatahubCAMachineSetSchema:      datahubSchemas["machineSet"],
 			DatahubCAMachineSetMeasurement: *datahubSchemas["machineSet"].Measurements[0],
 			ReconcileTimeout:               3 * time.Second,
@@ -500,7 +496,7 @@ func addControllersToManager(mgr manager.Manager) error {
 		Client:                           mgr.GetClient(),
 		Log:                              ctrl.Log.WithName("controllers").WithName("AlamedaMachineGroupScaler"),
 		Scheme:                           mgr.GetScheme(),
-		DatahubMachineSetRepo:            datahubMachineSetRepo,
+		DatahubClient:                    datahubClient,
 		DatahubMachineGroupRepo:          datahubMachineGroupRepo,
 		DatahubCAMachineGroupSchema:      datahubSchemas["machineGroup"],
 		DatahubCAMachineGroupMeasurement: *datahubSchemas["machineGroup"].Measurements[0],

@@ -25,7 +25,7 @@ import (
 	"time"
 
 	machinegrouprepository "github.com/containers-ai/alameda/operator/datahub/client/machinegroup"
-	machinesetrepository "github.com/containers-ai/alameda/operator/datahub/client/machineset"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
@@ -108,7 +108,7 @@ type AlamedaScalerReconciler struct {
 	Scheme *runtime.Scheme
 
 	ClusterUID              string
-	DatahubMachineSetRepo   *machinesetrepository.MachineSetRepository
+	DatahubClient           *datahubpkg.Client
 	DatahubMachineGroupRepo machinegrouprepository.MachineGroupRepository
 	DatahubApplicationRepo  *datahub_application.ApplicationRepository
 	DatahubControllerRepo   *datahub_controller.ControllerRepository
@@ -1185,5 +1185,5 @@ func (r *AlamedaScalerReconciler) syncCAInfoWithScalerAndMachineGroup(ctx contex
 	alamedaScaler autoscalingv1alpha1.AlamedaScaler,
 	mgIns autoscalingv1alpha1.AlamedaMachineGroupScaler) error {
 	return SyncCAInfoWithScalerAndMachineGroup(ctx, r.ClusterUID, r.Client,
-		r.DatahubMachineSetRepo, &r.DatahubMachineGroupRepo, alamedaScaler, mgIns)
+		r.DatahubClient, &r.DatahubMachineGroupRepo, alamedaScaler, mgIns)
 }

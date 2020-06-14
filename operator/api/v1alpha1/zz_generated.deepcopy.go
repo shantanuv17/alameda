@@ -658,12 +658,12 @@ func (in *MachineSet) DeepCopyInto(out *MachineSet) {
 	}
 	if in.ScaleUpDelay != nil {
 		in, out := &in.ScaleUpDelay, &out.ScaleUpDelay
-		*out = new(int32)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.ScaleDownDelay != nil {
 		in, out := &in.ScaleDownDelay, &out.ScaleDownDelay
-		*out = new(int32)
+		*out = new(int64)
 		**out = **in
 	}
 }

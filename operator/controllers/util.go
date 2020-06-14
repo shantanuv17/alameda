@@ -8,8 +8,6 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	machinegrouprepository "github.com/containers-ai/alameda/operator/datahub/client/machinegroup"
-	machinesetrepository "github.com/containers-ai/alameda/operator/datahub/client/machineset"
-	"github.com/containers-ai/alameda/operator/pkg/machineset"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	mahcinev1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	corev1 "k8s.io/api/core/v1"
@@ -103,8 +101,7 @@ func getFirstTime(times []time.Time) time.Time {
 }
 
 func SyncCAInfoWithScalerAndMachineGroup(ctx context.Context,
-	clusterUID string, clnt client.Client,
-	datahubMachineSetRepo *machinesetrepository.MachineSetRepository,
+	clusterUID string, clnt client.Client, datahubClient *datahubpkg.Client,
 	datahubMachineGroupRepo *machinegrouprepository.MachineGroupRepository,
 	alamedaScaler autoscalingv1alpha1.AlamedaScaler,
 	mgIns autoscalingv1alpha1.AlamedaMachineGroupScaler) error {
@@ -125,12 +122,14 @@ func SyncCAInfoWithScalerAndMachineGroup(ctx context.Context,
 	}
 
 	for _, mgInScaler := range mgsInScaler {
-		err = datahubMachineSetRepo.DeleteMachineSetsByOption(ctx,
-			machinesetrepository.DeleteMachineSetsOption{
+		err = datahubClient.Delete(&[]entities.ResourceClusterAutoscalerMachineset{}, datahubpkg.Option{
+			Entity: entities.ResourceClusterAutoscalerMachineset{
 				ClusterName:           clusterUID,
-				MachineGroupNamespace: mgInScaler.Namespace,
-				MachineGroupName:      mgInScaler.Name,
-			})
+				MachinegroupNamespace: mgInScaler.Namespace,
+				MachinegroupName:      mgInScaler.Name,
+			},
+			Fields: []string{"ClusterName", "MachinegroupNamespace", "MachinegroupName"},
+		})
 		if err != nil {
 			return fmt.Errorf("Delete machinesets with machinegroup (%s/%s) failed: %s",
 				mgInScaler.Namespace, mgInScaler.Name, err.Error())
@@ -196,12 +195,14 @@ func SyncCAInfoWithScalerAndMachineGroup(ctx context.Context,
 			alamedaScaler.GetNamespace(), alamedaScaler.GetName(), err.Error())
 	}
 
-	err = datahubMachineSetRepo.DeleteMachineSetsByOption(ctx,
-		machinesetrepository.DeleteMachineSetsOption{
+	err = datahubClient.Delete(&[]entities.ResourceClusterAutoscalerMachineset{}, datahubpkg.Option{
+		Entity: entities.ResourceClusterAutoscalerMachineset{
 			ClusterName:           clusterUID,
-			MachineGroupNamespace: mgIns.Namespace,
-			MachineGroupName:      mgIns.Name,
-		})
+			MachinegroupNamespace: mgIns.Namespace,
+			MachinegroupName:      mgIns.Name,
+		},
+		Fields: []string{"ClusterName", "MachinegroupNamespace", "MachinegroupName"},
+	})
 	if err != nil {
 		return fmt.Errorf("Delete machinesets with machinegroup (%s/%s) failed: %s",
 			mgIns.Namespace, mgIns.Name, err.Error())
@@ -214,31 +215,29 @@ func SyncCAInfoWithScalerAndMachineGroup(ctx context.Context,
 			alamedaScaler.GetNamespace(), err.Error())
 	}
 
-	mss := []machineset.MachineSet{}
+	mss := []entities.ResourceClusterAutoscalerMachineset{}
 	for _, ms := range msList.Items {
 		for _, msSpec := range mgIns.Spec.MachineSets {
 			if ms.GetName() == msSpec.Name && ms.GetNamespace() == msSpec.Namespace {
-				mss = append(mss, machineset.MachineSet{
-					ClusterName:           clusterUID,
-					MachineGroupName:      mgIns.GetName(),
-					MachineGroupNamespace: mgIns.GetNamespace(),
-					ResourceMeta: machineset.ResourceMeta{
-						KubernetesMeta: machineset.KubernetesMeta{
-							Namespace:     ms.Namespace,
-							Name:          ms.Name,
-							ReadyReplicas: ms.Status.ReadyReplicas,
-							SpecReplicas:  *ms.Spec.Replicas,
-						},
-					},
-					EnableExecution: alamedaScaler.IsEnableExecution(),
-					MaxReplicas:     *msSpec.MaxReplicas,
-					MinReplicas:     *msSpec.MinReplicas,
+				mss = append(mss, entities.ResourceClusterAutoscalerMachineset{
+					ClusterName:             clusterUID,
+					Namespace:               ms.Namespace,
+					Name:                    ms.Name,
+					MachinegroupName:        mgIns.GetName(),
+					MachinegroupNamespace:   mgIns.GetNamespace(),
+					ResourceK8sReplicas:     ms.Status.ReadyReplicas,
+					ResourceK8sSpecReplicas: *ms.Spec.Replicas,
+					EnableExecution:         alamedaScaler.IsEnableExecution(),
+					ResourceK8sMaxReplicas:  *msSpec.MaxReplicas,
+					ResourceK8sMinReplicas:  *msSpec.MinReplicas,
+					ScaleUpDelay:            *msSpec.ScaleUpDelay,
+					ScaleDownDelay:          *msSpec.ScaleDownDelay,
 				})
 				break
 			}
 		}
 	}
-	err = datahubMachineSetRepo.CreateMachineSets(ctx, mss)
+	err = datahubClient.Create(&mss, []string{})
 	if err != nil {
 		return fmt.Errorf("Create machineset (%s/%s) failed: %s",
 			alamedaScaler.GetNamespace(), alamedaScaler.GetName(), err.Error())

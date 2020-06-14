@@ -20,9 +20,9 @@ import (
 	"context"
 	"time"
 
-	machinesetrepository "github.com/containers-ai/alameda/operator/datahub/client/machineset"
-	"github.com/containers-ai/alameda/operator/pkg/machineset"
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
+
 	datahubschemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	mahcinev1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	k8serrors "k8s.io/apimachinery/pkg/api/errors"
@@ -36,33 +36,25 @@ type MachineSetReconciler struct {
 	client.Client
 	Scheme *runtime.Scheme
 
-	DatahubMachineSetRepo          *machinesetrepository.MachineSetRepository
 	DatahubCAMachineSetSchema      datahubschemas.Schema
 	DatahubCAMachineSetMeasurement datahubschemas.Measurement
 	ClusterUID                     string
 	ReconcileTimeout               time.Duration
-	DatahubClient                  datahub_v1alpha1.DatahubServiceClient
+	DatahubClient                  *datahubpkg.Client
 }
 
 func (r *MachineSetReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), r.ReconcileTimeout)
-	defer cancel()
-	mss := []machineset.MachineSet{
-		{
-			ClusterName: r.ClusterUID,
-			ResourceMeta: machineset.ResourceMeta{
-				KubernetesMeta: machineset.KubernetesMeta{
-					Namespace: req.Namespace,
-					Name:      req.Name,
-				},
-			},
-		},
-	}
-
 	instance := mahcinev1beta1.MachineSet{}
 	err := r.Get(context.Background(), req.NamespacedName, &instance)
 	if err != nil && k8serrors.IsNotFound(err) {
-		err = r.DatahubMachineSetRepo.DeleteMachineSets(ctx, mss)
+		err = r.DatahubClient.Delete(&[]entities.ResourceClusterAutoscalerMachineset{}, datahubpkg.Option{
+			Entity: entities.ResourceClusterAutoscalerMachineset{
+				ClusterName: r.ClusterUID,
+				Namespace:   req.Namespace,
+				Name:        req.Name,
+			},
+			Fields: []string{"ClusterName", "Namespace", "Name"},
+		})
 		if err != nil {
 			scope.Errorf("Delete MachineSet (%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
 			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil

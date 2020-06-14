@@ -4,7 +4,6 @@
 // kafka-consumergroup.json
 // nginx.json
 // machinegroup.json
-// machineset.json
 
 package schema
 
@@ -201,7 +200,7 @@ func bindataNginxjson() (*asset, error) {
 		size: 5356,
 		md5checksum: "",
 		mode: os.FileMode(438),
-		modTime: time.Unix(1590024452, 0),
+		modTime: time.Unix(1590721749, 0),
 	}
 
 	a := &asset{bytes: bytes, info: info}
@@ -243,48 +242,7 @@ func bindataMachinegroupjson() (*asset, error) {
 		size: 2503,
 		md5checksum: "",
 		mode: os.FileMode(438),
-		modTime: time.Unix(1590396242, 0),
-	}
-
-	a := &asset{bytes: bytes, info: info}
-
-	return a, nil
-}
-
-var _bindataMachinesetjson = []byte(
-	"\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\xdc\x94\x4f\x4b\xf4\x40\x0c\x87\xef\xfd\x14\xc3\x9c\x7b\x79\x5f\x14\xa5" +
-	"\x5f\x45\x96\x21\x66\xe3\x6e\x71\xfe\xd4\x24\x03\xbb\x48\xbf\xbb\xb4\x55\x6b\xed\x2e\xf6\xb0\xa0\xdd\x53\x69\xf2" +
-	"\x24\xfc\x1e\x08\xf3\x5a\x18\x63\x8c\x15\xdc\x53\x00\x17\x48\xc1\x56\x66\x28\xf6\x0d\x85\x47\x4f\xb6\x32\x77\xe5" +
-	"\x58\x43\x50\xda\x25\x3e\xda\xca\x58\xf4\x59\x94\xd8\x41\xd6\x24\x08\x9e\xd8\x7e\x21\xf5\xd8\x74\xc3\x36\x00\xee" +
-	"\xeb\x48\x42\x6a\xfb\x66\x3b\x30\x36\x10\x48\x66\x0a\x14\x55\x6c\x65\x1e\x3e\x27\xc7\x04\x3d\x17\x21\x7c\xdf\x53" +
-	"\x4e\x09\x4c\x3e\x87\x38\x5d\x72\x7a\xd9\x6c\xe9\x87\x42\xff\x5f\x9e\x66\x99\x5e\x72\xcd\xb4\xb5\x95\x51\xce\x74" +
-	"\x86\x1a\x42\xb8\xce\xba\x4b\xf2\xef\x0c\xb6\x05\x85\x11\xba\x99\x41\xed\x7c\xee\x07\x85\xee\x2b\x0d\xe0\x9a\xf3" +
-	"\xaf\x34\xfa\xfb\x49\xee\x38\xe5\x66\xcd\x27\x34\xf3\x58\xf3\x3d\x51\xec\x9e\x2d\x47\x07\xc2\xac\x75\x8a\x0b\x34" +
-	"\x9e\xc0\xcb\x42\x8f\xff\x8b\x3c\x2e\xa0\xc1\x24\x29\x33\x92\x7b\xbe\x17\x27\x0d\xa1\x63\x6a\x7c\x8d\x20\xbf\x20" +
-	"\x74\x7b\x69\xa1\x6b\x72\x09\x75\xbc\x2e\x1f\x38\xfc\x31\x9f\x49\x65\x53\x4c\xeb\x9b\xa2\x2d\xde\x02\x00\x00\xff" +
-	"\xff\x42\x34\xdf\xcc\xca\x08\x00\x00")
-
-func bindataMachinesetjsonBytes() ([]byte, error) {
-	return bindataRead(
-		_bindataMachinesetjson,
-		"machineset.json",
-	)
-}
-
-
-
-func bindataMachinesetjson() (*asset, error) {
-	bytes, err := bindataMachinesetjsonBytes()
-	if err != nil {
-		return nil, err
-	}
-
-	info := bindataFileInfo{
-		name: "machineset.json",
-		size: 2250,
-		md5checksum: "",
-		mode: os.FileMode(438),
-		modTime: time.Unix(1590476767, 0),
+		modTime: time.Unix(1590721749, 0),
 	}
 
 	a := &asset{bytes: bytes, info: info}
@@ -360,7 +318,6 @@ var _bindata = map[string]func() (*asset, error){
 	"kafka-consumergroup.json": bindataKafkaconsumergroupjson,
 	"nginx.json":               bindataNginxjson,
 	"machinegroup.json":        bindataMachinegroupjson,
-	"machineset.json":          bindataMachinesetjson,
 }
 
 //
@@ -418,7 +375,6 @@ var _bintree = &bintree{Func: nil, Children: map[string]*bintree{
 	"kafka-consumergroup.json": {Func: bindataKafkaconsumergroupjson, Children: map[string]*bintree{}},
 	"kafka-topic.json": {Func: bindataKafkatopicjson, Children: map[string]*bintree{}},
 	"machinegroup.json": {Func: bindataMachinegroupjson, Children: map[string]*bintree{}},
-	"machineset.json": {Func: bindataMachinesetjson, Children: map[string]*bintree{}},
 	"nginx.json": {Func: bindataNginxjson, Children: map[string]*bintree{}},
 }}
 

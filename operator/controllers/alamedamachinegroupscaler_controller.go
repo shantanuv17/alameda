@@ -21,7 +21,8 @@ import (
 	"time"
 
 	machinegrouprepository "github.com/containers-ai/alameda/operator/datahub/client/machinegroup"
-	machinesetrepository "github.com/containers-ai/alameda/operator/datahub/client/machineset"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
+
 	"github.com/containers-ai/alameda/operator/pkg/machinegroup"
 	datahubschemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	"github.com/go-logr/logr"
@@ -38,9 +39,9 @@ import (
 type AlamedaMachineGroupScalerReconciler struct {
 	client.Client
 	ClusterUID                       string
+	DatahubClient                    *datahubpkg.Client
 	Log                              logr.Logger
 	Scheme                           *runtime.Scheme
-	DatahubMachineSetRepo            *machinesetrepository.MachineSetRepository
 	DatahubMachineGroupRepo          machinegrouprepository.MachineGroupRepository
 	DatahubCAMachineGroupSchema      datahubschemas.Schema
 	DatahubCAMachineGroupMeasurement datahubschemas.Measurement
@@ -131,7 +132,7 @@ func (r *AlamedaMachineGroupScalerReconciler) syncCAInfoWithScalerAndMachineGrou
 	ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler,
 	mgIns autoscalingv1alpha1.AlamedaMachineGroupScaler) error {
 	return SyncCAInfoWithScalerAndMachineGroup(ctx, r.ClusterUID, r.Client,
-		r.DatahubMachineSetRepo, &r.DatahubMachineGroupRepo, alamedaScaler, mgIns)
+		r.DatahubClient, &r.DatahubMachineGroupRepo, alamedaScaler, mgIns)
 }
 
 func (r *AlamedaMachineGroupScalerReconciler) setDefaultValue(

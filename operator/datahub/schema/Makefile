@@ -4,7 +4,7 @@ GOBINDATA_BIN=$(FIRST_GOPATH)/bin/go-bindata
 .PHONY: bindata.go
 bindata.go:
 	$(GOBINDATA_BIN) -pkg schema ./kafka-topic.json ./kafka-consumergroup.json ./nginx.json \
-		./machinegroup.json ./machineset.json
+		./machinegroup.json
 
 $(GOBINDATA_BIN):
 	go get -u github.com/shuLhan/go-bindata/...
