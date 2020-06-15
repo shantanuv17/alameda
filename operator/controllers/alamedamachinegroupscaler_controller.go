@@ -20,10 +20,9 @@ import (
 	"context"
 	"time"
 
-	machinegrouprepository "github.com/containers-ai/alameda/operator/datahub/client/machinegroup"
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 
-	"github.com/containers-ai/alameda/operator/pkg/machinegroup"
 	datahubschemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	"github.com/go-logr/logr"
 	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
@@ -42,7 +41,6 @@ type AlamedaMachineGroupScalerReconciler struct {
 	DatahubClient                    *datahubpkg.Client
 	Log                              logr.Logger
 	Scheme                           *runtime.Scheme
-	DatahubMachineGroupRepo          machinegrouprepository.MachineGroupRepository
 	DatahubCAMachineGroupSchema      datahubschemas.Schema
 	DatahubCAMachineGroupMeasurement datahubschemas.Measurement
 	ReconcileTimeout                 time.Duration
@@ -57,18 +55,6 @@ func (r *AlamedaMachineGroupScalerReconciler) Reconcile(req ctrl.Request) (
 		context.Background(), r.ReconcileTimeout)
 	defer cancel()
 
-	mgs := []machinegroup.MachineGroup{
-		{
-			ClusterName: r.ClusterUID,
-			ResourceMeta: machinegroup.ResourceMeta{
-				KubernetesMeta: machinegroup.KubernetesMeta{
-					Namespace: req.Namespace,
-					Name:      req.Name,
-				},
-			},
-		},
-	}
-
 	instance := autoscalingv1alpha1.AlamedaMachineGroupScaler{}
 	err := r.Get(ctx, types.NamespacedName{
 		Namespace: req.Namespace,
@@ -76,7 +62,14 @@ func (r *AlamedaMachineGroupScalerReconciler) Reconcile(req ctrl.Request) (
 	}, &instance)
 
 	if err != nil && k8sErrors.IsNotFound(err) {
-		err = r.DatahubMachineGroupRepo.DeleteMachineGroups(ctx, mgs)
+		err = r.DatahubClient.Delete(&[]entities.ResourceClusterAutoscalerMachinegroup{}, datahubpkg.Option{
+			Entity: entities.ResourceClusterAutoscalerMachinegroup{
+				ClusterName: r.ClusterUID,
+				Namespace:   req.Namespace,
+				Name:        req.Name,
+			},
+			Fields: []string{"ClusterName", "Namespace", "Name"},
+		})
 		if err != nil {
 			scope.Errorf("Delete AlamedaMachineGroupScaler (%s/%s) failed: %s",
 				req.Namespace, req.Name, err.Error())
@@ -132,7 +125,7 @@ func (r *AlamedaMachineGroupScalerReconciler) syncCAInfoWithScalerAndMachineGrou
 	ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler,
 	mgIns autoscalingv1alpha1.AlamedaMachineGroupScaler) error {
 	return SyncCAInfoWithScalerAndMachineGroup(ctx, r.ClusterUID, r.Client,
-		r.DatahubClient, &r.DatahubMachineGroupRepo, alamedaScaler, mgIns)
+		r.DatahubClient, alamedaScaler, mgIns)
 }
 
 func (r *AlamedaMachineGroupScalerReconciler) setDefaultValue(

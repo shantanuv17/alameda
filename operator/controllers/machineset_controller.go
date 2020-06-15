@@ -23,7 +23,6 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 
-	datahubschemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	mahcinev1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	k8serrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -34,13 +33,10 @@ import (
 // MachineSetReconciler reconciles a MachineSet object
 type MachineSetReconciler struct {
 	client.Client
-	Scheme *runtime.Scheme
-
-	DatahubCAMachineSetSchema      datahubschemas.Schema
-	DatahubCAMachineSetMeasurement datahubschemas.Measurement
-	ClusterUID                     string
-	ReconcileTimeout               time.Duration
-	DatahubClient                  *datahubpkg.Client
+	Scheme           *runtime.Scheme
+	ClusterUID       string
+	ReconcileTimeout time.Duration
+	DatahubClient    *datahubpkg.Client
 }
 
 func (r *MachineSetReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {

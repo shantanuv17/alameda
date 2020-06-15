@@ -43,27 +43,3 @@ func GetNginxSchema() (schemas.Schema, error) {
 	}
 	return schema, nil
 }
-
-func GetMachineGroupSchema() (schemas.Schema, error) {
-	schema := schemas.Schema{}
-	data, err := Asset("machinegroup.json")
-	if err != nil {
-		return schema, errors.Wrap(err, "read bindata failed")
-	}
-	if err := json.Unmarshal(data, &schema); err != nil {
-		return schema, err
-	}
-	return schema, nil
-}
-
-func GetMachineSetSchema() (schemas.Schema, error) {
-	schema := schemas.Schema{}
-	data, err := Asset("machineset.json")
-	if err != nil {
-		return schema, errors.Wrap(err, "read bindata failed")
-	}
-	if err := json.Unmarshal(data, &schema); err != nil {
-		return schema, err
-	}
-	return schema, nil
-}

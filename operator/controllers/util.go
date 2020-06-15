@@ -7,7 +7,6 @@ import (
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
-	machinegrouprepository "github.com/containers-ai/alameda/operator/datahub/client/machinegroup"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	mahcinev1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	corev1 "k8s.io/api/core/v1"
@@ -102,12 +101,11 @@ func getFirstTime(times []time.Time) time.Time {
 
 func SyncCAInfoWithScalerAndMachineGroup(ctx context.Context,
 	clusterUID string, clnt client.Client, datahubClient *datahubpkg.Client,
-	datahubMachineGroupRepo *machinegrouprepository.MachineGroupRepository,
 	alamedaScaler autoscalingv1alpha1.AlamedaScaler,
 	mgIns autoscalingv1alpha1.AlamedaMachineGroupScaler) error {
 
 	mgsInScaler := []entities.ResourceClusterAutoscalerMachinegroup{}
-	err := datahubMachineGroupRepo.GetDatahubClient().List(
+	err := datahubClient.List(
 		&mgsInScaler, datahubpkg.Option{
 			Entity: entities.ResourceClusterAutoscalerMachinegroup{
 				ClusterName:            clusterUID,
@@ -136,12 +134,14 @@ func SyncCAInfoWithScalerAndMachineGroup(ctx context.Context,
 		}
 	}
 
-	err = datahubMachineGroupRepo.DeleteMachineGroupsByOption(ctx,
-		machinegrouprepository.DeleteMachineGroupsOption{
+	err = datahubClient.Delete(&[]entities.ResourceClusterAutoscalerMachinegroup{}, datahubpkg.Option{
+		Entity: entities.ResourceClusterAutoscalerMachinegroup{
 			ClusterName:            clusterUID,
 			AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
 			AlamedaScalerName:      alamedaScaler.GetName(),
-		})
+		},
+		Fields: []string{"ClusterName", "AlamedaScalerNamespace", "AlamedaScalerName"},
+	})
 
 	if err != nil {
 		return fmt.Errorf("Delete machinegroups with alamedascaler (%s/%s) failed: %s",
@@ -189,7 +189,7 @@ func SyncCAInfoWithScalerAndMachineGroup(ctx context.Context,
 		newMg,
 	}
 
-	err = datahubMachineGroupRepo.CreateMachineGroups(mgs)
+	err = datahubClient.Create(&mgs, []string{})
 	if err != nil {
 		return fmt.Errorf("Create machinegroup (%s/%s) failed: %s",
 			alamedaScaler.GetNamespace(), alamedaScaler.GetName(), err.Error())
