@@ -37,7 +37,7 @@ type ResourceClusterAutoscalerMachineset struct {
 	ResourceK8sMinReplicas  int32      `json:"resource_k8s_min_replicas"  required:"false" column:"field" type:"int32"`
 	ResourceK8sMaxReplicas  int32      `json:"resource_k8s_max_replicas"  required:"false" column:"field" type:"int32"`
 	EnableExecution         bool       `json:"enable_execution"           required:"false" column:"field" type:"bool"`
-	ScaleUpDelay            int64      `json:"scale_up_delay​"             required:"false" column:"field" type:"int64"`
+	ScaleUpDelay            int64      `json:"scale_up_delay"             required:"false" column:"field" type:"int64"`
 	ScaleDownDelay          int64      `json:"scale_down_delay"           required:"false" column:"field" type:"int64"`
 }
 

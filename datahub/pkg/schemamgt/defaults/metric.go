@@ -217,7 +217,7 @@ func SchemaMetricClusterStatusNode() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, memory)
 
 	// CPU cores
-	cores := schemas.NewMeasurement("node_cpu_cores", schemas.CPUCores, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	cores := schemas.NewMeasurement("node_cpu_cores_allocatable", schemas.CPUCores, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
 	cores.AddColumn("name", true, schemas.Tag, common.String)
 	cores.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	cores.AddColumn("uid", true, schemas.Tag, common.String)

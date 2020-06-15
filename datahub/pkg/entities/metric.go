@@ -176,7 +176,7 @@ type MetricClusterStatusNodeMemory struct {
 }
 
 type MetricClusterStatusNodeCPUCores struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_cpu_cores" metric:"cpu_cores" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_cpu_cores_allocatable" metric:"cpu_cores" boundary:"undefined" quota:"undefined"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name" required:"true"  column:"tag"   type:"string"`
