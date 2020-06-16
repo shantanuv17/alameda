@@ -218,7 +218,7 @@ func (dispatcher *Dispatcher) getAndPushJobsV2(queueSender queue.QueueSender,
 		Category: pdUnit.Category,
 		Type:     pdUnit.Type,
 	}, []*datahub_data.ReadData{
-		&datahub_data.ReadData{
+		{
 			Measurement: pdUnit.Measurement,
 		},
 	})
