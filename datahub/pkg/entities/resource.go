@@ -109,7 +109,7 @@ type ResourceClusterStatusController struct {
 	Replicas                 int32      `json:"replicas"                    required:"false" column:"field" type:"int32"`
 	SpecReplicas             int32      `json:"spec_replicas"               required:"false" column:"field" type:"int32"`
 	Policy                   string     `json:"policy"                      required:"false" column:"field" type:"string"`
-	EnableExecution          string     `json:"enable_execution"            required:"false" column:"field" type:"string"`
+	EnableExecution          bool       `json:"enable_execution"            required:"false" column:"field" type:"bool"`
 }
 
 type ResourceClusterStatusNamespace struct {

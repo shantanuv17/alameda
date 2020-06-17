@@ -126,7 +126,7 @@ func SchemaResourceClusterStatusController() *schemas.Schema {
 	measurement.AddColumn("replicas", false, schemas.Field, common.Int32)
 	measurement.AddColumn("spec_replicas", false, schemas.Field, common.Int32)
 	measurement.AddColumn("policy", false, schemas.Field, common.String)
-	measurement.AddColumn("enable_execution", false, schemas.Field, common.String)
+	measurement.AddColumn("enable_execution", false, schemas.Field, common.Bool)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }
