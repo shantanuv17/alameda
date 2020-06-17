@@ -32,54 +32,42 @@ var (
 	}
 )
 
-// NodeInfo flats the k8s node information from labels, spec and status
-type NodeInfo struct {
-	Name                string
-	CreatedTime         int64
-	Namespace           string
-	Kind                string
-	Role                string
-	Region              string
-	Zone                string
-	Size                string
-	InstanceType        string
-	OS                  string
-	Provider            string
-	InstanceID          string
-	StorageSize         int64
-	CPUCores            int64
-	MemoryBytes         int64
-	MachineSetNamespace string
-	MachineSetName      string
-	MachineCreateTime   int64
-}
-
 // NewNodeInfo creates node from k8s node
-func NewNodeInfo(k8sNode corev1.Node, k8sClient client.Client) (NodeInfo, error) {
-	machimeList := mahcinev1beta1.MachineList{}
-	err := k8sClient.List(context.Background(), &machimeList, &client.ListOptions{})
+func NewNodeInfo(k8sNode corev1.Node, k8sClient client.Client, clusterName string) (
+	entities.ResourceClusterStatusNode, error) {
+	machineList := mahcinev1beta1.MachineList{}
+	err := k8sClient.List(context.Background(), &machineList, &client.ListOptions{})
 	if err != nil {
+		return entities.ResourceClusterStatusNode{},
+			errors.Errorf("list machineset failed for node %s", k8sNode.Name)
 	}
 
-	node := NodeInfo{Name: k8sNode.Name, Namespace: k8sNode.Namespace, Kind: k8sNode.Kind}
-	for _, ms := range machimeList.Items {
+	node := entities.ResourceClusterStatusNode{
+		ClusterName: clusterName,
+		Name:        k8sNode.Name,
+	}
+
+	for _, ms := range machineList.Items {
 		if ms.GetName() == k8sNode.GetName() {
 			for _, or := range ms.GetOwnerReferences() {
 				if or.Kind == "MachineSet" {
-					node.MachineSetNamespace = ms.GetNamespace()
-					node.MachineSetName = or.Name
-					node.MachineCreateTime = ms.GetCreationTimestamp().Unix()
+					node.MachinesetNamespace = ms.GetNamespace()
+					node.MachinesetName = or.Name
 					break
 				}
 			}
+			node.MachineCreateTime = ms.GetCreationTimestamp().Unix()
 			break
 		}
 	}
 
-	rf := reflect.TypeOf(node)
 	rv := reflect.ValueOf(&node).Elem()
-	for i := 0; i < rf.NumField(); i++ {
-		key := rf.Field(i).Name
+	keyStrs := []string{
+		"Role", "Region", "Zone", "InstanceType", "Os",
+		"Provider", "InstanceId", "StorageSize",
+	}
+	for idx := range keyStrs {
+		key := keyStrs[idx]
 		// parse node label information
 		for labelKey, labelV := range k8sNode.Labels {
 			if strings.Contains(labelKey, "stackpoint.") && strings.Contains(labelKey, "stackpoint.io/role") == false {
@@ -87,101 +75,66 @@ func NewNodeInfo(k8sNode corev1.Node, k8sClient client.Client) (NodeInfo, error)
 			}
 			value := parseKeyValue(labelKey, key, labelV)
 			if len(value) > 0 {
-				rValue := rv.FieldByName(strings.Title(key))
-				rValue.SetString(string(labelV))
+				rv.FieldByName(fmt.Sprintf("IO%s", key)).SetString(string(labelV))
 				break
 			}
 		}
-		switch key {
-		case "StorageSize":
-			node.StorageSize = k8sNode.Status.Capacity.StorageEphemeral().Value()
-		}
 	}
+	node.IOStorageSize = k8sNode.Status.Capacity.StorageEphemeral().Value()
 
-	if node.Role == "" {
-		node.patchRoleByK8SLabels(k8sNode.Labels)
+	// patch role by k8s labels
+	if node.IORole == "" {
+		found := false
+		for key, role := range roleMap {
+			if _, exist := k8sNode.Labels[key]; exist {
+				found = true
+				node.IORole = role
+				break
+			}
+		}
+		if !found {
+			node.IORole = workerRole
+		}
 	}
 
 	if len(k8sNode.Spec.ProviderID) > 0 {
 		provider, _, instanceID := parseProviderID(k8sNode.Spec.ProviderID)
-		node.Provider = provider
-		node.InstanceID = instanceID
+		node.IOProvider = provider
+		node.IOInstanceId = instanceID
 	}
 
 	// Below ard original convert logic
-	node.CreatedTime = k8sNode.ObjectMeta.GetCreationTimestamp().Unix()
+	node.CreateTime = k8sNode.ObjectMeta.GetCreationTimestamp().Unix()
 
 	cpuCores, ok := k8sNode.Status.Capacity.Cpu().AsInt64()
 	if !ok {
-		return NodeInfo{}, errors.Errorf("cannot convert cpu capacity from k8s Node")
+		return entities.ResourceClusterStatusNode{}, errors.Errorf("cannot convert cpu capacity from k8s Node")
 	}
-	node.CPUCores = cpuCores
+	node.NodeCPUCores = cpuCores
 
 	memoryBytes, ok := k8sNode.Status.Capacity.Memory().AsInt64()
 	if !ok {
-		return NodeInfo{}, errors.Errorf("cannot convert memory capacity from k8s Node")
+		return entities.ResourceClusterStatusNode{}, errors.Errorf("cannot convert memory capacity from k8s Node")
 	}
-	node.MemoryBytes = memoryBytes
+	node.NodeMemoryBytes = memoryBytes
 
-	if regionMap, exist := provider.ProviderRegionMap[node.Provider]; exist {
-		if region, exist := regionMap[node.Region]; exist {
-			node.Region = region
+	if regionMap, exist := provider.ProviderRegionMap[node.IOProvider]; exist {
+		if region, exist := regionMap[node.IORegion]; exist {
+			node.IORegion = region
 		}
 	}
 
-	node.setDefaultValue()
-
-	return node, nil
-}
-
-// DatahubNode converts nodeInfo to Datahub Node
-func (n NodeInfo) DatahubNode(clusterUID string) entities.ResourceClusterStatusNode {
-
-	node := entities.ResourceClusterStatusNode{
-		Name:                n.Name,
-		ClusterName:         clusterUID,
-		NodeCPUCores:        n.CPUCores,
-		NodeMemoryBytes:     n.MemoryBytes,
-		CreateTime:          n.CreatedTime,
-		MachinesetNamespace: n.MachineSetNamespace,
-		MachinesetName:      n.MachineSetName,
-		IOProvider:          n.Provider,
-		IOInstanceType:      n.InstanceType,
-		IORegion:            n.Region,
-		IOZone:              n.Zone,
-		IOOs:                n.OS,
-		IORole:              n.Role,
-		IOInstanceId:        n.InstanceID,
-		IOStorageSize:       n.StorageSize,
-	}
-
-	return node
-}
-
-func (n *NodeInfo) patchRoleByK8SLabels(labels map[string]string) {
-	found := false
-	for key, role := range roleMap {
-		if _, exist := labels[key]; exist {
-			found = true
-			n.Role = role
-			break
-		}
-	}
-	if !found {
-		n.Role = workerRole
-	}
-}
-
-func (n *NodeInfo) setDefaultValue() {
-
+	// set default storage size
 	storageSize := operatorutils.GetNodeInfoDefaultStorageSizeBytes()
 	if storageSize == "" {
 		storageSize = defaultNodeStorageSize
 	}
 	defaultNodeStorageQuantity := resource.MustParse(storageSize)
-	if n.StorageSize == 0 {
-		n.StorageSize = defaultNodeStorageQuantity.Value()
+	if node.IOStorageSize == 0 {
+		node.IOStorageSize = defaultNodeStorageQuantity.Value()
 	}
+
+	return node, nil
 }
 
 func parseKeyValue(strParse string, key string, value string) string {

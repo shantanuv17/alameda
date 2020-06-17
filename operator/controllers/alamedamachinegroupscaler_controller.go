@@ -62,7 +62,7 @@ func (r *AlamedaMachineGroupScalerReconciler) Reconcile(req ctrl.Request) (
 	}, &instance)
 
 	if err != nil && k8sErrors.IsNotFound(err) {
-		err = r.DatahubClient.Delete(&[]entities.ResourceClusterAutoscalerMachinegroup{}, datahubpkg.Option{
+		err = r.DatahubClient.DeleteByOpts(&entities.ResourceClusterAutoscalerMachinegroup{}, datahubpkg.Option{
 			Entity: entities.ResourceClusterAutoscalerMachinegroup{
 				ClusterName: r.ClusterUID,
 				Namespace:   req.Namespace,

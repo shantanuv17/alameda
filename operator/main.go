@@ -346,7 +346,6 @@ func addControllersToManager(mgr manager.Manager) error {
 		Client:                 mgr.GetClient(),
 		Scheme:                 mgr.GetScheme(),
 		ClusterUID:             clusterUID,
-		DatahubApplicationRepo: datahub_client_application.NewApplicationRepository(datahubConn, clusterUID),
 		DatahubControllerRepo:  datahubControllerRepo,
 		DatahubNamespaceRepo:   datahubNamespaceRepo,
 		DatahubPodRepo:         datahubPodRepo,
@@ -609,12 +608,13 @@ func syncResourcesWithDatahub(client client.Client, datahubConn *grpc.ClientConn
 			scope.Errorf("sync node failed at start due to %s", err.Error())
 		}
 	}()
+
 	go func() {
-		if err := datahub_client_application.SyncWithDatahub(client,
-			datahubConn); err != nil {
+		if err := datahub_client_application.SyncWithDatahub(client, datahubClient); err != nil {
 			scope.Errorf("sync application failed at start due to %s", err.Error())
 		}
 	}()
+
 	go func() {
 		if err := datahub_client_cluster.SyncWithDatahub(client,
 			datahubConn); err != nil {

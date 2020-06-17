@@ -120,7 +120,7 @@ func SyncCAInfoWithScalerAndMachineGroup(ctx context.Context,
 	}
 
 	for _, mgInScaler := range mgsInScaler {
-		err = datahubClient.Delete(&[]entities.ResourceClusterAutoscalerMachineset{}, datahubpkg.Option{
+		err = datahubClient.DeleteByOpts(&entities.ResourceClusterAutoscalerMachineset{}, datahubpkg.Option{
 			Entity: entities.ResourceClusterAutoscalerMachineset{
 				ClusterName:           clusterUID,
 				MachinegroupNamespace: mgInScaler.Namespace,
@@ -134,7 +134,7 @@ func SyncCAInfoWithScalerAndMachineGroup(ctx context.Context,
 		}
 	}
 
-	err = datahubClient.Delete(&[]entities.ResourceClusterAutoscalerMachinegroup{}, datahubpkg.Option{
+	err = datahubClient.DeleteByOpts(&entities.ResourceClusterAutoscalerMachinegroup{}, datahubpkg.Option{
 		Entity: entities.ResourceClusterAutoscalerMachinegroup{
 			ClusterName:            clusterUID,
 			AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
@@ -189,13 +189,13 @@ func SyncCAInfoWithScalerAndMachineGroup(ctx context.Context,
 		newMg,
 	}
 
-	err = datahubClient.Create(&mgs, []string{})
+	err = datahubClient.Create(&mgs)
 	if err != nil {
 		return fmt.Errorf("Create machinegroup (%s/%s) failed: %s",
 			alamedaScaler.GetNamespace(), alamedaScaler.GetName(), err.Error())
 	}
 
-	err = datahubClient.Delete(&[]entities.ResourceClusterAutoscalerMachineset{}, datahubpkg.Option{
+	err = datahubClient.DeleteByOpts(&entities.ResourceClusterAutoscalerMachineset{}, datahubpkg.Option{
 		Entity: entities.ResourceClusterAutoscalerMachineset{
 			ClusterName:           clusterUID,
 			MachinegroupNamespace: mgIns.Namespace,
@@ -237,7 +237,7 @@ func SyncCAInfoWithScalerAndMachineGroup(ctx context.Context,
 			}
 		}
 	}
-	err = datahubClient.Create(&mss, []string{})
+	err = datahubClient.Create(&mss)
 	if err != nil {
 		return fmt.Errorf("Create machineset (%s/%s) failed: %s",
 			alamedaScaler.GetNamespace(), alamedaScaler.GetName(), err.Error())

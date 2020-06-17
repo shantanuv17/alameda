@@ -37,7 +37,7 @@ func (repo *AlamedaNodeRepository) Close() {
 
 // CreateNodes creates predicted node to datahub
 func (repo *AlamedaNodeRepository) CreateNodes(nodes []entities.ResourceClusterStatusNode) error {
-	return repo.datahubClient.Create(&nodes, []string{})
+	return repo.datahubClient.Create(&nodes)
 }
 
 // DeleteNodes delete predicted node from datahub

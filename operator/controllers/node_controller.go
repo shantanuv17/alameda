@@ -101,7 +101,7 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 	if nodeIsDeleted {
 		if len(msExecution) == 1 {
 			msExecution[0].DeltaDownTime = time.Now().Unix() - msExecution[0].Time.Unix()
-			if err := r.DatahubClient.Create(&msExecution, []string{}); err != nil {
+			if err := r.DatahubClient.Create(&msExecution); err != nil {
 				scope.Errorf(
 					"Update delta down time for machineset %s/%s at execution time %v for node %s failed: %s",
 					datahubNode.MachinesetNamespace, datahubNode.MachinesetName,
@@ -125,7 +125,7 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 		}
 		if len(msExecution) == 1 {
 			msExecution[0].DeltaUpTime = datahubNode.CreateTime - datahubNode.MachineCreateTime
-			if err := r.DatahubClient.Create(&msExecution, []string{}); err != nil {
+			if err := r.DatahubClient.Create(&msExecution); err != nil {
 				scope.Errorf(
 					"Update delta up time for machineset %s/%s at execution time %v for node %s failed: %s",
 					datahubNode.MachinesetNamespace, datahubNode.MachinesetName,
@@ -165,13 +165,7 @@ func (r *NodeReconciler) createNodesToDatahub(nodes []*corev1.Node) error {
 		return errors.Wrap(err, "create nodeInfos failed")
 	}
 
-	datahubNodes := make([]entities.ResourceClusterStatusNode, len(nodes))
-	for i, nodeInfo := range nodeInfos {
-		n := nodeInfo.DatahubNode(r.ClusterUID)
-		datahubNodes[i] = n
-	}
-
-	return r.DatahubNodeRepo.CreateNodes(datahubNodes)
+	return r.DatahubClient.Create(&nodeInfos)
 }
 
 func (r *NodeReconciler) deleteNodesFromDatahub(nodes []*corev1.Node) error {
@@ -180,45 +174,36 @@ func (r *NodeReconciler) deleteNodesFromDatahub(nodes []*corev1.Node) error {
 	if err != nil {
 		return errors.Wrap(err, "create nodeInfos failed")
 	}
-
-	datahubNodes := make([]entities.ResourceClusterStatusNode, len(nodes))
-	for i, nodeInfo := range nodeInfos {
-		n := nodeInfo.DatahubNode(r.ClusterUID)
-		datahubNodes[i] = n
-	}
-
-	return r.DatahubNodeRepo.DeleteNodes(datahubNodes)
+	return r.DatahubClient.Delete(&nodeInfos)
 }
 
-func (r *NodeReconciler) createNodeInfos(nodes []*corev1.Node) ([]*nodeinfo.NodeInfo, error) {
-	nodeInfos := make([]*nodeinfo.NodeInfo, len(nodes))
+func (r *NodeReconciler) createNodeInfos(nodes []*corev1.Node) ([]entities.ResourceClusterStatusNode, error) {
+	nodeInfos := make([]entities.ResourceClusterStatusNode, len(nodes))
 	for i, node := range nodes {
 		n, err := r.createNodeInfo(node)
 		if err != nil {
 			return nodeInfos, errors.Wrap(err, "create nodeInfos failed")
 		}
-		nodeInfos[i] = n
+		nodeInfos[i] = *n
 	}
 	return nodeInfos, nil
 }
 
-func (r *NodeReconciler) createNodeInfo(node *corev1.Node) (*nodeinfo.NodeInfo, error) {
-	n, err := nodeinfo.NewNodeInfo(*node, r.Client)
+func (r *NodeReconciler) createNodeInfo(node *corev1.Node) (
+	*entities.ResourceClusterStatusNode, error) {
+	n, err := nodeinfo.NewNodeInfo(*node, r.Client, r.ClusterUID)
 	if err != nil {
 		return nil, errors.Wrap(err, "new NodeInfo failed")
 	}
-	r.setNodeInfoDefault(&n)
+
+	// set default info for node
+	if n.IOProvider == "" {
+		n.IOProvider = r.Cloudprovider
+	}
+	if n.IORegion == "" {
+		n.IORegion = r.RegionName
+	}
 	return &n, nil
-}
-
-func (r *NodeReconciler) setNodeInfoDefault(nodeInfo *nodeinfo.NodeInfo) {
-
-	if nodeInfo.Provider == "" {
-		nodeInfo.Provider = r.Cloudprovider
-	}
-	if nodeInfo.Region == "" {
-		nodeInfo.Region = r.RegionName
-	}
 }
 
 func (r *NodeReconciler) SetupWithManager(mgr ctrl.Manager) error {

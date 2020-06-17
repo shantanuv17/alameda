@@ -33,12 +33,11 @@ func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
 	datahubNodeRepo := NewNodeRepository(conn, clusterUID)
 	nodes := make([]entities.ResourceClusterStatusNode, len(nodeList.Items))
 	for i, node := range nodeList.Items {
-		nodeInfo, err := nodeinfo.NewNodeInfo(node, client)
+		nodeInfo, err := nodeinfo.NewNodeInfo(node, client, clusterUID)
 		if err != nil {
 			return errors.Wrap(err, "new nodeInfo failed")
 		}
-		node := nodeInfo.DatahubNode(clusterUID)
-		nodes[i] = node
+		nodes[i] = nodeInfo
 	}
 	if err := datahubNodeRepo.CreateNodes(nodes); err != nil {
 		return fmt.Errorf(

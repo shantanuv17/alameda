@@ -43,7 +43,7 @@ func (r *MachineSetReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) 
 	instance := mahcinev1beta1.MachineSet{}
 	err := r.Get(context.Background(), req.NamespacedName, &instance)
 	if err != nil && k8serrors.IsNotFound(err) {
-		err = r.DatahubClient.Delete(&[]entities.ResourceClusterAutoscalerMachineset{}, datahubpkg.Option{
+		err = r.DatahubClient.DeleteByOpts(&entities.ResourceClusterAutoscalerMachineset{}, datahubpkg.Option{
 			Entity: entities.ResourceClusterAutoscalerMachineset{
 				ClusterName: r.ClusterUID,
 				Namespace:   req.Namespace,
