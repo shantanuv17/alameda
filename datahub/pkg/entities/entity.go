@@ -110,6 +110,58 @@ func (p *DatahubEntity) Row(entity interface{}, fields []string) *Row {
 	return &row
 }
 
+func (p *DatahubEntity) Tags(entity interface{}) []string {
+	tags := make([]string, 0)
+
+	fieldType := reflect.TypeOf(entity)
+	for i := 2; i < fieldType.NumField(); i++ {
+		if fieldType.Field(i).Tag.Get("column") == "tag" {
+			tags = append(tags, fieldType.Field(i).Tag.Get("json"))
+		}
+	}
+
+	return tags
+}
+
+func (p *DatahubEntity) Fields(entity interface{}) []string {
+	fields := make([]string, 0)
+
+	fieldType := reflect.TypeOf(entity)
+	for i := 2; i < fieldType.NumField(); i++ {
+		if fieldType.Field(i).Tag.Get("column") == "field" {
+			fields = append(fields, fieldType.Field(i).Tag.Get("json"))
+		}
+	}
+
+	return fields
+}
+
+func (p *DatahubEntity) TagNames(entity interface{}) []string {
+	tagNames := make([]string, 0)
+
+	fieldType := reflect.TypeOf(entity)
+	for i := 2; i < fieldType.NumField(); i++ {
+		if fieldType.Field(i).Tag.Get("column") == "tag" {
+			tagNames = append(tagNames, fieldType.Field(i).Name)
+		}
+	}
+
+	return tagNames
+}
+
+func (p *DatahubEntity) FieldNames(entity interface{}) []string {
+	fields := make([]string, 0)
+
+	fieldType := reflect.TypeOf(entity)
+	for i := 2; i < fieldType.NumField(); i++ {
+		if fieldType.Field(i).Tag.Get("column") == "field" {
+			fields = append(fields, fieldType.Field(i).Name)
+		}
+	}
+
+	return fields
+}
+
 func Timestamp(timestamp *timestamp.Timestamp) *time.Time {
 	ts, _ := ptypes.Timestamp(timestamp)
 	return &ts

@@ -2,6 +2,7 @@ package datahub
 
 import (
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/enumconv"
+	"github.com/containers-ai/alameda/datahub/pkg/utils"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
@@ -35,7 +36,7 @@ type Function struct {
 
 func NewWriteData(entities interface{}, fields []string) *data.WriteData {
 	writeData := data.WriteData{}
-	datahubEntity, _ := reflect.TypeOf(entities).Elem().Elem().FieldByName("DatahubEntity")
+	datahubEntity := ExtractDatahubEntity(entities)
 	writeData.Measurement = datahubEntity.Tag.Get("measurement")
 	writeData.MetricType = MetricTypeValue[datahubEntity.Tag.Get("metric")]
 	writeData.ResourceBoundary = ResourceBoundaryValue[datahubEntity.Tag.Get("boundary")]
@@ -48,7 +49,7 @@ func NewWriteData(entities interface{}, fields []string) *data.WriteData {
 func NewReadData(entities interface{}, fields []string, timeRange *TimeRange, function *Function, opts ...Option) *data.ReadData {
 	readData := data.ReadData{}
 	selects := make([]string, 0)
-	datahubEntity, _ := reflect.TypeOf(entities).Elem().Elem().FieldByName("DatahubEntity")
+	datahubEntity := ExtractDatahubEntity(entities)
 	readData.Measurement = datahubEntity.Tag.Get("measurement")
 	readData.MetricType = MetricTypeValue[datahubEntity.Tag.Get("metric")]
 	readData.ResourceBoundary = ResourceBoundaryValue[datahubEntity.Tag.Get("boundary")]
@@ -64,7 +65,7 @@ func NewReadData(entities interface{}, fields []string, timeRange *TimeRange, fu
 
 func NewDeleteData(entities interface{}, opts ...Option) *data.DeleteData {
 	deleteData := data.DeleteData{}
-	datahubEntity, _ := reflect.TypeOf(entities).Elem().Elem().FieldByName("DatahubEntity")
+	datahubEntity := ExtractDatahubEntity(entities)
 	deleteData.Measurement = datahubEntity.Tag.Get("measurement")
 	deleteData.MetricType = MetricTypeValue[datahubEntity.Tag.Get("metric")]
 	deleteData.ResourceBoundary = ResourceBoundaryValue[datahubEntity.Tag.Get("boundary")]
@@ -75,7 +76,7 @@ func NewDeleteData(entities interface{}, opts ...Option) *data.DeleteData {
 
 func NewSchemaMeta(entities interface{}) *schemas.SchemaMeta {
 	schemaMeta := schemas.SchemaMeta{}
-	datahubEntity, _ := reflect.TypeOf(entities).Elem().Elem().FieldByName("DatahubEntity")
+	datahubEntity := ExtractDatahubEntity(entities)
 	schemaMeta.Scope = ScopeValue[datahubEntity.Tag.Get("scope")]
 	schemaMeta.Category = datahubEntity.Tag.Get("category")
 	schemaMeta.Type = datahubEntity.Tag.Get("type")
@@ -85,13 +86,24 @@ func NewSchemaMeta(entities interface{}) *schemas.SchemaMeta {
 func NewColumns(entities interface{}, fields []string) []string {
 	columns := make([]string, 0)
 
-	// If fields is empty which means to iterate through all the fields of the entity
 	entityType := reflect.TypeOf(entities).Elem().Elem()
 	fieldNames := fields
+
+	// If fields is empty which means to iterate through all the fields of the entity
 	if len(fieldNames) == 0 {
 		// Index is started at 2 to skip time field
 		for i := 2; i < entityType.NumField(); i++ {
 			fieldNames = append(fieldNames, entityType.Field(i).Name)
+		}
+	} else {
+		// Add influx tags if it was not added
+		for i := 2; i < entityType.NumField(); i++ {
+			fieldType := entityType.Field(i)
+			if fieldType.Tag.Get("column") == "tag" {
+				if !utils.SliceContains(fieldNames, fieldType.Tag.Get("json")) {
+					fieldNames = append(fieldNames, fieldType.Name)
+				}
+			}
 		}
 	}
 
@@ -248,6 +260,22 @@ func NewTimestampProto(ts *time.Time) *timestamp.Timestamp {
 		tsProto, _ = ptypes.TimestampProto(*ts)
 	}
 	return tsProto
+}
+
+func ExtractDatahubEntity(entities interface{}) reflect.StructField {
+	var datahubEntity reflect.StructField
+
+	fieldType := reflect.TypeOf(entities).Elem()
+	switch fieldType.Kind() {
+	case reflect.Struct:
+		datahubEntity, _ = fieldType.FieldByName("DatahubEntity")
+	case reflect.Slice:
+		datahubEntity, _ = fieldType.Elem().FieldByName("DatahubEntity")
+	default:
+		scope.Errorf("data type(%d) of entity is not supported", fieldType.Kind())
+	}
+
+	return datahubEntity
 }
 
 func DeepCopyEntity(entities interface{}, results *data.Data) {
