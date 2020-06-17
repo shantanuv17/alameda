@@ -23,6 +23,7 @@ import (
 	datahub_node "github.com/containers-ai/alameda/operator/datahub/client/node"
 	nodeinfo "github.com/containers-ai/alameda/operator/pkg/nodeinfo"
 	"github.com/pkg/errors"
+	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
@@ -124,7 +125,15 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
 		}
 		if len(msExecution) == 1 {
+			deltaUpTimeMax := viper.GetInt64("ca.deltaUpTimeMax")
 			msExecution[0].DeltaUpTime = datahubNode.CreateTime - datahubNode.MachineCreateTime
+			if msExecution[0].DeltaUpTime > deltaUpTimeMax {
+				scope.Infof("Delta up time of node %s is %d seconds is larger than max delta up time limitation %d seconds",
+					datahubNode.Name, msExecution[0].DeltaUpTime, deltaUpTimeMax)
+				scope.Infof("Delta up time of node %s is set from %d seconds to %d seconds",
+					datahubNode.Name, msExecution[0].DeltaUpTime, deltaUpTimeMax)
+				msExecution[0].DeltaUpTime = deltaUpTimeMax
+			}
 			if err := r.DatahubClient.Create(&msExecution); err != nil {
 				scope.Errorf(
 					"Update delta up time for machineset %s/%s at execution time %v for node %s failed: %s",

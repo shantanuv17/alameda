@@ -27,8 +27,7 @@ version = "2.4.0"
   password = ""
 
 [ca]
-deltaUpTime = 1200
-deltaUpDown = 1200
+deltaUpTimeMax = 3600
 
 [prometheus]
 requiredMetrics = ["kafka_topic_partition_current_offset", "kafka_consumergroup_current_offset"]
