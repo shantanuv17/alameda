@@ -102,6 +102,7 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 	if nodeIsDeleted {
 		if len(msExecution) == 1 {
 			msExecution[0].DeltaDownTime = time.Now().Unix() - msExecution[0].Time.Unix()
+			msExecution[0].NodeName = datahubNode.Name
 			if err := r.DatahubClient.Create(&msExecution); err != nil {
 				scope.Errorf(
 					"Update delta down time for machineset %s/%s at execution time %v for node %s failed: %s",
@@ -134,6 +135,7 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 					datahubNode.Name, msExecution[0].DeltaUpTime, deltaUpTimeMax)
 				msExecution[0].DeltaUpTime = deltaUpTimeMax
 			}
+			msExecution[0].NodeName = datahubNode.Name
 			if err := r.DatahubClient.Create(&msExecution); err != nil {
 				scope.Errorf(
 					"Update delta up time for machineset %s/%s at execution time %v for node %s failed: %s",
