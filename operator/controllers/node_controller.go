@@ -100,7 +100,8 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 	nodes[0] = instance
 
 	if nodeIsDeleted {
-		if len(msExecution) == 1 {
+		if len(msExecution) == 1 && msExecution[0].NodeName == "" &&
+			msExecution[0].ReplicasFrom > msExecution[0].ReplicasTo {
 			msExecution[0].DeltaDownTime = time.Now().Unix() - msExecution[0].Time.Unix()
 			msExecution[0].NodeName = datahubNode.Name
 			if err := r.DatahubClient.Create(&msExecution); err != nil {
@@ -125,28 +126,12 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 			scope.Errorf("Create node to Datahub failed failed: %s", err.Error())
 			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
 		}
-		if len(msExecution) == 1 {
-			deltaUpTimeMax := viper.GetInt64("ca.deltaUpTimeMax")
-			msExecution[0].DeltaUpTime = datahubNode.CreateTime - datahubNode.MachineCreateTime
-			if msExecution[0].DeltaUpTime > deltaUpTimeMax {
-				scope.Infof("Delta up time of node %s is %d seconds is larger than max delta up time limitation %d seconds",
-					datahubNode.Name, msExecution[0].DeltaUpTime, deltaUpTimeMax)
-				scope.Infof("Delta up time of node %s is set from %d seconds to %d seconds",
-					datahubNode.Name, msExecution[0].DeltaUpTime, deltaUpTimeMax)
-				msExecution[0].DeltaUpTime = deltaUpTimeMax
-			}
-			msExecution[0].NodeName = datahubNode.Name
-			if err := r.DatahubClient.Create(&msExecution); err != nil {
-				scope.Errorf(
-					"Update delta up time for machineset %s/%s at execution time %v for node %s failed: %s",
-					datahubNode.MachinesetNamespace, datahubNode.MachinesetName,
-					msExecution[0].Time, request.Name, err.Error())
+		if len(msExecution) == 1 && msExecution[0].NodeName == request.Name &&
+			msExecution[0].ReplicasFrom < msExecution[0].ReplicasTo {
+			if err = r.updateExecutionDeltaUpTime(msExecution[0], datahubNode); err != nil {
+				scope.Errorf("Update delta up time for node %s failed failed: %s",
+					request.Name, err.Error())
 				return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
-			} else {
-				scope.Infof(
-					"Update delta up time to %v seconds for machineset %s/%s at execution time %v for node %s",
-					msExecution[0].DeltaUpTime, datahubNode.MachinesetNamespace,
-					datahubNode.MachinesetName, msExecution[0].Time, request.Name)
 			}
 		}
 	}
@@ -188,7 +173,8 @@ func (r *NodeReconciler) deleteNodesFromDatahub(nodes []*corev1.Node) error {
 	return r.DatahubClient.Delete(&nodeInfos)
 }
 
-func (r *NodeReconciler) createNodeInfos(nodes []*corev1.Node) ([]entities.ResourceClusterStatusNode, error) {
+func (r *NodeReconciler) createNodeInfos(nodes []*corev1.Node) (
+	[]entities.ResourceClusterStatusNode, error) {
 	nodeInfos := make([]entities.ResourceClusterStatusNode, len(nodes))
 	for i, node := range nodes {
 		n, err := r.createNodeInfo(node)
@@ -215,6 +201,26 @@ func (r *NodeReconciler) createNodeInfo(node *corev1.Node) (
 		n.IORegion = r.RegionName
 	}
 	return &n, nil
+}
+
+func (r *NodeReconciler) updateExecutionDeltaUpTime(
+	theExecution entities.ExecutionClusterAutoscalerMachineset,
+	datahubNode *entities.ResourceClusterStatusNode) error {
+	deltaUpTimeMax := viper.GetInt64("ca.deltaUpTimeMax")
+	theExecution.DeltaUpTime = datahubNode.CreateTime - datahubNode.MachineCreateTime
+	if theExecution.DeltaUpTime > deltaUpTimeMax {
+		scope.Infof(
+			"Delta up time of node %s is %d seconds is larger than max delta up time limitation %d seconds",
+			datahubNode.Name, theExecution.DeltaUpTime, deltaUpTimeMax)
+		scope.Infof("Delta up time of node %s is set from %d seconds to %d seconds",
+			datahubNode.Name, theExecution.DeltaUpTime, deltaUpTimeMax)
+		theExecution.DeltaUpTime = deltaUpTimeMax
+	}
+	if err := r.DatahubClient.Create(
+		&[]entities.ExecutionClusterAutoscalerMachineset{theExecution}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (r *NodeReconciler) SetupWithManager(mgr ctrl.Manager) error {

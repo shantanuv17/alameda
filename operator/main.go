@@ -391,6 +391,16 @@ func addControllersToManager(mgr manager.Manager) error {
 		}).SetupWithManager(mgr); err != nil {
 			return err
 		}
+
+		if err = (&controllers.MachineReconciler{
+			Client:           mgr.GetClient(),
+			Scheme:           mgr.GetScheme(),
+			ClusterUID:       clusterUID,
+			ReconcileTimeout: 3 * time.Second,
+			DatahubClient:    datahubClient,
+		}).SetupWithManager(mgr); err != nil {
+			return err
+		}
 	}
 
 	if err = (&controllers.NamespaceReconciler{
@@ -420,7 +430,7 @@ func addControllersToManager(mgr manager.Manager) error {
 		Cloudprovider:   cloudprovider,
 		RegionName:      regionName,
 		DatahubClient:   datahubClient,
-		DatahubNodeRepo: *datahub_client_node.NewNodeRepository(datahubConn, clusterUID),
+		DatahubNodeRepo: *datahub_client_node.NewNodeRepository(datahubClient, clusterUID),
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}
@@ -603,8 +613,7 @@ func syncResourcesWithDatahub(client client.Client, datahubConn *grpc.ClientConn
 		}
 	}()
 	go func() {
-		if err := datahub_client_node.SyncWithDatahub(client,
-			datahubConn); err != nil {
+		if err := datahub_client_node.SyncWithDatahub(client, datahubClient); err != nil {
 			scope.Errorf("sync node failed at start due to %s", err.Error())
 		}
 	}()

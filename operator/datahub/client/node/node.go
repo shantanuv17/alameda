@@ -21,18 +21,11 @@ type AlamedaNodeRepository struct {
 }
 
 // NewNodeRepository return AlamedaNodeRepository instance
-func NewNodeRepository(conn *grpc.ClientConn, clusterUID string) *AlamedaNodeRepository {
-	target := conn.Target()
+func NewNodeRepository(datahubClient *datahubpkg.Client, clusterUID string) *AlamedaNodeRepository {
 	return &AlamedaNodeRepository{
-		conn:          conn,
-		datahubClient: datahubpkg.NewClient(target),
-
-		clusterUID: clusterUID,
+		datahubClient: datahubClient,
+		clusterUID:    clusterUID,
 	}
-}
-
-func (repo *AlamedaNodeRepository) Close() {
-	repo.conn.Close()
 }
 
 // CreateNodes creates predicted node to datahub
