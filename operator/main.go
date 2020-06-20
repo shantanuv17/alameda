@@ -25,19 +25,19 @@ import (
 	"strings"
 	"time"
 
+	datahub_client_cluster "github.com/containers-ai/alameda/operator/datahub/client/cluster"
+	datahub_client_kafka "github.com/containers-ai/alameda/operator/datahub/client/kafka"
+	datahub_client_nginx "github.com/containers-ai/alameda/operator/datahub/client/nginx"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	alamedaUtils "github.com/containers-ai/alameda/pkg/utils"
+	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
 	routeapi_v1 "github.com/openshift/api/route/v1"
 	openshift_machineapi_v1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
-	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
-
-	datahub_client_cluster "github.com/containers-ai/alameda/operator/datahub/client/cluster"
-
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
+	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
 
 	"github.com/containers-ai/alameda/internal/pkg/database/prometheus"
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
@@ -50,15 +50,11 @@ import (
 
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	"github.com/containers-ai/alameda/operator/controllers"
-	datahubclient "github.com/containers-ai/alameda/operator/datahub/client"
 	datahub_client_application "github.com/containers-ai/alameda/operator/datahub/client/application"
 	datahub_client_controller "github.com/containers-ai/alameda/operator/datahub/client/controller"
-	datahub_client_kafka "github.com/containers-ai/alameda/operator/datahub/client/kafka"
 	datahub_client_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
-	datahub_client_nginx "github.com/containers-ai/alameda/operator/datahub/client/nginx"
 	datahub_client_node "github.com/containers-ai/alameda/operator/datahub/client/node"
 	datahub_client_pod "github.com/containers-ai/alameda/operator/datahub/client/pod"
-	internaldatahubschema "github.com/containers-ai/alameda/operator/datahub/schema"
 	"github.com/containers-ai/alameda/operator/pkg/probe"
 	"github.com/containers-ai/alameda/operator/pkg/utils"
 
@@ -127,10 +123,6 @@ var (
 	datahubClient    *datahubpkg.Client
 	kafkaClient      kafka.Client
 	prometheusClient prometheus.Prometheus
-
-	// Resource repositories
-	datahubKafkaRepo datahub_client_kafka.KafkaRepository
-	datahubNginxRepo datahub_client_nginx.NginxRepository
 )
 
 func init() {
@@ -225,7 +217,8 @@ func initThirdPartyClient() error {
 		grpc.WithBlock(),
 		grpc.WithTimeout(30*time.Second),
 		grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(3)))),
+		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(
+			grpc_retry.WithMax(uint(3)))),
 	)
 	if err != nil {
 		return errors.Wrap(err, "new connection to datahub failed")
@@ -258,56 +251,6 @@ func initClusterUID() error {
 	return nil
 }
 
-func initDatahubSchemas(ctx context.Context) error {
-	// Get Schemas
-	kafkaTopicSchema, err := internaldatahubschema.GetKafkaTopicSchema()
-	if err != nil {
-		return errors.Wrap(err, "get kafka topic schema failed")
-	}
-	datahubSchemas["kafkaTopic"] = kafkaTopicSchema
-	kafkaConsumerGroupSchema, err := internaldatahubschema.GetKafkaConsumerGroupSchema()
-	if err != nil {
-		return errors.Wrap(err, "get kafka consumergroup schema failed")
-	}
-	datahubSchemas["kafkaConsumerGroup"] = kafkaConsumerGroupSchema
-	nginxSchema, err := internaldatahubschema.GetNginxSchema()
-	if err != nil {
-		return errors.Wrap(err, "get nginx schema failed")
-	}
-	datahubSchemas["nginx"] = nginxSchema
-
-	// // Create schemas to Datahub
-	// req := datahubschemas.CreateSchemasRequest{
-	// 	Schemas: []*datahubschemas.Schema{&kafkaTopicSchema, &kafkaConsumerGroupSchema},
-	// }
-	// resp, err := datahubClient.CreateSchemas(ctx, &req)
-	// if err != nil {
-	// 	return errors.Wrap(err, "create schemas failed")
-	// } else if resp == nil {
-	// 	return errors.New("create schemas failed: receive nil status")
-	// } else if resp.Code != int32(code.Code_OK) {
-	// 	return errors.Errorf("create schemas failed: status: %d, message: %s", resp.Code, resp.Message)
-	// }
-
-	// List schemas from Datahub
-	listSchemaReq := datahubschemas.ListSchemasRequest{}
-	listSchemaResp, err := datahubClient.ListSchemas(ctx, &listSchemaReq)
-	if err != nil {
-		return errors.Wrap(err, "list schemas failed")
-	} else if listSchemaResp == nil {
-		return errors.New("list schemas failed: receive nil response")
-	} else if ok, err := datahubclient.IsResponseStatusOK(listSchemaResp.Status); !ok || err != nil {
-		return errors.Wrap(err, "list schemas failed")
-	}
-
-	return nil
-}
-
-func initDatahubResourceRepsitories() {
-	datahubKafkaRepo = datahub_client_kafka.NewKafkaRepository(datahubClient, datahubClientLogger)
-	datahubNginxRepo = datahub_client_nginx.NewNginxRepository(datahubClient, datahubClientLogger)
-}
-
 func setupManager() (manager.Manager, error) {
 	return ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
 		MetricsBindAddress:      metricsAddr,
@@ -337,9 +280,11 @@ func addNecessaryAPIToScheme(scheme *runtime.Scheme) error {
 }
 
 func addControllersToManager(mgr manager.Manager) error {
-	datahubControllerRepo := datahub_client_controller.NewControllerRepository(datahubConn, clusterUID)
+	datahubControllerRepo := datahub_client_controller.NewControllerRepository(
+		datahubConn, clusterUID)
 	datahubPodRepo := datahub_client_pod.NewPodRepository(datahubConn, clusterUID)
-	datahubNamespaceRepo := datahub_client_namespace.NewNamespaceRepository(datahubConn, clusterUID)
+	datahubNamespaceRepo := datahub_client_namespace.NewNamespaceRepository(
+		datahubConn, clusterUID)
 	var err error
 
 	if err = (&controllers.AlamedaScalerReconciler{
@@ -424,13 +369,14 @@ func addControllersToManager(mgr manager.Manager) error {
 		regionName = provider.AWSRegionMap[provider.GetEC2Region()]
 	}
 	if err = (&controllers.NodeReconciler{
-		Client:          mgr.GetClient(),
-		Scheme:          mgr.GetScheme(),
-		ClusterUID:      clusterUID,
-		Cloudprovider:   cloudprovider,
-		RegionName:      regionName,
-		DatahubClient:   datahubClient,
-		DatahubNodeRepo: *datahub_client_node.NewNodeRepository(datahubClient, clusterUID),
+		Client:        mgr.GetClient(),
+		Scheme:        mgr.GetScheme(),
+		ClusterUID:    clusterUID,
+		Cloudprovider: cloudprovider,
+		RegionName:    regionName,
+		DatahubClient: datahubClient,
+		DatahubNodeRepo: *datahub_client_node.NewNodeRepository(
+			datahubClient, clusterUID),
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}
@@ -446,37 +392,20 @@ func addControllersToManager(mgr manager.Manager) error {
 	if err = (&controllers.AlamedaScalerKafkaReconciler{
 		ClusterUID:            clusterUID,
 		HasOpenShiftAPIAppsv1: hasOpenShiftAPIAppsv1,
-
-		K8SClient: mgr.GetClient(),
-		Scheme:    mgr.GetScheme(),
-
-		KafkaRepository:                                 datahubKafkaRepo,
-		DatahubApplicationKafkaTopicSchema:              datahubSchemas["kafkaTopic"],
-		DatahubApplicationKafkaTopicMeasurement:         *datahubSchemas["kafkaTopic"].Measurements[0],
-		DatahubApplicationKafkaConsumerGroupSchema:      datahubSchemas["kafkaConsumerGroup"],
-		DatahubApplicationKafkaConsumerGroupMeasurement: *datahubSchemas["kafkaConsumerGroup"].Measurements[0],
-
-		KafkaClient:      kafkaClient,
-		PrometheusClient: prometheusClient,
-
-		ReconcileTimeout: 3 * time.Second,
-
-		Logger: alamedaScalerKafkaControllerLogger,
-
-		NeededMetrics: operatorConf.Prometheus.RequiredMetrics,
+		K8SClient:             mgr.GetClient(),
+		Scheme:                mgr.GetScheme(),
+		KafkaClient:           kafkaClient,
+		PrometheusClient:      prometheusClient,
+		ReconcileTimeout:      3 * time.Second,
+		Logger:                alamedaScalerKafkaControllerLogger,
+		NeededMetrics:         operatorConf.Prometheus.RequiredMetrics,
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}
 	if err = (&controllers.AlamedaScalerNginxReconciler{
-		ClusterUID: clusterUID,
-
-		Client: mgr.GetClient(),
-		Scheme: mgr.GetScheme(),
-
-		NginxRepository:                    datahubNginxRepo,
-		DatahubApplicationNginxSchema:      datahubSchemas["nginx"],
-		DatahubApplicationNginxMeasurement: *datahubSchemas["nginx"].Measurements[0],
-
+		ClusterUID:            clusterUID,
+		Client:                mgr.GetClient(),
+		Scheme:                mgr.GetScheme(),
 		ReconcileTimeout:      3 * time.Second,
 		HasOpenShiftAPIAppsv1: hasOpenShiftAPIAppsv1,
 		Logger:                alamedaScalerNginxControllerLogger,
@@ -485,14 +414,16 @@ func addControllersToManager(mgr manager.Manager) error {
 	}
 
 	if err = (&controllers.AlamedaMachineGroupScalerReconciler{
-		ClusterUID:       clusterUID,
-		Client:           mgr.GetClient(),
-		Log:              ctrl.Log.WithName("controllers").WithName("AlamedaMachineGroupScaler"),
+		ClusterUID: clusterUID,
+		Client:     mgr.GetClient(),
+		Log: ctrl.Log.WithName("controllers").WithName(
+			"AlamedaMachineGroupScaler"),
 		Scheme:           mgr.GetScheme(),
 		DatahubClient:    datahubClient,
 		ReconcileTimeout: 3 * time.Second,
 	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "AlamedaMachineGroupScaler")
+		setupLog.Error(err,
+			"unable to create controller", "controller", "AlamedaMachineGroupScaler")
 		os.Exit(1)
 	}
 	// +kubebuilder:scaffold:builder
@@ -553,10 +484,6 @@ func main() {
 	if err = initClusterUID(); err != nil {
 		panic(errors.Wrap(err, "init cluster uid failed"))
 	}
-	if err = initDatahubSchemas(context.TODO()); err != nil {
-		panic(errors.Wrap(err, "init Datahub schemas failed"))
-	}
-	initDatahubResourceRepsitories()
 
 	scope.Info("Adding controllers to manager...")
 	if err := addControllersToManager(mgr); err != nil {
@@ -598,7 +525,9 @@ func syncResourcesWithDatahub(client client.Client, datahubConn *grpc.ClientConn
 	for {
 		clusterUID, err := k8sutils.GetClusterUID(client)
 		if err == nil {
-			scope.Infof("Get cluster UID %s successfully, and then try synchronzing resources with datahub.", clusterUID)
+			scope.Infof(
+				"Get cluster UID %s successfully, and then try synchronzing resources with datahub.",
+				clusterUID)
 			break
 		} else {
 			scope.Infof("Sync resources with datahub failed. %s", err.Error())
@@ -619,7 +548,8 @@ func syncResourcesWithDatahub(client client.Client, datahubConn *grpc.ClientConn
 	}()
 
 	go func() {
-		if err := datahub_client_application.SyncWithDatahub(client, datahubClient); err != nil {
+		if err := datahub_client_application.SyncWithDatahub(
+			client, datahubClient); err != nil {
 			scope.Errorf("sync application failed at start due to %s", err.Error())
 		}
 	}()
@@ -643,11 +573,16 @@ func syncResourcesWithDatahub(client client.Client, datahubConn *grpc.ClientConn
 		}
 	}()
 	go func() {
-		if err := datahubKafkaRepo.SyncWithDatahub(context.Background(), client,
-			datahubConn); err != nil {
+		if err := datahub_client_kafka.SyncWithDatahub(client, datahubClient); err != nil {
 			scope.Errorf("sync kafka failed at start due to %s", err.Error())
 		}
 	}()
+	go func() {
+		if err := datahub_client_nginx.SyncWithDatahub(client, datahubClient); err != nil {
+			scope.Errorf("sync nginx failed at start due to %s", err.Error())
+		}
+	}()
+
 }
 func livenessProbe(cfg *probe.LivenessProbeConfig) {
 	// probe.LivenessProbe(cfg)

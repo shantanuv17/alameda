@@ -21,14 +21,13 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
-	nginxrepository "github.com/containers-ai/alameda/operator/datahub/client/nginx"
-	"github.com/containers-ai/alameda/operator/pkg/nginx"
-	nginxmodel "github.com/containers-ai/alameda/operator/pkg/nginx"
+
 	alamedascaler_reconciler "github.com/containers-ai/alameda/operator/pkg/reconciler/alamedascaler"
 	utilsresource "github.com/containers-ai/alameda/operator/pkg/utils/resources"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/containers-ai/alameda/pkg/utils/log"
-	datahubschemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	appsapi_v1 "github.com/openshift/api/apps/v1"
 	routeapi_v1 "github.com/openshift/api/route/v1"
 	"github.com/pkg/errors"
@@ -50,7 +49,10 @@ var listCandidatesNginxAlamedaScaler = func(
 ) ([]autoscalingv1alpha1.AlamedaScaler, error) {
 
 	alamedaScalerList := autoscalingv1alpha1.AlamedaScalerList{}
-	err := k8sClient.List(ctx, &alamedaScalerList, &client.ListOptions{Namespace: objectMeta.Namespace})
+	err := k8sClient.List(
+		ctx, &alamedaScalerList, &client.ListOptions{
+			Namespace: objectMeta.Namespace,
+		})
 	if err != nil {
 		return nil, errors.Wrap(err, "list AlamedaScalers failed")
 	}
@@ -63,7 +65,8 @@ var listCandidatesNginxAlamedaScaler = func(
 		if alamedaScaler.Spec.Nginx == nil {
 			continue
 		}
-		if ok := isLabelsSelectedBySelector(*alamedaScaler.Spec.Nginx.Selector, objectMeta.GetLabels()); ok {
+		if ok := isLabelsSelectedBySelector(
+			*alamedaScaler.Spec.Nginx.Selector, objectMeta.GetLabels()); ok {
 			candidates = append(candidates, alamedaScaler)
 		}
 	}
@@ -71,7 +74,8 @@ var listCandidatesNginxAlamedaScaler = func(
 }
 
 func init() {
-	RegisterAlamedaScalerController(autoscalingv1alpha1.AlamedaScalerTypeNginx, listCandidatesNginxAlamedaScaler)
+	RegisterAlamedaScalerController(autoscalingv1alpha1.AlamedaScalerTypeNginx,
+		listCandidatesNginxAlamedaScaler)
 }
 
 // AlamedaScalerNginxReconciler reconciles a AlamedaScaler object
@@ -79,13 +83,11 @@ type AlamedaScalerNginxReconciler struct {
 	client.Client
 	Scheme *runtime.Scheme
 
-	ClusterUID                         string
-	NginxRepository                    nginxrepository.NginxRepository
-	DatahubApplicationNginxSchema      datahubschemas.Schema
-	DatahubApplicationNginxMeasurement datahubschemas.Measurement
-	Logger                             *log.Scope
-	ReconcileTimeout                   time.Duration
-	HasOpenShiftAPIAppsv1              bool
+	ClusterUID            string
+	Logger                *log.Scope
+	ReconcileTimeout      time.Duration
+	DatahubClient         *datahubpkg.Client
+	HasOpenShiftAPIAppsv1 bool
 }
 
 // Reconcile reads that state of the cluster for a AlamedaScaler object and makes changes based on the state read
@@ -94,11 +96,14 @@ func (r *AlamedaScalerNginxReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 	ctx, cancel := context.WithTimeout(context.Background(), r.ReconcileTimeout)
 	defer cancel()
 	cachedAlamedaScaler := autoscalingv1alpha1.AlamedaScaler{}
-	err := r.Client.Get(ctx, client.ObjectKey{Namespace: req.Namespace, Name: req.Name}, &cachedAlamedaScaler)
+	err := r.Client.Get(ctx, client.ObjectKey{
+		Namespace: req.Namespace, Name: req.Name,
+	}, &cachedAlamedaScaler)
 	if err != nil && k8serrors.IsNotFound(err) {
 		r.Logger.Infof("Handling deletion of AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
 		if err := r.handleDeletion(ctx, req.Namespace, req.Name); err != nil {
-			r.Logger.Warnf("Handle deletion of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+			r.Logger.Warnf("Handle deletion of AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+				req.Namespace, req.Name, err)
 			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 		}
 		r.Logger.Infof("Handle deletion of AlamedaScaler(%s/%s) done.", req.Namespace, req.Name)
@@ -121,9 +126,12 @@ func (r *AlamedaScalerNginxReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 	}
 
 	svcIns := corev1.Service{}
-	err = r.Get(context.Background(), client.ObjectKey{Namespace: req.Namespace, Name: alamedaScaler.Spec.Nginx.Service}, &svcIns)
+	err = r.Get(context.Background(), client.ObjectKey{
+		Namespace: req.Namespace, Name: alamedaScaler.Spec.Nginx.Service,
+	}, &svcIns)
 	if err != nil && k8serrors.IsNotFound(err) {
-		scope.Errorf("service (%s/%s) does not exist", req.Namespace, alamedaScaler.Spec.Nginx.Service)
+		scope.Errorf("service (%s/%s) does not exist",
+			req.Namespace, alamedaScaler.Spec.Nginx.Service)
 		return ctrl.Result{Requeue: false}, nil
 	} else if err != nil {
 		return ctrl.Result{Requeue: false}, nil
@@ -132,7 +140,8 @@ func (r *AlamedaScalerNginxReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 	if cachedAlamedaScaler.GetDeletionTimestamp() != nil {
 		r.Logger.Infof("Handling deletion of AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
 		if err := r.handleDeletion(ctx, req.Namespace, req.Name); err != nil {
-			r.Logger.Warnf("Handle deletion of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+			r.Logger.Warnf("Handle deletion of AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+				req.Namespace, req.Name, err)
 			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 		}
 		r.Logger.Infof("Handle deletion of AlamedaScaler(%s/%s) done.", req.Namespace, req.Name)
@@ -143,27 +152,35 @@ func (r *AlamedaScalerNginxReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 
 	alamedaScaler = r.setDefaultAlamedaScaler(alamedaScaler)
 	alamedaScaler.Status.AlamedaController = autoscalingv1alpha1.NewAlamedaController()
-	if alamedaScaler, err = r.listAndAddDeploymentsIntoAlamedaScalerStatus(context.TODO(), alamedaScaler, svcIns); err != nil {
-		scope.Warnf("List and add Deployments into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
+	if alamedaScaler, err = r.listAndAddDeploymentsIntoAlamedaScalerStatus(
+		context.TODO(), alamedaScaler, svcIns); err != nil {
+		scope.Warnf("List and add Deployments into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v",
+			req.Namespace, req.Name, requeueAfter.Seconds(), err)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
 	if hasOpenshiftAPIAppsV1 {
-		if alamedaScaler, err = r.listAndAddDeploymentConfigsIntoAlamedaScalerStatus(context.TODO(), alamedaScaler, svcIns); err != nil {
-			scope.Warnf("List and add DeploymentConfigs into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
+		if alamedaScaler, err = r.listAndAddDeploymentConfigsIntoAlamedaScalerStatus(
+			context.TODO(), alamedaScaler, svcIns); err != nil {
+			scope.Warnf("List and add DeploymentConfigs into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v",
+				req.Namespace, req.Name, requeueAfter.Seconds(), err)
 			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 		}
 	}
-	if alamedaScaler, err = r.listAndAddStatefulSetsIntoAlamedaScalerStatus(context.TODO(), alamedaScaler, svcIns); err != nil {
-		scope.Warnf("List and add StatefulSets into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
+	if alamedaScaler, err = r.listAndAddStatefulSetsIntoAlamedaScalerStatus(
+		context.TODO(), alamedaScaler, svcIns); err != nil {
+		scope.Warnf("List and add StatefulSets into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v",
+			req.Namespace, req.Name, requeueAfter.Seconds(), err)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
 	nMatchedDC := len(alamedaScaler.Status.AlamedaController.DeploymentConfigs)
 	nMatchedSts := len(alamedaScaler.Status.AlamedaController.StatefulSets)
 	nMatchedDeploy := len(alamedaScaler.Status.AlamedaController.Deployments)
 	if (nMatchedDC + nMatchedSts + nMatchedDeploy) > 1 {
-		alamedaScaler.Status.Nginx.Message = fmt.Sprintf("More than one controller mapped by service %s in AlamedaScaler(%s/%s): %v", svcIns.GetName(), req.Namespace, req.Name, alamedaScaler.Status.AlamedaController)
+		alamedaScaler.Status.Nginx.Message = fmt.Sprintf("More than one controller mapped by service %s in AlamedaScaler(%s/%s): %v",
+			svcIns.GetName(), req.Namespace, req.Name, alamedaScaler.Status.AlamedaController)
 		if err := r.Update(context.TODO(), &alamedaScaler); err != nil {
-			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+				req.Namespace, req.Name, err)
 		}
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
@@ -180,11 +197,13 @@ func (r *AlamedaScalerNginxReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 	nginxs := r.prepareNginxs(ctx, alamedaScaler)
 	err = r.syncWithDatahub(ctx, alamedaScaler, nginxs)
 	if err != nil {
-		r.Logger.Warnf("Synchornize nginx with remote of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+		r.Logger.Warnf("Synchornize nginx with remote of AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+			req.Namespace, req.Name, err)
 
 		alamedaScaler.Status.Nginx.Message = err.Error()
 		if err := r.Update(context.TODO(), &alamedaScaler); err != nil {
-			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+				req.Namespace, req.Name, err)
 		}
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
@@ -199,37 +218,50 @@ func (r *AlamedaScalerNginxReconciler) SetupWithManager(mgr ctrl.Manager) error 
 		Complete(r)
 }
 
-func (r AlamedaScalerNginxReconciler) isAlamedaScalerTypeNeedToBeReconciled(alamedaScaler autoscalingv1alpha1.AlamedaScaler) bool {
+func (r AlamedaScalerNginxReconciler) isAlamedaScalerTypeNeedToBeReconciled(
+	alamedaScaler autoscalingv1alpha1.AlamedaScaler) bool {
 	if alamedaScaler.GetType() != autoscalingv1alpha1.AlamedaScalerTypeNginx {
 		return false
 	}
 	return true
 }
 
-func (r AlamedaScalerNginxReconciler) handleDeletion(ctx context.Context, namespace, name string) error {
+func (r AlamedaScalerNginxReconciler) handleDeletion(
+	ctx context.Context, namespace, name string) error {
 	wg := errgroup.Group{}
 	wg.Go(func() error {
-		opt := nginxrepository.DeleteNginxsOption{
-			ClusterName:            r.ClusterUID,
-			AlamedaScalerNamespace: namespace,
-			AlamedaScalerName:      name,
-		}
-		if err := r.NginxRepository.DeleteNginxsByOption(ctx, opt); err != nil {
-			return errors.Wrap(err, "delete nginxs from Datahub failed")
+		err := r.DatahubClient.DeleteByOpts(
+			&entities.ApplicationNginx{}, datahubpkg.Option{
+				Entity: entities.ApplicationNginx{
+					ClusterName:            r.ClusterUID,
+					AlamedaScalerNamespace: namespace,
+					AlamedaScalerName:      name,
+				},
+				Fields: []string{
+					"ClusterName", "AlamedaScalerNamespace", "AlamedaScalerName"},
+			})
+		if err != nil {
+			return fmt.Errorf("Delete nginxs for alamedascaler (%s/%s) failed: %s",
+				namespace, name, err.Error())
 		}
 		return nil
 	})
 	return wg.Wait()
 }
 
-func (r AlamedaScalerNginxReconciler) listAndAddDeploymentsIntoAlamedaScalerStatus(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler, svcIns corev1.Service) (autoscalingv1alpha1.AlamedaScaler, error) {
+func (r AlamedaScalerNginxReconciler) listAndAddDeploymentsIntoAlamedaScalerStatus(
+	ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler, svcIns corev1.Service) (
+	autoscalingv1alpha1.AlamedaScaler, error) {
 	listResources := utilsresource.NewListResources(r.Client)
-	alamedascalerReconciler := alamedascaler_reconciler.NewReconciler(r.Client, &alamedaScaler)
-	svcDeployments, err := listResources.ListDeploymentsByNamespaceLabels(alamedaScaler.Namespace, svcIns.Spec.Selector)
+	alamedascalerReconciler := alamedascaler_reconciler.NewReconciler(
+		r.Client, &alamedaScaler)
+	svcDeployments, err := listResources.ListDeploymentsByNamespaceLabels(
+		alamedaScaler.Namespace, svcIns.Spec.Selector)
 	if err != nil {
 		return alamedaScaler, errors.Wrap(err, "list Deployments for service failed")
 	}
-	deployments, err := listResources.ListDeploymentsByNamespaceLabels(alamedaScaler.Namespace, alamedaScaler.Spec.Nginx.Selector.MatchLabels)
+	deployments, err := listResources.ListDeploymentsByNamespaceLabels(
+		alamedaScaler.Namespace, alamedaScaler.Spec.Nginx.Selector.MatchLabels)
 	if err != nil {
 		return alamedaScaler, errors.Wrap(err, "list Deployments failed")
 	}
@@ -244,7 +276,8 @@ func (r AlamedaScalerNginxReconciler) listAndAddDeploymentsIntoAlamedaScalerStat
 	}
 
 	for _, deployment := range matchedDeploys {
-		ok, err := r.isWorkloadControllerCanBeMonitoredByAlamedaScaler(ctx, deployment.ObjectMeta, alamedaScaler)
+		ok, err := r.isWorkloadControllerCanBeMonitoredByAlamedaScaler(
+			ctx, deployment.ObjectMeta, alamedaScaler)
 		if err != nil {
 			return alamedaScaler, errors.Wrap(err, "check if Deployment can be monitored failed")
 		}
@@ -253,7 +286,8 @@ func (r AlamedaScalerNginxReconciler) listAndAddDeploymentsIntoAlamedaScalerStat
 		if ok {
 			_, err = alamedascalerReconciler.UpdateStatusByDeployment(&deployment)
 			if err != nil {
-				return alamedaScaler, errors.Wrap(err, "update status of AlamedaScaler(%s/%s) by Deployment failed")
+				return alamedaScaler,
+					errors.Wrap(err, "update status of AlamedaScaler(%s/%s) by Deployment failed")
 			}
 		} else {
 			ar := r.getIneffectiveAlamedaResource(deployment.ObjectMeta)
@@ -263,14 +297,18 @@ func (r AlamedaScalerNginxReconciler) listAndAddDeploymentsIntoAlamedaScalerStat
 	return alamedaScaler, nil
 }
 
-func (r AlamedaScalerNginxReconciler) listAndAddStatefulSetsIntoAlamedaScalerStatus(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler, svcIns corev1.Service) (autoscalingv1alpha1.AlamedaScaler, error) {
+func (r AlamedaScalerNginxReconciler) listAndAddStatefulSetsIntoAlamedaScalerStatus(
+	ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler, svcIns corev1.Service) (
+	autoscalingv1alpha1.AlamedaScaler, error) {
 	listResources := utilsresource.NewListResources(r.Client)
 	alamedascalerReconciler := alamedascaler_reconciler.NewReconciler(r.Client, &alamedaScaler)
-	svcStatefulSets, err := listResources.ListStatefulSetsByNamespaceLabels(alamedaScaler.Namespace, svcIns.Spec.Selector)
+	svcStatefulSets, err := listResources.ListStatefulSetsByNamespaceLabels(
+		alamedaScaler.Namespace, svcIns.Spec.Selector)
 	if err != nil {
 		return alamedaScaler, errors.Wrap(err, "list StatefulSets for service failed")
 	}
-	statefulSets, err := listResources.ListStatefulSetsByNamespaceLabels(alamedaScaler.Namespace, alamedaScaler.Spec.Nginx.Selector.MatchLabels)
+	statefulSets, err := listResources.ListStatefulSetsByNamespaceLabels(
+		alamedaScaler.Namespace, alamedaScaler.Spec.Nginx.Selector.MatchLabels)
 	if err != nil {
 		return alamedaScaler, errors.Wrap(err, "list StatefulSets failed")
 	}
@@ -285,12 +323,14 @@ func (r AlamedaScalerNginxReconciler) listAndAddStatefulSetsIntoAlamedaScalerSta
 	}
 
 	for _, statefulSet := range matchedStss {
-		ok, err := r.isWorkloadControllerCanBeMonitoredByAlamedaScaler(context.TODO(), statefulSet.ObjectMeta, alamedaScaler)
+		ok, err := r.isWorkloadControllerCanBeMonitoredByAlamedaScaler(
+			context.TODO(), statefulSet.ObjectMeta, alamedaScaler)
 		if err != nil {
 			return alamedaScaler, errors.Wrap(err, "check if StatefulSet can be monitored failed")
 		}
 
-		ok = ok && IsMonitoredByAlamedaScalerController(statefulSet.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeNginx)
+		ok = ok && IsMonitoredByAlamedaScalerController(
+			statefulSet.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeNginx)
 		if ok {
 			_, err = alamedascalerReconciler.UpdateStatusByStatefulSet(&statefulSet)
 			if err != nil {
@@ -304,14 +344,18 @@ func (r AlamedaScalerNginxReconciler) listAndAddStatefulSetsIntoAlamedaScalerSta
 	return alamedaScaler, nil
 }
 
-func (r AlamedaScalerNginxReconciler) listAndAddDeploymentConfigsIntoAlamedaScalerStatus(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler, svcIns corev1.Service) (autoscalingv1alpha1.AlamedaScaler, error) {
+func (r AlamedaScalerNginxReconciler) listAndAddDeploymentConfigsIntoAlamedaScalerStatus(
+	ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler, svcIns corev1.Service) (
+	autoscalingv1alpha1.AlamedaScaler, error) {
 	listResources := utilsresource.NewListResources(r.Client)
 	alamedascalerReconciler := alamedascaler_reconciler.NewReconciler(r.Client, &alamedaScaler)
-	svcDcs, err := listResources.ListDeploymentConfigsByNamespaceLabels(alamedaScaler.Namespace, svcIns.Spec.Selector)
+	svcDcs, err := listResources.ListDeploymentConfigsByNamespaceLabels(
+		alamedaScaler.Namespace, svcIns.Spec.Selector)
 	if err != nil {
 		return alamedaScaler, errors.Wrap(err, "list DeploymentConfigs for service failed")
 	}
-	dploymentConfigs, err := listResources.ListDeploymentConfigsByNamespaceLabels(alamedaScaler.Namespace, alamedaScaler.Spec.Nginx.Selector.MatchLabels)
+	dploymentConfigs, err := listResources.ListDeploymentConfigsByNamespaceLabels(
+		alamedaScaler.Namespace, alamedaScaler.Spec.Nginx.Selector.MatchLabels)
 	if err != nil {
 		return alamedaScaler, errors.Wrap(err, "list DeploymentConfigs failed")
 	}
@@ -326,12 +370,14 @@ func (r AlamedaScalerNginxReconciler) listAndAddDeploymentConfigsIntoAlamedaScal
 	}
 
 	for _, deploymentConfig := range matchedDcs {
-		ok, err := r.isWorkloadControllerCanBeMonitoredByAlamedaScaler(context.TODO(), deploymentConfig.ObjectMeta, alamedaScaler)
+		ok, err := r.isWorkloadControllerCanBeMonitoredByAlamedaScaler(
+			context.TODO(), deploymentConfig.ObjectMeta, alamedaScaler)
 		if err != nil {
 			return alamedaScaler, errors.Wrap(err, "check if DeploymentConfig can be monitored failed")
 		}
 
-		ok = ok && IsMonitoredByAlamedaScalerController(deploymentConfig.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeNginx)
+		ok = ok && IsMonitoredByAlamedaScalerController(
+			deploymentConfig.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeNginx)
 		if ok {
 			_, err = alamedascalerReconciler.UpdateStatusByDeploymentConfig(&deploymentConfig)
 			if err != nil {
@@ -345,7 +391,9 @@ func (r AlamedaScalerNginxReconciler) listAndAddDeploymentConfigsIntoAlamedaScal
 	return alamedaScaler, nil
 }
 
-func (r AlamedaScalerNginxReconciler) isWorkloadControllerCanBeMonitoredByAlamedaScaler(ctx context.Context, workloadController metav1.ObjectMeta, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (bool, error) {
+func (r AlamedaScalerNginxReconciler) isWorkloadControllerCanBeMonitoredByAlamedaScaler(
+	ctx context.Context, workloadController metav1.ObjectMeta, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (
+	bool, error) {
 	alamedaScalerList := autoscalingv1alpha1.AlamedaScalerList{}
 	err := r.List(ctx, &alamedaScalerList, &client.ListOptions{Namespace: workloadController.GetNamespace()})
 	if err != nil {
@@ -371,7 +419,8 @@ func (r AlamedaScalerNginxReconciler) isWorkloadControllerCanBeMonitoredByAlamed
 	return true, nil
 }
 
-func (r AlamedaScalerNginxReconciler) getIneffectiveAlamedaResource(workloadController metav1.ObjectMeta) autoscalingv1alpha1.AlamedaResource {
+func (r AlamedaScalerNginxReconciler) getIneffectiveAlamedaResource(
+	workloadController metav1.ObjectMeta) autoscalingv1alpha1.AlamedaResource {
 	empty := int32(0)
 	return autoscalingv1alpha1.AlamedaResource{
 		Namespace:    workloadController.GetNamespace(),
@@ -383,13 +432,16 @@ func (r AlamedaScalerNginxReconciler) getIneffectiveAlamedaResource(workloadCont
 	}
 }
 
-func (r AlamedaScalerNginxReconciler) setDefaultAlamedaScaler(alamedaScaler autoscalingv1alpha1.AlamedaScaler) autoscalingv1alpha1.AlamedaScaler {
+func (r AlamedaScalerNginxReconciler) setDefaultAlamedaScaler(
+	alamedaScaler autoscalingv1alpha1.AlamedaScaler) autoscalingv1alpha1.AlamedaScaler {
 	alamedaScaler.SetDefaultValue()
 	alamedaScaler.Spec.Type = autoscalingv1alpha1.AlamedaScalerTypeNginx
 	return alamedaScaler
 }
 
-func (r AlamedaScalerNginxReconciler) addAlamedaResourceIntoStatus(as autoscalingv1alpha1.AlamedaScaler, arType autoscalingv1alpha1.AlamedaControllerType, ar autoscalingv1alpha1.AlamedaResource) {
+func (r AlamedaScalerNginxReconciler) addAlamedaResourceIntoStatus(
+	as autoscalingv1alpha1.AlamedaScaler, arType autoscalingv1alpha1.AlamedaControllerType,
+	ar autoscalingv1alpha1.AlamedaResource) {
 	if (&as.Status.AlamedaController) == nil {
 		as.Status.AlamedaController = autoscalingv1alpha1.AlamedaController{}
 	}
@@ -413,15 +465,16 @@ func (r AlamedaScalerNginxReconciler) addAlamedaResourceIntoStatus(as autoscalin
 	}
 }
 
-func (r AlamedaScalerNginxReconciler) syncWithDatahub(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler, nginxs []nginxmodel.Nginx) error {
+func (r AlamedaScalerNginxReconciler) syncWithDatahub(
+	ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler, nginxs []entities.ApplicationNginx) error {
 	r.Logger.Debugf("Synchronize with Datahub. Nginx: %+v", nginxs)
 	wg := errgroup.Group{}
 	wg.Go(func() error {
-		if err := r.NginxRepository.CreateNginxs(ctx, nginxs); err != nil {
+		if err := r.DatahubClient.Create(&nginxs); err != nil {
 			return errors.Wrap(err, "creae nginxs to Datahub failed")
 		}
 		delNginxs := r.listNginxsToDelete(ctx, alamedaScaler, nginxs)
-		if err := r.NginxRepository.DeleteNginxs(ctx, delNginxs); err != nil {
+		if err := r.DatahubClient.Delete(&delNginxs); err != nil {
 			return errors.Wrap(err, "delete nginxs failed")
 		}
 		return nil
@@ -431,8 +484,8 @@ func (r AlamedaScalerNginxReconciler) syncWithDatahub(ctx context.Context, alame
 }
 
 func (r AlamedaScalerNginxReconciler) prepareNginxs(ctx context.Context,
-	alamedaScaler autoscalingv1alpha1.AlamedaScaler) []nginxmodel.Nginx {
-	nginxs := []nginxmodel.Nginx{}
+	alamedaScaler autoscalingv1alpha1.AlamedaScaler) []entities.ApplicationNginx {
+	nginxs := []entities.ApplicationNginx{}
 	routeList := &routeapi_v1.RouteList{}
 	routePodList := &corev1.PodList{}
 	if r.HasOpenShiftAPIAppsv1 {
@@ -441,10 +494,14 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(ctx context.Context,
 			scope.Errorf("List routes for nginx application in alamedascaler (%s/%s) failed: %s",
 				alamedaScaler.GetNamespace(), alamedaScaler.GetName(), err.Error())
 		}
-		err = r.List(ctx, routePodList, &client.ListOptions{Namespace: alamedaScaler.Spec.Nginx.ExporterNamespace})
+		err = r.List(ctx, routePodList, &client.ListOptions{
+			Namespace: alamedaScaler.Spec.Nginx.ExporterNamespace,
+		})
 		if err != nil {
-			scope.Errorf("List route pods in namespace %s for nginx application in alamedascaler (%s/%s) failed: %s",
-				alamedaScaler.Spec.Nginx.ExporterNamespace, alamedaScaler.GetNamespace(), alamedaScaler.GetName(), err.Error())
+			scope.Errorf(
+				"List route pods in namespace %s for nginx application in alamedascaler (%s/%s) failed: %s",
+				alamedaScaler.Spec.Nginx.ExporterNamespace, alamedaScaler.GetNamespace(),
+				alamedaScaler.GetName(), err.Error())
 		}
 	}
 	routeName := ""
@@ -465,120 +522,119 @@ func (r AlamedaScalerNginxReconciler) prepareNginxs(ctx context.Context,
 	}
 
 	for _, deploy := range alamedaScaler.Status.Nginx.AlamedaController.Deployments {
-		nginx := nginxmodel.Nginx{
-			MinReplicas:            *alamedaScaler.Spec.Nginx.MinReplicas,
-			MaxReplicas:            *alamedaScaler.Spec.Nginx.MaxReplicas,
-			ExporterNamespace:      alamedaScaler.Spec.Nginx.ExporterNamespace,
-			ClusterName:            r.ClusterUID,
-			AlamedaScalerName:      alamedaScaler.GetName(),
-			AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
-			ExporterPods:           exporterPods,
-			Policy:                 alamedaScaler.Spec.Policy,
-			EnableExecution:        alamedaScaler.IsEnableExecution(),
-			ResourceMeta: nginx.ResourceMeta{
-				KubernetesMeta: nginx.KubernetesMeta{
-					Namespace:        deploy.Namespace,
-					Name:             deploy.Name,
-					Kind:             "Deployment",
-					SpecReplicas:     *deploy.SpecReplicas,
-					ServiceName:      alamedaScaler.Spec.Nginx.Service,
-					ServiceNamespace: alamedaScaler.GetNamespace(),
-					RouteName:        routeName,
-					RouteNamespace:   alamedaScaler.GetNamespace(),
-					ReadyReplicas:    int32(len(deploy.Pods)),
-				},
-			},
-			ReplicaMarginPercentage: *alamedaScaler.Spec.Nginx.ReplicaMarginPercentage,
+		nginx := entities.ApplicationNginx{
+			ResourceK8sMinReplicas:      *alamedaScaler.Spec.Nginx.MinReplicas,
+			ResourceK8sMaxReplicas:      *alamedaScaler.Spec.Nginx.MaxReplicas,
+			Namespace:                   alamedaScaler.Spec.Nginx.ExporterNamespace,
+			ExporterNamespace:           alamedaScaler.Spec.Nginx.ExporterNamespace,
+			ClusterName:                 r.ClusterUID,
+			AlamedaScalerName:           alamedaScaler.GetName(),
+			AlamedaScalerNamespace:      alamedaScaler.GetNamespace(),
+			ExporterPods:                exporterPods,
+			Policy:                      alamedaScaler.Spec.Policy,
+			EnableExecution:             alamedaScaler.IsEnableExecution(),
+			ResourceK8sNamespace:        deploy.Namespace,
+			ResourceK8sName:             deploy.Name,
+			ResourceK8sKind:             "Deployment",
+			ResourceK8sSpecReplicas:     *deploy.SpecReplicas,
+			ResourceK8sReplicas:         int32(len(deploy.Pods)),
+			ResourceK8sServiceNamespace: alamedaScaler.GetNamespace(),
+			ResourceK8sServiceName:      alamedaScaler.Spec.Nginx.Service,
+			ResourceK8sRouteNamespace:   alamedaScaler.GetNamespace(),
+			ResourceK8sRouteName:        routeName,
+			ReplicaMarginPercentage:     *alamedaScaler.Spec.Nginx.ReplicaMarginPercentage,
 		}
 		if alamedaScaler.Spec.Nginx.TargetResponseTime != nil {
-			nginx.TargetResponseTime = *alamedaScaler.Spec.Nginx.TargetResponseTime
+			nginx.HttpResponseTime = *alamedaScaler.Spec.Nginx.TargetResponseTime
 		}
 		nginxs = append(nginxs, nginx)
 	}
 	for _, dc := range alamedaScaler.Status.Nginx.AlamedaController.DeploymentConfigs {
-		nginx := nginxmodel.Nginx{
-			MinReplicas:            *alamedaScaler.Spec.Nginx.MinReplicas,
-			MaxReplicas:            *alamedaScaler.Spec.Nginx.MaxReplicas,
-			ExporterNamespace:      alamedaScaler.Spec.Nginx.ExporterNamespace,
-			ClusterName:            r.ClusterUID,
-			AlamedaScalerName:      alamedaScaler.GetName(),
-			AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
-			ExporterPods:           exporterPods,
-			Policy:                 alamedaScaler.Spec.Policy,
-			EnableExecution:        alamedaScaler.IsEnableExecution(),
-			ResourceMeta: nginx.ResourceMeta{
-				KubernetesMeta: nginx.KubernetesMeta{
-					Namespace:        dc.Namespace,
-					Name:             dc.Name,
-					Kind:             "DeploymentConfig",
-					ServiceName:      alamedaScaler.Spec.Nginx.Service,
-					ServiceNamespace: alamedaScaler.GetNamespace(),
-					RouteName:        routeName,
-					RouteNamespace:   alamedaScaler.GetNamespace(),
-					SpecReplicas:     *dc.SpecReplicas,
-					ReadyReplicas:    int32(len(dc.Pods)),
-				},
-			},
-			ReplicaMarginPercentage: *alamedaScaler.Spec.Nginx.ReplicaMarginPercentage,
+		nginx := entities.ApplicationNginx{
+			ResourceK8sMinReplicas:      *alamedaScaler.Spec.Nginx.MinReplicas,
+			ResourceK8sMaxReplicas:      *alamedaScaler.Spec.Nginx.MaxReplicas,
+			Namespace:                   alamedaScaler.Spec.Nginx.ExporterNamespace,
+			ExporterNamespace:           alamedaScaler.Spec.Nginx.ExporterNamespace,
+			ClusterName:                 r.ClusterUID,
+			AlamedaScalerName:           alamedaScaler.GetName(),
+			AlamedaScalerNamespace:      alamedaScaler.GetNamespace(),
+			ExporterPods:                exporterPods,
+			Policy:                      alamedaScaler.Spec.Policy,
+			EnableExecution:             alamedaScaler.IsEnableExecution(),
+			ResourceK8sNamespace:        dc.Namespace,
+			ResourceK8sName:             dc.Name,
+			ResourceK8sKind:             "DeploymentConfig",
+			ResourceK8sSpecReplicas:     *dc.SpecReplicas,
+			ResourceK8sReplicas:         int32(len(dc.Pods)),
+			ResourceK8sServiceNamespace: alamedaScaler.GetNamespace(),
+			ResourceK8sServiceName:      alamedaScaler.Spec.Nginx.Service,
+			ResourceK8sRouteNamespace:   alamedaScaler.GetNamespace(),
+			ResourceK8sRouteName:        routeName,
+			ReplicaMarginPercentage:     *alamedaScaler.Spec.Nginx.ReplicaMarginPercentage,
 		}
 		if alamedaScaler.Spec.Nginx.TargetResponseTime != nil {
-			nginx.TargetResponseTime = *alamedaScaler.Spec.Nginx.TargetResponseTime
+			nginx.HttpResponseTime = *alamedaScaler.Spec.Nginx.TargetResponseTime
 		}
 		nginxs = append(nginxs, nginx)
 	}
 	for _, sts := range alamedaScaler.Status.Nginx.AlamedaController.StatefulSets {
-		nginx := nginxmodel.Nginx{
-			MinReplicas:            *alamedaScaler.Spec.Nginx.MinReplicas,
-			MaxReplicas:            *alamedaScaler.Spec.Nginx.MaxReplicas,
-			ExporterNamespace:      alamedaScaler.Spec.Nginx.ExporterNamespace,
-			ClusterName:            r.ClusterUID,
-			AlamedaScalerName:      alamedaScaler.GetName(),
-			AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
-			ExporterPods:           exporterPods,
-			Policy:                 alamedaScaler.Spec.Policy,
-			EnableExecution:        alamedaScaler.IsEnableExecution(),
-			ResourceMeta: nginx.ResourceMeta{
-				KubernetesMeta: nginx.KubernetesMeta{
-					Namespace:        sts.Namespace,
-					Name:             sts.Name,
-					Kind:             "StatefulSet",
-					ServiceName:      alamedaScaler.Spec.Nginx.Service,
-					ServiceNamespace: alamedaScaler.GetNamespace(),
-					RouteName:        routeName,
-					RouteNamespace:   alamedaScaler.GetNamespace(),
-					SpecReplicas:     *sts.SpecReplicas,
-					ReadyReplicas:    int32(len(sts.Pods)),
-				},
-			},
-			ReplicaMarginPercentage: *alamedaScaler.Spec.Nginx.ReplicaMarginPercentage,
+		nginx := entities.ApplicationNginx{
+			ResourceK8sMinReplicas:      *alamedaScaler.Spec.Nginx.MinReplicas,
+			ResourceK8sMaxReplicas:      *alamedaScaler.Spec.Nginx.MaxReplicas,
+			Namespace:                   alamedaScaler.Spec.Nginx.ExporterNamespace,
+			ExporterNamespace:           alamedaScaler.Spec.Nginx.ExporterNamespace,
+			ClusterName:                 r.ClusterUID,
+			AlamedaScalerName:           alamedaScaler.GetName(),
+			AlamedaScalerNamespace:      alamedaScaler.GetNamespace(),
+			ExporterPods:                exporterPods,
+			Policy:                      alamedaScaler.Spec.Policy,
+			EnableExecution:             alamedaScaler.IsEnableExecution(),
+			ResourceK8sNamespace:        sts.Namespace,
+			ResourceK8sName:             sts.Name,
+			ResourceK8sKind:             "StatefulSet",
+			ResourceK8sSpecReplicas:     *sts.SpecReplicas,
+			ResourceK8sReplicas:         int32(len(sts.Pods)),
+			ResourceK8sServiceNamespace: alamedaScaler.GetNamespace(),
+			ResourceK8sServiceName:      alamedaScaler.Spec.Nginx.Service,
+			ResourceK8sRouteNamespace:   alamedaScaler.GetNamespace(),
+			ResourceK8sRouteName:        routeName,
+			ReplicaMarginPercentage:     *alamedaScaler.Spec.Nginx.ReplicaMarginPercentage,
 		}
 		if alamedaScaler.Spec.Nginx.TargetResponseTime != nil {
-			nginx.TargetResponseTime = *alamedaScaler.Spec.Nginx.TargetResponseTime
+			nginx.HttpResponseTime = *alamedaScaler.Spec.Nginx.TargetResponseTime
 		}
 		nginxs = append(nginxs, nginx)
 	}
 	return nginxs
 }
 
-func (r AlamedaScalerNginxReconciler) listNginxsToDelete(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler, createNginxs []nginxmodel.Nginx) []nginxmodel.Nginx {
-	delNginxs := []nginxmodel.Nginx{}
-	nginxs, err := r.NginxRepository.ListNginxs(ctx, nginxrepository.ListNginxsOption{
-		ClusterName:            r.ClusterUID,
-		ExporterNamespace:      alamedaScaler.Spec.Nginx.ExporterNamespace,
-		AlamedaScalerName:      alamedaScaler.GetName(),
-		AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
+func (r AlamedaScalerNginxReconciler) listNginxsToDelete(
+	ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler,
+	createNginxs []entities.ApplicationNginx) []entities.ApplicationNginx {
+	delNginxs := []entities.ApplicationNginx{}
+	nginxs := []entities.ApplicationNginx{}
+	err := r.DatahubClient.List(&nginxs, datahubpkg.Option{
+		Entity: entities.ApplicationNginx{
+			ClusterName:            r.ClusterUID,
+			Namespace:              alamedaScaler.Spec.Nginx.ExporterNamespace,
+			AlamedaScalerNamespace: alamedaScaler.GetNamespace(),
+			AlamedaScalerName:      alamedaScaler.GetName(),
+		},
+		Fields: []string{
+			"ClusterName", "Namespace", "AlamedaScalerNamespace", "AlamedaScalerName"},
 	})
 	if err != nil {
-		scope.Errorf("list nginxs to delete for alamedascaler (%s/%s) failed: %s", alamedaScaler.GetNamespace(), alamedaScaler.GetName(), err.Error())
+		scope.Errorf("list nginxs to delete for alamedascaler (%s/%s) failed: %s",
+			alamedaScaler.GetNamespace(), alamedaScaler.GetName(), err.Error())
 	}
 	for _, nginx := range nginxs {
 		toDel := true
 		for _, createNginx := range createNginxs {
 			if createNginx.ClusterName == nginx.ClusterName &&
-				createNginx.KubernetesMeta.Namespace == nginx.KubernetesMeta.Namespace &&
-				createNginx.KubernetesMeta.Name == nginx.KubernetesMeta.Name &&
-				createNginx.KubernetesMeta.Kind == nginx.KubernetesMeta.Kind &&
-				createNginx.ExporterNamespace == nginx.ExporterNamespace {
+				createNginx.ResourceK8sNamespace == nginx.ResourceK8sNamespace &&
+				createNginx.ResourceK8sName == nginx.ResourceK8sName &&
+				createNginx.ResourceK8sKind == nginx.ResourceK8sKind &&
+				createNginx.Namespace == nginx.Namespace {
 				toDel = false
 			}
 		}

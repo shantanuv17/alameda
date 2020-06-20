@@ -2,19 +2,21 @@ package nginx
 
 import (
 	"context"
+	"time"
 
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
+	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
-	"google.golang.org/grpc"
-
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
-	"github.com/containers-ai/alameda/operator/pkg/nginx"
-	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func (r NginxRepository) SyncWithDatahub(ctx context.Context, k8sClient client.Client, conn *grpc.ClientConn) error {
+func SyncWithDatahub(k8sClient client.Client, datahubClient *datahubpkg.Client) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
 	clusterUID, err := k8sutils.GetClusterUID(k8sClient)
 	if err != nil {
 		return errors.Wrap(err, "get cluster uid failed")
@@ -39,14 +41,18 @@ func (r NginxRepository) SyncWithDatahub(ctx context.Context, k8sClient client.C
 
 	wg := errgroup.Group{}
 	wg.Go(func() error {
-		nginxs, err := r.ListNginxs(ctx, ListNginxsOption{
-			ClusterName: clusterUID,
+		nginxs := []entities.ApplicationNginx{}
+		err := datahubClient.List(&nginxs, datahubpkg.Option{
+			Entity: entities.ApplicationNginx{
+				ClusterName: clusterUID,
+			},
+			Fields: []string{"ClusterName"},
 		})
 		if err != nil {
 			return errors.Wrap(err, "list nginxs from Datahub failed")
 		}
 
-		nginxsToDelete := make([]nginx.Nginx, 0)
+		nginxsToDelete := make([]entities.ApplicationNginx, 0)
 		for _, nginx := range nginxs {
 			alamedaScalerNamespace := nginx.AlamedaScalerNamespace
 			alamedaScalerName := nginx.AlamedaScalerName
@@ -65,7 +71,7 @@ func (r NginxRepository) SyncWithDatahub(ctx context.Context, k8sClient client.C
 			}
 		}
 
-		if err := r.DeleteNginxs(ctx, nginxsToDelete); err != nil {
+		if err := datahubClient.Delete(&nginxsToDelete); err != nil {
 			return errors.Wrap(err, "delete nginxs from Datahub failed")
 		}
 		return nil
