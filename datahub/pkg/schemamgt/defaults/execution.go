@@ -13,6 +13,7 @@ func SchemaExecutionClusterAutoscalerMachineset() *schemas.Schema {
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("machinegroup_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("machinegroup_namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("node_name", false, schemas.Field, common.String)
 	measurement.AddColumn("replicas_from", false, schemas.Field, common.Int32)
 	measurement.AddColumn("replicas_to", false, schemas.Field, common.Int32)

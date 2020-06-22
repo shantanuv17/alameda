@@ -18,10 +18,12 @@ package controllers
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
+	corev1 "k8s.io/api/core/v1"
 
 	mahcinev1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	k8serrors "k8s.io/apimachinery/pkg/api/errors"
@@ -43,6 +45,27 @@ func (r *MachineReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	machineIns := mahcinev1beta1.Machine{}
 	err := r.Get(context.Background(), req.NamespacedName, &machineIns)
 	if err != nil && k8serrors.IsNotFound(err) {
+		isScalingDown, scaleDownErr := r.isMachineScaleDowning(req.Name)
+		if scaleDownErr != nil {
+			scope.Errorf("check node %s is scaling down failed: %s", req.Name, scaleDownErr.Error())
+			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+		}
+		if isScalingDown {
+			isScalingDownCompleted, downCompletedErr, nodeEntity := r.isMachineScaleDownCompleted(req.Name)
+			if downCompletedErr != nil {
+				scope.Errorf("failed to check node %s is scaling down completed: %s",
+					req.Name, scaleDownErr.Error())
+				return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+			}
+			if !isScalingDownCompleted {
+				if execErr := r.sendExecutionTime(
+					nodeEntity.MachinesetNamespace, nodeEntity.MachinesetName, req.Name, false); execErr != nil {
+					scope.Errorf("add execution (scale down) failed for machine (%s/%s): %s",
+						req.Namespace, req.Name, execErr.Error())
+					return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+				}
+			}
+		}
 		// not ready node removed does not trigger node reconcile function
 		// delete node here to remove not ready node record
 		delErr := r.DatahubClient.DeleteByOpts(
@@ -68,11 +91,35 @@ func (r *MachineReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 		scope.Infof("machine (%s/%s) is not created by machineset", req.Namespace, req.Name)
 		return ctrl.Result{}, nil
 	}
-	if r.isMachineScaleUping(req.Name) {
-		if updateErr := r.updateScaleUpExecutionNodeName(
-			req.Namespace, machineSetName, req.Name); updateErr != nil {
-			scope.Errorf("update execution failed for machine (%s/%s): %s",
-				req.Namespace, req.Name, updateErr.Error())
+	machinesetEntities := []entities.ResourceClusterAutoscalerMachineset{}
+	if err := r.DatahubClient.List(&machinesetEntities, datahubpkg.Option{
+		Entity: entities.ResourceClusterAutoscalerMachineset{
+			ClusterName: r.ClusterUID,
+			Namespace:   req.Namespace,
+			Name:        machineSetName,
+		},
+		Fields: []string{"ClusterName", "ClusterName", "Name"},
+	}); err != nil {
+		scope.Errorf("get machineset (%s/%s) failed", req.Namespace, machineSetName)
+		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+	}
+	if len(machinesetEntities) == 0 {
+		scope.Infof("machine (%s/%s) is not watched by scaler", req.Namespace, req.Name)
+		return ctrl.Result{}, nil
+	}
+
+	hasScaleUpExecution, hasScaleUpErr := r.hasScaleUpExecution(req.Name)
+	if hasScaleUpErr != nil {
+		scope.Errorf("scale up execution check for node %s failed: %s",
+			req.Name, hasScaleUpErr.Error())
+		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+	}
+	isScalingUp := r.isMachineScaleUping(req.Name)
+	if isScalingUp && !hasScaleUpExecution {
+		if execErr := r.sendExecutionTime(
+			req.Namespace, machineSetName, req.Name, isScalingUp); execErr != nil {
+			scope.Errorf("add execution (scale up) failed for machine (%s/%s): %s",
+				req.Namespace, req.Name, execErr.Error())
 			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 		}
 	}
@@ -86,38 +133,6 @@ func (r *MachineReconciler) SetupWithManager(mgr ctrl.Manager) error {
 		Complete(r)
 }
 
-func (r *MachineReconciler) updateScaleUpExecutionNodeName(
-	msNS, msName, machineName string) error {
-	msExecution := []entities.ExecutionClusterAutoscalerMachineset{}
-
-	err := r.DatahubClient.ListTS(&msExecution, &datahubpkg.TimeRange{
-		Order: datahubpkg.Desc,
-		Limit: 1,
-	}, nil, nil, datahubpkg.Option{
-		Entity: entities.ExecutionClusterAutoscalerMachineset{
-			ClusterName: r.ClusterUID,
-			Namespace:   msNS,
-			Name:        msName,
-			NodeName:    "",
-		},
-		Fields: []string{"ClusterName", "Namespace", "Name", "NodeName"},
-	})
-	if err != nil {
-		return err
-	}
-
-	if len(msExecution) == 1 && msExecution[0].ReplicasFrom < msExecution[0].ReplicasTo {
-		msExecution[0].NodeName = machineName
-		if err := r.DatahubClient.Create(&msExecution); err != nil {
-			return err
-		} else {
-			scope.Infof("update node name %s to machineset (%s/%s) execution (time: %d) successfully",
-				machineName, msNS, msName, msExecution[0].Time.Unix())
-		}
-	}
-	return nil
-}
-
 func (r *MachineReconciler) getMachineSetName(machine *mahcinev1beta1.Machine) string {
 	for idx := range machine.OwnerReferences {
 		if machine.OwnerReferences[idx].Kind == "MachineSet" {
@@ -127,18 +142,143 @@ func (r *MachineReconciler) getMachineSetName(machine *mahcinev1beta1.Machine) s
 	return ""
 }
 
-// machine is created by machineset
-func (r *MachineReconciler) isMachineScaleUping(machineName string) bool {
-	nodes := []entities.ResourceClusterStatusNode{}
-	err := r.DatahubClient.List(&nodes, datahubpkg.Option{
+func (r *MachineReconciler) isMachineScaleDowning(
+	delMachineName string) (bool, error) {
+	nodeIns := corev1.Node{}
+	err := r.Get(context.Background(), client.ObjectKey{
+		Name: delMachineName,
+	}, &nodeIns)
+	if err != nil && k8serrors.IsNotFound(err) {
+		return false, nil
+	} else if err != nil {
+		scope.Errorf("cannot check is node %s scaling down: %s",
+			delMachineName, err.Error())
+		return false, err
+	}
+	return true, nil
+}
+
+func (r *MachineReconciler) isMachineScaleDownCompleted(
+	delMachineName string) (bool, error, *entities.ResourceClusterStatusNode) {
+	nodeEntities := []entities.ResourceClusterStatusNode{}
+	err := r.DatahubClient.List(&nodeEntities, datahubpkg.Option{
 		Entity: entities.ResourceClusterStatusNode{
 			ClusterName: r.ClusterUID,
-			Name:        machineName,
+			Name:        delMachineName,
 		},
 		Fields: []string{"ClusterName", "Name"},
 	})
-	if err == nil && len(nodes) == 0 {
-		return true
+	if err != nil {
+		return false, err, nil
+	}
+	if len(nodeEntities) > 0 {
+		return false, nil, &nodeEntities[0]
+	}
+	return true, nil, nil
+}
+
+// machine is created by machineset
+func (r *MachineReconciler) isMachineScaleUping(machineName string) bool {
+
+	nodeIns := corev1.Node{}
+	err := r.Get(context.Background(), client.ObjectKey{
+		Name: machineName,
+	}, &nodeIns)
+	if err != nil && k8serrors.IsNotFound(err) {
+		executionEntity := []entities.ExecutionClusterAutoscalerMachineset{}
+		err := r.DatahubClient.List(&executionEntity, datahubpkg.Option{
+			Entity: entities.ExecutionClusterAutoscalerMachineset{
+				ClusterName: r.ClusterUID,
+				NodeName:    machineName,
+			},
+			Fields: []string{"ClusterName", "NodeName"},
+		})
+		if err != nil {
+			scope.Errorf("cannot check is node %s scaling up: %s", machineName, err.Error())
+			return false
+		}
+		if err == nil && len(executionEntity) == 0 {
+			return true
+		}
+	} else if err != nil {
+		scope.Errorf("cannot check is node %s scaling up: %s", machineName, err.Error())
+		return false
 	}
 	return false
+}
+
+func (r *MachineReconciler) sendExecutionTime(
+	machinesetNamespace, machinesetName, machineName string, isScalingUp bool) error {
+	machineSetIns := mahcinev1beta1.MachineSet{}
+	err := r.Get(context.Background(), client.ObjectKey{
+		Namespace: machinesetNamespace,
+		Name:      machinesetName,
+	}, &machineSetIns)
+	if err != nil {
+		return err
+	}
+
+	machineSetEntities := []entities.ResourceClusterAutoscalerMachineset{}
+	err = r.DatahubClient.List(&machineSetEntities, datahubpkg.Option{
+		Entity: entities.ResourceClusterAutoscalerMachineset{
+			ClusterName: r.ClusterUID,
+			Namespace:   machinesetNamespace,
+			Name:        machinesetName,
+		},
+		Fields: []string{"ClusterName", "Namespace", "Name"},
+	})
+	if err != nil {
+		return err
+	}
+
+	if len(machineSetEntities) == 0 {
+		return fmt.Errorf("machineset (%s/%s) not found in datahub",
+			machinesetNamespace, machinesetName)
+	}
+	machineSetEntity := machineSetEntities[0]
+	replicasTo := *machineSetIns.Spec.Replicas
+	replicasFrom := replicasTo - 1
+	if !isScalingUp {
+		replicasFrom = replicasTo + 1
+	}
+	now := time.Now()
+	entities := []entities.ExecutionClusterAutoscalerMachineset{
+		{
+			Time:                  &now,
+			ClusterName:           r.ClusterUID,
+			Namespace:             machinesetNamespace,
+			Name:                  machinesetName,
+			MachinegroupName:      machineSetEntity.MachinegroupName,
+			MachinegroupNamespace: machineSetEntity.MachinegroupNamespace,
+			ReplicasFrom:          replicasFrom,
+			ReplicasTo:            replicasTo,
+			NodeName:              machineName,
+		},
+	}
+
+	return r.DatahubClient.Create(&entities)
+}
+
+func (r *MachineReconciler) hasScaleUpExecution(machineName string) (bool, error) {
+	msExecution := []entities.ExecutionClusterAutoscalerMachineset{}
+	err := r.DatahubClient.ListTS(&msExecution, &datahubpkg.TimeRange{
+		Order: datahubpkg.Desc,
+	}, nil, nil, datahubpkg.Option{
+		Entity: entities.ExecutionClusterAutoscalerMachineset{
+			ClusterName: r.ClusterUID,
+			NodeName:    machineName,
+		},
+		Fields: []string{"ClusterName", "NodeName"},
+	})
+	if err != nil {
+		scope.Errorf("Get executions of for node %s from Datahub failed: %s",
+			machineName, err.Error())
+		return false, err
+	}
+	for idx := range msExecution {
+		if msExecution[idx].ReplicasFrom < msExecution[idx].ReplicasTo {
+			return true, nil
+		}
+	}
+	return false, nil
 }

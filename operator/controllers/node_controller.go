@@ -86,8 +86,9 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 				ClusterName: r.ClusterUID,
 				Namespace:   datahubNode.MachinesetNamespace,
 				Name:        datahubNode.MachinesetName,
+				NodeName:    request.Name,
 			},
-			Fields: []string{"ClusterName", "Namespace", "Name"},
+			Fields: []string{"ClusterName", "Namespace", "Name", "NodeName"},
 		})
 		if err != nil {
 			scope.Errorf("Get last execution of machineset %s/%s for node %s from Datahub failed: %s",
@@ -100,7 +101,7 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 	nodes[0] = instance
 
 	if nodeIsDeleted {
-		if len(msExecution) == 1 && msExecution[0].NodeName == "" &&
+		if len(msExecution) == 1 &&
 			msExecution[0].ReplicasFrom > msExecution[0].ReplicasTo {
 			msExecution[0].DeltaDownTime = time.Now().Unix() - msExecution[0].Time.Unix()
 			msExecution[0].NodeName = datahubNode.Name
@@ -126,7 +127,7 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 			scope.Errorf("Create node to Datahub failed failed: %s", err.Error())
 			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
 		}
-		if len(msExecution) == 1 && msExecution[0].NodeName == request.Name &&
+		if len(msExecution) == 1 &&
 			msExecution[0].ReplicasFrom < msExecution[0].ReplicasTo {
 			if err = r.updateExecutionDeltaUpTime(msExecution[0], datahubNode); err != nil {
 				scope.Errorf("Update delta up time for node %s failed failed: %s",
