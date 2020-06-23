@@ -78,7 +78,6 @@ func (p *Application) BuildEntity() *clusterstatus.ApplicationEntity {
 	entity := clusterstatus.ApplicationEntity{}
 
 	entity.Time = influxdb.ZeroTime
-	entity.Value = ""
 
 	if p.ObjectMeta != nil {
 		entity.Name = p.ObjectMeta.Name

@@ -1,7 +1,7 @@
 package common
 
 import (
-	FormatConvert "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
+	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/enumconv"
 	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
 	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/golang/protobuf/ptypes"
@@ -56,7 +56,7 @@ func (d QueryConditionExtend) QueryCondition() DBCommon.QueryCondition {
 	queryTimestampOrder = int(d.Condition.GetOrder())
 	queryLimit = int(d.Condition.GetLimit())
 
-	if aggFunc, exist := FormatConvert.AggregateFunctionNameMap[ApiCommon.TimeRange_AggregateFunction(d.Condition.TimeRange.AggregateFunction)]; exist {
+	if aggFunc, exist := enumconv.AggregateFunctionNameMap[ApiCommon.TimeRange_AggregateFunction(d.Condition.TimeRange.AggregateFunction)]; exist {
 		aggregateFunc = aggFunc
 	}
 

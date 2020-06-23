@@ -63,3 +63,9 @@ var TypeToDatahubMetricType map[string]ApiCommon.MetricType = map[string]ApiComm
 	TypeGpuTemperatureCelsiusLowerBound:   ApiCommon.MetricType_TEMPERATURE_CELSIUS,
 	TypeGpuTemperatureCelsiusUpperBound:   ApiCommon.MetricType_TEMPERATURE_CELSIUS,
 }
+
+var MetricKindNameMap = map[ApiCommon.ResourceBoundary]MetricKind{
+	ApiCommon.ResourceBoundary_RESOURCE_RAW:         MetricKindRaw,
+	ApiCommon.ResourceBoundary_RESOURCE_UPPER_BOUND: MetricKindUpperBound,
+	ApiCommon.ResourceBoundary_RESOURCE_LOWER_BOUND: MetricKindLowerBound,
+}

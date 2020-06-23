@@ -3,6 +3,7 @@ package influxdb
 import (
 	"fmt"
 	"github.com/containers-ai/alameda/internal/pkg/database/common"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -84,8 +85,8 @@ func (p *InfluxQuery) AppendConditionDirectly(condition string) {
 
 func (p *InfluxQuery) BuildQueryCmd() string {
 	// SELECT_clause [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT_clause OFFSET <N> [SLIMIT_clause]
-	cmd := fmt.Sprintf("SELECT %s FROM \"%s\" %s %s %s %s",
-		p.selects(), p.Measurement, p.whereClause(),
+	cmd := fmt.Sprintf("SELECT %s %s FROM \"%s\" %s %s %s %s",
+		p.selectClause(), p.intoClause(), p.Measurement, p.whereClause(),
 		p.groupClause(), p.orderClause(), p.limitClause())
 	return cmd
 }
@@ -95,25 +96,35 @@ func (p *InfluxQuery) BuildDropCmd() string {
 	return cmd
 }
 
-func (p *InfluxQuery) selects() string {
-	selects := make([]string, 0)
-	if p.QueryCondition.Selects == nil {
-		selects = append(selects, "*")
-	} else {
-		for _, s := range p.QueryCondition.Selects {
-			if s == "*" {
-				selects = append(selects, "*")
-			} else {
-				selects = append(selects, fmt.Sprintf(`"%s"`, s))
-			}
+func (p *InfluxQuery) selectClause() string {
+	if p.QueryCondition.AggregateOverTimeFunction != common.None {
+		return p.aggregate()
+	}
+	if p.QueryCondition.Function != nil {
+		return p.function()
+	}
+	return strings.Join(p.selects(), ",")
+}
+
+func (p *InfluxQuery) intoClause() string {
+	if p.QueryCondition.Into != nil {
+		into := make([]string, 0)
+		if p.QueryCondition.Into.Database != "" {
+			into = append(into, fmt.Sprintf(`"%s"`, p.QueryCondition.Into.Database))
 		}
+		if p.QueryCondition.Into.IsDefaultRetentionPolicy {
+			into = append(into, "")
+		} else if p.QueryCondition.Into.RetentionPolicy != "" {
+			into = append(into, fmt.Sprintf(`"%s"`, p.QueryCondition.Into.RetentionPolicy))
+		}
+		if p.QueryCondition.Into.IsAllMeasurements {
+			into = append(into, ":MEASUREMENT")
+		} else if p.QueryCondition.Into.Measurement != "" {
+			into = append(into, fmt.Sprintf(`"%s"`, p.QueryCondition.Into.Measurement))
+		}
+		return fmt.Sprintf("INTO %s", strings.Join(into, "."))
 	}
-	aggregateFunc := p.QueryCondition.AggregateOverTimeFunction
-	if aggregateFunc != common.None {
-		aggregateName := AggregateFuncMap[aggregateFunc]
-		return fmt.Sprintf("%s(%s) as %s", aggregateName, strings.Join(selects, ","), selects[0])
-	}
-	return strings.Join(selects, ",")
+	return ""
 }
 
 func (p *InfluxQuery) whereClause() string {
@@ -168,11 +179,81 @@ func (p *InfluxQuery) limitClause() string {
 	return ""
 }
 
+func (p *InfluxQuery) selects() []string {
+	selects := make([]string, 0)
+	for _, s := range p.QueryCondition.Selects {
+		if s == "*" {
+			selects = append(selects, "*")
+		} else {
+			selects = append(selects, fmt.Sprintf(`"%s"`, s))
+		}
+	}
+	if len(selects) == 0 {
+		selects = append(selects, "*")
+	}
+	return selects
+}
+
+func (p *InfluxQuery) function() string {
+	/* Format: LAST(<field_key>)[,<tag_key(s)>|<field_keys(s)>] [INTO_clause]
+	   Example: LAST(*)
+	            LAST(/level/)
+	            LAST("level description")
+	            LAST("level description"),"location","water_level"
+	*/
+
+	functionStr := ""
+
+	selects := p.selects()
+	tags := make([]string, 0)
+	fields := make([]string, 0)
+
+	if p.QueryCondition.Function.Number != 0 {
+		selects = append(selects, strconv.FormatInt(p.QueryCondition.Function.Number, 10))
+	}
+
+	if p.QueryCondition.Function.Unit != "" {
+		selects = append(selects, p.QueryCondition.Function.Unit)
+	}
+
+	for _, t := range p.QueryCondition.Function.Tags {
+		tags = append(tags, fmt.Sprintf(`"%s"`, t))
+	}
+
+	for _, f := range p.QueryCondition.Function.Fields {
+		fields = append(fields, fmt.Sprintf(`"%s"`, f))
+	}
+
+	// Generate function clause
+	functionStr = fmt.Sprintf("%s(%s)", FunctionNameMap[p.QueryCondition.Function.Type], strings.Join(selects, ","))
+	if len(tags) > 0 {
+		functionStr += fmt.Sprintf(",%s", strings.Join(tags, ","))
+	}
+	if len(fields) > 0 {
+		functionStr += fmt.Sprintf(",%s", strings.Join(fields, ","))
+	}
+	if p.QueryCondition.Function.Target != "" {
+		functionStr += fmt.Sprintf(" as %s", p.QueryCondition.Function.Target)
+	}
+
+	return functionStr
+}
+
+func (p *InfluxQuery) aggregate() string {
+	selects := p.selects()
+	if selects[0] == "*" {
+		return fmt.Sprintf("%s(%s)", AggregateFuncMap[p.QueryCondition.AggregateOverTimeFunction], selects[0])
+	}
+	return fmt.Sprintf("%s(%s) as %s", AggregateFuncMap[p.QueryCondition.AggregateOverTimeFunction], strings.Join(selects, ","), selects[0])
+}
+
 func (p *InfluxQuery) where(conditions []*common.Condition) string {
 	where := make([]string, 0)
 	for index := 0; index < len(conditions); index++ {
 		condition := p.condition(conditions[index].Keys, conditions[index].Operators, conditions[index].Values, conditions[index].Types)
-		where = append(where, condition)
+		if condition != "" {
+			where = append(where, condition)
+		}
 	}
 	if len(where) != 0 {
 		return fmt.Sprintf("(%s)", strings.Join(where, " OR "))

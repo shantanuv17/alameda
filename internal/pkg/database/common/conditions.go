@@ -7,6 +7,24 @@ import (
 	"time"
 )
 
+type Function struct {
+    Type              FunctionType
+    Fields            []string
+    Tags              []string
+    Target            string
+    RegularExpression string
+    Unit              string
+    Number            int64
+}
+
+type Into struct {
+	Database                 string
+	RetentionPolicy          string
+	Measurement              string
+	IsDefaultRetentionPolicy bool
+	IsAllMeasurements        bool
+}
+
 type Condition struct {
 	Keys      []string
 	Values    []string
@@ -20,6 +38,8 @@ type QueryCondition struct {
 	EndTime                   *time.Time
 	Timeout                   *time.Time
 	StepTime                  *time.Duration
+	Function                  *Function
+	Into                      *Into
 	TimestampOrder            Order
 	WhereClause               string
 	WhereCondition            []*Condition

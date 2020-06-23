@@ -88,7 +88,56 @@ func SchemaPredictionKafkaCG() *schemas.Schema {
 	return schema
 }
 
-func SchemaPredictionResourceApplication() *schemas.Schema {
+func SchemaPredictionNginx() *schemas.Schema {
+	// Nginx
+	schema := schemas.NewSchema(schemas.Prediction, "nginx", "nginx")
+
+	// Raw response total
+	rawTotal := schemas.NewMeasurement("nginx_http_response_total", schemas.Number, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
+	rawTotal.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	rawTotal.AddColumn("resource_k8s_service_name", true, schemas.Tag, common.String)
+	rawTotal.AddColumn("resource_k8s_service_namespace", true, schemas.Tag, common.String)
+	rawTotal.AddColumn("resource_k8s_name", true, schemas.Tag, common.String)
+	rawTotal.AddColumn("resource_k8s_namespace", true, schemas.Tag, common.String)
+	rawTotal.AddColumn("resource_k8s_kind", true, schemas.Tag, common.String)
+	rawTotal.AddColumn("granularity", true, schemas.Tag, common.String)
+	rawTotal.AddColumn("model_id", true, schemas.Field, common.String)
+	rawTotal.AddColumn("prediction_id", true, schemas.Field, common.String)
+	rawTotal.AddColumn("value", true, schemas.Field, common.Float64)
+	schema.Measurements = append(schema.Measurements, rawTotal)
+
+	// Upper bound response total
+	upperTotal := schemas.NewMeasurement("nginx_http_response_total_upper_bound", schemas.Number, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
+	upperTotal.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	upperTotal.AddColumn("resource_k8s_service_name", true, schemas.Tag, common.String)
+	upperTotal.AddColumn("resource_k8s_service_namespace", true, schemas.Tag, common.String)
+	upperTotal.AddColumn("resource_k8s_name", true, schemas.Tag, common.String)
+	upperTotal.AddColumn("resource_k8s_namespace", true, schemas.Tag, common.String)
+	upperTotal.AddColumn("resource_k8s_kind", true, schemas.Tag, common.String)
+	upperTotal.AddColumn("granularity", true, schemas.Tag, common.String)
+	upperTotal.AddColumn("model_id", true, schemas.Field, common.String)
+	upperTotal.AddColumn("prediction_id", true, schemas.Field, common.String)
+	upperTotal.AddColumn("value", true, schemas.Field, common.Float64)
+	schema.Measurements = append(schema.Measurements, upperTotal)
+
+	// Lower bound response total
+	lowerTotal := schemas.NewMeasurement("nginx_http_response_total_lower_bound", schemas.Number, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
+	lowerTotal.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	lowerTotal.AddColumn("resource_k8s_service_name", true, schemas.Tag, common.String)
+	lowerTotal.AddColumn("resource_k8s_service_namespace", true, schemas.Tag, common.String)
+	lowerTotal.AddColumn("resource_k8s_name", true, schemas.Tag, common.String)
+	lowerTotal.AddColumn("resource_k8s_namespace", true, schemas.Tag, common.String)
+	lowerTotal.AddColumn("resource_k8s_kind", true, schemas.Tag, common.String)
+	lowerTotal.AddColumn("granularity", true, schemas.Tag, common.String)
+	lowerTotal.AddColumn("model_id", true, schemas.Field, common.String)
+	lowerTotal.AddColumn("prediction_id", true, schemas.Field, common.String)
+	lowerTotal.AddColumn("value", true, schemas.Field, common.Float64)
+	schema.Measurements = append(schema.Measurements, lowerTotal)
+
+	return schema
+}
+
+func SchemaPredictionClusterStatusApplication() *schemas.Schema {
 	// cluster-status application
 	schema := schemas.NewSchema(schemas.Prediction, "cluster_status", "application")
 
@@ -97,8 +146,8 @@ func SchemaPredictionResourceApplication() *schemas.Schema {
 	rawCpu.AddColumn("name", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	rawCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	rawCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	rawCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	rawCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	rawCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("model_id", true, schemas.Field, common.String)
 	rawCpu.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -110,8 +159,8 @@ func SchemaPredictionResourceApplication() *schemas.Schema {
 	rawMem.AddColumn("name", true, schemas.Tag, common.String)
 	rawMem.AddColumn("namespace", true, schemas.Tag, common.String)
 	rawMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	rawMem.AddColumn("metric", true, schemas.Tag, common.String)
-	rawMem.AddColumn("kind", true, schemas.Tag, common.String)
+	rawMem.AddColumn("metric", false, schemas.Tag, common.String)
+	rawMem.AddColumn("kind", false, schemas.Tag, common.String)
 	rawMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	rawMem.AddColumn("model_id", true, schemas.Field, common.String)
 	rawMem.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -123,8 +172,8 @@ func SchemaPredictionResourceApplication() *schemas.Schema {
 	upperCpu.AddColumn("name", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	upperCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	upperCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	upperCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	upperCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	upperCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("model_id", true, schemas.Field, common.String)
 	upperCpu.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -136,8 +185,8 @@ func SchemaPredictionResourceApplication() *schemas.Schema {
 	upperMem.AddColumn("name", true, schemas.Tag, common.String)
 	upperMem.AddColumn("namespace", true, schemas.Tag, common.String)
 	upperMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	upperMem.AddColumn("metric", true, schemas.Tag, common.String)
-	upperMem.AddColumn("kind", true, schemas.Tag, common.String)
+	upperMem.AddColumn("metric", false, schemas.Tag, common.String)
+	upperMem.AddColumn("kind", false, schemas.Tag, common.String)
 	upperMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	upperMem.AddColumn("model_id", true, schemas.Field, common.String)
 	upperMem.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -149,8 +198,8 @@ func SchemaPredictionResourceApplication() *schemas.Schema {
 	lowerCpu.AddColumn("name", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	lowerCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	lowerCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	lowerCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	lowerCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	lowerCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("model_id", true, schemas.Field, common.String)
 	lowerCpu.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -162,8 +211,8 @@ func SchemaPredictionResourceApplication() *schemas.Schema {
 	lowerMem.AddColumn("name", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("namespace", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	lowerMem.AddColumn("metric", true, schemas.Tag, common.String)
-	lowerMem.AddColumn("kind", true, schemas.Tag, common.String)
+	lowerMem.AddColumn("metric", false, schemas.Tag, common.String)
+	lowerMem.AddColumn("kind", false, schemas.Tag, common.String)
 	lowerMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("model_id", true, schemas.Field, common.String)
 	lowerMem.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -173,15 +222,15 @@ func SchemaPredictionResourceApplication() *schemas.Schema {
 	return schema
 }
 
-func SchemaPredictionResourceCluster() *schemas.Schema {
+func SchemaPredictionClusterStatusCluster() *schemas.Schema {
 	// cluster-status cluster
 	schema := schemas.NewSchema(schemas.Prediction, "cluster_status", "cluster")
 
 	// Raw CPU
 	rawCpu := schemas.NewMeasurement("cluster", schemas.CPUUsageSecondsPercentage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
 	rawCpu.AddColumn("name", true, schemas.Tag, common.String)
-	rawCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	rawCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	rawCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	rawCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	rawCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("model_id", true, schemas.Field, common.String)
 	rawCpu.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -191,8 +240,8 @@ func SchemaPredictionResourceCluster() *schemas.Schema {
 	// Raw memory
 	rawMem := schemas.NewMeasurement("cluster", schemas.MemoryUsageBytes, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
 	rawMem.AddColumn("name", true, schemas.Tag, common.String)
-	rawMem.AddColumn("metric", true, schemas.Tag, common.String)
-	rawMem.AddColumn("kind", true, schemas.Tag, common.String)
+	rawMem.AddColumn("metric", false, schemas.Tag, common.String)
+	rawMem.AddColumn("kind", false, schemas.Tag, common.String)
 	rawMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	rawMem.AddColumn("model_id", true, schemas.Field, common.String)
 	rawMem.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -202,8 +251,8 @@ func SchemaPredictionResourceCluster() *schemas.Schema {
 	// Upper bound CPU
 	upperCpu := schemas.NewMeasurement("cluster", schemas.CPUUsageSecondsPercentage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
 	upperCpu.AddColumn("name", true, schemas.Tag, common.String)
-	upperCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	upperCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	upperCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	upperCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	upperCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("model_id", true, schemas.Field, common.String)
 	upperCpu.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -213,8 +262,8 @@ func SchemaPredictionResourceCluster() *schemas.Schema {
 	// Upper bound memory
 	upperMem := schemas.NewMeasurement("cluster", schemas.MemoryUsageBytes, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
 	upperMem.AddColumn("name", true, schemas.Tag, common.String)
-	upperMem.AddColumn("metric", true, schemas.Tag, common.String)
-	upperMem.AddColumn("kind", true, schemas.Tag, common.String)
+	upperMem.AddColumn("metric", false, schemas.Tag, common.String)
+	upperMem.AddColumn("kind", false, schemas.Tag, common.String)
 	upperMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	upperMem.AddColumn("model_id", true, schemas.Field, common.String)
 	upperMem.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -224,8 +273,8 @@ func SchemaPredictionResourceCluster() *schemas.Schema {
 	// Lower bound CPU
 	lowerCpu := schemas.NewMeasurement("cluster", schemas.CPUUsageSecondsPercentage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
 	lowerCpu.AddColumn("name", true, schemas.Tag, common.String)
-	lowerCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	lowerCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	lowerCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	lowerCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	lowerCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("model_id", true, schemas.Field, common.String)
 	lowerCpu.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -235,8 +284,8 @@ func SchemaPredictionResourceCluster() *schemas.Schema {
 	// Lower bound memory
 	lowerMem := schemas.NewMeasurement("cluster", schemas.MemoryUsageBytes, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
 	lowerMem.AddColumn("name", true, schemas.Tag, common.String)
-	lowerMem.AddColumn("metric", true, schemas.Tag, common.String)
-	lowerMem.AddColumn("kind", true, schemas.Tag, common.String)
+	lowerMem.AddColumn("metric", false, schemas.Tag, common.String)
+	lowerMem.AddColumn("kind", false, schemas.Tag, common.String)
 	lowerMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("model_id", true, schemas.Field, common.String)
 	lowerMem.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -246,7 +295,7 @@ func SchemaPredictionResourceCluster() *schemas.Schema {
 	return schema
 }
 
-func SchemaPredictionResourceContainer() *schemas.Schema {
+func SchemaPredictionClusterStatusContainer() *schemas.Schema {
 	// cluster-status container
 	schema := schemas.NewSchema(schemas.Prediction, "cluster_status", "container")
 
@@ -257,8 +306,8 @@ func SchemaPredictionResourceContainer() *schemas.Schema {
 	rawCpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("node_name", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	rawCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	rawCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	rawCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	rawCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	rawCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("model_id", true, schemas.Field, common.String)
 	rawCpu.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -272,8 +321,8 @@ func SchemaPredictionResourceContainer() *schemas.Schema {
 	rawMem.AddColumn("namespace", true, schemas.Tag, common.String)
 	rawMem.AddColumn("node_name", true, schemas.Tag, common.String)
 	rawMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	rawMem.AddColumn("metric", true, schemas.Tag, common.String)
-	rawMem.AddColumn("kind", true, schemas.Tag, common.String)
+	rawMem.AddColumn("metric", false, schemas.Tag, common.String)
+	rawMem.AddColumn("kind", false, schemas.Tag, common.String)
 	rawMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	rawMem.AddColumn("model_id", true, schemas.Field, common.String)
 	rawMem.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -287,8 +336,8 @@ func SchemaPredictionResourceContainer() *schemas.Schema {
 	upperCpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("node_name", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	upperCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	upperCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	upperCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	upperCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	upperCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("model_id", true, schemas.Field, common.String)
 	upperCpu.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -302,8 +351,8 @@ func SchemaPredictionResourceContainer() *schemas.Schema {
 	upperMem.AddColumn("namespace", true, schemas.Tag, common.String)
 	upperMem.AddColumn("node_name", true, schemas.Tag, common.String)
 	upperMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	upperMem.AddColumn("metric", true, schemas.Tag, common.String)
-	upperMem.AddColumn("kind", true, schemas.Tag, common.String)
+	upperMem.AddColumn("metric", false, schemas.Tag, common.String)
+	upperMem.AddColumn("kind", false, schemas.Tag, common.String)
 	upperMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	upperMem.AddColumn("model_id", true, schemas.Field, common.String)
 	upperMem.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -317,8 +366,8 @@ func SchemaPredictionResourceContainer() *schemas.Schema {
 	lowerCpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("node_name", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	lowerCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	lowerCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	lowerCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	lowerCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	lowerCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("model_id", true, schemas.Field, common.String)
 	lowerCpu.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -332,8 +381,8 @@ func SchemaPredictionResourceContainer() *schemas.Schema {
 	lowerMem.AddColumn("namespace", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("node_name", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	lowerMem.AddColumn("metric", true, schemas.Tag, common.String)
-	lowerMem.AddColumn("kind", true, schemas.Tag, common.String)
+	lowerMem.AddColumn("metric", false, schemas.Tag, common.String)
+	lowerMem.AddColumn("kind", false, schemas.Tag, common.String)
 	lowerMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("model_id", true, schemas.Field, common.String)
 	lowerMem.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -343,7 +392,7 @@ func SchemaPredictionResourceContainer() *schemas.Schema {
 	return schema
 }
 
-func SchemaPredictionResourceController() *schemas.Schema {
+func SchemaPredictionClusterStatusController() *schemas.Schema {
 	// cluster-status controller
 	schema := schemas.NewSchema(schemas.Prediction, "cluster_status", "controller")
 
@@ -352,8 +401,8 @@ func SchemaPredictionResourceController() *schemas.Schema {
 	rawCpu.AddColumn("name", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	rawCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	rawCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	rawCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	rawCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	rawCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("controller_kind", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("model_id", true, schemas.Field, common.String)
@@ -366,8 +415,8 @@ func SchemaPredictionResourceController() *schemas.Schema {
 	rawMem.AddColumn("name", true, schemas.Tag, common.String)
 	rawMem.AddColumn("namespace", true, schemas.Tag, common.String)
 	rawMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	rawMem.AddColumn("metric", true, schemas.Tag, common.String)
-	rawMem.AddColumn("kind", true, schemas.Tag, common.String)
+	rawMem.AddColumn("metric", false, schemas.Tag, common.String)
+	rawMem.AddColumn("kind", false, schemas.Tag, common.String)
 	rawMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	rawMem.AddColumn("controller_kind", true, schemas.Tag, common.String)
 	rawMem.AddColumn("model_id", true, schemas.Field, common.String)
@@ -380,8 +429,8 @@ func SchemaPredictionResourceController() *schemas.Schema {
 	upperCpu.AddColumn("name", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	upperCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	upperCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	upperCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	upperCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	upperCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("controller_kind", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("model_id", true, schemas.Field, common.String)
@@ -394,8 +443,8 @@ func SchemaPredictionResourceController() *schemas.Schema {
 	upperMem.AddColumn("name", true, schemas.Tag, common.String)
 	upperMem.AddColumn("namespace", true, schemas.Tag, common.String)
 	upperMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	upperMem.AddColumn("metric", true, schemas.Tag, common.String)
-	upperMem.AddColumn("kind", true, schemas.Tag, common.String)
+	upperMem.AddColumn("metric", false, schemas.Tag, common.String)
+	upperMem.AddColumn("kind", false, schemas.Tag, common.String)
 	upperMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	upperMem.AddColumn("controller_kind", true, schemas.Tag, common.String)
 	upperMem.AddColumn("model_id", true, schemas.Field, common.String)
@@ -408,8 +457,8 @@ func SchemaPredictionResourceController() *schemas.Schema {
 	lowerCpu.AddColumn("name", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	lowerCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	lowerCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	lowerCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	lowerCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	lowerCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("controller_kind", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("model_id", true, schemas.Field, common.String)
@@ -422,8 +471,8 @@ func SchemaPredictionResourceController() *schemas.Schema {
 	lowerMem.AddColumn("name", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("namespace", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	lowerMem.AddColumn("metric", true, schemas.Tag, common.String)
-	lowerMem.AddColumn("kind", true, schemas.Tag, common.String)
+	lowerMem.AddColumn("metric", false, schemas.Tag, common.String)
+	lowerMem.AddColumn("kind", false, schemas.Tag, common.String)
 	lowerMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("controller_kind", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("model_id", true, schemas.Field, common.String)
@@ -434,7 +483,7 @@ func SchemaPredictionResourceController() *schemas.Schema {
 	return schema
 }
 
-func SchemaPredictionResourceNamespace() *schemas.Schema {
+func SchemaPredictionClusterStatusNamespace() *schemas.Schema {
 	// cluster-status namespace
 	schema := schemas.NewSchema(schemas.Prediction, "cluster_status", "namespace")
 
@@ -442,8 +491,8 @@ func SchemaPredictionResourceNamespace() *schemas.Schema {
 	rawCpu := schemas.NewMeasurement("namespace", schemas.CPUUsageSecondsPercentage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
 	rawCpu.AddColumn("name", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	rawCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	rawCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	rawCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	rawCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	rawCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("model_id", true, schemas.Field, common.String)
 	rawCpu.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -454,8 +503,8 @@ func SchemaPredictionResourceNamespace() *schemas.Schema {
 	rawMem := schemas.NewMeasurement("namespace", schemas.MemoryUsageBytes, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
 	rawMem.AddColumn("name", true, schemas.Tag, common.String)
 	rawMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	rawMem.AddColumn("metric", true, schemas.Tag, common.String)
-	rawMem.AddColumn("kind", true, schemas.Tag, common.String)
+	rawMem.AddColumn("metric", false, schemas.Tag, common.String)
+	rawMem.AddColumn("kind", false, schemas.Tag, common.String)
 	rawMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	rawMem.AddColumn("model_id", true, schemas.Field, common.String)
 	rawMem.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -466,8 +515,8 @@ func SchemaPredictionResourceNamespace() *schemas.Schema {
 	upperCpu := schemas.NewMeasurement("namespace", schemas.CPUUsageSecondsPercentage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
 	upperCpu.AddColumn("name", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	upperCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	upperCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	upperCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	upperCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	upperCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("model_id", true, schemas.Field, common.String)
 	upperCpu.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -478,8 +527,8 @@ func SchemaPredictionResourceNamespace() *schemas.Schema {
 	upperMem := schemas.NewMeasurement("namespace", schemas.MemoryUsageBytes, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
 	upperMem.AddColumn("name", true, schemas.Tag, common.String)
 	upperMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	upperMem.AddColumn("metric", true, schemas.Tag, common.String)
-	upperMem.AddColumn("kind", true, schemas.Tag, common.String)
+	upperMem.AddColumn("metric", false, schemas.Tag, common.String)
+	upperMem.AddColumn("kind", false, schemas.Tag, common.String)
 	upperMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	upperMem.AddColumn("model_id", true, schemas.Field, common.String)
 	upperMem.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -490,8 +539,8 @@ func SchemaPredictionResourceNamespace() *schemas.Schema {
 	lowerCpu := schemas.NewMeasurement("namespace", schemas.CPUUsageSecondsPercentage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
 	lowerCpu.AddColumn("name", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	lowerCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	lowerCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	lowerCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	lowerCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	lowerCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("model_id", true, schemas.Field, common.String)
 	lowerCpu.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -502,8 +551,8 @@ func SchemaPredictionResourceNamespace() *schemas.Schema {
 	lowerMem := schemas.NewMeasurement("namespace", schemas.MemoryUsageBytes, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
 	lowerMem.AddColumn("name", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	lowerMem.AddColumn("metric", true, schemas.Tag, common.String)
-	lowerMem.AddColumn("kind", true, schemas.Tag, common.String)
+	lowerMem.AddColumn("metric", false, schemas.Tag, common.String)
+	lowerMem.AddColumn("kind", false, schemas.Tag, common.String)
 	lowerMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("model_id", true, schemas.Field, common.String)
 	lowerMem.AddColumn("prediction_id", true, schemas.Field, common.String)
@@ -513,7 +562,7 @@ func SchemaPredictionResourceNamespace() *schemas.Schema {
 	return schema
 }
 
-func SchemaPredictionResourceNode() *schemas.Schema {
+func SchemaPredictionClusterStatusNode() *schemas.Schema {
 	// cluster-status node
 	schema := schemas.NewSchema(schemas.Prediction, "cluster_status", "node")
 
@@ -521,8 +570,8 @@ func SchemaPredictionResourceNode() *schemas.Schema {
 	rawCpu := schemas.NewMeasurement("node", schemas.CPUUsageSecondsPercentage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
 	rawCpu.AddColumn("name", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	rawCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	rawCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	rawCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	rawCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	rawCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("is_scheduled", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("model_id", true, schemas.Field, common.String)
@@ -534,8 +583,8 @@ func SchemaPredictionResourceNode() *schemas.Schema {
 	rawMem := schemas.NewMeasurement("node", schemas.MemoryUsageBytes, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
 	rawMem.AddColumn("name", true, schemas.Tag, common.String)
 	rawMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	rawMem.AddColumn("metric", true, schemas.Tag, common.String)
-	rawMem.AddColumn("kind", true, schemas.Tag, common.String)
+	rawMem.AddColumn("metric", false, schemas.Tag, common.String)
+	rawMem.AddColumn("kind", false, schemas.Tag, common.String)
 	rawMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	rawMem.AddColumn("is_scheduled", true, schemas.Tag, common.String)
 	rawMem.AddColumn("model_id", true, schemas.Field, common.String)
@@ -547,8 +596,8 @@ func SchemaPredictionResourceNode() *schemas.Schema {
 	upperCpu := schemas.NewMeasurement("node", schemas.CPUUsageSecondsPercentage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
 	upperCpu.AddColumn("name", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	upperCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	upperCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	upperCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	upperCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	upperCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("is_scheduled", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("model_id", true, schemas.Field, common.String)
@@ -560,8 +609,8 @@ func SchemaPredictionResourceNode() *schemas.Schema {
 	upperMem := schemas.NewMeasurement("node", schemas.MemoryUsageBytes, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
 	upperMem.AddColumn("name", true, schemas.Tag, common.String)
 	upperMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	upperMem.AddColumn("metric", true, schemas.Tag, common.String)
-	upperMem.AddColumn("kind", true, schemas.Tag, common.String)
+	upperMem.AddColumn("metric", false, schemas.Tag, common.String)
+	upperMem.AddColumn("kind", false, schemas.Tag, common.String)
 	upperMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	upperMem.AddColumn("is_scheduled", true, schemas.Tag, common.String)
 	upperMem.AddColumn("model_id", true, schemas.Field, common.String)
@@ -573,8 +622,8 @@ func SchemaPredictionResourceNode() *schemas.Schema {
 	lowerCpu := schemas.NewMeasurement("node", schemas.CPUUsageSecondsPercentage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
 	lowerCpu.AddColumn("name", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	lowerCpu.AddColumn("metric", true, schemas.Tag, common.String)
-	lowerCpu.AddColumn("kind", true, schemas.Tag, common.String)
+	lowerCpu.AddColumn("metric", false, schemas.Tag, common.String)
+	lowerCpu.AddColumn("kind", false, schemas.Tag, common.String)
 	lowerCpu.AddColumn("granularity", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("is_scheduled", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("model_id", true, schemas.Field, common.String)
@@ -586,8 +635,8 @@ func SchemaPredictionResourceNode() *schemas.Schema {
 	lowerMem := schemas.NewMeasurement("node", schemas.MemoryUsageBytes, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
 	lowerMem.AddColumn("name", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	lowerMem.AddColumn("metric", true, schemas.Tag, common.String)
-	lowerMem.AddColumn("kind", true, schemas.Tag, common.String)
+	lowerMem.AddColumn("metric", false, schemas.Tag, common.String)
+	lowerMem.AddColumn("kind", false, schemas.Tag, common.String)
 	lowerMem.AddColumn("granularity", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("is_scheduled", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("model_id", true, schemas.Field, common.String)

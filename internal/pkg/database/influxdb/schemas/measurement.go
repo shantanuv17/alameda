@@ -48,8 +48,8 @@ func (p *Measurement) AddColumn(name string, required bool, columnType ColumnTyp
 	p.Columns = append(p.Columns, column)
 }
 
-func (p *Measurement) Validate(columns []string) error {
-	// Check required columns
+func (p *Measurement) ColumnRequired(columns []string) error {
+	// Check if column required
 	for _, c := range p.Columns {
 		if c.Required {
 			found := false
@@ -64,10 +64,17 @@ func (p *Measurement) Validate(columns []string) error {
 			}
 		}
 	}
+	return nil
+}
 
-	// Check not supported columns
+func (p *Measurement) ColumnSupported(columns []string) error {
+	// Check if column supported
 	for _, name := range columns {
 		found := false
+		// Since time field is not in schema, we have to skip its column supported check
+		if name == "time" {
+			continue
+		}
 		for _, column := range p.Columns {
 			if name == column.Name {
 				found = true
@@ -78,7 +85,6 @@ func (p *Measurement) Validate(columns []string) error {
 			return errors.New(fmt.Sprintf("column(%s) is not supported in measurement(%s)", name, p.Name))
 		}
 	}
-
 	return nil
 }
 

@@ -1,6 +1,7 @@
 package enumconv
 
 import (
+	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
 	"github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 )
@@ -14,6 +15,9 @@ var MetricTypeNameMap = map[schemas.MetricType]common.MetricType{
 	schemas.DutyCycle:                 common.MetricType_DUTY_CYCLE,
 	schemas.CurrentOffset:             common.MetricType_CURRENT_OFFSET,
 	schemas.Lag:                       common.MetricType_LAG,
+	schemas.Latency:                   common.MetricType_LATENCY,
+	schemas.Number:                    common.MetricType_NUMBER,
+	schemas.CPUCores:                  common.MetricType_CPU_CORES,
 }
 
 var ResourceBoundaryNameMap = map[schemas.ResourceBoundary]common.ResourceBoundary{
@@ -29,4 +33,32 @@ var ResourceQuotaNameMap = map[schemas.ResourceQuota]common.ResourceQuota{
 	schemas.ResourceRequest:        common.ResourceQuota_RESOURCE_REQUEST,
 	schemas.ResourceInitialLimit:   common.ResourceQuota_RESOURCE_INITIAL_LIMIT,
 	schemas.ResourceInitialRequest: common.ResourceQuota_RESOURCE_INITIAL_REQUEST,
+}
+
+var QueryConditionFunctionNameMap = map[DBCommon.FunctionType]common.FunctionType{
+	DBCommon.NoneFunction:       common.FunctionType_FUNCTIONTYPE_UNDEFINED,
+	DBCommon.FunctionCount:      common.FunctionType_FUNCTIONTYPE_COUNT,
+	DBCommon.FuncDistinct:       common.FunctionType_FUNCTIONTYPE_DISTINCT,
+	DBCommon.FuncIntegral:       common.FunctionType_FUNCTIONTYPE_INTEGRAL,
+	DBCommon.FunctionMean:       common.FunctionType_FUNCTIONTYPE_MEAN,
+	DBCommon.FunctionMedian:     common.FunctionType_FUNCTIONTYPE_MEDIAN,
+	DBCommon.FunctionMode:       common.FunctionType_FUNCTIONTYPE_MODE,
+	DBCommon.FunctionSpread:     common.FunctionType_FUNCTIONTYPE_SPREAD,
+	DBCommon.FunctionStddev:     common.FunctionType_FUNCTIONTYPE_STDDEV,
+	DBCommon.FunctionSum:        common.FunctionType_FUNCTIONTYPE_SUM,
+	DBCommon.FunctionBottom:     common.FunctionType_FUNCTIONTYPE_BOTTOM,
+	DBCommon.FunctionFirst:      common.FunctionType_FUNCTIONTYPE_FIRST,
+	DBCommon.FunctionLast:       common.FunctionType_FUNCTIONTYPE_LAST,
+	DBCommon.FunctionMax:        common.FunctionType_FUNCTIONTYPE_MAX,
+	DBCommon.FunctionMin:        common.FunctionType_FUNCTIONTYPE_MIN,
+	DBCommon.FunctionPercentile: common.FunctionType_FUNCTIONTYPE_PERCENTILE,
+	DBCommon.FunctionSample:     common.FunctionType_FUNCTIONTYPE_SAMPLE,
+	DBCommon.FunctionTop:        common.FunctionType_FUNCTIONTYPE_TOP,
+	DBCommon.FuncDerivative:     common.FunctionType_FUNCTIONTYPE_DERIVATIVE,
+}
+
+var QueryConditionOrderNameMap = map[DBCommon.Order]common.QueryCondition_Order{
+	DBCommon.NoneOrder: common.QueryCondition_NONE,
+	DBCommon.Asc:       common.QueryCondition_ASC,
+	DBCommon.Desc:      common.QueryCondition_DESC,
 }

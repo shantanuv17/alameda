@@ -27,8 +27,9 @@ func NewMeasurement(database string, measurement *schemas.Measurement, config Co
 
 func (p *InfluxMeasurement) Read(query *InfluxQuery) ([]*common.Group, error) {
 	groups := make([]*common.Group, 0)
+	p.genDataType(query)
 	cmd := query.BuildQueryCmd()
-	
+
 	response, err := p.Client.QueryDB(cmd, p.Database)
 	if err != nil {
 		scope.Errorf("failed to read from InfluxDB: %v", err)
@@ -36,13 +37,17 @@ func (p *InfluxMeasurement) Read(query *InfluxQuery) ([]*common.Group, error) {
 	}
 
 	results := models.NewInfluxResults(response)
-	switch query.QueryCondition.AggregateOverTimeFunction {
-	case common.MaxOverTime:
+	if query.QueryCondition.Function != nil {
 		groups = p.aggregationData(results)
-	case common.AvgOverTime:
-		groups = p.aggregationData(results)
-	default:
-		groups = p.regularData(results)
+	} else {
+		switch query.QueryCondition.AggregateOverTimeFunction {
+		case common.MaxOverTime:
+			groups = p.aggregationData(results)
+		case common.AvgOverTime:
+			groups = p.aggregationData(results)
+		default:
+			groups = p.regularData(results)
+		}
 	}
 
 	return groups, nil
@@ -64,12 +69,17 @@ func (p *InfluxMeasurement) Write(columns []string, rows []*common.Row) error {
 	}
 
 	// Generate influx data points
-	points := p.buildPoints(columnTypes, dataTypes, columns, rows)
+	points, err := p.buildPoints(columnTypes, dataTypes, columns, rows)
+	if err != nil {
+		scope.Error("failed to write data")
+		return err
+	}
 
 	// Batch write influx data points
-	err := p.Client.WritePoints(points, InfluxDB.BatchPointsConfig{Database: p.Database})
+	err = p.Client.WritePoints(points, InfluxDB.BatchPointsConfig{Database: p.Database})
 	if err != nil {
 		scope.Error(err.Error())
+		scope.Error("failed to write data")
 		return err
 	}
 
@@ -77,6 +87,7 @@ func (p *InfluxMeasurement) Write(columns []string, rows []*common.Row) error {
 }
 
 func (p *InfluxMeasurement) Drop(query *InfluxQuery) error {
+	p.genDataType(query)
 	cmd := query.BuildDropCmd()
 	_, err := p.Client.QueryDB(cmd, p.Database)
 	if err != nil {
@@ -86,7 +97,27 @@ func (p *InfluxMeasurement) Drop(query *InfluxQuery) error {
 	return nil
 }
 
-func (p *InfluxMeasurement) buildPoints(columnTypes []schemas.ColumnType, dataTypes []common.DataType, columns []string, rows []*common.Row) []*InfluxDB.Point {
+func (p *InfluxMeasurement) genDataType(query *InfluxQuery) {
+	for _, condition := range query.QueryCondition.WhereCondition {
+		if len(condition.Types) == 0 {
+			for _, key := range condition.Keys {
+				// Since time field is not in schema, so we have to add its data type manually
+				if key == "time" {
+					condition.Types = append(condition.Types, common.String)
+					continue
+				}
+				for _, column := range p.Measurement.Columns {
+					if key == column.Name {
+						condition.Types = append(condition.Types, column.DataType)
+						break
+					}
+				}
+			}
+		}
+	}
+}
+
+func (p *InfluxMeasurement) buildPoints(columnTypes []schemas.ColumnType, dataTypes []common.DataType, columns []string, rows []*common.Row) ([]*InfluxDB.Point, error)  {
 	points := make([]*InfluxDB.Point, 0)
 
 	for _, row := range rows {
@@ -113,25 +144,33 @@ func (p *InfluxMeasurement) buildPoints(columnTypes []schemas.ColumnType, dataTy
 			if err == nil {
 				points = append(points, pt)
 			} else {
-				fmt.Println(err.Error())
+				scope.Error(err.Error())
+				scope.Error("failed to build influxdb points")
+				return make([]*InfluxDB.Point, 0), err
 			}
 		} else {
 			pt, err := InfluxDB.NewPoint(p.Name, tags, fields, *row.Time)
 			if err == nil {
 				points = append(points, pt)
 			} else {
-				fmt.Println(err.Error())
+				scope.Error(err.Error())
+				scope.Error("failed to build influxdb points")
+				return make([]*InfluxDB.Point, 0), err
 			}
 		}
 	}
 
-	return points
+	return points, nil
 }
 
 func (p *InfluxMeasurement) regularData(results []*models.InfluxResultExtend) []*common.Group {
 	groups := make([]*common.Group, 0)
 
 	for _, result := range results {
+		if result.Err != "" {
+			scope.Errorf("failed to read regular data: %s", result.Err)
+			scope.Error("return empty result")
+		}
 		for i := 0; i < result.GetGroupNum(); i++ {
 			g := result.GetGroup(i)
 			group := common.Group{}
@@ -164,6 +203,10 @@ func (p *InfluxMeasurement) aggregationData(results []*models.InfluxResultExtend
 	groups := make([]*common.Group, 0)
 
 	for _, result := range results {
+		if result.Err != "" {
+			scope.Errorf("failed to read aggregation data: %s", result.Err)
+			scope.Error("return empty result")
+		}
 		for i := 0; i < result.GetGroupNum(); i++ {
 			g := result.GetGroup(i)
 			group := common.Group{}

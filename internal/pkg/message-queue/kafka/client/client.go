@@ -139,12 +139,12 @@ func (c *client) ListConsumeTopics(ctx context.Context, consumerGroup string) ([
 	if c.client == nil {
 		return nil, fmt.Errorf("client is nil")
 	}
-	if c.admin == nil {
-		return nil, fmt.Errorf("admin is nil")
-	}
-
 	if err := c.client.RefreshCoordinator(consumerGroup); err != nil {
 		return nil, err
+	}
+
+	if c.admin == nil {
+		return nil, fmt.Errorf("admin is nil")
 	}
 	resp, err := c.admin.ListConsumerGroupOffsets(consumerGroup, nil)
 	if err = c.handleError(err); err != nil {

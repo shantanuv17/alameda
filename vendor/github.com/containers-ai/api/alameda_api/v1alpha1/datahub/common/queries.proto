@@ -34,6 +34,24 @@ message Condition {
     repeated common.DataType types     = 4;
 }
 
+message Function {
+    FunctionType    type               = 1;
+    repeated string fields             = 2;
+    repeated string tags               = 3;
+    string          target             = 4;
+    string          regular_expression = 5;
+    string          unit               = 6;
+    int64           number             = 7;
+}
+
+message Into {
+    string database                    = 1;
+    string retention_policy            = 2;
+    string measurement                 = 3;
+    bool   is_default_retention_policy = 4;
+    bool   is_all_measurements         = 5;
+}
+
 message QueryCondition {
     TimeRange time_range = 1;
     enum Order {
@@ -42,9 +60,11 @@ message QueryCondition {
         DESC = 2;
     }
     Order              order           = 2;
-    string             where_clause    = 3;
-    repeated Condition where_condition = 4;
-    repeated string    selects         = 5;
-    repeated string    groups          = 6;
-    uint64             limit           = 7;
+    Function           function        = 3;
+    Into               into            = 4;
+    string             where_clause    = 5;
+    repeated Condition where_condition = 6;
+    repeated string    selects         = 7;
+    repeated string    groups          = 8;
+    uint64             limit           = 9;
 }

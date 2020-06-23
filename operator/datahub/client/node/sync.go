@@ -6,9 +6,10 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"google.golang.org/grpc"
 
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	nodeinfo "github.com/containers-ai/alameda/operator/pkg/nodeinfo"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 
@@ -16,7 +17,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
+func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	nodeList := corev1.NodeList{}
@@ -30,15 +31,14 @@ func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
 		return errors.Wrap(err, "get cluster uid failed")
 	}
 
-	datahubNodeRepo := NewNodeRepository(conn, clusterUID)
-	nodes := make([]*datahub_resources.Node, len(nodeList.Items))
+	datahubNodeRepo := NewNodeRepository(datahubClient, clusterUID)
+	nodes := make([]entities.ResourceClusterStatusNode, len(nodeList.Items))
 	for i, node := range nodeList.Items {
-		nodeInfo, err := nodeinfo.NewNodeInfo(node)
+		nodeInfo, err := nodeinfo.NewNodeInfo(node, clusterUID)
 		if err != nil {
 			return errors.Wrap(err, "new nodeInfo failed")
 		}
-		node := nodeInfo.DatahubNode(clusterUID)
-		nodes[i] = &node
+		nodes[i] = nodeInfo
 	}
 	if err := datahubNodeRepo.CreateNodes(nodes); err != nil {
 		return fmt.Errorf(

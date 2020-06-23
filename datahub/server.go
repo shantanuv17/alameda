@@ -122,7 +122,59 @@ func (s *Server) Err() <-chan error {
 
 func (s *Server) InitInfluxdbDatabase() {
 	scope.Info("Initialize database")
+	s.createInfluxdbDatabase()
+	s.modifyInfluxdbRetentionPolicy()
+}
 
+func (s *Server) newGRPCServer() (*grpc.Server, error) {
+	var (
+		server *grpc.Server
+	)
+
+	server = grpc.NewServer()
+
+	return server, nil
+}
+
+func (s *Server) register(server *grpc.Server) {
+	v1alpha1Srv := v1alpha1.NewService(&s.Config, s.K8SClient)
+	DatahubV1alpha1.RegisterDatahubServiceServer(server, v1alpha1Srv)
+
+	keycodesSrv := keycodes.NewService(&s.Config)
+	DatahubKeycodes.RegisterKeycodesServiceServer(server, keycodesSrv)
+}
+
+func (s *Server) createInfluxdbDatabase() {
+	influxdbClient := InternalInflux.NewClient(&InternalInflux.Config{
+		Address:                s.Config.InfluxDB.Address,
+		Username:               s.Config.InfluxDB.Username,
+		Password:               s.Config.InfluxDB.Password,
+		RetentionDuration:      s.Config.InfluxDB.RetentionDuration,
+		RetentionShardDuration: s.Config.InfluxDB.RetentionShardDuration,
+	})
+
+	databaseList := []string{
+		"alameda_application",
+		"alameda_cluster_status",
+		"alameda_event",
+		"alameda_gpu",
+		"alameda_gpu_prediction",
+		"alameda_metric",
+		"alameda_planning",
+		"alameda_prediction",
+		"alameda_recommendation",
+		"alameda_score",
+	}
+
+	for _, db := range databaseList {
+		err := influxdbClient.CreateDatabase(db, 0)
+		if err != nil {
+			scope.Error(err.Error())
+		}
+	}
+}
+
+func (s *Server) modifyInfluxdbRetentionPolicy() {
 	influxdbClient := InternalInflux.NewClient(&InternalInflux.Config{
 		Address:                s.Config.InfluxDB.Address,
 		Username:               s.Config.InfluxDB.Username,
@@ -143,32 +195,9 @@ func (s *Server) InitInfluxdbDatabase() {
 	}
 
 	for _, db := range databaseList {
-		err := influxdbClient.CreateDatabase(db, 0)
-		if err != nil {
-			scope.Error(err.Error())
-		}
-
-		err = influxdbClient.ModifyDefaultRetentionPolicy(db, 0)
+		err := influxdbClient.ModifyDefaultRetentionPolicy(db, 0)
 		if err != nil {
 			scope.Error(err.Error())
 		}
 	}
-}
-
-func (s *Server) newGRPCServer() (*grpc.Server, error) {
-	var (
-		server *grpc.Server
-	)
-
-	server = grpc.NewServer()
-
-	return server, nil
-}
-
-func (s *Server) register(server *grpc.Server) {
-	v1alpha1Srv := v1alpha1.NewService(&s.Config, s.K8SClient)
-	DatahubV1alpha1.RegisterDatahubServiceServer(server, v1alpha1Srv)
-
-	keycodesSrv := keycodes.NewService(&s.Config)
-	DatahubKeycodes.RegisterKeycodesServiceServer(server, keycodesSrv)
 }

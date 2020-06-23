@@ -25,6 +25,9 @@ const (
 	DutyCycle
 	CurrentOffset
 	Lag
+	Latency
+	Number
+	CPUCores
 )
 
 type ResourceBoundary int

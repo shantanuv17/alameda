@@ -6,8 +6,9 @@ import (
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
 
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	"github.com/containers-ai/alameda/operator/datahub/client"
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 )
 
@@ -16,21 +17,16 @@ import (
 // AlamedaNodeRepository creates predicted node to datahub
 type AlamedaNodeRepository struct {
 	conn          *grpc.ClientConn
-	datahubClient datahub_v1alpha1.DatahubServiceClient
+	datahubClient *datahubpkg.Client
 
 	clusterUID string
 }
 
 // NewNodeRepository return AlamedaNodeRepository instance
-func NewNodeRepository(conn *grpc.ClientConn, clusterUID string) *AlamedaNodeRepository {
-
-	datahubClient := datahub_v1alpha1.NewDatahubServiceClient(conn)
-
+func NewNodeRepository(datahubClient *datahubpkg.Client, clusterUID string) *AlamedaNodeRepository {
 	return &AlamedaNodeRepository{
-		conn:          conn,
 		datahubClient: datahubClient,
-
-		clusterUID: clusterUID,
+		clusterUID:    clusterUID,
 	}
 }
 
@@ -39,19 +35,8 @@ func (repo *AlamedaNodeRepository) Close() {
 }
 
 // CreateNodes creates predicted node to datahub
-func (repo *AlamedaNodeRepository) CreateNodes(nodes []*datahub_resources.Node) error {
-
-	if len(nodes) > 0 {
-		req := datahub_resources.CreateNodesRequest{
-			Nodes: nodes,
-		}
-		if resp, err := repo.datahubClient.CreateNodes(context.Background(), &req); err != nil {
-			return errors.Wrap(err, "create nodes to datahub failed")
-		} else if _, err := client.IsResponseStatusOK(resp); err != nil {
-			return errors.Wrap(err, "create nodes to Datahub failed")
-		}
-	}
-	return nil
+func (repo *AlamedaNodeRepository) CreateNodes(nodes []entities.ResourceClusterStatusNode) error {
+	return repo.datahubClient.Create(&nodes)
 }
 
 // DeleteNodes delete predicted node from datahub
