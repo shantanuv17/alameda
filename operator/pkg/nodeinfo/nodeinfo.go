@@ -46,7 +46,8 @@ func NewNodeInfo(k8sNode corev1.Node, clusterName string) (
 		key := keyStrs[idx]
 		// parse node label information
 		for labelKey, labelV := range k8sNode.Labels {
-			if strings.Contains(labelKey, "stackpoint.") && strings.Contains(labelKey, "stackpoint.io/role") == false {
+			if strings.Contains(labelKey, "stackpoint.") &&
+				strings.Contains(labelKey, "stackpoint.io/role") == false {
 				continue
 			}
 			value := parseKeyValue(labelKey, key, labelV)
@@ -82,13 +83,15 @@ func NewNodeInfo(k8sNode corev1.Node, clusterName string) (
 
 	cpuCores, ok := k8sNode.Status.Capacity.Cpu().AsInt64()
 	if !ok {
-		return entities.ResourceClusterStatusNode{}, errors.Errorf("cannot convert cpu capacity from k8s Node")
+		return entities.ResourceClusterStatusNode{},
+			errors.Errorf("cannot convert cpu capacity from k8s Node")
 	}
 	node.NodeCPUCores = cpuCores
 
 	memoryBytes, ok := k8sNode.Status.Capacity.Memory().AsInt64()
 	if !ok {
-		return entities.ResourceClusterStatusNode{}, errors.Errorf("cannot convert memory capacity from k8s Node")
+		return entities.ResourceClusterStatusNode{},
+			errors.Errorf("cannot convert memory capacity from k8s Node")
 	}
 	node.NodeMemoryBytes = memoryBytes
 

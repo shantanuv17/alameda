@@ -34,7 +34,8 @@ var listCandidatesKafkaAlamedaScaler = func(
 ) ([]autoscalingv1alpha1.AlamedaScaler, error) {
 
 	alamedaScalerList := autoscalingv1alpha1.AlamedaScalerList{}
-	err := k8sClient.List(ctx, &alamedaScalerList, &client.ListOptions{Namespace: objectMeta.Namespace})
+	err := k8sClient.List(
+		ctx, &alamedaScalerList, &client.ListOptions{Namespace: objectMeta.Namespace})
 	if err != nil {
 		return nil, errors.Wrap(err, "list AlamedaScalers failed")
 	}
@@ -48,10 +49,12 @@ var listCandidatesKafkaAlamedaScaler = func(
 			continue
 		}
 		for _, consumerGroupSpec := range alamedaScaler.Spec.Kafka.ConsumerGroups {
-			if consumerGroupSpec.Resource.Kubernetes == nil || consumerGroupSpec.Resource.Kubernetes.Selector == nil {
+			if consumerGroupSpec.Resource.Kubernetes == nil ||
+				consumerGroupSpec.Resource.Kubernetes.Selector == nil {
 				continue
 			}
-			if ok := isLabelsSelectedBySelector(*consumerGroupSpec.Resource.Kubernetes.Selector, objectMeta.GetLabels()); ok {
+			if ok := isLabelsSelectedBySelector(
+				*consumerGroupSpec.Resource.Kubernetes.Selector, objectMeta.GetLabels()); ok {
 				candidates = append(candidates, alamedaScaler)
 			}
 		}
@@ -60,7 +63,8 @@ var listCandidatesKafkaAlamedaScaler = func(
 }
 
 func init() {
-	RegisterAlamedaScalerController(autoscalingv1alpha1.AlamedaScalerTypeKafka, listCandidatesKafkaAlamedaScaler)
+	RegisterAlamedaScalerController(
+		autoscalingv1alpha1.AlamedaScalerTypeKafka, listCandidatesKafkaAlamedaScaler)
 }
 
 // chooseTopic chooses and returns topics name
@@ -113,11 +117,14 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 	ctx, cancel := context.WithTimeout(context.Background(), r.ReconcileTimeout)
 	defer cancel()
 	cachedAlamedaScaler := autoscalingv1alpha1.AlamedaScaler{}
-	err := r.K8SClient.Get(ctx, client.ObjectKey{Namespace: req.Namespace, Name: req.Name}, &cachedAlamedaScaler)
+	err := r.K8SClient.Get(
+		ctx, client.ObjectKey{Namespace: req.Namespace, Name: req.Name}, &cachedAlamedaScaler)
 	if err != nil && k8serrors.IsNotFound(err) {
 		r.Logger.Infof("Handling deletion of AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
 		if err := r.handleDeletion(ctx, req.Namespace, req.Name); err != nil {
-			r.Logger.Warnf("Handle deleteion of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+			r.Logger.Warnf(
+				"Handle deleteion of AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+				req.Namespace, req.Name, err)
 			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 		}
 		r.Logger.Infof("Handle deletion of AlamedaScaler(%s/%s) done.", req.Namespace, req.Name)
@@ -134,14 +141,17 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 	}
 
 	if ok, err := r.isCreateOrOwnLock(ctx, alamedaScaler); err != nil {
-		r.Logger.Infof("Check if AlamedaScaler(%s/%s) needs to be reconciled failed, retry reconciling: %s", req.Namespace, req.Name, err)
+		r.Logger.Infof(
+			"Check if AlamedaScaler(%s/%s) needs to be reconciled failed, retry reconciling: %s",
+			req.Namespace, req.Name, err)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	} else if !ok {
 		alamedaScaler.Status.Kafka.Effective = false
 		alamedaScaler.Status.Kafka.Message = "Other AlamedaScaler is effective."
 		err := r.updateAlamedaScaler(ctx, &alamedaScaler)
 		if err != nil {
-			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+				req.Namespace, req.Name, err)
 			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 		}
 		return ctrl.Result{Requeue: false}, nil
@@ -150,7 +160,8 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 	if cachedAlamedaScaler.GetDeletionTimestamp() != nil {
 		r.Logger.Infof("Handling deletion of AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
 		if err := r.handleDeletion(ctx, req.Namespace, req.Name); err != nil {
-			r.Logger.Warnf("Handle deleteion of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+			r.Logger.Warnf("Handle deleteion of AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+				req.Namespace, req.Name, err)
 			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 		}
 		r.Logger.Infof("Handle deletion of AlamedaScaler(%s/%s) done.", req.Namespace, req.Name)
@@ -158,7 +169,8 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 	}
 
 	if err := r.openClient(); err != nil {
-		r.Logger.Warnf("Open AlamedaScaler(%s/%s) clients' connection failed: err: %+v", req.Namespace, req.Name, err)
+		r.Logger.Warnf("Open AlamedaScaler(%s/%s) clients' connection failed: err: %+v",
+			req.Namespace, req.Name, err)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
 
@@ -166,12 +178,15 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 	consumerGroupDetails, err := r.prepareConsumerGroupDetails(ctx, alamedaScaler)
 	r.Logger.Debugf("Consumer group details %+v", consumerGroupDetails)
 	if err != nil {
-		r.Logger.Warnf("Prepare consumerGroupDetails to synchornize with remote of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+		r.Logger.Warnf(
+			"Prepare consumerGroupDetails to synchornize with remote of AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+			req.Namespace, req.Name, err)
 		alamedaScaler.Status.Kafka.Effective = false
 		alamedaScaler.Status.Kafka.Message = err.Error()
 		err := r.updateAlamedaScaler(ctx, &alamedaScaler)
 		if err != nil {
-			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+				req.Namespace, req.Name, err)
 		}
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
@@ -179,12 +194,15 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 
 	err = r.syncWithDatahub(ctx, alamedaScaler, topics, consumerGroupDetails)
 	if err != nil {
-		r.Logger.Warnf("Synchornize consumerGroupDetails with remote of AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+		r.Logger.Warnf(
+			"Synchornize consumerGroupDetails with remote of AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+			req.Namespace, req.Name, err)
 		alamedaScaler.Status.Kafka.Effective = false
 		alamedaScaler.Status.Kafka.Message = err.Error()
 		err := r.updateAlamedaScaler(ctx, &alamedaScaler)
 		if err != nil {
-			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+				req.Namespace, req.Name, err)
 		}
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
@@ -192,7 +210,8 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 	kafkaStatus := r.getKafkaStatus(alamedaScaler, consumerGroupDetails)
 	alamedaScaler.Status.Kafka = &kafkaStatus
 	if err := r.updateAlamedaScaler(ctx, &alamedaScaler); err != nil {
-		r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s", req.Namespace, req.Name, err)
+		r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+			req.Namespace, req.Name, err)
 		return ctrl.Result{Requeue: false}, nil
 	}
 
@@ -200,7 +219,8 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 	return ctrl.Result{Requeue: false}, nil
 }
 
-func (r AlamedaScalerKafkaReconciler) handleDeletion(ctx context.Context, namespace, name string) error {
+func (r AlamedaScalerKafkaReconciler) handleDeletion(
+	ctx context.Context, namespace, name string) error {
 	wg := errgroup.Group{}
 	wg.Go(func() error {
 		delErr := r.DatahubClient.DeleteByOpts(
@@ -210,7 +230,8 @@ func (r AlamedaScalerKafkaReconciler) handleDeletion(ctx context.Context, namesp
 					AlamedaScalerNamespace: namespace,
 					AlamedaScalerName:      name,
 				},
-				Fields: []string{"ClusterName", "AlamedaScalerNamespace", "AlamedaScalerName"},
+				Fields: []string{
+					"ClusterName", "AlamedaScalerNamespace", "AlamedaScalerName"},
 			})
 		if delErr != nil {
 			return fmt.Errorf(
@@ -228,7 +249,8 @@ func (r AlamedaScalerKafkaReconciler) handleDeletion(ctx context.Context, namesp
 					AlamedaScalerNamespace: namespace,
 					AlamedaScalerName:      name,
 				},
-				Fields: []string{"ClusterName", "AlamedaScalerNamespace", "AlamedaScalerName"},
+				Fields: []string{
+					"ClusterName", "AlamedaScalerNamespace", "AlamedaScalerName"},
 			})
 		if delErr != nil {
 			return fmt.Errorf(
@@ -278,12 +300,15 @@ func (r AlamedaScalerKafkaReconciler) getOrCreateLock(
 	namespace := alamedaScaler.GetNamespace()
 	name := r.getLockName(alamedaScaler)
 	lock := corev1.ConfigMap{}
-	if err := r.K8SClient.Get(ctx, client.ObjectKey{Namespace: namespace, Name: name}, &lock); err != nil && !k8serrors.IsNotFound(err) {
+	if err := r.K8SClient.Get(ctx, client.ObjectKey{
+		Namespace: namespace, Name: name,
+	}, &lock); err != nil && !k8serrors.IsNotFound(err) {
 		return empty, errors.Wrap(err, "get lock failed")
 	} else if k8serrors.IsNotFound(err) {
 		lock.Namespace = namespace
 		lock.Name = name
-		if err := ctrl.SetControllerReference(&alamedaScaler, &lock, r.Scheme); err != nil {
+		if err := ctrl.SetControllerReference(
+			&alamedaScaler, &lock, r.Scheme); err != nil {
 			return empty, errors.Wrap(err, "set OwnerReference to lock failed")
 		}
 		if err := r.K8SClient.Create(ctx, &lock); err != nil {
@@ -293,7 +318,8 @@ func (r AlamedaScalerKafkaReconciler) getOrCreateLock(
 	return lock, nil
 }
 
-func (r AlamedaScalerKafkaReconciler) isLockOwnBy(lock metav1.ObjectMetaAccessor, owner metav1.ObjectMetaAccessor) bool {
+func (r AlamedaScalerKafkaReconciler) isLockOwnBy(
+	lock metav1.ObjectMetaAccessor, owner metav1.ObjectMetaAccessor) bool {
 	ownerReferences := lock.GetObjectMeta().GetOwnerReferences()
 	if len(ownerReferences) == 1 {
 		return ownerReferences[0].UID == owner.GetObjectMeta().GetUID()
@@ -301,8 +327,10 @@ func (r AlamedaScalerKafkaReconciler) isLockOwnBy(lock metav1.ObjectMetaAccessor
 	return false
 }
 
-func (r AlamedaScalerKafkaReconciler) getLockName(alamedaScaler autoscalingv1alpha1.AlamedaScaler) string {
-	return fmt.Sprintf(`alameda-scaler-kafka-lock-%s`, alamedaScaler.Spec.Kafka.ExporterNamespace)
+func (r AlamedaScalerKafkaReconciler) getLockName(
+	alamedaScaler autoscalingv1alpha1.AlamedaScaler) string {
+	return fmt.Sprintf(`alameda-scaler-kafka-lock-%s`,
+		alamedaScaler.Spec.Kafka.ExporterNamespace)
 }
 
 func (r AlamedaScalerKafkaReconciler) prepareConsumerGroupDetails(
@@ -313,13 +341,16 @@ func (r AlamedaScalerKafkaReconciler) prepareConsumerGroupDetails(
 	for _, consumerGroupSpec := range alamedaScaler.Spec.Kafka.ConsumerGroups {
 		consumerGroupNames = append(consumerGroupNames, consumerGroupSpec.Name)
 	}
-	consumerGroupToConsumeTopicsMap, err := r.getConsumerGroupToConsumeTopicsMap(ctx, consumerGroupNames)
+	consumerGroupToConsumeTopicsMap, err := r.getConsumerGroupToConsumeTopicsMap(
+		ctx, consumerGroupNames)
 	if err != nil {
 		return nil, errors.Wrap(err, "get consumerGroup consume topics map failed")
 	}
-	r.Logger.Debugf("Consumer group consumed topics mapping %+v", consumerGroupToConsumeTopicsMap)
+	r.Logger.Debugf("Consumer group consumed topics mapping %+v",
+		consumerGroupToConsumeTopicsMap)
 
-	consumerGroupDetails, err := r.listConsumerGroups(ctx, alamedaScaler, consumerGroupToConsumeTopicsMap)
+	consumerGroupDetails, err := r.listConsumerGroups(
+		ctx, alamedaScaler, consumerGroupToConsumeTopicsMap)
 	if err != nil {
 		return nil, errors.Wrap(err, "list consumerGroups' detail failed")
 	}
@@ -327,7 +358,8 @@ func (r AlamedaScalerKafkaReconciler) prepareConsumerGroupDetails(
 	return consumerGroupDetails, nil
 }
 
-func (r AlamedaScalerKafkaReconciler) prepareTopics(consumerGroups []entities.ApplicationKafkaConsumerGroup) []entities.ApplicationKafkaTopic {
+func (r AlamedaScalerKafkaReconciler) prepareTopics(
+	consumerGroups []entities.ApplicationKafkaConsumerGroup) []entities.ApplicationKafkaTopic {
 	topicSet := make(map[string]entities.ApplicationKafkaTopic)
 	for _, cg := range consumerGroups {
 		id := fmt.Sprintf("%s/%s/%s", cg.ClusterName, cg.Namespace, cg.TopicName)
@@ -475,7 +507,8 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(
 	earliestStatefulSetCreationTimestamp := metav1.NewTime(time.Now())
 	earliestDeploymentConfigCreationTimestamp := metav1.NewTime(time.Now())
 	for i, r := range deployments {
-		if !IsMonitoredByAlamedaScalerController(r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
+		if !IsMonitoredByAlamedaScalerController(
+			r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
 			continue
 		}
 		if r.CreationTimestamp.Before(&earliestDeploymentCreationTimestamp) {
@@ -484,7 +517,8 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(
 		}
 	}
 	for i, r := range statefulSets {
-		if !IsMonitoredByAlamedaScalerController(r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
+		if !IsMonitoredByAlamedaScalerController(
+			r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
 			continue
 		}
 		if r.CreationTimestamp.Before(&earliestStatefulSetCreationTimestamp) {
@@ -493,7 +527,8 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(
 		}
 	}
 	for i, r := range deploymentConfigs {
-		if !IsMonitoredByAlamedaScalerController(r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
+		if !IsMonitoredByAlamedaScalerController(
+			r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
 			continue
 		}
 		if r.CreationTimestamp.Before(&earliestDeploymentConfigCreationTimestamp) {
@@ -529,8 +564,10 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(
 			strconv.FormatInt(resource.Limits.Memory().Value(), 10)
 		consumerGroupEntity.ResourceMemoryRequest =
 			strconv.FormatInt(resource.Requests.Memory().Value(), 10)
-		r.Logger.Debugf("deployment create timestamp compared get replicas: %v", controller.Status.ReadyReplicas)
-		pods, err := resourcesLister.ListPodsByDeployment(controller.GetNamespace(), controller.GetName())
+		r.Logger.Debugf("deployment create timestamp compared get replicas: %v",
+			controller.Status.ReadyReplicas)
+		pods, err := resourcesLister.ListPodsByDeployment(
+			controller.GetNamespace(), controller.GetName())
 		if err != nil {
 			return consumerGroupEntity, errors.Wrap(err, "list pods by Deployment failed")
 		}
@@ -622,7 +659,8 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(
 }
 
 // getConsumerGroupToConsumeTopicsMap returns map from consumerGroup to currently consumed topics that records in Kafka.
-func (r AlamedaScalerKafkaReconciler) getConsumerGroupToConsumeTopicsMap(ctx context.Context, consumerGroups []string) (map[string][]string, error) {
+func (r AlamedaScalerKafkaReconciler) getConsumerGroupToConsumeTopicsMap(
+	ctx context.Context, consumerGroups []string) (map[string][]string, error) {
 	type consumeDetail struct {
 		consumerGroup string
 		consumeTopics []string
@@ -683,7 +721,8 @@ func (r AlamedaScalerKafkaReconciler) syncWithDatahub(
 			return errors.Wrap(err, "creae topics to Datahub failed")
 		}
 		// Delete topics
-		topics, err := r.getTopicsToDelete(ctx, exporterNamespace, alamedaScalerNamespace, alamedaScalerName, topics)
+		topics, err := r.getTopicsToDelete(
+			ctx, exporterNamespace, alamedaScalerNamespace, alamedaScalerName, topics)
 		if err != nil {
 			return err
 		}
@@ -699,7 +738,8 @@ func (r AlamedaScalerKafkaReconciler) syncWithDatahub(
 			return errors.Wrap(err, "create consumerGroupDetails to Datahub failed")
 		}
 		// Delete consumerGroups
-		consumerGroups, err := r.getConsumerGroupsToDelete(ctx, exporterNamespace, alamedaScalerNamespace, alamedaScalerName, consumerGroups)
+		consumerGroups, err := r.getConsumerGroupsToDelete(
+			ctx, exporterNamespace, alamedaScalerNamespace, alamedaScalerName, consumerGroups)
 		if err != nil {
 			return err
 		}
@@ -746,7 +786,8 @@ func (r AlamedaScalerKafkaReconciler) getTopicsToDelete(
 
 func (r AlamedaScalerKafkaReconciler) getConsumerGroupsToDelete(
 	ctx context.Context, exporterNamespace, alamedaScalerNamespace, alamedaScalerName string,
-	consumerGroups []entities.ApplicationKafkaConsumerGroup) ([]entities.ApplicationKafkaConsumerGroup, error) {
+	consumerGroups []entities.ApplicationKafkaConsumerGroup) (
+	[]entities.ApplicationKafkaConsumerGroup, error) {
 	empty := struct{}{}
 	consumerGroupsNeedExisting := make(map[string]struct{}, len(consumerGroups))
 	for _, consumerGroup := range consumerGroups {
@@ -777,7 +818,8 @@ func (r AlamedaScalerKafkaReconciler) getConsumerGroupsToDelete(
 }
 
 func (r AlamedaScalerKafkaReconciler) getKafkaStatus(
-	alamedaScaler autoscalingv1alpha1.AlamedaScaler, details []entities.ApplicationKafkaConsumerGroup) autoscalingv1alpha1.KafkaStatus {
+	alamedaScaler autoscalingv1alpha1.AlamedaScaler,
+	details []entities.ApplicationKafkaConsumerGroup) autoscalingv1alpha1.KafkaStatus {
 	kafkaStatus := autoscalingv1alpha1.KafkaStatus{}
 	kafkaStatus.Effective = true
 	kafkaStatus.Message = ""

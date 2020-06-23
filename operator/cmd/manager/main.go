@@ -321,12 +321,14 @@ func addControllersToManager(mgr manager.Manager) error {
 		regionName = provider.AWSRegionMap[provider.GetEC2Region()]
 	}
 	if err = (&controllers.NodeReconciler{
-		Client:          mgr.GetClient(),
-		Scheme:          mgr.GetScheme(),
-		ClusterUID:      clusterUID,
-		Cloudprovider:   cloudprovider,
-		RegionName:      regionName,
-		DatahubNodeRepo: *datahub_client_node.NewNodeRepository(datahubClient, clusterUID),
+		Client:        mgr.GetClient(),
+		Scheme:        mgr.GetScheme(),
+		DatahubClient: datahubClient,
+		ClusterUID:    clusterUID,
+		Cloudprovider: cloudprovider,
+		RegionName:    regionName,
+		DatahubNodeRepo: *datahub_client_node.NewNodeRepository(
+			datahubClient, clusterUID),
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}
@@ -342,11 +344,11 @@ func addControllersToManager(mgr manager.Manager) error {
 	if err = (&controllers.AlamedaScalerKafkaReconciler{
 		ClusterUID:            clusterUID,
 		HasOpenShiftAPIAppsv1: hasOpenShiftAPIAppsv1,
-
-		K8SClient:        mgr.GetClient(),
-		Scheme:           mgr.GetScheme(),
-		KafkaClient:      kafkaClient,
-		PrometheusClient: prometheusClient,
+		DatahubClient:         datahubClient,
+		K8SClient:             mgr.GetClient(),
+		Scheme:                mgr.GetScheme(),
+		KafkaClient:           kafkaClient,
+		PrometheusClient:      prometheusClient,
 
 		ReconcileTimeout: 3 * time.Second,
 
