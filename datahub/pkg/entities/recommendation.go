@@ -31,6 +31,7 @@ type RecommendationNginx struct {
 	DesiredReplicas  int32      `json:"desired_replicas"   required:"true"  column:"field" type:"int32"`
 	ReplicaCapacity  float64    `json:"replica_capacity"   required:"true"  column:"field" type:"float64"`
 	CurrentNumerator float64    `json:"current_numerator"  required:"true"  column:"field" type:"float64"`
+	HttpRequestCount float64    `json:"http_request_count" required:"false" column:"field" type:"float64"`
 	HttpResponseTime int64      `json:"http_response_time" required:"false" column:"field" type:"int64"`
 	Alpha            float64    `json:"alpha"              required:"false" column:"field" type:"float64"`
 	Mape0            float64    `json:"mape0"              required:"true"  column:"field" type:"float64"`
