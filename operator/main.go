@@ -390,6 +390,7 @@ func addControllersToManager(mgr manager.Manager) error {
 	}
 
 	if err = (&controllers.AlamedaScalerKafkaReconciler{
+		DatahubClient:         datahubClient,
 		ClusterUID:            clusterUID,
 		HasOpenShiftAPIAppsv1: hasOpenShiftAPIAppsv1,
 		K8SClient:             mgr.GetClient(),
@@ -407,6 +408,7 @@ func addControllersToManager(mgr manager.Manager) error {
 		Client:                mgr.GetClient(),
 		Scheme:                mgr.GetScheme(),
 		ReconcileTimeout:      3 * time.Second,
+		DatahubClient:         datahubClient,
 		HasOpenShiftAPIAppsv1: hasOpenShiftAPIAppsv1,
 		Logger:                alamedaScalerNginxControllerLogger,
 	}).SetupWithManager(mgr); err != nil {
