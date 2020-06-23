@@ -20,6 +20,7 @@ import (
 	"context"
 	"time"
 
+	ca_client "github.com/containers-ai/alameda/operator/datahub/client/ca"
 	datahub_node "github.com/containers-ai/alameda/operator/datahub/client/node"
 	nodeinfo "github.com/containers-ai/alameda/operator/pkg/nodeinfo"
 	"github.com/pkg/errors"
@@ -100,24 +101,17 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 	nodes := make([]*corev1.Node, 1)
 	nodes[0] = instance
 
-	if nodeIsDeleted {
-		if len(msExecution) == 1 &&
-			msExecution[0].ReplicasFrom > msExecution[0].ReplicasTo {
-			msExecution[0].DeltaDownTime = time.Now().Unix() - msExecution[0].Time.Unix()
-			msExecution[0].NodeName = datahubNode.Name
-			if err := r.DatahubClient.Create(&msExecution); err != nil {
-				scope.Errorf(
-					"Update delta down time for machineset %s/%s at execution time %v for node %s failed: %s",
-					datahubNode.MachinesetNamespace, datahubNode.MachinesetName,
-					msExecution[0].Time, request.Name, err.Error())
-				return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
-			} else {
-				scope.Infof(
-					"Update delta down time to %v seconds for machineset %s/%s at execution time %v for node %s",
-					msExecution[0].DeltaDownTime, datahubNode.MachinesetNamespace,
-					datahubNode.MachinesetName, msExecution[0].Time, request.Name)
-			}
+	if nodeIsDeleted && datahubNode != nil {
+		if err := ca_client.SendExecutionTime(r.ClusterUID, r.Client,
+			r.DatahubClient, datahubNode.MachinesetNamespace,
+			datahubNode.MachinesetName, datahubNode.Name, false); err != nil {
+			scope.Errorf(
+				"Update delta down time for machineset %s/%s failed: %s",
+				datahubNode.MachinesetNamespace, datahubNode.MachinesetName,
+				err.Error())
+			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
 		}
+
 		if err := r.deleteNodesFromDatahub(nodes); err != nil {
 			scope.Errorf("Delete nodes from Datahub failed: %s", err.Error())
 			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
