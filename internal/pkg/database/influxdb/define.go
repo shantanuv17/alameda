@@ -26,23 +26,23 @@ var FunctionNameMap = map[common.FunctionType]string{
 	common.FunctionCount:      "COUNT",
 	common.FuncDistinct:       "DISTINCT",
 	common.FuncIntegral:       "INTEGRAL",
-    common.FunctionMean:       "MEAN",
-    common.FunctionMedian:     "MEDIAN",
-    common.FunctionMode:       "MODE",
-    common.FunctionSpread:     "SPREAD",
-    common.FunctionStddev:     "STDDEV",
-    common.FunctionSum:        "SUM",
+	common.FunctionMean:       "MEAN",
+	common.FunctionMedian:     "MEDIAN",
+	common.FunctionMode:       "MODE",
+	common.FunctionSpread:     "SPREAD",
+	common.FunctionStddev:     "STDDEV",
+	common.FunctionSum:        "SUM",
 
-    // Selector function
-    common.FunctionBottom:     "BOTTOM",
-    common.FunctionFirst:      "FIRST",
-    common.FunctionLast:       "LAST",
-    common.FunctionMax:        "MAX",
-    common.FunctionMin:        "MIN",
-    common.FunctionPercentile: "PERCENTILE",
-    common.FunctionSample:     "SAMPLE",
-    common.FunctionTop:        "TOP",
+	// Selector function
+	common.FunctionBottom:     "BOTTOM",
+	common.FunctionFirst:      "FIRST",
+	common.FunctionLast:       "LAST",
+	common.FunctionMax:        "MAX",
+	common.FunctionMin:        "MIN",
+	common.FunctionPercentile: "PERCENTILE",
+	common.FunctionSample:     "SAMPLE",
+	common.FunctionTop:        "TOP",
 
-    // Transformation function
-    common.FuncDerivative:     "DERIVATIVE",
+	// Transformation function
+	common.FuncDerivative:     "DERIVATIVE",
 }
