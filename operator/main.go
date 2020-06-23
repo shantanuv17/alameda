@@ -46,7 +46,6 @@ import (
 	"github.com/containers-ai/alameda/pkg/provider"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
-	datahubschemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	"github.com/containers-ai/alameda/operator/controllers"
@@ -108,14 +107,7 @@ var (
 	alamedaScalerNginxControllerLogger *logUtil.Scope
 	datahubClientLogger                *logUtil.Scope
 
-	clusterUID     string
-	datahubSchemas = map[string]datahubschemas.Schema{
-		"kafkaTopic":         {},
-		"kafkaConsumerGroup": {},
-		"nginx":              {},
-		"machineGroup":       {},
-		"machineSet":         {},
-	}
+	clusterUID string
 
 	// Third party clients
 	k8sClient        client.Client

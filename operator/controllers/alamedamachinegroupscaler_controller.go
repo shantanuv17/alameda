@@ -22,8 +22,6 @@ import (
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-
-	datahubschemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	"github.com/go-logr/logr"
 	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -37,13 +35,11 @@ import (
 // AlamedaMachineGroupScalerReconciler reconciles a AlamedaMachineGroupScaler object
 type AlamedaMachineGroupScalerReconciler struct {
 	client.Client
-	ClusterUID                       string
-	DatahubClient                    *datahubpkg.Client
-	Log                              logr.Logger
-	Scheme                           *runtime.Scheme
-	DatahubCAMachineGroupSchema      datahubschemas.Schema
-	DatahubCAMachineGroupMeasurement datahubschemas.Measurement
-	ReconcileTimeout                 time.Duration
+	ClusterUID       string
+	DatahubClient    *datahubpkg.Client
+	Log              logr.Logger
+	Scheme           *runtime.Scheme
+	ReconcileTimeout time.Duration
 }
 
 // +kubebuilder:rbac:groups=autoscaling.containers.ai,resources=alamedamachinegroupscalers,verbs=get;list;watch;create;update;patch;delete
