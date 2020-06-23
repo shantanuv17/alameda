@@ -100,7 +100,7 @@ func NewColumns(entities interface{}, fields []string) []string {
 		for i := 2; i < entityType.NumField(); i++ {
 			fieldType := entityType.Field(i)
 			if fieldType.Tag.Get("column") == "tag" {
-				if !utils.SliceContains(fieldNames, fieldType.Tag.Get("json")) {
+				if !utils.SliceContains(fieldNames, fieldType.Name) {
 					fieldNames = append(fieldNames, fieldType.Name)
 				}
 			}
@@ -109,8 +109,16 @@ func NewColumns(entities interface{}, fields []string) []string {
 
 	// Read the tag of field to generate the column list
 	for _, field := range fieldNames {
-		fieldType, _ := entityType.FieldByName(field)
-		columns = append(columns, fieldType.Tag.Get("json"))
+		// Index is started at 2 to skip time field
+		for i := 2; i < entityType.NumField(); i++ {
+			fieldType := entityType.Field(i)
+			if fieldType.Name == field {
+				if !utils.SliceContains(columns, fieldType.Tag.Get("json")) {
+					columns = append(columns, fieldType.Tag.Get("json"))
+				}
+				break
+			}
+		}
 	}
 
 	return columns
