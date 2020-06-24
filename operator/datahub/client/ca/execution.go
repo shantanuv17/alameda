@@ -11,7 +11,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func SendExecutionTime(clusterUID string,
+func SendExecutionTime(clusterUID string, executionTime *time.Time,
 	k8sClient client.Client, datahubClient *datahubpkg.Client,
 	machinesetNamespace, machinesetName, machineName string,
 	isScalingUp bool) error {
@@ -47,10 +47,9 @@ func SendExecutionTime(clusterUID string,
 	if !isScalingUp {
 		replicasFrom = replicasTo + 1
 	}
-	now := time.Now()
 	entities := []entities.ExecutionClusterAutoscalerMachineset{
 		{
-			Time:                  &now,
+			Time:                  executionTime,
 			ClusterName:           clusterUID,
 			Namespace:             machinesetNamespace,
 			Name:                  machinesetName,

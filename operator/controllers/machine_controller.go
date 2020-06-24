@@ -94,7 +94,8 @@ func (r *MachineReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	}
 	isScalingUp := r.isMachineScaleUping(req.Name)
 	if isScalingUp && !hasScaleUpExecution {
-		if execErr := r.sendExecutionTime(
+		execTime := machineIns.GetCreationTimestamp().Time
+		if execErr := r.sendExecutionTime(&execTime,
 			req.Namespace, machineSetName, req.Name, isScalingUp); execErr != nil {
 			scope.Errorf("add execution (scale up) failed for machine (%s/%s): %s",
 				req.Namespace, req.Name, execErr.Error())
@@ -150,9 +151,9 @@ func (r *MachineReconciler) isMachineScaleUping(machineName string) bool {
 	return false
 }
 
-func (r *MachineReconciler) sendExecutionTime(
+func (r *MachineReconciler) sendExecutionTime(execTime *time.Time,
 	machinesetNamespace, machinesetName, machineName string, isScalingUp bool) error {
-	return ca_client.SendExecutionTime(r.ClusterUID, r.Client,
+	return ca_client.SendExecutionTime(r.ClusterUID, execTime, r.Client,
 		r.DatahubClient, machinesetNamespace, machinesetName, machineName, isScalingUp)
 }
 

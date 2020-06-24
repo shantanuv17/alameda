@@ -102,7 +102,8 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 	nodes[0] = instance
 
 	if nodeIsDeleted && datahubNode != nil {
-		if err := ca_client.SendExecutionTime(r.ClusterUID, r.Client,
+		execTiem := time.Now()
+		if err := ca_client.SendExecutionTime(r.ClusterUID, &execTiem, r.Client,
 			r.DatahubClient, datahubNode.MachinesetNamespace,
 			datahubNode.MachinesetName, datahubNode.Name, false); err != nil {
 			scope.Errorf(
