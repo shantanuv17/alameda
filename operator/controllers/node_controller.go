@@ -113,7 +113,8 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
 		}
 
-		if err := r.deleteNodesFromDatahub(nodes); err != nil {
+		if err := r.deleteNodesFromDatahub(
+			[]entities.ResourceClusterStatusNode{*datahubNode}); err != nil {
 			scope.Errorf("Delete nodes from Datahub failed: %s", err.Error())
 			return reconcile.Result{Requeue: true, RequeueAfter: requeueInterval}, nil
 		}
@@ -160,13 +161,9 @@ func (r *NodeReconciler) createNodesToDatahub(nodes []*corev1.Node) error {
 	return r.DatahubClient.Create(&nodeInfos)
 }
 
-func (r *NodeReconciler) deleteNodesFromDatahub(nodes []*corev1.Node) error {
-
-	nodeInfos, err := r.createNodeInfos(nodes)
-	if err != nil {
-		return errors.Wrap(err, "create nodeInfos failed")
-	}
-	return r.DatahubClient.Delete(&nodeInfos)
+func (r *NodeReconciler) deleteNodesFromDatahub(
+	nodes []entities.ResourceClusterStatusNode) error {
+	return r.DatahubClient.Delete(&nodes)
 }
 
 func (r *NodeReconciler) createNodeInfos(nodes []*corev1.Node) (
