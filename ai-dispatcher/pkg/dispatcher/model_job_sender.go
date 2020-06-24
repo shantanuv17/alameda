@@ -140,7 +140,7 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 							Order: datahub_common.QueryCondition_DESC,
 							Limit: 1,
 							WhereCondition: []*datahub_common.Condition{
-								&datahub_common.Condition{
+								{
 									Keys:      []string{unit.Prediction.PredictValueKeys.Granularity},
 									Values:    []string{fmt.Sprintf("%v", granularity)},
 									Operators: []string{"="},
@@ -222,13 +222,13 @@ func (dispatcher *modelJobSender) driftEval(modelID string, metricType datahub_c
 		for _, grp := range rawDatum.GetGroups() {
 			rawDatumColumns := grp.GetColumns()
 			for _, row := range grp.GetRows() {
-				readData := []*datahub_data.ReadData{&datahub_data.ReadData{
+				readData := []*datahub_data.ReadData{{
 					MetricType:       metricType,
 					ResourceBoundary: datahub_common.ResourceBoundary_RESOURCE_RAW,
 					QueryCondition: &datahub_common.QueryCondition{
 						Order: datahub_common.QueryCondition_DESC,
 						WhereCondition: []*datahub_common.Condition{
-							&datahub_common.Condition{
+							{
 								Keys:      []string{unit.Prediction.PredictValueKeys.ModelID, unit.Prediction.PredictValueKeys.Granularity},
 								Values:    []string{modelID, fmt.Sprintf("%v", granularity)},
 								Operators: []string{"=", "="},
@@ -302,7 +302,7 @@ func (dispatcher *modelJobSender) driftEval(modelID string, metricType datahub_c
 						if !toQueryMetric {
 							continue
 						}
-						metricReadData := []*datahub_data.ReadData{&datahub_data.ReadData{
+						metricReadData := []*datahub_data.ReadData{{
 							MetricType: metricType,
 							QueryCondition: &datahub_common.QueryCondition{
 								Order:   datahub_common.QueryCondition_DESC,
@@ -318,7 +318,7 @@ func (dispatcher *modelJobSender) driftEval(modelID string, metricType datahub_c
 									AggregateFunction: unit.Metric.Aggregation,
 								},
 								WhereCondition: []*datahub_common.Condition{
-									&datahub_common.Condition{
+									{
 										Keys:      unit.IDKeys,
 										Values:    whereVals,
 										Operators: whereOps,

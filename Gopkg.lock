@@ -35,7 +35,7 @@
 
 [[projects]]
   branch = "4.3-husky"
-  digest = "1:40855319fd78c8ccadcbc25c987a963bd3e3d24ce1251d4dc5877e01b2a929de"
+  digest = "1:9ed51dc7c861d72b1b34056d6f0f0a85b77c2c07677960fa26a92c4d3cf1151d"
   name = "github.com/containers-ai/api"
   packages = [
     "alameda_api/v1alpha1/datahub",
@@ -58,7 +58,7 @@
     "datahub/keycodes",
   ]
   pruneopts = "T"
-  revision = "f6e3de6670efbfb576cf8fe9f487ad4cc0549b79"
+  revision = "69527c8028fdf795f9efff0b9018a728c7fc3d5f"
 
 [[projects]]
   digest = "1:9f42202ac457c462ad8bb9642806d275af9ab4850cf0b1960b9c6f083d4a309a"

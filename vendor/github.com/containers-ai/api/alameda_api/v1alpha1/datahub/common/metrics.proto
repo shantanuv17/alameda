@@ -12,17 +12,36 @@ option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/c
  * Metric type. A metric may be either CPU or memory.
  */
 enum MetricType {
-    METRICS_TYPE_UNDEFINED       = 0;
-    CPU_USAGE_SECONDS_PERCENTAGE = 1;
-    MEMORY_USAGE_BYTES           = 2;
-    POWER_USAGE_WATTS            = 3;
-    TEMPERATURE_CELSIUS          = 4;
-    DUTY_CYCLE                   = 5;
-    CURRENT_OFFSET               = 6;
-    LAG                          = 7;
-    LATENCY                      = 8;
-    NUMBER                       = 9;
-    CPU_CORES                    = 10;
+    METRICS_TYPE_UNDEFINED     = 0;
+    CPU_SECONDS_TOTAL          = 1;
+    CPU_MILLICORES_TOTAL       = 2;
+    CPU_MILLICORES_AVAIL       = 3;
+    CPU_MILLICORES_USAGE       = 4;
+    CPU_MILLICORES_USAGE_PCT   = 5;
+    CPU_MILLICORES_ALLOCATABLE = 6;
+    MEMORY_BYTES_TOTAL         = 7;
+    MEMORY_BYTES_AVAIL         = 8;
+    MEMORY_BYTES_USAGE         = 9;
+    MEMORY_BYTES_USAGE_PCT     = 10;
+    MEMORY_BYTES_ALLOCATABLE   = 11;
+    FS_BYTES_TOTAL             = 12;
+    FS_BYTES_AVAIL             = 13;
+    FS_BYTES_USAGE             = 14;
+    FS_BYTES_USAGE_PCT         = 15;
+    HTTP_REQUESTS_COUNT        = 16;
+    HTTP_REQUESTS_TOTAL        = 17;
+    HTTP_RESPONSE_COUNT        = 18;
+    HTTP_RESPONSE_TOTAL        = 19;
+    DISK_IO_SECONDS_TOTAL      = 20;
+    DISK_IO_UTILIZATION        = 21;
+    RESTARTS_TOTAL             = 22;
+    POWER_USAGE_WATTS          = 23;
+    TEMPERATURE_CELSIUS        = 24;
+    DUTY_CYCLE                 = 25;
+    CURRENT_OFFSET             = 26;
+    LAG                        = 27;
+    LATENCY                    = 28;
+    NUMBER                     = 29;
 }
 
 enum ResourceName {

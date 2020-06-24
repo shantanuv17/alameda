@@ -204,8 +204,8 @@ func (sender *gpuModelJobSender) sendJobByMetrics(gpu *datahub_gpu.Gpu, queueSen
 	nowSeconds := time.Now().Unix()
 
 	for _, metricType := range []datahub_common.MetricType{
-		datahub_common.MetricType_MEMORY_USAGE_BYTES,
-		datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+		datahub_common.MetricType_MEMORY_BYTES_USAGE,
+		datahub_common.MetricType_CPU_MILLICORES_USAGE,
 	} {
 		mtNotFound := true
 		for _, lastPredictionMetric := range lastPredictionMetrics {

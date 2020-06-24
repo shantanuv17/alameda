@@ -268,8 +268,8 @@ func (sender *podModelJobSender) sendJobByMetrics(pod *datahub_resources.Pod, qu
 	if len(lastPredictionContainers) == 0 {
 		for _, ct := range pod.GetContainers() {
 			for _, metricType := range []datahub_common.MetricType{
-				datahub_common.MetricType_MEMORY_USAGE_BYTES,
-				datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+				datahub_common.MetricType_MEMORY_BYTES_USAGE,
+				datahub_common.MetricType_CPU_MILLICORES_USAGE,
 			} {
 				scope.Infof("[POD][%s][%s/%s/%s] No last prediction found, send model jobs",
 					dataGranularity, podNS, podName, ct.GetName())
@@ -283,8 +283,8 @@ func (sender *podModelJobSender) sendJobByMetrics(pod *datahub_resources.Pod, qu
 		lastPredictionMetrics := lastPredictionContainer.GetPredictedRawData()
 
 		for _, metricType := range []datahub_common.MetricType{
-			datahub_common.MetricType_MEMORY_USAGE_BYTES,
-			datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+			datahub_common.MetricType_MEMORY_BYTES_USAGE,
+			datahub_common.MetricType_CPU_MILLICORES_USAGE,
 		} {
 			mtNotFound := true
 			for _, lastPredictionMetric := range lastPredictionMetrics {
