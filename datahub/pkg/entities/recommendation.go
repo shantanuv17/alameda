@@ -19,26 +19,6 @@ type RecommendationKafkaConsumerGroup struct {
 	PerConsumerCapability float64    `json:"per_consumer_capability" required:"false" column:"field" type:"float64"`
 }
 
-type RecommendationNginx struct {
-	DatahubEntity    `scope:"recommendation" category:"nginx" type:"nginx" measurement:"nginx" metric:"undefined" boundary:"undefined" quota:"undefined"`
-	Time             *time.Time `json:"time"               required:"false" column:"tag"   type:"time"`
-	Name             string     `json:"name"               required:"true"  column:"tag"   type:"string"`
-	Namespace        string     `json:"namespace"          required:"true"  column:"tag"   type:"string"`
-	ClusterName      string     `json:"cluster_name"       required:"true"  column:"tag"   type:"string"`
-	Kind             string     `json:"kind"               required:"true"  column:"tag"   type:"string"`
-	CreateTime       int64      `json:"create_time"        required:"true"  column:"field" type:"int64"`
-	CurrentReplicas  int32      `json:"current_replicas"   required:"true"  column:"field" type:"int32"`
-	DesiredReplicas  int32      `json:"desired_replicas"   required:"true"  column:"field" type:"int32"`
-	ReplicaCapacity  float64    `json:"replica_capacity"   required:"true"  column:"field" type:"float64"`
-	CurrentNumerator float64    `json:"current_numerator"  required:"true"  column:"field" type:"float64"`
-	HttpResponseTime int64      `json:"http_response_time" required:"false" column:"field" type:"int64"`
-	Alpha            float64    `json:"alpha"              required:"false" column:"field" type:"float64"`
-	Mape0            float64    `json:"mape0"              required:"true"  column:"field" type:"float64"`
-	Mape1            float64    `json:"mape1"              required:"true"  column:"field" type:"float64"`
-	Mape2            float64    `json:"mape2"              required:"true"  column:"field" type:"float64"`
-	Reserve          string     `json:"reserve"            required:"false" column:"field" type:"string"`
-}
-
 type RecommendationClusterStatusApplication struct {
 	DatahubEntity         `scope:"recommendation" category:"cluster_status" type:"application" measurement:"application" metric:"undefined" boundary:"undefined" quota:"undefined"`
 	Time                  *time.Time `json:"time"                 required:"false" column:"tag"   type:"time"`

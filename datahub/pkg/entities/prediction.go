@@ -79,51 +79,6 @@ type PredictionKafkaConsumerGroupCurrentOffsetLowerBound struct {
 	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
 }
 
-type PredictionNginxHttpResponseTotal struct {
-	DatahubEntity               `scope:"prediction" category:"nginx" type:"nginx" measurement:"nginx_http_response_total" metric:"number" boundary:"raw" quota:"undefined"`
-	Time                        *time.Time `json:"time"                           required:"false" column:"tag"   type:"time"`
-	ClusterName                 string     `json:"cluster_name"                   required:"true"  column:"tag"   type:"string"`
-	ResourceK8sServiceName      string     `json:"resource_k8s_service_name"      required:"true"  column:"tag"   type:"string"`
-	ResourceK8sServiceNamespace string     `json:"resource_k8s_service_namespace" required:"true"  column:"tag"   type:"string"`
-	ResourceK8sName             string     `json:"resource_k8s_name"              required:"true"  column:"tag"   type:"string"`
-	ResourceK8sNamespace        string     `json:"resource_k8s_namespace"         required:"true"  column:"tag"   type:"string"`
-	ResourceK8sKind             string     `json:"resource_k8s_kind"              required:"true"  column:"tag"   type:"string"`
-	Granularity                 string     `json:"granularity"                    required:"true"  column:"tag"   type:"string"`
-	ModelId                     string     `json:"model_id"                       required:"true"  column:"field" type:"string"`
-	PredictionId                string     `json:"prediction_id"                  required:"true"  column:"field" type:"string"`
-	Value                       float64    `json:"value"                          required:"true"  column:"field" type:"float64"`
-}
-
-type PredictionNginxHttpResponseTotalUpperBound struct {
-	DatahubEntity               `scope:"prediction" category:"nginx" type:"nginx" measurement:"nginx_http_response_total_upper_bound" metric:"number" boundary:"upper_bound" quota:"undefined"`
-	Time                        *time.Time `json:"time"                           required:"false" column:"tag"   type:"time"`
-	ClusterName                 string     `json:"cluster_name"                   required:"true"  column:"tag"   type:"string"`
-	ResourceK8sServiceName      string     `json:"resource_k8s_service_name"      required:"true"  column:"tag"   type:"string"`
-	ResourceK8sServiceNamespace string     `json:"resource_k8s_service_namespace" required:"true"  column:"tag"   type:"string"`
-	ResourceK8sName             string     `json:"resource_k8s_name"              required:"true"  column:"tag"   type:"string"`
-	ResourceK8sNamespace        string     `json:"resource_k8s_namespace"         required:"true"  column:"tag"   type:"string"`
-	ResourceK8sKind             string     `json:"resource_k8s_kind"              required:"true"  column:"tag"   type:"string"`
-	Granularity                 string     `json:"granularity"                    required:"true"  column:"tag"   type:"string"`
-	ModelId                     string     `json:"model_id"                       required:"true"  column:"field" type:"string"`
-	PredictionId                string     `json:"prediction_id"                  required:"true"  column:"field" type:"string"`
-	Value                       float64    `json:"value"                          required:"true"  column:"field" type:"float64"`
-}
-
-type PredictionNginxHttpResponseTotalLowerBound struct {
-	DatahubEntity               `scope:"prediction" category:"nginx" type:"nginx" measurement:"nginx_http_response_total_lower_bound" metric:"number" boundary:"lower_bound" quota:"undefined"`
-	Time                        *time.Time `json:"time"                           required:"false" column:"tag"   type:"time"`
-	ClusterName                 string     `json:"cluster_name"                   required:"true"  column:"tag"   type:"string"`
-	ResourceK8sServiceName      string     `json:"resource_k8s_service_name"      required:"true"  column:"tag"   type:"string"`
-	ResourceK8sServiceNamespace string     `json:"resource_k8s_service_namespace" required:"true"  column:"tag"   type:"string"`
-	ResourceK8sName             string     `json:"resource_k8s_name"              required:"true"  column:"tag"   type:"string"`
-	ResourceK8sNamespace        string     `json:"resource_k8s_namespace"         required:"true"  column:"tag"   type:"string"`
-	ResourceK8sKind             string     `json:"resource_k8s_kind"              required:"true"  column:"tag"   type:"string"`
-	Granularity                 string     `json:"granularity"                    required:"true"  column:"tag"   type:"string"`
-	ModelId                     string     `json:"model_id"                       required:"true"  column:"field" type:"string"`
-	PredictionId                string     `json:"prediction_id"                  required:"true"  column:"field" type:"string"`
-	Value                       float64    `json:"value"                          required:"true"  column:"field" type:"float64"`
-}
-
 type PredictionClusterStatusApplicationCPU struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application" measurement:"application" metric:"cpu_usage_percentage" boundary:"raw" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`

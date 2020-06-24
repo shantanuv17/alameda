@@ -12,12 +12,10 @@ func DefaultSchemasInit() {
 	// Application
 	schemaList = append(schemaList, defaults.SchemaApplicationKafkaTopic())
 	schemaList = append(schemaList, defaults.SchemaApplicationKafkaCG())
-	schemaList = append(schemaList, defaults.SchemaApplicationNginx())
 
 	// Metric
 	schemaList = append(schemaList, defaults.SchemaMetricKafkaTopic())
 	schemaList = append(schemaList, defaults.SchemaMetricKafkaCG())
-	schemaList = append(schemaList, defaults.SchemaMetricNginx())
 	schemaList = append(schemaList, defaults.SchemaMetricClusterStatusApplication())
 	schemaList = append(schemaList, defaults.SchemaMetricClusterStatusCluster())
 	schemaList = append(schemaList, defaults.SchemaMetricClusterStatusContainer())
@@ -36,7 +34,6 @@ func DefaultSchemasInit() {
 	// Prediction
 	schemaList = append(schemaList, defaults.SchemaPredictionKafkaTopic())
 	schemaList = append(schemaList, defaults.SchemaPredictionKafkaCG())
-	schemaList = append(schemaList, defaults.SchemaPredictionNginx())
 	schemaList = append(schemaList, defaults.SchemaPredictionClusterStatusApplication())
 	schemaList = append(schemaList, defaults.SchemaPredictionClusterStatusCluster())
 	schemaList = append(schemaList, defaults.SchemaPredictionClusterStatusContainer())
@@ -46,7 +43,6 @@ func DefaultSchemasInit() {
 
 	// Recommendation
 	schemaList = append(schemaList, defaults.SchemaRecommendationKafkaCG())
-	schemaList = append(schemaList, defaults.SchemaRecommendationNginx())
 	schemaList = append(schemaList, defaults.SchemaRecommendationClusterStatusApplication())
 	schemaList = append(schemaList, defaults.SchemaRecommendationClusterStatusCluster())
 	schemaList = append(schemaList, defaults.SchemaRecommendationClusterStatusContainer())

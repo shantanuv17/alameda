@@ -32,31 +32,6 @@ type MetricKafkaConsumerGroupLag struct {
 	TopicName     string     `json:"topic_name"   required:"true"  column:"tag"   type:"string"`
 	Value         float64    `json:"value"        required:"true"  column:"field" type:"float64"`
 }
-
-type MetricNginxHttpResponseTotal struct {
-	DatahubEntity               `scope:"metric" category:"nginx" type:"nginx" measurement:"nginx_http_response_total" metric:"number" boundary:"undefined" quota:"undefined"`
-	Time                        *time.Time `json:"time"                           required:"false" column:"tag"   type:"time"`
-	ClusterName                 string     `json:"cluster_name"                   required:"true"  column:"tag"   type:"string"`
-	ResourceK8sServiceName      string     `json:"resource_k8s_service_name"      required:"true"  column:"tag"   type:"string"`
-	ResourceK8sServiceNamespace string     `json:"resource_k8s_service_namespace" required:"true"  column:"tag"   type:"string"`
-	ResourceK8sName             string     `json:"resource_k8s_name"              required:"true"  column:"tag"   type:"string"`
-	ResourceK8sNamespace        string     `json:"resource_k8s_namespace"         required:"true"  column:"tag"   type:"string"`
-	ResourceK8sKind             string     `json:"resource_k8s_kind"              required:"true"  column:"tag"   type:"string"`
-	Value                       float64    `json:"value"                          required:"true"  column:"field" type:"float64"`
-}
-
-type MetricNginxHttpResponseLatency struct {
-	DatahubEntity               `scope:"metric" category:"nginx" type:"nginx" measurement:"nginx_http_response_latency_ms" metric:"latency" boundary:"undefined" quota:"undefined"`
-	Time                        *time.Time `json:"time"                           required:"false" column:"tag"   type:"time"`
-	ClusterName                 string     `json:"cluster_name"                   required:"true"  column:"tag"   type:"string"`
-	ResourceK8sServiceName      string     `json:"resource_k8s_service_name"      required:"true"  column:"tag"   type:"string"`
-	ResourceK8sServiceNamespace string     `json:"resource_k8s_service_namespace" required:"true"  column:"tag"   type:"string"`
-	ResourceK8sName             string     `json:"resource_k8s_name"              required:"true"  column:"tag"   type:"string"`
-	ResourceK8sNamespace        string     `json:"resource_k8s_namespace"         required:"true"  column:"tag"   type:"string"`
-	ResourceK8sKind             string     `json:"resource_k8s_kind"              required:"true"  column:"tag"   type:"string"`
-	Value                       float64    `json:"value"                          required:"true"  column:"field" type:"float64"`
-}
-
 type MetricClusterStatusApplicationCPU struct {
 	DatahubEntity `scope:"metric" category:"cluster_status" type:"application" measurement:"application_cpu" metric:"cpu_usage_percentage" boundary:"undefined" quota:"undefined"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`

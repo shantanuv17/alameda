@@ -42,35 +42,6 @@ func SchemaMetricKafkaCG() *schemas.Schema {
 	return schema
 }
 
-func SchemaMetricNginx() *schemas.Schema {
-	// Nginx
-	schema := schemas.NewSchema(schemas.Metric, "nginx", "nginx")
-
-	// Response total
-	responseTotal := schemas.NewMeasurement("nginx_http_response_total", schemas.Number, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
-	responseTotal.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	responseTotal.AddColumn("resource_k8s_service_name", true, schemas.Tag, common.String)
-	responseTotal.AddColumn("resource_k8s_service_namespace", true, schemas.Tag, common.String)
-	responseTotal.AddColumn("resource_k8s_name", true, schemas.Tag, common.String)
-	responseTotal.AddColumn("resource_k8s_namespace", true, schemas.Tag, common.String)
-	responseTotal.AddColumn("resource_k8s_kind", true, schemas.Tag, common.String)
-	responseTotal.AddColumn("value", true, schemas.Field, common.Float64)
-	schema.Measurements = append(schema.Measurements, responseTotal)
-
-	// Response latency
-	latency := schemas.NewMeasurement("nginx_http_response_latency_ms", schemas.Latency, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
-	latency.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	latency.AddColumn("resource_k8s_service_name", true, schemas.Tag, common.String)
-	latency.AddColumn("resource_k8s_service_namespace", true, schemas.Tag, common.String)
-	latency.AddColumn("resource_k8s_name", true, schemas.Tag, common.String)
-	latency.AddColumn("resource_k8s_namespace", true, schemas.Tag, common.String)
-	latency.AddColumn("resource_k8s_kind", true, schemas.Tag, common.String)
-	latency.AddColumn("value", true, schemas.Field, common.Float64)
-	schema.Measurements = append(schema.Measurements, latency)
-
-	return schema
-}
-
 func SchemaMetricClusterStatusApplication() *schemas.Schema {
 	// cluster-status application
 	schema := schemas.NewSchema(schemas.Metric, "cluster_status", "application")

@@ -88,55 +88,6 @@ func SchemaPredictionKafkaCG() *schemas.Schema {
 	return schema
 }
 
-func SchemaPredictionNginx() *schemas.Schema {
-	// Nginx
-	schema := schemas.NewSchema(schemas.Prediction, "nginx", "nginx")
-
-	// Raw response total
-	rawTotal := schemas.NewMeasurement("nginx_http_response_total", schemas.Number, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
-	rawTotal.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	rawTotal.AddColumn("resource_k8s_service_name", true, schemas.Tag, common.String)
-	rawTotal.AddColumn("resource_k8s_service_namespace", true, schemas.Tag, common.String)
-	rawTotal.AddColumn("resource_k8s_name", true, schemas.Tag, common.String)
-	rawTotal.AddColumn("resource_k8s_namespace", true, schemas.Tag, common.String)
-	rawTotal.AddColumn("resource_k8s_kind", true, schemas.Tag, common.String)
-	rawTotal.AddColumn("granularity", true, schemas.Tag, common.String)
-	rawTotal.AddColumn("model_id", true, schemas.Field, common.String)
-	rawTotal.AddColumn("prediction_id", true, schemas.Field, common.String)
-	rawTotal.AddColumn("value", true, schemas.Field, common.Float64)
-	schema.Measurements = append(schema.Measurements, rawTotal)
-
-	// Upper bound response total
-	upperTotal := schemas.NewMeasurement("nginx_http_response_total_upper_bound", schemas.Number, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
-	upperTotal.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	upperTotal.AddColumn("resource_k8s_service_name", true, schemas.Tag, common.String)
-	upperTotal.AddColumn("resource_k8s_service_namespace", true, schemas.Tag, common.String)
-	upperTotal.AddColumn("resource_k8s_name", true, schemas.Tag, common.String)
-	upperTotal.AddColumn("resource_k8s_namespace", true, schemas.Tag, common.String)
-	upperTotal.AddColumn("resource_k8s_kind", true, schemas.Tag, common.String)
-	upperTotal.AddColumn("granularity", true, schemas.Tag, common.String)
-	upperTotal.AddColumn("model_id", true, schemas.Field, common.String)
-	upperTotal.AddColumn("prediction_id", true, schemas.Field, common.String)
-	upperTotal.AddColumn("value", true, schemas.Field, common.Float64)
-	schema.Measurements = append(schema.Measurements, upperTotal)
-
-	// Lower bound response total
-	lowerTotal := schemas.NewMeasurement("nginx_http_response_total_lower_bound", schemas.Number, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
-	lowerTotal.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	lowerTotal.AddColumn("resource_k8s_service_name", true, schemas.Tag, common.String)
-	lowerTotal.AddColumn("resource_k8s_service_namespace", true, schemas.Tag, common.String)
-	lowerTotal.AddColumn("resource_k8s_name", true, schemas.Tag, common.String)
-	lowerTotal.AddColumn("resource_k8s_namespace", true, schemas.Tag, common.String)
-	lowerTotal.AddColumn("resource_k8s_kind", true, schemas.Tag, common.String)
-	lowerTotal.AddColumn("granularity", true, schemas.Tag, common.String)
-	lowerTotal.AddColumn("model_id", true, schemas.Field, common.String)
-	lowerTotal.AddColumn("prediction_id", true, schemas.Field, common.String)
-	lowerTotal.AddColumn("value", true, schemas.Field, common.Float64)
-	schema.Measurements = append(schema.Measurements, lowerTotal)
-
-	return schema
-}
-
 func SchemaPredictionClusterStatusApplication() *schemas.Schema {
 	// cluster-status application
 	schema := schemas.NewSchema(schemas.Prediction, "cluster_status", "application")

@@ -23,29 +23,6 @@ func SchemaRecommendationKafkaCG() *schemas.Schema {
 	return schema
 }
 
-func SchemaRecommendationNginx() *schemas.Schema {
-	// Nginx
-	schema := schemas.NewSchema(schemas.Recommendation, "nginx", "nginx")
-	measurement := schemas.NewMeasurement("nginx", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
-	measurement.AddColumn("name", true, schemas.Tag, common.String)
-	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
-	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("kind", true, schemas.Tag, common.String)
-	measurement.AddColumn("create_time", true, schemas.Field, common.Int64)
-	measurement.AddColumn("current_replicas", true, schemas.Field, common.Int32)
-	measurement.AddColumn("desired_replicas", true, schemas.Field, common.Int32)
-	measurement.AddColumn("replica_capacity", true, schemas.Field, common.Float64)
-	measurement.AddColumn("current_numerator", true, schemas.Field, common.Float64)
-	measurement.AddColumn("http_response_time", false, schemas.Field, common.Int64)
-	measurement.AddColumn("alpha", false, schemas.Field, common.Float64)
-	measurement.AddColumn("mape0", true, schemas.Field, common.Float64)
-	measurement.AddColumn("mape1", true, schemas.Field, common.Float64)
-	measurement.AddColumn("mape2", true, schemas.Field, common.Float64)
-	measurement.AddColumn("reserve", false, schemas.Field, common.String)
-	schema.Measurements = append(schema.Measurements, measurement)
-	return schema
-}
-
 func SchemaRecommendationClusterStatusApplication() *schemas.Schema {
 	// cluster-status application
 	schema := schemas.NewSchema(schemas.Recommendation, "cluster_status", "application")
