@@ -36,13 +36,14 @@ enum MetricType {
     DISK_IO_UTILIZATION        = 21;
     RESTARTS_TOTAL             = 22;
     UNSCHEDULABLE              = 23;
-    POWER_USAGE_WATTS          = 24;
-    TEMPERATURE_CELSIUS        = 25;
-    DUTY_CYCLE                 = 26;
-    CURRENT_OFFSET             = 27;
-    LAG                        = 28;
-    LATENCY                    = 29;
-    NUMBER                     = 30;
+    HEALTH                     = 24;
+    POWER_USAGE_WATTS          = 25;
+    TEMPERATURE_CELSIUS        = 26;
+    DUTY_CYCLE                 = 27;
+    CURRENT_OFFSET             = 28;
+    LAG                        = 29;
+    LATENCY                    = 30;
+    NUMBER                     = 31;
 }
 
 enum ResourceName {
