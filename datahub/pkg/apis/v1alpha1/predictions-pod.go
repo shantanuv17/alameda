@@ -145,12 +145,12 @@ func (s *ServiceV1alpha1) ListPodPredictionsDemo(ctx context.Context, in *ApiPre
 	demoContainerPredictionList = append(demoContainerPredictionList, &demoContainerPrediction)
 
 	demoPredictionDataCPU := ApiPredictions.MetricData{
-		MetricType: ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+		MetricType: ApiCommon.MetricType_CPU_MILLICORES_USAGE,
 		Data:       make([]*ApiPredictions.Sample, 0),
 	}
 
 	demoPredictionDataMem := ApiPredictions.MetricData{
-		MetricType: ApiCommon.MetricType_MEMORY_USAGE_BYTES,
+		MetricType: ApiCommon.MetricType_MEMORY_BYTES_USAGE,
 		Data:       make([]*ApiPredictions.Sample, 0),
 	}
 

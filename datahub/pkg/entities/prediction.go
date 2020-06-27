@@ -80,7 +80,7 @@ type PredictionKafkaConsumerGroupCurrentOffsetLowerBound struct {
 }
 
 type PredictionClusterStatusApplicationCPU struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application" measurement:"application" metric:"cpu_usage_percentage" boundary:"raw" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application" measurement:"application" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
@@ -94,7 +94,7 @@ type PredictionClusterStatusApplicationCPU struct {
 }
 
 type PredictionClusterStatusApplicationCPUUpperBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application" measurement:"application" metric:"cpu_usage_percentage" boundary:"upper_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application" measurement:"application" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
@@ -108,7 +108,7 @@ type PredictionClusterStatusApplicationCPUUpperBound struct {
 }
 
 type PredictionClusterStatusApplicationCPULowerBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application" measurement:"application" metric:"cpu_usage_percentage" boundary:"lower_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application" measurement:"application" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
@@ -122,7 +122,7 @@ type PredictionClusterStatusApplicationCPULowerBound struct {
 }
 
 type PredictionClusterStatusApplicationMemory struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application" measurement:"application" metric:"memory_usage_bytes" boundary:"raw" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application" measurement:"application" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
@@ -136,7 +136,7 @@ type PredictionClusterStatusApplicationMemory struct {
 }
 
 type PredictionClusterStatusApplicationMemoryUpperBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application" measurement:"application" metric:"memory_usage_bytes" boundary:"upper_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application" measurement:"application" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
@@ -150,7 +150,7 @@ type PredictionClusterStatusApplicationMemoryUpperBound struct {
 }
 
 type PredictionClusterStatusApplicationMemoryLowerBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application" measurement:"application" metric:"memory_usage_bytes" boundary:"lower_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application" measurement:"application" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
@@ -164,7 +164,7 @@ type PredictionClusterStatusApplicationMemoryLowerBound struct {
 }
 
 type PredictionClusterStatusClusterCPU struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"cpu_usage_percentage" boundary:"raw" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
@@ -176,7 +176,7 @@ type PredictionClusterStatusClusterCPU struct {
 }
 
 type PredictionClusterStatusClusterCPUUpperBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"cpu_usage_percentage" boundary:"upper_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
@@ -188,7 +188,7 @@ type PredictionClusterStatusClusterCPUUpperBound struct {
 }
 
 type PredictionClusterStatusClusterCPULowerBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"cpu_usage_percentage" boundary:"lower_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
@@ -200,7 +200,7 @@ type PredictionClusterStatusClusterCPULowerBound struct {
 }
 
 type PredictionClusterStatusClusterMemory struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"memory_usage_bytes" boundary:"raw" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
@@ -212,7 +212,7 @@ type PredictionClusterStatusClusterMemory struct {
 }
 
 type PredictionClusterStatusClusterMemoryUpperBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"memory_usage_bytes" boundary:"upper_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
@@ -224,7 +224,7 @@ type PredictionClusterStatusClusterMemoryUpperBound struct {
 }
 
 type PredictionClusterStatusClusterMemoryLowerBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"memory_usage_bytes" boundary:"lower_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
@@ -236,7 +236,7 @@ type PredictionClusterStatusClusterMemoryLowerBound struct {
 }
 
 type PredictionClusterStatusContainerCPU struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container" measurement:"container" metric:"cpu_usage_percentage" boundary:"raw" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container" measurement:"container" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	PodName       string     `json:"pod_name"      required:"true"  column:"tag"   type:"string"`
@@ -252,7 +252,7 @@ type PredictionClusterStatusContainerCPU struct {
 }
 
 type PredictionClusterStatusContainerCPUUpperBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container" measurement:"container" metric:"cpu_usage_percentage" boundary:"upper_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container" measurement:"container" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	PodName       string     `json:"pod_name"      required:"true"  column:"tag"   type:"string"`
@@ -268,7 +268,7 @@ type PredictionClusterStatusContainerCPUUpperBound struct {
 }
 
 type PredictionClusterStatusContainerCPULowerBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container" measurement:"container" metric:"cpu_usage_percentage" boundary:"lower_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container" measurement:"container" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	PodName       string     `json:"pod_name"      required:"true"  column:"tag"   type:"string"`
@@ -284,7 +284,7 @@ type PredictionClusterStatusContainerCPULowerBound struct {
 }
 
 type PredictionClusterStatusContainerMemory struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container" measurement:"container" metric:"memory_usage_bytes" boundary:"raw" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container" measurement:"container" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	PodName       string     `json:"pod_name"      required:"true"  column:"tag"   type:"string"`
@@ -300,7 +300,7 @@ type PredictionClusterStatusContainerMemory struct {
 }
 
 type PredictionClusterStatusContainerMemoryUpperBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container" measurement:"container" metric:"memory_usage_bytes" boundary:"upper_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container" measurement:"container" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	PodName       string     `json:"pod_name"      required:"true"  column:"tag"   type:"string"`
@@ -316,7 +316,7 @@ type PredictionClusterStatusContainerMemoryUpperBound struct {
 }
 
 type PredictionClusterStatusContainerMemoryLowerBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container" measurement:"container" metric:"memory_usage_bytes" boundary:"lower_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container" measurement:"container" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	PodName       string     `json:"pod_name"      required:"true"  column:"tag"   type:"string"`
@@ -332,7 +332,7 @@ type PredictionClusterStatusContainerMemoryLowerBound struct {
 }
 
 type PredictionClusterStatusControllerCPU struct {
-	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller" measurement:"controller" metric:"cpu_usage_percentage" boundary:"raw" quota:"undefined"`
+	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller" measurement:"controller" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined"`
 	Time           *time.Time `json:"time"            required:"false" column:"tag"   type:"time"`
 	Name           string     `json:"name"            required:"true"  column:"tag"   type:"string"`
 	Namespace      string     `json:"namespace"       required:"true"  column:"tag"   type:"string"`
@@ -347,7 +347,7 @@ type PredictionClusterStatusControllerCPU struct {
 }
 
 type PredictionClusterStatusControllerCPUUpperBound struct {
-	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller" measurement:"controller" metric:"cpu_usage_percentage" boundary:"upper_bound" quota:"undefined"`
+	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller" measurement:"controller" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined"`
 	Time           *time.Time `json:"time"            required:"false" column:"tag"   type:"time"`
 	Name           string     `json:"name"            required:"true"  column:"tag"   type:"string"`
 	Namespace      string     `json:"namespace"       required:"true"  column:"tag"   type:"string"`
@@ -362,7 +362,7 @@ type PredictionClusterStatusControllerCPUUpperBound struct {
 }
 
 type PredictionClusterStatusControllerCPULowerBound struct {
-	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller" measurement:"controller" metric:"cpu_usage_percentage" boundary:"lower_bound" quota:"undefined"`
+	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller" measurement:"controller" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined"`
 	Time           *time.Time `json:"time"            required:"false" column:"tag"   type:"time"`
 	Name           string     `json:"name"            required:"true"  column:"tag"   type:"string"`
 	Namespace      string     `json:"namespace"       required:"true"  column:"tag"   type:"string"`
@@ -377,7 +377,7 @@ type PredictionClusterStatusControllerCPULowerBound struct {
 }
 
 type PredictionClusterStatusControllerMemory struct {
-	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller" measurement:"controller" metric:"memory_usage_bytes" boundary:"raw" quota:"undefined"`
+	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller" measurement:"controller" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined"`
 	Time           *time.Time `json:"time"            required:"false" column:"tag"   type:"time"`
 	Name           string     `json:"name"            required:"true"  column:"tag"   type:"string"`
 	Namespace      string     `json:"namespace"       required:"true"  column:"tag"   type:"string"`
@@ -392,7 +392,7 @@ type PredictionClusterStatusControllerMemory struct {
 }
 
 type PredictionClusterStatusControllerMemoryUpperBound struct {
-	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller" measurement:"controller" metric:"memory_usage_bytes" boundary:"upper_bound" quota:"undefined"`
+	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller" measurement:"controller" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined"`
 	Time           *time.Time `json:"time"            required:"false" column:"tag"   type:"time"`
 	Name           string     `json:"name"            required:"true"  column:"tag"   type:"string"`
 	Namespace      string     `json:"namespace"       required:"true"  column:"tag"   type:"string"`
@@ -407,7 +407,7 @@ type PredictionClusterStatusControllerMemoryUpperBound struct {
 }
 
 type PredictionClusterStatusControllerMemoryLowerBound struct {
-	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller" measurement:"controller" metric:"memory_usage_bytes" boundary:"lower_bound" quota:"undefined"`
+	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller" measurement:"controller" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined"`
 	Time           *time.Time `json:"time"            required:"false" column:"tag"   type:"time"`
 	Name           string     `json:"name"            required:"true"  column:"tag"   type:"string"`
 	Namespace      string     `json:"namespace"       required:"true"  column:"tag"   type:"string"`
@@ -422,7 +422,7 @@ type PredictionClusterStatusControllerMemoryLowerBound struct {
 }
 
 type PredictionClusterStatusNamespaceCPU struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace" measurement:"namespace" metric:"cpu_usage_percentage" boundary:"raw" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace" measurement:"namespace" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
@@ -435,7 +435,7 @@ type PredictionClusterStatusNamespaceCPU struct {
 }
 
 type PredictionClusterStatusNamespaceCPUUpperBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace" measurement:"namespace" metric:"cpu_usage_percentage" boundary:"upper_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace" measurement:"namespace" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
@@ -448,7 +448,7 @@ type PredictionClusterStatusNamespaceCPUUpperBound struct {
 }
 
 type PredictionClusterStatusNamespaceCPULowerBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace" measurement:"namespace" metric:"cpu_usage_percentage" boundary:"lower_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace" measurement:"namespace" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
@@ -461,7 +461,7 @@ type PredictionClusterStatusNamespaceCPULowerBound struct {
 }
 
 type PredictionClusterStatusNamespaceMemory struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace" measurement:"namespace" metric:"memory_usage_bytes" boundary:"raw" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace" measurement:"namespace" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
@@ -474,7 +474,7 @@ type PredictionClusterStatusNamespaceMemory struct {
 }
 
 type PredictionClusterStatusNamespaceMemoryUpperBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace" measurement:"namespace" metric:"memory_usage_bytes" boundary:"upper_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace" measurement:"namespace" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
@@ -487,7 +487,7 @@ type PredictionClusterStatusNamespaceMemoryUpperBound struct {
 }
 
 type PredictionClusterStatusNamespaceMemoryLowerBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace" measurement:"namespace" metric:"memory_usage_bytes" boundary:"lower_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace" measurement:"namespace" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
@@ -500,7 +500,7 @@ type PredictionClusterStatusNamespaceMemoryLowerBound struct {
 }
 
 type PredictionClusterStatusNodeCPU struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node" measurement:"node" metric:"cpu_usage_percentage" boundary:"raw" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node" measurement:"node" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
@@ -514,7 +514,7 @@ type PredictionClusterStatusNodeCPU struct {
 }
 
 type PredictionClusterStatusNodeCPUUpperBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node" measurement:"node" metric:"cpu_usage_percentage" boundary:"upper_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node" measurement:"node" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
@@ -528,7 +528,7 @@ type PredictionClusterStatusNodeCPUUpperBound struct {
 }
 
 type PredictionClusterStatusNodeCPULowerBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node" measurement:"node" metric:"cpu_usage_percentage" boundary:"lower_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node" measurement:"node" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
@@ -542,7 +542,7 @@ type PredictionClusterStatusNodeCPULowerBound struct {
 }
 
 type PredictionClusterStatusNodeMemory struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node" measurement:"node" metric:"memory_usage_bytes" boundary:"raw" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node" measurement:"node" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
@@ -556,7 +556,7 @@ type PredictionClusterStatusNodeMemory struct {
 }
 
 type PredictionClusterStatusNodeMemoryUpperBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node" measurement:"node" metric:"memory_usage_bytes" boundary:"upper_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node" measurement:"node" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
@@ -570,7 +570,7 @@ type PredictionClusterStatusNodeMemoryUpperBound struct {
 }
 
 type PredictionClusterStatusNodeMemoryLowerBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node" measurement:"node" metric:"memory_usage_bytes" boundary:"lower_bound" quota:"undefined"`
+	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node" measurement:"node" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`

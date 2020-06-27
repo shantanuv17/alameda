@@ -21,11 +21,11 @@ var (
 )
 
 var MetricTypeNameMap = map[ApiCommon.MetricType]FormatEnum.MetricType{
-	ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE: FormatEnum.MetricTypeCPUUsageSecondsPercentage,
-	ApiCommon.MetricType_MEMORY_USAGE_BYTES:           FormatEnum.MetricTypeMemoryUsageBytes,
-	ApiCommon.MetricType_POWER_USAGE_WATTS:            FormatEnum.MetricTypePowerUsageWatts,
-	ApiCommon.MetricType_TEMPERATURE_CELSIUS:          FormatEnum.MetricTypeTemperatureCelsius,
-	ApiCommon.MetricType_DUTY_CYCLE:                   FormatEnum.MetricTypeDutyCycle,
+	ApiCommon.MetricType_CPU_MILLICORES_USAGE: FormatEnum.MetricTypeCPUUsageSecondsPercentage,
+	ApiCommon.MetricType_MEMORY_BYTES_USAGE:   FormatEnum.MetricTypeMemoryUsageBytes,
+	ApiCommon.MetricType_POWER_USAGE_WATTS:    FormatEnum.MetricTypePowerUsageWatts,
+	ApiCommon.MetricType_TEMPERATURE_CELSIUS:  FormatEnum.MetricTypeTemperatureCelsius,
+	ApiCommon.MetricType_DUTY_CYCLE:           FormatEnum.MetricTypeDutyCycle,
 }
 
 func normalizeListMetricsRequestQueryConditionWthMetricsDBType(q ApiCommon.QueryCondition, dbType MetricsDBType) ApiCommon.QueryCondition {

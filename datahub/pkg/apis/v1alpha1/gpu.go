@@ -227,7 +227,7 @@ func generateGpuMetricTypes(in *ApiGpu.ListGpuMetricsRequest) []FormatEnum.Metri
 			metricTypes = append(metricTypes, metrics.MetricTypeNameMap[ApiCommon.MetricType_DUTY_CYCLE])
 		}
 		if DaoGpuInflux.GpuMetricUsedMap[FormatEnum.TypeGpuMemoryUsedBytes] == true {
-			metricTypes = append(metricTypes, metrics.MetricTypeNameMap[ApiCommon.MetricType_MEMORY_USAGE_BYTES])
+			metricTypes = append(metricTypes, metrics.MetricTypeNameMap[ApiCommon.MetricType_MEMORY_BYTES_USAGE])
 		}
 		if DaoGpuInflux.GpuMetricUsedMap[FormatEnum.TypeGpuPowerUsageMilliWatts] == true {
 			metricTypes = append(metricTypes, metrics.MetricTypeNameMap[ApiCommon.MetricType_POWER_USAGE_WATTS])

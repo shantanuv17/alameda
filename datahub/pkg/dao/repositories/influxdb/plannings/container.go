@@ -138,23 +138,23 @@ func (c *ContainerRepository) CreateContainerPlannings(in *ApiPlannings.CreatePo
 						newFields[EntityInfluxPlanning.ContainerEndTime] = datum.GetEndTime().GetSeconds()
 
 						switch metricData.GetMetricType() {
-						case ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE:
+						case ApiCommon.MetricType_CPU_MILLICORES_USAGE:
 							if numVal, err := DatahubUtils.StringToFloat64(datum.NumValue); err == nil {
 								newFields[EntityInfluxPlanning.ContainerResourceLimitCPU] = numVal
 							}
-							if value, ok := initialLimitPlanning[ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE]; ok {
+							if value, ok := initialLimitPlanning[ApiCommon.MetricType_CPU_MILLICORES_USAGE]; ok {
 								if numVal, err := DatahubUtils.StringToFloat64(value.(string)); err == nil {
 									newFields[EntityInfluxPlanning.ContainerInitialResourceLimitCPU] = numVal
 								}
 							} else {
 								newFields[EntityInfluxPlanning.ContainerInitialResourceLimitCPU] = float64(0)
 							}
-						case ApiCommon.MetricType_MEMORY_USAGE_BYTES:
+						case ApiCommon.MetricType_MEMORY_BYTES_USAGE:
 							if numVal, err := DatahubUtils.StringToFloat64(datum.NumValue); err == nil {
 								memoryBytes := math.Floor(numVal)
 								newFields[EntityInfluxPlanning.ContainerResourceLimitMemory] = memoryBytes
 							}
-							if value, ok := initialLimitPlanning[ApiCommon.MetricType_MEMORY_USAGE_BYTES]; ok {
+							if value, ok := initialLimitPlanning[ApiCommon.MetricType_MEMORY_BYTES_USAGE]; ok {
 								if numVal, err := DatahubUtils.StringToFloat64(value.(string)); err == nil {
 									memoryBytes := math.Floor(numVal)
 									newFields[EntityInfluxPlanning.ContainerInitialResourceLimitMemory] = memoryBytes
@@ -184,23 +184,23 @@ func (c *ContainerRepository) CreateContainerPlannings(in *ApiPlannings.CreatePo
 						newFields[EntityInfluxPlanning.ContainerEndTime] = datum.GetEndTime().GetSeconds()
 
 						switch metricData.GetMetricType() {
-						case ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE:
+						case ApiCommon.MetricType_CPU_MILLICORES_USAGE:
 							if numVal, err := DatahubUtils.StringToFloat64(datum.NumValue); err == nil {
 								newFields[EntityInfluxPlanning.ContainerResourceRequestCPU] = numVal
 							}
-							if value, ok := initialRequestPlanning[ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE]; ok {
+							if value, ok := initialRequestPlanning[ApiCommon.MetricType_CPU_MILLICORES_USAGE]; ok {
 								if numVal, err := DatahubUtils.StringToFloat64(value.(string)); err == nil {
 									newFields[EntityInfluxPlanning.ContainerInitialResourceRequestCPU] = numVal
 								}
 							} else {
 								newFields[EntityInfluxPlanning.ContainerInitialResourceRequestCPU] = float64(0)
 							}
-						case ApiCommon.MetricType_MEMORY_USAGE_BYTES:
+						case ApiCommon.MetricType_MEMORY_BYTES_USAGE:
 							if numVal, err := DatahubUtils.StringToFloat64(datum.NumValue); err == nil {
 								memoryBytes := math.Floor(numVal)
 								newFields[EntityInfluxPlanning.ContainerResourceRequestMemory] = memoryBytes
 							}
-							if value, ok := initialRequestPlanning[ApiCommon.MetricType_MEMORY_USAGE_BYTES]; ok {
+							if value, ok := initialRequestPlanning[ApiCommon.MetricType_MEMORY_BYTES_USAGE]; ok {
 								if numVal, err := DatahubUtils.StringToFloat64(value.(string)); err == nil {
 									memoryBytes := math.Floor(numVal)
 									newFields[EntityInfluxPlanning.ContainerInitialResourceRequestMemory] = memoryBytes
@@ -351,7 +351,7 @@ func (c *ContainerRepository) queryPlannings(cmd string, granularity int64) ([]*
 			containerPlanning := &ApiPlannings.ContainerPlanning{}
 			containerPlanning.Name = data[EntityInfluxPlanning.ContainerName]
 
-			metricTypeList := []ApiCommon.MetricType{ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE, ApiCommon.MetricType_MEMORY_USAGE_BYTES}
+			metricTypeList := []ApiCommon.MetricType{ApiCommon.MetricType_CPU_MILLICORES_USAGE, ApiCommon.MetricType_MEMORY_BYTES_USAGE}
 			sampleTime := &timestamp.Timestamp{
 				Seconds: startTime,
 			}
