@@ -44,8 +44,8 @@ const (
 
 // TypeToDatahubMetricType Type to datahub metric type
 var TypeToDatahubMetricType map[string]ApiCommon.MetricType = map[string]ApiCommon.MetricType{
-	MetricTypeCPUUsageSecondsPercentage: ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
-	MetricTypeMemoryUsageBytes:          ApiCommon.MetricType_MEMORY_USAGE_BYTES,
+	MetricTypeCPUUsageSecondsPercentage: ApiCommon.MetricType_CPU_MILLICORES_USAGE,
+	MetricTypeMemoryUsageBytes:          ApiCommon.MetricType_MEMORY_BYTES_USAGE,
 	MetricTypePowerUsageWatts:           ApiCommon.MetricType_POWER_USAGE_WATTS,
 	MetricTypeTemperatureCelsius:        ApiCommon.MetricType_TEMPERATURE_CELSIUS,
 	MetricTypeDutyCycle:                 ApiCommon.MetricType_DUTY_CYCLE,
@@ -53,9 +53,9 @@ var TypeToDatahubMetricType map[string]ApiCommon.MetricType = map[string]ApiComm
 	TypeGpuDutyCycle:                      ApiCommon.MetricType_DUTY_CYCLE,
 	TypeGpuDutyCycleLowerBound:            ApiCommon.MetricType_DUTY_CYCLE,
 	TypeGpuDutyCycleUpperBound:            ApiCommon.MetricType_DUTY_CYCLE,
-	TypeGpuMemoryUsedBytes:                ApiCommon.MetricType_MEMORY_USAGE_BYTES,
-	TypeGpuMemoryUsedBytesLowerBound:      ApiCommon.MetricType_MEMORY_USAGE_BYTES,
-	TypeGpuMemoryUsedBytesUpperBound:      ApiCommon.MetricType_MEMORY_USAGE_BYTES,
+	TypeGpuMemoryUsedBytes:                ApiCommon.MetricType_MEMORY_BYTES_USAGE,
+	TypeGpuMemoryUsedBytesLowerBound:      ApiCommon.MetricType_MEMORY_BYTES_USAGE,
+	TypeGpuMemoryUsedBytesUpperBound:      ApiCommon.MetricType_MEMORY_BYTES_USAGE,
 	TypeGpuPowerUsageMilliWatts:           ApiCommon.MetricType_POWER_USAGE_WATTS,
 	TypeGpuPowerUsageMilliWattsLowerBound: ApiCommon.MetricType_POWER_USAGE_WATTS,
 	TypeGpuPowerUsageMilliWattsUpperBound: ApiCommon.MetricType_POWER_USAGE_WATTS,

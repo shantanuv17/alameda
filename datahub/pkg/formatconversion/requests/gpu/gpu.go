@@ -26,21 +26,21 @@ func (r *CreateGpuPredictionsRequestExtended) ProducePredictions() DaoGpu.GpuPre
 	gpuPredictionMap := make(map[FormatEnum.GpuMetricType][]*DaoGpu.GpuPrediction)
 
 	rawDataTypeMap := map[ApiCommon.MetricType]FormatEnum.GpuMetricType{
-		ApiCommon.MetricType_MEMORY_USAGE_BYTES:  FormatEnum.TypeGpuMemoryUsedBytes,
+		ApiCommon.MetricType_MEMORY_BYTES_USAGE:  FormatEnum.TypeGpuMemoryUsedBytes,
 		ApiCommon.MetricType_POWER_USAGE_WATTS:   FormatEnum.TypeGpuPowerUsageMilliWatts,
 		ApiCommon.MetricType_TEMPERATURE_CELSIUS: FormatEnum.TypeGpuTemperatureCelsius,
 		ApiCommon.MetricType_DUTY_CYCLE:          FormatEnum.TypeGpuDutyCycle,
 	}
 
 	lowerBoundTypeMap := map[ApiCommon.MetricType]FormatEnum.GpuMetricType{
-		ApiCommon.MetricType_MEMORY_USAGE_BYTES:  FormatEnum.TypeGpuMemoryUsedBytesLowerBound,
+		ApiCommon.MetricType_MEMORY_BYTES_USAGE:  FormatEnum.TypeGpuMemoryUsedBytesLowerBound,
 		ApiCommon.MetricType_POWER_USAGE_WATTS:   FormatEnum.TypeGpuPowerUsageMilliWattsLowerBound,
 		ApiCommon.MetricType_TEMPERATURE_CELSIUS: FormatEnum.TypeGpuTemperatureCelsiusLowerBound,
 		ApiCommon.MetricType_DUTY_CYCLE:          FormatEnum.TypeGpuDutyCycleLowerBound,
 	}
 
 	upperBoundTypeMap := map[ApiCommon.MetricType]FormatEnum.GpuMetricType{
-		ApiCommon.MetricType_MEMORY_USAGE_BYTES:  FormatEnum.TypeGpuMemoryUsedBytesUpperBound,
+		ApiCommon.MetricType_MEMORY_BYTES_USAGE:  FormatEnum.TypeGpuMemoryUsedBytesUpperBound,
 		ApiCommon.MetricType_POWER_USAGE_WATTS:   FormatEnum.TypeGpuPowerUsageMilliWattsUpperBound,
 		ApiCommon.MetricType_TEMPERATURE_CELSIUS: FormatEnum.TypeGpuTemperatureCelsiusUpperBound,
 		ApiCommon.MetricType_DUTY_CYCLE:          FormatEnum.TypeGpuDutyCycleUpperBound,

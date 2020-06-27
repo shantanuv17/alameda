@@ -7,17 +7,38 @@ import (
 )
 
 var MetricTypeNameMap = map[schemas.MetricType]common.MetricType{
-	schemas.MetricTypeUndefined:       common.MetricType_METRICS_TYPE_UNDEFINED,
-	schemas.CPUUsageSecondsPercentage: common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
-	schemas.MemoryUsageBytes:          common.MetricType_MEMORY_USAGE_BYTES,
-	schemas.PowerUsageWatts:           common.MetricType_POWER_USAGE_WATTS,
-	schemas.TemperatureCelsius:        common.MetricType_TEMPERATURE_CELSIUS,
-	schemas.DutyCycle:                 common.MetricType_DUTY_CYCLE,
-	schemas.CurrentOffset:             common.MetricType_CURRENT_OFFSET,
-	schemas.Lag:                       common.MetricType_LAG,
-	schemas.Latency:                   common.MetricType_LATENCY,
-	schemas.Number:                    common.MetricType_NUMBER,
-	schemas.CPUCores:                  common.MetricType_CPU_CORES,
+	schemas.MetricTypeUndefined:      common.MetricType_METRICS_TYPE_UNDEFINED,
+	schemas.CPUSecondsTotal:          common.MetricType_CPU_SECONDS_TOTAL,
+	schemas.CPUMilliCoresTotal:       common.MetricType_CPU_MILLICORES_TOTAL,
+	schemas.CPUMilliCoresAvail:       common.MetricType_CPU_MILLICORES_AVAIL,
+	schemas.CPUMilliCoresUsage:       common.MetricType_CPU_MILLICORES_USAGE, // Change from CPUUsageSecondsPercentage
+	schemas.CPUMilliCoresUsagePCT:    common.MetricType_CPU_MILLICORES_USAGE_PCT,
+	schemas.CPUMilliCoresAllocatable: common.MetricType_CPU_MILLICORES_ALLOCATABLE, // Change from CPUCores
+	schemas.MemoryBytesTotal:         common.MetricType_MEMORY_BYTES_TOTAL,
+	schemas.MemoryBytesAvail:         common.MetricType_MEMORY_BYTES_AVAIL,
+	schemas.MemoryBytesUsage:         common.MetricType_MEMORY_BYTES_USAGE, // Change from MemoryUsageBytes
+	schemas.MemoryBytesUsagePCT:      common.MetricType_MEMORY_BYTES_USAGE_PCT,
+	schemas.MemoryBytesAllocatable:   common.MetricType_MEMORY_BYTES_ALLOCATABLE,
+	schemas.FSBytesTotal:             common.MetricType_FS_BYTES_TOTAL,
+	schemas.FSBytesAvail:             common.MetricType_FS_BYTES_AVAIL,
+	schemas.FSBytesUsage:             common.MetricType_FS_BYTES_USAGE,
+	schemas.FSBytesUsagePCT:          common.MetricType_FS_BYTES_USAGE_PCT,
+	schemas.HttpRequestsCount:        common.MetricType_HTTP_REQUESTS_COUNT,
+	schemas.HttpRequestsTotal:        common.MetricType_HTTP_REQUESTS_TOTAL,
+	schemas.HttpResponseCount:        common.MetricType_HTTP_RESPONSE_COUNT,
+	schemas.HttpResponseTotal:        common.MetricType_HTTP_RESPONSE_TOTAL,
+	schemas.DiskIOSecondsTotal:       common.MetricType_DISK_IO_SECONDS_TOTAL,
+	schemas.DiskIOUtilization:        common.MetricType_DISK_IO_UTILIZATION,
+	schemas.RestartsTotal:            common.MetricType_RESTARTS_TOTAL,
+	schemas.Unschedulable:            common.MetricType_UNSCHEDULABLE,
+	schemas.Health:                   common.MetricType_HEALTH,
+	schemas.PowerUsageWatts:          common.MetricType_POWER_USAGE_WATTS,
+	schemas.TemperatureCelsius:       common.MetricType_TEMPERATURE_CELSIUS,
+	schemas.DutyCycle:                common.MetricType_DUTY_CYCLE,
+	schemas.CurrentOffset:            common.MetricType_CURRENT_OFFSET,
+	schemas.Lag:                      common.MetricType_LAG,
+	schemas.Latency:                  common.MetricType_LATENCY,
+	schemas.Number:                   common.MetricType_NUMBER,
 }
 
 var ResourceBoundaryNameMap = map[schemas.ResourceBoundary]common.ResourceBoundary{

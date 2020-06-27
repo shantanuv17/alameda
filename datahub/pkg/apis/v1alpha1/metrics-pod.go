@@ -128,12 +128,12 @@ func (s *ServiceV1alpha1) ListPodMetricsDemo(ctx context.Context, in *ApiMetrics
 	demoContainerMetricList = append(demoContainerMetricList, &demoContainerMetric)
 
 	demoMetricDataCPU := ApiCommon.MetricData{
-		MetricType: ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+		MetricType: ApiCommon.MetricType_CPU_MILLICORES_USAGE,
 		Data:       make([]*ApiCommon.Sample, 0),
 	}
 
 	demoMetricDataMem := ApiCommon.MetricData{
-		MetricType: ApiCommon.MetricType_MEMORY_USAGE_BYTES,
+		MetricType: ApiCommon.MetricType_MEMORY_BYTES_USAGE,
 		Data:       make([]*ApiCommon.Sample, 0),
 	}
 

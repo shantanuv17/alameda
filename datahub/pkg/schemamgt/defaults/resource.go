@@ -71,6 +71,8 @@ func SchemaResourceClusterStatusCluster() *schemas.Schema {
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("uid", true, schemas.Tag, common.String)
 	measurement.AddColumn("value", true, schemas.Field, common.String)
+	measurement.AddColumn("crashing_pods", true, schemas.Field, common.Int64)
+	measurement.AddColumn("crashing_plane_pods", false, schemas.Field, common.Int64)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }
@@ -172,6 +174,11 @@ func SchemaResourceClusterStatusNode() *schemas.Schema {
 	measurement.AddColumn("io_role", false, schemas.Field, common.String)
 	measurement.AddColumn("io_instance_id", false, schemas.Field, common.String)
 	measurement.AddColumn("io_storage_size", false, schemas.Field, common.Int64)
+	measurement.AddColumn("condition_ready", false, schemas.Field, common.Bool)
+	measurement.AddColumn("condition_disk_pressure", false, schemas.Field, common.Bool)
+	measurement.AddColumn("condition_memory_pressure", false, schemas.Field, common.Bool)
+	measurement.AddColumn("condition_pid_pressure", false, schemas.Field, common.Bool)
+	measurement.AddColumn("condition_network_unavailable", false, schemas.Field, common.Bool)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }

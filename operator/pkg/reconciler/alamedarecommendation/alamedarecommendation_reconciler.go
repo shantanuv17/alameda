@@ -41,7 +41,7 @@ func (reconciler *Reconciler) UpdateResourceRecommendation(podRecommendation *Ap
 					alamedaContainer.Resources.Requests = corev1.ResourceList{}
 				}
 				for _, limitRecommendation := range containerRecommendation.LimitRecommendations {
-					if limitRecommendation.MetricType == ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE {
+					if limitRecommendation.MetricType == ApiCommon.MetricType_CPU_MILLICORES_USAGE {
 						cpuLimitTime := int64(0)
 						for _, data := range limitRecommendation.Data {
 							curNanoSec := utils.TimeStampToNanoSecond(data.Time)
@@ -53,7 +53,7 @@ func (reconciler *Reconciler) UpdateResourceRecommendation(podRecommendation *Ap
 							}
 						}
 
-					} else if limitRecommendation.MetricType == ApiCommon.MetricType_MEMORY_USAGE_BYTES {
+					} else if limitRecommendation.MetricType == ApiCommon.MetricType_MEMORY_BYTES_USAGE {
 						memoryLimitTime := int64(0)
 						for _, data := range limitRecommendation.Data {
 							curNanoSec := utils.TimeStampToNanoSecond(data.Time)
@@ -67,7 +67,7 @@ func (reconciler *Reconciler) UpdateResourceRecommendation(podRecommendation *Ap
 					}
 				}
 				for _, requestRecommendation := range containerRecommendation.RequestRecommendations {
-					if requestRecommendation.MetricType == ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE {
+					if requestRecommendation.MetricType == ApiCommon.MetricType_CPU_MILLICORES_USAGE {
 						cpuRequestTime := int64(0)
 						for _, data := range requestRecommendation.Data {
 							curNanoSec := utils.TimeStampToNanoSecond(data.Time)
@@ -79,7 +79,7 @@ func (reconciler *Reconciler) UpdateResourceRecommendation(podRecommendation *Ap
 							}
 						}
 
-					} else if requestRecommendation.MetricType == ApiCommon.MetricType_MEMORY_USAGE_BYTES {
+					} else if requestRecommendation.MetricType == ApiCommon.MetricType_MEMORY_BYTES_USAGE {
 						memoryRequestTime := int64(0)
 						for _, data := range requestRecommendation.Data {
 							curNanoSec := utils.TimeStampToNanoSecond(data.Time)

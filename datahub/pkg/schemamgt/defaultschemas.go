@@ -27,6 +27,8 @@ func DefaultSchemasInit() {
 	schemaList = append(schemaList, defaults.SchemaMetricClusterStatusController())
 	schemaList = append(schemaList, defaults.SchemaMetricClusterStatusNamespace())
 	schemaList = append(schemaList, defaults.SchemaMetricClusterStatusNode())
+	schemaList = append(schemaList, defaults.SchemaMetricClusterStatusService())
+	schemaList = append(schemaList, defaults.SchemaMetricTopContainer())
 
 	// Planning
 	schemaList = append(schemaList, defaults.SchemaPlanningClusterStatusApplication())

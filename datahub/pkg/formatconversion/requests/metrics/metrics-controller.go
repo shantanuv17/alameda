@@ -92,8 +92,8 @@ func (r *ListControllerMetricsRequestExtended) ProduceRequest() DaoMetricTypes.L
 		metricTypes = append(metricTypes, MetricTypeNameMap[metricType])
 	}
 	if len(metricTypes) == 0 {
-		metricTypes = append(metricTypes, MetricTypeNameMap[ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE])
-		metricTypes = append(metricTypes, MetricTypeNameMap[ApiCommon.MetricType_MEMORY_USAGE_BYTES])
+		metricTypes = append(metricTypes, MetricTypeNameMap[ApiCommon.MetricType_CPU_MILLICORES_USAGE])
+		metricTypes = append(metricTypes, MetricTypeNameMap[ApiCommon.MetricType_MEMORY_BYTES_USAGE])
 	}
 	request.MetricTypes = metricTypes
 	return request

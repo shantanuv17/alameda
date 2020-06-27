@@ -133,23 +133,23 @@ func (c *ContainerRepository) CreateContainerRecommendations(in *ApiRecommendati
 						newFields[EntityInfluxRecommend.ContainerEndTime] = datum.GetEndTime().GetSeconds()
 
 						switch metricData.GetMetricType() {
-						case ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE:
+						case ApiCommon.MetricType_CPU_MILLICORES_USAGE:
 							if numVal, err := DatahubUtils.StringToFloat64(datum.NumValue); err == nil {
 								newFields[EntityInfluxRecommend.ContainerResourceLimitCPU] = numVal
 							}
-							if value, ok := initialLimitRecommendation[ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE]; ok {
+							if value, ok := initialLimitRecommendation[ApiCommon.MetricType_CPU_MILLICORES_USAGE]; ok {
 								if numVal, err := DatahubUtils.StringToFloat64(value.(string)); err == nil {
 									newFields[EntityInfluxRecommend.ContainerInitialResourceLimitCPU] = numVal
 								}
 							} else {
 								newFields[EntityInfluxRecommend.ContainerInitialResourceLimitCPU] = float64(0)
 							}
-						case ApiCommon.MetricType_MEMORY_USAGE_BYTES:
+						case ApiCommon.MetricType_MEMORY_BYTES_USAGE:
 							if numVal, err := DatahubUtils.StringToFloat64(datum.NumValue); err == nil {
 								memoryBytes := math.Floor(numVal)
 								newFields[EntityInfluxRecommend.ContainerResourceLimitMemory] = memoryBytes
 							}
-							if value, ok := initialLimitRecommendation[ApiCommon.MetricType_MEMORY_USAGE_BYTES]; ok {
+							if value, ok := initialLimitRecommendation[ApiCommon.MetricType_MEMORY_BYTES_USAGE]; ok {
 								if numVal, err := DatahubUtils.StringToFloat64(value.(string)); err == nil {
 									memoryBytes := math.Floor(numVal)
 									newFields[EntityInfluxRecommend.ContainerInitialResourceLimitMemory] = memoryBytes
@@ -179,23 +179,23 @@ func (c *ContainerRepository) CreateContainerRecommendations(in *ApiRecommendati
 						newFields[EntityInfluxRecommend.ContainerEndTime] = datum.GetEndTime().GetSeconds()
 
 						switch metricData.GetMetricType() {
-						case ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE:
+						case ApiCommon.MetricType_CPU_MILLICORES_USAGE:
 							if numVal, err := DatahubUtils.StringToFloat64(datum.NumValue); err == nil {
 								newFields[EntityInfluxRecommend.ContainerResourceRequestCPU] = numVal
 							}
-							if value, ok := initialRequestRecommendation[ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE]; ok {
+							if value, ok := initialRequestRecommendation[ApiCommon.MetricType_CPU_MILLICORES_USAGE]; ok {
 								if numVal, err := DatahubUtils.StringToFloat64(value.(string)); err == nil {
 									newFields[EntityInfluxRecommend.ContainerInitialResourceRequestCPU] = numVal
 								}
 							} else {
 								newFields[EntityInfluxRecommend.ContainerInitialResourceRequestCPU] = float64(0)
 							}
-						case ApiCommon.MetricType_MEMORY_USAGE_BYTES:
+						case ApiCommon.MetricType_MEMORY_BYTES_USAGE:
 							if numVal, err := DatahubUtils.StringToFloat64(datum.NumValue); err == nil {
 								memoryBytes := math.Floor(numVal)
 								newFields[EntityInfluxRecommend.ContainerResourceRequestMemory] = memoryBytes
 							}
-							if value, ok := initialRequestRecommendation[ApiCommon.MetricType_MEMORY_USAGE_BYTES]; ok {
+							if value, ok := initialRequestRecommendation[ApiCommon.MetricType_MEMORY_BYTES_USAGE]; ok {
 								if numVal, err := DatahubUtils.StringToFloat64(value.(string)); err == nil {
 									memoryBytes := math.Floor(numVal)
 									newFields[EntityInfluxRecommend.ContainerInitialResourceRequestMemory] = memoryBytes
@@ -435,7 +435,7 @@ func (c *ContainerRepository) queryRecommendation(cmd string, granularity int64)
 			containerRecommendation := &ApiRecommendations.ContainerRecommendation{}
 			containerRecommendation.Name = data[EntityInfluxRecommend.ContainerName]
 
-			metricTypeList := []ApiCommon.MetricType{ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE, ApiCommon.MetricType_MEMORY_USAGE_BYTES}
+			metricTypeList := []ApiCommon.MetricType{ApiCommon.MetricType_CPU_MILLICORES_USAGE, ApiCommon.MetricType_MEMORY_BYTES_USAGE}
 			sampleTime := &timestamp.Timestamp{
 				Seconds: startTime,
 			}

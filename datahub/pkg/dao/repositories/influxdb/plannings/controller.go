@@ -97,23 +97,23 @@ func (c *ControllerRepository) CreateControllerPlannings(in *ApiPlannings.Create
 						newFields[EntityInfluxPlanning.ControllerEndTime] = datum.GetEndTime().GetSeconds()
 
 						switch metricData.GetMetricType() {
-						case ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE:
+						case ApiCommon.MetricType_CPU_MILLICORES_USAGE:
 							if numVal, err := DatahubUtils.StringToFloat64(datum.NumValue); err == nil {
 								newFields[EntityInfluxPlanning.ControllerResourceLimitCPU] = numVal
 							}
-							if value, ok := initialLimitPlanning[ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE]; ok {
+							if value, ok := initialLimitPlanning[ApiCommon.MetricType_CPU_MILLICORES_USAGE]; ok {
 								if numVal, err := DatahubUtils.StringToFloat64(value.(string)); err == nil {
 									newFields[EntityInfluxPlanning.ControllerInitialResourceLimitCPU] = numVal
 								}
 							} else {
 								newFields[EntityInfluxPlanning.ControllerInitialResourceLimitCPU] = float64(0)
 							}
-						case ApiCommon.MetricType_MEMORY_USAGE_BYTES:
+						case ApiCommon.MetricType_MEMORY_BYTES_USAGE:
 							if numVal, err := DatahubUtils.StringToFloat64(datum.NumValue); err == nil {
 								memoryBytes := math.Floor(numVal)
 								newFields[EntityInfluxPlanning.ControllerResourceLimitMemory] = memoryBytes
 							}
-							if value, ok := initialLimitPlanning[ApiCommon.MetricType_MEMORY_USAGE_BYTES]; ok {
+							if value, ok := initialLimitPlanning[ApiCommon.MetricType_MEMORY_BYTES_USAGE]; ok {
 								if numVal, err := DatahubUtils.StringToFloat64(value.(string)); err == nil {
 									memoryBytes := math.Floor(numVal)
 									newFields[EntityInfluxPlanning.ControllerInitialResourceLimitMemory] = memoryBytes
@@ -143,23 +143,23 @@ func (c *ControllerRepository) CreateControllerPlannings(in *ApiPlannings.Create
 						newFields[EntityInfluxPlanning.ControllerEndTime] = datum.GetEndTime().GetSeconds()
 
 						switch metricData.GetMetricType() {
-						case ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE:
+						case ApiCommon.MetricType_CPU_MILLICORES_USAGE:
 							if numVal, err := DatahubUtils.StringToFloat64(datum.NumValue); err == nil {
 								newFields[EntityInfluxPlanning.ControllerResourceRequestCPU] = numVal
 							}
-							if value, ok := initialRequestPlanning[ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE]; ok {
+							if value, ok := initialRequestPlanning[ApiCommon.MetricType_CPU_MILLICORES_USAGE]; ok {
 								if numVal, err := DatahubUtils.StringToFloat64(value.(string)); err == nil {
 									newFields[EntityInfluxPlanning.ControllerInitialResourceRequestCPU] = numVal
 								}
 							} else {
 								newFields[EntityInfluxPlanning.ControllerInitialResourceRequestCPU] = float64(0)
 							}
-						case ApiCommon.MetricType_MEMORY_USAGE_BYTES:
+						case ApiCommon.MetricType_MEMORY_BYTES_USAGE:
 							if numVal, err := DatahubUtils.StringToFloat64(datum.NumValue); err == nil {
 								memoryBytes := math.Floor(numVal)
 								newFields[EntityInfluxPlanning.ControllerResourceRequestMemory] = memoryBytes
 							}
-							if value, ok := initialRequestPlanning[ApiCommon.MetricType_MEMORY_USAGE_BYTES]; ok {
+							if value, ok := initialRequestPlanning[ApiCommon.MetricType_MEMORY_BYTES_USAGE]; ok {
 								if numVal, err := DatahubUtils.StringToFloat64(value.(string)); err == nil {
 									memoryBytes := math.Floor(numVal)
 									newFields[EntityInfluxPlanning.ControllerInitialResourceRequestMemory] = memoryBytes
@@ -333,7 +333,7 @@ func (c *ControllerRepository) queryPlannings(cmd string, granularity int64) ([]
 			//
 			tempPlanning := &ApiPlannings.Planning{}
 
-			metricTypeList := []ApiCommon.MetricType{ApiCommon.MetricType_CPU_USAGE_SECONDS_PERCENTAGE, ApiCommon.MetricType_MEMORY_USAGE_BYTES}
+			metricTypeList := []ApiCommon.MetricType{ApiCommon.MetricType_CPU_MILLICORES_USAGE, ApiCommon.MetricType_MEMORY_BYTES_USAGE}
 			sampleTime := &timestamp.Timestamp{
 				Seconds: startTime,
 			}

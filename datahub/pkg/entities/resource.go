@@ -55,11 +55,13 @@ type ResourceClusterStatusApplication struct {
 }
 
 type ResourceClusterStatusCluster struct {
-	DatahubEntity `scope:"resource" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"undefined" boundary:"undefined" quota:"undefined"`
-	Time          *time.Time `json:"time"  required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"  required:"true"  column:"tag"   type:"string"`
-	Uid           string     `json:"uid"   required:"true"  column:"tag"   type:"string"`
-	Value         string     `json:"value" required:"true"  column:"field" type:"string"`
+	DatahubEntity     `scope:"resource" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"undefined" boundary:"undefined" quota:"undefined"`
+	Time              *time.Time `json:"time"                required:"false" column:"tag"   type:"time"`
+	Name              string     `json:"name"                required:"true"  column:"tag"   type:"string"`
+	Uid               string     `json:"uid"                 required:"true"  column:"tag"   type:"string"`
+	Value             string     `json:"value"               required:"true"  column:"field" type:"string"`
+	CrashingPods      int64      `json:"crashing_pods"       required:"true"  column:"field" type:"int64"`
+	CrashingPlanePods int64      `json:"crashing_plane_pods" required:"false" column:"field" type:"int64"`
 }
 
 type ResourceClusterStatusContainer struct {
@@ -126,29 +128,34 @@ type ResourceClusterStatusNamespace struct {
 }
 
 type ResourceClusterStatusNode struct {
-	DatahubEntity       `scope:"resource" category:"cluster_status" type:"node" measurement:"node" metric:"undefined" boundary:"undefined" quota:"undefined"`
-	Time                *time.Time `json:"time"                 required:"false" column:"tag"   type:"time"`
-	Name                string     `json:"name"                 required:"true"  column:"tag"   type:"string"`
-	ClusterName         string     `json:"cluster_name"         required:"true"  column:"tag"   type:"string"`
-	Uid                 string     `json:"uid"                  required:"true"  column:"tag"   type:"string"`
-	MachinesetName      string     `json:"machineset_name"      required:"true"  column:"tag"   type:"string"`
-	MachinesetNamespace string     `json:"machineset_namespace" required:"true"  column:"tag"   type:"string"`
-	RoleMaster          bool       `json:"role_master"          required:"false" column:"field" type:"bool"`
-	RoleWorker          bool       `json:"role_worker"          required:"false" column:"field" type:"bool"`
-	RoleInfra           bool       `json:"role_infra"           required:"false" column:"field" type:"bool"`
-	CreateTime          int64      `json:"create_time"          required:"false" column:"field" type:"int64"`
-	MachineCreateTime   int64      `json:"machine_create_time"  required:"false" column:"field" type:"int64"`
-	NodeCPUCores        int64      `json:"node_cpu_cores"       required:"false" column:"field" type:"int64"`  // NodeCPUCores is the amount of cores in node
-	NodeMemoryBytes     int64      `json:"node_memory_bytes"    required:"false" column:"field" type:"int64"`  // NodeMemoryBytes is the amount of memory bytes in node
-	NodeNetworkMbps     int64      `json:"node_network_mbps"    required:"false" column:"field" type:"int64"`  // NodeNetworkMbps is mega bits per second
-	IOProvider          string     `json:"io_provider"          required:"false" column:"field" type:"string"` // Cloud service provider
-	IOInstanceType      string     `json:"io_instance_type"     required:"false" column:"field" type:"string"`
-	IORegion            string     `json:"io_region"            required:"false" column:"field" type:"string"`
-	IOZone              string     `json:"io_zone"              required:"false" column:"field" type:"string"`
-	IOOs                string     `json:"io_os"                required:"false" column:"field" type:"string"`
-	IORole              string     `json:"io_role"              required:"false" column:"field" type:"string"`
-	IOInstanceId        string     `json:"io_instance_id"       required:"false" column:"field" type:"string"`
-	IOStorageSize       int64      `json:"io_storage_size"      required:"false" column:"field" type:"int64"`
+	DatahubEntity               `scope:"resource" category:"cluster_status" type:"node" measurement:"node" metric:"undefined" boundary:"undefined" quota:"undefined"`
+	Time                        *time.Time `json:"time"                          required:"false" column:"tag"   type:"time"`
+	Name                        string     `json:"name"                          required:"true"  column:"tag"   type:"string"`
+	ClusterName                 string     `json:"cluster_name"                  required:"true"  column:"tag"   type:"string"`
+	Uid                         string     `json:"uid"                           required:"true"  column:"tag"   type:"string"`
+	MachinesetName              string     `json:"machineset_name"               required:"true"  column:"tag"   type:"string"`
+	MachinesetNamespace         string     `json:"machineset_namespace"          required:"true"  column:"tag"   type:"string"`
+	RoleMaster                  bool       `json:"role_master"                   required:"false" column:"field" type:"bool"`
+	RoleWorker                  bool       `json:"role_worker"                   required:"false" column:"field" type:"bool"`
+	RoleInfra                   bool       `json:"role_infra"                    required:"false" column:"field" type:"bool"`
+	CreateTime                  int64      `json:"create_time"                   required:"false" column:"field" type:"int64"`
+	MachineCreateTime           int64      `json:"machine_create_time"           required:"false" column:"field" type:"int64"`
+	NodeCPUCores                int64      `json:"node_cpu_cores"                required:"false" column:"field" type:"int64"`  // NodeCPUCores is the amount of cores in node
+	NodeMemoryBytes             int64      `json:"node_memory_bytes"             required:"false" column:"field" type:"int64"`  // NodeMemoryBytes is the amount of memory bytes in node
+	NodeNetworkMbps             int64      `json:"node_network_mbps"             required:"false" column:"field" type:"int64"`  // NodeNetworkMbps is mega bits per second
+	IOProvider                  string     `json:"io_provider"                   required:"false" column:"field" type:"string"` // Cloud service provider
+	IOInstanceType              string     `json:"io_instance_type"              required:"false" column:"field" type:"string"`
+	IORegion                    string     `json:"io_region"                     required:"false" column:"field" type:"string"`
+	IOZone                      string     `json:"io_zone"                       required:"false" column:"field" type:"string"`
+	IOOs                        string     `json:"io_os"                         required:"false" column:"field" type:"string"`
+	IORole                      string     `json:"io_role"                       required:"false" column:"field" type:"string"`
+	IOInstanceId                string     `json:"io_instance_id"                required:"false" column:"field" type:"string"`
+	IOStorageSize               int64      `json:"io_storage_size"               required:"false" column:"field" type:"int64"`
+	ConditionReady              bool       `json:"condition_ready"               required:"false" column:"field" type:"bool"`
+	ConditionDiskPressure       bool       `json:"condition_disk_pressure"       required:"false" column:"field" type:"bool"`
+	ConditionMemoryPressure     bool       `json:"condition_memory_pressure"     required:"false" column:"field" type:"bool"`
+	ConditionPIDPressure        bool       `json:"condition_pid_pressure"        required:"false" column:"field" type:"bool"`
+	ConditionNetworkUnavailable bool       `json:"condition_network_unavailable" required:"false" column:"field" type:"bool"`
 }
 
 type ResourceClusterStatusPod struct {

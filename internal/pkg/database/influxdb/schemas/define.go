@@ -19,8 +19,30 @@ type MetricType int
 // Metric type enumerator
 const (
 	MetricTypeUndefined MetricType = iota
-	CPUUsageSecondsPercentage
-	MemoryUsageBytes
+	CPUSecondsTotal
+	CPUMilliCoresTotal
+	CPUMilliCoresAvail
+	CPUMilliCoresUsage // Change from CPUUsageSecondsPercentage
+	CPUMilliCoresUsagePCT
+	CPUMilliCoresAllocatable
+	MemoryBytesTotal
+	MemoryBytesAvail
+	MemoryBytesUsage // Change from MemoryUsageBytes
+	MemoryBytesUsagePCT
+	MemoryBytesAllocatable
+	FSBytesTotal
+	FSBytesAvail
+	FSBytesUsage
+	FSBytesUsagePCT
+	HttpRequestsCount
+	HttpRequestsTotal
+	HttpResponseCount
+	HttpResponseTotal
+	DiskIOSecondsTotal
+	DiskIOUtilization
+	RestartsTotal
+	Unschedulable
+	Health
 	PowerUsageWatts
 	TemperatureCelsius
 	DutyCycle
@@ -28,7 +50,6 @@ const (
 	Lag
 	Latency
 	Number
-	CPUCores
 )
 
 type ResourceBoundary int
