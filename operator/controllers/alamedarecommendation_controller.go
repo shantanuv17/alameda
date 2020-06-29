@@ -164,7 +164,7 @@ func (r *AlamedaRecommendationReconciler) updateAlamedaRecommendationWithLatestD
 			}
 			for _, metricData := range containerRecommendation.LimitRecommendations {
 				switch metricData.MetricType {
-				case datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE:
+				case datahub_common.MetricType_CPU_MILLICORES_USAGE:
 					latestTime := int64(0)
 					for _, data := range metricData.Data {
 						dataTime := utils.TimeStampToNanoSecond(data.Time)
@@ -175,7 +175,7 @@ func (r *AlamedaRecommendationReconciler) updateAlamedaRecommendationWithLatestD
 							return alamedaRecommendation, errors.Wrap(err, "convert data value failed")
 						}
 					}
-				case datahub_common.MetricType_MEMORY_USAGE_BYTES:
+				case datahub_common.MetricType_MEMORY_BYTES_USAGE:
 					latestTime := int64(0)
 					for _, data := range metricData.Data {
 						dataTime := utils.TimeStampToNanoSecond(data.Time)
@@ -190,7 +190,7 @@ func (r *AlamedaRecommendationReconciler) updateAlamedaRecommendationWithLatestD
 			}
 			for _, metricData := range containerRecommendation.RequestRecommendations {
 				switch metricData.MetricType {
-				case datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE:
+				case datahub_common.MetricType_CPU_MILLICORES_USAGE:
 					latestTime := int64(0)
 					for _, data := range metricData.Data {
 						dataTime := utils.TimeStampToNanoSecond(data.Time)
@@ -201,7 +201,7 @@ func (r *AlamedaRecommendationReconciler) updateAlamedaRecommendationWithLatestD
 							return alamedaRecommendation, errors.Wrap(err, "convert data value failed")
 						}
 					}
-				case datahub_common.MetricType_MEMORY_USAGE_BYTES:
+				case datahub_common.MetricType_MEMORY_BYTES_USAGE:
 					latestTime := int64(0)
 					for _, data := range metricData.Data {
 						dataTime := utils.TimeStampToNanoSecond(data.Time)
