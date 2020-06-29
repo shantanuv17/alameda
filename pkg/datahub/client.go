@@ -109,8 +109,14 @@ func (p *Client) ListTS(entities interface{}, timeRange *TimeRange, function *Fu
 func (p *Client) Delete(entities interface{}) error {
 	opts := make([]Option, 0)
 
-	// Iterate the entities to find all the tags
 	values := reflect.ValueOf(entities).Elem()
+
+	// If length of entities list is ZERO which means to delete nothing
+	if values.Len() == 0 {
+		return nil
+	}
+
+	// Iterate the entities to find all the tags
 	for i := 0; i < values.Len(); i++ {
 		entity := values.Index(i).Interface()
 		datahubEntity := values.Index(i).Field(0).Interface().(Entities.DatahubEntity)
