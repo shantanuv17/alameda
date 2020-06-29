@@ -19,16 +19,16 @@ type MetricType int
 const (
 	MetricTypeUndefined MetricType = iota
 	CPUSecondsTotal
+	CPUCoresAllocatable
 	CPUMilliCoresTotal
 	CPUMilliCoresAvail
-	CPUMilliCoresUsage // Change from CPUUsageSecondsPercentage
+	CPUMilliCoresUsage
 	CPUMilliCoresUsagePCT
-	CPUMilliCoresAllocatable
+	MemoryBytesAllocatable
 	MemoryBytesTotal
 	MemoryBytesAvail
-	MemoryBytesUsage // Change from MemoryUsageBytes
+	MemoryBytesUsage
 	MemoryBytesUsagePCT
-	MemoryBytesAllocatable
 	FSBytesTotal
 	FSBytesAvail
 	FSBytesUsage

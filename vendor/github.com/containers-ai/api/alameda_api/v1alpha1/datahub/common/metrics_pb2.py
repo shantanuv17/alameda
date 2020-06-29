@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='containersai.alameda.v1alpha1.datahub.common',
   syntax='proto3',
   serialized_options=b'Z@github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common',
-  serialized_pb=b'\n1alameda_api/v1alpha1/datahub/common/metrics.proto\x12,containersai.alameda.v1alpha1.datahub.common\x1a\x1fgoogle/protobuf/timestamp.proto\"s\n\x06Sample\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tnum_value\x18\x03 \x01(\t\"\xb4\x01\n\nMetricData\x12M\n\x0bmetric_type\x18\x01 \x01(\x0e\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricType\x12\x42\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32\x34.containersai.alameda.v1alpha1.datahub.common.Sample\x12\x13\n\x0bgranularity\x18\x03 \x01(\x03*\xe2\x05\n\nMetricType\x12\x1a\n\x16METRICS_TYPE_UNDEFINED\x10\x00\x12\x15\n\x11\x43PU_SECONDS_TOTAL\x10\x01\x12\x18\n\x14\x43PU_MILLICORES_TOTAL\x10\x02\x12\x18\n\x14\x43PU_MILLICORES_AVAIL\x10\x03\x12\x18\n\x14\x43PU_MILLICORES_USAGE\x10\x04\x12\x1c\n\x18\x43PU_MILLICORES_USAGE_PCT\x10\x05\x12\x1e\n\x1a\x43PU_MILLICORES_ALLOCATABLE\x10\x06\x12\x16\n\x12MEMORY_BYTES_TOTAL\x10\x07\x12\x16\n\x12MEMORY_BYTES_AVAIL\x10\x08\x12\x16\n\x12MEMORY_BYTES_USAGE\x10\t\x12\x1a\n\x16MEMORY_BYTES_USAGE_PCT\x10\n\x12\x1c\n\x18MEMORY_BYTES_ALLOCATABLE\x10\x0b\x12\x12\n\x0e\x46S_BYTES_TOTAL\x10\x0c\x12\x12\n\x0e\x46S_BYTES_AVAIL\x10\r\x12\x12\n\x0e\x46S_BYTES_USAGE\x10\x0e\x12\x16\n\x12\x46S_BYTES_USAGE_PCT\x10\x0f\x12\x17\n\x13HTTP_REQUESTS_COUNT\x10\x10\x12\x17\n\x13HTTP_REQUESTS_TOTAL\x10\x11\x12\x17\n\x13HTTP_RESPONSE_COUNT\x10\x12\x12\x17\n\x13HTTP_RESPONSE_TOTAL\x10\x13\x12\x19\n\x15\x44ISK_IO_SECONDS_TOTAL\x10\x14\x12\x17\n\x13\x44ISK_IO_UTILIZATION\x10\x15\x12\x12\n\x0eRESTARTS_TOTAL\x10\x16\x12\x11\n\rUNSCHEDULABLE\x10\x17\x12\n\n\x06HEALTH\x10\x18\x12\x15\n\x11POWER_USAGE_WATTS\x10\x19\x12\x17\n\x13TEMPERATURE_CELSIUS\x10\x1a\x12\x0e\n\nDUTY_CYCLE\x10\x1b\x12\x12\n\x0e\x43URRENT_OFFSET\x10\x1c\x12\x07\n\x03LAG\x10\x1d\x12\x0b\n\x07LATENCY\x10\x1e\x12\n\n\x06NUMBER\x10\x1f*@\n\x0cResourceName\x12\x1b\n\x17RESOURCE_NAME_UNDEFINED\x10\x00\x12\x07\n\x03\x43PU\x10\x01\x12\n\n\x06MEMORY\x10\x02\x42\x42Z@github.com/containers-ai/api/alameda_api/v1alpha1/datahub/commonb\x06proto3'
+  serialized_pb=b'\n1alameda_api/v1alpha1/datahub/common/metrics.proto\x12,containersai.alameda.v1alpha1.datahub.common\x1a\x1fgoogle/protobuf/timestamp.proto\"s\n\x06Sample\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tnum_value\x18\x03 \x01(\t\"\xb4\x01\n\nMetricData\x12M\n\x0bmetric_type\x18\x01 \x01(\x0e\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricType\x12\x42\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32\x34.containersai.alameda.v1alpha1.datahub.common.Sample\x12\x13\n\x0bgranularity\x18\x03 \x01(\x03*\xdd\x05\n\nMetricType\x12\x1a\n\x16METRICS_TYPE_UNDEFINED\x10\x00\x12\x15\n\x11\x43PU_SECONDS_TOTAL\x10\x01\x12\x19\n\x15\x43PU_CORES_ALLOCATABLE\x10\x02\x12\x18\n\x14\x43PU_MILLICORES_TOTAL\x10\x03\x12\x18\n\x14\x43PU_MILLICORES_AVAIL\x10\x04\x12\x18\n\x14\x43PU_MILLICORES_USAGE\x10\x05\x12\x1c\n\x18\x43PU_MILLICORES_USAGE_PCT\x10\x06\x12\x1c\n\x18MEMORY_BYTES_ALLOCATABLE\x10\x07\x12\x16\n\x12MEMORY_BYTES_TOTAL\x10\x08\x12\x16\n\x12MEMORY_BYTES_AVAIL\x10\t\x12\x16\n\x12MEMORY_BYTES_USAGE\x10\n\x12\x1a\n\x16MEMORY_BYTES_USAGE_PCT\x10\x0b\x12\x12\n\x0e\x46S_BYTES_TOTAL\x10\x0c\x12\x12\n\x0e\x46S_BYTES_AVAIL\x10\r\x12\x12\n\x0e\x46S_BYTES_USAGE\x10\x0e\x12\x16\n\x12\x46S_BYTES_USAGE_PCT\x10\x0f\x12\x17\n\x13HTTP_REQUESTS_COUNT\x10\x10\x12\x17\n\x13HTTP_REQUESTS_TOTAL\x10\x11\x12\x17\n\x13HTTP_RESPONSE_COUNT\x10\x12\x12\x17\n\x13HTTP_RESPONSE_TOTAL\x10\x13\x12\x19\n\x15\x44ISK_IO_SECONDS_TOTAL\x10\x14\x12\x17\n\x13\x44ISK_IO_UTILIZATION\x10\x15\x12\x12\n\x0eRESTARTS_TOTAL\x10\x16\x12\x11\n\rUNSCHEDULABLE\x10\x17\x12\n\n\x06HEALTH\x10\x18\x12\x15\n\x11POWER_USAGE_WATTS\x10\x19\x12\x17\n\x13TEMPERATURE_CELSIUS\x10\x1a\x12\x0e\n\nDUTY_CYCLE\x10\x1b\x12\x12\n\x0e\x43URRENT_OFFSET\x10\x1c\x12\x07\n\x03LAG\x10\x1d\x12\x0b\n\x07LATENCY\x10\x1e\x12\n\n\x06NUMBER\x10\x1f*@\n\x0cResourceName\x12\x1b\n\x17RESOURCE_NAME_UNDEFINED\x10\x00\x12\x07\n\x03\x43PU\x10\x01\x12\n\n\x06MEMORY\x10\x02\x42\x42Z@github.com/containers-ai/api/alameda_api/v1alpha1/datahub/commonb\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -39,43 +39,43 @@ _METRICTYPE = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='CPU_MILLICORES_TOTAL', index=2, number=2,
+      name='CPU_CORES_ALLOCATABLE', index=2, number=2,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='CPU_MILLICORES_AVAIL', index=3, number=3,
+      name='CPU_MILLICORES_TOTAL', index=3, number=3,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='CPU_MILLICORES_USAGE', index=4, number=4,
+      name='CPU_MILLICORES_AVAIL', index=4, number=4,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='CPU_MILLICORES_USAGE_PCT', index=5, number=5,
+      name='CPU_MILLICORES_USAGE', index=5, number=5,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='CPU_MILLICORES_ALLOCATABLE', index=6, number=6,
+      name='CPU_MILLICORES_USAGE_PCT', index=6, number=6,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MEMORY_BYTES_TOTAL', index=7, number=7,
+      name='MEMORY_BYTES_ALLOCATABLE', index=7, number=7,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MEMORY_BYTES_AVAIL', index=8, number=8,
+      name='MEMORY_BYTES_TOTAL', index=8, number=8,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MEMORY_BYTES_USAGE', index=9, number=9,
+      name='MEMORY_BYTES_AVAIL', index=9, number=9,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MEMORY_BYTES_USAGE_PCT', index=10, number=10,
+      name='MEMORY_BYTES_USAGE', index=10, number=10,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MEMORY_BYTES_ALLOCATABLE', index=11, number=11,
+      name='MEMORY_BYTES_USAGE_PCT', index=11, number=11,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
@@ -162,7 +162,7 @@ _METRICTYPE = _descriptor.EnumDescriptor(
   containing_type=None,
   serialized_options=None,
   serialized_start=433,
-  serialized_end=1171,
+  serialized_end=1166,
 )
 _sym_db.RegisterEnumDescriptor(_METRICTYPE)
 
@@ -188,24 +188,24 @@ _RESOURCENAME = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1173,
-  serialized_end=1237,
+  serialized_start=1168,
+  serialized_end=1232,
 )
 _sym_db.RegisterEnumDescriptor(_RESOURCENAME)
 
 ResourceName = enum_type_wrapper.EnumTypeWrapper(_RESOURCENAME)
 METRICS_TYPE_UNDEFINED = 0
 CPU_SECONDS_TOTAL = 1
-CPU_MILLICORES_TOTAL = 2
-CPU_MILLICORES_AVAIL = 3
-CPU_MILLICORES_USAGE = 4
-CPU_MILLICORES_USAGE_PCT = 5
-CPU_MILLICORES_ALLOCATABLE = 6
-MEMORY_BYTES_TOTAL = 7
-MEMORY_BYTES_AVAIL = 8
-MEMORY_BYTES_USAGE = 9
-MEMORY_BYTES_USAGE_PCT = 10
-MEMORY_BYTES_ALLOCATABLE = 11
+CPU_CORES_ALLOCATABLE = 2
+CPU_MILLICORES_TOTAL = 3
+CPU_MILLICORES_AVAIL = 4
+CPU_MILLICORES_USAGE = 5
+CPU_MILLICORES_USAGE_PCT = 6
+MEMORY_BYTES_ALLOCATABLE = 7
+MEMORY_BYTES_TOTAL = 8
+MEMORY_BYTES_AVAIL = 9
+MEMORY_BYTES_USAGE = 10
+MEMORY_BYTES_USAGE_PCT = 11
 FS_BYTES_TOTAL = 12
 FS_BYTES_AVAIL = 13
 FS_BYTES_USAGE = 14

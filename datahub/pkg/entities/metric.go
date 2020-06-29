@@ -191,6 +191,15 @@ type MetricClusterStatusNamespaceMemoryUsage struct {
 	Value         float64    `json:"value"        required:"true"  column:"field" type:"float64"`
 }
 
+type MetricClusterStatusNodeCPUAllocatable struct {
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_cpu_cores_allocatable" metric:"cpu_cores_alloc" boundary:"undefined" quota:"undefined"`
+	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
+	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
+	ClusterName   string     `json:"cluster_name" required:"true"  column:"tag"   type:"string"`
+	Uid           string     `json:"uid"          required:"true"  column:"tag"   type:"string"`
+	Value         float64    `json:"value"        required:"true"  column:"field" type:"float64"`
+}
+
 type MetricClusterStatusNodeCPUTotal struct {
 	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_cpu_millicores_total" metric:"cpu_millicores_total" boundary:"undefined" quota:"undefined"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
@@ -202,15 +211,6 @@ type MetricClusterStatusNodeCPUTotal struct {
 
 type MetricClusterStatusNodeCPUUsage struct {
 	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_cpu" metric:"cpu_millicores_usage" boundary:"undefined" quota:"undefined"`
-	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name" required:"true"  column:"tag"   type:"string"`
-	Uid           string     `json:"uid"          required:"true"  column:"tag"   type:"string"`
-	Value         float64    `json:"value"        required:"true"  column:"field" type:"float64"`
-}
-
-type MetricClusterStatusNodeCPUAllocatable struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_cpu_cores_allocatable" metric:"cpu_millicores_allocatable" boundary:"undefined" quota:"undefined"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name" required:"true"  column:"tag"   type:"string"`
