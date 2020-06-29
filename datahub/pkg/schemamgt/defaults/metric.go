@@ -250,6 +250,14 @@ func SchemaMetricClusterStatusNode() *schemas.Schema {
 	// cluster-status node
 	schema := schemas.NewSchema(schemas.Metric, "cluster_status", "node")
 
+	// CPU cores allocatable
+	cores := schemas.NewMeasurement("node_cpu_cores_allocatable", schemas.CPUCoresAllocatable, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	cores.AddColumn("name", true, schemas.Tag, common.String)
+	cores.AddColumn("cluster_name", true, schemas.Tag, common.String)
+	cores.AddColumn("uid", true, schemas.Tag, common.String)
+	cores.AddColumn("value", true, schemas.Field, common.Float64)
+	schema.Measurements = append(schema.Measurements, cores)
+
 	// CPU millicores total
 	cpuTotal := schemas.NewMeasurement("node_cpu_millicores_total", schemas.CPUMilliCoresTotal, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
 	cpuTotal.AddColumn("name", true, schemas.Tag, common.String)
@@ -265,14 +273,6 @@ func SchemaMetricClusterStatusNode() *schemas.Schema {
 	cpu.AddColumn("uid", true, schemas.Tag, common.String)
 	cpu.AddColumn("value", true, schemas.Field, common.Float64)
 	schema.Measurements = append(schema.Measurements, cpu)
-
-	// CPU cores allocatable
-	cores := schemas.NewMeasurement("node_cpu_cores_allocatable", schemas.CPUMilliCoresAllocatable, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
-	cores.AddColumn("name", true, schemas.Tag, common.String)
-	cores.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	cores.AddColumn("uid", true, schemas.Tag, common.String)
-	cores.AddColumn("value", true, schemas.Field, common.Float64)
-	schema.Measurements = append(schema.Measurements, cores)
 
 	// Memory bytes total
 	memoryTotal := schemas.NewMeasurement("node_memory_bytes_total", schemas.MemoryBytesTotal, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
