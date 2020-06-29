@@ -45,6 +45,16 @@ func (repo *AlamedaNodeRepository) DeleteNodes(arg interface{}) error {
 	if meta, ok := arg.([]*datahub_resources.ObjectMeta); ok {
 		objMeta = meta
 	}
+	if nodes, ok := arg.([]entities.ResourceClusterStatusNode); ok {
+		for _, node := range nodes {
+			objMeta = append(objMeta, &datahub_resources.ObjectMeta{
+				Name:        node.Name,
+				NodeName:    node.Name,
+				ClusterName: node.ClusterName,
+				Uid:         node.Uid,
+			})
+		}
+	}
 
 	req := datahub_resources.DeleteNodesRequest{
 		ObjectMeta: objMeta,
