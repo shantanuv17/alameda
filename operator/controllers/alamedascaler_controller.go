@@ -803,23 +803,24 @@ func (r *AlamedaScalerReconciler) setContainerResource(corePod *corev1.Pod,
 	for _, resourceType := range []corev1.ResourceName{
 		corev1.ResourceCPU, corev1.ResourceMemory,
 	} {
+		mt := datahub_common.ResourceName_CPU
+		if resourceType == corev1.ResourceCPU {
+			mt = datahub_common.ResourceName_CPU
+		} else if resourceType == corev1.ResourceMemory {
+			mt = datahub_common.ResourceName_MEMORY
+		}
 		if &podContainer.Resources != nil && podContainer.Resources.Limits != nil {
 			resVal, ok := podContainer.Resources.Limits[resourceType]
-			if ok && resourceType == corev1.ResourceCPU {
-				container.Resources.Limits[int32(datahub_common.ResourceName_CPU)] =
+			if ok && mt == datahub_common.ResourceName_CPU {
+				container.Resources.Limits[int32(mt)] =
 					strconv.FormatInt(resVal.MilliValue(), 10)
-			} else {
-				scope.Errorf("Recommendation %s will not generate if container %s of pod (%s/%s) does not set %s limit",
-					datahub_common.ResourceName_CPU, container.GetName(), corePod.GetNamespace(),
-					corePod.GetName(), datahub_common.ResourceName_CPU)
-			}
-			if ok && resourceType == corev1.ResourceMemory {
-				container.Resources.Limits[int32(datahub_common.ResourceName_MEMORY)] =
+			} else if ok && mt == datahub_common.ResourceName_MEMORY {
+				container.Resources.Limits[int32(mt)] =
 					strconv.FormatInt(resVal.Value(), 10)
 			} else {
 				scope.Errorf("Recommendation %s will not generate if container %s of pod (%s/%s) does not set %s limit",
-					datahub_common.ResourceName_MEMORY, container.GetName(), corePod.GetNamespace(),
-					corePod.GetName(), datahub_common.ResourceName_MEMORY)
+					mt, container.GetName(), corePod.GetNamespace(),
+					corePod.GetName(), mt)
 			}
 		} else {
 			scope.Errorf("Recommendation will not generate if container %s of pod (%s/%s) does not set any limit",
@@ -828,21 +829,16 @@ func (r *AlamedaScalerReconciler) setContainerResource(corePod *corev1.Pod,
 
 		if &podContainer.Resources != nil && podContainer.Resources.Requests != nil {
 			resVal, ok := podContainer.Resources.Requests[resourceType]
-			if ok && resourceType == corev1.ResourceCPU {
-				container.Resources.Requests[int32(datahub_common.ResourceName_CPU)] =
+			if ok && mt == datahub_common.ResourceName_CPU {
+				container.Resources.Requests[int32(mt)] =
 					strconv.FormatInt(resVal.MilliValue(), 10)
-			} else {
-				scope.Errorf("Recommendation %s will not generate if container %s of pod (%s/%s) does not set %s request",
-					datahub_common.ResourceName_CPU, container.GetName(), corePod.GetNamespace(),
-					corePod.GetName(), datahub_common.ResourceName_CPU)
-			}
-			if ok && resourceType == corev1.ResourceMemory {
-				container.Resources.Requests[int32(datahub_common.ResourceName_MEMORY)] =
+			} else if ok && mt == datahub_common.ResourceName_MEMORY {
+				container.Resources.Requests[int32(mt)] =
 					strconv.FormatInt(resVal.Value(), 10)
 			} else {
 				scope.Errorf("Recommendation %s will not generate if container %s of pod (%s/%s) does not set %s request",
-					datahub_common.ResourceName_MEMORY, container.GetName(), corePod.GetNamespace(),
-					corePod.GetName(), datahub_common.ResourceName_MEMORY)
+					mt, container.GetName(), corePod.GetNamespace(),
+					corePod.GetName(), mt)
 			}
 		} else {
 			scope.Errorf("Recommendation will not generate if container %s of pod (%s/%s) does not set any request",
