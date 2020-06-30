@@ -227,7 +227,7 @@ func (e *evictionRestriction) isContainerEvictable(pod *core_v1.Pod, container *
 		}
 
 		for _, limitRec := range recContainer.GetLimitRecommendations() {
-			if resourceType == core_v1.ResourceMemory && limitRec.GetMetricType() == datahub_common.MetricType_MEMORY_USAGE_BYTES && len(limitRec.GetData()) > 0 {
+			if resourceType == core_v1.ResourceMemory && limitRec.GetMetricType() == datahub_common.MetricType_MEMORY_BYTES_USAGE && len(limitRec.GetData()) > 0 {
 				if limitRecVal, err := datahubutils.StringToFloat64(limitRec.GetData()[0].GetNumValue()); err == nil {
 					limitRecVal = math.Ceil(limitRecVal)
 					limitQuan := container.Resources.Limits[resourceType]
@@ -240,7 +240,7 @@ func (e *evictionRestriction) isContainerEvictable(pod *core_v1.Pod, container *
 					}
 				}
 			}
-			if resourceType == core_v1.ResourceCPU && limitRec.GetMetricType() == datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE && len(limitRec.GetData()) > 0 {
+			if resourceType == core_v1.ResourceCPU && limitRec.GetMetricType() == datahub_common.MetricType_CPU_MILLICORES_USAGE && len(limitRec.GetData()) > 0 {
 				if limitRecVal, err := datahubutils.StringToFloat64(limitRec.GetData()[0].GetNumValue()); err == nil {
 					limitRecVal = math.Ceil(limitRecVal)
 					limitQuan := container.Resources.Limits[resourceType]
@@ -262,7 +262,7 @@ func (e *evictionRestriction) isContainerEvictable(pod *core_v1.Pod, container *
 			return true
 		}
 		for _, reqRec := range recContainer.GetRequestRecommendations() {
-			if resourceType == core_v1.ResourceMemory && reqRec.GetMetricType() == datahub_common.MetricType_MEMORY_USAGE_BYTES && len(reqRec.GetData()) > 0 {
+			if resourceType == core_v1.ResourceMemory && reqRec.GetMetricType() == datahub_common.MetricType_MEMORY_BYTES_USAGE && len(reqRec.GetData()) > 0 {
 				if requestRecVal, err := datahubutils.StringToFloat64(reqRec.GetData()[0].GetNumValue()); err == nil {
 					requestRecVal = math.Ceil(requestRecVal)
 					requestQuan := container.Resources.Requests[resourceType]
@@ -275,7 +275,7 @@ func (e *evictionRestriction) isContainerEvictable(pod *core_v1.Pod, container *
 					}
 				}
 			}
-			if resourceType == core_v1.ResourceCPU && reqRec.GetMetricType() == datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE && len(reqRec.GetData()) > 0 {
+			if resourceType == core_v1.ResourceCPU && reqRec.GetMetricType() == datahub_common.MetricType_CPU_MILLICORES_USAGE && len(reqRec.GetData()) > 0 {
 				if requestRecVal, err := datahubutils.StringToFloat64(reqRec.GetData()[0].GetNumValue()); err == nil {
 					requestRecVal = math.Ceil(requestRecVal)
 					requestQuan := container.Resources.Requests[resourceType]
