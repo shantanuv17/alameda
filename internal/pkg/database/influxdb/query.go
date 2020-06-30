@@ -85,8 +85,8 @@ func (p *InfluxQuery) AppendConditionDirectly(condition string) {
 
 func (p *InfluxQuery) BuildQueryCmd() string {
 	// SELECT_clause [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT_clause OFFSET <N> [SLIMIT_clause]
-	cmd := fmt.Sprintf("SELECT %s %s FROM \"%s\" %s %s %s %s",
-		p.selectClause(), p.intoClause(), p.Measurement, p.whereClause(),
+	cmd := fmt.Sprintf("SELECT %s %s FROM %s %s %s %s %s",
+		p.selectClause(), p.intoClause(), p.fromClause(), p.whereClause(),
 		p.groupClause(), p.orderClause(), p.limitClause())
 	return cmd
 }
@@ -127,6 +127,13 @@ func (p *InfluxQuery) intoClause() string {
 	return ""
 }
 
+func (p *InfluxQuery) fromClause() string {
+	if p.QueryCondition.SubQuery != nil {
+		return p.subQuery()
+	}
+	return fmt.Sprintf("\"%s\"", p.Measurement)
+}
+
 func (p *InfluxQuery) whereClause() string {
 	whereClause := make([]string, 0)
 	if p.QueryCondition.WhereClause != "" {
@@ -148,6 +155,11 @@ func (p *InfluxQuery) whereClause() string {
 
 func (p *InfluxQuery) groupClause() string {
 	groups := make([]string, 0)
+
+	if p.QueryCondition.StepTime != nil {
+		groups = append(groups, fmt.Sprintf("time(%ds)", int(p.QueryCondition.StepTime.Seconds())))
+	}
+
 	if p.QueryCondition.Groups != nil {
 		for _, group := range p.QueryCondition.Groups {
 			if strings.HasPrefix(group, "time(") {
@@ -156,8 +168,12 @@ func (p *InfluxQuery) groupClause() string {
 				groups = append(groups, fmt.Sprintf(`"%s"`, group))
 			}
 		}
+	}
+
+	if len(groups) != 0 {
 		return fmt.Sprintf("GROUP BY %s", strings.Join(groups, ","))
 	}
+
 	return ""
 }
 
@@ -177,6 +193,11 @@ func (p *InfluxQuery) limitClause() string {
 		return fmt.Sprintf("LIMIT %v", p.QueryCondition.Limit)
 	}
 	return ""
+}
+
+func (p *InfluxQuery) subQuery() string {
+	subQuery := NewQuery(p.QueryCondition.SubQuery, p.Measurement)
+	return fmt.Sprintf("(%s)", subQuery.BuildQueryCmd())
 }
 
 func (p *InfluxQuery) selects() []string {

@@ -46,6 +46,7 @@ type QueryCondition struct {
 	Selects                   []string
 	Groups                    []string
 	Limit                     int
+	SubQuery                  *QueryCondition
 	AggregateOverTimeFunction AggregateFunction
 }
 
