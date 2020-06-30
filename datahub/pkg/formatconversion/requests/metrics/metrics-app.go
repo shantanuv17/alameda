@@ -74,6 +74,9 @@ func (r *ListAppMetricsRequestExtended) SetDefaultWithMetricsDBType(dbType Metri
 func (r *ListAppMetricsRequestExtended) ProduceRequest() DaoMetricTypes.ListAppMetricsRequest {
 	request := DaoMetricTypes.ListAppMetricsRequest{}
 	request.QueryCondition = common.QueryConditionExtend{Condition: r.Request.GetQueryCondition()}.QueryCondition()
+	subQuery := common.QueryConditionExtend{Condition: r.Request.GetQueryCondition()}.QueryCondition()
+	request.SubQuery = &subQuery
+
 	objectMetas := make([]metadata.ObjectMeta, len(r.Request.GetObjectMeta()))
 	for i, objectMeta := range r.Request.GetObjectMeta() {
 		copyObjectMeta := objectMeta
