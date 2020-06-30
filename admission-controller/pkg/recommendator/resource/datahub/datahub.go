@@ -34,8 +34,8 @@ var (
 		datahub_resources.Kind_STATEFULSET:      "StatefulSet",
 	}
 	datahubMetricType_K8SResourceName = map[datahub_common.MetricType]core_v1.ResourceName{
-		datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE: core_v1.ResourceCPU,
-		datahub_common.MetricType_MEMORY_USAGE_BYTES:           core_v1.ResourceMemory,
+		datahub_common.MetricType_CPU_MILLICORES_USAGE: core_v1.ResourceCPU,
+		datahub_common.MetricType_MEMORY_BYTES_USAGE:   core_v1.ResourceMemory,
 	}
 )
 
@@ -200,7 +200,7 @@ func buildK8SReosurceListFromMetricTypeValueMap(metricTypeValueMap map[datahub_c
 	for metricType, value := range metricTypeValueMap {
 
 		resourceUnit := ""
-		if metricType == datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE {
+		if metricType == datahub_common.MetricType_CPU_MILLICORES_USAGE {
 			cpuMilliCores, err := strconv.ParseFloat(value, 64)
 			if err != nil {
 
