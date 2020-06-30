@@ -24,26 +24,25 @@ import (
 	"sync"
 	"time"
 
-	timestamp "github.com/golang/protobuf/ptypes/timestamp"
-	"github.com/pkg/errors"
-	"golang.org/x/sync/errgroup"
-
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
-	datahub_client "github.com/containers-ai/alameda/operator/datahub/client"
-	datahub_application "github.com/containers-ai/alameda/operator/datahub/client/application"
+	datahub_client_application "github.com/containers-ai/alameda/operator/datahub/client/application"
 	datahub_controller "github.com/containers-ai/alameda/operator/datahub/client/controller"
 	datahub_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
 	datahub_pod "github.com/containers-ai/alameda/operator/datahub/client/pod"
 	alamedascaler_reconciler "github.com/containers-ai/alameda/operator/pkg/reconciler/alamedascaler"
 	"github.com/containers-ai/alameda/operator/pkg/utils"
 	utilsresource "github.com/containers-ai/alameda/operator/pkg/utils/resources"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	alamutils "github.com/containers-ai/alameda/pkg/utils"
 	datahubutilscontainer "github.com/containers-ai/alameda/pkg/utils/datahub/container"
 	datahubutilspod "github.com/containers-ai/alameda/pkg/utils/datahub/pod"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
-
+	timestamp "github.com/golang/protobuf/ptypes/timestamp"
+	"github.com/pkg/errors"
+	"golang.org/x/sync/errgroup"
 	corev1 "k8s.io/api/core/v1"
 	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -100,15 +99,12 @@ var alamedascalerFirstSynced = false
 // AlamedaScalerReconciler reconciles a AlamedaScaler object
 type AlamedaScalerReconciler struct {
 	client.Client
-	Scheme *runtime.Scheme
-
-	ClusterUID string
-
-	DatahubApplicationRepo *datahub_application.ApplicationRepository
+	Scheme                 *runtime.Scheme
+	ClusterUID             string
+	DatahubClient          *datahubpkg.Client
 	DatahubControllerRepo  *datahub_controller.ControllerRepository
 	DatahubNamespaceRepo   *datahub_namespace.NamespaceRepository
 	DatahubPodRepo         *datahub_pod.PodRepository
-
 	onceForceReconcile     sync.Once
 	ReconcileTimeout       time.Duration
 	ForceReconcileInterval time.Duration
@@ -136,6 +132,13 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 	instance := autoscalingv1alpha1.AlamedaScaler{}
 	err := r.Get(ctx, types.NamespacedName{Namespace: req.Namespace, Name: req.Name}, &instance)
 	if err != nil && k8sErrors.IsNotFound(err) {
+		scope.Infof("Handling deletion of AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
+		if err := r.handleAlamedaScalerDeletion(req.Namespace, req.Name); err != nil {
+			scope.Warnf("Handle deletion of AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+				req.Namespace, req.Name, err)
+			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+		}
+		scope.Infof("Handle deletion of AlamedaScaler(%s/%s) done.", req.Namespace, req.Name)
 		return ctrl.Result{Requeue: false}, nil
 	} else if err != nil {
 		scope.Errorf("Get AlamedaScaler(%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
@@ -376,27 +379,35 @@ func (r *AlamedaScalerReconciler) syncDatahubResourceByAlamedaScaler(ctx context
 	return wg.Wait()
 }
 
-func (r *AlamedaScalerReconciler) syncDatahubApplicationsByAlamedaScaler(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) error {
-
+func (r *AlamedaScalerReconciler) syncDatahubApplicationsByAlamedaScaler(
+	ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) error {
 	namespace := alamedaScaler.Namespace
 	name := alamedaScaler.Name
-	applicationObjectMetas := []*datahub_resources.Application{
-		&datahub_resources.Application{
-			ObjectMeta: &datahub_resources.ObjectMeta{
-				Namespace:   namespace,
-				Name:        name,
-				ClusterName: r.ClusterUID,
-			},
-			AlamedaApplicationSpec: &datahub_resources.AlamedaApplicationSpec{
-				ScalingTool: r.getAlamedaScalerDatahubScalingType(alamedaScaler),
-			},
-		},
+	scalingToolStr := datahub_client_application.GetAlamedaScalerDatahubScalingTypeStr(alamedaScaler)
+	scope.Debugf(
+		"Creating applications to datahub. AlamedaScaler(application): %s/%s. Scaling tool: %s",
+		namespace, name, scalingToolStr)
+	entity := entities.ResourceClusterStatusApplication{
+		ClusterName: r.ClusterUID,
+		Namespace:   namespace,
+		Name:        name,
+		ScalingTool: scalingToolStr,
 	}
-	scope.Debugf("Creating applications to datahub. AlamedaScaler: %s/%s. Applications: %+v", namespace, name, applicationObjectMetas)
-	if err := r.DatahubApplicationRepo.CreateApplications(applicationObjectMetas); err != nil {
+	if alamedaScaler.Spec.MinReplicas != nil {
+		entity.ResourceK8sMinReplicas = *alamedaScaler.Spec.MinReplicas
+	}
+	if alamedaScaler.Spec.MaxReplicas != nil {
+		entity.ResourceK8sMaxReplicas = *alamedaScaler.Spec.MaxReplicas
+	}
+	err := r.DatahubClient.Create(&[]entities.ResourceClusterStatusApplication{
+		entity,
+	})
+	if err != nil {
 		return errors.Wrapf(err, "create Application(%s/%s) to Datahub failed", namespace, name)
 	}
-	scope.Debugf("Create applications to datahub success. AlamedaScaler: %s/%s. Applications: %+v", namespace, name, applicationObjectMetas)
+	scope.Debugf(
+		"Create applications to datahub success. AlamedaScaler: %s/%s. Scaling tool: %s",
+		namespace, name, scalingToolStr)
 	return nil
 }
 func (r *AlamedaScalerReconciler) syncDatahubControllersByAlamedaScaler(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) error {
@@ -742,15 +753,17 @@ func (r *AlamedaScalerReconciler) handleAlamedaScalerDeletion(namespace, name st
 		return nil
 	})
 	wg.Go(func() error {
-		applicationObejctMetas := []*datahub_resources.ObjectMeta{
-			&datahub_resources.ObjectMeta{
+		scope.Debugf("Deleting applications from datahub. AlamedaScaler (application): %s/%s.",
+			namespace, name)
+		err := r.DatahubClient.DeleteByOpts(&entities.ResourceClusterStatusApplication{}, datahubpkg.Option{
+			Entity: entities.ResourceClusterStatusApplication{
+				ClusterName: r.ClusterUID,
 				Namespace:   namespace,
 				Name:        name,
-				ClusterName: r.ClusterUID,
 			},
-		}
-		scope.Debugf("Deleting applications from datahub. AlamedaScaler: %s/%s. Applications: %+v", namespace, name, applicationObejctMetas)
-		if err := r.DatahubApplicationRepo.DeleteApplications(ctx, applicationObejctMetas); err != nil {
+			Fields: []string{"ClusterName", "Namespace", "Name"},
+		})
+		if err != nil {
 			return errors.Wrapf(err, "delete Application(%s/%s) from datahub failed", namespace, name)
 		} else {
 			if r.DatahubNamespaceRepo.IsNSExcluded(namespace) {
@@ -770,49 +783,35 @@ func (r *AlamedaScalerReconciler) handleAlamedaScalerDeletion(namespace, name st
 				scope.Debugf("Delete namespaces from datahub success. AlamedaScaler: %s/%s. Namespaces: %+v", namespace, name, namespaceObejctMetas)
 			}
 		}
-		scope.Debugf("Delete applications from datahub success. AlamedaScaler: %s/%s. Applications: %+v", namespace, name, applicationObejctMetas)
+		scope.Debugf("Delete applications from datahub success. AlamedaScaler(application): %s/%s.",
+			namespace, name)
 		return nil
 	})
 
 	return wg.Wait()
 }
 
-func (r *AlamedaScalerReconciler) deleteControllersFromDatahubByAlamedaScaler(ctx context.Context, namespace, name string) error {
-
-	application, err := r.DatahubApplicationRepo.GetApplication(ctx, namespace, name)
-	if err != nil && err != datahub_client.ErrResourceNotFound {
-		return errors.Wrap(err, "get application failed")
-	} else if err == datahub_client.ErrResourceNotFound {
-		scope.Debugf("Delete controllers from datahub success. Application: %s/%s not found, skip deleting controllers.", namespace, name)
-		return nil
-	}
-
-	controllerMap := map[datahub_resources.Kind][]*datahub_resources.ObjectMeta{
-		datahub_resources.Kind_DEPLOYMENT:       []*datahub_resources.ObjectMeta{},
-		datahub_resources.Kind_DEPLOYMENTCONFIG: []*datahub_resources.ObjectMeta{},
-		datahub_resources.Kind_STATEFULSET:      []*datahub_resources.ObjectMeta{},
-	}
-	for _, controller := range application.Controllers {
-		controllerMap[controller.Kind] = append(controllerMap[controller.Kind], controller.ObjectMeta)
-	}
-	wg, wgCTX := errgroup.WithContext(ctx)
-	for kind, objectMetas := range controllerMap {
-		if len(objectMetas) == 0 {
-			continue
-		}
-		copyKind := kind
-		copyObjectMetas := objectMetas
-		wg.Go(func() error {
-			scope.Debugf("Deleting controllers from datahub. AlamedaScaler: %s/%s. Controllers: %+v", namespace, name, objectMetas)
-			err := r.DatahubControllerRepo.DeleteControllers(wgCTX, copyObjectMetas, copyKind)
-			if err != nil {
-				return err
-			}
-			scope.Debugf("Delete controllers from datahub success. AlamedaScaler: %s/%s. Controllers: %+v", namespace, name, objectMetas)
-			return nil
+func (r *AlamedaScalerReconciler) deleteControllersFromDatahubByAlamedaScaler(
+	ctx context.Context, namespace, name string) error {
+	wg, _ := errgroup.WithContext(ctx)
+	wg.Go(func() error {
+		scope.Debugf("Deleting controllers of AlamedaScaler: %s/%s from datahub.",
+			namespace, name)
+		err := r.DatahubClient.DeleteByOpts(&entities.ResourceClusterStatusController{}, datahubpkg.Option{
+			Entity: entities.ResourceClusterStatusController{
+				ClusterName:       r.ClusterUID,
+				Namespace:         namespace,
+				AlamedaScalerName: name,
+			},
+			Fields: []string{"ClusterName", "Namespace", "AlamedaScalerName"},
 		})
-	}
-
+		if err != nil {
+			return err
+		}
+		scope.Debugf("Deleting controllers of AlamedaScaler: %s/%s from datahub success.",
+			namespace, name)
+		return nil
+	})
 	return wg.Wait()
 }
 

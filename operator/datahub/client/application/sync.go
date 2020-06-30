@@ -2,20 +2,19 @@ package application
 
 import (
 	"context"
+	"fmt"
 	"time"
 
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
-	"github.com/pkg/errors"
-	"google.golang.org/grpc"
-	"sigs.k8s.io/controller-runtime/pkg/client"
-
-	"fmt"
-
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
+	"github.com/pkg/errors"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
+func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	applicationList := autoscalingv1alpha1.AlamedaScalerList{}
@@ -29,9 +28,24 @@ func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
 		return errors.Wrap(err, "get cluster uid failed")
 	}
 
-	datahubApplicationRepo := NewApplicationRepository(conn, clusterUID)
 	if len(applicationList.Items) > 0 {
-		if err := datahubApplicationRepo.CreateApplications(applicationList.Items); err != nil {
+		apps := []entities.ResourceClusterStatusApplication{}
+		for idx := range applicationList.Items {
+			entity := entities.ResourceClusterStatusApplication{
+				ClusterName: clusterUID,
+				Namespace:   applicationList.Items[idx].Namespace,
+				Name:        applicationList.Items[idx].Name,
+				ScalingTool: GetAlamedaScalerDatahubScalingTypeStr(applicationList.Items[idx]),
+			}
+			if applicationList.Items[idx].Spec.MinReplicas != nil {
+				entity.ResourceK8sMinReplicas = *applicationList.Items[idx].Spec.MinReplicas
+			}
+			if applicationList.Items[idx].Spec.MaxReplicas != nil {
+				entity.ResourceK8sMaxReplicas = *applicationList.Items[idx].Spec.MaxReplicas
+			}
+			apps = append(apps, entity)
+		}
+		if err := datahubClient.Create(&apps); err != nil {
 			return fmt.Errorf(
 				"Sync applications with datahub failed due to register application failed: %s", err.Error())
 		}
@@ -44,26 +58,41 @@ func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
 			application.GetNamespace(), application.GetName())] = true
 	}
 
-	applicationsFromDatahub, err := datahubApplicationRepo.ListApplications()
+	existingApps := []entities.ResourceClusterStatusApplication{}
+	err = datahubClient.List(&existingApps)
 	if err != nil {
 		return fmt.Errorf(
 			"Sync applications with datahub failed due to list applications from datahub failed: %s",
 			err.Error())
 	}
-	applicationsNeedDeleting := make([]*datahub_resources.ObjectMeta, 0)
-	for _, n := range applicationsFromDatahub {
+	applicationsNeedDeleting := []entities.ResourceClusterStatusApplication{}
+	for _, n := range existingApps {
 		if _, exist := existingApplicationMap[fmt.Sprintf("%s/%s",
-			n.GetObjectMeta().GetNamespace(), n.GetObjectMeta().GetName())]; exist {
+			n.Namespace, n.Name)]; exist {
 			continue
 		}
-		applicationsNeedDeleting = append(applicationsNeedDeleting, n.ObjectMeta)
+		applicationsNeedDeleting = append(applicationsNeedDeleting, n)
 	}
 	if len(applicationsNeedDeleting) > 0 {
-		err = datahubApplicationRepo.DeleteApplications(context.TODO(), applicationsNeedDeleting)
+		err = datahubClient.Delete(*&applicationsNeedDeleting)
 		if err != nil {
 			return errors.Wrap(err, "delete applications from Datahub failed")
 		}
 	}
 
 	return nil
+}
+
+func GetAlamedaScalerDatahubScalingTypeStr(
+	alamedaScaler autoscalingv1alpha1.AlamedaScaler) string {
+	scalingType := datahub_resources.ScalingTool_name[int32(datahub_resources.ScalingTool_SCALING_TOOL_UNDEFINED)]
+	switch alamedaScaler.Spec.ScalingTool.Type {
+	case autoscalingv1alpha1.ScalingToolTypeVPA:
+		scalingType = datahub_resources.ScalingTool_name[int32(datahub_resources.ScalingTool_VPA)]
+	case autoscalingv1alpha1.ScalingToolTypeHPA:
+		scalingType = datahub_resources.ScalingTool_name[int32(datahub_resources.ScalingTool_HPA)]
+	case autoscalingv1alpha1.ScalingToolTypeDefault:
+		scalingType = datahub_resources.ScalingTool_name[int32(datahub_resources.ScalingTool_NONE)]
+	}
+	return scalingType
 }

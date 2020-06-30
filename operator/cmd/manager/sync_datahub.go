@@ -44,7 +44,7 @@ func syncResourcesWithDatahub(
 	}()
 	go func() {
 		if err := datahub_client_application.SyncWithDatahub(client,
-			datahubConn); err != nil {
+			datahubClient); err != nil {
 			scope.Errorf("sync application failed at start due to %s", err.Error())
 		}
 	}()

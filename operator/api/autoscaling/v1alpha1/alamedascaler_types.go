@@ -210,6 +210,8 @@ type AlamedaScalerSpec struct {
 	ScalingTool           ScalingToolSpec   `json:"scalingTool,omitempty" protobuf:"bytes,5,opt,name=scaling_tool"`
 	Type                  AlamedaScalerType `json:"type,omitempty" protobuf:"bytes,6,opt,name=type"`
 	Kafka                 *KafkaSpec        `json:"kafka,omitempty" protobuf:"bytes,7,opt,name=kafka"`
+	MinReplicas           *int32            `json:"minReplicas,omitempty" protobuf:"bytes,6,opt,name=min_replicas"`
+	MaxReplicas           *int32            `json:"maxReplicas,omitempty" protobuf:"bytes,7,opt,name=max_replicas"`
 }
 
 type KafkaStatus struct {

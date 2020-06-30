@@ -37,7 +37,6 @@ import (
 	"github.com/containers-ai/alameda/operator"
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
 	"github.com/containers-ai/alameda/operator/controllers"
-	datahub_client_application "github.com/containers-ai/alameda/operator/datahub/client/application"
 	datahub_client_controller "github.com/containers-ai/alameda/operator/datahub/client/controller"
 	datahub_client_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
 	datahub_client_node "github.com/containers-ai/alameda/operator/datahub/client/node"
@@ -263,7 +262,7 @@ func addControllersToManager(mgr manager.Manager) error {
 		Client:                 mgr.GetClient(),
 		Scheme:                 mgr.GetScheme(),
 		ClusterUID:             clusterUID,
-		DatahubApplicationRepo: datahub_client_application.NewApplicationRepository(datahubConn, clusterUID),
+		DatahubClient:          datahubClient,
 		DatahubControllerRepo:  datahubControllerRepo,
 		DatahubNamespaceRepo:   datahubNamespaceRepo,
 		DatahubPodRepo:         datahubPodRepo,
