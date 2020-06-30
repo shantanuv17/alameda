@@ -33,13 +33,19 @@ func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) err
 	if len(applicationList.Items) > 0 {
 		apps := []entities.ResourceClusterStatusApplication{}
 		for idx := range applicationList.Items {
-			apps = append(apps, entities.ResourceClusterStatusApplication{
+			entity := entities.ResourceClusterStatusApplication{
 				ClusterName: clusterUID,
 				Namespace:   applicationList.Items[idx].Namespace,
 				Name:        applicationList.Items[idx].Name,
 				ScalingTool: GetAlamedaScalerDatahubScalingTypeStr(applicationList.Items[idx]),
-			})
-
+			}
+			if applicationList.Items[idx].Spec.MinReplicas != nil {
+				entity.ResourceK8sMinReplicas = *applicationList.Items[idx].Spec.MinReplicas
+			}
+			if applicationList.Items[idx].Spec.MaxReplicas != nil {
+				entity.ResourceK8sMaxReplicas = *applicationList.Items[idx].Spec.MaxReplicas
+			}
+			apps = append(apps, entity)
 		}
 		if err := datahubClient.Create(&apps); err != nil {
 			return fmt.Errorf(

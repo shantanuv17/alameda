@@ -42,14 +42,15 @@ type ResourceClusterAutoscalerMachineset struct {
 }
 
 type ResourceClusterStatusApplication struct {
-	DatahubEntity `scope:"resource" category:"cluster_status" type:"application" measurement:"application" metric:"undefined" boundary:"undefined" quota:"undefined"`
-	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"    required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name" required:"true"  column:"tag"   type:"string"`
-	Uid           string     `json:"uid"          required:"true"  column:"tag"   type:"string"`
-	ScalingTool   string     `json:"scaling_tool" required:"true"  column:"tag"   type:"string"`
-	Dummy         string     `json:"dummy"        required:"true"  column:"field" type:"string"`
+	DatahubEntity          `scope:"resource" category:"cluster_status" type:"application" measurement:"application" metric:"undefined" boundary:"undefined" quota:"undefined"`
+	Time                   *time.Time `json:"time"                      required:"false" column:"tag"   type:"time"`
+	Name                   string     `json:"name"                      required:"true"  column:"tag"   type:"string"`
+	Namespace              string     `json:"namespace"                 required:"true"  column:"tag"   type:"string"`
+	ClusterName            string     `json:"cluster_name"              required:"true"  column:"tag"   type:"string"`
+	Uid                    string     `json:"uid"                       required:"true"  column:"tag"   type:"string"`
+	ScalingTool            string     `json:"scaling_tool"              required:"true"  column:"tag"   type:"string"`
+	ResourceK8sMinReplicas int32      `json:"resource_k8s_min_replicas" required:"false" column:"field" type:"int32"`
+	ResourceK8sMaxReplicas int32      `json:"resource_k8s_max_replicas" required:"false" column:"field" type:"int32"`
 }
 
 type ResourceClusterStatusCluster struct {

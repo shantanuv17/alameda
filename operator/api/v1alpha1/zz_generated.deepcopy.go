@@ -399,6 +399,16 @@ func (in *AlamedaScalerSpec) DeepCopyInto(out *AlamedaScalerSpec) {
 		**out = **in
 	}
 	in.ScalingTool.DeepCopyInto(&out.ScalingTool)
+	if in.MinReplicas != nil {
+		in, out := &in.MinReplicas, &out.MinReplicas
+		*out = new(int32)
+		**out = **in
+	}
+	if in.MaxReplicas != nil {
+		in, out := &in.MaxReplicas, &out.MaxReplicas
+		*out = new(int32)
+		**out = **in
+	}
 	if in.Kafka != nil {
 		in, out := &in.Kafka, &out.Kafka
 		*out = new(KafkaSpec)

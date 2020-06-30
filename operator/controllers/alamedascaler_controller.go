@@ -446,13 +446,20 @@ func (r *AlamedaScalerReconciler) syncDatahubApplicationsByAlamedaScaler(
 	scope.Debugf(
 		"Creating applications to datahub. AlamedaScaler(application): %s/%s. Scaling tool: %s",
 		namespace, name, scalingToolStr)
+	entity := entities.ResourceClusterStatusApplication{
+		ClusterName: r.ClusterUID,
+		Namespace:   namespace,
+		Name:        name,
+		ScalingTool: scalingToolStr,
+	}
+	if alamedaScaler.Spec.MinReplicas != nil {
+		entity.ResourceK8sMinReplicas = *alamedaScaler.Spec.MinReplicas
+	}
+	if alamedaScaler.Spec.MaxReplicas != nil {
+		entity.ResourceK8sMaxReplicas = *alamedaScaler.Spec.MaxReplicas
+	}
 	err := r.DatahubClient.Create(&[]entities.ResourceClusterStatusApplication{
-		{
-			ClusterName: r.ClusterUID,
-			Namespace:   namespace,
-			Name:        name,
-			ScalingTool: scalingToolStr,
-		},
+		entity,
 	})
 	if err != nil {
 		return errors.Wrapf(err, "create Application(%s/%s) to Datahub failed", namespace, name)
