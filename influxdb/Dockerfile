@@ -36,8 +36,6 @@ RUN set -x \
     && chmod +x /entrypoint.sh /init-influxdb.sh \
     && microdnf update -y \
     && microdnf install -y vim openssl ${influxdb_pkg} \
-    ## Avoid permission deny warning while using 'influx' command
-    && touch /.influx_history && chmod 777 \
     ## RedHat MarketPlace certification required licenses directory
     && mkdir -pv /licenses/ && touch /licenses/.placeholder \
     && microdnf clean all \
