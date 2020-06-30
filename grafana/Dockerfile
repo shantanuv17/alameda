@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1-407
+FROM registry.access.redhat.com/ubi8/ubi-minimal
 
 ARG image_tag
 ARG grafana_pkg=grafana-6.4.4
