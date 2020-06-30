@@ -74,6 +74,9 @@ func (r *ListControllerMetricsRequestExtended) SetDefaultWithMetricsDBType(dbTyp
 func (r *ListControllerMetricsRequestExtended) ProduceRequest() DaoMetricTypes.ListControllerMetricsRequest {
 	request := DaoMetricTypes.ListControllerMetricsRequest{}
 	request.QueryCondition = common.QueryConditionExtend{Condition: r.Request.GetQueryCondition()}.QueryCondition()
+	subQuery := common.QueryConditionExtend{Condition: r.Request.GetQueryCondition()}.QueryCondition()
+	request.SubQuery = &subQuery
+
 	// TODO: Check if kind exists
 	request.Kind = r.Request.Kind.String()
 	objectMetas := make([]metadata.ObjectMeta, len(r.Request.GetObjectMeta()))

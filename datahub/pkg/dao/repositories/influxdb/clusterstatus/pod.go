@@ -88,6 +88,14 @@ func (p *PodRepository) ListPods(request *DaoClusterTypes.ListPodsRequest) ([]*D
 			conditionList = append(conditionList, createCondition)
 		}
 
+		if request.AlamedaScalerName != "" {
+			conditionList = append(conditionList, fmt.Sprintf(`"%s"='%s'`, EntityInfluxCluster.PodAlamedaSpecScalerName, request.AlamedaScalerName))
+		}
+
+		if request.TopControllerName != "" {
+			conditionList = append(conditionList, fmt.Sprintf(`"%s"='%s'`, EntityInfluxCluster.PodTopControllerName, request.TopControllerName))
+		}
+
 		if request.ScalingTool != "" && request.ScalingTool != ApiResources.ScalingTool_name[0] {
 			conditionList = append(conditionList, fmt.Sprintf(`"%s"='%s'`, EntityInfluxCluster.PodAlamedaSpecScalerScalingTool, request.ScalingTool))
 		}

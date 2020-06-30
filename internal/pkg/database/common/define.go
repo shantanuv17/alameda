@@ -99,4 +99,9 @@ var (
 		Common.TimeRange_MAX:  MaxOverTime,
 		Common.TimeRange_AVG:  AvgOverTime,
 	}
+	FunctionTypeMap = map[AggregateFunction]FunctionType{
+		None:        NoneFunction,
+		MaxOverTime: FunctionMax,
+		AvgOverTime: FunctionMean,
+	}
 )
