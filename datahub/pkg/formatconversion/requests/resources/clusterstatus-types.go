@@ -38,6 +38,8 @@ func NewAlamedaApplicationSpec(applicationSpec *resources.AlamedaApplicationSpec
 	if applicationSpec != nil {
 		spec := &types.AlamedaApplicationSpec{}
 		spec.ScalingTool = applicationSpec.GetScalingTool().String()
+		spec.MinReplicas = applicationSpec.GetMinReplicas()
+		spec.MaxReplicas = applicationSpec.GetMaxReplicas()
 		return spec
 	}
 	return nil
