@@ -161,7 +161,9 @@ const (
 type ScalingToolSpec struct {
 	// +kubebuilder:validation:Enum="";vpa;hpa;N/A
 	Type              string             `json:"type,omitempty" protobuf:"bytes,1,name=type"`
-	ExecutionStrategy *ExecutionStrategy `json:"executionStrategy,omitempty" protobuf:"bytes,2,name=execution_strategy"`
+	MinReplicas       *int32             `json:"minReplicas,omitempty" protobuf:"bytes,2,opt,name=min_replicas"`
+	MaxReplicas       *int32             `json:"maxReplicas,omitempty" protobuf:"bytes,3,opt,name=max_replicas"`
+	ExecutionStrategy *ExecutionStrategy `json:"executionStrategy,omitempty" protobuf:"bytes,4,name=execution_strategy"`
 }
 
 type AlamedaScalerType = string
@@ -210,8 +212,6 @@ type AlamedaScalerSpec struct {
 	ScalingTool           ScalingToolSpec   `json:"scalingTool,omitempty" protobuf:"bytes,5,opt,name=scaling_tool"`
 	Type                  AlamedaScalerType `json:"type,omitempty" protobuf:"bytes,6,opt,name=type"`
 	Kafka                 *KafkaSpec        `json:"kafka,omitempty" protobuf:"bytes,7,opt,name=kafka"`
-	MinReplicas           *int32            `json:"minReplicas,omitempty" protobuf:"bytes,6,opt,name=min_replicas"`
-	MaxReplicas           *int32            `json:"maxReplicas,omitempty" protobuf:"bytes,7,opt,name=max_replicas"`
 }
 
 type KafkaStatus struct {

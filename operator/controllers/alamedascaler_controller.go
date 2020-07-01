@@ -407,11 +407,11 @@ func (r *AlamedaScalerReconciler) syncDatahubApplicationsByAlamedaScaler(
 		Name:        name,
 		ScalingTool: scalingToolStr,
 	}
-	if alamedaScaler.Spec.MinReplicas != nil {
-		entity.ResourceK8sMinReplicas = *alamedaScaler.Spec.MinReplicas
+	if alamedaScaler.Spec.ScalingTool.MinReplicas != nil {
+		entity.ResourceK8sMinReplicas = *alamedaScaler.Spec.ScalingTool.MinReplicas
 	}
-	if alamedaScaler.Spec.MaxReplicas != nil {
-		entity.ResourceK8sMaxReplicas = *alamedaScaler.Spec.MaxReplicas
+	if alamedaScaler.Spec.ScalingTool.MaxReplicas != nil {
+		entity.ResourceK8sMaxReplicas = *alamedaScaler.Spec.ScalingTool.MaxReplicas
 	}
 	err := r.DatahubClient.Create(&[]entities.ResourceClusterStatusApplication{
 		entity,

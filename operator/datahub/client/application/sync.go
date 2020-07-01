@@ -37,11 +37,11 @@ func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) err
 				Name:        applicationList.Items[idx].Name,
 				ScalingTool: GetAlamedaScalerDatahubScalingTypeStr(applicationList.Items[idx]),
 			}
-			if applicationList.Items[idx].Spec.MinReplicas != nil {
-				entity.ResourceK8sMinReplicas = *applicationList.Items[idx].Spec.MinReplicas
+			if applicationList.Items[idx].Spec.ScalingTool.MinReplicas != nil {
+				entity.ResourceK8sMinReplicas = *applicationList.Items[idx].Spec.ScalingTool.MinReplicas
 			}
-			if applicationList.Items[idx].Spec.MaxReplicas != nil {
-				entity.ResourceK8sMaxReplicas = *applicationList.Items[idx].Spec.MaxReplicas
+			if applicationList.Items[idx].Spec.ScalingTool.MaxReplicas != nil {
+				entity.ResourceK8sMaxReplicas = *applicationList.Items[idx].Spec.ScalingTool.MaxReplicas
 			}
 			apps = append(apps, entity)
 		}
