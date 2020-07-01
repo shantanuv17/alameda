@@ -26,8 +26,8 @@ message AlamedaControllerSpec {
 
 message AlamedaApplicationSpec {
     ScalingTool scaling_tool = 1;
-    int32       MinReplicas  = 2;
-    int32       MaxReplicas  = 3;
+    int32       min_replicas = 2;
+    int32       max_replicas = 3;
 }
 
 message AlamedaNodeSpec {
