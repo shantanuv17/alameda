@@ -101,6 +101,7 @@ type AlamedaScalerReconciler struct {
 	client.Client
 	Scheme                 *runtime.Scheme
 	ClusterUID             string
+	EnabledDA              bool
 	DatahubClient          *datahubpkg.Client
 	DatahubControllerRepo  *datahub_controller.ControllerRepository
 	DatahubNamespaceRepo   *datahub_namespace.NamespaceRepository

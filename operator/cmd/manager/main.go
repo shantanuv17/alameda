@@ -261,6 +261,7 @@ func addControllersToManager(mgr manager.Manager) error {
 	if err = (&controllers.AlamedaScalerReconciler{
 		Client:                 mgr.GetClient(),
 		Scheme:                 mgr.GetScheme(),
+		EnabledDA:              enabledDA,
 		ClusterUID:             clusterUID,
 		DatahubClient:          datahubClient,
 		DatahubControllerRepo:  datahubControllerRepo,
