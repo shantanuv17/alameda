@@ -36,15 +36,22 @@ func (repo *ApplicationRepository) CreateApplications(arg interface{}) error {
 	applications := []*datahub_resources.Application{}
 	if apps, ok := arg.([]autoscalingv1alpha1.AlamedaScaler); ok {
 		for _, app := range apps {
+			appSpec := datahub_resources.AlamedaApplicationSpec{
+				ScalingTool: repo.getAlamedaScalerDatahubScalingType(app),
+			}
+			if app.Spec.ScalingTool.MinReplicas != nil {
+				appSpec.MinReplicas = *app.Spec.ScalingTool.MinReplicas
+			}
+			if app.Spec.ScalingTool.MaxReplicas != nil {
+				appSpec.MaxReplicas = *app.Spec.ScalingTool.MaxReplicas
+			}
 			applications = append(applications, &datahub_resources.Application{
 				ObjectMeta: &datahub_resources.ObjectMeta{
 					Name:        app.GetName(),
 					Namespace:   app.GetNamespace(),
 					ClusterName: repo.clusterUID,
 				},
-				AlamedaApplicationSpec: &datahub_resources.AlamedaApplicationSpec{
-					ScalingTool: repo.getAlamedaScalerDatahubScalingType(app),
-				},
+				AlamedaApplicationSpec: &appSpec,
 			})
 		}
 	}

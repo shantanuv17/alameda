@@ -228,6 +228,15 @@ func (r *AlamedaScalerReconciler) syncDatahubApplicationsByAlamedaScaler(ctx con
 
 	namespace := alamedaScaler.Namespace
 	name := alamedaScaler.Name
+	appSpec := datahub_resources.AlamedaApplicationSpec{
+		ScalingTool: r.getAlamedaScalerDatahubScalingType(alamedaScaler),
+	}
+	if alamedaScaler.Spec.ScalingTool.MinReplicas != nil {
+		appSpec.MinReplicas = *alamedaScaler.Spec.ScalingTool.MinReplicas
+	}
+	if alamedaScaler.Spec.ScalingTool.MaxReplicas != nil {
+		appSpec.MaxReplicas = *alamedaScaler.Spec.ScalingTool.MaxReplicas
+	}
 	applicationObjectMetas := []*datahub_resources.Application{
 		&datahub_resources.Application{
 			ObjectMeta: &datahub_resources.ObjectMeta{
@@ -235,9 +244,7 @@ func (r *AlamedaScalerReconciler) syncDatahubApplicationsByAlamedaScaler(ctx con
 				Name:        name,
 				ClusterName: r.ClusterUID,
 			},
-			AlamedaApplicationSpec: &datahub_resources.AlamedaApplicationSpec{
-				ScalingTool: r.getAlamedaScalerDatahubScalingType(alamedaScaler),
-			},
+			AlamedaApplicationSpec: &appSpec,
 		},
 	}
 	scope.Debugf("Creating applications to datahub. AlamedaScaler: %s/%s. Applications: %+v", namespace, name, applicationObjectMetas)
