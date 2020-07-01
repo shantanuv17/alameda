@@ -35,6 +35,8 @@ type ApplicationObjectMeta struct {
 
 type AlamedaApplicationSpec struct {
 	ScalingTool string
+	MinReplicas int32
+	MaxReplicas int32
 }
 
 func NewApplication(entity *clusterstatus.ApplicationEntity) *Application {
@@ -71,6 +73,8 @@ func NewApplicationObjectMeta(objectMeta *metadata.ObjectMeta, scalingTool strin
 func NewAlamedaApplicationSpec(entity *clusterstatus.ApplicationEntity) *AlamedaApplicationSpec {
 	spec := AlamedaApplicationSpec{}
 	spec.ScalingTool = entity.ScalingTool
+	spec.MinReplicas = entity.MinReplicas
+	spec.MaxReplicas = entity.MaxReplicas
 	return &spec
 }
 
@@ -78,7 +82,6 @@ func (p *Application) BuildEntity() *clusterstatus.ApplicationEntity {
 	entity := clusterstatus.ApplicationEntity{}
 
 	entity.Time = influxdb.ZeroTime
-	entity.Value = ""
 
 	if p.ObjectMeta != nil {
 		entity.Name = p.ObjectMeta.Name
@@ -88,7 +91,8 @@ func (p *Application) BuildEntity() *clusterstatus.ApplicationEntity {
 	}
 
 	if p.AlamedaApplicationSpec != nil {
-		entity.ScalingTool = p.AlamedaApplicationSpec.ScalingTool
+		entity.MinReplicas = p.AlamedaApplicationSpec.MinReplicas
+		entity.MaxReplicas = p.AlamedaApplicationSpec.MaxReplicas
 	}
 
 	return &entity
