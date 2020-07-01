@@ -206,7 +206,7 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 	if err := r.updateAlamedaScaler(ctx, &alamedaScaler); err != nil {
 		r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s",
 			req.Namespace, req.Name, err)
-		return ctrl.Result{Requeue: false}, nil
+		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
 
 	r.Logger.Infof("Reconcile AlamedaScaler(%s/%s) done.", req.Namespace, req.Name)
