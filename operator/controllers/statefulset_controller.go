@@ -31,12 +31,16 @@ import (
 // StatefulSetReconciler reconciles a StatefulSet object
 type StatefulSetReconciler struct {
 	client.Client
-	Scheme *runtime.Scheme
-
+	Scheme     *runtime.Scheme
+	EnabledDA  bool
 	ClusterUID string
 }
 
 func (r *StatefulSetReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
+	if r.EnabledDA {
+		scope.Infof("Data agent mode is enabled, skip reconcile statefulset reconcile")
+		return ctrl.Result{Requeue: false}, nil
+	}
 	requeueDuration := 1 * time.Second
 
 	instance := appsv1.StatefulSet{}

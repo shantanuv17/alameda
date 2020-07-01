@@ -31,12 +31,16 @@ import (
 // DeploymentReconciler reconciles a Deployment object
 type DeploymentReconciler struct {
 	client.Client
-	Scheme *runtime.Scheme
-
+	Scheme     *runtime.Scheme
+	EnabledDA  bool
 	ClusterUID string
 }
 
 func (r *DeploymentReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
+	if r.EnabledDA {
+		scope.Infof("Data agent mode is enabled, skip reconcile deployment reconcile")
+		return ctrl.Result{Requeue: false}, nil
+	}
 	requeueDuration := 1 * time.Second
 
 	instance := appsv1.Deployment{}

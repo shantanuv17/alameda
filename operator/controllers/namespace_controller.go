@@ -36,14 +36,18 @@ var (
 // NamespaceReconciler reconciles a Namespace object
 type NamespaceReconciler struct {
 	client.Client
-	Scheme *runtime.Scheme
-
+	Scheme     *runtime.Scheme
+	EnabledDA  bool
 	ClusterUID string
 
 	DatahubNamespaceRepo *datahub_namespace.NamespaceRepository
 }
 
 func (r *NamespaceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
+	if r.EnabledDA {
+		scope.Infof("Data agent mode is enabled, skip reconcile namespace reconcile")
+		return ctrl.Result{Requeue: false}, nil
+	}
 	if !namespaceFirstSynced {
 		time.Sleep(5 * time.Second)
 	}

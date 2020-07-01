@@ -92,13 +92,13 @@ func chooseTopic(majorTopic string, topicsWantToConsume, currentConsumeTopics []
 type AlamedaScalerKafkaReconciler struct {
 	ClusterUID            string
 	HasOpenShiftAPIAppsv1 bool
-
-	K8SClient        client.Client
-	Scheme           *runtime.Scheme
-	KafkaClient      kafka.Client
-	PrometheusClient prometheus.Prometheus
-	DatahubClient    *datahubpkg.Client
-	ReconcileTimeout time.Duration
+	EnabledDA             bool
+	K8SClient             client.Client
+	Scheme                *runtime.Scheme
+	KafkaClient           kafka.Client
+	PrometheusClient      prometheus.Prometheus
+	DatahubClient         *datahubpkg.Client
+	ReconcileTimeout      time.Duration
 
 	Logger *log.Scope
 
@@ -113,7 +113,6 @@ func (r AlamedaScalerKafkaReconciler) openClient() error {
 }
 
 func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
-
 	ctx, cancel := context.WithTimeout(context.Background(), r.ReconcileTimeout)
 	defer cancel()
 	cachedAlamedaScaler := autoscalingv1alpha1.AlamedaScaler{}
@@ -192,31 +191,68 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 	}
 	topics := r.prepareTopics(consumerGroupDetails)
 
-	err = r.syncWithDatahub(ctx, alamedaScaler, topics, consumerGroupDetails)
-	if err != nil {
-		r.Logger.Warnf(
-			"Synchornize consumerGroupDetails with remote of AlamedaScaler(%s/%s) failed, retry reconciling: %s",
-			req.Namespace, req.Name, err)
-		alamedaScaler.Status.Kafka.Effective = false
-		alamedaScaler.Status.Kafka.Message = err.Error()
-		err := r.updateAlamedaScaler(ctx, &alamedaScaler)
+	if r.EnabledDA {
+		scope.Infof("Data agent mode is enabled, skip writing kafka application data")
+		return ctrl.Result{Requeue: false}, nil
+	} else {
+		err = r.syncWithDatahub(ctx, alamedaScaler, topics, consumerGroupDetails)
 		if err != nil {
-			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+			r.Logger.Warnf(
+				"Synchornize consumerGroupDetails with remote of AlamedaScaler(%s/%s) failed, retry reconciling: %s",
 				req.Namespace, req.Name, err)
+			alamedaScaler.Status.Kafka.Effective = false
+			alamedaScaler.Status.Kafka.Message = err.Error()
+			err := r.updateAlamedaScaler(ctx, &alamedaScaler)
+			if err != nil {
+				r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+					req.Namespace, req.Name, err)
+			}
+			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 		}
-		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
 
 	kafkaStatus := r.getKafkaStatus(alamedaScaler, consumerGroupDetails)
 	alamedaScaler.Status.Kafka = &kafkaStatus
+	if r.EnabledDA {
+		scope.Infof("Data agent mode is enabled, skip writing kafka controller data")
+		return ctrl.Result{Requeue: false}, nil
+	} else {
+		if err := r.writeKafkaControllers(&kafkaStatus, req.Name); err != nil {
+			r.Logger.Warnf("Write kafka controllers for AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+				req.Namespace, req.Name, err)
+			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+		}
+	}
 	if err := r.updateAlamedaScaler(ctx, &alamedaScaler); err != nil {
 		r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s",
 			req.Namespace, req.Name, err)
-		return ctrl.Result{Requeue: false}, nil
+		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
 
 	r.Logger.Infof("Reconcile AlamedaScaler(%s/%s) done.", req.Namespace, req.Name)
 	return ctrl.Result{Requeue: false}, nil
+}
+
+func (r AlamedaScalerKafkaReconciler) writeKafkaControllers(
+	kafkaStatus *autoscalingv1alpha1.KafkaStatus, scalerName string) error {
+	if kafkaStatus == nil {
+		return nil
+	}
+	controllers := []entities.ResourceClusterStatusController{}
+	for _, cg := range kafkaStatus.ConsumerGroups {
+		controllers = append(controllers, entities.ResourceClusterStatusController{
+			ClusterName:              r.ClusterUID,
+			Namespace:                cg.Resource.Kubernetes.Namespace,
+			Name:                     cg.Resource.Kubernetes.Name,
+			Kind:                     cg.Resource.Kubernetes.Kind,
+			AlamedaScalerName:        scalerName,
+			EnableExecution:          false,
+			AlamedaScalerScalingTool: datahubresources.ScalingTool_name[int32(datahubresources.ScalingTool_HPA)],
+		})
+	}
+	return r.DatahubClient.Create(&controllers, "ClusterName", "Namespace", "Name",
+		"Kind", "AlamedaScalerName", "EnableExecution", "AlamedaScalerScalingTool",
+	)
 }
 
 func (r AlamedaScalerKafkaReconciler) handleDeletion(

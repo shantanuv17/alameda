@@ -33,6 +33,9 @@ bearerTokenFile = "/var/run/secrets/kubernetes.io/serviceaccount/token"
   [prometheus.tlsConfig]
   insecureSkipVerify = true
 
+[dataAdapter]
+enabled = true
+
 # [k8sWebhookServer]
 # port = 50443
 # validatingWebhookConfigName = "operator-k8s-admission-validation"
@@ -45,4 +48,3 @@ bearerTokenFile = "/var/run/secrets/kubernetes.io/serviceaccount/token"
 #   [k8sWebhookServer.service]
 #   name = "alameda-operator-webhook-service"
 #   port = 443
-  

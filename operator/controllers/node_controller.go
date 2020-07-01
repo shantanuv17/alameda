@@ -39,8 +39,8 @@ import (
 // NodeReconciler reconciles a Node object
 type NodeReconciler struct {
 	client.Client
-	Scheme *runtime.Scheme
-
+	Scheme          *runtime.Scheme
+	EnabledDA       bool
 	conn            *grpc.ClientConn
 	DatahubClient   *datahubpkg.Client
 	DatahubNodeRepo datahub_node.AlamedaNodeRepository
@@ -57,6 +57,10 @@ type NodeReconciler struct {
 // +kubebuilder:rbac:groups=core,resources=nodes,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=core,resources=nodes/status,verbs=get;update;patch
 func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result, error) {
+	if r.EnabledDA {
+		scope.Infof("Data agent mode is enabled, skip reconcile node reconcile")
+		return ctrl.Result{Requeue: false}, nil
+	}
 	requeueInterval := 3 * time.Second
 	instance := &corev1.Node{}
 	err := r.Get(context.TODO(), request.NamespacedName, instance)

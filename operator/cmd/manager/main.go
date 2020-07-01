@@ -255,7 +255,7 @@ func addControllersToManager(mgr manager.Manager) error {
 	datahubControllerRepo := datahub_client_controller.NewControllerRepository(datahubConn, clusterUID)
 	datahubPodRepo := datahub_client_pod.NewPodRepository(datahubConn, clusterUID)
 	datahubNamespaceRepo := datahub_client_namespace.NewNamespaceRepository(datahubConn, clusterUID)
-
+	enabledDA := viper.GetBool("dataAdapter.enabled")
 	var err error
 
 	if err = (&controllers.AlamedaScalerReconciler{
@@ -284,6 +284,7 @@ func addControllersToManager(mgr manager.Manager) error {
 	if err = (&controllers.DeploymentReconciler{
 		Client:     mgr.GetClient(),
 		Scheme:     mgr.GetScheme(),
+		EnabledDA:  enabledDA,
 		ClusterUID: clusterUID,
 	}).SetupWithManager(mgr); err != nil {
 		return err
@@ -293,6 +294,7 @@ func addControllersToManager(mgr manager.Manager) error {
 		if err = (&controllers.DeploymentConfigReconciler{
 			Client:     mgr.GetClient(),
 			Scheme:     mgr.GetScheme(),
+			EnabledDA:  enabledDA,
 			ClusterUID: clusterUID,
 		}).SetupWithManager(mgr); err != nil {
 			return err
@@ -302,6 +304,7 @@ func addControllersToManager(mgr manager.Manager) error {
 	if err = (&controllers.NamespaceReconciler{
 		Client:               mgr.GetClient(),
 		Scheme:               mgr.GetScheme(),
+		EnabledDA:            enabledDA,
 		ClusterUID:           clusterUID,
 		DatahubNamespaceRepo: datahubNamespaceRepo,
 	}).SetupWithManager(mgr); err != nil {
@@ -322,6 +325,7 @@ func addControllersToManager(mgr manager.Manager) error {
 	if err = (&controllers.NodeReconciler{
 		Client:        mgr.GetClient(),
 		Scheme:        mgr.GetScheme(),
+		EnabledDA:     enabledDA,
 		DatahubClient: datahubClient,
 		ClusterUID:    clusterUID,
 		Cloudprovider: cloudprovider,
@@ -335,6 +339,7 @@ func addControllersToManager(mgr manager.Manager) error {
 	if err = (&controllers.StatefulSetReconciler{
 		Client:     mgr.GetClient(),
 		Scheme:     mgr.GetScheme(),
+		EnabledDA:  enabledDA,
 		ClusterUID: clusterUID,
 	}).SetupWithManager(mgr); err != nil {
 		return err
@@ -348,8 +353,8 @@ func addControllersToManager(mgr manager.Manager) error {
 		Scheme:                mgr.GetScheme(),
 		KafkaClient:           kafkaClient,
 		PrometheusClient:      prometheusClient,
-
-		ReconcileTimeout: 3 * time.Second,
+		EnabledDA:             enabledDA,
+		ReconcileTimeout:      3 * time.Second,
 
 		Logger: alamedaScalerKafkaControllerLogger,
 

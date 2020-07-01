@@ -169,17 +169,20 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 	scope.Infof("Reconciling AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
 	alamedaScaler = r.setDefaultAlamedaScaler(alamedaScaler)
 	alamedaScaler.Status.AlamedaController = autoscalingv1alpha1.NewAlamedaController()
-	if alamedaScaler, err = r.listAndAddDeploymentsIntoAlamedaScalerStatue(context.TODO(), alamedaScaler); err != nil {
+	if alamedaScaler, err = r.listAndAddDeploymentsIntoAlamedaScalerStatus(
+		context.TODO(), alamedaScaler); err != nil {
 		scope.Warnf("List and add Deployments into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
 	if hasOpenshiftAPIAppsV1 {
-		if alamedaScaler, err = r.listAndAddDeploymentConfigsIntoAlamedaScalerStatue(context.TODO(), alamedaScaler); err != nil {
+		if alamedaScaler, err = r.listAndAddDeploymentConfigsIntoAlamedaScalerStatus(
+			context.TODO(), alamedaScaler); err != nil {
 			scope.Warnf("List and add DeploymentConfigs into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
 			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 		}
 	}
-	if alamedaScaler, err = r.listAndAddStatefulSetsIntoAlamedaScalerStatue(context.TODO(), alamedaScaler); err != nil {
+	if alamedaScaler, err = r.listAndAddStatefulSetsIntoAlamedaScalerStatus(
+		context.TODO(), alamedaScaler); err != nil {
 		scope.Warnf("List and add StatefulSets into AlamedaScaler(%s/%s) failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 	}
@@ -240,7 +243,9 @@ func (r AlamedaScalerReconciler) isWorkloadControllerCanBeMonitoredByAlamedaScal
 	return true, nil
 }
 
-func (r AlamedaScalerReconciler) listAndAddDeploymentsIntoAlamedaScalerStatue(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (autoscalingv1alpha1.AlamedaScaler, error) {
+func (r AlamedaScalerReconciler) listAndAddDeploymentsIntoAlamedaScalerStatus(
+	ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (
+	autoscalingv1alpha1.AlamedaScaler, error) {
 	listResources := utilsresource.NewListResources(r.Client)
 	alamedascalerReconciler := alamedascaler_reconciler.NewReconciler(r.Client, &alamedaScaler)
 	deployments, err := listResources.ListDeploymentsByNamespaceLabels(alamedaScaler.Namespace, alamedaScaler.Spec.Selector.MatchLabels)
@@ -267,7 +272,9 @@ func (r AlamedaScalerReconciler) listAndAddDeploymentsIntoAlamedaScalerStatue(ct
 	return alamedaScaler, nil
 }
 
-func (r AlamedaScalerReconciler) listAndAddDeploymentConfigsIntoAlamedaScalerStatue(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (autoscalingv1alpha1.AlamedaScaler, error) {
+func (r AlamedaScalerReconciler) listAndAddDeploymentConfigsIntoAlamedaScalerStatus(
+	ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (
+	autoscalingv1alpha1.AlamedaScaler, error) {
 	listResources := utilsresource.NewListResources(r.Client)
 	alamedascalerReconciler := alamedascaler_reconciler.NewReconciler(r.Client, &alamedaScaler)
 	dploymentConfigs, err := listResources.ListDeploymentConfigsByNamespaceLabels(alamedaScaler.Namespace, alamedaScaler.Spec.Selector.MatchLabels)
@@ -294,7 +301,9 @@ func (r AlamedaScalerReconciler) listAndAddDeploymentConfigsIntoAlamedaScalerSta
 	return alamedaScaler, nil
 }
 
-func (r AlamedaScalerReconciler) listAndAddStatefulSetsIntoAlamedaScalerStatue(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (autoscalingv1alpha1.AlamedaScaler, error) {
+func (r AlamedaScalerReconciler) listAndAddStatefulSetsIntoAlamedaScalerStatus(
+	ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (
+	autoscalingv1alpha1.AlamedaScaler, error) {
 	listResources := utilsresource.NewListResources(r.Client)
 	alamedascalerReconciler := alamedascaler_reconciler.NewReconciler(r.Client, &alamedaScaler)
 	statefulSets, err := listResources.ListStatefulSetsByNamespaceLabels(alamedaScaler.Namespace, alamedaScaler.Spec.Selector.MatchLabels)
@@ -364,18 +373,22 @@ func (r *AlamedaScalerReconciler) syncDatahubResourceByAlamedaScaler(ctx context
 		}
 		return nil
 	})
-	wg.Go(func() error {
-		if err := r.syncDatahubControllersByAlamedaScaler(ctx, alamedaScaler); err != nil {
-			return errors.Wrap(err, "sync controllers with Datahub failed")
-		}
-		return nil
-	})
-	wg.Go(func() error {
-		if err := r.syncDatahubPodsByAlamedaScaler(ctx, alamedaScaler); err != nil {
-			return errors.Wrap(err, "sync pods with Datahub failed")
-		}
-		return nil
-	})
+	if r.EnabledDA {
+		scope.Infof("Data agent mode is enabled, skip synchronizing controllers and pods of alamedascaler")
+	} else {
+		wg.Go(func() error {
+			if err := r.syncDatahubControllersByAlamedaScaler(ctx, alamedaScaler); err != nil {
+				return errors.Wrap(err, "sync controllers with Datahub failed")
+			}
+			return nil
+		})
+		wg.Go(func() error {
+			if err := r.syncDatahubPodsByAlamedaScaler(ctx, alamedaScaler); err != nil {
+				return errors.Wrap(err, "sync pods with Datahub failed")
+			}
+			return nil
+		})
+	}
 	return wg.Wait()
 }
 
@@ -740,18 +753,22 @@ func (r *AlamedaScalerReconciler) handleAlamedaScalerDeletion(namespace, name st
 
 	ctx := context.TODO()
 	wg, ctx := errgroup.WithContext(ctx)
-	wg.Go(func() error {
-		if err := r.deleteControllersFromDatahubByAlamedaScaler(ctx, namespace, name); err != nil {
-			return errors.Wrapf(err, "delete controllers from datahub by AlamedaScaler(%s/%s) failed", namespace, name)
-		}
-		return nil
-	})
-	wg.Go(func() error {
-		if err := r.deletePodsFromDatahubByAlamedaScaler(ctx, namespace, name); err != nil {
-			return errors.Wrapf(err, "delete pods from datahub by AlamedaScaler(%s/%s) failed", namespace, name)
-		}
-		return nil
-	})
+	if r.EnabledDA {
+		scope.Infof("Data agent mode is enabled, skip removing controllers and pods from alamedascaler")
+	} else {
+		wg.Go(func() error {
+			if err := r.deleteControllersFromDatahubByAlamedaScaler(ctx, namespace, name); err != nil {
+				return errors.Wrapf(err, "delete controllers from datahub by AlamedaScaler(%s/%s) failed", namespace, name)
+			}
+			return nil
+		})
+		wg.Go(func() error {
+			if err := r.deletePodsFromDatahubByAlamedaScaler(ctx, namespace, name); err != nil {
+				return errors.Wrapf(err, "delete pods from datahub by AlamedaScaler(%s/%s) failed", namespace, name)
+			}
+			return nil
+		})
+	}
 	wg.Go(func() error {
 		scope.Debugf("Deleting applications from datahub. AlamedaScaler (application): %s/%s.",
 			namespace, name)
