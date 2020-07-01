@@ -35,7 +35,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:0200c2d7e165c5e03978d95cd9c9b5e9be04c5d080ffd3047dbb0031feea0a47"
+  digest = "1:a2490e863f85fbc04f68afc5e2e0909f64d7602191c3da591d41bc208bdbfc5d"
   name = "github.com/containers-ai/api"
   packages = [
     "alameda_api/v1alpha1/datahub",
@@ -58,7 +58,7 @@
     "datahub/keycodes",
   ]
   pruneopts = "T"
-  revision = "0f39e775e8b7ffbab164e03ab24b2cd2cf46501b"
+  revision = "75e2b404283143a7d8f139f26e4d3f8f84dcc97b"
 
 [[projects]]
   digest = "1:9f42202ac457c462ad8bb9642806d275af9ab4850cf0b1960b9c6f083d4a309a"
@@ -126,14 +126,6 @@
   pruneopts = "T"
   revision = "c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9"
   version = "v1.4.7"
-
-[[projects]]
-  digest = "1:2cd7915ab26ede7d95b8749e6b1f933f1c6d5398030684e6505940a10f31cfda"
-  name = "github.com/ghodss/yaml"
-  packages = ["."]
-  pruneopts = "T"
-  revision = "0ca9ea5df5451ffdf184b4428c902747c2c11cd7"
-  version = "v1.0.0"
 
 [[projects]]
   branch = "master"
@@ -1504,7 +1496,6 @@
     "github.com/containers-ai/api/common",
     "github.com/containers-ai/api/datahub/keycodes",
     "github.com/emicklei/go-restful",
-    "github.com/ghodss/yaml",
     "github.com/go-logr/logr",
     "github.com/golang/mock/gomock",
     "github.com/golang/protobuf/jsonpb",
