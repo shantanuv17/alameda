@@ -76,7 +76,7 @@ func (r *MachineReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 			Namespace:   req.Namespace,
 			Name:        machineSetName,
 		},
-		Fields: []string{"ClusterName", "ClusterName", "Name"},
+		Fields: []string{"ClusterName", "Namespace", "Name"},
 	}); err != nil {
 		scope.Errorf("get machineset (%s/%s) failed", req.Namespace, machineSetName)
 		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil

@@ -19,8 +19,10 @@ package controllers
 import (
 	"time"
 
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	datahub_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
-	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"golang.org/x/net/context"
 	corev1 "k8s.io/api/core/v1"
 	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
@@ -36,11 +38,9 @@ var (
 // NamespaceReconciler reconciles a Namespace object
 type NamespaceReconciler struct {
 	client.Client
-	Scheme *runtime.Scheme
-
-	ClusterUID string
-
-	DatahubNamespaceRepo *datahub_namespace.NamespaceRepository
+	Scheme        *runtime.Scheme
+	DatahubClient *datahubpkg.Client
+	ClusterUID    string
 }
 
 func (r *NamespaceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
@@ -51,32 +51,34 @@ func (r *NamespaceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	namespace := corev1.Namespace{}
 	err := r.Get(context.Background(), req.NamespacedName, &namespace)
 	if err != nil && k8sErrors.IsNotFound(err) {
-		err = r.DatahubNamespaceRepo.DeleteNamespaces(
-			[]*datahub_resources.Namespace{
-				&datahub_resources.Namespace{
-					ObjectMeta: &datahub_resources.ObjectMeta{
-						Name:        req.NamespacedName.Name,
-						ClusterName: r.ClusterUID,
-					},
-				},
-			})
+		err = r.DatahubClient.Delete(&[]entities.ResourceClusterStatusNamespace{
+			{
+				Name:        req.NamespacedName.Name,
+				ClusterName: r.ClusterUID,
+			},
+		})
 		if err != nil {
 			scope.Errorf("Delete namespace %s from datahub failed: %s",
 				req.NamespacedName.Name, err.Error())
 		}
 	} else if err == nil {
-		err = r.DatahubNamespaceRepo.CreateNamespaces(
-			[]*datahub_resources.Namespace{
-				&datahub_resources.Namespace{
-					ObjectMeta: &datahub_resources.ObjectMeta{
-						Name:        req.NamespacedName.Name,
-						ClusterName: r.ClusterUID,
-					},
+		alamedaScalerList := autoscalingv1alpha1.AlamedaScalerList{}
+		err = r.List(context.Background(), &alamedaScalerList)
+		if err != nil {
+			scope.Errorf("list alamedascaler for namespace reconcile failed: %s", err.Error())
+			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+		}
+		if !datahub_namespace.IsNSExcluded(req.NamespacedName.Name, alamedaScalerList.Items) {
+			err = r.DatahubClient.Create(&[]entities.ResourceClusterStatusNamespace{
+				{
+					Name:        req.NamespacedName.Name,
+					ClusterName: r.ClusterUID,
 				},
 			})
-		if err != nil {
-			scope.Errorf("create namespace %s from datahub failed: %s",
-				req.NamespacedName.Name, err.Error())
+			if err != nil {
+				scope.Errorf("create namespace %s from datahub failed: %s",
+					req.NamespacedName.Name, err.Error())
+			}
 		}
 	}
 	return ctrl.Result{}, nil

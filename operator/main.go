@@ -275,8 +275,6 @@ func addControllersToManager(mgr manager.Manager) error {
 	datahubControllerRepo := datahub_client_controller.NewControllerRepository(
 		datahubConn, clusterUID)
 	datahubPodRepo := datahub_client_pod.NewPodRepository(datahubConn, clusterUID)
-	datahubNamespaceRepo := datahub_client_namespace.NewNamespaceRepository(
-		datahubConn, clusterUID)
 	var err error
 
 	if err = (&controllers.AlamedaScalerReconciler{
@@ -284,7 +282,6 @@ func addControllersToManager(mgr manager.Manager) error {
 		Scheme:                 mgr.GetScheme(),
 		ClusterUID:             clusterUID,
 		DatahubControllerRepo:  datahubControllerRepo,
-		DatahubNamespaceRepo:   datahubNamespaceRepo,
 		DatahubPodRepo:         datahubPodRepo,
 		DatahubClient:          datahubClient,
 		ReconcileTimeout:       3 * time.Second,
@@ -341,10 +338,10 @@ func addControllersToManager(mgr manager.Manager) error {
 	}
 
 	if err = (&controllers.NamespaceReconciler{
-		Client:               mgr.GetClient(),
-		Scheme:               mgr.GetScheme(),
-		ClusterUID:           clusterUID,
-		DatahubNamespaceRepo: datahubNamespaceRepo,
+		Client:        mgr.GetClient(),
+		Scheme:        mgr.GetScheme(),
+		DatahubClient: datahubClient,
+		ClusterUID:    clusterUID,
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}
@@ -530,8 +527,8 @@ func syncResourcesWithDatahub(client client.Client, datahubConn *grpc.ClientConn
 	}
 
 	go func() {
-		if err := datahub_client_namespace.SyncWithDatahub(client,
-			datahubConn); err != nil {
+		if err := datahub_client_namespace.SyncWithDatahub(
+			client, datahubClient); err != nil {
 			scope.Errorf("sync namespace failed at start due to %s", err.Error())
 		}
 	}()
