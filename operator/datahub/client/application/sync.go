@@ -80,7 +80,7 @@ func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) err
 		applicationsNeedDeleting = append(applicationsNeedDeleting, n)
 	}
 	if len(applicationsNeedDeleting) > 0 {
-		err = datahubClient.Delete(*&applicationsNeedDeleting)
+		err = datahubClient.Delete(&applicationsNeedDeleting)
 		if err != nil {
 			return errors.Wrap(err, "delete applications from Datahub failed")
 		}
