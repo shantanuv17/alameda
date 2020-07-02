@@ -38,7 +38,6 @@ import (
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
 	"github.com/containers-ai/alameda/operator/controllers"
 	datahub_client_controller "github.com/containers-ai/alameda/operator/datahub/client/controller"
-	datahub_client_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
 	datahub_client_node "github.com/containers-ai/alameda/operator/datahub/client/node"
 	datahub_client_pod "github.com/containers-ai/alameda/operator/datahub/client/pod"
 	"github.com/containers-ai/alameda/operator/pkg/probe"
@@ -254,8 +253,8 @@ func addNecessaryAPIToScheme(scheme *runtime.Scheme) error {
 func addControllersToManager(mgr manager.Manager) error {
 	datahubControllerRepo := datahub_client_controller.NewControllerRepository(datahubConn, clusterUID)
 	datahubPodRepo := datahub_client_pod.NewPodRepository(datahubConn, clusterUID)
-	datahubNamespaceRepo := datahub_client_namespace.NewNamespaceRepository(datahubConn, clusterUID)
 	enabledDA := viper.GetBool("dataAdapter.enabled")
+
 	var err error
 
 	if err = (&controllers.AlamedaScalerReconciler{
@@ -265,7 +264,6 @@ func addControllersToManager(mgr manager.Manager) error {
 		ClusterUID:             clusterUID,
 		DatahubClient:          datahubClient,
 		DatahubControllerRepo:  datahubControllerRepo,
-		DatahubNamespaceRepo:   datahubNamespaceRepo,
 		DatahubPodRepo:         datahubPodRepo,
 		ReconcileTimeout:       3 * time.Second,
 		ForceReconcileInterval: 1 * time.Minute,
@@ -303,11 +301,11 @@ func addControllersToManager(mgr manager.Manager) error {
 	}
 
 	if err = (&controllers.NamespaceReconciler{
-		Client:               mgr.GetClient(),
-		Scheme:               mgr.GetScheme(),
-		EnabledDA:            enabledDA,
-		ClusterUID:           clusterUID,
-		DatahubNamespaceRepo: datahubNamespaceRepo,
+		Client:        mgr.GetClient(),
+		Scheme:        mgr.GetScheme(),
+		EnabledDA:     enabledDA,
+		ClusterUID:    clusterUID,
+		DatahubClient: datahubClient,
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}

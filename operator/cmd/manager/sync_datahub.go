@@ -32,7 +32,7 @@ func syncResourcesWithDatahub(
 
 	go func() {
 		if err := datahub_client_namespace.SyncWithDatahub(client,
-			datahubConn); err != nil {
+			datahubClient); err != nil {
 			scope.Errorf("sync namespace failed at start due to %s", err.Error())
 		}
 	}()
