@@ -68,10 +68,8 @@ var alamedascalerFirstSynced = false
 // AlamedaScalerReconciler reconciles a AlamedaScaler object
 type AlamedaScalerReconciler struct {
 	client.Client
-	Scheme *runtime.Scheme
-
-	ClusterUID string
-
+	Scheme                 *runtime.Scheme
+	ClusterUID             string
 	DatahubApplicationRepo *datahub_application.ApplicationRepository
 	DatahubControllerRepo  *datahub_controller.ControllerRepository
 	DatahubNamespaceRepo   *datahub_namespace.NamespaceRepository
@@ -107,6 +105,19 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
 		}
 	} else if err == nil {
+		err = r.DatahubNamespaceRepo.CreateNamespaces([]*datahub_resources.Namespace{
+			{
+				ObjectMeta: &datahub_resources.ObjectMeta{
+					Name:        req.Namespace,
+					ClusterName: r.ClusterUID,
+				},
+			},
+		})
+		if err != nil {
+			scope.Errorf("create namespace for alamedascaler (%s/%s) failed: %s",
+				req.Namespace, req.Name, err.Error())
+		}
+
 		alamedaScaler.SetDefaultValue()
 		alamedaScalerNS := alamedaScaler.GetNamespace()
 		alamedaScalerName := alamedaScaler.GetName()
@@ -617,6 +628,34 @@ func (r *AlamedaScalerReconciler) handleAlamedaScalerDeletion(namespace, name st
 
 	ctx := context.TODO()
 	wg, ctx := errgroup.WithContext(ctx)
+
+	wg.Go(func() error {
+		alamedaScalerList := autoscalingv1alpha1.AlamedaScalerList{}
+		err := r.List(ctx, &alamedaScalerList, client.InNamespace(namespace))
+		if err != nil {
+			return fmt.Errorf("list alamedascaler in namespace %s for alamedascaler (%s/%s) remove failed: %s",
+				namespace, namespace, name, err.Error())
+		}
+		if datahub_namespace.IsNSExcluded(namespace, alamedaScalerList.Items) {
+			namespaceObejctMetas := []*datahub_resources.Namespace{
+				&datahub_resources.Namespace{
+					ObjectMeta: &datahub_resources.ObjectMeta{
+						Name:        namespace,
+						ClusterName: r.ClusterUID,
+					},
+				},
+			}
+			err := r.DatahubNamespaceRepo.DeleteNamespaces(namespaceObejctMetas)
+			if err != nil {
+				return errors.Wrapf(err, "delete namespace(%s) from datahub failed", namespace)
+			}
+			if err != nil {
+				scope.Errorf("delete namespace for alamedascaler (%s/%s) remove failed: %s",
+					namespace, name, err.Error())
+			}
+		}
+		return nil
+	})
 	wg.Go(func() error {
 		if err := r.deleteControllersFromDatahubByAlamedaScaler(ctx, namespace, name); err != nil {
 			return errors.Wrapf(err, "delete controllers from datahub by AlamedaScaler(%s/%s) failed", namespace, name)
@@ -640,23 +679,6 @@ func (r *AlamedaScalerReconciler) handleAlamedaScalerDeletion(namespace, name st
 		scope.Debugf("Deleting applications from datahub. AlamedaScaler: %s/%s. Applications: %+v", namespace, name, applicationObejctMetas)
 		if err := r.DatahubApplicationRepo.DeleteApplications(ctx, applicationObejctMetas); err != nil {
 			return errors.Wrapf(err, "delete Application(%s/%s) from datahub failed", namespace, name)
-		} else {
-			if r.DatahubNamespaceRepo.IsNSExcluded(namespace) {
-				namespaceObejctMetas := []*datahub_resources.Namespace{
-					&datahub_resources.Namespace{
-						ObjectMeta: &datahub_resources.ObjectMeta{
-							Name:        namespace,
-							ClusterName: r.ClusterUID,
-						},
-					},
-				}
-				scope.Debugf("Deleting namespaces from datahub. AlamedaScaler: %s/%s. Namespaces: %+v", namespace, name, namespaceObejctMetas)
-				err := r.DatahubNamespaceRepo.DeleteNamespaces(namespaceObejctMetas)
-				if err != nil {
-					return errors.Wrapf(err, "delete namespace(%s) from datahub failed", namespace)
-				}
-				scope.Debugf("Delete namespaces from datahub success. AlamedaScaler: %s/%s. Namespaces: %+v", namespace, name, namespaceObejctMetas)
-			}
 		}
 		scope.Debugf("Delete applications from datahub success. AlamedaScaler: %s/%s. Applications: %+v", namespace, name, applicationObejctMetas)
 		return nil

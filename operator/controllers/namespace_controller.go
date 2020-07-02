@@ -19,6 +19,7 @@ package controllers
 import (
 	"time"
 
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	datahub_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"golang.org/x/net/context"
@@ -36,10 +37,8 @@ var (
 // NamespaceReconciler reconciles a Namespace object
 type NamespaceReconciler struct {
 	client.Client
-	Scheme *runtime.Scheme
-
-	ClusterUID string
-
+	Scheme               *runtime.Scheme
+	ClusterUID           string
 	DatahubNamespaceRepo *datahub_namespace.NamespaceRepository
 }
 
@@ -65,18 +64,27 @@ func (r *NamespaceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 				req.NamespacedName.Name, err.Error())
 		}
 	} else if err == nil {
-		err = r.DatahubNamespaceRepo.CreateNamespaces(
-			[]*datahub_resources.Namespace{
-				&datahub_resources.Namespace{
-					ObjectMeta: &datahub_resources.ObjectMeta{
-						Name:        req.NamespacedName.Name,
-						ClusterName: r.ClusterUID,
-					},
-				},
-			})
+		alamedaScalerList := autoscalingv1alpha1.AlamedaScalerList{}
+		err = r.List(context.Background(), &alamedaScalerList)
 		if err != nil {
-			scope.Errorf("create namespace %s from datahub failed: %s",
-				req.NamespacedName.Name, err.Error())
+			scope.Errorf("list alamedascaler for namespace reconcile failed: %s", err.Error())
+			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+		}
+		if !datahub_namespace.IsNSExcluded(req.NamespacedName.Name, alamedaScalerList.Items) {
+			err = r.DatahubNamespaceRepo.CreateNamespaces(
+				[]*datahub_resources.Namespace{
+					&datahub_resources.Namespace{
+						ObjectMeta: &datahub_resources.ObjectMeta{
+							Name:        req.NamespacedName.Name,
+							ClusterName: r.ClusterUID,
+						},
+					},
+				})
+
+			if err != nil {
+				scope.Errorf("create namespace %s from datahub failed: %s",
+					req.NamespacedName.Name, err.Error())
+			}
 		}
 	}
 	return ctrl.Result{}, nil
