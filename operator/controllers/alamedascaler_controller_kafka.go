@@ -136,22 +136,23 @@ func (r *AlamedaScalerKafkaReconciler) Reconcile(req ctrl.Request) (ctrl.Result,
 		return ctrl.Result{Requeue: false}, nil
 	}
 
-	if ok, err := r.isCreateOrOwnLock(ctx, alamedaScaler); err != nil {
-		r.Logger.Infof("Check if AlamedaScaler(%s/%s) needs to be reconciled failed, retry reconciling: %s",
-			req.Namespace, req.Name, err)
-		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
-	} else if !ok {
-		alamedaScaler.Status.Kafka.Effective = false
-		alamedaScaler.Status.Kafka.Message = "Other AlamedaScaler is effective."
-		err := r.updateAlamedaScaler(ctx, &alamedaScaler)
-		if err != nil {
-			r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+	/*
+		if ok, err := r.isCreateOrOwnLock(ctx, alamedaScaler); err != nil {
+			r.Logger.Infof("Check if AlamedaScaler(%s/%s) needs to be reconciled failed, retry reconciling: %s",
 				req.Namespace, req.Name, err)
 			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+		} else if !ok {
+			alamedaScaler.Status.Kafka.Effective = false
+			alamedaScaler.Status.Kafka.Message = "Other AlamedaScaler is effective."
+			err := r.updateAlamedaScaler(ctx, &alamedaScaler)
+			if err != nil {
+				r.Logger.Warnf("Update AlamedaScaler(%s/%s) failed, retry reconciling: %s",
+					req.Namespace, req.Name, err)
+				return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+			}
+			return ctrl.Result{Requeue: false}, nil
 		}
-		return ctrl.Result{Requeue: false}, nil
-	}
-
+	*/
 	if cachedAlamedaScaler.GetDeletionTimestamp() != nil {
 		r.Logger.Infof("Handling deletion of AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
 		if err := r.handleDeletion(ctx, req.Namespace, req.Name); err != nil {
