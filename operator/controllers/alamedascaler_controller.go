@@ -18,6 +18,7 @@ package controllers
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -148,15 +149,14 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 	alamedaScaler := autoscalingv1alpha1.AlamedaScaler{}
 	instance.DeepCopyInto(&alamedaScaler)
 
-	ok, err := r.isAlamedaScalerNeedToBeReconciled(context.TODO(), alamedaScaler)
-	if err != nil {
-		scope.Warnf("Check if AlamedaScaler(%s/%s) need to be reconciled failed, retry after %f seconds: %+v", req.Namespace, req.Name, requeueAfter.Seconds(), err)
-		return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
-	} else if !ok {
+	if !r.isAlamedaScalerNeedToBeReconciled(context.TODO(), alamedaScaler) {
 		scope.Infof("AlamedaScale(%s/%s) type(%s), skip reconciling.", req.Namespace, req.Name, alamedaScaler.GetType())
+		if err := r.syncDatahubApplicationsByAlamedaScaler(ctx, alamedaScaler); err != nil {
+			scope.Errorf("sync alamedascaler(%s/%s) with datahub failed.", req.Namespace, req.Name)
+			return ctrl.Result{Requeue: true, RequeueAfter: requeueAfter}, nil
+		}
 		return ctrl.Result{Requeue: false}, nil
 	}
-
 	if alamedaScaler.GetDeletionTimestamp() != nil {
 		scope.Infof("Handling deletion of AlamedaScaler(%s/%s)...", req.Namespace, req.Name)
 		if err := r.handleAlamedaScalerDeletion(alamedaScaler.Namespace, alamedaScaler.Name); err != nil {
@@ -210,12 +210,9 @@ func (r AlamedaScalerReconciler) setDefaultAlamedaScaler(alamedaScaler autoscali
 	return alamedaScaler
 }
 
-func (r AlamedaScalerReconciler) isAlamedaScalerNeedToBeReconciled(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (bool, error) {
-	if alamedaScaler.GetType() == autoscalingv1alpha1.AlamedaScalerTypeNotDefine ||
-		alamedaScaler.GetType() == autoscalingv1alpha1.AlamedaScalerTypeDefault {
-		return true, nil
-	}
-	return false, nil
+func (r AlamedaScalerReconciler) isAlamedaScalerNeedToBeReconciled(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) bool {
+	return alamedaScaler.GetType() == autoscalingv1alpha1.AlamedaScalerTypeNotDefine ||
+		alamedaScaler.GetType() == autoscalingv1alpha1.AlamedaScalerTypeDefault
 }
 
 func (r AlamedaScalerReconciler) isWorkloadControllerCanBeMonitoredByAlamedaScaler(ctx context.Context, workloadController metav1.ObjectMeta, alamedaScaler autoscalingv1alpha1.AlamedaScaler) (bool, error) {
@@ -406,7 +403,14 @@ func (r *AlamedaScalerReconciler) syncDatahubApplicationsByAlamedaScaler(
 		Namespace:   namespace,
 		Name:        name,
 		ScalingTool: scalingToolStr,
+		Type:        alamedaScaler.GetType(),
 	}
+
+	if alamedaScaler.GetType() == autoscalingv1alpha1.AlamedaScalerTypeKafka {
+		appSpecBin, _ := json.Marshal(alamedaScaler.Spec.Kafka)
+		entity.AppSpec = string(appSpecBin)
+	}
+
 	if alamedaScaler.Spec.ScalingTool.MinReplicas != nil {
 		entity.ResourceK8sMinReplicas = *alamedaScaler.Spec.ScalingTool.MinReplicas
 	}
@@ -424,6 +428,7 @@ func (r *AlamedaScalerReconciler) syncDatahubApplicationsByAlamedaScaler(
 		namespace, name, scalingToolStr)
 	return nil
 }
+
 func (r *AlamedaScalerReconciler) syncDatahubControllersByAlamedaScaler(ctx context.Context, alamedaScaler autoscalingv1alpha1.AlamedaScaler) error {
 
 	namespace := alamedaScaler.Namespace

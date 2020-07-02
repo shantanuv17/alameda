@@ -12,6 +12,8 @@ type ResourceClusterStatusApplication struct {
 	ClusterName            string     `json:"cluster_name"              required:"true"  column:"tag"   type:"string"`
 	Uid                    string     `json:"uid"                       required:"true"  column:"tag"   type:"string"`
 	ScalingTool            string     `json:"scaling_tool"              required:"true"  column:"tag"   type:"string"`
+	Type                   string     `json:"type"                      required:"true"  column:"tag"   type:"string"`
+	AppSpec                string     `json:"app_spec"                  required:"false" column:"field" type:"string"`
 	ResourceK8sMinReplicas int32      `json:"resource_k8s_min_replicas" required:"false" column:"field" type:"int32"`
 	ResourceK8sMaxReplicas int32      `json:"resource_k8s_max_replicas" required:"false" column:"field" type:"int32"`
 }
