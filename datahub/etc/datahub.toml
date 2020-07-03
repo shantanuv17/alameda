@@ -18,7 +18,7 @@ retentionShardDuration = "1d"
 
 [apis]
   [apis.metrics]
-  source = "prometheus"
+  source = "influxdb"
   target = "influxdb"
 
 [log]
