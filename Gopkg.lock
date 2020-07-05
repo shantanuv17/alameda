@@ -517,8 +517,8 @@
   version = "v1.4.2"
 
 [[projects]]
-  branch = "master"
-  digest = "1:1893ef29b286d7122f916115ed22c8e2961b0db6bf4b96849ddf535dfb2623db"
+  branch = "release-4.4"
+  digest = "1:e61fc7dd60c2071c5e302c205e6a35c349a22e79491241ff6586ebaad40c3165"
   name = "github.com/openshift/api"
   packages = [
     "apps",
@@ -526,7 +526,7 @@
     "route/v1",
   ]
   pruneopts = "T"
-  revision = "bbc4289c54e0f41709ed1ad57b96cd1a858005e0"
+  revision = "7192180f496aab1f7659d8660fc360498bab498b"
 
 [[projects]]
   branch = "release-4.4"

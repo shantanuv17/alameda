@@ -9,27 +9,36 @@ import (
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// Build holds cluster-wide information on how to handle builds. The canonical name is `cluster`
+// Build configures the behavior of OpenShift builds for the entire cluster.
+// This includes default settings that can be overridden in BuildConfig objects, and overrides which are applied to all builds.
+//
+// The canonical name is "cluster"
 type Build struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
+
 	// Spec holds user-settable values for the build controller configuration
-	// +optional
-	Spec BuildSpec `json:"spec,omitempty"`
+	// +kubebuilder:validation:Required
+	// +required
+	Spec BuildSpec `json:"spec"`
 }
 
 type BuildSpec struct {
 	// AdditionalTrustedCA is a reference to a ConfigMap containing additional CAs that
 	// should be trusted for image pushes and pulls during builds.
 	// The namespace for this config map is openshift-config.
+	//
+	// DEPRECATED: Additional CAs for image pull and push should be set on
+	// image.config.openshift.io/cluster instead.
+	//
 	// +optional
-	AdditionalTrustedCA ConfigMapNameReference `json:"additionalTrustedCA,omitempty"`
+	AdditionalTrustedCA ConfigMapNameReference `json:"additionalTrustedCA"`
 	// BuildDefaults controls the default information for Builds
 	// +optional
-	BuildDefaults BuildDefaults `json:"buildDefaults,omitempty"`
+	BuildDefaults BuildDefaults `json:"buildDefaults"`
 	// BuildOverrides controls override settings for builds
 	// +optional
-	BuildOverrides BuildOverrides `json:"buildOverrides,omitempty"`
+	BuildOverrides BuildOverrides `json:"buildOverrides"`
 }
 
 type BuildDefaults struct {
@@ -61,11 +70,7 @@ type BuildDefaults struct {
 
 	// Resources defines resource requirements to execute the build.
 	// +optional
-	Resources corev1.ResourceRequirements `json:"resources,omitempty"`
-
-	// RegistriesConfig controls the registries allowed for image pull and push.
-	// +optional
-	RegistriesConfig RegistriesConfig `json:"registriesConfig,omitempty"`
+	Resources corev1.ResourceRequirements `json:"resources"`
 }
 
 type ImageLabel struct {
@@ -75,28 +80,6 @@ type ImageLabel struct {
 	// Value defines the literal value of the label.
 	// +optional
 	Value string `json:"value,omitempty"`
-}
-
-type RegistriesConfig struct {
-	// SearchRegistries lists the registries to search for images if an image repository is not specified in an image pull spec.
-	//
-	// If this is not set, builds will search Docker Hub (docker.io) when a repository is not specified.
-	// Setting this to an empty list will require all builds to fully qualify their image pull specs.
-	// +optional
-	SearchRegistries *[]string `json:"searchRegistries,omitempty"`
-	// InsecureRegistries are registries which do not have a valid SSL certificate or only support HTTP connections.
-	// +optional
-	InsecureRegistries []string `json:"insecureRegistries,omitempty"`
-	// BlockedRegistries are blacklisted from image pull/push. All other registries are allowed.
-	//
-	// Only one of BlockedRegistries or AllowedRegistries may be set.
-	// +optional
-	BlockedRegistries []string `json:"blockedRegistries,omitempty"`
-	// AllowedRegistries are whitelisted for image pull/push. All other registries are blocked.
-	//
-	// Only one of BlockedRegistries or AllowedRegistries may be set.
-	// +optional
-	AllowedRegistries []string `json:"allowedRegistries,omitempty"`
 }
 
 type BuildOverrides struct {
@@ -120,7 +103,7 @@ type BuildOverrides struct {
 
 type BuildList struct {
 	metav1.TypeMeta `json:",inline"`
-	// Standard object's metadata.
-	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Build `json:"items"`
+	metav1.ListMeta `json:"metadata"`
+
+	Items []Build `json:"items"`
 }
