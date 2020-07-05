@@ -49,7 +49,7 @@ type ResourceClusterStatusApplication struct {
 	ClusterName   string     `json:"cluster_name"              required:"true"  column:"tag"   type:"string"`
 	Uid           string     `json:"uid"                       required:"true"  column:"tag"   type:"string"`
 	ScalingTool   string     `json:"scaling_tool"              required:"true"  column:"tag"   type:"string"`
-	Dummy         string     `json:"dummy"        required:"true"  column:"field" type:"string"`
+	Dummy         string     `json:"dummy"                     required:"true"  column:"field" type:"string"`
 }
 
 type ResourceClusterStatusCluster struct {
@@ -108,8 +108,8 @@ type ResourceClusterStatusController struct {
 	AlamedaScalerScalingTool string     `json:"alameda_scaler_scaling_tool" required:"true"  column:"tag"   type:"string"`
 	Replicas                 int32      `json:"replicas"                    required:"false" column:"field" type:"int32"`
 	SpecReplicas             int32      `json:"spec_replicas"               required:"false" column:"field" type:"int32"`
-	ResourceK8sMinReplicas   int32      `json:"resource_k8s_min_replicas" required:"false" column:"field" type:"int32"`
-	ResourceK8sMaxReplicas   int32      `json:"resource_k8s_max_replicas" required:"false" column:"field" type:"int32"`
+	ResourceK8sMinReplicas   int32      `json:"resource_k8s_min_replicas"   required:"false" column:"field" type:"int32"`
+	ResourceK8sMaxReplicas   int32      `json:"resource_k8s_max_replicas"   required:"false" column:"field" type:"int32"`
 	Policy                   string     `json:"policy"                      required:"false" column:"field" type:"string"`
 	EnableExecution          bool       `json:"enable_execution"            required:"false" column:"field" type:"bool"`
 }
