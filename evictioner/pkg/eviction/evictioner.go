@@ -379,7 +379,7 @@ func (evictioner *Evictioner) listPodRecommendations(nowTimestamp int64) ([]*dat
 	defer cancel()
 	in := &datahub_recommendations.ListPodRecommendationsRequest{
 		ObjectMeta: []*datahub_resources.ObjectMeta{
-			&datahub_resources.ObjectMeta{
+			{
 				ClusterName: evictioner.clusterID,
 			},
 		},

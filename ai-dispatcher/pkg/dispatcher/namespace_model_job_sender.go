@@ -113,7 +113,7 @@ func (sender *namespaceModelJobSender) getLastMIdPrediction(datahubServiceClnt d
 	namespacePredictRes, err := datahubServiceClnt.ListNamespacePredictions(context.Background(),
 		&datahub_predictions.ListNamespacePredictionsRequest{
 			ObjectMeta: []*datahub_resources.ObjectMeta{
-				&datahub_resources.ObjectMeta{
+				{
 					Name: namespaceName,
 				},
 			},
@@ -156,7 +156,7 @@ func (sender *namespaceModelJobSender) getLastMIdPrediction(datahubServiceClnt d
 		namespacePredictRes, err = datahubServiceClnt.ListNamespacePredictions(context.Background(),
 			&datahub_predictions.ListNamespacePredictionsRequest{
 				ObjectMeta: []*datahub_resources.ObjectMeta{
-					&datahub_resources.ObjectMeta{
+					{
 						Name: namespaceName,
 					},
 				},
@@ -262,7 +262,7 @@ func (sender *namespaceModelJobSender) sendJobByMetrics(namespace *datahub_resou
 						},
 					},
 					ObjectMeta: []*datahub_resources.ObjectMeta{
-						&datahub_resources.ObjectMeta{
+						{
 							Name: namespaceName,
 						},
 					},

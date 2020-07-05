@@ -458,12 +458,7 @@ func (r *AlamedaScalerReconciler) syncDatahubApplicationsByAlamedaScaler(
 		Name:        name,
 		ScalingTool: scalingToolStr,
 	}
-	if alamedaScaler.Spec.ScalingTool.MinReplicas != nil {
-		entity.ResourceK8sMinReplicas = *alamedaScaler.Spec.ScalingTool.MinReplicas
-	}
-	if alamedaScaler.Spec.ScalingTool.MaxReplicas != nil {
-		entity.ResourceK8sMaxReplicas = *alamedaScaler.Spec.ScalingTool.MaxReplicas
-	}
+
 	err := r.DatahubClient.Create(&[]entities.ResourceClusterStatusApplication{
 		entity,
 	})
@@ -570,7 +565,7 @@ func (r *AlamedaScalerReconciler) createAlamedaWatchedResourcesToDatahub(scaler 
 	controllers := r.getDatahubControllersFromAlamedaScalerStatus(*scaler)
 	scope.Debugf("Creating controllers to datahub. AlamedaScaler: %s/%s. Controllers: %+v",
 		scaler.GetNamespace(), scaler.GetName(), controllers)
-	err := r.DatahubControllerRepo.CreateControllers(controllers)
+	err := r.DatahubClient.Create(&controllers)
 	if err != nil {
 		return err
 	}
@@ -604,8 +599,16 @@ func (r *AlamedaScalerReconciler) getDatahubControllersFromAlamedaScalerStatus(
 			}
 			replicas := len(alamedaResource.Pods)
 			specReplicas := int32(-1)
+			minReplicas := int32(-1)
+			maxReplicas := int32(-1)
 			if alamedaResource.SpecReplicas != nil {
 				specReplicas = *alamedaResource.SpecReplicas
+			}
+			if scaler.Spec.ScalingTool.MinReplicas != nil {
+				minReplicas = *scaler.Spec.ScalingTool.MinReplicas
+			}
+			if scaler.Spec.ScalingTool.MaxReplicas != nil {
+				maxReplicas = *scaler.Spec.ScalingTool.MaxReplicas
 			}
 			controllers = append(controllers, entities.ResourceClusterStatusController{
 				Namespace:                alamedaResource.Namespace,
@@ -618,6 +621,8 @@ func (r *AlamedaScalerReconciler) getDatahubControllersFromAlamedaScalerStatus(
 				AlamedaScalerScalingTool: scalingTool,
 				Replicas:                 int32(replicas),
 				SpecReplicas:             specReplicas,
+				ResourceK8sMinReplicas:   minReplicas,
+				ResourceK8sMaxReplicas:   maxReplicas,
 			})
 		}
 	}

@@ -43,7 +43,7 @@ func (v *validator) IsControllerEnabledExecution(namespace, name, kind string) (
 	ctx := buildDefaultRequestContext()
 	req := &datahub_resources.ListControllersRequest{
 		ObjectMeta: []*datahub_resources.ObjectMeta{
-			&datahub_resources.ObjectMeta{
+			{
 				ClusterName: v.clusterName,
 				Namespace:   namespace,
 				Name:        name,
