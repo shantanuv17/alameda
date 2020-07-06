@@ -117,7 +117,7 @@ func (sender *podModelJobSender) getLastMIdPrediction(datahubServiceClnt datahub
 		&datahub_predictions.ListPodPredictionsRequest{
 			Granularity: granularity,
 			ObjectMeta: []*datahub_resources.ObjectMeta{
-				&datahub_resources.ObjectMeta{
+				{
 					Name:      podName,
 					Namespace: podNS,
 				},
@@ -162,7 +162,7 @@ func (sender *podModelJobSender) getLastMIdPrediction(datahubServiceClnt datahub
 				&datahub_predictions.ListPodPredictionsRequest{
 					Granularity: granularity,
 					ObjectMeta: []*datahub_resources.ObjectMeta{
-						&datahub_resources.ObjectMeta{
+						{
 							Name:      podName,
 							Namespace: podNS,
 						},
@@ -340,7 +340,7 @@ func (sender *podModelJobSender) sendJobByMetrics(pod *datahub_resources.Pod, qu
 							},
 						},
 						ObjectMeta: []*datahub_resources.ObjectMeta{
-							&datahub_resources.ObjectMeta{
+							{
 								Name:      pod.GetObjectMeta().GetName(),
 								Namespace: pod.GetObjectMeta().GetNamespace(),
 							},

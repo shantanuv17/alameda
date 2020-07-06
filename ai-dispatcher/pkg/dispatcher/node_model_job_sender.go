@@ -110,7 +110,7 @@ func (sender *nodeModelJobSender) getLastMIdPrediction(datahubServiceClnt datahu
 	nodePredictRes, err := datahubServiceClnt.ListNodePredictions(context.Background(),
 		&datahub_predictions.ListNodePredictionsRequest{
 			ObjectMeta: []*datahub_resources.ObjectMeta{
-				&datahub_resources.ObjectMeta{
+				{
 					Name: nodeName,
 				},
 			},
@@ -153,7 +153,7 @@ func (sender *nodeModelJobSender) getLastMIdPrediction(datahubServiceClnt datahu
 		nodePredictRes, err = datahubServiceClnt.ListNodePredictions(context.Background(),
 			&datahub_predictions.ListNodePredictionsRequest{
 				ObjectMeta: []*datahub_resources.ObjectMeta{
-					&datahub_resources.ObjectMeta{
+					{
 						Name: nodeName,
 					},
 				},
@@ -256,7 +256,7 @@ func (sender *nodeModelJobSender) sendJobByMetrics(node *datahub_resources.Node,
 						},
 					},
 					ObjectMeta: []*datahub_resources.ObjectMeta{
-						&datahub_resources.ObjectMeta{
+						{
 							Name: nodeName,
 						},
 					},

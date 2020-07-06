@@ -39,12 +39,6 @@ func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) err
 				ScalingTool: GetAlamedaScalerDatahubScalingTypeStr(applicationList.Items[idx]),
 				Type:        applicationList.Items[idx].GetType(),
 			}
-			if applicationList.Items[idx].Spec.ScalingTool.MinReplicas != nil {
-				entity.ResourceK8sMinReplicas = *applicationList.Items[idx].Spec.ScalingTool.MinReplicas
-			}
-			if applicationList.Items[idx].Spec.ScalingTool.MaxReplicas != nil {
-				entity.ResourceK8sMaxReplicas = *applicationList.Items[idx].Spec.ScalingTool.MaxReplicas
-			}
 			if applicationList.Items[idx].GetType() == autoscalingv1alpha1.AlamedaScalerTypeKafka {
 				appSpecBin, _ := json.Marshal(applicationList.Items[idx].Spec.Kafka)
 				entity.AppSpec = string(appSpecBin)

@@ -34,66 +34,10 @@ func NewControllerRepository(conn *grpc.ClientConn, clusterUID string) *Controll
 	}
 }
 
-// CreateControllers creates controllers to datahub
-func (repo *ControllerRepository) CreateControllers(arg interface{}) error {
-	controllersToCreate := []*datahub_resources.Controller{}
-	if controllers, ok := arg.([]appsv1.Deployment); ok {
-		for _, controller := range controllers {
-			controllersToCreate = append(controllersToCreate, &datahub_resources.Controller{
-				ObjectMeta: &datahub_resources.ObjectMeta{
-					Name:        controller.GetName(),
-					Namespace:   controller.GetNamespace(),
-					ClusterName: repo.clusterUID,
-				},
-				Kind: datahub_resources.Kind_DEPLOYMENT,
-			})
-		}
-	}
-	if controllers, ok := arg.([]appsv1.StatefulSet); ok {
-		for _, controller := range controllers {
-			controllersToCreate = append(controllersToCreate, &datahub_resources.Controller{
-				ObjectMeta: &datahub_resources.ObjectMeta{
-					Name:        controller.GetName(),
-					Namespace:   controller.GetNamespace(),
-					ClusterName: repo.clusterUID,
-				},
-				Kind: datahub_resources.Kind_STATEFULSET,
-			})
-		}
-
-	}
-	if controllers, ok := arg.([]appsapi_v1.DeploymentConfig); ok {
-		for _, controller := range controllers {
-			controllersToCreate = append(controllersToCreate, &datahub_resources.Controller{
-				ObjectMeta: &datahub_resources.ObjectMeta{
-					Name:        controller.GetName(),
-					Namespace:   controller.GetNamespace(),
-					ClusterName: repo.clusterUID,
-				},
-				Kind: datahub_resources.Kind_DEPLOYMENTCONFIG,
-			})
-		}
-	}
-	if controllers, ok := arg.([]*datahub_resources.Controller); ok {
-		controllersToCreate = controllers
-	}
-
-	req := datahub_resources.CreateControllersRequest{
-		Controllers: controllersToCreate,
-	}
-
-	if resp, err := repo.datahubClient.CreateControllers(context.Background(), &req); err != nil {
-		return errors.Wrap(err, "create controllers to datahub failed")
-	} else if _, err := client.IsResponseStatusOK(resp); err != nil {
-		return errors.Wrap(err, "create controllers to datahub failed")
-	}
-	return nil
-}
-
 func (repo *ControllerRepository) ListControllers() ([]*datahub_resources.Controller, error) {
 	req := datahub_resources.ListControllersRequest{
 		ObjectMeta: []*datahub_resources.ObjectMeta{
-			&datahub_resources.ObjectMeta{
+			{
 				ClusterName: repo.clusterUID,
 			},
 		},
@@ -113,7 +57,7 @@ func (repo *ControllerRepository) ListControllers() ([]*datahub_resources.Contro
 func (repo *ControllerRepository) ListControllersByApplication(ctx context.Context, namespace, name string) ([]*datahub_resources.Controller, error) {
 	req := datahub_resources.ListControllersRequest{
 		ObjectMeta: []*datahub_resources.ObjectMeta{
-			&datahub_resources.ObjectMeta{
+			{
 				Namespace:   namespace,
 				ClusterName: repo.clusterUID,
 			},

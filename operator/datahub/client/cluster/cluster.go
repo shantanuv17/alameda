@@ -53,7 +53,7 @@ func (repo *ClusterRepository) CreateClusters(arg interface{}) error {
 func (repo *ClusterRepository) ListClusters() ([]*datahub_resources.Cluster, error) {
 	req := datahub_resources.ListClustersRequest{
 		ObjectMeta: []*datahub_resources.ObjectMeta{
-			&datahub_resources.ObjectMeta{
+			{
 				ClusterName: repo.clusterUID,
 			},
 		},

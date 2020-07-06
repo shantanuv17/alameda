@@ -110,7 +110,7 @@ func (sender *clusterModelJobSender) getLastMIdPrediction(datahubServiceClnt dat
 	clusterPredictRes, err := datahubServiceClnt.ListClusterPredictions(context.Background(),
 		&datahub_predictions.ListClusterPredictionsRequest{
 			ObjectMeta: []*datahub_resources.ObjectMeta{
-				&datahub_resources.ObjectMeta{
+				{
 					Name: clusterName,
 				},
 			},
@@ -151,7 +151,7 @@ func (sender *clusterModelJobSender) getLastMIdPrediction(datahubServiceClnt dat
 		clusterPredictRes, err = datahubServiceClnt.ListClusterPredictions(context.Background(),
 			&datahub_predictions.ListClusterPredictionsRequest{
 				ObjectMeta: []*datahub_resources.ObjectMeta{
-					&datahub_resources.ObjectMeta{
+					{
 						Name: clusterName,
 					},
 				},
@@ -253,7 +253,7 @@ func (sender *clusterModelJobSender) sendJobByMetrics(cluster *datahub_resources
 						},
 					},
 					ObjectMeta: []*datahub_resources.ObjectMeta{
-						&datahub_resources.ObjectMeta{
+						{
 							Name: clusterName,
 						},
 					},

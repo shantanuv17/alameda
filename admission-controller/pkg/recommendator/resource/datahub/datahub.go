@@ -99,7 +99,7 @@ func (dr *datahubResourceRecommendator) buildListAvailablePodRecommendationsRequ
 
 	datahubRequest = &datahub_recommendations.ListPodRecommendationsRequest{
 		ObjectMeta: []*datahub_resources.ObjectMeta{
-			&datahub_resources.ObjectMeta{
+			{
 				ClusterName: dr.clusterName,
 				Namespace:   request.Namespace,
 				Name:        request.Name,

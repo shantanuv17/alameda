@@ -16,8 +16,6 @@ func SchemaResourceClusterStatusApplication() *schemas.Schema {
 	measurement.AddColumn("scaling_tool", true, schemas.Tag, common.String)
 	measurement.AddColumn("type", true, schemas.Tag, common.String)
 	measurement.AddColumn("app_spec", false, schemas.Field, common.String)
-	measurement.AddColumn("resource_k8s_min_replicas", false, schemas.Field, common.Int32)
-	measurement.AddColumn("resource_k8s_max_replicas", false, schemas.Field, common.Int32)
 	schema.Measurements = append(schema.Measurements, measurement)
 	return schema
 }
@@ -87,6 +85,8 @@ func SchemaResourceClusterStatusController() *schemas.Schema {
 	measurement.AddColumn("alameda_scaler_scaling_tool", true, schemas.Tag, common.String)
 	measurement.AddColumn("replicas", false, schemas.Field, common.Int32)
 	measurement.AddColumn("spec_replicas", false, schemas.Field, common.Int32)
+	measurement.AddColumn("resource_k8s_min_replicas", false, schemas.Field, common.Int32)
+	measurement.AddColumn("resource_k8s_max_replicas", false, schemas.Field, common.Int32)
 	measurement.AddColumn("policy", false, schemas.Field, common.String)
 	measurement.AddColumn("enable_execution", false, schemas.Field, common.Bool)
 	schema.Measurements = append(schema.Measurements, measurement)

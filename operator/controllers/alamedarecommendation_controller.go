@@ -92,7 +92,7 @@ func (r *AlamedaRecommendationReconciler) Reconcile(req ctrl.Request) (ctrl.Resu
 	// Update this AlamedaRecommendation with the latest recommendation value from Datahub
 	resp, err := r.DatahubClient.ListPodRecommendations(ctx, &datahub_recommendations.ListPodRecommendationsRequest{
 		ObjectMeta: []*datahub_resources.ObjectMeta{
-			&datahub_resources.ObjectMeta{
+			{
 				Namespace:   req.Namespace,
 				Name:        req.Name,
 				ClusterName: r.ClusterUID,

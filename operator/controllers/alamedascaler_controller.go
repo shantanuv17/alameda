@@ -416,17 +416,9 @@ func (r *AlamedaScalerReconciler) syncDatahubApplicationsByAlamedaScaler(
 		ScalingTool: scalingToolStr,
 		Type:        alamedaScaler.GetType(),
 	}
-
 	if alamedaScaler.GetType() == autoscalingv1alpha1.AlamedaScalerTypeKafka {
 		appSpecBin, _ := json.Marshal(alamedaScaler.Spec.Kafka)
 		entity.AppSpec = string(appSpecBin)
-	}
-
-	if alamedaScaler.Spec.ScalingTool.MinReplicas != nil {
-		entity.ResourceK8sMinReplicas = *alamedaScaler.Spec.ScalingTool.MinReplicas
-	}
-	if alamedaScaler.Spec.ScalingTool.MaxReplicas != nil {
-		entity.ResourceK8sMaxReplicas = *alamedaScaler.Spec.ScalingTool.MaxReplicas
 	}
 	err := r.DatahubClient.Create(&[]entities.ResourceClusterStatusApplication{
 		entity,
@@ -522,7 +514,7 @@ func (r *AlamedaScalerReconciler) listAlamedaWatchedResourcesToDatahub(scaler *a
 func (r *AlamedaScalerReconciler) createAlamedaWatchedResourcesToDatahub(scaler *autoscalingv1alpha1.AlamedaScaler) error {
 	controllers := r.getDatahubControllersFromAlamedaScalerStatus(*scaler)
 	scope.Debugf("Creating controllers to datahub. AlamedaScaler: %s/%s. Controllers: %+v", scaler.GetNamespace(), scaler.GetName(), controllers)
-	err := r.DatahubControllerRepo.CreateControllers(controllers)
+	err := r.DatahubClient.Create(&controllers)
 	if err != nil {
 		return err
 	}
@@ -530,7 +522,8 @@ func (r *AlamedaScalerReconciler) createAlamedaWatchedResourcesToDatahub(scaler 
 	return nil
 }
 
-func (r *AlamedaScalerReconciler) getDatahubControllersFromAlamedaScalerStatus(scaler autoscalingv1alpha1.AlamedaScaler) []*datahub_resources.Controller {
+func (r *AlamedaScalerReconciler) getDatahubControllersFromAlamedaScalerStatus(
+	scaler autoscalingv1alpha1.AlamedaScaler) []entities.ResourceClusterStatusController {
 	policy := datahub_resources.RecommendationPolicy_RECOMMENDATION_POLICY_UNDEFINED
 	switch scaler.Spec.Policy {
 	case autoscalingv1alpha1.RecommendationPolicySTABLE:
@@ -539,14 +532,14 @@ func (r *AlamedaScalerReconciler) getDatahubControllersFromAlamedaScalerStatus(s
 		policy = datahub_resources.RecommendationPolicy_COMPACT
 	}
 	isScalerEnableExecution := scaler.IsEnableExecution()
-	scalingTool := r.getAlamedaScalerDatahubScalingType(scaler)
+	scalingTool := datahub_client_application.GetAlamedaScalerDatahubScalingTypeStr(scaler)
 
 	datahubKindToAlamedaResourceMap := map[datahub_resources.Kind]map[autoscalingv1alpha1.NamespacedName]autoscalingv1alpha1.AlamedaResource{
 		datahub_resources.Kind_DEPLOYMENT:       scaler.Status.AlamedaController.Deployments,
 		datahub_resources.Kind_DEPLOYMENTCONFIG: scaler.Status.AlamedaController.DeploymentConfigs,
 		datahub_resources.Kind_STATEFULSET:      scaler.Status.AlamedaController.StatefulSets,
 	}
-	controllers := []*datahub_resources.Controller{}
+	controllers := []entities.ResourceClusterStatusController{}
 	for kind, alamedaResourceMap := range datahubKindToAlamedaResourceMap {
 		for _, alamedaResource := range alamedaResourceMap {
 			if alamedaResource.Effective == false {
@@ -554,28 +547,30 @@ func (r *AlamedaScalerReconciler) getDatahubControllersFromAlamedaScalerStatus(s
 			}
 			replicas := len(alamedaResource.Pods)
 			specReplicas := int32(-1)
+			minReplicas := int32(-1)
+			maxReplicas := int32(-1)
 			if alamedaResource.SpecReplicas != nil {
 				specReplicas = *alamedaResource.SpecReplicas
 			}
-			controllers = append(controllers, &datahub_resources.Controller{
-				ObjectMeta: &datahub_resources.ObjectMeta{
-					Namespace:   alamedaResource.Namespace,
-					Name:        alamedaResource.Name,
-					ClusterName: r.ClusterUID,
-				},
-				Kind: kind,
-				AlamedaControllerSpec: &datahub_resources.AlamedaControllerSpec{
-					AlamedaScaler: &datahub_resources.ObjectMeta{
-						Namespace:   scaler.Namespace,
-						Name:        scaler.Name,
-						ClusterName: r.ClusterUID,
-					},
-					Policy:                        policy,
-					EnableRecommendationExecution: isScalerEnableExecution,
-					ScalingTool:                   scalingTool,
-				},
-				Replicas:     int32(replicas),
-				SpecReplicas: specReplicas,
+			if scaler.Spec.ScalingTool.MinReplicas != nil {
+				minReplicas = *scaler.Spec.ScalingTool.MinReplicas
+			}
+			if scaler.Spec.ScalingTool.MaxReplicas != nil {
+				maxReplicas = *scaler.Spec.ScalingTool.MaxReplicas
+			}
+			controllers = append(controllers, entities.ResourceClusterStatusController{
+				Namespace:                alamedaResource.Namespace,
+				Name:                     alamedaResource.Name,
+				ClusterName:              r.ClusterUID,
+				AlamedaScalerName:        scaler.Name,
+				Kind:                     datahub_resources.Kind_name[int32(kind)],
+				Policy:                   datahub_resources.RecommendationPolicy_name[int32(policy)],
+				EnableExecution:          isScalerEnableExecution,
+				AlamedaScalerScalingTool: scalingTool,
+				Replicas:                 int32(replicas),
+				SpecReplicas:             specReplicas,
+				ResourceK8sMinReplicas:   minReplicas,
+				ResourceK8sMaxReplicas:   maxReplicas,
 			})
 		}
 	}
@@ -990,19 +985,6 @@ func (r *AlamedaScalerReconciler) getNeedDeletingAlamedaRecommendations(alamedaS
 	}
 
 	return needDeletingAlamedaRecommendations, nil
-}
-
-func (r *AlamedaScalerReconciler) getAlamedaScalerDatahubScalingType(alamedaScaler autoscalingv1alpha1.AlamedaScaler) datahub_resources.ScalingTool {
-	scalingType := datahub_resources.ScalingTool_SCALING_TOOL_UNDEFINED
-	switch alamedaScaler.Spec.ScalingTool.Type {
-	case autoscalingv1alpha1.ScalingToolTypeVPA:
-		scalingType = datahub_resources.ScalingTool_VPA
-	case autoscalingv1alpha1.ScalingToolTypeHPA:
-		scalingType = datahub_resources.ScalingTool_HPA
-	case autoscalingv1alpha1.ScalingToolTypeDefault:
-		scalingType = datahub_resources.ScalingTool_NONE
-	}
-	return scalingType
 }
 
 func (r *AlamedaScalerReconciler) isControllerHasAlamedaScalerInfo(controller datahub_resources.Controller, alamedaScaler autoscalingv1alpha1.AlamedaScaler) bool {

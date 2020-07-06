@@ -120,7 +120,7 @@ func (sender *applicationModelJobSender) getLastMIdPrediction(datahubServiceClnt
 	applicationPredictRes, err := datahubServiceClnt.ListApplicationPredictions(context.Background(),
 		&datahub_predictions.ListApplicationPredictionsRequest{
 			ObjectMeta: []*datahub_resources.ObjectMeta{
-				&datahub_resources.ObjectMeta{
+				{
 					Namespace: applicationNS,
 					Name:      applicationName,
 				},
@@ -164,7 +164,7 @@ func (sender *applicationModelJobSender) getLastMIdPrediction(datahubServiceClnt
 		applicationPredictRes, err = datahubServiceClnt.ListApplicationPredictions(context.Background(),
 			&datahub_predictions.ListApplicationPredictionsRequest{
 				ObjectMeta: []*datahub_resources.ObjectMeta{
-					&datahub_resources.ObjectMeta{
+					{
 						Namespace: applicationNS,
 						Name:      applicationName,
 					},
@@ -271,7 +271,7 @@ func (sender *applicationModelJobSender) sendJobByMetrics(application *datahub_r
 						},
 					},
 					ObjectMeta: []*datahub_resources.ObjectMeta{
-						&datahub_resources.ObjectMeta{
+						{
 							Namespace: applicationNS,
 							Name:      applicationName,
 						},

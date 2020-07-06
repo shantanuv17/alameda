@@ -120,7 +120,7 @@ func (sender *controllerModelJobSender) getLastMIdPrediction(datahubServiceClnt 
 	controllerPredictRes, err := datahubServiceClnt.ListControllerPredictions(context.Background(),
 		&datahub_predictions.ListControllerPredictionsRequest{
 			ObjectMeta: []*datahub_resources.ObjectMeta{
-				&datahub_resources.ObjectMeta{
+				{
 					Namespace: controllerNS,
 					Name:      controllerName,
 				},
@@ -165,7 +165,7 @@ func (sender *controllerModelJobSender) getLastMIdPrediction(datahubServiceClnt 
 		controllerPredictRes, err = datahubServiceClnt.ListControllerPredictions(context.Background(),
 			&datahub_predictions.ListControllerPredictionsRequest{
 				ObjectMeta: []*datahub_resources.ObjectMeta{
-					&datahub_resources.ObjectMeta{
+					{
 						Namespace: controllerNS,
 						Name:      controllerName,
 					},
@@ -274,7 +274,7 @@ func (sender *controllerModelJobSender) sendJobByMetrics(controller *datahub_res
 						},
 					},
 					ObjectMeta: []*datahub_resources.ObjectMeta{
-						&datahub_resources.ObjectMeta{
+						{
 							Namespace: controllerNS,
 							Name:      controllerName,
 						},
