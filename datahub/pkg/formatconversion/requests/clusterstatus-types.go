@@ -13,6 +13,8 @@ func NewAlamedaControllerSpec(controllerSpec *resources.AlamedaControllerSpec) *
 		spec.AlamedaScaler = &objectMeta
 		spec.ScalingTool = controllerSpec.GetScalingTool().String()
 		spec.Policy = controllerSpec.GetPolicy().String()
+		spec.MinReplicas = controllerSpec.GetMinReplicas()
+		spec.MaxReplicas = controllerSpec.GetMaxReplicas()
 		spec.EnableExecution = controllerSpec.GetEnableRecommendationExecution()
 		return spec
 	}
@@ -38,8 +40,6 @@ func NewAlamedaApplicationSpec(applicationSpec *resources.AlamedaApplicationSpec
 	if applicationSpec != nil {
 		spec := &types.AlamedaApplicationSpec{}
 		spec.ScalingTool = applicationSpec.GetScalingTool().String()
-		spec.MinReplicas = applicationSpec.GetMinReplicas()
-		spec.MaxReplicas = applicationSpec.GetMaxReplicas()
 		return spec
 	}
 	return nil

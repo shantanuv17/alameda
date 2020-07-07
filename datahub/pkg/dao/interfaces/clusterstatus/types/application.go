@@ -35,8 +35,6 @@ type ApplicationObjectMeta struct {
 
 type AlamedaApplicationSpec struct {
 	ScalingTool string
-	MinReplicas int32
-	MaxReplicas int32
 }
 
 func NewApplication(entity *clusterstatus.ApplicationEntity) *Application {
@@ -73,8 +71,6 @@ func NewApplicationObjectMeta(objectMeta *metadata.ObjectMeta, scalingTool strin
 func NewAlamedaApplicationSpec(entity *clusterstatus.ApplicationEntity) *AlamedaApplicationSpec {
 	spec := AlamedaApplicationSpec{}
 	spec.ScalingTool = entity.ScalingTool
-	spec.MinReplicas = entity.MinReplicas
-	spec.MaxReplicas = entity.MaxReplicas
 	return &spec
 }
 
@@ -91,8 +87,7 @@ func (p *Application) BuildEntity() *clusterstatus.ApplicationEntity {
 	}
 
 	if p.AlamedaApplicationSpec != nil {
-		entity.MinReplicas = p.AlamedaApplicationSpec.MinReplicas
-		entity.MaxReplicas = p.AlamedaApplicationSpec.MaxReplicas
+		entity.ScalingTool = p.AlamedaApplicationSpec.ScalingTool
 	}
 
 	return &entity
