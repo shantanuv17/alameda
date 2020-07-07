@@ -1,7 +1,6 @@
 package common
 
 import (
-	"fmt"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/enumconv"
 	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
 	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
@@ -32,7 +31,6 @@ func NewQueryCondition(queryCondition *ApiCommon.QueryCondition) *DBCommon.Query
 			if timeRange.GetStep() != nil {
 				ts, _ := ptypes.Duration(timeRange.GetStep())
 				qc.StepTime = &ts
-				qc.Groups = append(qc.Groups, fmt.Sprintf("time(%ds)", int(timeRange.GetStep().Seconds)))
 			}
 			qc.AggregateOverTimeFunction = enumconv.AggregateFunctionNameMap[timeRange.GetAggregateFunction()]
 		}
