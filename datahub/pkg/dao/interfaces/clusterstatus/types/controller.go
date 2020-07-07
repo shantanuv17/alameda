@@ -42,6 +42,8 @@ type AlamedaControllerSpec struct {
 	AlamedaScaler   *metadata.ObjectMeta
 	ScalingTool     string
 	Policy          string
+	MinReplicas     int32
+	MaxReplicas     int32
 	EnableExecution bool
 }
 
@@ -86,6 +88,8 @@ func NewAlamedaControllerSpec(entity *clusterstatus.ControllerEntity) *AlamedaCo
 	spec.AlamedaScaler.Name = entity.AlamedaSpecScalerName
 	spec.ScalingTool = entity.AlamedaSpecScalingTool
 	spec.Policy = entity.AlamedaSpecPolicy
+	spec.MinReplicas = entity.MinReplicas
+	spec.MaxReplicas = entity.MaxReplicas
 	enableExecution, _ := strconv.ParseBool(entity.AlamedaSpecEnableExecution)
 	spec.EnableExecution = enableExecution
 	return &spec
@@ -112,6 +116,8 @@ func (p *Controller) BuildEntity() *clusterstatus.ControllerEntity {
 		}
 		entity.AlamedaSpecScalingTool = p.AlamedaControllerSpec.ScalingTool
 		entity.AlamedaSpecPolicy = p.AlamedaControllerSpec.Policy
+		entity.MinReplicas = p.AlamedaControllerSpec.MinReplicas
+		entity.MaxReplicas = p.AlamedaControllerSpec.MaxReplicas
 		entity.AlamedaSpecEnableExecution = strconv.FormatBool(p.AlamedaControllerSpec.EnableExecution)
 	}
 
