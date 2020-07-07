@@ -13,7 +13,8 @@ const (
 	ApplicationClusterName influxdb.Tag   = "cluster_name"
 	ApplicationUid         influxdb.Tag   = "uid"
 	ApplicationScalingTool influxdb.Tag   = "scaling_tool"
-	ApplicationDummy       influxdb.Field = "dummy"
+	ApplicationAppSpec     influxdb.Field = "app_spec"
+	ApplicationSelector    influxdb.Field = "selector"
 )
 
 var (
@@ -26,7 +27,8 @@ var (
 	}
 
 	ApplicationFields = []influxdb.Field{
-		ApplicationDummy,
+		ApplicationAppSpec,
+		ApplicationSelector,
 	}
 
 	ApplicationColumns = []string{
@@ -35,7 +37,8 @@ var (
 		string(ApplicationClusterName),
 		string(ApplicationUid),
 		string(ApplicationScalingTool),
-		string(ApplicationDummy),
+		string(ApplicationAppSpec),
+		string(ApplicationSelector),
 	}
 )
 
@@ -49,7 +52,8 @@ type ApplicationEntity struct {
 	ScalingTool string
 
 	// InfluxDB fields
-	Dummy string
+	AppSpec  string
+	Selector string
 }
 
 func NewApplicationEntity(data map[string]string) *ApplicationEntity {
@@ -76,8 +80,11 @@ func NewApplicationEntity(data map[string]string) *ApplicationEntity {
 	}
 
 	// InfluxDB fields
-	if value, exist := data[string(ApplicationDummy)]; exist {
-		entity.Dummy = value
+	if value, exist := data[string(ApplicationAppSpec)]; exist {
+		entity.AppSpec = value
+	}
+	if value, exist := data[string(ApplicationSelector)]; exist {
+		entity.Selector = value
 	}
 
 	return &entity
@@ -95,7 +102,8 @@ func (p *ApplicationEntity) BuildInfluxPoint(measurement string) (*InfluxClient.
 
 	// Pack influx fields
 	fields := map[string]interface{}{
-		string(ApplicationDummy): p.Dummy,
+		string(ApplicationAppSpec):  p.AppSpec,
+		string(ApplicationSelector): p.Selector,
 	}
 
 	return InfluxClient.NewPoint(measurement, tags, fields, p.Time)
