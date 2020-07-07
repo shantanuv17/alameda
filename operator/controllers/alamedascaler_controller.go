@@ -416,6 +416,12 @@ func (r *AlamedaScalerReconciler) syncDatahubApplicationsByAlamedaScaler(
 		ScalingTool: scalingToolStr,
 		Type:        alamedaScaler.GetType(),
 	}
+
+	if alamedaScaler.GetType() == autoscalingv1alpha1.AlamedaScalerTypeNotDefine ||
+		alamedaScaler.GetType() == autoscalingv1alpha1.AlamedaScalerTypeDefault {
+		selectorBin, _ := json.Marshal(alamedaScaler.Spec.Selector)
+		entity.Selector = string(selectorBin)
+	}
 	if alamedaScaler.GetType() == autoscalingv1alpha1.AlamedaScalerTypeKafka {
 		appSpecBin, _ := json.Marshal(alamedaScaler.Spec.Kafka)
 		entity.AppSpec = string(appSpecBin)

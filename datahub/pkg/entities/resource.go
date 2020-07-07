@@ -14,6 +14,7 @@ type ResourceClusterStatusApplication struct {
 	ScalingTool   string     `json:"scaling_tool"              required:"true"  column:"tag"   type:"string"`
 	Type          string     `json:"type"                      required:"true"  column:"tag"   type:"string"`
 	AppSpec       string     `json:"app_spec"                  required:"false" column:"field" type:"string"`
+	Selector      string     `json:"selector"                  required:"false" column:"field" type:"string"`
 }
 
 type ResourceClusterStatusCluster struct {
