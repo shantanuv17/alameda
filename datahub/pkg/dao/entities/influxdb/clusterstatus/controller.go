@@ -19,6 +19,8 @@ const (
 	ControllerReplicas                     influxdb.Field = "replicas"
 	ControllerSpecReplicas                 influxdb.Field = "spec_replicas"
 	ControllerAlamedaSpecPolicy            influxdb.Field = "policy"
+	ControllerMinReplicas                  influxdb.Field = "resource_k8s_min_replicas"
+	ControllerMaxReplicas                  influxdb.Field = "resource_k8s_max_replicas"
 	ControllerAlamedaSpecEnableExecution   influxdb.Field = "enable_execution"
 )
 
@@ -39,6 +41,8 @@ var (
 		ControllerReplicas,
 		ControllerSpecReplicas,
 		ControllerAlamedaSpecPolicy,
+		ControllerMinReplicas,
+		ControllerMaxReplicas,
 		ControllerAlamedaSpecEnableExecution,
 	}
 
@@ -53,6 +57,8 @@ var (
 		string(ControllerReplicas),
 		string(ControllerSpecReplicas),
 		string(ControllerAlamedaSpecPolicy),
+		string(ControllerMinReplicas),
+		string(ControllerMaxReplicas),
 		string(ControllerAlamedaSpecEnableExecution),
 	}
 )
@@ -71,6 +77,8 @@ type ControllerEntity struct {
 	// InfluxDB fields
 	Replicas                   int32
 	SpecReplicas               int32
+	MinReplicas                int32
+	MaxReplicas                int32
 	AlamedaSpecPolicy          string
 	AlamedaSpecEnableExecution string
 }
@@ -113,6 +121,14 @@ func NewControllerEntity(data map[string]string) *ControllerEntity {
 		valueInt64, _ := strconv.ParseInt(value, 10, 64)
 		entity.SpecReplicas = int32(valueInt64)
 	}
+	if value, exist := data[string(ControllerMinReplicas)]; exist {
+		valueInt64, _ := strconv.ParseInt(value, 10, 64)
+		entity.MinReplicas = int32(valueInt64)
+	}
+	if value, exist := data[string(ControllerMaxReplicas)]; exist {
+		valueInt64, _ := strconv.ParseInt(value, 10, 64)
+		entity.MaxReplicas = int32(valueInt64)
+	}
 	if value, exist := data[string(ControllerAlamedaSpecPolicy)]; exist {
 		entity.AlamedaSpecPolicy = value
 	}
@@ -139,6 +155,8 @@ func (p *ControllerEntity) BuildInfluxPoint(measurement string) (*InfluxClient.P
 	fields := map[string]interface{}{
 		string(ControllerReplicas):                   p.Replicas,
 		string(ControllerSpecReplicas):               p.SpecReplicas,
+		string(ControllerMinReplicas):                p.MinReplicas,
+		string(ControllerMaxReplicas):                p.MaxReplicas,
 		string(ControllerAlamedaSpecPolicy):          p.AlamedaSpecPolicy,
 		string(ControllerAlamedaSpecEnableExecution): p.AlamedaSpecEnableExecution,
 	}

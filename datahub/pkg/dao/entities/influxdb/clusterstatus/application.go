@@ -4,7 +4,6 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/utils"
 	"github.com/containers-ai/alameda/internal/pkg/database/influxdb"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
-	"strconv"
 	"time"
 )
 
@@ -14,8 +13,7 @@ const (
 	ApplicationClusterName influxdb.Tag   = "cluster_name"
 	ApplicationUid         influxdb.Tag   = "uid"
 	ApplicationScalingTool influxdb.Tag   = "scaling_tool"
-	ApplicationMinReplicas influxdb.Field = "resource_k8s_min_replicas"
-	ApplicationMaxReplicas influxdb.Field = "resource_k8s_max_replicas"
+	ApplicationDummy       influxdb.Field = "dummy"
 )
 
 var (
@@ -28,8 +26,7 @@ var (
 	}
 
 	ApplicationFields = []influxdb.Field{
-		ApplicationMinReplicas,
-		ApplicationMaxReplicas,
+		ApplicationDummy,
 	}
 
 	ApplicationColumns = []string{
@@ -38,8 +35,7 @@ var (
 		string(ApplicationClusterName),
 		string(ApplicationUid),
 		string(ApplicationScalingTool),
-		string(ApplicationMinReplicas),
-		string(ApplicationMaxReplicas),
+		string(ApplicationDummy),
 	}
 )
 
@@ -53,8 +49,7 @@ type ApplicationEntity struct {
 	ScalingTool string
 
 	// InfluxDB fields
-	MinReplicas int32
-	MaxReplicas int32
+	Dummy string
 }
 
 func NewApplicationEntity(data map[string]string) *ApplicationEntity {
@@ -81,13 +76,8 @@ func NewApplicationEntity(data map[string]string) *ApplicationEntity {
 	}
 
 	// InfluxDB fields
-	if value, exist := data[string(ApplicationMinReplicas)]; exist {
-		valueInt64, _ := strconv.ParseInt(value, 10, 64)
-		entity.MinReplicas = int32(valueInt64)
-	}
-	if value, exist := data[string(ApplicationMaxReplicas)]; exist {
-		valueInt64, _ := strconv.ParseInt(value, 10, 64)
-		entity.MaxReplicas = int32(valueInt64)
+	if value, exist := data[string(ApplicationDummy)]; exist {
+		entity.Dummy = value
 	}
 
 	return &entity
@@ -105,8 +95,7 @@ func (p *ApplicationEntity) BuildInfluxPoint(measurement string) (*InfluxClient.
 
 	// Pack influx fields
 	fields := map[string]interface{}{
-		string(ApplicationMinReplicas): p.MinReplicas,
-		string(ApplicationMaxReplicas): p.MaxReplicas,
+		string(ApplicationDummy): p.Dummy,
 	}
 
 	return InfluxClient.NewPoint(measurement, tags, fields, p.Time)
