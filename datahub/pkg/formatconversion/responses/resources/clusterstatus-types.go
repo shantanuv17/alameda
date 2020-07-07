@@ -40,6 +40,8 @@ func NewAlamedaApplicationSpec(applicationSpec *types.AlamedaApplicationSpec) *r
 	if applicationSpec != nil {
 		spec := resources.AlamedaApplicationSpec{}
 		spec.ScalingTool = resources.ScalingTool(resources.ScalingTool_value[applicationSpec.ScalingTool])
+		spec.AppSpec = applicationSpec.AppSpec
+		spec.Selector = applicationSpec.Selector
 		return &spec
 	}
 	return nil
