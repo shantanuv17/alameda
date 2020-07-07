@@ -3,6 +3,7 @@ package influxdb
 import (
 	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
 	RepoInfluxCluster "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
+	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
 	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
 )
 
@@ -72,22 +73,7 @@ func (p *Pod) ListPods(request *DaoClusterTypes.ListPodsRequest) ([]*DaoClusterT
 		return make([]*DaoClusterTypes.Pod, 0), err
 	}
 
-	containerRequest := DaoClusterTypes.NewListContainersRequest()
-	for _, pod := range pods {
-		containerMeta := DaoClusterTypes.ContainerObjectMeta{}
-		containerMeta.PodName = pod.ObjectMeta.Name
-		containerMeta.Namespace = pod.ObjectMeta.Namespace
-		containerMeta.NodeName = pod.ObjectMeta.NodeName
-		containerMeta.ClusterName = pod.ObjectMeta.ClusterName
-		containerMeta.TopControllerName = pod.TopController.ObjectMeta.Name
-		containerMeta.TopControllerKind = pod.TopController.Kind
-		containerMeta.AlamedaScalerName = pod.AlamedaPodSpec.AlamedaScaler.Name
-		containerMeta.AlamedaScalerScalingTool = pod.AlamedaPodSpec.ScalingTool
-		containerRequest.ContainerObjectMeta = append(containerRequest.ContainerObjectMeta, &containerMeta)
-	}
-
-	containerRepo := RepoInfluxCluster.NewContainerRepository(p.InfluxDBConfig)
-	containerMap, err := containerRepo.ListContainers(containerRequest)
+	containerMap, err := p.listContainersByPods(pods)
 	for clusterNamespaceNodeName, containers := range containerMap {
 		for _, pod := range pods {
 			if pod.ClusterNamespacePodName() == clusterNamespaceNodeName {
@@ -95,6 +81,18 @@ func (p *Pod) ListPods(request *DaoClusterTypes.ListPodsRequest) ([]*DaoClusterT
 					pod.Containers = append(pod.Containers, container)
 				}
 				break
+			}
+		}
+	}
+
+	controllers, err := p.listControllersByPods(pods)
+	for _, pod := range pods {
+		for _, controller := range controllers {
+			if pod.TopController.ObjectMeta.Name == controller.ObjectMeta.Name && pod.TopController.Kind == controller.Kind {
+				if pod.ObjectMeta.Namespace == controller.ObjectMeta.Namespace && pod.ObjectMeta.ClusterName == controller.ObjectMeta.ClusterName {
+					pod.TopController = controller
+					break
+				}
 			}
 		}
 	}
@@ -150,4 +148,41 @@ func (p *Pod) DeletePods(request *DaoClusterTypes.DeletePodsRequest) error {
 	}
 
 	return nil
+}
+
+func (p *Pod) listControllersByPods(pods []*DaoClusterTypes.Pod) ([]*DaoClusterTypes.Controller, error) {
+	controllerRepo := RepoInfluxCluster.NewControllerRepository(p.InfluxDBConfig)
+
+	request := DaoClusterTypes.NewListControllersRequest()
+	for _, pod := range pods {
+		controllerMeta := DaoClusterTypes.NewControllerObjectMeta(nil, nil, pod.TopController.Kind, pod.AlamedaPodSpec.ScalingTool)
+		controllerMeta.ObjectMeta = &metadata.ObjectMeta{}
+		controllerMeta.ObjectMeta.Name = pod.TopController.ObjectMeta.Name
+		controllerMeta.ObjectMeta.ClusterName = pod.ObjectMeta.ClusterName
+		controllerMeta.ObjectMeta.Namespace = pod.ObjectMeta.Namespace
+
+		request.ControllerObjectMeta = append(request.ControllerObjectMeta, controllerMeta)
+	}
+
+	return controllerRepo.ListControllers(request)
+}
+
+func (p *Pod) listContainersByPods(pods []*DaoClusterTypes.Pod) (map[string][]*DaoClusterTypes.Container, error) {
+	containerRepo := RepoInfluxCluster.NewContainerRepository(p.InfluxDBConfig)
+
+	request := DaoClusterTypes.NewListContainersRequest()
+	for _, pod := range pods {
+		containerMeta := DaoClusterTypes.ContainerObjectMeta{}
+		containerMeta.PodName = pod.ObjectMeta.Name
+		containerMeta.Namespace = pod.ObjectMeta.Namespace
+		containerMeta.NodeName = pod.ObjectMeta.NodeName
+		containerMeta.ClusterName = pod.ObjectMeta.ClusterName
+		containerMeta.TopControllerName = pod.TopController.ObjectMeta.Name
+		containerMeta.TopControllerKind = pod.TopController.Kind
+		containerMeta.AlamedaScalerName = pod.AlamedaPodSpec.AlamedaScaler.Name
+		containerMeta.AlamedaScalerScalingTool = pod.AlamedaPodSpec.ScalingTool
+		request.ContainerObjectMeta = append(request.ContainerObjectMeta, &containerMeta)
+	}
+
+	return containerRepo.ListContainers(request)
 }
