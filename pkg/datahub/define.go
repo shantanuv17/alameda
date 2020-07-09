@@ -50,6 +50,7 @@ var ScopeValue = map[string]schemas.Scope{
 	"undefined":      schemas.Scope_SCOPE_UNDEFINED,
 	"application":    schemas.Scope_SCOPE_APPLICATION,
 	"execution":      schemas.Scope_SCOPE_EXECUTION,
+	"fedemeter":      schemas.Scope_SCOPE_FEDEMETER,
 	"metric":         schemas.Scope_SCOPE_METRIC,
 	"planning":       schemas.Scope_SCOPE_PLANNING,
 	"prediction":     schemas.Scope_SCOPE_PREDICTION,

@@ -7,6 +7,7 @@ const (
 	ScopeUndefined Scope = iota
 	Application
 	Execution
+	Fedemeter
 	Metric
 	Planning
 	Prediction
