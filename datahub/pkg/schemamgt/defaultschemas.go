@@ -13,6 +13,12 @@ func DefaultSchemasInit() {
 	schemaList = append(schemaList, defaults.SchemaApplicationKafkaTopic())
 	schemaList = append(schemaList, defaults.SchemaApplicationKafkaCG())
 
+	// Fedemeter
+	schemaList = append(schemaList, defaults.SchemaFedemeterCalculation())
+	schemaList = append(schemaList, defaults.SchemaFedemeterRecommendationJERI())
+	schemaList = append(schemaList, defaults.SchemaFedemeterResourceHistoryCost())
+	schemaList = append(schemaList, defaults.SchemaFedemeterResourcePredictionCost())
+
 	// Metric
 	schemaList = append(schemaList, defaults.SchemaMetricKafkaTopic())
 	schemaList = append(schemaList, defaults.SchemaMetricKafkaCG())

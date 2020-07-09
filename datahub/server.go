@@ -157,6 +157,7 @@ func (s *Server) createInfluxdbDatabase() {
 		"alameda_application",
 		"alameda_cluster_status",
 		"alameda_event",
+		"alameda_fedemeter",
 		"alameda_gpu",
 		"alameda_gpu_prediction",
 		"alameda_metric",
@@ -185,6 +186,7 @@ func (s *Server) modifyInfluxdbRetentionPolicy() {
 
 	databaseList := []string{
 		"alameda_event",
+		"alameda_fedemeter",
 		"alameda_gpu",
 		"alameda_gpu_prediction",
 		"alameda_metric",

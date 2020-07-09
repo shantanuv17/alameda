@@ -6,6 +6,7 @@ type Scope int
 const (
 	ScopeUndefined Scope = iota
 	Application
+	Fedemeter
 	Metric
 	Planning
 	Prediction
