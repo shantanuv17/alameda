@@ -12,6 +12,7 @@ func SchemaFedemeterCalculation() *schemas.Schema {
 	// Instance cost
 	instance := schemas.NewMeasurement("calculation_price_instance", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
 	instance.AddColumn("nodename", true, schemas.Tag, common.String)
+	instance.AddColumn("clustername", true, schemas.Tag, common.String)
 	instance.AddColumn("provider", true, schemas.Tag, common.String)
 	instance.AddColumn("region", true, schemas.Tag, common.String)
 	instance.AddColumn("unit", true, schemas.Tag, common.String)
@@ -34,6 +35,7 @@ func SchemaFedemeterCalculation() *schemas.Schema {
 	// Storage cost
 	storage := schemas.NewMeasurement("calculation_price_storage", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
 	storage.AddColumn("nodename", true, schemas.Tag, common.String)
+	storage.AddColumn("clustername", true, schemas.Tag, common.String)
 	storage.AddColumn("provider", true, schemas.Tag, common.String)
 	storage.AddColumn("unit", true, schemas.Tag, common.String)
 	storage.AddColumn("granularity", true, schemas.Tag, common.String)
@@ -53,6 +55,7 @@ func SchemaFedemeterCalculation() *schemas.Schema {
 func SchemaFedemeterRecommendationJERI() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Fedemeter, "recommendation", "jeri")
 	measurement := schemas.NewMeasurement("recommendation_jeri", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement.AddColumn("clustername", true, schemas.Tag, common.String)
 	measurement.AddColumn("country", true, schemas.Tag, common.String)
 	measurement.AddColumn("instancetype", true, schemas.Tag, common.String)
 	measurement.AddColumn("provider", true, schemas.Tag, common.String)
@@ -89,6 +92,7 @@ func SchemaFedemeterResourceHistoryCost() *schemas.Schema {
 	app := schemas.NewMeasurement("resource_history_cost_app", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
 	app.AddColumn("appname", true, schemas.Tag, common.String)
 	app.AddColumn("namespacename", true, schemas.Tag, common.String)
+	app.AddColumn("clustername", true, schemas.Tag, common.String)
 	app.AddColumn("provider", true, schemas.Tag, common.String)
 	app.AddColumn("type", true, schemas.Tag, common.String)
 	app.AddColumn("granularity", true, schemas.Tag, common.String)
@@ -101,6 +105,7 @@ func SchemaFedemeterResourceHistoryCost() *schemas.Schema {
 	// Namespace cost allocation
 	namespace := schemas.NewMeasurement("resource_history_cost_namespace", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
 	namespace.AddColumn("namespacename", true, schemas.Tag, common.String)
+	namespace.AddColumn("clustername", true, schemas.Tag, common.String)
 	namespace.AddColumn("provider", true, schemas.Tag, common.String)
 	namespace.AddColumn("type", true, schemas.Tag, common.String)
 	namespace.AddColumn("granularity", true, schemas.Tag, common.String)
@@ -121,6 +126,7 @@ func SchemaFedemeterResourcePredictionCost() *schemas.Schema {
 	app := schemas.NewMeasurement("resource_prediction_cost_app", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
 	app.AddColumn("appname", true, schemas.Tag, common.String)
 	app.AddColumn("namespacename", true, schemas.Tag, common.String)
+	app.AddColumn("clustername", true, schemas.Tag, common.String)
 	app.AddColumn("provider", true, schemas.Tag, common.String)
 	app.AddColumn("type", true, schemas.Tag, common.String)
 	app.AddColumn("granularity", true, schemas.Tag, common.String)
@@ -133,6 +139,7 @@ func SchemaFedemeterResourcePredictionCost() *schemas.Schema {
 	// Namespace cost allocation
 	namespace := schemas.NewMeasurement("resource_prediction_cost_namespace", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
 	namespace.AddColumn("namespacename", true, schemas.Tag, common.String)
+	namespace.AddColumn("clustername", true, schemas.Tag, common.String)
 	namespace.AddColumn("provider", true, schemas.Tag, common.String)
 	namespace.AddColumn("type", true, schemas.Tag, common.String)
 	namespace.AddColumn("granularity", true, schemas.Tag, common.String)
