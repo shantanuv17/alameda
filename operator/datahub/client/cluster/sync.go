@@ -19,12 +19,11 @@ func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
 
 	datahubClusterRepo := NewClusterRepository(conn, clusterUID)
 
-	if err := datahubClusterRepo.CreateClusters([]*datahub_resources.Cluster{
-		&datahub_resources.Cluster{
-			ObjectMeta: &datahub_resources.ObjectMeta{
-				Name: clusterUID,
-			},
+	if err := datahubClusterRepo.CreateClusters([]*datahub_resources.Cluster{{
+		ObjectMeta: &datahub_resources.ObjectMeta{
+			Name: clusterUID,
 		},
+	},
 	}); err != nil {
 		return fmt.Errorf(
 			"Sync cluster with datahub failed due to register cluster failed: %s",

@@ -18,7 +18,8 @@ import (
 )
 
 func syncResourcesWithDatahub(
-	client client.Client, datahubConn *grpc.ClientConn, datahubClient *datahubpkg.Client) {
+	client client.Client, datahubConn *grpc.ClientConn,
+	datahubClient *datahubpkg.Client, enabledDA bool) {
 	for {
 		clusterUID, err := k8sutils.GetClusterUID(client)
 		if err == nil {
@@ -29,46 +30,47 @@ func syncResourcesWithDatahub(
 		}
 		time.Sleep(time.Duration(1) * time.Second)
 	}
-
-	go func() {
-		if err := datahub_client_namespace.SyncWithDatahub(client,
-			datahubClient); err != nil {
-			scope.Errorf("sync namespace failed at start due to %s", err.Error())
-		}
-	}()
-	go func() {
-		if err := datahub_client_node.SyncWithDatahub(client,
-			datahubClient); err != nil {
-			scope.Errorf("sync node failed at start due to %s", err.Error())
-		}
-	}()
 	go func() {
 		if err := datahub_client_application.SyncWithDatahub(client,
 			datahubClient); err != nil {
 			scope.Errorf("sync application failed at start due to %s", err.Error())
 		}
 	}()
-	go func() {
-		if err := datahub_client_cluster.SyncWithDatahub(client,
-			datahubConn); err != nil {
-			scope.Errorf("sync cluster failed at start due to %s", err.Error())
-		}
-	}()
-	go func() {
-		if err := datahub_client_controller.SyncWithDatahub(client,
-			datahubConn); err != nil {
-			scope.Errorf("sync controller failed at start due to %s", err.Error())
-		}
-	}()
-	go func() {
-		if err := datahub_client_pod.SyncWithDatahub(client,
-			datahubConn); err != nil {
-			scope.Errorf("sync pod failed at start due to %s", err.Error())
-		}
-	}()
-	go func() {
-		if err := datahub_client_kafka.SyncWithDatahub(client, datahubClient); err != nil {
-			scope.Errorf("sync kafka failed at start due to %s", err.Error())
-		}
-	}()
+	if !enabledDA {
+		go func() {
+			if err := datahub_client_namespace.SyncWithDatahub(client,
+				datahubClient); err != nil {
+				scope.Errorf("sync namespace failed at start due to %s", err.Error())
+			}
+		}()
+		go func() {
+			if err := datahub_client_node.SyncWithDatahub(client,
+				datahubClient); err != nil {
+				scope.Errorf("sync node failed at start due to %s", err.Error())
+			}
+		}()
+		go func() {
+			if err := datahub_client_cluster.SyncWithDatahub(client,
+				datahubConn); err != nil {
+				scope.Errorf("sync cluster failed at start due to %s", err.Error())
+			}
+		}()
+		go func() {
+			if err := datahub_client_controller.SyncWithDatahub(client,
+				datahubConn); err != nil {
+				scope.Errorf("sync controller failed at start due to %s", err.Error())
+			}
+		}()
+		go func() {
+			if err := datahub_client_pod.SyncWithDatahub(client,
+				datahubConn); err != nil {
+				scope.Errorf("sync pod failed at start due to %s", err.Error())
+			}
+		}()
+		go func() {
+			if err := datahub_client_kafka.SyncWithDatahub(client, datahubClient); err != nil {
+				scope.Errorf("sync kafka failed at start due to %s", err.Error())
+			}
+		}()
+	}
 }

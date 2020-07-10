@@ -250,10 +250,9 @@ func addNecessaryAPIToScheme(scheme *runtime.Scheme) error {
 	return nil
 }
 
-func addControllersToManager(mgr manager.Manager) error {
+func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 	datahubControllerRepo := datahub_client_controller.NewControllerRepository(datahubConn, clusterUID)
 	datahubPodRepo := datahub_client_pod.NewPodRepository(datahubConn, clusterUID)
-	enabledDA := viper.GetBool("dataAdapter.enabled")
 
 	var err error
 
@@ -421,7 +420,8 @@ func main() {
 	}
 
 	scope.Info("Adding controllers to manager...")
-	if err := addControllersToManager(mgr); err != nil {
+	enabledDA := viper.GetBool("dataAdapter.enabled")
+	if err := addControllersToManager(mgr, enabledDA); err != nil {
 		panic(errors.Wrap(err, "add necessary controllers to manager failed"))
 	}
 
@@ -441,7 +441,7 @@ func main() {
 				scope.Error("Wait for cache synchronization failed")
 			} else {
 				go syncResourcesWithDatahub(mgr.GetClient(),
-					datahubConn, datahubClient)
+					datahubConn, datahubClient, enabledDA)
 			}
 			return nil
 		})
