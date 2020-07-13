@@ -58,8 +58,8 @@ github.com/chzyer/test v0.0.0-20180213035817-a1ea475d72b1/go.mod h1:Q3SI9o4m/ZMn
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/cockroachdb/datadriven v0.0.0-20190809214429-80d97fb3cbaa/go.mod h1:zn76sxSg3SzpJ0PPJaLDCu+Bu0Lg3sKTORVIj19EIF8=
 github.com/containerd/continuity v0.0.0-20190827140505-75bee3e2ccb6/go.mod h1:GL3xCUCBDV3CZiTSEKksMWbLE66hEyuu9qyDOOqM47Y=
-github.com/containers-ai/api v4.2.790-0.20200701055307-09f6fd85b612+incompatible h1:YIzr3WC483jteVQ/tk5CgxhjQRDF0qSl/+JxQ6NvJbU=
-github.com/containers-ai/api v4.2.790-0.20200701055307-09f6fd85b612+incompatible/go.mod h1:4lntUeoAjUdYzGVcVgb/N15po7roqVAgGWqeH1Twe04=
+github.com/containers-ai/api v4.2.790-0.20200713070541-155f747cc7e5+incompatible h1:YLQM91pDpT0Pr8V+S6cp1R/2hCf17IbDYzaK6WmJtsg=
+github.com/containers-ai/api v4.2.790-0.20200713070541-155f747cc7e5+incompatible/go.mod h1:4lntUeoAjUdYzGVcVgb/N15po7roqVAgGWqeH1Twe04=
 github.com/coreos/bbolt v1.3.1-coreos.6/go.mod h1:iRUV2dpdMOn7Bo10OQBFzIJO9kkE559Wcmn+qkEiiKk=
 github.com/coreos/etcd v3.3.10+incompatible/go.mod h1:uF7uidLiAD3TWHmW31ZFd/JWoc32PjwdhPthX9715RE=
 github.com/coreos/etcd v3.3.15+incompatible/go.mod h1:uF7uidLiAD3TWHmW31ZFd/JWoc32PjwdhPthX9715RE=
