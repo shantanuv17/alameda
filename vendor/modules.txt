@@ -6,7 +6,7 @@ github.com/Shopify/sarama
 github.com/beorn7/perks/quantile
 # github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
 github.com/chzyer/readline
-# github.com/containers-ai/api v4.2.790-0.20200713070541-155f747cc7e5+incompatible
+# github.com/containers-ai/api v4.2.790-0.20200714053606-32a93688cdee+incompatible
 github.com/containers-ai/api/alameda_api/v1alpha1/datahub
 github.com/containers-ai/api/alameda_api/v1alpha1/datahub/applications
 github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common
