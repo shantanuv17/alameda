@@ -49,7 +49,9 @@ type ResourceClusterStatusApplication struct {
 	ClusterName   string     `json:"cluster_name"              required:"true"  column:"tag"   type:"string"`
 	Uid           string     `json:"uid"                       required:"true"  column:"tag"   type:"string"`
 	ScalingTool   string     `json:"scaling_tool"              required:"true"  column:"tag"   type:"string"`
-	Dummy         string     `json:"dummy"                     required:"true"  column:"field" type:"string"`
+	Type          string     `json:"type"                      required:"true"  column:"tag"   type:"string"`
+	AppSpec       string     `json:"app_spec"                  required:"false" column:"field" type:"string"`
+	Selector      string     `json:"selector"                  required:"false" column:"field" type:"string"`
 }
 
 type ResourceClusterStatusCluster struct {
