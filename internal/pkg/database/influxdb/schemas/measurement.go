@@ -25,8 +25,17 @@ func NewMeasurement(name string, metricType MetricType, boundary ResourceBoundar
 	return &measurement
 }
 
+func (p *Measurement) Copy(measurement *Measurement) error {
+	p.Name = measurement.Name
+	p.MetricType = measurement.MetricType
+	p.Boundary = measurement.Boundary
+	p.Quota = measurement.Quota
+	return p.Initialize(measurement.String())
+}
+
 func (p *Measurement) Initialize(columns string) error {
 	if columns != "" {
+		p.Columns = nil
 		columnList := strings.Split(columns, ",")
 		for _, columnStr := range columnList {
 			column := NewColumn()

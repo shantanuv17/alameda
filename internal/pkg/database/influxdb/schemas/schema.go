@@ -26,7 +26,17 @@ func (p *Schema) AddMeasurement(name string, metricType MetricType, boundary Res
 	if err := measurement.Initialize(columns); err != nil {
 		return err
 	}
+
+	// Check if measurement already exists
+	for _, m := range p.Measurements {
+		if CompareMeasurement(m, measurement) {
+			return m.Copy(measurement)
+		}
+	}
+
+	// If not found, just append this measurement
 	p.Measurements = append(p.Measurements, measurement)
+
 	return nil
 }
 

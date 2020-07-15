@@ -25,6 +25,16 @@ func (p *SchemaMap) AddSchema(schema *schemas.Schema) {
 		p.Schemas[scope] = make([]*schemas.Schema, 0)
 	}
 
+	// Check if schema already exist
+	for _, s := range p.Schemas[scope] {
+		if schemas.CompareSchemaMeta(s.SchemaMeta, schema.SchemaMeta) {
+			for _, m := range schema.Measurements {
+				s.AddMeasurement(m.Name, m.MetricType, m.Boundary, m.Quota, m.String())
+			}
+			return
+		}
+	}
+
 	// Do a deep copy of schema
 	s := schemas.Schema{}
 	utils.DeepCopy(&s, schema)
