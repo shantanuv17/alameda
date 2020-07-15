@@ -51,6 +51,26 @@ func (p *Measurement) Initialize(columns string) error {
 	return nil
 }
 
+func (p *Measurement) GetTags() []*Column {
+	columns := make([]*Column, 0)
+	for _, column := range p.Columns {
+		if column.ColumnType == Tag {
+			columns = append(columns, column)
+		}
+	}
+	return columns
+}
+
+func (p *Measurement) GetFields() []*Column {
+	columns := make([]*Column, 0)
+	for _, column := range p.Columns {
+		if column.ColumnType == Field {
+			columns = append(columns, column)
+		}
+	}
+	return columns
+}
+
 func (p *Measurement) AddColumn(name string, required bool, columnType ColumnType, dataType common.DataType) {
 	column := NewColumn()
 	column.Name = name
@@ -95,6 +115,23 @@ func (p *Measurement) ColumnSupported(columns []string) error {
 		}
 		if !found {
 			return errors.New(fmt.Sprintf("column(%s) is not supported in measurement(%s)", name, p.Name))
+		}
+	}
+	return nil
+}
+
+func (p *Measurement) IsTag(columns []string) error {
+	tags := p.GetTags()
+	for _, column := range columns {
+		found := false
+		for _, tag := range tags {
+			if column == tag.Name {
+				found = true
+				break
+			}
+		}
+		if !found {
+			return errors.New(fmt.Sprintf("column(%s) is not tag", column))
 		}
 	}
 	return nil

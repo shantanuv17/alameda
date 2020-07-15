@@ -49,6 +49,18 @@ func NewDeleteData(deleteData *data.DeleteData) *types.DeleteData {
 	return &dData
 }
 
+func NewWriteMeta(writeMeta *data.WriteMeta) *types.WriteMeta {
+	mData := types.WriteMeta{}
+	mData.Measurement = writeMeta.GetMeasurement()
+	mData.MetricType = enumconv.MetricTypeNameMap[writeMeta.GetMetricType()]
+	mData.Boundary = enumconv.ResourceBoundaryNameMap[writeMeta.GetResourceBoundary()]
+	mData.Quota = enumconv.ResourceQuotaNameMap[writeMeta.GetResourceQuota()]
+	mData.Condition = common.NewCondition(writeMeta.GetCondition())
+	mData.Columns = writeMeta.GetColumns()
+	mData.Rows = common.NewRows(writeMeta.GetRows())
+	return &mData
+}
+
 func isSchemaMetaComplete(schemaMeta *schemas.SchemaMeta) error {
 	if int(schemaMeta.Scope) == 0 {
 		return errors.New("schema meta(scope) is not given")
