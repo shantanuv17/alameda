@@ -9,6 +9,7 @@ type DataDAO interface {
 	WriteData(*WriteDataRequest) error
 	ReadData(*ReadDataRequest) (*Data, error)
 	DeleteData(*DeleteDataRequest) error
+	WriteMeta(*WriteMetaRequest) error
 }
 
 type WriteDataRequest struct {
@@ -24,6 +25,11 @@ type ReadDataRequest struct {
 type DeleteDataRequest struct {
 	SchemaMeta *schemas.SchemaMeta
 	DeleteData []*DeleteData
+}
+
+type WriteMetaRequest struct {
+	SchemaMeta *schemas.SchemaMeta
+	WriteMeta  []*WriteMeta
 }
 
 type WriteData struct {
@@ -49,6 +55,16 @@ type DeleteData struct {
 	Boundary       schemas.ResourceBoundary
 	Quota          schemas.ResourceQuota
 	QueryCondition *common.QueryCondition
+}
+
+type WriteMeta struct {
+	Measurement string
+	MetricType  schemas.MetricType
+	Boundary    schemas.ResourceBoundary
+	Quota       schemas.ResourceQuota
+	Condition   *common.Condition
+	Columns     []string
+	Rows        []*common.Row
 }
 
 type Data struct {

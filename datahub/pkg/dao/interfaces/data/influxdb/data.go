@@ -4,6 +4,7 @@ import (
 	"errors"
 	DaoDataTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/data/types"
 	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schemamgt"
+	"github.com/containers-ai/alameda/internal/pkg/database/common"
 	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
 	InfluxSchema "github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
@@ -98,6 +99,40 @@ func (p *Data) DeleteData(request *DaoDataTypes.DeleteDataRequest) error {
 		}
 		measurement := InternalInflux.NewMeasurement(SchemaMgt.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
 		err := measurement.Drop(InternalInflux.NewQuery(d.QueryCondition, measurement.Name))
+		if err != nil {
+			scope.Error(err.Error())
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (p *Data) WriteMeta(request *DaoDataTypes.WriteMetaRequest) error {
+	schemaMgt := SchemaMgt.NewSchemaManagement()
+	schema := schemaMgt.GetSchemas(request.SchemaMeta.Scope, request.SchemaMeta.Category, request.SchemaMeta.Type)[0]
+
+	data := DaoDataTypes.Data{}
+	data.SchemaMeta = InfluxSchema.NewSchemaMeta(request.SchemaMeta.Scope, request.SchemaMeta.Category, request.SchemaMeta.Type)
+	for _, d := range request.WriteMeta {
+		m := schema.GetMeasurement(d.Measurement, d.MetricType, d.Boundary, d.Quota)
+		if m == nil {
+			scope.Error("measurement is not found when reading data")
+			return errors.New("measurement is not found")
+		}
+		measurement := InternalInflux.NewMeasurement(SchemaMgt.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
+
+		// Do drop first
+		queryCondition := common.QueryCondition{}
+		queryCondition.WhereCondition = append(queryCondition.WhereCondition, d.Condition)
+		err := measurement.Drop(InternalInflux.NewQuery(&queryCondition, measurement.Name))
+		if err != nil {
+			scope.Error(err.Error())
+			return err
+		}
+
+		// Then do write
+		err = measurement.Write(d.Columns, d.Rows)
 		if err != nil {
 			scope.Error(err.Error())
 			return err

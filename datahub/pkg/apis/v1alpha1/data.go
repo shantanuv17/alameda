@@ -108,3 +108,30 @@ func (s *ServiceV1alpha1) DeleteData(ctx context.Context, in *ApiData.DeleteData
 
 	return &status.Status{Code: int32(code.Code_OK)}, nil
 }
+
+func (s *ServiceV1alpha1) WriteMeta(ctx context.Context, in *ApiData.WriteMetaRequest) (*status.Status, error) {
+	scope.Debug("Request received from WriteMeta grpc function: " + AlamedaUtils.InterfaceToString(in))
+
+	requestExt := FormatRequest.WriteMetaRequestRequestExtended{WriteMetaRequest: in}
+	if err := requestExt.Validate(); err != nil {
+		return &status.Status{
+			Code:    int32(code.Code_INVALID_ARGUMENT),
+			Message: err.Error(),
+		}, nil
+	}
+
+	if in.GetWriteMeta() == nil {
+		return &status.Status{Code: int32(code.Code_OK)}, nil
+	}
+
+	dataDAO := DaoData.NewDataDAO(*s.Config)
+	if err := dataDAO.WriteMeta(requestExt.ProduceRequest()); err != nil {
+		scope.Errorf("failed to write meta: %+v", err.Error())
+		return &status.Status{
+			Code:    int32(code.Code_INTERNAL),
+			Message: err.Error(),
+		}, nil
+	}
+
+	return &status.Status{Code: int32(code.Code_OK)}, nil
+}
