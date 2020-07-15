@@ -7,9 +7,12 @@ import (
 
 func NewMeasurement(measurement *ApiSchema.Measurement) *InternalSchema.Measurement {
 	if measurement != nil {
-		m := InternalSchema.Measurement{}
-		m.Name = measurement.Name
-		m.MetricType = InternalSchema.MetricType(measurement.MetricType)
+		m := InternalSchema.Measurement{
+			Name:       measurement.GetName(),
+			MetricType: InternalSchema.MetricType(measurement.GetMetricType()),
+			Boundary:   InternalSchema.ResourceBoundary(measurement.GetResourceBoundary()),
+			Quota:      InternalSchema.ResourceQuota(measurement.GetResourceQuota()),
+		}
 		for _, column := range measurement.Columns {
 			m.Columns = append(m.Columns, NewColumn(column))
 		}
