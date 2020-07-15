@@ -200,7 +200,6 @@ func (p *SchemaManagement) Flush() error {
 		for _, schema := range schemas {
 			Schemas.AddSchema(schema)
 		}
-		p.AddSchemas(schemas)
 	}
 	Schemas2Write.Empty()
 
