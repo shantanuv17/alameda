@@ -31,7 +31,8 @@ message Measurement {
     common.MetricType       metric_type       = 2;
     common.ResourceBoundary resource_boundary = 3;
     common.ResourceQuota    resource_quota    = 4;
-    repeated Column         columns           = 5;
+    bool                    is_ts             = 5;
+    repeated Column         columns           = 6;
 }
 
 message Column {
