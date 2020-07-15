@@ -5,7 +5,7 @@ import (
 )
 
 type FedemeterCalculationInstance struct {
-	DatahubEntity   `scope:"fedemeter" category:"calculation" type:"price" measurement:"calculation_price_instance" metric:"undefined" boundary:"undefined" quota:"undefined"`
+	DatahubEntity   `scope:"fedemeter" category:"calculation" type:"price" measurement:"calculation_price_instance" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time            *time.Time `json:"time"            required:"false" column:"tag"   type:"time"`
 	NodeName        string     `json:"nodename"        required:"true"  column:"tag"   type:"string"`
 	ClusterName     string     `json:"clustername"     required:"true"  column:"tag"   type:"string"`
@@ -29,7 +29,7 @@ type FedemeterCalculationInstance struct {
 }
 
 type FedemeterCalculationStorage struct {
-	DatahubEntity `scope:"fedemeter" category:"calculation" type:"price" measurement:"calculation_price_storage" metric:"undefined" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"fedemeter" category:"calculation" type:"price" measurement:"calculation_price_storage" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"        required:"false" column:"tag"   type:"time"`
 	NodeName      string     `json:"nodename"    required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"clustername" required:"true"  column:"tag"   type:"string"`
@@ -47,7 +47,7 @@ type FedemeterCalculationStorage struct {
 }
 
 type FedemeterRecommendationJERI struct {
-	DatahubEntity     `scope:"fedemeter" category:"recommendation" type:"jeri" measurement:"recommendation_jeri" metric:"undefined" boundary:"undefined" quota:"undefined"`
+	DatahubEntity     `scope:"fedemeter" category:"recommendation" type:"jeri" measurement:"recommendation_jeri" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time              *time.Time `json:"time"                required:"false" column:"tag"   type:"time"`
 	ClusterName       string     `json:"clustername"         required:"true"  column:"tag"   type:"string"`
 	Country           string     `json:"country"             required:"true"  column:"tag"   type:"string"`
@@ -77,7 +77,7 @@ type FedemeterRecommendationJERI struct {
 }
 
 type FedemeterResourceHistoryCostApp struct {
-	DatahubEntity  `scope:"fedemeter" category:"resource_history" type:"cost" measurement:"resource_history_cost_app" metric:"undefined" boundary:"undefined" quota:"undefined"`
+	DatahubEntity  `scope:"fedemeter" category:"resource_history" type:"cost" measurement:"resource_history_cost_app" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time           *time.Time `json:"time"           required:"false" column:"tag"   type:"time"`
 	AppName        string     `json:"appname"        required:"true"  column:"tag"   type:"string"`
 	NamespaceName  string     `json:"namespacename"  required:"true"  column:"tag"   type:"string"`
@@ -92,7 +92,7 @@ type FedemeterResourceHistoryCostApp struct {
 }
 
 type FedemeterResourceHistoryCostNamespace struct {
-	DatahubEntity  `scope:"fedemeter" category:"resource_history" type:"cost" measurement:"resource_history_cost_namespace" metric:"undefined" boundary:"undefined" quota:"undefined"`
+	DatahubEntity  `scope:"fedemeter" category:"resource_history" type:"cost" measurement:"resource_history_cost_namespace" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time           *time.Time `json:"time"           required:"false" column:"tag"   type:"time"`
 	NamespaceName  string     `json:"namespacename"  required:"true"  column:"tag"   type:"string"`
 	ClusterName    string     `json:"clustername"    required:"true"  column:"tag"   type:"string"`
@@ -106,7 +106,7 @@ type FedemeterResourceHistoryCostNamespace struct {
 }
 
 type FedemeterResourcePredictionCostApp struct {
-	DatahubEntity  `scope:"fedemeter" category:"resource_prediction" type:"cost" measurement:"resource_prediction_cost_app" metric:"undefined" boundary:"undefined" quota:"undefined"`
+	DatahubEntity  `scope:"fedemeter" category:"resource_prediction" type:"cost" measurement:"resource_prediction_cost_app" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time           *time.Time `json:"time"           required:"false" column:"tag"   type:"time"`
 	AppName        string     `json:"appname"        required:"true"  column:"tag"   type:"string"`
 	NamespaceName  string     `json:"namespacename"  required:"true"  column:"tag"   type:"string"`
@@ -121,7 +121,7 @@ type FedemeterResourcePredictionCostApp struct {
 }
 
 type FedemeterResourcePredictionCostNamespace struct {
-	DatahubEntity  `scope:"fedemeter" category:"resource_prediction" type:"cost" measurement:"resource_prediction_cost_namespace" metric:"undefined" boundary:"undefined" quota:"undefined"`
+	DatahubEntity  `scope:"fedemeter" category:"resource_prediction" type:"cost" measurement:"resource_prediction_cost_namespace" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time           *time.Time `json:"time"           required:"false" column:"tag"   type:"time"`
 	NamespaceName  string     `json:"namespacename"  required:"true"  column:"tag"   type:"string"`
 	ClusterName    string     `json:"clustername"    required:"true"  column:"tag"   type:"string"`

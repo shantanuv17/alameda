@@ -21,8 +21,8 @@ func NewSchema(scope Scope, category, schemaType string) *Schema {
 	return &schema
 }
 
-func (p *Schema) AddMeasurement(name string, metricType MetricType, boundary ResourceBoundary, quota ResourceQuota, columns string) error {
-	measurement := NewMeasurement(name, metricType, boundary, quota)
+func (p *Schema) AddMeasurement(name string, metricType MetricType, boundary ResourceBoundary, quota ResourceQuota, isTS bool, columns string) error {
+	measurement := NewMeasurement(name, metricType, boundary, quota, isTS)
 	if err := measurement.Initialize(columns); err != nil {
 		return err
 	}

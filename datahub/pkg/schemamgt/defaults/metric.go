@@ -8,7 +8,7 @@ import (
 func SchemaMetricKafkaTopic() *schemas.Schema {
 	// Kafka topic
 	schema := schemas.NewSchema(schemas.Metric, "kafka", "topic")
-	measurement := schemas.NewMeasurement("kafka_topic_partition_current_offset", schemas.CurrentOffset, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement := schemas.NewMeasurement("kafka_topic_partition_current_offset", schemas.CurrentOffset, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -22,7 +22,7 @@ func SchemaMetricKafkaCG() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Metric, "kafka", "consumer_group")
 
 	// Current offset
-	currentOffset := schemas.NewMeasurement("kafka_consumer_group_current_offset", schemas.CurrentOffset, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	currentOffset := schemas.NewMeasurement("kafka_consumer_group_current_offset", schemas.CurrentOffset, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	currentOffset.AddColumn("name", true, schemas.Tag, common.String)
 	currentOffset.AddColumn("namespace", true, schemas.Tag, common.String)
 	currentOffset.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -31,7 +31,7 @@ func SchemaMetricKafkaCG() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, currentOffset)
 
 	// Lag
-	lag := schemas.NewMeasurement("kafka_consumer_group_lag", schemas.Lag, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	lag := schemas.NewMeasurement("kafka_consumer_group_lag", schemas.Lag, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	lag.AddColumn("name", true, schemas.Tag, common.String)
 	lag.AddColumn("namespace", true, schemas.Tag, common.String)
 	lag.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -47,7 +47,7 @@ func SchemaMetricClusterStatusApplication() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Metric, "cluster_status", "application")
 
 	// CPU millicores usage
-	cpu := schemas.NewMeasurement("application_cpu", schemas.CPUMilliCoresUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	cpu := schemas.NewMeasurement("application_cpu", schemas.CPUMilliCoresUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	cpu.AddColumn("name", true, schemas.Tag, common.String)
 	cpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	cpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -56,7 +56,7 @@ func SchemaMetricClusterStatusApplication() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, cpu)
 
 	// Memory bytes usage
-	memory := schemas.NewMeasurement("application_memory", schemas.MemoryBytesUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	memory := schemas.NewMeasurement("application_memory", schemas.MemoryBytesUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	memory.AddColumn("name", true, schemas.Tag, common.String)
 	memory.AddColumn("namespace", true, schemas.Tag, common.String)
 	memory.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -72,14 +72,14 @@ func SchemaMetricClusterStatusCluster() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Metric, "cluster_status", "cluster")
 
 	// CPU millicores usage
-	cpu := schemas.NewMeasurement("cluster_cpu", schemas.CPUMilliCoresUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	cpu := schemas.NewMeasurement("cluster_cpu", schemas.CPUMilliCoresUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	cpu.AddColumn("name", true, schemas.Tag, common.String)
 	cpu.AddColumn("uid", true, schemas.Tag, common.String)
 	cpu.AddColumn("value", true, schemas.Field, common.Float64)
 	schema.Measurements = append(schema.Measurements, cpu)
 
 	// Memory bytes usage
-	memory := schemas.NewMeasurement("cluster_memory", schemas.MemoryBytesUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	memory := schemas.NewMeasurement("cluster_memory", schemas.MemoryBytesUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	memory.AddColumn("name", true, schemas.Tag, common.String)
 	memory.AddColumn("uid", true, schemas.Tag, common.String)
 	memory.AddColumn("value", true, schemas.Field, common.Float64)
@@ -93,7 +93,7 @@ func SchemaMetricClusterStatusContainer() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Metric, "cluster_status", "container")
 
 	// CPU millicores usage
-	cpu := schemas.NewMeasurement("container_cpu", schemas.CPUMilliCoresUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	cpu := schemas.NewMeasurement("container_cpu", schemas.CPUMilliCoresUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	cpu.AddColumn("name", true, schemas.Tag, common.String)
 	cpu.AddColumn("node_name", true, schemas.Tag, common.String)
 	cpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -104,7 +104,7 @@ func SchemaMetricClusterStatusContainer() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, cpu)
 
 	// Memory bytes usage
-	memory := schemas.NewMeasurement("container_memory", schemas.MemoryBytesUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	memory := schemas.NewMeasurement("container_memory", schemas.MemoryBytesUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	memory.AddColumn("name", true, schemas.Tag, common.String)
 	memory.AddColumn("node_name", true, schemas.Tag, common.String)
 	memory.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -115,7 +115,7 @@ func SchemaMetricClusterStatusContainer() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, memory)
 
 	// Resource requests cpu millicores
-	requestCpu := schemas.NewMeasurement("container_resource_requests_cpu_millicores", schemas.CPUMilliCoresTotal, schemas.ResourceBoundaryUndefined, schemas.ResourceRequest)
+	requestCpu := schemas.NewMeasurement("container_resource_requests_cpu_millicores", schemas.CPUMilliCoresTotal, schemas.ResourceBoundaryUndefined, schemas.ResourceRequest, true)
 	requestCpu.AddColumn("name", true, schemas.Tag, common.String)
 	requestCpu.AddColumn("node_name", true, schemas.Tag, common.String)
 	requestCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -125,7 +125,7 @@ func SchemaMetricClusterStatusContainer() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, requestCpu)
 
 	// Resource limits cpu millicores
-	limitCpu := schemas.NewMeasurement("container_resource_limits_cpu_millicores", schemas.CPUMilliCoresTotal, schemas.ResourceBoundaryUndefined, schemas.ResourceLimit)
+	limitCpu := schemas.NewMeasurement("container_resource_limits_cpu_millicores", schemas.CPUMilliCoresTotal, schemas.ResourceBoundaryUndefined, schemas.ResourceLimit, true)
 	limitCpu.AddColumn("name", true, schemas.Tag, common.String)
 	limitCpu.AddColumn("node_name", true, schemas.Tag, common.String)
 	limitCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -135,7 +135,7 @@ func SchemaMetricClusterStatusContainer() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, limitCpu)
 
 	// Resource requests memory bytes
-	requestMemory := schemas.NewMeasurement("container_resource_requests_memory_bytes", schemas.MemoryBytesTotal, schemas.ResourceBoundaryUndefined, schemas.ResourceRequest)
+	requestMemory := schemas.NewMeasurement("container_resource_requests_memory_bytes", schemas.MemoryBytesTotal, schemas.ResourceBoundaryUndefined, schemas.ResourceRequest, true)
 	requestMemory.AddColumn("name", true, schemas.Tag, common.String)
 	requestMemory.AddColumn("node_name", true, schemas.Tag, common.String)
 	requestMemory.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -145,7 +145,7 @@ func SchemaMetricClusterStatusContainer() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, requestMemory)
 
 	// Resource limits memory bytes
-	limitMemory := schemas.NewMeasurement("container_resource_limits_memory_bytes", schemas.MemoryBytesTotal, schemas.ResourceBoundaryUndefined, schemas.ResourceLimit)
+	limitMemory := schemas.NewMeasurement("container_resource_limits_memory_bytes", schemas.MemoryBytesTotal, schemas.ResourceBoundaryUndefined, schemas.ResourceLimit, true)
 	limitMemory.AddColumn("name", true, schemas.Tag, common.String)
 	limitMemory.AddColumn("node_name", true, schemas.Tag, common.String)
 	limitMemory.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -155,7 +155,7 @@ func SchemaMetricClusterStatusContainer() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, limitMemory)
 
 	// Restarts total
-	restarts := schemas.NewMeasurement("container_restarts_total", schemas.RestartsTotal, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	restarts := schemas.NewMeasurement("container_restarts_total", schemas.RestartsTotal, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	restarts.AddColumn("name", true, schemas.Tag, common.String)
 	restarts.AddColumn("node_name", true, schemas.Tag, common.String)
 	restarts.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -172,7 +172,7 @@ func SchemaMetricClusterStatusController() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Metric, "cluster_status", "controller")
 
 	// CPU millicores usage
-	cpu := schemas.NewMeasurement("controller_cpu", schemas.CPUMilliCoresUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	cpu := schemas.NewMeasurement("controller_cpu", schemas.CPUMilliCoresUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	cpu.AddColumn("name", true, schemas.Tag, common.String)
 	cpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	cpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -182,7 +182,7 @@ func SchemaMetricClusterStatusController() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, cpu)
 
 	// Memory bytes usage
-	memory := schemas.NewMeasurement("controller_memory", schemas.MemoryBytesUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	memory := schemas.NewMeasurement("controller_memory", schemas.MemoryBytesUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	memory.AddColumn("name", true, schemas.Tag, common.String)
 	memory.AddColumn("namespace", true, schemas.Tag, common.String)
 	memory.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -199,7 +199,7 @@ func SchemaMetricClusterStatusNamespace() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Metric, "cluster_status", "namespace")
 
 	// CPU millicores usage
-	cpu := schemas.NewMeasurement("namespace_cpu", schemas.CPUMilliCoresUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	cpu := schemas.NewMeasurement("namespace_cpu", schemas.CPUMilliCoresUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	cpu.AddColumn("name", true, schemas.Tag, common.String)
 	cpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	cpu.AddColumn("uid", true, schemas.Tag, common.String)
@@ -207,7 +207,7 @@ func SchemaMetricClusterStatusNamespace() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, cpu)
 
 	// Memory bytes usage
-	memory := schemas.NewMeasurement("namespace_memory", schemas.MemoryBytesUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	memory := schemas.NewMeasurement("namespace_memory", schemas.MemoryBytesUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	memory.AddColumn("name", true, schemas.Tag, common.String)
 	memory.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	memory.AddColumn("uid", true, schemas.Tag, common.String)
@@ -222,7 +222,7 @@ func SchemaMetricClusterStatusNode() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Metric, "cluster_status", "node")
 
 	// CPU cores allocatable
-	cores := schemas.NewMeasurement("node_cpu_cores_allocatable", schemas.CPUCoresAllocatable, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	cores := schemas.NewMeasurement("node_cpu_cores_allocatable", schemas.CPUCoresAllocatable, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	cores.AddColumn("name", true, schemas.Tag, common.String)
 	cores.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	cores.AddColumn("uid", true, schemas.Tag, common.String)
@@ -230,7 +230,7 @@ func SchemaMetricClusterStatusNode() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, cores)
 
 	// CPU millicores total
-	cpuTotal := schemas.NewMeasurement("node_cpu_millicores_total", schemas.CPUMilliCoresTotal, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	cpuTotal := schemas.NewMeasurement("node_cpu_millicores_total", schemas.CPUMilliCoresTotal, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	cpuTotal.AddColumn("name", true, schemas.Tag, common.String)
 	cpuTotal.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	cpuTotal.AddColumn("uid", true, schemas.Tag, common.String)
@@ -238,7 +238,7 @@ func SchemaMetricClusterStatusNode() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, cpuTotal)
 
 	// CPU millicores usage
-	cpu := schemas.NewMeasurement("node_cpu", schemas.CPUMilliCoresUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	cpu := schemas.NewMeasurement("node_cpu", schemas.CPUMilliCoresUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	cpu.AddColumn("name", true, schemas.Tag, common.String)
 	cpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	cpu.AddColumn("uid", true, schemas.Tag, common.String)
@@ -246,7 +246,7 @@ func SchemaMetricClusterStatusNode() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, cpu)
 
 	// Memory bytes total
-	memoryTotal := schemas.NewMeasurement("node_memory_bytes_total", schemas.MemoryBytesTotal, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	memoryTotal := schemas.NewMeasurement("node_memory_bytes_total", schemas.MemoryBytesTotal, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	memoryTotal.AddColumn("name", true, schemas.Tag, common.String)
 	memoryTotal.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	memoryTotal.AddColumn("uid", true, schemas.Tag, common.String)
@@ -254,7 +254,7 @@ func SchemaMetricClusterStatusNode() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, memoryTotal)
 
 	// Memory bytes usage
-	memory := schemas.NewMeasurement("node_memory", schemas.MemoryBytesUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	memory := schemas.NewMeasurement("node_memory", schemas.MemoryBytesUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	memory.AddColumn("name", true, schemas.Tag, common.String)
 	memory.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	memory.AddColumn("uid", true, schemas.Tag, common.String)
@@ -262,7 +262,7 @@ func SchemaMetricClusterStatusNode() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, memory)
 
 	// Filesystem bytes usage percentage
-	fsPCT := schemas.NewMeasurement("node_fs_bytes_usage_pct", schemas.FSBytesUsagePCT, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	fsPCT := schemas.NewMeasurement("node_fs_bytes_usage_pct", schemas.FSBytesUsagePCT, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	fsPCT.AddColumn("name", true, schemas.Tag, common.String)
 	fsPCT.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	fsPCT.AddColumn("uid", true, schemas.Tag, common.String)
@@ -272,7 +272,7 @@ func SchemaMetricClusterStatusNode() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, fsPCT)
 
 	// Disk I/O utilization
-	diskIO := schemas.NewMeasurement("node_disk_io_util", schemas.DiskIOUtilization, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	diskIO := schemas.NewMeasurement("node_disk_io_util", schemas.DiskIOUtilization, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	diskIO.AddColumn("name", true, schemas.Tag, common.String)
 	diskIO.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	diskIO.AddColumn("uid", true, schemas.Tag, common.String)
@@ -280,7 +280,7 @@ func SchemaMetricClusterStatusNode() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, diskIO)
 
 	// Pod phase count
-	podPhase := schemas.NewMeasurement("node_pod_phase_count", schemas.Number, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	podPhase := schemas.NewMeasurement("node_pod_phase_count", schemas.Number, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	podPhase.AddColumn("name", true, schemas.Tag, common.String)
 	podPhase.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	podPhase.AddColumn("uid", true, schemas.Tag, common.String)
@@ -292,7 +292,7 @@ func SchemaMetricClusterStatusNode() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, podPhase)
 
 	// Unschedulable
-	unschedulable := schemas.NewMeasurement("node_unschedulable", schemas.Unschedulable, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	unschedulable := schemas.NewMeasurement("node_unschedulable", schemas.Unschedulable, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	unschedulable.AddColumn("name", true, schemas.Tag, common.String)
 	unschedulable.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	unschedulable.AddColumn("uid", true, schemas.Tag, common.String)
@@ -305,7 +305,7 @@ func SchemaMetricClusterStatusNode() *schemas.Schema {
 func SchemaMetricClusterStatusService() *schemas.Schema {
 	// cluster-status service
 	schema := schemas.NewSchema(schemas.Metric, "cluster_status", "service")
-	measurement := schemas.NewMeasurement("service_health", schemas.Health, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement := schemas.NewMeasurement("service_health", schemas.Health, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("node_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -322,7 +322,7 @@ func SchemaMetricTopContainer() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Metric, "top", "container")
 
 	// CPU millicores usage percentage
-	cpu := schemas.NewMeasurement("top_container_cpu_millicores_usage_pct", schemas.CPUMilliCoresUsagePCT, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	cpu := schemas.NewMeasurement("top_container_cpu_millicores_usage_pct", schemas.CPUMilliCoresUsagePCT, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	cpu.AddColumn("name", true, schemas.Tag, common.String)
 	cpu.AddColumn("node_name", true, schemas.Tag, common.String)
 	cpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -332,7 +332,7 @@ func SchemaMetricTopContainer() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, cpu)
 
 	// Memory bytes usage
-	memory := schemas.NewMeasurement("top_container_memory_bytes_usage", schemas.MemoryBytesUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	memory := schemas.NewMeasurement("top_container_memory_bytes_usage", schemas.MemoryBytesUsage, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	memory.AddColumn("name", true, schemas.Tag, common.String)
 	memory.AddColumn("node_name", true, schemas.Tag, common.String)
 	memory.AddColumn("cluster_name", true, schemas.Tag, common.String)

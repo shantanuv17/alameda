@@ -8,7 +8,7 @@ import (
 func SchemaApplicationKafkaTopic() *schemas.Schema {
 	// Kafka topic
 	schema := schemas.NewSchema(schemas.Application, "kafka", "topic")
-	measurement := schemas.NewMeasurement("kafka_topic", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement := schemas.NewMeasurement("kafka_topic", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, false)
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -22,7 +22,7 @@ func SchemaApplicationKafkaTopic() *schemas.Schema {
 func SchemaApplicationKafkaCG() *schemas.Schema {
 	// Kafka consumer group
 	schema := schemas.NewSchema(schemas.Application, "kafka", "consumer_group")
-	measurement := schemas.NewMeasurement("kafka_consumer_group", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement := schemas.NewMeasurement("kafka_consumer_group", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, false)
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)

@@ -12,15 +12,17 @@ type Measurement struct {
 	MetricType MetricType
 	Boundary   ResourceBoundary
 	Quota      ResourceQuota
+	IsTS       bool
 	Columns    []*Column
 }
 
-func NewMeasurement(name string, metricType MetricType, boundary ResourceBoundary, quota ResourceQuota) *Measurement {
+func NewMeasurement(name string, metricType MetricType, boundary ResourceBoundary, quota ResourceQuota, isTS bool) *Measurement {
 	measurement := Measurement{}
 	measurement.Name = name
 	measurement.MetricType = metricType
 	measurement.Boundary = boundary
 	measurement.Quota = quota
+	measurement.IsTS = isTS
 	measurement.Columns = make([]*Column, 0)
 	return &measurement
 }
@@ -30,6 +32,7 @@ func (p *Measurement) Copy(measurement *Measurement) error {
 	p.MetricType = measurement.MetricType
 	p.Boundary = measurement.Boundary
 	p.Quota = measurement.Quota
+	p.IsTS = measurement.IsTS
 	return p.Initialize(measurement.String())
 }
 

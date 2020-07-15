@@ -29,7 +29,7 @@ func (p *SchemaMap) AddSchema(schema *schemas.Schema) {
 	for _, s := range p.Schemas[scope] {
 		if schemas.CompareSchemaMeta(s.SchemaMeta, schema.SchemaMeta) {
 			for _, m := range schema.Measurements {
-				s.AddMeasurement(m.Name, m.MetricType, m.Boundary, m.Quota, m.String())
+				s.AddMeasurement(m.Name, m.MetricType, m.Boundary, m.Quota, m.IsTS, m.String())
 			}
 			return
 		}

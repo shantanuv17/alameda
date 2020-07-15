@@ -8,7 +8,7 @@ import (
 func SchemaRecommendationKafkaCG() *schemas.Schema {
 	// Kafka consumer group
 	schema := schemas.NewSchema(schemas.Recommendation, "kafka", "consumer_group")
-	measurement := schemas.NewMeasurement("kafka_consumer_group", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement := schemas.NewMeasurement("kafka_consumer_group", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -26,7 +26,7 @@ func SchemaRecommendationKafkaCG() *schemas.Schema {
 func SchemaRecommendationClusterStatusApplication() *schemas.Schema {
 	// cluster-status application
 	schema := schemas.NewSchema(schemas.Recommendation, "cluster_status", "application")
-	measurement := schemas.NewMeasurement("application", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement := schemas.NewMeasurement("application", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -49,7 +49,7 @@ func SchemaRecommendationClusterStatusApplication() *schemas.Schema {
 func SchemaRecommendationClusterStatusCluster() *schemas.Schema {
 	// cluster-status cluster
 	schema := schemas.NewSchema(schemas.Recommendation, "cluster_status", "cluster")
-	measurement := schemas.NewMeasurement("cluster", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement := schemas.NewMeasurement("cluster", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("type", true, schemas.Tag, common.String)
 	measurement.AddColumn("kind", true, schemas.Field, common.String)
@@ -72,7 +72,7 @@ func SchemaRecommendationClusterStatusContainer() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Recommendation, "cluster_status", "container")
 
 	// Resource limit
-	limit := schemas.NewMeasurement("container", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceLimit)
+	limit := schemas.NewMeasurement("container", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceLimit, true)
 	limit.AddColumn("name", true, schemas.Tag, common.String)
 	limit.AddColumn("namespace", true, schemas.Tag, common.String)
 	limit.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -92,7 +92,7 @@ func SchemaRecommendationClusterStatusContainer() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, limit)
 
 	// Resource request
-	request := schemas.NewMeasurement("container", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceRequest)
+	request := schemas.NewMeasurement("container", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceRequest, true)
 	request.AddColumn("name", true, schemas.Tag, common.String)
 	request.AddColumn("namespace", true, schemas.Tag, common.String)
 	request.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -117,7 +117,7 @@ func SchemaRecommendationClusterStatusContainer() *schemas.Schema {
 func SchemaRecommendationClusterStatusController() *schemas.Schema {
 	// cluster-status controller
 	schema := schemas.NewSchema(schemas.Recommendation, "cluster_status", "controller")
-	measurement := schemas.NewMeasurement("controller", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement := schemas.NewMeasurement("controller", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -140,7 +140,7 @@ func SchemaRecommendationClusterStatusController() *schemas.Schema {
 func SchemaRecommendationClusterStatusNamespace() *schemas.Schema {
 	// cluster-status namespace
 	schema := schemas.NewSchema(schemas.Recommendation, "cluster_status", "namespace")
-	measurement := schemas.NewMeasurement("namespace", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement := schemas.NewMeasurement("namespace", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("type", true, schemas.Tag, common.String)
@@ -162,7 +162,7 @@ func SchemaRecommendationClusterStatusNamespace() *schemas.Schema {
 func SchemaRecommendationClusterStatusNode() *schemas.Schema {
 	// cluster-status node
 	schema := schemas.NewSchema(schemas.Recommendation, "cluster_status", "node")
-	measurement := schemas.NewMeasurement("node", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement := schemas.NewMeasurement("node", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	measurement.AddColumn("name", true, schemas.Tag, common.String)
 	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("type", true, schemas.Tag, common.String)

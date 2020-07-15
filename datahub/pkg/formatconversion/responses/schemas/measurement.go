@@ -13,6 +13,7 @@ func NewMeasurement(measurement *InternalSchema.Measurement) *ApiSchema.Measurem
 			MetricType:       ApiCommon.MetricType(measurement.MetricType),
 			ResourceBoundary: ApiCommon.ResourceBoundary(measurement.Boundary),
 			ResourceQuota:    ApiCommon.ResourceQuota(measurement.Quota),
+			IsTs:             measurement.IsTS,
 		}
 		for _, column := range measurement.Columns {
 			m.Columns = append(m.Columns, NewColumn(column))
