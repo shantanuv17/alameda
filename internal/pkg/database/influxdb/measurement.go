@@ -1,6 +1,7 @@
 package influxdb
 
 import (
+	"errors"
 	"fmt"
 	"github.com/containers-ai/alameda/internal/pkg/database/common"
 	"github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
@@ -131,7 +132,11 @@ func (p *InfluxMeasurement) buildPoints(columnTypes []schemas.ColumnType, dataTy
 			case schemas.Tag:
 				tags[columns[index]] = value
 			case schemas.Field:
-				fields[columns[index]] = p.format(value, dataTypes[index])
+				v, err := p.format(value, dataTypes[index])
+				fields[columns[index]] = v
+				if err != nil {
+					return make([]*InfluxDB.Point, 0), err
+				}
 			default:
 				break
 			}
@@ -238,7 +243,7 @@ func (p *InfluxMeasurement) aggregationData(results []*models.InfluxResultExtend
 	return groups
 }
 
-func (p *InfluxMeasurement) format(value string, dataType common.DataType) interface{} {
+func (p *InfluxMeasurement) format(value string, dataType common.DataType) (interface{}, error) {
 	var v interface{}
 	var err error
 
@@ -272,14 +277,17 @@ func (p *InfluxMeasurement) format(value string, dataType common.DataType) inter
 	case common.String:
 		v = value
 	default:
-		fmt.Println("not support")
-		return value
+		message := fmt.Sprintf("data type(%d) is not supported", dataType)
+		scope.Error(message)
+		return nil, errors.New(message)
 	}
 
 	if err != nil {
-		scope.Error(fmt.Sprintf("failed to format string(%s) to type(%d)", value, dataType))
-		return nil
+		message := fmt.Sprintf("failed to format string(\"%s\") to type(%d)", value, int(dataType))
+		scope.Error(err.Error())
+		scope.Error(message)
+		return nil, errors.New(message)
 	}
 
-	return v
+	return v, nil
 }
