@@ -45,6 +45,9 @@ service DatahubService {
     rpc DeleteData(data.DeleteDataRequest)
         returns (google.rpc.Status){}
 
+    rpc WriteMeta(data.WriteMetaRequest)
+        returns (google.rpc.Status){}
+
     // Events --------------------------------------------------
     rpc CreateEvents(events.CreateEventsRequest)
         returns (google.rpc.Status){}

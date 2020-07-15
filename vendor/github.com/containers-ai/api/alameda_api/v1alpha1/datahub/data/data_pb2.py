@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='containersai.alameda.v1alpha1.datahub.data',
   syntax='proto3',
   serialized_options=b'Z>github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data',
-  serialized_pb=b'\n,alameda_api/v1alpha1/datahub/data/data.proto\x12*containersai.alameda.v1alpha1.datahub.data\x1a\x31\x61lameda_api/v1alpha1/datahub/common/metrics.proto\x1a\x31\x61lameda_api/v1alpha1/datahub/common/queries.proto\x1a\x31\x61lameda_api/v1alpha1/datahub/common/rawdata.proto\x1a/alameda_api/v1alpha1/datahub/common/types.proto\"\xf1\x02\n\tWriteData\x12\x13\n\x0bmeasurement\x18\x01 \x01(\t\x12M\n\x0bmetric_type\x18\x02 \x01(\x0e\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricType\x12Y\n\x11resource_boundary\x18\x03 \x01(\x0e\x32>.containersai.alameda.v1alpha1.datahub.common.ResourceBoundary\x12S\n\x0eresource_quota\x18\x04 \x01(\x0e\x32;.containersai.alameda.v1alpha1.datahub.common.ResourceQuota\x12\x0f\n\x07\x63olumns\x18\x05 \x03(\t\x12?\n\x04rows\x18\x06 \x03(\x0b\x32\x31.containersai.alameda.v1alpha1.datahub.common.Row\"\xf5\x02\n\x08ReadData\x12\x13\n\x0bmeasurement\x18\x01 \x01(\t\x12M\n\x0bmetric_type\x18\x02 \x01(\x0e\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricType\x12Y\n\x11resource_boundary\x18\x03 \x01(\x0e\x32>.containersai.alameda.v1alpha1.datahub.common.ResourceBoundary\x12S\n\x0eresource_quota\x18\x04 \x01(\x0e\x32;.containersai.alameda.v1alpha1.datahub.common.ResourceQuota\x12U\n\x0fquery_condition\x18\x05 \x01(\x0b\x32<.containersai.alameda.v1alpha1.datahub.common.QueryCondition\"\xf7\x02\n\nDeleteData\x12\x13\n\x0bmeasurement\x18\x01 \x01(\t\x12M\n\x0bmetric_type\x18\x02 \x01(\x0e\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricType\x12Y\n\x11resource_boundary\x18\x03 \x01(\x0e\x32>.containersai.alameda.v1alpha1.datahub.common.ResourceBoundary\x12S\n\x0eresource_quota\x18\x04 \x01(\x0e\x32;.containersai.alameda.v1alpha1.datahub.common.ResourceQuota\x12U\n\x0fquery_condition\x18\x05 \x01(\x0b\x32<.containersai.alameda.v1alpha1.datahub.common.QueryConditionB@Z>github.com/containers-ai/api/alameda_api/v1alpha1/datahub/datab\x06proto3'
+  serialized_pb=b'\n,alameda_api/v1alpha1/datahub/data/data.proto\x12*containersai.alameda.v1alpha1.datahub.data\x1a\x31\x61lameda_api/v1alpha1/datahub/common/metrics.proto\x1a\x31\x61lameda_api/v1alpha1/datahub/common/queries.proto\x1a\x31\x61lameda_api/v1alpha1/datahub/common/rawdata.proto\x1a/alameda_api/v1alpha1/datahub/common/types.proto\"\xf1\x02\n\tWriteData\x12\x13\n\x0bmeasurement\x18\x01 \x01(\t\x12M\n\x0bmetric_type\x18\x02 \x01(\x0e\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricType\x12Y\n\x11resource_boundary\x18\x03 \x01(\x0e\x32>.containersai.alameda.v1alpha1.datahub.common.ResourceBoundary\x12S\n\x0eresource_quota\x18\x04 \x01(\x0e\x32;.containersai.alameda.v1alpha1.datahub.common.ResourceQuota\x12\x0f\n\x07\x63olumns\x18\x05 \x03(\t\x12?\n\x04rows\x18\x06 \x03(\x0b\x32\x31.containersai.alameda.v1alpha1.datahub.common.Row\"\xf5\x02\n\x08ReadData\x12\x13\n\x0bmeasurement\x18\x01 \x01(\t\x12M\n\x0bmetric_type\x18\x02 \x01(\x0e\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricType\x12Y\n\x11resource_boundary\x18\x03 \x01(\x0e\x32>.containersai.alameda.v1alpha1.datahub.common.ResourceBoundary\x12S\n\x0eresource_quota\x18\x04 \x01(\x0e\x32;.containersai.alameda.v1alpha1.datahub.common.ResourceQuota\x12U\n\x0fquery_condition\x18\x05 \x01(\x0b\x32<.containersai.alameda.v1alpha1.datahub.common.QueryCondition\"\xf7\x02\n\nDeleteData\x12\x13\n\x0bmeasurement\x18\x01 \x01(\t\x12M\n\x0bmetric_type\x18\x02 \x01(\x0e\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricType\x12Y\n\x11resource_boundary\x18\x03 \x01(\x0e\x32>.containersai.alameda.v1alpha1.datahub.common.ResourceBoundary\x12S\n\x0eresource_quota\x18\x04 \x01(\x0e\x32;.containersai.alameda.v1alpha1.datahub.common.ResourceQuota\x12U\n\x0fquery_condition\x18\x05 \x01(\x0b\x32<.containersai.alameda.v1alpha1.datahub.common.QueryCondition\"\xbd\x03\n\tWriteMeta\x12\x13\n\x0bmeasurement\x18\x01 \x01(\t\x12M\n\x0bmetric_type\x18\x02 \x01(\x0e\x32\x38.containersai.alameda.v1alpha1.datahub.common.MetricType\x12Y\n\x11resource_boundary\x18\x03 \x01(\x0e\x32>.containersai.alameda.v1alpha1.datahub.common.ResourceBoundary\x12S\n\x0eresource_quota\x18\x04 \x01(\x0e\x32;.containersai.alameda.v1alpha1.datahub.common.ResourceQuota\x12J\n\tcondition\x18\x05 \x01(\x0b\x32\x37.containersai.alameda.v1alpha1.datahub.common.Condition\x12\x0f\n\x07\x63olumns\x18\x06 \x03(\t\x12?\n\x04rows\x18\x07 \x03(\x0b\x32\x31.containersai.alameda.v1alpha1.datahub.common.RowB@Z>github.com/containers-ai/api/alameda_api/v1alpha1/datahub/datab\x06proto3'
   ,
   dependencies=[alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_metrics__pb2.DESCRIPTOR,alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_queries__pb2.DESCRIPTOR,alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_rawdata__pb2.DESCRIPTOR,alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_types__pb2.DESCRIPTOR,])
 
@@ -212,6 +212,79 @@ _DELETEDATA = _descriptor.Descriptor(
   serialized_end=1418,
 )
 
+
+_WRITEMETA = _descriptor.Descriptor(
+  name='WriteMeta',
+  full_name='containersai.alameda.v1alpha1.datahub.data.WriteMeta',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='measurement', full_name='containersai.alameda.v1alpha1.datahub.data.WriteMeta.measurement', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='metric_type', full_name='containersai.alameda.v1alpha1.datahub.data.WriteMeta.metric_type', index=1,
+      number=2, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='resource_boundary', full_name='containersai.alameda.v1alpha1.datahub.data.WriteMeta.resource_boundary', index=2,
+      number=3, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='resource_quota', full_name='containersai.alameda.v1alpha1.datahub.data.WriteMeta.resource_quota', index=3,
+      number=4, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='condition', full_name='containersai.alameda.v1alpha1.datahub.data.WriteMeta.condition', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='columns', full_name='containersai.alameda.v1alpha1.datahub.data.WriteMeta.columns', index=5,
+      number=6, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='rows', full_name='containersai.alameda.v1alpha1.datahub.data.WriteMeta.rows', index=6,
+      number=7, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1421,
+  serialized_end=1866,
+)
+
 _WRITEDATA.fields_by_name['metric_type'].enum_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_metrics__pb2._METRICTYPE
 _WRITEDATA.fields_by_name['resource_boundary'].enum_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_types__pb2._RESOURCEBOUNDARY
 _WRITEDATA.fields_by_name['resource_quota'].enum_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_types__pb2._RESOURCEQUOTA
@@ -224,9 +297,15 @@ _DELETEDATA.fields_by_name['metric_type'].enum_type = alameda__api_dot_v1alpha1_
 _DELETEDATA.fields_by_name['resource_boundary'].enum_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_types__pb2._RESOURCEBOUNDARY
 _DELETEDATA.fields_by_name['resource_quota'].enum_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_types__pb2._RESOURCEQUOTA
 _DELETEDATA.fields_by_name['query_condition'].message_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_queries__pb2._QUERYCONDITION
+_WRITEMETA.fields_by_name['metric_type'].enum_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_metrics__pb2._METRICTYPE
+_WRITEMETA.fields_by_name['resource_boundary'].enum_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_types__pb2._RESOURCEBOUNDARY
+_WRITEMETA.fields_by_name['resource_quota'].enum_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_types__pb2._RESOURCEQUOTA
+_WRITEMETA.fields_by_name['condition'].message_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_queries__pb2._CONDITION
+_WRITEMETA.fields_by_name['rows'].message_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_rawdata__pb2._ROW
 DESCRIPTOR.message_types_by_name['WriteData'] = _WRITEDATA
 DESCRIPTOR.message_types_by_name['ReadData'] = _READDATA
 DESCRIPTOR.message_types_by_name['DeleteData'] = _DELETEDATA
+DESCRIPTOR.message_types_by_name['WriteMeta'] = _WRITEMETA
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 WriteData = _reflection.GeneratedProtocolMessageType('WriteData', (_message.Message,), {
@@ -249,6 +328,13 @@ DeleteData = _reflection.GeneratedProtocolMessageType('DeleteData', (_message.Me
   # @@protoc_insertion_point(class_scope:containersai.alameda.v1alpha1.datahub.data.DeleteData)
   })
 _sym_db.RegisterMessage(DeleteData)
+
+WriteMeta = _reflection.GeneratedProtocolMessageType('WriteMeta', (_message.Message,), {
+  'DESCRIPTOR' : _WRITEMETA,
+  '__module__' : 'alameda_api.v1alpha1.datahub.data.data_pb2'
+  # @@protoc_insertion_point(class_scope:containersai.alameda.v1alpha1.datahub.data.WriteMeta)
+  })
+_sym_db.RegisterMessage(WriteMeta)
 
 
 DESCRIPTOR._options = None

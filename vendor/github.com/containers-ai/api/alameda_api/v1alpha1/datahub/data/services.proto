@@ -30,3 +30,8 @@ message DeleteDataRequest {
     schemas.SchemaMeta  schema_meta = 1;
     repeated DeleteData delete_data = 2;
 }
+
+message WriteMetaRequest {
+    schemas.SchemaMeta schema_meta = 1;
+    repeated WriteMeta write_meta  = 2;
+}

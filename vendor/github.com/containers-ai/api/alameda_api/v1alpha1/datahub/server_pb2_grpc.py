@@ -59,6 +59,11 @@ class DatahubServiceStub(object):
         request_serializer=alameda__api_dot_v1alpha1_dot_datahub_dot_data_dot_services__pb2.DeleteDataRequest.SerializeToString,
         response_deserializer=google_dot_rpc_dot_status__pb2.Status.FromString,
         )
+    self.WriteMeta = channel.unary_unary(
+        '/containersai.alameda.v1alpha1.datahub.DatahubService/WriteMeta',
+        request_serializer=alameda__api_dot_v1alpha1_dot_datahub_dot_data_dot_services__pb2.WriteMetaRequest.SerializeToString,
+        response_deserializer=google_dot_rpc_dot_status__pb2.Status.FromString,
+        )
     self.CreateEvents = channel.unary_unary(
         '/containersai.alameda.v1alpha1.datahub.DatahubService/CreateEvents',
         request_serializer=alameda__api_dot_v1alpha1_dot_datahub_dot_events_dot_services__pb2.CreateEventsRequest.SerializeToString,
@@ -591,6 +596,13 @@ class DatahubServiceServicer(object):
     raise NotImplementedError('Method not implemented!')
 
   def DeleteData(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def WriteMeta(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -1315,6 +1327,11 @@ def add_DatahubServiceServicer_to_server(servicer, server):
       'DeleteData': grpc.unary_unary_rpc_method_handler(
           servicer.DeleteData,
           request_deserializer=alameda__api_dot_v1alpha1_dot_datahub_dot_data_dot_services__pb2.DeleteDataRequest.FromString,
+          response_serializer=google_dot_rpc_dot_status__pb2.Status.SerializeToString,
+      ),
+      'WriteMeta': grpc.unary_unary_rpc_method_handler(
+          servicer.WriteMeta,
+          request_deserializer=alameda__api_dot_v1alpha1_dot_datahub_dot_data_dot_services__pb2.WriteMetaRequest.FromString,
           response_serializer=google_dot_rpc_dot_status__pb2.Status.SerializeToString,
       ),
       'CreateEvents': grpc.unary_unary_rpc_method_handler(
