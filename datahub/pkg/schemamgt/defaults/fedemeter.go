@@ -10,7 +10,7 @@ func SchemaFedemeterCalculation() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Fedemeter, "calculation", "price")
 
 	// Instance cost
-	instance := schemas.NewMeasurement("calculation_price_instance", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	instance := schemas.NewMeasurement("calculation_price_instance", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	instance.AddColumn("nodename", true, schemas.Tag, common.String)
 	instance.AddColumn("clustername", true, schemas.Tag, common.String)
 	instance.AddColumn("provider", true, schemas.Tag, common.String)
@@ -33,7 +33,7 @@ func SchemaFedemeterCalculation() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, instance)
 
 	// Storage cost
-	storage := schemas.NewMeasurement("calculation_price_storage", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	storage := schemas.NewMeasurement("calculation_price_storage", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	storage.AddColumn("nodename", true, schemas.Tag, common.String)
 	storage.AddColumn("clustername", true, schemas.Tag, common.String)
 	storage.AddColumn("provider", true, schemas.Tag, common.String)
@@ -54,7 +54,7 @@ func SchemaFedemeterCalculation() *schemas.Schema {
 
 func SchemaFedemeterRecommendationJERI() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Fedemeter, "recommendation", "jeri")
-	measurement := schemas.NewMeasurement("recommendation_jeri", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement := schemas.NewMeasurement("recommendation_jeri", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	measurement.AddColumn("clustername", true, schemas.Tag, common.String)
 	measurement.AddColumn("country", true, schemas.Tag, common.String)
 	measurement.AddColumn("instancetype", true, schemas.Tag, common.String)
@@ -89,7 +89,7 @@ func SchemaFedemeterResourceHistoryCost() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Fedemeter, "resource_history", "cost")
 
 	// Application cost allocation
-	app := schemas.NewMeasurement("resource_history_cost_app", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	app := schemas.NewMeasurement("resource_history_cost_app", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	app.AddColumn("appname", true, schemas.Tag, common.String)
 	app.AddColumn("namespacename", true, schemas.Tag, common.String)
 	app.AddColumn("clustername", true, schemas.Tag, common.String)
@@ -103,7 +103,7 @@ func SchemaFedemeterResourceHistoryCost() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, app)
 
 	// Namespace cost allocation
-	namespace := schemas.NewMeasurement("resource_history_cost_namespace", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	namespace := schemas.NewMeasurement("resource_history_cost_namespace", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	namespace.AddColumn("namespacename", true, schemas.Tag, common.String)
 	namespace.AddColumn("clustername", true, schemas.Tag, common.String)
 	namespace.AddColumn("provider", true, schemas.Tag, common.String)
@@ -123,7 +123,7 @@ func SchemaFedemeterResourcePredictionCost() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Fedemeter, "resource_prediction", "cost")
 
 	// Application cost allocation
-	app := schemas.NewMeasurement("resource_prediction_cost_app", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	app := schemas.NewMeasurement("resource_prediction_cost_app", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	app.AddColumn("appname", true, schemas.Tag, common.String)
 	app.AddColumn("namespacename", true, schemas.Tag, common.String)
 	app.AddColumn("clustername", true, schemas.Tag, common.String)
@@ -137,7 +137,7 @@ func SchemaFedemeterResourcePredictionCost() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, app)
 
 	// Namespace cost allocation
-	namespace := schemas.NewMeasurement("resource_prediction_cost_namespace", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	namespace := schemas.NewMeasurement("resource_prediction_cost_namespace", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
 	namespace.AddColumn("namespacename", true, schemas.Tag, common.String)
 	namespace.AddColumn("clustername", true, schemas.Tag, common.String)
 	namespace.AddColumn("provider", true, schemas.Tag, common.String)

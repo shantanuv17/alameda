@@ -63,7 +63,8 @@ func (p *SchemaManagement) Refresh() error {
 					metricType, _ := strconv.ParseInt(row["metric_type"], 10, 64)
 					boundary, _ := strconv.ParseInt(row["resource_boundary"], 10, 64)
 					quota, _ := strconv.ParseInt(row["resource_quota"], 10, 64)
-					schema.AddMeasurement(row["measurement"], InternalSchemas.MetricType(metricType), InternalSchemas.ResourceBoundary(boundary), InternalSchemas.ResourceQuota(quota), row["columns"])
+					isTS, _ := strconv.ParseBool(row["is_ts"])
+					schema.AddMeasurement(row["measurement"], InternalSchemas.MetricType(metricType), InternalSchemas.ResourceBoundary(boundary), InternalSchemas.ResourceQuota(quota), isTS, row["columns"])
 				}
 			}
 		}
@@ -250,6 +251,7 @@ func (p *SchemaManagement) buildSchemaPoints(table InternalSchemas.Scope, schema
 
 			// Pack influx fields
 			fields := map[string]interface{}{
+				"is_ts":   measurement.IsTS,
 				"columns": measurement.String(),
 			}
 

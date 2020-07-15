@@ -5,7 +5,7 @@ import (
 )
 
 type MetricKafkaTopicCurrentOffset struct {
-	DatahubEntity `scope:"metric" category:"kafka" type:"topic" measurement:"kafka_topic_partition_current_offset" metric:"current_offset" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"kafka" type:"topic" measurement:"kafka_topic_partition_current_offset" metric:"current_offset" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"    required:"true"  column:"tag"   type:"string"`
@@ -14,7 +14,7 @@ type MetricKafkaTopicCurrentOffset struct {
 }
 
 type MetricKafkaConsumerGroupCurrentOffset struct {
-	DatahubEntity `scope:"metric" category:"kafka" type:"consumer_group" measurement:"kafka_consumer_group_current_offset" metric:"current_offset" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"kafka" type:"consumer_group" measurement:"kafka_consumer_group_current_offset" metric:"current_offset" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"    required:"true"  column:"tag"   type:"string"`
@@ -24,7 +24,7 @@ type MetricKafkaConsumerGroupCurrentOffset struct {
 }
 
 type MetricKafkaConsumerGroupLag struct {
-	DatahubEntity `scope:"metric" category:"kafka" type:"consumer_group" measurement:"kafka_consumer_group_lag" metric:"lag" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"kafka" type:"consumer_group" measurement:"kafka_consumer_group_lag" metric:"lag" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"    required:"true"  column:"tag"   type:"string"`
@@ -34,7 +34,7 @@ type MetricKafkaConsumerGroupLag struct {
 }
 
 type MetricNginxHttpResponseTotal struct {
-	DatahubEntity               `scope:"metric" category:"nginx" type:"nginx" measurement:"nginx_http_response_total" metric:"number" boundary:"undefined" quota:"undefined"`
+	DatahubEntity               `scope:"metric" category:"nginx" type:"nginx" measurement:"nginx_http_response_total" metric:"number" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                        *time.Time `json:"time"                           required:"false" column:"tag"   type:"time"`
 	ClusterName                 string     `json:"cluster_name"                   required:"true"  column:"tag"   type:"string"`
 	ResourceK8sServiceName      string     `json:"resource_k8s_service_name"      required:"true"  column:"tag"   type:"string"`
@@ -46,7 +46,7 @@ type MetricNginxHttpResponseTotal struct {
 }
 
 type MetricNginxHttpResponseLatency struct {
-	DatahubEntity               `scope:"metric" category:"nginx" type:"nginx" measurement:"nginx_http_response_latency_ms" metric:"latency" boundary:"undefined" quota:"undefined"`
+	DatahubEntity               `scope:"metric" category:"nginx" type:"nginx" measurement:"nginx_http_response_latency_ms" metric:"latency" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                        *time.Time `json:"time"                           required:"false" column:"tag"   type:"time"`
 	ClusterName                 string     `json:"cluster_name"                   required:"true"  column:"tag"   type:"string"`
 	ResourceK8sServiceName      string     `json:"resource_k8s_service_name"      required:"true"  column:"tag"   type:"string"`
@@ -58,7 +58,7 @@ type MetricNginxHttpResponseLatency struct {
 }
 
 type MetricClusterStatusApplicationCPUUsage struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"application" measurement:"application_cpu" metric:"cpu_millicores_usage" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"application" measurement:"application_cpu" metric:"cpu_millicores_usage" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"    required:"true"  column:"tag"   type:"string"`
@@ -68,7 +68,7 @@ type MetricClusterStatusApplicationCPUUsage struct {
 }
 
 type MetricClusterStatusApplicationMemoryUsage struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"application" measurement:"application_memory" metric:"memory_bytes_usage" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"application" measurement:"application_memory" metric:"memory_bytes_usage" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"    required:"true"  column:"tag"   type:"string"`
@@ -78,7 +78,7 @@ type MetricClusterStatusApplicationMemoryUsage struct {
 }
 
 type MetricClusterStatusClusterCPUUsage struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"cluster" measurement:"cluster_cpu" metric:"cpu_millicores_usage" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"cluster" measurement:"cluster_cpu" metric:"cpu_millicores_usage" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"  required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"  required:"true"  column:"tag"   type:"string"`
 	Uid           string     `json:"uid"   required:"true"  column:"tag"   type:"string"`
@@ -86,7 +86,7 @@ type MetricClusterStatusClusterCPUUsage struct {
 }
 
 type MetricClusterStatusClusterMemoryUsage struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"cluster" measurement:"cluster_memory" metric:"memory_bytes_usage" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"cluster" measurement:"cluster_memory" metric:"memory_bytes_usage" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"  required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"  required:"true"  column:"tag"   type:"string"`
 	Uid           string     `json:"uid"   required:"true"  column:"tag"   type:"string"`
@@ -94,7 +94,7 @@ type MetricClusterStatusClusterMemoryUsage struct {
 }
 
 type MetricClusterStatusContainerCPUUsage struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"container" measurement:"container_cpu" metric:"cpu_millicores_usage" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"container" measurement:"container_cpu" metric:"cpu_millicores_usage" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	NodeName      string     `json:"node_name"     required:"true"  column:"tag"   type:"string"`
@@ -106,7 +106,7 @@ type MetricClusterStatusContainerCPUUsage struct {
 }
 
 type MetricClusterStatusContainerMemoryUsage struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"container" measurement:"container_memory" metric:"memory_bytes_usage" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"container" measurement:"container_memory" metric:"memory_bytes_usage" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	NodeName      string     `json:"node_name"     required:"true"  column:"tag"   type:"string"`
@@ -119,7 +119,7 @@ type MetricClusterStatusContainerMemoryUsage struct {
 
 // Resource requests cpu millicores
 type MetricClusterStatusContainerRscReqCPU struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"container" measurement:"container_resource_requests_cpu_millicores" metric:"cpu_millicores_total" boundary:"undefined" quota:"request"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"container" measurement:"container_resource_requests_cpu_millicores" metric:"cpu_millicores_total" boundary:"undefined" quota:"request" ts:"true"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	NodeName      string     `json:"node_name"     required:"true"  column:"tag"   type:"string"`
@@ -131,7 +131,7 @@ type MetricClusterStatusContainerRscReqCPU struct {
 
 // Resource limits cpu millicores
 type MetricClusterStatusContainerRscLimitCPU struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"container" measurement:"container_resource_limits_cpu_millicores" metric:"cpu_millicores_total" boundary:"undefined" quota:"limit"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"container" measurement:"container_resource_limits_cpu_millicores" metric:"cpu_millicores_total" boundary:"undefined" quota:"limit" ts:"true"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	NodeName      string     `json:"node_name"     required:"true"  column:"tag"   type:"string"`
@@ -143,7 +143,7 @@ type MetricClusterStatusContainerRscLimitCPU struct {
 
 // Resource requests memory bytes
 type MetricClusterStatusContainerRscReqMemory struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"container" measurement:"container_resource_requests_memory_bytes" metric:"memory_bytes_total" boundary:"undefined" quota:"request"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"container" measurement:"container_resource_requests_memory_bytes" metric:"memory_bytes_total" boundary:"undefined" quota:"request" ts:"true"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	NodeName      string     `json:"node_name"     required:"true"  column:"tag"   type:"string"`
@@ -155,7 +155,7 @@ type MetricClusterStatusContainerRscReqMemory struct {
 
 // Resource limits memory bytes
 type MetricClusterStatusContainerRscLimitMemory struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"container" measurement:"container_resource_limits_memory_bytes" metric:"memory_bytes_total" boundary:"undefined" quota:"limit"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"container" measurement:"container_resource_limits_memory_bytes" metric:"memory_bytes_total" boundary:"undefined" quota:"limit" ts:"true"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	NodeName      string     `json:"node_name"     required:"true"  column:"tag"   type:"string"`
@@ -166,7 +166,7 @@ type MetricClusterStatusContainerRscLimitMemory struct {
 }
 
 type MetricClusterStatusContainerRestartsTotal struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"container" measurement:"container_restarts_total" metric:"restarts_total" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"container" measurement:"container_restarts_total" metric:"restarts_total" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	NodeName      string     `json:"node_name"     required:"true"  column:"tag"   type:"string"`
@@ -177,7 +177,7 @@ type MetricClusterStatusContainerRestartsTotal struct {
 }
 
 type MetricClusterStatusControllerCPUUsage struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"controller" measurement:"controller_cpu" metric:"cpu_millicores_usage" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"controller" measurement:"controller_cpu" metric:"cpu_millicores_usage" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"    required:"true"  column:"tag"   type:"string"`
@@ -188,7 +188,7 @@ type MetricClusterStatusControllerCPUUsage struct {
 }
 
 type MetricClusterStatusControllerMemoryUsage struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"controller" measurement:"controller_memory" metric:"memory_bytes_usage" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"controller" measurement:"controller_memory" metric:"memory_bytes_usage" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"    required:"true"  column:"tag"   type:"string"`
@@ -199,7 +199,7 @@ type MetricClusterStatusControllerMemoryUsage struct {
 }
 
 type MetricClusterStatusNamespaceCPUUsage struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"namespace" measurement:"namespace_cpu" metric:"cpu_millicores_usage" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"namespace" measurement:"namespace_cpu" metric:"cpu_millicores_usage" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"  type:"time"`
 	Name          string     `json:"name"         required:"true" column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name" required:"true" column:"tag"   type:"string"`
@@ -208,7 +208,7 @@ type MetricClusterStatusNamespaceCPUUsage struct {
 }
 
 type MetricClusterStatusNamespaceMemoryUsage struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"namespace" measurement:"namespace_memory" metric:"memory_bytes_usage" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"namespace" measurement:"namespace_memory" metric:"memory_bytes_usage" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name" required:"true"  column:"tag"   type:"string"`
@@ -217,7 +217,7 @@ type MetricClusterStatusNamespaceMemoryUsage struct {
 }
 
 type MetricClusterStatusNodeCPUAllocatable struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_cpu_cores_allocatable" metric:"cpu_cores_alloc" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_cpu_cores_allocatable" metric:"cpu_cores_alloc" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name" required:"true"  column:"tag"   type:"string"`
@@ -226,7 +226,7 @@ type MetricClusterStatusNodeCPUAllocatable struct {
 }
 
 type MetricClusterStatusNodeCPUTotal struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_cpu_millicores_total" metric:"cpu_millicores_total" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_cpu_millicores_total" metric:"cpu_millicores_total" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name" required:"true"  column:"tag"   type:"string"`
@@ -235,7 +235,7 @@ type MetricClusterStatusNodeCPUTotal struct {
 }
 
 type MetricClusterStatusNodeCPUUsage struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_cpu" metric:"cpu_millicores_usage" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_cpu" metric:"cpu_millicores_usage" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name" required:"true"  column:"tag"   type:"string"`
@@ -244,7 +244,7 @@ type MetricClusterStatusNodeCPUUsage struct {
 }
 
 type MetricClusterStatusNodeMemoryTotal struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_memory_bytes_total" metric:"memory_bytes_total" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_memory_bytes_total" metric:"memory_bytes_total" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name" required:"true"  column:"tag"   type:"string"`
@@ -253,7 +253,7 @@ type MetricClusterStatusNodeMemoryTotal struct {
 }
 
 type MetricClusterStatusNodeMemoryUsage struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_memory" metric:"memory_bytes_usage" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_memory" metric:"memory_bytes_usage" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name" required:"true"  column:"tag"   type:"string"`
@@ -263,7 +263,7 @@ type MetricClusterStatusNodeMemoryUsage struct {
 
 // Filesystem bytes usage percentage
 type MetricClusterStatusNodeFSPCT struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_fs_bytes_usage_pct" metric:"fs_bytes_usage_pct" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_fs_bytes_usage_pct" metric:"fs_bytes_usage_pct" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name" required:"true"  column:"tag"   type:"string"`
@@ -275,7 +275,7 @@ type MetricClusterStatusNodeFSPCT struct {
 
 // Disk I/O utilization
 type MetricClusterStatusNodeDiskIOUtil struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_disk_io_util" metric:"disk_io_util" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_disk_io_util" metric:"disk_io_util" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name" required:"true"  column:"tag"   type:"string"`
@@ -284,7 +284,7 @@ type MetricClusterStatusNodeDiskIOUtil struct {
 }
 
 type MetricClusterStatusNodePodPhaseCount struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_pod_phase_count" metric:"number" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_pod_phase_count" metric:"number" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name" required:"true"  column:"tag"   type:"string"`
@@ -297,7 +297,7 @@ type MetricClusterStatusNodePodPhaseCount struct {
 }
 
 type MetricClusterStatusNodeUnschedulable struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_unschedulable" metric:"unschedulable" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"node" measurement:"node_unschedulable" metric:"unschedulable" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
 	ClusterName   string     `json:"cluster_name" required:"true"  column:"tag"   type:"string"`
@@ -306,7 +306,7 @@ type MetricClusterStatusNodeUnschedulable struct {
 }
 
 type MetricClusterStatusServiceHealth struct {
-	DatahubEntity `scope:"metric" category:"cluster_status" type:"service" measurement:"service_health" metric:"health" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"cluster_status" type:"service" measurement:"service_health" metric:"health" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	NodeName      string     `json:"node_name"     required:"true"  column:"tag"   type:"string"`
@@ -318,7 +318,7 @@ type MetricClusterStatusServiceHealth struct {
 }
 
 type MetricTopContainerCPUUsagePCT struct {
-	DatahubEntity `scope:"metric" category:"top" type:"container" measurement:"top_container_cpu_millicores_usage_pct" metric:"cpu_millicores_usage_pct" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"top" type:"container" measurement:"top_container_cpu_millicores_usage_pct" metric:"cpu_millicores_usage_pct" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	NodeName      string     `json:"node_name"     required:"true"  column:"tag"   type:"string"`
@@ -329,7 +329,7 @@ type MetricTopContainerCPUUsagePCT struct {
 }
 
 type MetricTopContainerMemoryUsage struct {
-	DatahubEntity `scope:"metric" category:"top" type:"container" measurement:"top_container_memory_bytes_usage" metric:"memory_bytes_usage" boundary:"undefined" quota:"undefined"`
+	DatahubEntity `scope:"metric" category:"top" type:"container" measurement:"top_container_memory_bytes_usage" metric:"memory_bytes_usage" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	NodeName      string     `json:"node_name"     required:"true"  column:"tag"   type:"string"`

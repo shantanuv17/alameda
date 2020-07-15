@@ -10,7 +10,7 @@ func SchemaPredictionKafkaTopic() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Prediction, "kafka", "topic")
 
 	// Raw
-	raw := schemas.NewMeasurement("kafka_topic_partition_current_offset", schemas.CurrentOffset, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
+	raw := schemas.NewMeasurement("kafka_topic_partition_current_offset", schemas.CurrentOffset, schemas.ResourceRaw, schemas.ResourceQuotaUndefined, true)
 	raw.AddColumn("name", true, schemas.Tag, common.String)
 	raw.AddColumn("namespace", true, schemas.Tag, common.String)
 	raw.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -21,7 +21,7 @@ func SchemaPredictionKafkaTopic() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, raw)
 
 	// Upper bound
-	upperBound := schemas.NewMeasurement("kafka_topic_partition_current_offset_upper_bound", schemas.CurrentOffset, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
+	upperBound := schemas.NewMeasurement("kafka_topic_partition_current_offset_upper_bound", schemas.CurrentOffset, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined, true)
 	upperBound.AddColumn("name", true, schemas.Tag, common.String)
 	upperBound.AddColumn("namespace", true, schemas.Tag, common.String)
 	upperBound.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -32,7 +32,7 @@ func SchemaPredictionKafkaTopic() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, upperBound)
 
 	// Lower bound
-	lowerBound := schemas.NewMeasurement("kafka_topic_partition_current_offset_lower_bound", schemas.CurrentOffset, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
+	lowerBound := schemas.NewMeasurement("kafka_topic_partition_current_offset_lower_bound", schemas.CurrentOffset, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined, true)
 	lowerBound.AddColumn("name", true, schemas.Tag, common.String)
 	lowerBound.AddColumn("namespace", true, schemas.Tag, common.String)
 	lowerBound.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -50,7 +50,7 @@ func SchemaPredictionKafkaCG() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Prediction, "kafka", "consumer_group")
 
 	// Raw
-	raw := schemas.NewMeasurement("kafka_consumer_group_current_offset", schemas.CurrentOffset, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
+	raw := schemas.NewMeasurement("kafka_consumer_group_current_offset", schemas.CurrentOffset, schemas.ResourceRaw, schemas.ResourceQuotaUndefined, true)
 	raw.AddColumn("name", true, schemas.Tag, common.String)
 	raw.AddColumn("namespace", true, schemas.Tag, common.String)
 	raw.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -62,7 +62,7 @@ func SchemaPredictionKafkaCG() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, raw)
 
 	// Upper bound
-	upperBound := schemas.NewMeasurement("kafka_consumer_group_current_offset_upper_bound", schemas.CurrentOffset, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
+	upperBound := schemas.NewMeasurement("kafka_consumer_group_current_offset_upper_bound", schemas.CurrentOffset, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined, true)
 	upperBound.AddColumn("name", true, schemas.Tag, common.String)
 	upperBound.AddColumn("namespace", true, schemas.Tag, common.String)
 	upperBound.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -74,7 +74,7 @@ func SchemaPredictionKafkaCG() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, upperBound)
 
 	// Lower bound
-	lowerBound := schemas.NewMeasurement("kafka_consumer_group_current_offset_lower_bound", schemas.CurrentOffset, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
+	lowerBound := schemas.NewMeasurement("kafka_consumer_group_current_offset_lower_bound", schemas.CurrentOffset, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined, true)
 	lowerBound.AddColumn("name", true, schemas.Tag, common.String)
 	lowerBound.AddColumn("namespace", true, schemas.Tag, common.String)
 	lowerBound.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -215,7 +215,7 @@ func SchemaPredictionClusterStatusApplication() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Prediction, "cluster_status", "application")
 
 	// Raw CPU
-	rawCpu := schemas.NewMeasurement("application", schemas.CPUMilliCoresUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
+	rawCpu := schemas.NewMeasurement("application", schemas.CPUMilliCoresUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined, true)
 	rawCpu.AddColumn("name", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -228,7 +228,7 @@ func SchemaPredictionClusterStatusApplication() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, rawCpu)
 
 	// Raw memory
-	rawMem := schemas.NewMeasurement("application", schemas.MemoryBytesUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
+	rawMem := schemas.NewMeasurement("application", schemas.MemoryBytesUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined, true)
 	rawMem.AddColumn("name", true, schemas.Tag, common.String)
 	rawMem.AddColumn("namespace", true, schemas.Tag, common.String)
 	rawMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -241,7 +241,7 @@ func SchemaPredictionClusterStatusApplication() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, rawMem)
 
 	// Upper bound CPU
-	upperCpu := schemas.NewMeasurement("application", schemas.CPUMilliCoresUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
+	upperCpu := schemas.NewMeasurement("application", schemas.CPUMilliCoresUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined, true)
 	upperCpu.AddColumn("name", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -254,7 +254,7 @@ func SchemaPredictionClusterStatusApplication() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, upperCpu)
 
 	// Upper bound memory
-	upperMem := schemas.NewMeasurement("application", schemas.MemoryBytesUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
+	upperMem := schemas.NewMeasurement("application", schemas.MemoryBytesUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined, true)
 	upperMem.AddColumn("name", true, schemas.Tag, common.String)
 	upperMem.AddColumn("namespace", true, schemas.Tag, common.String)
 	upperMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -267,7 +267,7 @@ func SchemaPredictionClusterStatusApplication() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, upperMem)
 
 	// Lower bound CPU
-	lowerCpu := schemas.NewMeasurement("application", schemas.CPUMilliCoresUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
+	lowerCpu := schemas.NewMeasurement("application", schemas.CPUMilliCoresUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined, true)
 	lowerCpu.AddColumn("name", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -280,7 +280,7 @@ func SchemaPredictionClusterStatusApplication() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, lowerCpu)
 
 	// Lower bound memory
-	lowerMem := schemas.NewMeasurement("application", schemas.MemoryBytesUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
+	lowerMem := schemas.NewMeasurement("application", schemas.MemoryBytesUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined, true)
 	lowerMem.AddColumn("name", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("namespace", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -300,7 +300,7 @@ func SchemaPredictionClusterStatusCluster() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Prediction, "cluster_status", "cluster")
 
 	// Raw CPU
-	rawCpu := schemas.NewMeasurement("cluster", schemas.CPUMilliCoresUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
+	rawCpu := schemas.NewMeasurement("cluster", schemas.CPUMilliCoresUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined, true)
 	rawCpu.AddColumn("name", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("metric", false, schemas.Tag, common.String)
 	rawCpu.AddColumn("kind", false, schemas.Tag, common.String)
@@ -311,7 +311,7 @@ func SchemaPredictionClusterStatusCluster() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, rawCpu)
 
 	// Raw memory
-	rawMem := schemas.NewMeasurement("cluster", schemas.MemoryBytesUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
+	rawMem := schemas.NewMeasurement("cluster", schemas.MemoryBytesUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined, true)
 	rawMem.AddColumn("name", true, schemas.Tag, common.String)
 	rawMem.AddColumn("metric", false, schemas.Tag, common.String)
 	rawMem.AddColumn("kind", false, schemas.Tag, common.String)
@@ -322,7 +322,7 @@ func SchemaPredictionClusterStatusCluster() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, rawMem)
 
 	// Upper bound CPU
-	upperCpu := schemas.NewMeasurement("cluster", schemas.CPUMilliCoresUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
+	upperCpu := schemas.NewMeasurement("cluster", schemas.CPUMilliCoresUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined, true)
 	upperCpu.AddColumn("name", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("metric", false, schemas.Tag, common.String)
 	upperCpu.AddColumn("kind", false, schemas.Tag, common.String)
@@ -333,7 +333,7 @@ func SchemaPredictionClusterStatusCluster() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, upperCpu)
 
 	// Upper bound memory
-	upperMem := schemas.NewMeasurement("cluster", schemas.MemoryBytesUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
+	upperMem := schemas.NewMeasurement("cluster", schemas.MemoryBytesUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined, true)
 	upperMem.AddColumn("name", true, schemas.Tag, common.String)
 	upperMem.AddColumn("metric", false, schemas.Tag, common.String)
 	upperMem.AddColumn("kind", false, schemas.Tag, common.String)
@@ -344,7 +344,7 @@ func SchemaPredictionClusterStatusCluster() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, upperMem)
 
 	// Lower bound CPU
-	lowerCpu := schemas.NewMeasurement("cluster", schemas.CPUMilliCoresUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
+	lowerCpu := schemas.NewMeasurement("cluster", schemas.CPUMilliCoresUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined, true)
 	lowerCpu.AddColumn("name", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("metric", false, schemas.Tag, common.String)
 	lowerCpu.AddColumn("kind", false, schemas.Tag, common.String)
@@ -355,7 +355,7 @@ func SchemaPredictionClusterStatusCluster() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, lowerCpu)
 
 	// Lower bound memory
-	lowerMem := schemas.NewMeasurement("cluster", schemas.MemoryBytesUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
+	lowerMem := schemas.NewMeasurement("cluster", schemas.MemoryBytesUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined, true)
 	lowerMem.AddColumn("name", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("metric", false, schemas.Tag, common.String)
 	lowerMem.AddColumn("kind", false, schemas.Tag, common.String)
@@ -373,7 +373,7 @@ func SchemaPredictionClusterStatusContainer() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Prediction, "cluster_status", "container")
 
 	// Raw CPU
-	rawCpu := schemas.NewMeasurement("container", schemas.CPUMilliCoresUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
+	rawCpu := schemas.NewMeasurement("container", schemas.CPUMilliCoresUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined, true)
 	rawCpu.AddColumn("name", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("pod_name", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("namespace", true, schemas.Tag, common.String)
@@ -388,7 +388,7 @@ func SchemaPredictionClusterStatusContainer() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, rawCpu)
 
 	// Raw memory
-	rawMem := schemas.NewMeasurement("container", schemas.MemoryBytesUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
+	rawMem := schemas.NewMeasurement("container", schemas.MemoryBytesUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined, true)
 	rawMem.AddColumn("name", true, schemas.Tag, common.String)
 	rawMem.AddColumn("pod_name", true, schemas.Tag, common.String)
 	rawMem.AddColumn("namespace", true, schemas.Tag, common.String)
@@ -403,7 +403,7 @@ func SchemaPredictionClusterStatusContainer() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, rawMem)
 
 	// Upper bound CPU
-	upperCpu := schemas.NewMeasurement("container", schemas.CPUMilliCoresUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
+	upperCpu := schemas.NewMeasurement("container", schemas.CPUMilliCoresUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined, true)
 	upperCpu.AddColumn("name", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("pod_name", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("namespace", true, schemas.Tag, common.String)
@@ -418,7 +418,7 @@ func SchemaPredictionClusterStatusContainer() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, upperCpu)
 
 	// Upper bound memory
-	upperMem := schemas.NewMeasurement("container", schemas.MemoryBytesUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
+	upperMem := schemas.NewMeasurement("container", schemas.MemoryBytesUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined, true)
 	upperMem.AddColumn("name", true, schemas.Tag, common.String)
 	upperMem.AddColumn("pod_name", true, schemas.Tag, common.String)
 	upperMem.AddColumn("namespace", true, schemas.Tag, common.String)
@@ -433,7 +433,7 @@ func SchemaPredictionClusterStatusContainer() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, upperMem)
 
 	// Lower bound CPU
-	lowerCpu := schemas.NewMeasurement("container", schemas.CPUMilliCoresUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
+	lowerCpu := schemas.NewMeasurement("container", schemas.CPUMilliCoresUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined, true)
 	lowerCpu.AddColumn("name", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("pod_name", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("namespace", true, schemas.Tag, common.String)
@@ -448,7 +448,7 @@ func SchemaPredictionClusterStatusContainer() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, lowerCpu)
 
 	// Lower bound memory
-	lowerMem := schemas.NewMeasurement("container", schemas.MemoryBytesUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
+	lowerMem := schemas.NewMeasurement("container", schemas.MemoryBytesUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined, true)
 	lowerMem.AddColumn("name", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("pod_name", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("namespace", true, schemas.Tag, common.String)
@@ -470,7 +470,7 @@ func SchemaPredictionClusterStatusController() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Prediction, "cluster_status", "controller")
 
 	// Raw CPU
-	rawCpu := schemas.NewMeasurement("controller", schemas.CPUMilliCoresUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
+	rawCpu := schemas.NewMeasurement("controller", schemas.CPUMilliCoresUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined, true)
 	rawCpu.AddColumn("name", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -484,7 +484,7 @@ func SchemaPredictionClusterStatusController() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, rawCpu)
 
 	// Raw memory
-	rawMem := schemas.NewMeasurement("controller", schemas.MemoryBytesUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
+	rawMem := schemas.NewMeasurement("controller", schemas.MemoryBytesUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined, true)
 	rawMem.AddColumn("name", true, schemas.Tag, common.String)
 	rawMem.AddColumn("namespace", true, schemas.Tag, common.String)
 	rawMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -498,7 +498,7 @@ func SchemaPredictionClusterStatusController() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, rawMem)
 
 	// Upper bound CPU
-	upperCpu := schemas.NewMeasurement("controller", schemas.CPUMilliCoresUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
+	upperCpu := schemas.NewMeasurement("controller", schemas.CPUMilliCoresUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined, true)
 	upperCpu.AddColumn("name", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -512,7 +512,7 @@ func SchemaPredictionClusterStatusController() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, upperCpu)
 
 	// Upper bound memory
-	upperMem := schemas.NewMeasurement("controller", schemas.MemoryBytesUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
+	upperMem := schemas.NewMeasurement("controller", schemas.MemoryBytesUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined, true)
 	upperMem.AddColumn("name", true, schemas.Tag, common.String)
 	upperMem.AddColumn("namespace", true, schemas.Tag, common.String)
 	upperMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -526,7 +526,7 @@ func SchemaPredictionClusterStatusController() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, upperMem)
 
 	// Lower bound CPU
-	lowerCpu := schemas.NewMeasurement("controller", schemas.CPUMilliCoresUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
+	lowerCpu := schemas.NewMeasurement("controller", schemas.CPUMilliCoresUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined, true)
 	lowerCpu.AddColumn("name", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("namespace", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -540,7 +540,7 @@ func SchemaPredictionClusterStatusController() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, lowerCpu)
 
 	// Lower bound memory
-	lowerMem := schemas.NewMeasurement("controller", schemas.MemoryBytesUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
+	lowerMem := schemas.NewMeasurement("controller", schemas.MemoryBytesUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined, true)
 	lowerMem.AddColumn("name", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("namespace", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
@@ -561,7 +561,7 @@ func SchemaPredictionClusterStatusNamespace() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Prediction, "cluster_status", "namespace")
 
 	// Raw CPU
-	rawCpu := schemas.NewMeasurement("namespace", schemas.CPUMilliCoresUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
+	rawCpu := schemas.NewMeasurement("namespace", schemas.CPUMilliCoresUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined, true)
 	rawCpu.AddColumn("name", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("metric", false, schemas.Tag, common.String)
@@ -573,7 +573,7 @@ func SchemaPredictionClusterStatusNamespace() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, rawCpu)
 
 	// Raw memory
-	rawMem := schemas.NewMeasurement("namespace", schemas.MemoryBytesUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
+	rawMem := schemas.NewMeasurement("namespace", schemas.MemoryBytesUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined, true)
 	rawMem.AddColumn("name", true, schemas.Tag, common.String)
 	rawMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	rawMem.AddColumn("metric", false, schemas.Tag, common.String)
@@ -585,7 +585,7 @@ func SchemaPredictionClusterStatusNamespace() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, rawMem)
 
 	// Upper bound CPU
-	upperCpu := schemas.NewMeasurement("namespace", schemas.CPUMilliCoresUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
+	upperCpu := schemas.NewMeasurement("namespace", schemas.CPUMilliCoresUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined, true)
 	upperCpu.AddColumn("name", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("metric", false, schemas.Tag, common.String)
@@ -597,7 +597,7 @@ func SchemaPredictionClusterStatusNamespace() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, upperCpu)
 
 	// Upper bound memory
-	upperMem := schemas.NewMeasurement("namespace", schemas.MemoryBytesUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
+	upperMem := schemas.NewMeasurement("namespace", schemas.MemoryBytesUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined, true)
 	upperMem.AddColumn("name", true, schemas.Tag, common.String)
 	upperMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	upperMem.AddColumn("metric", false, schemas.Tag, common.String)
@@ -609,7 +609,7 @@ func SchemaPredictionClusterStatusNamespace() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, upperMem)
 
 	// Lower bound CPU
-	lowerCpu := schemas.NewMeasurement("namespace", schemas.CPUMilliCoresUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
+	lowerCpu := schemas.NewMeasurement("namespace", schemas.CPUMilliCoresUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined, true)
 	lowerCpu.AddColumn("name", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("metric", false, schemas.Tag, common.String)
@@ -621,7 +621,7 @@ func SchemaPredictionClusterStatusNamespace() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, lowerCpu)
 
 	// Lower bound memory
-	lowerMem := schemas.NewMeasurement("namespace", schemas.MemoryBytesUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
+	lowerMem := schemas.NewMeasurement("namespace", schemas.MemoryBytesUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined, true)
 	lowerMem.AddColumn("name", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("metric", false, schemas.Tag, common.String)
@@ -640,7 +640,7 @@ func SchemaPredictionClusterStatusNode() *schemas.Schema {
 	schema := schemas.NewSchema(schemas.Prediction, "cluster_status", "node")
 
 	// Raw CPU
-	rawCpu := schemas.NewMeasurement("node", schemas.CPUMilliCoresUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
+	rawCpu := schemas.NewMeasurement("node", schemas.CPUMilliCoresUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined, true)
 	rawCpu.AddColumn("name", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	rawCpu.AddColumn("metric", false, schemas.Tag, common.String)
@@ -653,7 +653,7 @@ func SchemaPredictionClusterStatusNode() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, rawCpu)
 
 	// Raw memory
-	rawMem := schemas.NewMeasurement("node", schemas.MemoryBytesUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined)
+	rawMem := schemas.NewMeasurement("node", schemas.MemoryBytesUsage, schemas.ResourceRaw, schemas.ResourceQuotaUndefined, true)
 	rawMem.AddColumn("name", true, schemas.Tag, common.String)
 	rawMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	rawMem.AddColumn("metric", false, schemas.Tag, common.String)
@@ -666,7 +666,7 @@ func SchemaPredictionClusterStatusNode() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, rawMem)
 
 	// Upper bound CPU
-	upperCpu := schemas.NewMeasurement("node", schemas.CPUMilliCoresUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
+	upperCpu := schemas.NewMeasurement("node", schemas.CPUMilliCoresUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined, true)
 	upperCpu.AddColumn("name", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	upperCpu.AddColumn("metric", false, schemas.Tag, common.String)
@@ -679,7 +679,7 @@ func SchemaPredictionClusterStatusNode() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, upperCpu)
 
 	// Upper bound memory
-	upperMem := schemas.NewMeasurement("node", schemas.MemoryBytesUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined)
+	upperMem := schemas.NewMeasurement("node", schemas.MemoryBytesUsage, schemas.ResourceUpperBound, schemas.ResourceQuotaUndefined, true)
 	upperMem.AddColumn("name", true, schemas.Tag, common.String)
 	upperMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	upperMem.AddColumn("metric", false, schemas.Tag, common.String)
@@ -692,7 +692,7 @@ func SchemaPredictionClusterStatusNode() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, upperMem)
 
 	// Lower bound CPU
-	lowerCpu := schemas.NewMeasurement("node", schemas.CPUMilliCoresUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
+	lowerCpu := schemas.NewMeasurement("node", schemas.CPUMilliCoresUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined, true)
 	lowerCpu.AddColumn("name", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	lowerCpu.AddColumn("metric", false, schemas.Tag, common.String)
@@ -705,7 +705,7 @@ func SchemaPredictionClusterStatusNode() *schemas.Schema {
 	schema.Measurements = append(schema.Measurements, lowerCpu)
 
 	// Lower bound memory
-	lowerMem := schemas.NewMeasurement("node", schemas.MemoryBytesUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined)
+	lowerMem := schemas.NewMeasurement("node", schemas.MemoryBytesUsage, schemas.ResourceLowerBound, schemas.ResourceQuotaUndefined, true)
 	lowerMem.AddColumn("name", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("cluster_name", true, schemas.Tag, common.String)
 	lowerMem.AddColumn("metric", false, schemas.Tag, common.String)

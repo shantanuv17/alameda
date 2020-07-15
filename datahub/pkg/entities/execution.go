@@ -5,7 +5,7 @@ import (
 )
 
 type ExecutionClusterAutoscalerMachineset struct {
-	DatahubEntity         `scope:"execution" category:"cluster_autoscaler" type:"machineset" measurement:"cluster_autoscaler_machineset" metric:"undefined" boundary:"undefined" quota:"undefined"`
+	DatahubEntity         `scope:"execution" category:"cluster_autoscaler" type:"machineset" measurement:"cluster_autoscaler_machineset" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                  *time.Time `json:"time"                   required:"false" column:"tag"   type:"time"`
 	Name                  string     `json:"name"                   required:"true"  column:"tag"   type:"string"`
 	Namespace             string     `json:"namespace"              required:"true"  column:"tag"   type:"string"`
