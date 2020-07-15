@@ -8,9 +8,12 @@ import (
 
 func NewMeasurement(measurement *InternalSchema.Measurement) *ApiSchema.Measurement {
 	if measurement != nil {
-		m := ApiSchema.Measurement{}
-		m.Name = measurement.Name
-		m.MetricType = ApiCommon.MetricType(measurement.MetricType)
+		m := ApiSchema.Measurement{
+			Name:             measurement.Name,
+			MetricType:       ApiCommon.MetricType(measurement.MetricType),
+			ResourceBoundary: ApiCommon.ResourceBoundary(measurement.Boundary),
+			ResourceQuota:    ApiCommon.ResourceQuota(measurement.Quota),
+		}
 		for _, column := range measurement.Columns {
 			m.Columns = append(m.Columns, NewColumn(column))
 		}
