@@ -18,6 +18,7 @@ enum Scope {
     SCOPE_PREDICTION     = 5;
     SCOPE_RECOMMENDATION = 6;
     SCOPE_RESOURCE       = 7;
+    SCOPE_TARGET         = 8;
 }
 
 message SchemaMeta {
