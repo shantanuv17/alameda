@@ -7,7 +7,7 @@ import (
 
 	"github.com/containers-ai/alameda/cmd/app"
 	"github.com/containers-ai/alameda/evictioner/pkg/eviction"
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	k8s_utils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	openshift_apps "github.com/openshift/api/apps"

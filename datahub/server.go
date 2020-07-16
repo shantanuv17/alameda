@@ -8,7 +8,7 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/apis/v1alpha1"
 	DatahubConfig "github.com/containers-ai/alameda/datahub/pkg/config"
 	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	OperatorAPIs "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
+	OperatorAPIs "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	K8SUtils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 	DatahubV1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
