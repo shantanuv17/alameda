@@ -13,6 +13,7 @@ const (
 	Prediction
 	Recommendation
 	Resource
+	Target
 )
 
 type MetricType int

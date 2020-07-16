@@ -166,6 +166,7 @@ func (s *Server) createInfluxdbDatabase() {
 		"alameda_prediction",
 		"alameda_recommendation",
 		"alameda_score",
+		"alameda_target",
 	}
 
 	for _, db := range databaseList {
