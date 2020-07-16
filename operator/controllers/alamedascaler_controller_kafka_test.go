@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	mock_kafka "github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/mock"
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	gomock "github.com/golang/mock/gomock"
 	"github.com/pkg/errors"

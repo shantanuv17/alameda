@@ -9,7 +9,7 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	"github.com/containers-ai/alameda/internal/pkg/database/prometheus"
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	utilsresources "github.com/containers-ai/alameda/operator/pkg/utils/resources"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/containers-ai/alameda/pkg/utils/log"
@@ -64,7 +64,7 @@ var listCandidatesKafkaAlamedaScaler = func(
 
 func init() {
 	RegisterAlamedaScalerController(
-		autoscalingv1alpha1.AlamedaScalerTypeKafka, listCandidatesKafkaAlamedaScaler)
+		string(autoscalingv1alpha1.AlamedaScalerTypeKafka), listCandidatesKafkaAlamedaScaler)
 }
 
 // chooseTopic chooses and returns topics name
@@ -545,7 +545,7 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(
 	earliestDeploymentConfigCreationTimestamp := metav1.NewTime(time.Now())
 	for i, r := range deployments {
 		if !IsMonitoredByAlamedaScalerController(
-			r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
+			r.ObjectMeta, string(autoscalingv1alpha1.AlamedaScalerTypeKafka)) {
 			continue
 		}
 		if r.CreationTimestamp.Before(&earliestDeploymentCreationTimestamp) {
@@ -555,7 +555,7 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(
 	}
 	for i, r := range statefulSets {
 		if !IsMonitoredByAlamedaScalerController(
-			r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
+			r.ObjectMeta, string(autoscalingv1alpha1.AlamedaScalerTypeKafka)) {
 			continue
 		}
 		if r.CreationTimestamp.Before(&earliestStatefulSetCreationTimestamp) {
@@ -565,7 +565,7 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(
 	}
 	for i, r := range deploymentConfigs {
 		if !IsMonitoredByAlamedaScalerController(
-			r.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeKafka) {
+			r.ObjectMeta, string(autoscalingv1alpha1.AlamedaScalerTypeKafka)) {
 			continue
 		}
 		if r.CreationTimestamp.Before(&earliestDeploymentConfigCreationTimestamp) {

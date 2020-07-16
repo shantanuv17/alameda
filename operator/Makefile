@@ -23,30 +23,30 @@ test: fmt vet manifests
 # Build manager binary
 .PHONY: manager
 #manager: generate fmt vet
-manager: fmt vet
-	go build -ldflags "-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'" -o bin/manager github.com/containers-ai/alameda/operator/cmd/manager
+manager: generate fmt vet
+	go build -ldflags "-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'" -o bin/manager github.com/containers-ai/alameda/operator
 
 # Run against the configured Kubernetes cluster in ~/.kube/config
 .PHONY: run
 #run: generate fmt vet manifests
-run: fmt vet manifests
-	go run ./cmd/manager/main.go
+run: generate fmt vet manifests
+	go run ./main.go
 
 # Install CRDs into a cluster
 .PHONY: install
 install: manifests
-	kubectl apply -f config/crds
+	kubectl apply -f config/crd/bases
 
 # Deploy controller in the configured Kubernetes cluster in ~/.kube/config
 .PHONY: deploy
 deploy: manifests
-	kubectl apply -f config/crds
-	kustomize build config/default | kubectl apply -f -
+	kubectl apply -f config/crd/bases
+	kubectl kustomize config/default | kubectl apply -f -
 
 # Generate manifests e.g. CRD
 .PHONY: manifests
 manifests: controller-gen
-	$(CONTROLLER_GEN) crd output:dir=./config/crds paths="./api/..." 
+	$(CONTROLLER_GEN) $(CRD_OPTIONS) rbac:roleName=manager-role webhook paths="./..." output:crd:artifacts:config=config/crd/bases
 
 # Run go fmt against code
 .PHONY: fmt
@@ -66,7 +66,7 @@ generate: controller-gen
 # Build the docker image
 .PHONY: docker-build
 docker-build: test
-	docker build ./.. -t ${IMG} -f Dockerfile
+	docker build ./.. -t ${IMG} -f Dockerfile.ubi
 	@echo "updating kustomize image patch file for manager resource"
 	sed -i'' -e 's@image: .*@image: '"${IMG}"'@' ./config/default/manager_image_patch.yaml
 
@@ -82,10 +82,11 @@ controller-gen:
 ifeq (, $(shell which controller-gen))
 	@{ \
 	set -e ;\
+	export GO111MODULE=on ;\
 	CONTROLLER_GEN_TMP_DIR=$$(mktemp -d) ;\
 	cd $$CONTROLLER_GEN_TMP_DIR ;\
 	go mod init tmp ;\
-	go get sigs.k8s.io/controller-tools/cmd/controller-gen@v0.2.2 ;\
+	go get sigs.k8s.io/controller-tools/cmd/controller-gen@v0.3.0 ;\
 	rm -rf $$CONTROLLER_GEN_TMP_DIR ;\
 	}
 CONTROLLER_GEN=$(GOBIN)/controller-gen
@@ -93,8 +94,3 @@ else
 CONTROLLER_GEN=$(shell which controller-gen)
 endif
 
-code-gen:
-	../vendor/k8s.io/code-generator/generate-groups.sh \
-	deepcopy github.com/containers-ai/alameda/operator/api \
-	github.com/containers-ai/alameda/operator/api \
-	"autoscaling:v1alpha1"

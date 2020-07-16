@@ -26,7 +26,7 @@ import (
 	"time"
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	datahub_client_application "github.com/containers-ai/alameda/operator/datahub/client/application"
 	datahub_controller "github.com/containers-ai/alameda/operator/datahub/client/controller"
 	datahub_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
@@ -83,7 +83,7 @@ var listCandidatesDefaultAlamedaScaler = func(
 }
 
 func init() {
-	RegisterAlamedaScalerController(autoscalingv1alpha1.AlamedaScalerTypeDefault, listCandidatesDefaultAlamedaScaler)
+	RegisterAlamedaScalerController(string(autoscalingv1alpha1.AlamedaScalerTypeDefault), listCandidatesDefaultAlamedaScaler)
 }
 
 var (
@@ -267,7 +267,7 @@ func (r AlamedaScalerReconciler) listAndAddDeploymentsIntoAlamedaScalerStatus(
 			return alamedaScaler, errors.Wrap(err, "check if Deployment can be monitored failed")
 		}
 
-		ok = ok && IsMonitoredByAlamedaScalerController(deployment.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeDefault)
+		ok = ok && IsMonitoredByAlamedaScalerController(deployment.ObjectMeta, string(autoscalingv1alpha1.AlamedaScalerTypeDefault))
 		if ok {
 			_, err = alamedascalerReconciler.UpdateStatusByDeployment(&deployment)
 			if err != nil {
@@ -296,7 +296,7 @@ func (r AlamedaScalerReconciler) listAndAddDeploymentConfigsIntoAlamedaScalerSta
 			return alamedaScaler, errors.Wrap(err, "check if DeploymentConfig can be monitored failed")
 		}
 
-		ok = ok && IsMonitoredByAlamedaScalerController(deploymentConfig.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeDefault)
+		ok = ok && IsMonitoredByAlamedaScalerController(deploymentConfig.ObjectMeta, string(autoscalingv1alpha1.AlamedaScalerTypeDefault))
 		if ok {
 			_, err = alamedascalerReconciler.UpdateStatusByDeploymentConfig(&deploymentConfig)
 			if err != nil {
@@ -325,7 +325,7 @@ func (r AlamedaScalerReconciler) listAndAddStatefulSetsIntoAlamedaScalerStatus(
 			return alamedaScaler, errors.Wrap(err, "check if StatefulSet can be monitored failed")
 		}
 
-		ok = ok && IsMonitoredByAlamedaScalerController(statefulSet.ObjectMeta, autoscalingv1alpha1.AlamedaScalerTypeDefault)
+		ok = ok && IsMonitoredByAlamedaScalerController(statefulSet.ObjectMeta, string(autoscalingv1alpha1.AlamedaScalerTypeDefault))
 		if ok {
 			_, err = alamedascalerReconciler.UpdateStatusByStatefulSet(&statefulSet)
 			if err != nil {
@@ -414,7 +414,7 @@ func (r *AlamedaScalerReconciler) syncDatahubApplicationsByAlamedaScaler(
 		Namespace:   namespace,
 		Name:        name,
 		ScalingTool: scalingToolStr,
-		Type:        alamedaScaler.GetType(),
+		Type:        string(alamedaScaler.GetType()),
 	}
 
 	if alamedaScaler.GetType() == autoscalingv1alpha1.AlamedaScalerTypeNotDefine ||
@@ -715,7 +715,7 @@ func (r *AlamedaScalerReconciler) createPodsToDatahubByAlamedaScaler(ctx context
 		}
 
 		scalingTool := datahub_resources.ScalingTool_NONE
-		scalingToolType := strings.ToLower(strings.Trim(scaler.Spec.ScalingTool.Type, " "))
+		scalingToolType := strings.ToLower(strings.Trim(string(scaler.Spec.ScalingTool.Type), " "))
 		if scalingToolType == "vpa" {
 			scalingTool = datahub_resources.ScalingTool_VPA
 		} else if scalingToolType == "hpa" {

@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
@@ -37,7 +37,7 @@ func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) err
 				Namespace:   applicationList.Items[idx].Namespace,
 				Name:        applicationList.Items[idx].Name,
 				ScalingTool: GetAlamedaScalerDatahubScalingTypeStr(applicationList.Items[idx]),
-				Type:        applicationList.Items[idx].GetType(),
+				Type:        string(applicationList.Items[idx].GetType()),
 			}
 			if applicationList.Items[idx].GetType() == autoscalingv1alpha1.AlamedaScalerTypeNotDefine ||
 				applicationList.Items[idx].GetType() == autoscalingv1alpha1.AlamedaScalerTypeDefault {

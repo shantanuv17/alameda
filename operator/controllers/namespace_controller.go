@@ -20,7 +20,7 @@ import (
 	"time"
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	datahub_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"golang.org/x/net/context"
