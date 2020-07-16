@@ -12,6 +12,7 @@ var MeasurementNameMap = map[schemas.Scope]string{
 	schemas.Prediction:     "prediction",
 	schemas.Recommendation: "recommendation",
 	schemas.Resource:       "resource",
+	schemas.Target:         "target",
 }
 
 var MeasurementSchemaNameMap = map[schemas.Scope]string{
@@ -22,6 +23,7 @@ var MeasurementSchemaNameMap = map[schemas.Scope]string{
 	schemas.Prediction:     "prediction_schema",
 	schemas.Recommendation: "recommendation_schema",
 	schemas.Resource:       "resource_schema",
+	schemas.Target:         "target_schema",
 }
 
 var DatabaseNameMap = map[schemas.Scope]string{
@@ -32,4 +34,5 @@ var DatabaseNameMap = map[schemas.Scope]string{
 	schemas.Prediction:     "alameda_prediction",
 	schemas.Recommendation: "alameda_recommendation",
 	schemas.Resource:       "alameda_cluster_status",
+	schemas.Target:         "alameda_target",
 }

@@ -55,6 +55,7 @@ var ScopeValue = map[string]schemas.Scope{
 	"prediction":     schemas.Scope_SCOPE_PREDICTION,
 	"recommendation": schemas.Scope_SCOPE_RECOMMENDATION,
 	"resource":       schemas.Scope_SCOPE_RESOURCE,
+	"target":         schemas.Scope_SCOPE_TARGET,
 }
 
 var MetricTypeValue = map[string]common.MetricType{

@@ -67,6 +67,11 @@ func DefaultSchemasInit() {
 	schemaList = append(schemaList, defaults.SchemaResourceClusterStatusNode())
 	schemaList = append(schemaList, defaults.SchemaResourceClusterStatusPod())
 
+	// Target
+	schemaList = append(schemaList, defaults.SchemaTargetController())
+	schemaList = append(schemaList, defaults.SchemaTargetKafkaTopic())
+	schemaList = append(schemaList, defaults.SchemaTargetKafkaConsumerGroup())
+
 	schemaMgt.AddSchemas(schemaList)
 	schemaMgt.Flush() // TODO: ONLY DO one time !!!
 }
