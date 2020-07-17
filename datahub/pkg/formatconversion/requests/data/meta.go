@@ -42,7 +42,7 @@ func (p *WriteMetaRequestRequestExtended) Validate() error {
 		if m.IsTS {
 			return errors.New(fmt.Sprintf("measurement(%s) is not for metadata usage", m.Name))
 		}
-		err = m.IsTag(w.GetCondition().GetKeys())
+		err = m.ColumnTag(w.GetCondition().GetKeys())
 		if err != nil {
 			return err
 		}
