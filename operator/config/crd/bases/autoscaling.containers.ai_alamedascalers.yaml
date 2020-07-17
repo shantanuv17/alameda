@@ -15,6 +15,8 @@ spec:
     plural: alamedascalers
     singular: alamedascaler
   scope: Namespaced
+  subresources:
+    status: {}
   validation:
     openAPIV3Schema:
       description: AlamedaScaler is the Schema for the alamedascalers API
@@ -33,514 +35,113 @@ spec:
           type: object
         spec:
           description: AlamedaScalerSpec defines the desired state of AlamedaScaler
-            INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
           properties:
-            customResourceVersion:
+            clusterName:
               type: string
-            enableExecution:
-              enum:
-              - true
-              - false
-              type: boolean
-            kafka:
-              properties:
-                consumerGroups:
-                  items:
+            controllers:
+              items:
+                properties:
+                  enableExecution:
+                    type: boolean
+                  generic:
                     properties:
-                      majorTopic:
-                        type: string
-                      maxReplicas:
-                        format: int32
-                        type: integer
-                      minReplicas:
-                        format: int32
-                        type: integer
-                      name:
-                        minLength: 1
-                        type: string
-                      resource:
+                      hpaParameters:
                         properties:
-                          custom:
-                            type: string
-                          kubernetes:
-                            properties:
-                              selector:
-                                description: A label selector is a label query over
-                                  a set of resources. The result of matchLabels and
-                                  matchExpressions are ANDed. An empty label selector
-                                  matches all objects. A null label selector matches
-                                  no objects.
-                                properties:
-                                  matchExpressions:
-                                    description: matchExpressions is a list of label
-                                      selector requirements. The requirements are
-                                      ANDed.
-                                    items:
-                                      description: A label selector requirement is
-                                        a selector that contains values, a key, and
-                                        an operator that relates the key and values.
-                                      properties:
-                                        key:
-                                          description: key is the label key that the
-                                            selector applies to.
-                                          type: string
-                                        operator:
-                                          description: operator represents a key's
-                                            relationship to a set of values. Valid
-                                            operators are In, NotIn, Exists and DoesNotExist.
-                                          type: string
-                                        values:
-                                          description: values is an array of string
-                                            values. If the operator is In or NotIn,
-                                            the values array must be non-empty. If
-                                            the operator is Exists or DoesNotExist,
-                                            the values array must be empty. This array
-                                            is replaced during a strategic merge patch.
-                                          items:
-                                            type: string
-                                          type: array
-                                      required:
-                                      - key
-                                      - operator
-                                      type: object
-                                    type: array
-                                  matchLabels:
-                                    additionalProperties:
-                                      type: string
-                                    description: matchLabels is a map of {key,value}
-                                      pairs. A single {key,value} in the matchLabels
-                                      map is equivalent to an element of matchExpressions,
-                                      whose key field is "key", the operator is "In",
-                                      and the values array contains only "value".
-                                      The requirements are ANDed.
-                                    type: object
-                                type: object
-                            type: object
+                          maxReplicas:
+                            format: int32
+                            type: integer
+                          minReplicas:
+                            format: int32
+                            type: integer
                         type: object
-                    type: object
-                  minItems: 1
-                  type: array
-                exporterNamespace:
-                  minLength: 1
-                  type: string
-                topics:
-                  items:
-                    type: string
-                  minItems: 1
-                  type: array
-              type: object
-            policy:
-              enum:
-              - stable
-              - compact
-              type: string
-            scalingTool:
-              properties:
-                executionStrategy:
-                  properties:
-                    maxUnavailable:
-                      pattern: ^\d*[1-9]+\d*(%?$)$|^\d*[1-9]+\d*\.\d*(%?$)$|^\d*\.\d*[1-9]+\d*(%?$)$
-                      type: string
-                    resources:
-                      description: ResourceRequirements describes the compute resource
-                        requirements.
-                      properties:
-                        limits:
-                          additionalProperties:
-                            anyOf:
-                            - type: integer
-                            - type: string
-                            pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                            x-kubernetes-int-or-string: true
-                          description: 'Limits describes the maximum amount of compute
-                            resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
-                          type: object
-                        requests:
-                          additionalProperties:
-                            anyOf:
-                            - type: integer
-                            - type: string
-                            pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                            x-kubernetes-int-or-string: true
-                          description: 'Requests describes the minimum amount of compute
-                            resources required. If Requests is omitted for a container,
-                            it defaults to Limits if that is explicitly specified,
-                            otherwise to an implementation-defined value. More info:
-                            https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
-                          type: object
-                      type: object
-                    triggerThreshold:
-                      properties:
-                        cpu:
-                          pattern: ^\d*[1-9]+\d*%$|^\d*[1-9]+\d*\.\d*%$|^\d*\.\d*[1-9]+\d*%$
-                          type: string
-                        memory:
-                          pattern: ^\d*[1-9]+\d*%$|^\d*[1-9]+\d*\.\d*%$|^\d*\.\d*[1-9]+\d*%$
-                          type: string
-                      type: object
-                  type: object
-                maxReplicas:
-                  format: int32
-                  type: integer
-                minReplicas:
-                  format: int32
-                  type: integer
-                type:
-                  enum:
-                  - ""
-                  - vpa
-                  - hpa
-                  - N/A
-                  type: string
-              type: object
-            selector:
-              description: A label selector is a label query over a set of resources.
-                The result of matchLabels and matchExpressions are ANDed. An empty
-                label selector matches all objects. A null label selector matches
-                no objects.
-              properties:
-                matchExpressions:
-                  description: matchExpressions is a list of label selector requirements.
-                    The requirements are ANDed.
-                  items:
-                    description: A label selector requirement is a selector that contains
-                      values, a key, and an operator that relates the key and values.
-                    properties:
-                      key:
-                        description: key is the label key that the selector applies
-                          to.
-                        type: string
-                      operator:
-                        description: operator represents a key's relationship to a
-                          set of values. Valid operators are In, NotIn, Exists and
-                          DoesNotExist.
-                        type: string
-                      values:
-                        description: values is an array of string values. If the operator
-                          is In or NotIn, the values array must be non-empty. If the
-                          operator is Exists or DoesNotExist, the values array must
-                          be empty. This array is replaced during a strategic merge
-                          patch.
-                        items:
-                          type: string
-                        type: array
+                      target:
+                        properties:
+                          Kind:
+                            enum:
+                            - Deployment
+                            - StatefulSet
+                            - DeploymentConfig
+                            type: string
+                          Name:
+                            type: string
+                          Namespace:
+                            type: string
+                        required:
+                        - Kind
+                        - Name
+                        - Namespace
+                        type: object
                     required:
-                    - key
-                    - operator
+                    - target
                     type: object
-                  type: array
-                matchLabels:
-                  additionalProperties:
+                  kafka:
+                    properties:
+                      exporterNamespce:
+                        type: string
+                      hpaParameters:
+                        properties:
+                          maxReplicas:
+                            format: int32
+                            type: integer
+                          minReplicas:
+                            format: int32
+                            type: integer
+                        type: object
+                      target:
+                        properties:
+                          Kind:
+                            enum:
+                            - Deployment
+                            - StatefulSet
+                            - DeploymentConfig
+                            type: string
+                          Name:
+                            type: string
+                          Namespace:
+                            type: string
+                          topic:
+                            type: string
+                        required:
+                        - Kind
+                        - Name
+                        - Namespace
+                        - topic
+                        type: object
+                    required:
+                    - exporterNamespce
+                    - target
+                    type: object
+                  scaling:
+                    enum:
+                    - hpa
+                    - predicitOnly
                     type: string
-                  description: matchLabels is a map of {key,value} pairs. A single
-                    {key,value} in the matchLabels map is equivalent to an element
-                    of matchExpressions, whose key field is "key", the operator is
-                    "In", and the values array contains only "value". The requirements
-                    are ANDed.
-                  type: object
-              type: object
-            type:
-              enum:
-              - ""
-              - default
-              - kafka
-              type: string
+                  type:
+                    enum:
+                    - generic
+                    - kafka
+                    type: string
+                required:
+                - scaling
+                - type
+                type: object
+              type: array
+          required:
+          - clusterName
+          - controllers
           type: object
         status:
           description: AlamedaScalerStatus defines the observed state of AlamedaScaler
-          properties:
-            alamedaController:
-              properties:
-                deploymentConfigs:
-                  additionalProperties:
-                    properties:
-                      effective:
-                        type: boolean
-                      message:
-                        type: string
-                      name:
-                        type: string
-                      namespace:
-                        type: string
-                      pods:
-                        additionalProperties:
-                          properties:
-                            containers:
-                              items:
-                                properties:
-                                  name:
-                                    type: string
-                                  resources:
-                                    description: ResourceRequirements describes the
-                                      compute resource requirements.
-                                    properties:
-                                      limits:
-                                        additionalProperties:
-                                          anyOf:
-                                          - type: integer
-                                          - type: string
-                                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                                          x-kubernetes-int-or-string: true
-                                        description: 'Limits describes the maximum
-                                          amount of compute resources allowed. More
-                                          info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
-                                        type: object
-                                      requests:
-                                        additionalProperties:
-                                          anyOf:
-                                          - type: integer
-                                          - type: string
-                                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                                          x-kubernetes-int-or-string: true
-                                        description: 'Requests describes the minimum
-                                          amount of compute resources required. If
-                                          Requests is omitted for a container, it
-                                          defaults to Limits if that is explicitly
-                                          specified, otherwise to an implementation-defined
-                                          value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
-                                        type: object
-                                    type: object
-                                required:
-                                - name
-                                type: object
-                              type: array
-                            name:
-                              type: string
-                            namespace:
-                              type: string
-                            uid:
-                              type: string
-                          required:
-                          - containers
-                          - name
-                          - namespace
-                          - uid
-                          type: object
-                        type: object
-                      specReplicas:
-                        format: int32
-                        type: integer
-                      uid:
-                        type: string
-                    required:
-                    - effective
-                    - message
-                    - name
-                    - namespace
-                    - uid
-                    type: object
-                  type: object
-                deployments:
-                  additionalProperties:
-                    properties:
-                      effective:
-                        type: boolean
-                      message:
-                        type: string
-                      name:
-                        type: string
-                      namespace:
-                        type: string
-                      pods:
-                        additionalProperties:
-                          properties:
-                            containers:
-                              items:
-                                properties:
-                                  name:
-                                    type: string
-                                  resources:
-                                    description: ResourceRequirements describes the
-                                      compute resource requirements.
-                                    properties:
-                                      limits:
-                                        additionalProperties:
-                                          anyOf:
-                                          - type: integer
-                                          - type: string
-                                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                                          x-kubernetes-int-or-string: true
-                                        description: 'Limits describes the maximum
-                                          amount of compute resources allowed. More
-                                          info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
-                                        type: object
-                                      requests:
-                                        additionalProperties:
-                                          anyOf:
-                                          - type: integer
-                                          - type: string
-                                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                                          x-kubernetes-int-or-string: true
-                                        description: 'Requests describes the minimum
-                                          amount of compute resources required. If
-                                          Requests is omitted for a container, it
-                                          defaults to Limits if that is explicitly
-                                          specified, otherwise to an implementation-defined
-                                          value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
-                                        type: object
-                                    type: object
-                                required:
-                                - name
-                                type: object
-                              type: array
-                            name:
-                              type: string
-                            namespace:
-                              type: string
-                            uid:
-                              type: string
-                          required:
-                          - containers
-                          - name
-                          - namespace
-                          - uid
-                          type: object
-                        type: object
-                      specReplicas:
-                        format: int32
-                        type: integer
-                      uid:
-                        type: string
-                    required:
-                    - effective
-                    - message
-                    - name
-                    - namespace
-                    - uid
-                    type: object
-                  type: object
-                statefulSets:
-                  additionalProperties:
-                    properties:
-                      effective:
-                        type: boolean
-                      message:
-                        type: string
-                      name:
-                        type: string
-                      namespace:
-                        type: string
-                      pods:
-                        additionalProperties:
-                          properties:
-                            containers:
-                              items:
-                                properties:
-                                  name:
-                                    type: string
-                                  resources:
-                                    description: ResourceRequirements describes the
-                                      compute resource requirements.
-                                    properties:
-                                      limits:
-                                        additionalProperties:
-                                          anyOf:
-                                          - type: integer
-                                          - type: string
-                                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                                          x-kubernetes-int-or-string: true
-                                        description: 'Limits describes the maximum
-                                          amount of compute resources allowed. More
-                                          info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
-                                        type: object
-                                      requests:
-                                        additionalProperties:
-                                          anyOf:
-                                          - type: integer
-                                          - type: string
-                                          pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                                          x-kubernetes-int-or-string: true
-                                        description: 'Requests describes the minimum
-                                          amount of compute resources required. If
-                                          Requests is omitted for a container, it
-                                          defaults to Limits if that is explicitly
-                                          specified, otherwise to an implementation-defined
-                                          value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
-                                        type: object
-                                    type: object
-                                required:
-                                - name
-                                type: object
-                              type: array
-                            name:
-                              type: string
-                            namespace:
-                              type: string
-                            uid:
-                              type: string
-                          required:
-                          - containers
-                          - name
-                          - namespace
-                          - uid
-                          type: object
-                        type: object
-                      specReplicas:
-                        format: int32
-                        type: integer
-                      uid:
-                        type: string
-                    required:
-                    - effective
-                    - message
-                    - name
-                    - namespace
-                    - uid
-                    type: object
-                  type: object
-              type: object
-            kafka:
-              properties:
-                consumerGroups:
-                  items:
-                    properties:
-                      maxReplicas:
-                        format: int32
-                        type: integer
-                      minReplicas:
-                        format: int32
-                        type: integer
-                      name:
-                        type: string
-                      resource:
-                        properties:
-                          customName:
-                            type: string
-                          kubernetes:
-                            properties:
-                              kind:
-                                type: string
-                              name:
-                                type: string
-                              namespace:
-                                type: string
-                            type: object
-                        type: object
-                      topic:
-                        type: string
-                    type: object
-                  type: array
-                effective:
-                  type: boolean
-                message:
-                  type: string
-                namespace:
-                  type: string
-                topics:
-                  items:
-                    type: string
-                  type: array
-              required:
-              - effective
-              - message
-              type: object
           type: object
       type: object
-  version: v1alpha1
+  version: v1alpha2
   versions:
-  - name: v1alpha1
+  - name: v1alpha2
     served: true
     storage: true
+  - name: v1alpha1
+    served: false
+    storage: false
 status:
   acceptedNames:
     kind: ""

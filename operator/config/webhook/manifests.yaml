@@ -1,0 +1,52 @@
+
+---
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: mutating-webhook-configuration
+webhooks:
+- clientConfig:
+    caBundle: Cg==
+    service:
+      name: webhook-service
+      namespace: system
+      path: /mutate-autoscaling-containers-ai-v1alpha2-alamedascaler
+  failurePolicy: Fail
+  name: malamedascaler.containers.ai
+  rules:
+  - apiGroups:
+    - autoscaling.containers.ai
+    apiVersions:
+    - v1alpha2
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - alamedascalers
+
+---
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: validating-webhook-configuration
+webhooks:
+- clientConfig:
+    caBundle: Cg==
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-autoscaling-containers-ai-v1alpha2-alamedascaler
+  failurePolicy: Fail
+  name: valamedascaler.containers.ai
+  rules:
+  - apiGroups:
+    - autoscaling.containers.ai
+    apiVersions:
+    - v1alpha2
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - alamedascalers

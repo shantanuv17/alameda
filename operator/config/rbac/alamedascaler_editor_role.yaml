@@ -1,0 +1,24 @@
+# permissions for end users to edit alamedascalers.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: alamedascaler-editor-role
+rules:
+- apiGroups:
+  - autoscaling.containers.ai
+  resources:
+  - alamedascalers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - autoscaling.containers.ai
+  resources:
+  - alamedascalers/status
+  verbs:
+  - get

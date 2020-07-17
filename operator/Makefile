@@ -3,7 +3,8 @@
 IMG ?= operator:latest
 # Produce CRDs that work back to Kubernetes 1.16 (no version conversion)
 CRD_OPTIONS ?= "crd:trivialVersions=true"
-
+#https://book.kubebuilder.io/reference/generating-crd.html#multiple-versions
+#CRD_OPTIONS ?= "crd"
 # Get the currently used golang install path (in GOPATH/bin, unless GOBIN is set)
 ifeq (,$(shell go env GOBIN))
 GOBIN=$(shell go env GOPATH)/bin
