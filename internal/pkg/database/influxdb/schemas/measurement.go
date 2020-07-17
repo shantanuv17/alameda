@@ -120,7 +120,7 @@ func (p *Measurement) ColumnSupported(columns []string) error {
 	return nil
 }
 
-func (p *Measurement) IsTag(columns []string) error {
+func (p *Measurement) ColumnTag(columns []string) error {
 	tags := p.GetTags()
 	for _, column := range columns {
 		found := false
