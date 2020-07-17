@@ -58,6 +58,10 @@ func NewWriteMeta(writeMeta *data.WriteMeta) *types.WriteMeta {
 	mData.Condition = common.NewCondition(writeMeta.GetCondition())
 	mData.Columns = writeMeta.GetColumns()
 	mData.Rows = common.NewRows(writeMeta.GetRows())
+	// Metadata does NOT support timestamp
+	for _, row := range mData.Rows {
+		row.Time = nil
+	}
 	return &mData
 }
 
