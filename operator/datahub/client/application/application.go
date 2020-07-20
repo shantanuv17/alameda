@@ -39,12 +39,6 @@ func (repo *ApplicationRepository) CreateApplications(arg interface{}) error {
 			appSpec := datahub_resources.AlamedaApplicationSpec{
 				ScalingTool: repo.getAlamedaScalerDatahubScalingType(app),
 			}
-			if app.Spec.ScalingTool.MinReplicas != nil {
-				appSpec.MinReplicas = *app.Spec.ScalingTool.MinReplicas
-			}
-			if app.Spec.ScalingTool.MaxReplicas != nil {
-				appSpec.MaxReplicas = *app.Spec.ScalingTool.MaxReplicas
-			}
 			applications = append(applications, &datahub_resources.Application{
 				ObjectMeta: &datahub_resources.ObjectMeta{
 					Name:        app.GetName(),
