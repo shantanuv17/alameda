@@ -5,6 +5,18 @@ import (
 	"github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
 )
 
+func SchemaTargetCluster() *schemas.Schema {
+	// cluster-status cluster
+	schema := schemas.NewSchema(schemas.Target, "cluster_status", "cluster")
+	measurement := schemas.NewMeasurement("cluster", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, false)
+	measurement.AddColumn("name", true, schemas.Tag, common.String)
+	measurement.AddColumn("alameda_scaler_name", true, schemas.Tag, common.String)
+	measurement.AddColumn("alameda_scaler_namespace", true, schemas.Tag, common.String)
+	measurement.AddColumn("raw_spec", true, schemas.Field, common.String)
+	schema.Measurements = append(schema.Measurements, measurement)
+	return schema
+}
+
 func SchemaTargetController() *schemas.Schema {
 	// cluster-status controller
 	schema := schemas.NewSchema(schemas.Target, "cluster_status", "controller")

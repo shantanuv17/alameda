@@ -4,6 +4,15 @@ import (
 	"time"
 )
 
+type TargetClusterStatusCluster struct {
+	DatahubEntity          `scope:"target" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
+	Time                   *time.Time `json:"time"                     required:"false" column:"tag"   type:"time"`
+	Name                   string     `json:"name"                     required:"true"  column:"tag"   type:"string"`
+	AlamedaScalerName      string     `json:"alameda_scaler_name"      required:"true"  column:"tag"   type:"string"`
+	AlamedaScalerNamespace string     `json:"alameda_scaler_namespace" required:"true"  column:"tag"   type:"string"`
+	RawSpec                string     `json:"raw_spec"                 required:"true"  column:"field" type:"string"`
+}
+
 type TargetClusterStatusController struct {
 	DatahubEntity            `scope:"target" category:"cluster_status" type:"controller" measurement:"controller" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
 	Time                     *time.Time `json:"time"                        required:"false" column:"tag"   type:"time"`
