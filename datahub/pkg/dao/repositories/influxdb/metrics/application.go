@@ -28,7 +28,7 @@ func (p *Application) GetMetricMap(metricType enumconv.MetricType, applications 
 	measurement := InternalInflux.NewMeasurement(SchemaMgt.DatabaseNameMap[InternalSchemas.Metric], m, p.InfluxDBConfig)
 
 	for _, application := range applications {
-		// List pods which are belonged to this controller
+		// List pods which are belonged to this application
 		pods, err := ListPodsByApplication(p.InfluxDBConfig, application)
 		if err != nil {
 			scope.Error(err.Error())

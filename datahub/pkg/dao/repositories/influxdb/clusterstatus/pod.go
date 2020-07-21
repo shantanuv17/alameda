@@ -92,6 +92,10 @@ func (p *PodRepository) ListPods(request *DaoClusterTypes.ListPodsRequest) ([]*D
 			conditionList = append(conditionList, fmt.Sprintf(`"%s"='%s'`, EntityInfluxCluster.PodAlamedaSpecScalerName, request.AlamedaScalerName))
 		}
 
+		if request.AlamedaScalerNamespace != "" {
+			conditionList = append(conditionList, fmt.Sprintf(`"%s"='%s'`, EntityInfluxCluster.PodAlamedaSpecScalerNamespace, request.AlamedaScalerNamespace))
+		}
+
 		if request.TopControllerName != "" {
 			conditionList = append(conditionList, fmt.Sprintf(`"%s"='%s'`, EntityInfluxCluster.PodTopControllerName, request.TopControllerName))
 		}

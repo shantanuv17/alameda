@@ -40,13 +40,13 @@ func ListPodsByController(config influxdb.Config, controller *types.Controller) 
 
 func ListPodsByApplication(config influxdb.Config, application *types.Application) ([]*types.Pod, error) {
 	objectMeta := metadata.ObjectMeta{
-		Namespace:   application.ObjectMeta.Namespace,
 		ClusterName: application.ObjectMeta.ClusterName,
 	}
 
 	request := types.NewListPodsRequest()
 	request.ObjectMeta = append(request.ObjectMeta, &objectMeta)
 	request.AlamedaScalerName = application.ObjectMeta.Name
+	request.AlamedaScalerNamespace = application.ObjectMeta.Namespace
 
 	podRepo := clusterstatus.NewPodRepository(config)
 	return podRepo.ListPods(request)
