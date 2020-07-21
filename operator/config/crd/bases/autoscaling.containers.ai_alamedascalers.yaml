@@ -56,27 +56,47 @@ spec:
                         type: object
                       target:
                         properties:
-                          Kind:
+                          kind:
                             enum:
                             - Deployment
                             - StatefulSet
                             - DeploymentConfig
                             type: string
-                          Name:
+                          name:
                             type: string
-                          Namespace:
+                          namespace:
                             type: string
                         required:
-                        - Kind
-                        - Name
-                        - Namespace
+                        - kind
+                        - name
+                        - namespace
                         type: object
                     required:
                     - target
                     type: object
                   kafka:
                     properties:
-                      exporterNamespce:
+                      consumerGroup:
+                        properties:
+                          kind:
+                            enum:
+                            - Deployment
+                            - StatefulSet
+                            - DeploymentConfig
+                            type: string
+                          name:
+                            type: string
+                          namespace:
+                            type: string
+                          topic:
+                            type: string
+                        required:
+                        - kind
+                        - name
+                        - namespace
+                        - topic
+                        type: object
+                      exporterNamespace:
                         type: string
                       hpaParameters:
                         properties:
@@ -87,29 +107,9 @@ spec:
                             format: int32
                             type: integer
                         type: object
-                      target:
-                        properties:
-                          Kind:
-                            enum:
-                            - Deployment
-                            - StatefulSet
-                            - DeploymentConfig
-                            type: string
-                          Name:
-                            type: string
-                          Namespace:
-                            type: string
-                          topic:
-                            type: string
-                        required:
-                        - Kind
-                        - Name
-                        - Namespace
-                        - topic
-                        type: object
                     required:
-                    - exporterNamespce
-                    - target
+                    - consumerGroup
+                    - exporterNamespace
                     type: object
                   scaling:
                     enum:

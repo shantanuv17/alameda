@@ -39,6 +39,12 @@ const (
 	HPAScaling ScalingType = "hpa"
 )
 
+// Raw value stored in datahub
+var ScalingTypeMap = map[ScalingType]string{
+	NonScaling: "NONE",
+	HPAScaling: "HPA",
+}
+
 // +kubebuilder:validation:Enum=Deployment;StatefulSet;DeploymentConfig
 type ControllerKind string
 
@@ -48,10 +54,17 @@ const (
 	DeploymentConfigController ControllerKind = "DeploymentConfig"
 )
 
+// Raw value stored in datahub
+var ControllerKindMap = map[ControllerKind]string{
+	DeploymentController:       "DEPLOYMENT",
+	StatefulSetController:      "STATEFULSET",
+	DeploymentConfigController: "DEPLOYMENTCONFIG",
+}
+
 type Target struct {
-	Namespace string         `json:"Namespace"`
-	Name      string         `json:"Name"`
-	Kind      ControllerKind `json:"Kind"`
+	Namespace string         `json:"namespace"`
+	Name      string         `json:"name"`
+	Kind      ControllerKind `json:"kind"`
 }
 
 type GenericHPAParameters struct {
@@ -64,13 +77,13 @@ type GenericHPAParameters struct {
 type Generic struct {
 	Target Target `json:"target"`
 	// +optional
-	hpaParameters *GenericHPAParameters `json:"hpaParameters,omitempty"`
+	HpaParameters *GenericHPAParameters `json:"hpaParameters,omitempty"`
 }
 
 type ConsumerGroup struct {
-	Namespace string         `json:"Namespace"`
-	Name      string         `json:"Name"`
-	Kind      ControllerKind `json:"Kind"`
+	Namespace string         `json:"namespace"`
+	Name      string         `json:"name"`
+	Kind      ControllerKind `json:"kind"`
 	Topic     string         `json:"topic"`
 }
 
@@ -82,10 +95,10 @@ type KafkaHPAParameters struct {
 }
 
 type Kafka struct {
-	ConsumerGroup    ConsumerGroup `json:"target"`
-	ExporterNamespce string        `json:"exporterNamespce"`
+	ConsumerGroup    ConsumerGroup `json:"consumerGroup"`
+	ExporterNamespce string        `json:"exporterNamespace"`
 	// +optional
-	hpaParameters *KafkaHPAParameters `json:"hpaParameters,omitempty"`
+	HpaParameters *KafkaHPAParameters `json:"hpaParameters,omitempty"`
 }
 
 type Controller struct {

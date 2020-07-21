@@ -169,8 +169,8 @@ func (in *Controller) DeepCopy() *Controller {
 func (in *Generic) DeepCopyInto(out *Generic) {
 	*out = *in
 	out.Target = in.Target
-	if in.hpaParameters != nil {
-		in, out := &in.hpaParameters, &out.hpaParameters
+	if in.HpaParameters != nil {
+		in, out := &in.HpaParameters, &out.HpaParameters
 		*out = new(GenericHPAParameters)
 		(*in).DeepCopyInto(*out)
 	}
@@ -215,8 +215,8 @@ func (in *GenericHPAParameters) DeepCopy() *GenericHPAParameters {
 func (in *Kafka) DeepCopyInto(out *Kafka) {
 	*out = *in
 	out.ConsumerGroup = in.ConsumerGroup
-	if in.hpaParameters != nil {
-		in, out := &in.hpaParameters, &out.hpaParameters
+	if in.HpaParameters != nil {
+		in, out := &in.HpaParameters, &out.HpaParameters
 		*out = new(KafkaHPAParameters)
 		(*in).DeepCopyInto(*out)
 	}

@@ -35,7 +35,13 @@ import (
 	"github.com/containers-ai/alameda/internal/pkg/database/prometheus"
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
 	kafkaclient "github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/client"
+	"github.com/containers-ai/alameda/pkg/provider"
+	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
+	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
+	datahubv1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
+	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/api/v1alpha2"
 	"github.com/containers-ai/alameda/operator/controllers"
 	datahub_client_application "github.com/containers-ai/alameda/operator/datahub/client/application"
 	datahub_client_cluster "github.com/containers-ai/alameda/operator/datahub/client/cluster"
@@ -46,11 +52,6 @@ import (
 	datahub_client_pod "github.com/containers-ai/alameda/operator/datahub/client/pod"
 	"github.com/containers-ai/alameda/operator/pkg/probe"
 	"github.com/containers-ai/alameda/operator/pkg/utils"
-	"github.com/containers-ai/alameda/pkg/provider"
-	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
-	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
-	datahubv1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
-	datahubschemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 
 	osappsapi "github.com/openshift/api/apps/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -95,11 +96,7 @@ var (
 	alamedaScalerKafkaControllerLogger *logUtil.Scope
 	datahubClientLogger                *logUtil.Scope
 
-	clusterUID     string
-	datahubSchemas = map[string]datahubschemas.Schema{
-		"kafkaTopic":         datahubschemas.Schema{},
-		"kafkaConsumerGroup": datahubschemas.Schema{},
-	}
+	clusterUID string
 
 	// Third party clients
 	k8sClient        client.Client
@@ -246,6 +243,9 @@ func addNecessaryAPIToScheme(scheme *runtime.Scheme) error {
 	if err := autoscalingv1alpha1.AddToScheme(scheme); err != nil {
 		return err
 	}
+	if err := autoscalingv1alpha2.AddToScheme(scheme); err != nil {
+		return err
+	}
 	if hasOpenShiftAPIAppsv1 {
 		if err := osappsapi.AddToScheme(scheme); err != nil {
 			return err
@@ -255,21 +255,14 @@ func addNecessaryAPIToScheme(scheme *runtime.Scheme) error {
 }
 
 func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
-	datahubControllerRepo := datahub_client_controller.NewControllerRepository(datahubConn, clusterUID)
-	datahubPodRepo := datahub_client_pod.NewPodRepository(datahubConn, clusterUID)
-
 	var err error
 
 	if err = (&controllers.AlamedaScalerReconciler{
-		Client:                 mgr.GetClient(),
-		Scheme:                 mgr.GetScheme(),
-		EnabledDA:              enabledDA,
-		ClusterUID:             clusterUID,
-		DatahubClient:          datahubClient,
-		DatahubControllerRepo:  datahubControllerRepo,
-		DatahubPodRepo:         datahubPodRepo,
-		ReconcileTimeout:       3 * time.Second,
-		ForceReconcileInterval: 1 * time.Minute,
+		Client:        mgr.GetClient(),
+		Scheme:        mgr.GetScheme(),
+		EnabledDA:     enabledDA,
+		DatahubClient: datahubClient,
+		IsOpenshift:   hasOpenShiftAPIAppsv1,
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}
@@ -343,24 +336,6 @@ func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 		Scheme:     mgr.GetScheme(),
 		EnabledDA:  enabledDA,
 		ClusterUID: clusterUID,
-	}).SetupWithManager(mgr); err != nil {
-		return err
-	}
-
-	if err = (&controllers.AlamedaScalerKafkaReconciler{
-		ClusterUID:            clusterUID,
-		HasOpenShiftAPIAppsv1: hasOpenShiftAPIAppsv1,
-		DatahubClient:         datahubClient,
-		K8SClient:             mgr.GetClient(),
-		Scheme:                mgr.GetScheme(),
-		KafkaClient:           kafkaClient,
-		PrometheusClient:      prometheusClient,
-		EnabledDA:             enabledDA,
-		ReconcileTimeout:      3 * time.Second,
-
-		Logger: alamedaScalerKafkaControllerLogger,
-
-		NeededMetrics: operatorConf.Prometheus.RequiredMetrics,
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}

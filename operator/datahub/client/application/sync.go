@@ -2,7 +2,6 @@ package application
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"time"
 
@@ -36,17 +35,6 @@ func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) err
 				ClusterName: clusterUID,
 				Namespace:   applicationList.Items[idx].Namespace,
 				Name:        applicationList.Items[idx].Name,
-				ScalingTool: GetAlamedaScalerDatahubScalingTypeStr(applicationList.Items[idx]),
-				Type:        string(applicationList.Items[idx].GetType()),
-			}
-			if applicationList.Items[idx].GetType() == autoscalingv1alpha1.AlamedaScalerTypeNotDefine ||
-				applicationList.Items[idx].GetType() == autoscalingv1alpha1.AlamedaScalerTypeDefault {
-				selectorBin, _ := json.Marshal(applicationList.Items[idx].Spec.Selector)
-				entity.Selector = string(selectorBin)
-			}
-			if applicationList.Items[idx].GetType() == autoscalingv1alpha1.AlamedaScalerTypeKafka {
-				appSpecBin, _ := json.Marshal(applicationList.Items[idx].Spec.Kafka)
-				entity.AppSpec = string(appSpecBin)
 			}
 			apps = append(apps, entity)
 		}
