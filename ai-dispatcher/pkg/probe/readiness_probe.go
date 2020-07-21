@@ -2,7 +2,6 @@ package probe
 
 import (
 	"context"
-	"fmt"
 
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
@@ -26,14 +25,14 @@ func queryDatahub(datahubAddr string) error {
 	}
 
 	datahubServiceClnt := datahub_v1alpha1.NewDatahubServiceClient(conn)
-	res, err := datahubServiceClnt.ListNodes(context.Background(), &datahub_resources.ListNodesRequest{})
+	_, err = datahubServiceClnt.ListNodes(context.Background(), &datahub_resources.ListNodesRequest{})
 	if err != nil {
 		return err
 	}
 
-	if len(res.GetNodes()) == 0 {
-		return fmt.Errorf("No nodes found in datahub")
-	}
+	// if len(res.GetNodes()) == 0 {
+	// 	return fmt.Errorf("No nodes found in datahub")
+	// }
 
 	return err
 }

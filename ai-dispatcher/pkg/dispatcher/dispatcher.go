@@ -371,12 +371,9 @@ func (dispatcher *Dispatcher) getAndPushJobs(queueSender queue.QueueSender,
 		}
 		applications := []*datahub_resources.Application{}
 		for _, app := range res.GetApplications() {
-			if granularity == 30 && (!viper.GetBool("hourlyPredict") &&
-				app.GetAlamedaApplicationSpec().GetScalingTool() !=
-					datahub_resources.ScalingTool_VPA) {
-				continue
+			if granularity != 30 || viper.GetBool("hourlyPredict") {
+				applications = append(applications, app)
 			}
-			applications = append(applications, app)
 		}
 		if queueJobType == "predictionJobSendIntervalSec" {
 			scope.Infof(

@@ -25,14 +25,14 @@ func queryDatahub(datahubAddr string) error {
 	}
 
 	datahubServiceClnt := datahub_client.NewDatahubServiceClient(conn)
-	res, err := datahubServiceClnt.ListNodes(context.Background(), &datahub_resources.ListNodesRequest{})
+	_, err = datahubServiceClnt.ListNodes(context.Background(), &datahub_resources.ListNodesRequest{})
 	if err != nil {
 		return err
 	}
 
-	if len(res.GetNodes()) == 0 {
-		return fmt.Errorf("No nodes found in datahub")
-	}
+	// if len(res.GetNodes()) == 0 {
+	// 	return fmt.Errorf("No nodes found in datahub")
+	// }
 
 	return err
 }
