@@ -63,7 +63,7 @@ func (p *Namespace) genDeleteApplicationsRequest(request *DaoClusterTypes.Delete
 		metadata.Namespace = objectMeta.Name
 		metadata.ClusterName = objectMeta.ClusterName
 
-		applicationObjectMeta := DaoClusterTypes.NewApplicationObjectMeta(metadata, "")
+		applicationObjectMeta := DaoClusterTypes.NewApplicationObjectMeta(metadata)
 		delApplicationsReq.ApplicationObjectMeta = append(delApplicationsReq.ApplicationObjectMeta, applicationObjectMeta)
 	}
 

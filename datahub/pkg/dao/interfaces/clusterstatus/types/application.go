@@ -29,14 +29,10 @@ type DeleteApplicationsRequest struct {
 }
 
 type ApplicationObjectMeta struct {
-	ObjectMeta  *metadata.ObjectMeta
-	ScalingTool string
+	ObjectMeta *metadata.ObjectMeta
 }
 
 type AlamedaApplicationSpec struct {
-	ScalingTool string
-	AppSpec     string
-	Selector    string
 }
 
 func NewApplication(entity *clusterstatus.ApplicationEntity) *Application {
@@ -63,18 +59,14 @@ func NewDeleteApplicationsRequest() *DeleteApplicationsRequest {
 	return &request
 }
 
-func NewApplicationObjectMeta(objectMeta *metadata.ObjectMeta, scalingTool string) *ApplicationObjectMeta {
+func NewApplicationObjectMeta(objectMeta *metadata.ObjectMeta) *ApplicationObjectMeta {
 	applicationObjectMeta := ApplicationObjectMeta{}
 	applicationObjectMeta.ObjectMeta = objectMeta
-	applicationObjectMeta.ScalingTool = scalingTool
 	return &applicationObjectMeta
 }
 
 func NewAlamedaApplicationSpec(entity *clusterstatus.ApplicationEntity) *AlamedaApplicationSpec {
 	spec := AlamedaApplicationSpec{}
-	spec.ScalingTool = entity.ScalingTool
-	spec.AppSpec = entity.AppSpec
-	spec.Selector = entity.Selector
 	return &spec
 }
 
@@ -91,9 +83,6 @@ func (p *Application) BuildEntity() *clusterstatus.ApplicationEntity {
 	}
 
 	if p.AlamedaApplicationSpec != nil {
-		entity.ScalingTool = p.AlamedaApplicationSpec.ScalingTool
-		entity.AppSpec = p.AlamedaApplicationSpec.AppSpec
-		entity.Selector = p.AlamedaApplicationSpec.Selector
 	}
 
 	return &entity

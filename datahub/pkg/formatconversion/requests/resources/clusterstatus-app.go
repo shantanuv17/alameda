@@ -63,7 +63,7 @@ func (p *ListApplicationsRequestExtended) ProduceRequest() *DaoClusterTypes.List
 				request.ApplicationObjectMeta = make([]*DaoClusterTypes.ApplicationObjectMeta, 0)
 				return request
 			}
-			request.ApplicationObjectMeta = append(request.ApplicationObjectMeta, DaoClusterTypes.NewApplicationObjectMeta(&objectMeta, ""))
+			request.ApplicationObjectMeta = append(request.ApplicationObjectMeta, DaoClusterTypes.NewApplicationObjectMeta(&objectMeta))
 		}
 	}
 	return request
@@ -85,7 +85,7 @@ func (p *DeleteApplicationsRequestExtended) ProduceRequest() *DaoClusterTypes.De
 				request.ApplicationObjectMeta = make([]*DaoClusterTypes.ApplicationObjectMeta, 0)
 				return request
 			}
-			request.ApplicationObjectMeta = append(request.ApplicationObjectMeta, DaoClusterTypes.NewApplicationObjectMeta(&objectMeta, ""))
+			request.ApplicationObjectMeta = append(request.ApplicationObjectMeta, DaoClusterTypes.NewApplicationObjectMeta(&objectMeta))
 		}
 	}
 	return request
