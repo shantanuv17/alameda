@@ -29,6 +29,7 @@ func SchemaApplicationKafkaCG() *schemas.Schema {
 	measurement.AddColumn("topic_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("alameda_scaler_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("alameda_scaler_namespace", true, schemas.Tag, common.String)
+	measurement.AddColumn("alameda_scaler_scaling_tool", true, schemas.Tag, common.String)
 	measurement.AddColumn("resource_k8s_name", true, schemas.Tag, common.String)
 	measurement.AddColumn("resource_k8s_namespace", true, schemas.Tag, common.String)
 	measurement.AddColumn("resource_k8s_kind", true, schemas.Tag, common.String)
