@@ -31,11 +31,12 @@ type Pod struct {
 
 type ListPodsRequest struct {
 	common.QueryCondition
-	ObjectMeta        []*metadata.ObjectMeta
-	AlamedaScalerName string
-	TopControllerName string
-	Kind              string // Valid values: DEPLOYMENT, DEPLOYMENTCONFIG, STATEFULSET, ALAMEDASCALER
-	ScalingTool       string // Valid values: NONE, VPA, HPA
+	ObjectMeta             []*metadata.ObjectMeta
+	AlamedaScalerName      string
+	AlamedaScalerNamespace string
+	TopControllerName      string
+	Kind                   string // Valid values: DEPLOYMENT, DEPLOYMENTCONFIG, STATEFULSET, ALAMEDASCALER
+	ScalingTool            string // Valid values: NONE, VPA, HPA
 }
 
 type DeletePodsRequest struct {
