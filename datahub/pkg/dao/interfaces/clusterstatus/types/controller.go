@@ -86,6 +86,7 @@ func NewAlamedaControllerSpec(entity *clusterstatus.ControllerEntity) *AlamedaCo
 	spec := AlamedaControllerSpec{}
 	spec.AlamedaScaler = &metadata.ObjectMeta{}
 	spec.AlamedaScaler.Name = entity.AlamedaSpecScalerName
+	spec.AlamedaScaler.Namespace = entity.AlamedaSpecScalerNamespace
 	spec.ScalingTool = entity.AlamedaSpecScalingTool
 	spec.Policy = entity.AlamedaSpecPolicy
 	spec.MinReplicas = entity.MinReplicas
@@ -113,6 +114,7 @@ func (p *Controller) BuildEntity() *clusterstatus.ControllerEntity {
 	if p.AlamedaControllerSpec != nil {
 		if p.AlamedaControllerSpec.AlamedaScaler != nil {
 			entity.AlamedaSpecScalerName = p.AlamedaControllerSpec.AlamedaScaler.Name
+			entity.AlamedaSpecScalerNamespace = p.AlamedaControllerSpec.AlamedaScaler.Namespace
 		}
 		entity.AlamedaSpecScalingTool = p.AlamedaControllerSpec.ScalingTool
 		entity.AlamedaSpecPolicy = p.AlamedaControllerSpec.Policy

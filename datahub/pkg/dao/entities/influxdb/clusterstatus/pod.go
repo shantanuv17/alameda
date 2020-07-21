@@ -17,6 +17,7 @@ const (
 	PodTopControllerName            influxdb.Tag = "top_controller_name"
 	PodTopControllerKind            influxdb.Tag = "top_controller_kind"
 	PodAlamedaSpecScalerName        influxdb.Tag = "alameda_scaler_name"
+	PodAlamedaSpecScalerNamespace   influxdb.Tag = "alameda_scaler_namespace"
 	PodAlamedaSpecScalerScalingTool influxdb.Tag = "alameda_scaler_scaling_tool"
 	PodAppName                      influxdb.Tag = "app_name"
 	PodAppPartOf                    influxdb.Tag = "app_part_of"
@@ -45,6 +46,7 @@ var (
 		PodTopControllerName,
 		PodTopControllerKind,
 		PodAlamedaSpecScalerName,
+		PodAlamedaSpecScalerNamespace,
 		PodAlamedaSpecScalerScalingTool,
 		PodAppName,
 		PodAppPartOf,
@@ -76,6 +78,7 @@ type PodEntity struct {
 	TopControllerName            string
 	TopControllerKind            string
 	AlamedaSpecScalerName        string
+	AlamedaSpecScalerNamespace   string
 	AlamedaSpecScalerScalingTool string
 	AppName                      string
 	AppPartOf                    string
@@ -124,6 +127,9 @@ func NewPodEntity(data map[string]string) *PodEntity {
 	}
 	if value, exist := data[string(PodAlamedaSpecScalerName)]; exist {
 		entity.AlamedaSpecScalerName = value
+	}
+	if value, exist := data[string(PodAlamedaSpecScalerNamespace)]; exist {
+		entity.AlamedaSpecScalerNamespace = value
 	}
 	if value, exist := data[string(PodAlamedaSpecScalerScalingTool)]; exist {
 		entity.AlamedaSpecScalerScalingTool = value
@@ -189,6 +195,7 @@ func (p *PodEntity) BuildInfluxPoint(measurement string) (*InfluxClient.Point, e
 		string(PodTopControllerName):            p.TopControllerName,
 		string(PodTopControllerKind):            p.TopControllerKind,
 		string(PodAlamedaSpecScalerName):        p.AlamedaSpecScalerName,
+		string(PodAlamedaSpecScalerNamespace):   p.AlamedaSpecScalerNamespace,
 		string(PodAlamedaSpecScalerScalingTool): p.AlamedaSpecScalerScalingTool,
 		string(PodAppName):                      p.AppName,
 		string(PodAppPartOf):                    p.AppPartOf,
