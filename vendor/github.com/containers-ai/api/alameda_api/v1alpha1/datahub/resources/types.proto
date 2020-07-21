@@ -27,9 +27,6 @@ message AlamedaControllerSpec {
 }
 
 message AlamedaApplicationSpec {
-    ScalingTool scaling_tool = 1;
-    string      app_spec     = 2;
-    string      selector     = 3;
 }
 
 message AlamedaNodeSpec {

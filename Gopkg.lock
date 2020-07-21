@@ -35,7 +35,7 @@
 
 [[projects]]
   branch = "4.3-husky"
-  digest = "1:b040aac6ae9ffaaa8da0a8d768e3c4c41aaa19677703c62644960e306aae54ba"
+  digest = "1:7cb6bd3f13c0dff85cafab11c44a95ddf19250fc83b0d93f3b9689ef61e37ef9"
   name = "github.com/containers-ai/api"
   packages = [
     "alameda_api/v1alpha1/datahub",
@@ -58,7 +58,7 @@
     "datahub/keycodes",
   ]
   pruneopts = "T"
-  revision = "5fa580d7ea1572e694cb53ee92a545e88300d2f4"
+  revision = "d32a90bbbaab92ad5ae55800c5a0ebb6714d4b99"
 
 [[projects]]
   digest = "1:9f42202ac457c462ad8bb9642806d275af9ab4850cf0b1960b9c6f083d4a309a"
@@ -1545,6 +1545,7 @@
     "sigs.k8s.io/controller-runtime/pkg/controller",
     "sigs.k8s.io/controller-runtime/pkg/controller/controllerutil",
     "sigs.k8s.io/controller-runtime/pkg/envtest",
+    "sigs.k8s.io/controller-runtime/pkg/envtest/printer",
     "sigs.k8s.io/controller-runtime/pkg/handler",
     "sigs.k8s.io/controller-runtime/pkg/log",
     "sigs.k8s.io/controller-runtime/pkg/log/zap",
