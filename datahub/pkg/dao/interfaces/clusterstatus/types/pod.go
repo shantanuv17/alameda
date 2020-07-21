@@ -124,6 +124,7 @@ func NewAlamedaPodSpec(entity *clusterstatus.PodEntity) *AlamedaPodSpec {
 	spec := AlamedaPodSpec{}
 	spec.AlamedaScaler = &metadata.ObjectMeta{}
 	spec.AlamedaScaler.Name = entity.AlamedaSpecScalerName
+	spec.AlamedaScaler.Namespace = entity.AlamedaSpecScalerNamespace
 	spec.Policy = entity.AlamedaSpecPolicy
 	spec.UsedRecommendationId = entity.AlamedaSpecUsedRecommendationID
 	spec.ScalingTool = entity.AlamedaSpecScalerScalingTool
@@ -181,6 +182,7 @@ func (p *Pod) BuildEntity() *clusterstatus.PodEntity {
 	if p.AlamedaPodSpec != nil {
 		if p.AlamedaPodSpec.AlamedaScaler != nil {
 			entity.AlamedaSpecScalerName = p.AlamedaPodSpec.AlamedaScaler.Name
+			entity.AlamedaSpecScalerNamespace = p.AlamedaPodSpec.AlamedaScaler.Namespace
 		}
 
 		entity.AlamedaSpecPolicy = p.AlamedaPodSpec.Policy

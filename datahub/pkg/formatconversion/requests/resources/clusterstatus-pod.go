@@ -62,6 +62,7 @@ func NewContainer(pod *ApiResources.Pod, container *ApiResources.Container) *Dao
 	}
 	if pod.GetAlamedaPodSpec() != nil {
 		cnt.AlamedaScalerName = pod.GetAlamedaPodSpec().GetAlamedaScaler().GetName()
+		cnt.AlamedaScalerNamespace = pod.GetAlamedaPodSpec().GetAlamedaScaler().GetNamespace()
 		cnt.AlamedaScalerScalingTool = pod.GetAlamedaPodSpec().GetScalingTool().String()
 	}
 	cnt.Resources = NewResourceRequirements(container.GetResources())

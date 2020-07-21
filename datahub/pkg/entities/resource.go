@@ -36,6 +36,7 @@ type ResourceClusterStatusContainer struct {
 	TopControllerName                         string     `json:"top_controller_name"                            required:"true"  column:"tag"   type:"string"`
 	TopControllerKind                         string     `json:"top_controller_kind"                            required:"true"  column:"tag"   type:"string"`
 	AlamedaScalerName                         string     `json:"alameda_scaler_name"                            required:"true"  column:"tag"   type:"string"`
+	AlamedaScalerNamespace                    string     `json:"alameda_scaler_namespace"                       required:"true"  column:"tag"   type:"string"`
 	AlamedaScalerScalingTool                  string     `json:"alameda_scaler_scaling_tool"                    required:"true"  column:"tag"   type:"string"`
 	ResourceRequestCPU                        string     `json:"resource_request_cpu"                           required:"false" column:"field" type:"string"`
 	ResourceRequestMemory                     string     `json:"resource_request_memory"                        required:"false" column:"field" type:"string"`
@@ -69,6 +70,7 @@ type ResourceClusterStatusController struct {
 	Uid                      string     `json:"uid"                         required:"true"  column:"tag"   type:"string"`
 	Kind                     string     `json:"kind"                        required:"true"  column:"tag"   type:"string"`
 	AlamedaScalerName        string     `json:"alameda_scaler_name"         required:"true"  column:"tag"   type:"string"`
+	AlamedaScalerNamespace   string     `json:"alameda_scaler_namespace"    required:"true"  column:"tag"   type:"string"`
 	AlamedaScalerScalingTool string     `json:"alameda_scaler_scaling_tool" required:"true"  column:"tag"   type:"string"`
 	Replicas                 int32      `json:"replicas"                    required:"false" column:"field" type:"int32"`
 	SpecReplicas             int32      `json:"spec_replicas"               required:"false" column:"field" type:"int32"`
@@ -123,6 +125,7 @@ type ResourceClusterStatusPod struct {
 	TopControllerName                  string     `json:"top_controller_name"                    required:"true"  column:"tag"   type:"string"`
 	TopControllerKind                  string     `json:"top_controller_kind"                    required:"true"  column:"tag"   type:"string"`
 	AlamedaScalerName                  string     `json:"alameda_scaler_name"                    required:"true"  column:"tag"   type:"string"`
+	AlamedaScalerNamespace             string     `json:"alameda_scaler_namespace"               required:"true"  column:"tag"   type:"string"`
 	AlamedaScalerScalingTool           string     `json:"alameda_scaler_scaling_tool"            required:"true"  column:"tag"   type:"string"`
 	AppName                            string     `json:"app_name"                               required:"true"  column:"tag"   type:"string"`
 	AppPartOf                          string     `json:"app_part_of"                            required:"true"  column:"tag"   type:"string"`

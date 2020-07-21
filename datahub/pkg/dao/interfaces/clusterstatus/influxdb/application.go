@@ -53,7 +53,7 @@ func (p *Application) ListApplications(request *DaoClusterTypes.ListApplications
 	for _, controller := range controllers {
 		for _, application := range applications {
 			if application.ObjectMeta.Name == controller.AlamedaControllerSpec.AlamedaScaler.Name &&
-				application.ObjectMeta.Namespace == controller.ObjectMeta.Namespace &&
+				application.ObjectMeta.Namespace == controller.AlamedaControllerSpec.AlamedaScaler.Namespace &&
 				application.ObjectMeta.ClusterName == controller.ObjectMeta.ClusterName {
 				if application.Controllers == nil {
 					application.Controllers = make([]*DaoClusterTypes.Controller, 0)

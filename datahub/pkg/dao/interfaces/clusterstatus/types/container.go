@@ -18,6 +18,7 @@ type Container struct {
 	TopControllerName        string
 	TopControllerKind        string
 	AlamedaScalerName        string
+	AlamedaScalerNamespace   string
 	AlamedaScalerScalingTool string
 	Resources                *ResourceRequirements
 	Status                   *ContainerStatus
@@ -137,6 +138,7 @@ func (p *Container) BuildEntity() *clusterstatus.ContainerEntity {
 	entity.TopControllerName = p.TopControllerName
 	entity.TopControllerKind = p.TopControllerKind
 	entity.AlamedaScalerName = p.AlamedaScalerName
+	entity.AlamedaScalerNamespace = p.AlamedaScalerNamespace
 	entity.AlamedaScalerScalingTool = p.AlamedaScalerScalingTool
 
 	// Build resources

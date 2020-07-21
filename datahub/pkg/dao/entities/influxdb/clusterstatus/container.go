@@ -18,6 +18,7 @@ const (
 	ContainerTopControllerName        influxdb.Tag = "top_controller_name"
 	ContainerTopControllerKind        influxdb.Tag = "top_controller_kind"
 	ContainerAlamedaScalerName        influxdb.Tag = "alameda_scaler_name"
+	ContainerAlamedaScalerNamespace   influxdb.Tag = "alameda_scaler_namespace"
 	ContainerAlamedaScalerScalingTool influxdb.Tag = "alameda_scaler_scaling_tool"
 
 	ContainerResourceRequestCPU                  influxdb.Field = "resource_request_cpu"
@@ -55,6 +56,7 @@ var (
 		ContainerTopControllerName,
 		ContainerTopControllerKind,
 		ContainerAlamedaScalerName,
+		ContainerAlamedaScalerNamespace,
 		ContainerAlamedaScalerScalingTool,
 	}
 
@@ -96,6 +98,7 @@ type ContainerEntity struct {
 	TopControllerName        string
 	TopControllerKind        string
 	AlamedaScalerName        string
+	AlamedaScalerNamespace   string
 	AlamedaScalerScalingTool string
 
 	ResourceRequestCPU                  string // TODO: check if type string or float64
@@ -155,6 +158,9 @@ func NewContainerEntity(data map[string]string) *ContainerEntity {
 	}
 	if value, exist := data[string(ContainerAlamedaScalerName)]; exist {
 		entity.AlamedaScalerName = value
+	}
+	if value, exist := data[string(ContainerAlamedaScalerNamespace)]; exist {
+		entity.AlamedaScalerNamespace = value
 	}
 	if value, exist := data[string(ContainerAlamedaScalerScalingTool)]; exist {
 		entity.AlamedaScalerScalingTool = value
@@ -257,6 +263,7 @@ func (p *ContainerEntity) BuildInfluxPoint(measurement string) (*InfluxClient.Po
 		string(ContainerTopControllerName):        p.TopControllerName,
 		string(ContainerTopControllerKind):        p.TopControllerKind,
 		string(ContainerAlamedaScalerName):        p.AlamedaScalerName,
+		string(ContainerAlamedaScalerNamespace):   p.AlamedaScalerNamespace,
 		string(ContainerAlamedaScalerScalingTool): p.AlamedaScalerScalingTool,
 	}
 

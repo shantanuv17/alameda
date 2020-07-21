@@ -15,6 +15,7 @@ const (
 	ControllerUid                          influxdb.Tag   = "uid"
 	ControllerKind                         influxdb.Tag   = "kind"
 	ControllerAlamedaSpecScalerName        influxdb.Tag   = "alameda_scaler_name"
+	ControllerAlamedaSpecScalerNamespace   influxdb.Tag   = "alameda_scaler_namespace"
 	ControllerAlamedaSpecScalerScalingTool influxdb.Tag   = "alameda_scaler_scaling_tool"
 	ControllerReplicas                     influxdb.Field = "replicas"
 	ControllerSpecReplicas                 influxdb.Field = "spec_replicas"
@@ -33,6 +34,7 @@ var (
 		ControllerUid,
 		ControllerKind,
 		ControllerAlamedaSpecScalerName,
+		ControllerAlamedaSpecScalerNamespace,
 		ControllerAlamedaSpecScalerScalingTool,
 	}
 
@@ -53,6 +55,7 @@ var (
 		string(ControllerUid),
 		string(ControllerKind),
 		string(ControllerAlamedaSpecScalerName),
+		string(ControllerAlamedaSpecScalerNamespace),
 		string(ControllerAlamedaSpecScalerScalingTool),
 		string(ControllerReplicas),
 		string(ControllerSpecReplicas),
@@ -65,14 +68,15 @@ var (
 
 type ControllerEntity struct {
 	// InfluxDB tags
-	Time                   time.Time
-	Name                   string
-	Namespace              string
-	ClusterName            string
-	Uid                    string
-	Kind                   string
-	AlamedaSpecScalerName  string
-	AlamedaSpecScalingTool string
+	Time                       time.Time
+	Name                       string
+	Namespace                  string
+	ClusterName                string
+	Uid                        string
+	Kind                       string
+	AlamedaSpecScalerName      string
+	AlamedaSpecScalerNamespace string
+	AlamedaSpecScalingTool     string
 
 	// InfluxDB fields
 	Replicas                   int32
@@ -107,6 +111,9 @@ func NewControllerEntity(data map[string]string) *ControllerEntity {
 	}
 	if value, exist := data[string(ControllerAlamedaSpecScalerName)]; exist {
 		entity.AlamedaSpecScalerName = value
+	}
+	if value, exist := data[string(ControllerAlamedaSpecScalerNamespace)]; exist {
+		entity.AlamedaSpecScalerNamespace = value
 	}
 	if value, exist := data[string(ControllerAlamedaSpecScalerScalingTool)]; exist {
 		entity.AlamedaSpecScalingTool = value
@@ -148,6 +155,7 @@ func (p *ControllerEntity) BuildInfluxPoint(measurement string) (*InfluxClient.P
 		string(ControllerUid):                          p.Uid,
 		string(ControllerKind):                         p.Kind,
 		string(ControllerAlamedaSpecScalerName):        p.AlamedaSpecScalerName,
+		string(ControllerAlamedaSpecScalerNamespace):   p.AlamedaSpecScalerNamespace,
 		string(ControllerAlamedaSpecScalerScalingTool): p.AlamedaSpecScalingTool,
 	}
 
