@@ -7,7 +7,6 @@ import (
 	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
 	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
-	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
 )
@@ -71,11 +70,6 @@ func (p *ApplicationRepository) ListApplications(request *DaoClusterTypes.ListAp
 		keyList := applicationObjectMeta.ObjectMeta.GenerateKeyList()
 		valueList := applicationObjectMeta.ObjectMeta.GenerateValueList()
 
-		if applicationObjectMeta.ScalingTool != "" && applicationObjectMeta.ScalingTool != ApiResources.ScalingTool_name[0] {
-			keyList = append(keyList, string(EntityInfluxCluster.ApplicationScalingTool))
-			valueList = append(valueList, applicationObjectMeta.ScalingTool)
-		}
-
 		condition := statement.GenerateCondition(keyList, valueList, "AND")
 		statement.AppendWhereClauseDirectly("OR", condition)
 	}
@@ -120,11 +114,6 @@ func (p *ApplicationRepository) DeleteApplications(request *DaoClusterTypes.Dele
 		if applicationObjectMeta.ObjectMeta != nil {
 			keyList = applicationObjectMeta.ObjectMeta.GenerateKeyList()
 			valueList = applicationObjectMeta.ObjectMeta.GenerateValueList()
-		}
-
-		if applicationObjectMeta.ScalingTool != "" && applicationObjectMeta.ScalingTool != ApiResources.ScalingTool_name[0] {
-			keyList = append(keyList, string(EntityInfluxCluster.ApplicationScalingTool))
-			valueList = append(valueList, applicationObjectMeta.ScalingTool)
 		}
 
 		condition := statement.GenerateCondition(keyList, valueList, "AND")

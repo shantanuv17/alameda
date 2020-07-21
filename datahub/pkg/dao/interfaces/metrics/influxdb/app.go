@@ -114,7 +114,7 @@ func (n AppMetrics) listApplications(req DaoMetricTypes.ListAppMetricsRequest) (
 	// Generate list resource application request
 	listApplicationsReq := DaoClusterStatusTypes.NewListApplicationsRequest()
 	for index := range req.ObjectMetas {
-		applicationObjectMeta := DaoClusterStatusTypes.NewApplicationObjectMeta(&req.ObjectMetas[index], "")
+		applicationObjectMeta := DaoClusterStatusTypes.NewApplicationObjectMeta(&req.ObjectMetas[index])
 		listApplicationsReq.ApplicationObjectMeta = append(listApplicationsReq.ApplicationObjectMeta, applicationObjectMeta)
 	}
 

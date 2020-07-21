@@ -47,7 +47,6 @@ func ListPodsByApplication(config influxdb.Config, application *types.Applicatio
 	request := types.NewListPodsRequest()
 	request.ObjectMeta = append(request.ObjectMeta, &objectMeta)
 	request.AlamedaScalerName = application.ObjectMeta.Name
-	request.ScalingTool = application.AlamedaApplicationSpec.ScalingTool
 
 	podRepo := clusterstatus.NewPodRepository(config)
 	return podRepo.ListPods(request)

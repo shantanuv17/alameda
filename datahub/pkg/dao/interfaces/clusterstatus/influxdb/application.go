@@ -101,7 +101,7 @@ func (p *Application) genListControllersRequest(request *DaoClusterTypes.ListApp
 			alamedaScaler = nil
 		}
 
-		controllerObjectMeta := DaoClusterTypes.NewControllerObjectMeta(nil, alamedaScaler, "", applicationObjectMeta.ScalingTool)
+		controllerObjectMeta := DaoClusterTypes.NewControllerObjectMeta(nil, alamedaScaler, "", "")
 		listControllersReq.ControllerObjectMeta = append(listControllersReq.ControllerObjectMeta, controllerObjectMeta)
 	}
 
@@ -122,7 +122,7 @@ func (p *Application) genDeleteControllersRequest(request *DaoClusterTypes.Delet
 			alamedaScaler = nil
 		}
 
-		controllerObjectMeta := DaoClusterTypes.NewControllerObjectMeta(nil, alamedaScaler, "", applicationObjectMeta.ScalingTool)
+		controllerObjectMeta := DaoClusterTypes.NewControllerObjectMeta(nil, alamedaScaler, "", "")
 		delControllersReq.ControllerObjectMeta = append(delControllersReq.ControllerObjectMeta, controllerObjectMeta)
 	}
 

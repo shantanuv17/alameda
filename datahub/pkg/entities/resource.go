@@ -6,15 +6,12 @@ import (
 
 type ResourceClusterStatusApplication struct {
 	DatahubEntity `scope:"resource" category:"cluster_status" type:"application" measurement:"application" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
-	Time          *time.Time `json:"time"                      required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"                      required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"                 required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"              required:"true"  column:"tag"   type:"string"`
-	Uid           string     `json:"uid"                       required:"true"  column:"tag"   type:"string"`
-	ScalingTool   string     `json:"scaling_tool"              required:"true"  column:"tag"   type:"string"`
-	Type          string     `json:"type"                      required:"true"  column:"tag"   type:"string"`
-	AppSpec       string     `json:"app_spec"                  required:"false" column:"field" type:"string"`
-	Selector      string     `json:"selector"                  required:"false" column:"field" type:"string"`
+	Time          *time.Time `json:"time"         required:"false" column:"tag"   type:"time"`
+	Name          string     `json:"name"         required:"true"  column:"tag"   type:"string"`
+	Namespace     string     `json:"namespace"    required:"true"  column:"tag"   type:"string"`
+	ClusterName   string     `json:"cluster_name" required:"true"  column:"tag"   type:"string"`
+	Uid           string     `json:"uid"          required:"true"  column:"tag"   type:"string"`
+	Dummy         string     `json:"dummy"        required:"true"  column:"field" type:"string"`
 }
 
 type ResourceClusterStatusCluster struct {
