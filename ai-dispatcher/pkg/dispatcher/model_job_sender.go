@@ -168,9 +168,9 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 
 				if len(readDataRes.GetData().GetRawdata()) == 0 {
 					for _, mt := range unit.MetricTypes {
-						scope.Infof("[%s] No prediction found, send model jobs")
 						jobID, _ := utils.GetJobID(unit, row.GetValues(), rawDatumColumns,
 							mt, granularity)
+						scope.Infof("[%s] No prediction found, send model jobs", jobID)
 						err := dispatcher.tryToJobSending(modelQueueName, unit, rawDatumColumns, row.GetValues(),
 							mt, granularity, queueSender, jobID)
 						if err != nil {
