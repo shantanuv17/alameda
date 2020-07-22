@@ -158,6 +158,7 @@ func (p *ContainerRepository) DeleteContainers(request DaoClusterTypes.DeleteCon
 		keyList = append(keyList, string(EntityInfluxCluster.ContainerClusterName))
 		keyList = append(keyList, string(EntityInfluxCluster.ContainerTopControllerName))
 		keyList = append(keyList, string(EntityInfluxCluster.ContainerAlamedaScalerName))
+		keyList = append(keyList, string(EntityInfluxCluster.ContainerAlamedaScalerNamespace))
 
 		valueList = append(valueList, containerMeta.Name)
 		valueList = append(valueList, containerMeta.PodName)
@@ -166,6 +167,7 @@ func (p *ContainerRepository) DeleteContainers(request DaoClusterTypes.DeleteCon
 		valueList = append(valueList, containerMeta.ClusterName)
 		valueList = append(valueList, containerMeta.TopControllerName)
 		valueList = append(valueList, containerMeta.AlamedaScalerName)
+		valueList = append(valueList, containerMeta.AlamedaScalerNamespace)
 
 		if containerMeta.TopControllerKind != "" && containerMeta.TopControllerKind != ApiResources.Kind_name[0] {
 			keyList = append(keyList, string(EntityInfluxCluster.ContainerTopControllerKind))
