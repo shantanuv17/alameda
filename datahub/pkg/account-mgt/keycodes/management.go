@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	ClusterStatusEntity "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
-	ClusterStatusRepo "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
-	EntityInflux "github.com/containers-ai/alameda/internal/pkg/database/entity/influxdb"
+	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
+	RepoClusterStatus "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
 	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
 	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
@@ -353,14 +353,14 @@ func (c *KeycodeMgt) writeInfluxEntry(keycode, status string) error {
 		string(ClusterStatusEntity.KeycodeRawdata):         string(jsonStr[:]),
 	}
 
-	pt, err := InfluxClient.NewPoint(string(ClusterStatusRepo.Keycode), tags, fields, time.Unix(0, 0))
+	pt, err := InfluxClient.NewPoint(string(RepoClusterStatus.Keycode), tags, fields, time.Unix(0, 0))
 	if err != nil {
 		scope.Error(err.Error())
 	}
 	points = append(points, pt)
 
 	err = client.WritePoints(points, InfluxClient.BatchPointsConfig{
-		Database: string(EntityInflux.ClusterStatus),
+		Database: string(RepoInflux.ClusterStatus),
 	})
 
 	if err != nil {
@@ -375,9 +375,9 @@ func (c *KeycodeMgt) deleteInfluxEntry(keycode string) error {
 	if keycode != "" {
 		client := InternalInflux.NewClient(InfluxConfig)
 
-		cmd := fmt.Sprintf("DROP SERIES FROM %s WHERE \"%s\"='%s'", ClusterStatusRepo.Keycode, ClusterStatusEntity.Keycode, keycode)
+		cmd := fmt.Sprintf("DROP SERIES FROM %s WHERE \"%s\"='%s'", RepoClusterStatus.Keycode, ClusterStatusEntity.Keycode, keycode)
 		scope.Debugf("delete keycode in influxdb command: %s", cmd)
-		_, err := client.QueryDB(cmd, string(EntityInflux.ClusterStatus))
+		_, err := client.QueryDB(cmd, string(RepoInflux.ClusterStatus))
 		if err != nil {
 			scope.Errorf(err.Error())
 			return nil
