@@ -76,13 +76,11 @@ func DeleteV1Alpha2Scaler(
 		err = datahubClient.DeleteByOpts(&entities.ResourceClusterStatusContainer{},
 			datahubpkg.Option{
 				Entity: entities.ResourceClusterStatusContainer{
-					Name:              scalerClusterName,
-					Namespace:         scalerNamespace,
-					AlamedaScalerName: scalerName,
-					//TODO:
-					//AlamedaScalerNamespace: scalerNamespace,
+					Name:                   scalerClusterName,
+					AlamedaScalerNamespace: scalerNamespace,
+					AlamedaScalerName:      scalerName,
 				},
-				Fields: []string{"Name", "Namespace", "AlamedaScalerName"},
+				Fields: []string{"Name", "AlamedaScalerNamespace", "AlamedaScalerName"},
 			})
 		if err != nil {
 			return err
@@ -90,13 +88,11 @@ func DeleteV1Alpha2Scaler(
 		err = datahubClient.DeleteByOpts(&entities.ResourceClusterStatusPod{},
 			datahubpkg.Option{
 				Entity: entities.ResourceClusterStatusPod{
-					ClusterName:       scalerClusterName,
-					Namespace:         scalerNamespace,
-					AlamedaScalerName: scalerName,
-					//TODO:
-					//AlamedaScalerNamespace: scalerNamespace,
+					ClusterName:            scalerClusterName,
+					AlamedaScalerNamespace: scalerNamespace,
+					AlamedaScalerName:      scalerName,
 				},
-				Fields: []string{"ClusterName", "Namespace", "AlamedaScalerName"},
+				Fields: []string{"ClusterName", "AlamedaScalerNamespace", "AlamedaScalerName"},
 			})
 		if err != nil {
 			return err
@@ -104,13 +100,11 @@ func DeleteV1Alpha2Scaler(
 		err = datahubClient.DeleteByOpts(&entities.ResourceClusterStatusController{},
 			datahubpkg.Option{
 				Entity: entities.ResourceClusterStatusController{
-					ClusterName:       scalerClusterName,
-					Namespace:         scalerNamespace,
-					AlamedaScalerName: scalerName,
-					//TODO:
-					//AlamedaScalerNamespace: scalerNamespace,
+					ClusterName:            scalerClusterName,
+					AlamedaScalerNamespace: scalerNamespace,
+					AlamedaScalerName:      scalerName,
 				},
-				Fields: []string{"ClusterName", "Namespace", "AlamedaScalerName"},
+				Fields: []string{"ClusterName", "AlamedaScalerName", "AlamedaScalerName"},
 			})
 		if err != nil {
 			return err
