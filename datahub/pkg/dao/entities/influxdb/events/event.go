@@ -1,29 +1,30 @@
 package events
 
-type eventTag = string
-type eventField = string
+import (
+	"github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+)
 
 const (
-	EventTime              eventTag = "time"
-	EventClusterId         eventTag = "cluster_id"
-	EventSourceComponent   eventTag = "source_component"
-	EventSourceHost        eventTag = "source_host"
-	EventType              eventTag = "type"
-	EventVersion           eventTag = "version"
-	EventLevel             eventTag = "level"
-	EventSubjectKind       eventTag = "subject_kind"
-	EventSubjectNamespace  eventTag = "subject_namespace"
-	EventSubjectName       eventTag = "subject_name"
-	EventSubjectApiVersion eventTag = "subject_api_version"
+	EventTime              influxdb.Tag = "time"
+	EventClusterId         influxdb.Tag = "cluster_id"
+	EventSourceComponent   influxdb.Tag = "source_component"
+	EventSourceHost        influxdb.Tag = "source_host"
+	EventType              influxdb.Tag = "type"
+	EventVersion           influxdb.Tag = "version"
+	EventLevel             influxdb.Tag = "level"
+	EventSubjectKind       influxdb.Tag = "subject_kind"
+	EventSubjectNamespace  influxdb.Tag = "subject_namespace"
+	EventSubjectName       influxdb.Tag = "subject_name"
+	EventSubjectApiVersion influxdb.Tag = "subject_api_version"
 
-	EventId      eventField = "id"
-	EventMessage eventField = "message"
-	EventData    eventField = "data"
+	EventId      influxdb.Field = "id"
+	EventMessage influxdb.Field = "message"
+	EventData    influxdb.Field = "data"
 )
 
 var (
 	// ControllerTags is list of tags of alameda_controller_recommendation measurement
-	EventTags = []eventTag{
+	EventTags = []influxdb.Tag{
 		EventTime,
 		EventClusterId,
 		EventSourceComponent,
@@ -37,7 +38,7 @@ var (
 		EventSubjectApiVersion,
 	}
 	// ControllerFields is list of fields of alameda_controller_recommendation measurement
-	EventFields = []eventField{
+	EventFields = []influxdb.Field{
 		EventId,
 		EventMessage,
 		EventData,

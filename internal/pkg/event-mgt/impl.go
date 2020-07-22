@@ -2,13 +2,14 @@ package eventmgt
 
 import (
 	"encoding/json"
-	EntityInflux      "github.com/containers-ai/alameda/internal/pkg/database/entity/influxdb"
-	EntityInfluxEvent "github.com/containers-ai/alameda/internal/pkg/database/entity/influxdb/event"
-	DBCommon          "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux    "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalRabbitmq  "github.com/containers-ai/alameda/internal/pkg/message-queue/rabbitmq"
-	DatahubLog        "github.com/containers-ai/alameda/pkg/utils/log"
-	ApiEvents         "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
+	EntityEvent "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/events"
+	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
+	RepoEvent "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/events"
+	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
+	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InternalRabbitmq "github.com/containers-ai/alameda/internal/pkg/message-queue/rabbitmq"
+	DatahubLog "github.com/containers-ai/alameda/pkg/utils/log"
+	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"github.com/golang/protobuf/ptypes"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"time"
@@ -23,26 +24,26 @@ func (e *EventMgt) PostEvents(in *ApiEvents.CreateEventsRequest) error {
 
 	for _, event := range in.GetEvents() {
 		tags := map[string]string{
-			EntityInfluxEvent.EventClusterId:         event.GetClusterId(),
-			EntityInfluxEvent.EventSourceHost:        event.GetSource().GetHost(),
-			EntityInfluxEvent.EventSourceComponent:   event.GetSource().GetComponent(),
-			EntityInfluxEvent.EventType:              event.GetType().String(),
-			EntityInfluxEvent.EventVersion:           event.GetVersion().String(),
-			EntityInfluxEvent.EventLevel:             event.GetLevel().String(),
-			EntityInfluxEvent.EventSubjectKind:       event.GetSubject().GetKind(),
-			EntityInfluxEvent.EventSubjectNamespace:  event.GetSubject().GetNamespace(),
-			EntityInfluxEvent.EventSubjectName:       event.GetSubject().GetName(),
-			EntityInfluxEvent.EventSubjectApiVersion: event.GetSubject().GetApiVersion(),
+			string(EntityEvent.EventClusterId):         event.GetClusterId(),
+			string(EntityEvent.EventSourceHost):        event.GetSource().GetHost(),
+			string(EntityEvent.EventSourceComponent):   event.GetSource().GetComponent(),
+			string(EntityEvent.EventType):              event.GetType().String(),
+			string(EntityEvent.EventVersion):           event.GetVersion().String(),
+			string(EntityEvent.EventLevel):             event.GetLevel().String(),
+			string(EntityEvent.EventSubjectKind):       event.GetSubject().GetKind(),
+			string(EntityEvent.EventSubjectNamespace):  event.GetSubject().GetNamespace(),
+			string(EntityEvent.EventSubjectName):       event.GetSubject().GetName(),
+			string(EntityEvent.EventSubjectApiVersion): event.GetSubject().GetApiVersion(),
 		}
 
 		fields := map[string]interface{}{
-			EntityInfluxEvent.EventId:      event.GetId(),
-			EntityInfluxEvent.EventMessage: event.GetMessage(),
-			EntityInfluxEvent.EventData:    event.GetData(),
+			string(EntityEvent.EventId):      event.GetId(),
+			string(EntityEvent.EventMessage): event.GetMessage(),
+			string(EntityEvent.EventData):    event.GetData(),
 		}
 
 		tempTime, _ := ptypes.Timestamp(event.GetTime())
-		pt, err := InfluxClient.NewPoint(string(EntityInfluxEvent.EventMeasurement), tags, fields, tempTime)
+		pt, err := InfluxClient.NewPoint(string(RepoEvent.Event), tags, fields, tempTime)
 		if err != nil {
 			scope.Error(err.Error())
 		}
@@ -51,7 +52,7 @@ func (e *EventMgt) PostEvents(in *ApiEvents.CreateEventsRequest) error {
 	}
 
 	err := e.influxDB.WritePoints(points, InfluxClient.BatchPointsConfig{
-		Database: string(EntityInflux.Event),
+		Database: string(RepoInflux.Event),
 	})
 
 	if err != nil {
@@ -89,22 +90,22 @@ func (e *EventMgt) ListEvents(in *ApiEvents.ListEventsRequest) ([]*ApiEvents.Eve
 	}
 
 	influxdbStatement := InternalInflux.Statement{
-		Measurement:    EntityInfluxEvent.EventMeasurement,
+		Measurement:    RepoEvent.Event,
 		QueryCondition: DBCommon.BuildQueryConditionV1(in.GetQueryCondition()),
 	}
 
-	influxdbStatement.AppendWhereClauseByList(EntityInfluxEvent.EventId, "=", "OR", idList)
-	influxdbStatement.AppendWhereClauseByList(EntityInfluxEvent.EventClusterId, "=", "OR", clusterIdList)
-	influxdbStatement.AppendWhereClauseByList(EntityInfluxEvent.EventType, "=", "OR", eventTypeList)
-	influxdbStatement.AppendWhereClauseByList(EntityInfluxEvent.EventVersion, "=", "OR", eventVersionList)
-	influxdbStatement.AppendWhereClauseByList(EntityInfluxEvent.EventLevel, "=", "OR", eventLevelList)
+	influxdbStatement.AppendWhereClauseByList(string(EntityEvent.EventId), "=", "OR", idList)
+	influxdbStatement.AppendWhereClauseByList(string(EntityEvent.EventClusterId), "=", "OR", clusterIdList)
+	influxdbStatement.AppendWhereClauseByList(string(EntityEvent.EventType), "=", "OR", eventTypeList)
+	influxdbStatement.AppendWhereClauseByList(string(EntityEvent.EventVersion), "=", "OR", eventVersionList)
+	influxdbStatement.AppendWhereClauseByList(string(EntityEvent.EventLevel), "=", "OR", eventLevelList)
 
 	influxdbStatement.AppendWhereClauseFromTimeCondition()
 	influxdbStatement.SetOrderClauseFromQueryCondition()
 	influxdbStatement.SetLimitClauseFromQueryCondition()
 	cmd := influxdbStatement.BuildQueryCmd()
 
-	results, err := e.influxDB.QueryDB(cmd, string(EntityInflux.Event))
+	results, err := e.influxDB.QueryDB(cmd, string(RepoInflux.Event))
 	if err != nil {
 		return make([]*ApiEvents.Event, 0), err
 	}
@@ -120,37 +121,37 @@ func (e *EventMgt) getEventsFromInfluxRows(rows []*InternalInflux.InfluxRow) []*
 
 	for _, influxdbRow := range rows {
 		for _, data := range influxdbRow.Data {
-			t, _ := time.Parse(time.RFC3339Nano, data[EntityInfluxEvent.EventTime])
+			t, _ := time.Parse(time.RFC3339Nano, data[string(EntityEvent.EventTime)])
 			tempTime, _ := ptypes.TimestampProto(t)
 
-			clusterId := data[EntityInfluxEvent.EventClusterId]
-			sourceHost := data[EntityInfluxEvent.EventSourceHost]
-			sourceComponent := data[EntityInfluxEvent.EventSourceComponent]
-			subjectKind := data[EntityInfluxEvent.EventSubjectKind]
-			subjectNamespace := data[EntityInfluxEvent.EventSubjectNamespace]
-			subjectName := data[EntityInfluxEvent.EventSubjectName]
-			subjectApiVersion := data[EntityInfluxEvent.EventSubjectApiVersion]
+			clusterId := data[string(EntityEvent.EventClusterId)]
+			sourceHost := data[string(EntityEvent.EventSourceHost)]
+			sourceComponent := data[string(EntityEvent.EventSourceComponent)]
+			subjectKind := data[string(EntityEvent.EventSubjectKind)]
+			subjectNamespace := data[string(EntityEvent.EventSubjectNamespace)]
+			subjectName := data[string(EntityEvent.EventSubjectName)]
+			subjectApiVersion := data[string(EntityEvent.EventSubjectApiVersion)]
 
-			id := data[EntityInfluxEvent.EventId]
-			message := data[EntityInfluxEvent.EventMessage]
-			eventData := data[EntityInfluxEvent.EventData]
+			id := data[string(EntityEvent.EventId)]
+			message := data[string(EntityEvent.EventMessage)]
+			eventData := data[string(EntityEvent.EventData)]
 
 			eventType := ApiEvents.EventType_EVENT_TYPE_UNDEFINED
-			if tempType, exist := data[EntityInfluxEvent.EventType]; exist {
+			if tempType, exist := data[string(EntityEvent.EventType)]; exist {
 				if value, ok := ApiEvents.EventType_value[tempType]; ok {
 					eventType = ApiEvents.EventType(value)
 				}
 			}
 
 			eventVersion := ApiEvents.EventVersion_EVENT_VERSION_UNDEFINED
-			if tempVersion, exist := data[EntityInfluxEvent.EventVersion]; exist {
+			if tempVersion, exist := data[string(EntityEvent.EventVersion)]; exist {
 				if value, ok := ApiEvents.EventVersion_value[tempVersion]; ok {
 					eventVersion = ApiEvents.EventVersion(value)
 				}
 			}
 
 			eventLevel := ApiEvents.EventLevel_EVENT_LEVEL_UNDEFINED
-			if tempLevel, exist := data[EntityInfluxEvent.EventLevel]; exist {
+			if tempLevel, exist := data[string(EntityEvent.EventLevel)]; exist {
 				if value, ok := ApiEvents.EventLevel_value[tempLevel]; ok {
 					eventLevel = ApiEvents.EventLevel(value)
 				}
