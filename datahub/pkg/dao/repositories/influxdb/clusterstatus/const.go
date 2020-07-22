@@ -12,4 +12,5 @@ const (
 	Namespace   influxdb.Measurement = "namespace"
 	Node        influxdb.Measurement = "node"
 	Cluster     influxdb.Measurement = "cluster"
+	Keycode     influxdb.Measurement = "keycode"
 )
