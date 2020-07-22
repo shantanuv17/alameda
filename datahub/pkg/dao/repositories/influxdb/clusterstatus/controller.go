@@ -144,17 +144,21 @@ func (p *ControllerRepository) DeleteControllers(request *DaoClusterTypes.Delete
 		}
 
 		if controllerObjectMeta.AlamedaScaler != nil {
-			keyList = append(keyList, string(EntityInfluxCluster.ControllerAlamedaSpecScalerName))
-			valueList = append(valueList, controllerObjectMeta.AlamedaScaler.Name)
+			if controllerObjectMeta.AlamedaScaler.Name != "" {
+				keyList = append(keyList, string(EntityInfluxCluster.ControllerAlamedaSpecScalerName))
+				valueList = append(valueList, controllerObjectMeta.AlamedaScaler.Name)
+			}
 
-			if !Utils.SliceContains(keyList, string(EntityInfluxCluster.ControllerNamespace)) {
-				keyList = append(keyList, string(EntityInfluxCluster.ControllerNamespace))
+			if controllerObjectMeta.AlamedaScaler.Namespace != "" {
+				keyList = append(keyList, string(EntityInfluxCluster.ControllerAlamedaSpecScalerNamespace))
 				valueList = append(valueList, controllerObjectMeta.AlamedaScaler.Namespace)
 			}
 
 			if !Utils.SliceContains(keyList, string(EntityInfluxCluster.ControllerClusterName)) {
-				keyList = append(keyList, string(EntityInfluxCluster.ControllerClusterName))
-				valueList = append(valueList, controllerObjectMeta.AlamedaScaler.ClusterName)
+				if controllerObjectMeta.AlamedaScaler.ClusterName != "" {
+					keyList = append(keyList, string(EntityInfluxCluster.ControllerClusterName))
+					valueList = append(valueList, controllerObjectMeta.AlamedaScaler.ClusterName)
+				}
 			}
 		}
 

@@ -101,37 +101,7 @@ func (p *Pod) ListPods(request *DaoClusterTypes.ListPodsRequest) ([]*DaoClusterT
 }
 
 func (p *Pod) DeletePods(request *DaoClusterTypes.DeletePodsRequest) error {
-	delContainerReq := DaoClusterTypes.NewDeleteContainersRequest()
-	for _, podObjectMeta := range request.PodObjectMeta {
-		containerMeta := DaoClusterTypes.ContainerObjectMeta{}
-		containerMeta.TopControllerKind = podObjectMeta.Kind
-		containerMeta.AlamedaScalerScalingTool = podObjectMeta.ScalingTool
-		if podObjectMeta.ObjectMeta != nil {
-			containerMeta.PodName = podObjectMeta.ObjectMeta.Name
-			containerMeta.Namespace = podObjectMeta.ObjectMeta.Namespace
-			containerMeta.NodeName = podObjectMeta.ObjectMeta.NodeName
-			containerMeta.ClusterName = podObjectMeta.ObjectMeta.ClusterName
-		}
-		if podObjectMeta.TopController != nil {
-			containerMeta.TopControllerName = podObjectMeta.TopController.Name
-			if containerMeta.Namespace == "" {
-				containerMeta.Namespace = podObjectMeta.TopController.Namespace
-			}
-			if containerMeta.ClusterName == "" {
-				containerMeta.ClusterName = podObjectMeta.TopController.ClusterName
-			}
-		}
-		if podObjectMeta.AlamedaScaler != nil {
-			containerMeta.AlamedaScalerName = podObjectMeta.AlamedaScaler.Name
-			if containerMeta.Namespace == "" {
-				containerMeta.Namespace = podObjectMeta.AlamedaScaler.Namespace
-			}
-			if containerMeta.ClusterName == "" {
-				containerMeta.ClusterName = podObjectMeta.AlamedaScaler.ClusterName
-			}
-		}
-		delContainerReq.ContainerObjectMeta = append(delContainerReq.ContainerObjectMeta, &containerMeta)
-	}
+	delContainersReq := p.genDeleteContainersRequest(request)
 
 	// Delete pods
 	podRepo := RepoInfluxCluster.NewPodRepository(p.InfluxDBConfig)
@@ -142,7 +112,7 @@ func (p *Pod) DeletePods(request *DaoClusterTypes.DeletePodsRequest) error {
 
 	// Delete containers
 	containerRepo := RepoInfluxCluster.NewContainerRepository(p.InfluxDBConfig)
-	if err := containerRepo.DeleteContainers(delContainerReq); err != nil {
+	if err := containerRepo.DeleteContainers(delContainersReq); err != nil {
 		scope.Error(err.Error())
 		return err
 	}
@@ -185,4 +155,47 @@ func (p *Pod) listContainersByPods(pods []*DaoClusterTypes.Pod) (map[string][]*D
 	}
 
 	return containerRepo.ListContainers(request)
+}
+
+func (p *Pod) genDeleteContainersRequest(request *DaoClusterTypes.DeletePodsRequest) DaoClusterTypes.DeleteContainersRequest {
+	delContainerReq := DaoClusterTypes.NewDeleteContainersRequest()
+
+	for _, podObjectMeta := range request.PodObjectMeta {
+		containerMeta := DaoClusterTypes.ContainerObjectMeta{}
+		containerMeta.TopControllerKind = podObjectMeta.Kind
+		containerMeta.AlamedaScalerScalingTool = podObjectMeta.ScalingTool
+
+		if podObjectMeta.ObjectMeta != nil {
+			containerMeta.PodName = podObjectMeta.ObjectMeta.Name
+			containerMeta.Namespace = podObjectMeta.ObjectMeta.Namespace
+			containerMeta.NodeName = podObjectMeta.ObjectMeta.NodeName
+			containerMeta.ClusterName = podObjectMeta.ObjectMeta.ClusterName
+		}
+
+		if podObjectMeta.TopController != nil {
+			containerMeta.TopControllerName = podObjectMeta.TopController.Name
+			if containerMeta.Namespace == "" {
+				containerMeta.Namespace = podObjectMeta.TopController.Namespace
+			}
+			if containerMeta.ClusterName == "" {
+				containerMeta.ClusterName = podObjectMeta.TopController.ClusterName
+			}
+		}
+
+		if podObjectMeta.AlamedaScaler != nil {
+			if podObjectMeta.AlamedaScaler.Name != "" {
+				containerMeta.AlamedaScalerName = podObjectMeta.AlamedaScaler.Name
+			}
+			if podObjectMeta.AlamedaScaler.Namespace != "" {
+				containerMeta.AlamedaScalerNamespace = podObjectMeta.AlamedaScaler.Namespace
+			}
+			if containerMeta.ClusterName == "" {
+				containerMeta.ClusterName = podObjectMeta.AlamedaScaler.ClusterName
+			}
+		}
+
+		delContainerReq.ContainerObjectMeta = append(delContainerReq.ContainerObjectMeta, &containerMeta)
+	}
+
+	return delContainerReq
 }

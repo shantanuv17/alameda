@@ -33,6 +33,7 @@ type ContainerObjectMeta struct {
 	TopControllerName        string
 	TopControllerKind        string
 	AlamedaScalerName        string
+	AlamedaScalerNamespace   string
 	AlamedaScalerScalingTool string
 }
 

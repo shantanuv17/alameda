@@ -178,11 +178,13 @@ func (p *PodRepository) DeletePods(request *DaoClusterTypes.DeletePodsRequest) e
 		}
 
 		if podObjectMeta.AlamedaScaler != nil {
-			keyList = append(keyList, string(EntityInfluxCluster.PodAlamedaSpecScalerName))
-			valueList = append(valueList, podObjectMeta.AlamedaScaler.Name)
+			if podObjectMeta.AlamedaScaler.Name != "" {
+				keyList = append(keyList, string(EntityInfluxCluster.PodAlamedaSpecScalerName))
+				valueList = append(valueList, podObjectMeta.AlamedaScaler.Name)
+			}
 
-			if !Utils.SliceContains(keyList, string(EntityInfluxCluster.PodNamespace)) {
-				keyList = append(keyList, string(EntityInfluxCluster.PodNamespace))
+			if podObjectMeta.AlamedaScaler.Namespace != "" {
+				keyList = append(keyList, string(EntityInfluxCluster.PodAlamedaSpecScalerNamespace))
 				valueList = append(valueList, podObjectMeta.AlamedaScaler.Namespace)
 			}
 
