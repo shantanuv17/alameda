@@ -3,8 +3,9 @@ package keycodes
 import (
 	"encoding/json"
 	"fmt"
+	ClusterStatusEntity "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
+	ClusterStatusRepo "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
 	EntityInflux "github.com/containers-ai/alameda/internal/pkg/database/entity/influxdb"
-	EntityInfluxKeycode "github.com/containers-ai/alameda/internal/pkg/database/entity/influxdb/cluster_status"
 	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
 	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
@@ -339,20 +340,20 @@ func (c *KeycodeMgt) writeInfluxEntry(keycode, status string) error {
 	client := InternalInflux.NewClient(InfluxConfig)
 
 	tags := map[string]string{
-		EntityInfluxKeycode.Keycode: keycode,
+		string(ClusterStatusEntity.Keycode): keycode,
 	}
 
 	jsonStr, _ := json.Marshal(KeycodeSummary)
 	fields := map[string]interface{}{
-		EntityInfluxKeycode.KeycodeStatus:          status,
-		EntityInfluxKeycode.KeycodeType:            KeycodeSummary.KeycodeType,
-		EntityInfluxKeycode.KeycodeState:           KeycodeSummary.LicenseState,
-		EntityInfluxKeycode.KeycodeRegistered:      KeycodeSummary.Registered,
-		EntityInfluxKeycode.KeycodeExpireTimestamp: KeycodeSummary.ExpireTimestamp,
-		EntityInfluxKeycode.KeycodeRawdata:         string(jsonStr[:]),
+		string(ClusterStatusEntity.KeycodeStatus):          status,
+		string(ClusterStatusEntity.KeycodeType):            KeycodeSummary.KeycodeType,
+		string(ClusterStatusEntity.KeycodeState):           KeycodeSummary.LicenseState,
+		string(ClusterStatusEntity.KeycodeRegistered):      KeycodeSummary.Registered,
+		string(ClusterStatusEntity.KeycodeExpireTimestamp): KeycodeSummary.ExpireTimestamp,
+		string(ClusterStatusEntity.KeycodeRawdata):         string(jsonStr[:]),
 	}
 
-	pt, err := InfluxClient.NewPoint(string(EntityInfluxKeycode.KeycodeMeasurement), tags, fields, time.Unix(0, 0))
+	pt, err := InfluxClient.NewPoint(string(ClusterStatusRepo.Keycode), tags, fields, time.Unix(0, 0))
 	if err != nil {
 		scope.Error(err.Error())
 	}
@@ -374,7 +375,7 @@ func (c *KeycodeMgt) deleteInfluxEntry(keycode string) error {
 	if keycode != "" {
 		client := InternalInflux.NewClient(InfluxConfig)
 
-		cmd := fmt.Sprintf("DROP SERIES FROM %s WHERE \"%s\"='%s'", EntityInfluxKeycode.KeycodeMeasurement, EntityInfluxKeycode.Keycode, keycode)
+		cmd := fmt.Sprintf("DROP SERIES FROM %s WHERE \"%s\"='%s'", ClusterStatusRepo.Keycode, ClusterStatusEntity.Keycode, keycode)
 		scope.Debugf("delete keycode in influxdb command: %s", cmd)
 		_, err := client.QueryDB(cmd, string(EntityInflux.ClusterStatus))
 		if err != nil {
