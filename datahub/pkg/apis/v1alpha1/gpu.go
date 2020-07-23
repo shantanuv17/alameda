@@ -7,7 +7,7 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/gpu"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/metrics"
 	gpu2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/gpu"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
 	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	ApiGpu "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"

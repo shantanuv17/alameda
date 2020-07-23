@@ -7,9 +7,9 @@ import (
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
 	Metadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
 	Utils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	InternalCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
@@ -17,12 +17,12 @@ import (
 )
 
 type PodRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewPodRepository(influxDBCfg InternalInflux.Config) *PodRepository {
+func NewPodRepository(influxDBCfg InfluxDB.Config) *PodRepository {
 	return &PodRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -68,7 +68,7 @@ func (p *PodRepository) CreatePods(pods []*DaoClusterTypes.Pod) error {
 func (p *PodRepository) ListPods(request *DaoClusterTypes.ListPodsRequest) ([]*DaoClusterTypes.Pod, error) {
 	pods := make([]*DaoClusterTypes.Pod, 0)
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: &request.QueryCondition,
 		Measurement:    Pod,
 		GroupByTags:    []string{string(EntityInfluxCluster.PodNamespace), string(EntityInfluxCluster.PodNodeName), string(EntityInfluxCluster.PodClusterName)},
@@ -128,7 +128,7 @@ func (p *PodRepository) ListPods(request *DaoClusterTypes.ListPodsRequest) ([]*D
 		return make([]*DaoClusterTypes.Pod, 0), errors.Wrap(err, "failed to list pods")
 	}
 
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)
@@ -144,7 +144,7 @@ func (p *PodRepository) ListPods(request *DaoClusterTypes.ListPodsRequest) ([]*D
 }
 
 func (p *PodRepository) DeletePods(request *DaoClusterTypes.DeletePodsRequest) error {
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		Measurement: Pod,
 	}
 
@@ -293,7 +293,7 @@ func (p *PodRepository) genObjectMetaCondition(objectMeta *Metadata.ObjectMeta, 
 	return ""
 }
 
-func (p *PodRepository) genCreatePeriodCondition(query InternalCommon.QueryCondition) string {
+func (p *PodRepository) genCreatePeriodCondition(query DBCommon.QueryCondition) string {
 	if query.StartTime != nil && query.EndTime != nil {
 		return fmt.Sprintf("\"%s\">=%d AND \"%s\"<%d", EntityInfluxCluster.PodCreateTime, query.StartTime.Unix(), EntityInfluxCluster.PodCreateTime, query.EndTime.Unix())
 	} else if query.StartTime != nil && query.EndTime == nil {

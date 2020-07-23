@@ -6,16 +6,16 @@ import (
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
 	Utils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	"strconv"
 )
 
 type Metric struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewMetricWithConfig(config InternalInflux.Config) DaoGpu.MetricsDAO {
+func NewMetricWithConfig(config InfluxDB.Config) DaoGpu.MetricsDAO {
 	return Metric{InfluxDBConfig: config}
 }
 

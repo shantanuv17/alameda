@@ -1,7 +1,7 @@
 package influxdb
 
 import (
-	"github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	"github.com/containers-ai/alameda/pkg/database/influxdb"
 )
 
 const (

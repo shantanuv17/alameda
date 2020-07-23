@@ -4,7 +4,7 @@ import (
 	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
 	RepoInfluxCluster "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
 	Metadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 )
 
@@ -13,10 +13,10 @@ var (
 )
 
 type Application struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewApplicationWithConfig(config InternalInflux.Config) DaoClusterTypes.ApplicationDAO {
+func NewApplicationWithConfig(config InfluxDB.Config) DaoClusterTypes.ApplicationDAO {
 	return &Application{InfluxDBConfig: config}
 }
 

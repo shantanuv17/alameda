@@ -10,14 +10,14 @@ import (
 	RepoPromthMetric "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/prometheus/metrics"
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	Utils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalPromth "github.com/containers-ai/alameda/internal/pkg/database/prometheus"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	Prometheus "github.com/containers-ai/alameda/pkg/database/prometheus"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
 )
 
 type ControllerMetrics struct {
-	PrometheusConfig InternalPromth.Config
+	PrometheusConfig Prometheus.Config
 
 	controllerDAO DaoClusterStatusTypes.ControllerDAO
 
@@ -25,7 +25,7 @@ type ControllerMetrics struct {
 }
 
 // NewControllerMetricsWithConfig Constructor of prometheus controller metric dao
-func NewControllerMetricsWithConfig(promCfg InternalPromth.Config, controllerDAO DaoClusterStatusTypes.ControllerDAO, clusterUID string) DaoMetricTypes.ControllerMetricsDAO {
+func NewControllerMetricsWithConfig(promCfg Prometheus.Config, controllerDAO DaoClusterStatusTypes.ControllerDAO, clusterUID string) DaoMetricTypes.ControllerMetricsDAO {
 	return &ControllerMetrics{
 		PrometheusConfig: promCfg,
 

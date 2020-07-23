@@ -4,20 +4,20 @@ import (
 	"fmt"
 	EntityInfluxGpuMetric "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/gpu/nvidia/metrics"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	Client "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
 )
 
 type DutyCycleRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewDutyCycleRepositoryWithConfig(cfg InternalInflux.Config) *DutyCycleRepository {
+func NewDutyCycleRepositoryWithConfig(cfg InfluxDB.Config) *DutyCycleRepository {
 	return &DutyCycleRepository{
-		influxDB: InternalInflux.NewClient(&cfg),
+		influxDB: InfluxDB.NewClient(&cfg),
 	}
 }
 func (r *DutyCycleRepository) ListMetrics(host, minorNumber string, condition *DBCommon.QueryCondition) ([]*EntityInfluxGpuMetric.DutyCycleEntity, error) {
@@ -32,7 +32,7 @@ func (r *DutyCycleRepository) ListMetrics(host, minorNumber string, condition *D
 func (r *DutyCycleRepository) read(host, minorNumber string, condition *DBCommon.QueryCondition) ([]*EntityInfluxGpuMetric.DutyCycleEntity, error) {
 	entities := make([]*EntityInfluxGpuMetric.DutyCycleEntity, 0)
 
-	influxdbStatement := InternalInflux.Statement{
+	influxdbStatement := InfluxDB.Statement{
 		QueryCondition: condition,
 		Measurement:    DutyCycle,
 		GroupByTags:    []string{"host", "uuid"},
@@ -68,7 +68,7 @@ func (r *DutyCycleRepository) steps(host, minorNumber string, condition *DBCommo
 	if err != nil {
 		return entities, errors.Wrap(err, "failed to list nvidia gpu duty cycle with max")
 	}
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			entityPtr := &EntityInfluxGpuMetric.DutyCycleEntity{}
@@ -113,7 +113,7 @@ func (r *DutyCycleRepository) last(host, minorNumber string, condition *DBCommon
 	queryCondition := *condition
 	queryCondition.Limit = 1
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: &queryCondition,
 		Measurement:    DutyCycle,
 		GroupByTags:    []string{"uuid"},
@@ -133,7 +133,7 @@ func (r *DutyCycleRepository) max(host, minorNumber string, condition *DBCommon.
 	seconds := int(condition.StepTime.Seconds())
 	groupTag := fmt.Sprintf("time(%ds)", seconds)
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: condition,
 		Measurement:    DutyCycle,
 		GroupByTags:    []string{"uuid", groupTag},
@@ -144,7 +144,7 @@ func (r *DutyCycleRepository) max(host, minorNumber string, condition *DBCommon.
 	statement.AppendWhereClauseFromTimeCondition()
 	statement.SetOrderClauseFromQueryCondition()
 	statement.SetLimitClauseFromQueryCondition()
-	statement.SetFunction(InternalInflux.Select, "MAX", "")
+	statement.SetFunction(InfluxDB.Select, "MAX", "")
 	cmd := statement.BuildQueryCmd()
 
 	return r.influxDB.QueryDB(cmd, string(RepoInflux.Gpu))
@@ -153,7 +153,7 @@ func (r *DutyCycleRepository) max(host, minorNumber string, condition *DBCommon.
 func (r *DutyCycleRepository) genEntities(response []Client.Result) []*EntityInfluxGpuMetric.DutyCycleEntity {
 	entities := make([]*EntityInfluxGpuMetric.DutyCycleEntity, 0)
 
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)

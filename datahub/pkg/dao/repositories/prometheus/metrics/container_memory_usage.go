@@ -8,30 +8,30 @@ import (
 
 	EntityPromthMetric "github.com/containers-ai/alameda/datahub/pkg/dao/entities/prometheus/metrics"
 	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalPromth "github.com/containers-ai/alameda/internal/pkg/database/prometheus"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	Prometheus "github.com/containers-ai/alameda/pkg/database/prometheus"
 	"github.com/pkg/errors"
 )
 
 // ContainerMemoryUsageRepository Repository to access metric container_memory_usage_bytes from prometheus
 type ContainerMemoryUsageRepository struct {
-	PrometheusConfig InternalPromth.Config
+	PrometheusConfig Prometheus.Config
 }
 
 // NewContainerMemoryUsageRepositoryWithConfig New pod container memory usage bytes repository with prometheus configuration
-func NewContainerMemoryUsageRepositoryWithConfig(cfg InternalPromth.Config) ContainerMemoryUsageRepository {
+func NewContainerMemoryUsageRepositoryWithConfig(cfg Prometheus.Config) ContainerMemoryUsageRepository {
 	return ContainerMemoryUsageRepository{PrometheusConfig: cfg}
 }
 
 func (c ContainerMemoryUsageRepository) ListContainerMemoryUsageBytesEntitiesByNamespaceAndPodNames(ctx context.Context, namespace string, podNames []string, options ...DBCommon.Option) ([]EntityPromthMetric.ContainerMemoryUsageBytesEntity, error) {
 
 	var (
-		response  InternalPromth.Response
+		response  Prometheus.Response
 		labelType = 0
 		err       error
 	)
 
-	prometheusClient, err := InternalPromth.NewClient(&c.PrometheusConfig)
+	prometheusClient, err := Prometheus.NewClient(&c.PrometheusConfig)
 	if err != nil {
 		return nil, errors.Wrap(err, "new prometheus client failed")
 	}
@@ -59,7 +59,7 @@ func (c ContainerMemoryUsageRepository) ListContainerMemoryUsageBytesEntitiesByN
 		queryLabelsString = strings.TrimSuffix(queryLabelsString, ",")
 		queryExpression := fmt.Sprintf("%s{%s}", ContainerMemoryUsageBytesMetricName, queryLabelsString)
 		stepTimeInSeconds := int64(opt.StepTime.Nanoseconds() / int64(time.Second))
-		queryExpression, err = InternalPromth.WrapQueryExpression(queryExpression, opt.AggregateOverTimeFunc, stepTimeInSeconds)
+		queryExpression, err = Prometheus.WrapQueryExpression(queryExpression, opt.AggregateOverTimeFunc, stepTimeInSeconds)
 		if err != nil {
 			return nil, errors.Wrap(err, "wrap query expression failed")
 		}
@@ -67,7 +67,7 @@ func (c ContainerMemoryUsageRepository) ListContainerMemoryUsageBytesEntitiesByN
 		response, err = prometheusClient.QueryRange(ctx, queryExpression, opt.StartTime, opt.EndTime, opt.StepTime)
 		if err != nil {
 			return nil, errors.Wrap(err, "query prometheus failed")
-		} else if response.Status != InternalPromth.StatusSuccess {
+		} else if response.Status != Prometheus.StatusSuccess {
 			return nil, errors.Errorf("receive error response from prometheus: %s", response.Error)
 		}
 		if len(response.Data.Result) != 0 {
@@ -87,7 +87,7 @@ func (c ContainerMemoryUsageRepository) ListContainerMemoryUsageBytesEntitiesByN
 	return memoryUsageEntities, nil
 }
 
-func (c ContainerMemoryUsageRepository) newContainerMemoryUsageBytesEntity(e InternalPromth.Entity, labelType int) EntityPromthMetric.ContainerMemoryUsageBytesEntity {
+func (c ContainerMemoryUsageRepository) newContainerMemoryUsageBytesEntity(e Prometheus.Entity, labelType int) EntityPromthMetric.ContainerMemoryUsageBytesEntity {
 
 	var (
 		samples []FormatTypes.Sample

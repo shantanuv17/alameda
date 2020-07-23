@@ -5,27 +5,26 @@ import (
 	"strconv"
 	"time"
 
-	//"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 
 	EntityInfluxPlanning "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/plannings"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
 	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	ApiPlannings "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/plannings"
 	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 )
 
 type NodeRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewNodeRepository(influxDBCfg *InternalInflux.Config) *NodeRepository {
+func NewNodeRepository(influxDBCfg *InfluxDB.Config) *NodeRepository {
 	return &NodeRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -189,7 +188,7 @@ func (c *NodeRepository) CreatePlannings(in *ApiPlannings.CreateNodePlanningsReq
 func (c *NodeRepository) ListPlannings(in *ApiPlannings.ListNodePlanningsRequest) ([]*ApiPlannings.NodePlanning, error) {
 	plannings := make([]*ApiPlannings.NodePlanning, 0)
 
-	influxdbStatement := InternalInflux.Statement{
+	influxdbStatement := InfluxDB.Statement{
 		Measurement:    Node,
 		QueryCondition: DBCommon.BuildQueryConditionV1(in.GetQueryCondition()),
 		GroupByTags:    []string{EntityInfluxPlanning.NodeName},
@@ -267,7 +266,7 @@ func (c *NodeRepository) queryPlannings(cmd string, granularity int64) ([]*ApiPl
 		return ret, err
 	}
 
-	rows := InternalInflux.PackMap(results)
+	rows := InfluxDB.PackMap(results)
 
 	for _, row := range rows {
 		for _, data := range row.Data {

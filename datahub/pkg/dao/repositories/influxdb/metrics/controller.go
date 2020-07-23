@@ -6,16 +6,16 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
 	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schemamgt"
-	"github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalSchemas "github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxSchemas "github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
 )
 
 type Controller struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewControllerWithConfig(config InternalInflux.Config) *Controller {
+func NewControllerWithConfig(config InfluxDB.Config) *Controller {
 	return &Controller{InfluxDBConfig: config}
 }
 
@@ -23,9 +23,9 @@ func (p *Controller) GetMetricMap(metricType enumconv.MetricType, controllers []
 	metricMap := DaoMetricTypes.NewControllerMetricMap()
 
 	schemaMgt := SchemaMgt.NewSchemaManagement()
-	schema := schemaMgt.GetSchemas(InternalSchemas.Metric, "cluster_status", "container")[0]
-	m := schema.GetMeasurement("", metricTypeMapTable[metricType], InternalSchemas.ResourceBoundaryUndefined, InternalSchemas.ResourceQuotaUndefined)
-	measurement := InternalInflux.NewMeasurement(SchemaMgt.DatabaseNameMap[InternalSchemas.Metric], m, p.InfluxDBConfig)
+	schema := schemaMgt.GetSchemas(InfluxSchemas.Metric, "cluster_status", "container")[0]
+	m := schema.GetMeasurement("", metricTypeMapTable[metricType], InfluxSchemas.ResourceBoundaryUndefined, InfluxSchemas.ResourceQuotaUndefined)
+	measurement := InfluxDB.NewMeasurement(SchemaMgt.DatabaseNameMap[InfluxSchemas.Metric], m, p.InfluxDBConfig)
 
 	for _, controller := range controllers {
 		// List pods which are belonged to this controller
@@ -37,7 +37,7 @@ func (p *Controller) GetMetricMap(metricType enumconv.MetricType, controllers []
 
 		p.rebuildQueryCondition(pods, req.QueryCondition.SubQuery)
 
-		groups, err := measurement.Read(InternalInflux.NewQuery(&req.QueryCondition, measurement.Name))
+		groups, err := measurement.Read(InfluxDB.NewQuery(&req.QueryCondition, measurement.Name))
 		if err != nil {
 			scope.Error(err.Error())
 			return DaoMetricTypes.ControllerMetricMap{}, err
@@ -52,20 +52,20 @@ func (p *Controller) GetMetricMap(metricType enumconv.MetricType, controllers []
 	return metricMap, nil
 }
 
-func (p *Controller) rebuildQueryCondition(pods []*DaoClusterTypes.Pod, queryCondition *common.QueryCondition) {
-	queryCondition.WhereCondition = make([]*common.Condition, 0)
+func (p *Controller) rebuildQueryCondition(pods []*DaoClusterTypes.Pod, queryCondition *DBCommon.QueryCondition) {
+	queryCondition.WhereCondition = make([]*DBCommon.Condition, 0)
 
 	for _, pod := range pods {
-		condition := common.Condition{}
+		condition := DBCommon.Condition{}
 		condition.Keys = []string{"pod_name", "pod_namespace", "cluster_name"}
 		condition.Values = []string{pod.ObjectMeta.Name, pod.ObjectMeta.Namespace, pod.ObjectMeta.ClusterName}
 		condition.Operators = []string{"=", "=", "="}
-		condition.Types = []common.DataType{common.String, common.String, common.String}
+		condition.Types = []DBCommon.DataType{DBCommon.String, DBCommon.String, DBCommon.String}
 		queryCondition.WhereCondition = append(queryCondition.WhereCondition, &condition)
 	}
 }
 
-func (p *Controller) genMetric(metricType enumconv.MetricType, controller *DaoClusterTypes.Controller, groups []*common.Group) *DaoMetricTypes.ControllerMetric {
+func (p *Controller) genMetric(metricType enumconv.MetricType, controller *DaoClusterTypes.Controller, groups []*DBCommon.Group) *DaoMetricTypes.ControllerMetric {
 	metric := DaoMetricTypes.NewControllerMetric()
 	metric.ObjectMeta = DaoMetricTypes.ControllerObjectMeta{
 		ObjectMeta: *controller.ObjectMeta,

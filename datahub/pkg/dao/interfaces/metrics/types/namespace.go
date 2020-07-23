@@ -7,7 +7,7 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
 	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	"github.com/containers-ai/alameda/internal/pkg/database/common"
+	"github.com/containers-ai/alameda/pkg/database/common"
 )
 
 // NamespaceMetricsDAO DAO interface of namespace metric data.

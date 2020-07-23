@@ -2,7 +2,7 @@ package schemamgt
 
 import (
 	"github.com/containers-ai/alameda/datahub/pkg/schemamgt/defaults"
-	"github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
+	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
 )
 
 func DefaultSchemasInit() {

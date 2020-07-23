@@ -2,7 +2,7 @@ package influxdb
 
 import (
 	RepoInfluxRecommendation "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/recommendations"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 	ApiRecommendations "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations"
 )
@@ -13,10 +13,10 @@ var (
 
 // Container Implements ContainerOperation interface
 type ContainerRecommendations struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewContainerRecommendationsWithConfig(config InternalInflux.Config) *ContainerRecommendations {
+func NewContainerRecommendationsWithConfig(config InfluxDB.Config) *ContainerRecommendations {
 	return &ContainerRecommendations{InfluxDBConfig: config}
 }
 

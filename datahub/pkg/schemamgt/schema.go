@@ -2,7 +2,7 @@ package schemamgt
 
 import (
 	"github.com/containers-ai/alameda/datahub/pkg/config"
-	"github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	"github.com/containers-ai/alameda/pkg/database/influxdb"
 	"github.com/containers-ai/alameda/pkg/utils/log"
 	"sync"
 )

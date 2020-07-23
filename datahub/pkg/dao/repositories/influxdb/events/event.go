@@ -3,8 +3,8 @@ package events
 import (
 	EntityInfluxEvent "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/events"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"github.com/golang/protobuf/ptypes"
@@ -17,12 +17,12 @@ var (
 )
 
 type EventRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewEventRepository(influxDBCfg *InternalInflux.Config) *EventRepository {
+func NewEventRepository(influxDBCfg *InfluxDB.Config) *EventRepository {
 	return &EventRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -93,7 +93,7 @@ func (e *EventRepository) ListEvents(in *ApiEvents.ListEventsRequest) ([]*ApiEve
 		eventLevelList = append(eventLevelList, eventLevel.String())
 	}
 
-	influxdbStatement := InternalInflux.Statement{
+	influxdbStatement := InfluxDB.Statement{
 		Measurement:    Event,
 		QueryCondition: DBCommon.BuildQueryConditionV1(in.GetQueryCondition()),
 	}
@@ -114,13 +114,13 @@ func (e *EventRepository) ListEvents(in *ApiEvents.ListEventsRequest) ([]*ApiEve
 		return make([]*ApiEvents.Event, 0), err
 	}
 
-	influxdbRows := InternalInflux.PackMap(results)
+	influxdbRows := InfluxDB.PackMap(results)
 	events := e.getEventsFromInfluxRows(influxdbRows)
 
 	return events, nil
 }
 
-func (e *EventRepository) getEventsFromInfluxRows(rows []*InternalInflux.InfluxRow) []*ApiEvents.Event {
+func (e *EventRepository) getEventsFromInfluxRows(rows []*InfluxDB.InfluxRow) []*ApiEvents.Event {
 	events := make([]*ApiEvents.Event, 0)
 
 	for _, influxdbRow := range rows {

@@ -6,16 +6,16 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
 	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schemamgt"
-	"github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalSchemas "github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxSchemas "github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
 )
 
 type Cluster struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewClusterWithConfig(config InternalInflux.Config) *Cluster {
+func NewClusterWithConfig(config InfluxDB.Config) *Cluster {
 	return &Cluster{InfluxDBConfig: config}
 }
 
@@ -23,9 +23,9 @@ func (p *Cluster) GetMetricMap(metricType enumconv.MetricType, clusters []*DaoCl
 	metricMap := DaoMetricTypes.NewClusterMetricMap()
 
 	schemaMgt := SchemaMgt.NewSchemaManagement()
-	schema := schemaMgt.GetSchemas(InternalSchemas.Metric, "cluster_status", "node")[0]
-	m := schema.GetMeasurement("", metricTypeMapTable[metricType], InternalSchemas.ResourceBoundaryUndefined, InternalSchemas.ResourceQuotaUndefined)
-	measurement := InternalInflux.NewMeasurement(SchemaMgt.DatabaseNameMap[InternalSchemas.Metric], m, p.InfluxDBConfig)
+	schema := schemaMgt.GetSchemas(InfluxSchemas.Metric, "cluster_status", "node")[0]
+	m := schema.GetMeasurement("", metricTypeMapTable[metricType], InfluxSchemas.ResourceBoundaryUndefined, InfluxSchemas.ResourceQuotaUndefined)
+	measurement := InfluxDB.NewMeasurement(SchemaMgt.DatabaseNameMap[InfluxSchemas.Metric], m, p.InfluxDBConfig)
 
 	for _, cluster := range clusters {
 		// List nodes which are belonged to this cluster
@@ -37,7 +37,7 @@ func (p *Cluster) GetMetricMap(metricType enumconv.MetricType, clusters []*DaoCl
 
 		p.rebuildQueryCondition(nodes, req.QueryCondition.SubQuery)
 
-		groups, err := measurement.Read(InternalInflux.NewQuery(&req.QueryCondition, measurement.Name))
+		groups, err := measurement.Read(InfluxDB.NewQuery(&req.QueryCondition, measurement.Name))
 		if err != nil {
 			scope.Error(err.Error())
 			return DaoMetricTypes.ClusterMetricMap{}, err
@@ -52,20 +52,20 @@ func (p *Cluster) GetMetricMap(metricType enumconv.MetricType, clusters []*DaoCl
 	return metricMap, nil
 }
 
-func (p *Cluster) rebuildQueryCondition(nodes []*DaoClusterTypes.Node, queryCondition *common.QueryCondition) {
-	queryCondition.WhereCondition = make([]*common.Condition, 0)
+func (p *Cluster) rebuildQueryCondition(nodes []*DaoClusterTypes.Node, queryCondition *DBCommon.QueryCondition) {
+	queryCondition.WhereCondition = make([]*DBCommon.Condition, 0)
 
 	for _, node := range nodes {
-		condition := common.Condition{}
+		condition := DBCommon.Condition{}
 		condition.Keys = []string{"name", "cluster_name"}
 		condition.Values = []string{node.ObjectMeta.Name, node.ObjectMeta.ClusterName}
 		condition.Operators = []string{"=", "="}
-		condition.Types = []common.DataType{common.String, common.String}
+		condition.Types = []DBCommon.DataType{DBCommon.String, DBCommon.String}
 		queryCondition.WhereCondition = append(queryCondition.WhereCondition, &condition)
 	}
 }
 
-func (p *Cluster) genMetric(metricType enumconv.MetricType, cluster *DaoClusterTypes.Cluster, groups []*common.Group) *DaoMetricTypes.ClusterMetric {
+func (p *Cluster) genMetric(metricType enumconv.MetricType, cluster *DaoClusterTypes.Cluster, groups []*DBCommon.Group) *DaoMetricTypes.ClusterMetric {
 	metric := DaoMetricTypes.NewClusterMetric()
 	metric.ObjectMeta = *cluster.ObjectMeta
 	for _, row := range groups[0].Rows {

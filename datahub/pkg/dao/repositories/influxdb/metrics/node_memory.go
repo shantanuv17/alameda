@@ -8,20 +8,20 @@ import (
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
 	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
 	"strconv"
 )
 
 type NodeMemoryRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewNodeMemoryRepositoryWithConfig(influxDBCfg InternalInflux.Config) *NodeMemoryRepository {
+func NewNodeMemoryRepositoryWithConfig(influxDBCfg InfluxDB.Config) *NodeMemoryRepository {
 	return &NodeMemoryRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -84,7 +84,7 @@ func (r *NodeMemoryRepository) ListMetrics(request DaoMetricTypes.ListNodeMetric
 func (r *NodeMemoryRepository) read(request DaoMetricTypes.ListNodeMetricsRequest) ([]*DaoMetricTypes.NodeMetric, error) {
 	nodeMetricList := make([]*DaoMetricTypes.NodeMetric, 0)
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: &request.QueryCondition,
 		Measurement:    NodeMemory,
 		GroupByTags: []string{
@@ -108,8 +108,8 @@ func (r *NodeMemoryRepository) read(request DaoMetricTypes.ListNodeMetricsReques
 		return make([]*DaoMetricTypes.NodeMetric, 0), errors.Wrap(err, "failed to list node memory metrics")
 	}
 
-	scope.Debugf("Query inlfuxdb: cmd: %s", cmd)
-	results := InternalInfluxModels.NewInfluxResults(response)
+	scope.Debugf("Query influxdb: cmd: %s", cmd)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)
@@ -137,7 +137,7 @@ func (r *NodeMemoryRepository) steps(request DaoMetricTypes.ListNodeMetricsReque
 
 	groupByTime := fmt.Sprintf("%s(%ds)", EntityInfluxMetric.NodeTime, int(request.StepTime.Seconds()))
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: &request.QueryCondition,
 		Measurement:    NodeMemory,
 		SelectedFields: []string{string(EntityInfluxMetric.NodeValue)},
@@ -159,16 +159,16 @@ func (r *NodeMemoryRepository) steps(request DaoMetricTypes.ListNodeMetricsReque
 	if !exist {
 		return nil, errors.Errorf(`not supported aggregate function "%d"`, request.AggregateOverTimeFunction)
 	}
-	statement.SetFunction(InternalInflux.Select, f, string(EntityInfluxMetric.NodeValue))
+	statement.SetFunction(InfluxDB.Select, f, string(EntityInfluxMetric.NodeValue))
 	cmd := statement.BuildQueryCmd()
 
-	scope.Debugf("Query inlfuxdb: cmd: %s", cmd)
+	scope.Debugf("Query influxdb: cmd: %s", cmd)
 	response, err := r.influxDB.QueryDB(cmd, string(RepoInflux.Metric))
 	if err != nil {
 		return make([]*DaoMetricTypes.NodeMetric, 0), errors.Wrap(err, "failed to list node memory metrics")
 	}
 
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)

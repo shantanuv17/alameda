@@ -1,17 +1,16 @@
 package influxdb
 
 import (
-	//DaoRecommendationTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/recommendations/types"
 	RepoInfluxRecommendation "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/recommendations"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	ApiRecommendations "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations"
 )
 
 type NamespaceRecommendations struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewNamespaceRecommendationsWithConfig(config InternalInflux.Config) *NamespaceRecommendations {
+func NewNamespaceRecommendationsWithConfig(config InfluxDB.Config) *NamespaceRecommendations {
 	return &NamespaceRecommendations{InfluxDBConfig: config}
 }
 

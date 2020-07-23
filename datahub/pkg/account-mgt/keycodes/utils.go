@@ -2,26 +2,26 @@ package keycodes
 
 import (
 	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/influxdb"
-	DaoClusterType "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
+	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
 	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 )
 
-func getClustersFromDB(dao DaoClusterType.ClusterDAO) ([]*DaoClusterType.Cluster, error) {
-	req := DaoClusterType.ListClustersRequest{}
+func getClustersFromDB(dao types.ClusterDAO) ([]*types.Cluster, error) {
+	req := types.ListClustersRequest{}
 	clsts, err := dao.ListClusters(&req)
 	return clsts, err
 }
 
-func getClusterNodesFromDB(dao DaoClusterType.NodeDAO, clusterName string) ([]*DaoClusterType.Node, error) {
+func getClusterNodesFromDB(dao types.NodeDAO, clusterName string) ([]*types.Node, error) {
 	objmeta := make([]*metadata.ObjectMeta, 0)
 	objmeta = append(objmeta, &metadata.ObjectMeta{ClusterName: clusterName})
-	req := DaoClusterType.ListNodesRequest{ObjectMeta: objmeta}
+	req := types.ListNodesRequest{ObjectMeta: objmeta}
 	ns, err := dao.ListNodes(&req)
 	return ns, err
 }
 
-func GetAlamedaClusterCPUs(influxCfg *InternalInflux.Config) (int, error) {
+func GetAlamedaClusterCPUs(influxCfg *InfluxDB.Config) (int, error) {
 	numCPU := 0
 	clusterName := ""
 	dbCluster := influxdb.NewClusterWithConfig(*influxCfg)

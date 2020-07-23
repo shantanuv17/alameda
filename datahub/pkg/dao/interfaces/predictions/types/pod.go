@@ -3,7 +3,7 @@ package types
 import (
 	"fmt"
 	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
 	ApiPredictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
 )
 

@@ -8,8 +8,8 @@ import (
 	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
 	Metadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
 	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
@@ -17,12 +17,12 @@ import (
 )
 
 type ControllerRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewControllerRepositoryWithConfig(influxDBCfg InternalInflux.Config) *ControllerRepository {
+func NewControllerRepositoryWithConfig(influxDBCfg InfluxDB.Config) *ControllerRepository {
 	return &ControllerRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -53,7 +53,7 @@ func (r *ControllerRepository) CreatePredictions(predictions DaoPredictionTypes.
 func (r *ControllerRepository) ListPredictions(request DaoPredictionTypes.ListControllerPredictionsRequest) ([]*DaoPredictionTypes.ControllerPrediction, error) {
 	controllerPredictionList := make([]*DaoPredictionTypes.ControllerPrediction, 0)
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: &request.QueryCondition,
 		Measurement:    Controller,
 		GroupByTags: []string{
@@ -101,7 +101,7 @@ func (r *ControllerRepository) ListPredictions(request DaoPredictionTypes.ListCo
 		return make([]*DaoPredictionTypes.ControllerPrediction, 0), errors.Wrap(err, "failed to list controller prediction")
 	}
 
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)

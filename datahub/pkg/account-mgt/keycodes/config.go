@@ -1,8 +1,8 @@
 package keycodes
 
 import (
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalLdap "github.com/containers-ai/alameda/internal/pkg/database/ldap"
+	"github.com/containers-ai/alameda/pkg/database/influxdb"
+	"github.com/containers-ai/alameda/pkg/database/ldap"
 )
 
 const (
@@ -15,8 +15,8 @@ type Config struct {
 	CliPath         string
 	RefreshInterval int64
 	AesKey          []byte
-	InfluxDB        *InternalInflux.Config
-	Ldap            *InternalLdap.Config
+	InfluxDB        *influxdb.Config
+	Ldap            *ldap.Config
 }
 
 // Provide default configuration for keycode CLI
@@ -24,8 +24,8 @@ func NewDefaultConfig() *Config {
 	var config = Config{
 		CliPath:         defaultCliPath,
 		RefreshInterval: defaultRefreshInterval,
-		InfluxDB:        InternalInflux.NewDefaultConfig(),
-		Ldap:            InternalLdap.NewDefaultConfig(),
+		InfluxDB:        influxdb.NewDefaultConfig(),
+		Ldap:            ldap.NewDefaultConfig(),
 	}
 	return &config
 }

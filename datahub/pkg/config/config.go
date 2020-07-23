@@ -5,11 +5,11 @@ import (
 	Keycodes "github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes"
 	Apis "github.com/containers-ai/alameda/datahub/pkg/apis"
 	Notifier "github.com/containers-ai/alameda/datahub/pkg/notifier"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalLdap "github.com/containers-ai/alameda/internal/pkg/database/ldap"
-	InternalPromth "github.com/containers-ai/alameda/internal/pkg/database/prometheus"
 	InternalRabbitMQ "github.com/containers-ai/alameda/internal/pkg/message-queue/rabbitmq"
 	InternalWeaveScope "github.com/containers-ai/alameda/internal/pkg/weavescope"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	LDAP "github.com/containers-ai/alameda/pkg/database/ldap"
+	Prometheus "github.com/containers-ai/alameda/pkg/database/prometheus"
 	"github.com/containers-ai/alameda/pkg/utils/log"
 )
 
@@ -20,10 +20,10 @@ const (
 type Config struct {
 	BindAddress string `mapstructure:"bindAddress"`
 	ClusterUID  string
-	Prometheus  *InternalPromth.Config     `mapstructure:"prometheus"`
-	InfluxDB    *InternalInflux.Config     `mapstructure:"influxdb"`
+	Prometheus  *Prometheus.Config         `mapstructure:"prometheus"`
+	InfluxDB    *InfluxDB.Config           `mapstructure:"influxdb"`
 	Apis        *Apis.Config               `mapstructure:"apis"`
-	Ldap        *InternalLdap.Config       `mapstructure:"ldap"`
+	Ldap        *LDAP.Config               `mapstructure:"ldap"`
 	Keycode     *Keycodes.Config           `mapstructure:"keycode"`
 	Notifier    *Notifier.Config           `mapstructure:"notifier"`
 	WeaveScope  *InternalWeaveScope.Config `mapstructure:"weavescope"`
@@ -34,10 +34,10 @@ type Config struct {
 func NewDefaultConfig() Config {
 	var (
 		defaultLogConfig        = log.NewDefaultConfig()
-		defaultPrometheusConfig = InternalPromth.NewDefaultConfig()
-		defaultInfluxDBConfig   = InternalInflux.NewDefaultConfig()
+		defaultPrometheusConfig = Prometheus.NewDefaultConfig()
+		defaultInfluxDBConfig   = InfluxDB.NewDefaultConfig()
 		defaultApisConfig       = Apis.NewDefaultConfig()
-		defaultLdapConfig       = InternalLdap.NewDefaultConfig()
+		defaultLdapConfig       = LDAP.NewDefaultConfig()
 		defaultKeycodeConfig    = Keycodes.NewDefaultConfig()
 		defaultNotifierConfig   = Notifier.NewDefaultConfig()
 		defaultWeaveScopeConfig = InternalWeaveScope.NewDefaultConfig()

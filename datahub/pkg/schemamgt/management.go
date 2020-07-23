@@ -2,10 +2,10 @@ package schemamgt
 
 import (
 	"errors"
-	"github.com/containers-ai/alameda/internal/pkg/database/common"
-	"github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	"github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
-	InternalSchemas "github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
+	"github.com/containers-ai/alameda/pkg/database/common"
+	"github.com/containers-ai/alameda/pkg/database/influxdb"
+	"github.com/containers-ai/alameda/pkg/database/influxdb/models"
+	InfluxSchemas "github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"strconv"
 )
@@ -20,11 +20,11 @@ func NewSchemaManagement() *SchemaManagement {
 
 func (p *SchemaManagement) Refresh() error {
 	Schemas.Empty()
-	Schemas.Schemas = make(map[InternalSchemas.Scope][]*InternalSchemas.Schema)
+	Schemas.Schemas = make(map[InfluxSchemas.Scope][]*InfluxSchemas.Schema)
 
 	// Build measurement definition
 	for table, measurement := range MeasurementNameMap {
-		Schemas.Schemas[table] = make([]*InternalSchemas.Schema, 0)
+		Schemas.Schemas[table] = make([]*InfluxSchemas.Schema, 0)
 		results, err := p.read(measurement)
 		if len(results) == 0 {
 			continue
@@ -38,7 +38,7 @@ func (p *SchemaManagement) Refresh() error {
 			continue
 		}
 		for _, row := range results[0].GetGroup(0).GetRows() {
-			schema := InternalSchemas.NewSchema(table, row["category"], row["type"])
+			schema := InfluxSchemas.NewSchema(table, row["category"], row["type"])
 			Schemas.Schemas[table] = append(Schemas.Schemas[table], schema)
 		}
 	}
@@ -64,7 +64,7 @@ func (p *SchemaManagement) Refresh() error {
 					boundary, _ := strconv.ParseInt(row["resource_boundary"], 10, 64)
 					quota, _ := strconv.ParseInt(row["resource_quota"], 10, 64)
 					isTS, _ := strconv.ParseBool(row["is_ts"])
-					schema.AddMeasurement(row["measurement"], InternalSchemas.MetricType(metricType), InternalSchemas.ResourceBoundary(boundary), InternalSchemas.ResourceQuota(quota), isTS, row["columns"])
+					schema.AddMeasurement(row["measurement"], InfluxSchemas.MetricType(metricType), InfluxSchemas.ResourceBoundary(boundary), InfluxSchemas.ResourceQuota(quota), isTS, row["columns"])
 				}
 			}
 		}
@@ -73,7 +73,7 @@ func (p *SchemaManagement) Refresh() error {
 	return nil
 }
 
-func (p *SchemaManagement) AddSchemas(schemas []*InternalSchemas.Schema) {
+func (p *SchemaManagement) AddSchemas(schemas []*InfluxSchemas.Schema) {
 	if schemas != nil {
 		for _, schema := range schemas {
 			Schemas2Write.AddSchema(schema)
@@ -81,11 +81,11 @@ func (p *SchemaManagement) AddSchemas(schemas []*InternalSchemas.Schema) {
 	}
 }
 
-func (p *SchemaManagement) GetSchemas(scope InternalSchemas.Scope, category, schemaType string) []*InternalSchemas.Schema {
+func (p *SchemaManagement) GetSchemas(scope InfluxSchemas.Scope, category, schemaType string) []*InfluxSchemas.Schema {
 	// TODO: check if need to get READ LOCK
 	// Filter table
-	tables := make([]*InternalSchemas.Schema, 0)
-	if scope == InternalSchemas.ScopeUndefined {
+	tables := make([]*InfluxSchemas.Schema, 0)
+	if scope == InfluxSchemas.ScopeUndefined {
 		for _, s := range Schemas.Schemas {
 			for _, schema := range s {
 				tables = append(tables, schema)
@@ -98,7 +98,7 @@ func (p *SchemaManagement) GetSchemas(scope InternalSchemas.Scope, category, sch
 	}
 
 	// Filter category
-	categories := make([]*InternalSchemas.Schema, 0)
+	categories := make([]*InfluxSchemas.Schema, 0)
 	if category != "" {
 		for _, schema := range tables {
 			if schema.SchemaMeta.Category == category {
@@ -112,7 +112,7 @@ func (p *SchemaManagement) GetSchemas(scope InternalSchemas.Scope, category, sch
 	}
 
 	// Filter type
-	schemas := make([]*InternalSchemas.Schema, 0)
+	schemas := make([]*InfluxSchemas.Schema, 0)
 	if schemaType != "" {
 		for _, schema := range categories {
 			if schema.SchemaMeta.Type == schemaType {
@@ -128,7 +128,7 @@ func (p *SchemaManagement) GetSchemas(scope InternalSchemas.Scope, category, sch
 	return schemas
 }
 
-func (p *SchemaManagement) DeleteSchemas(table InternalSchemas.Scope, category, schemaType string) error {
+func (p *SchemaManagement) DeleteSchemas(table InfluxSchemas.Scope, category, schemaType string) error {
 	influxClient := &influxdb.InfluxClient{
 		Address:  InfluxConfig.Address,
 		Username: InfluxConfig.Username,
@@ -207,7 +207,7 @@ func (p *SchemaManagement) Flush() error {
 	return nil
 }
 
-func (p *SchemaManagement) buildMeasurementPoints(table InternalSchemas.Scope, schemas []*InternalSchemas.Schema) ([]*InfluxClient.Point, error) {
+func (p *SchemaManagement) buildMeasurementPoints(table InfluxSchemas.Scope, schemas []*InfluxSchemas.Schema) ([]*InfluxClient.Point, error) {
 	points := make([]*InfluxClient.Point, 0)
 
 	for _, schema := range schemas {
@@ -234,7 +234,7 @@ func (p *SchemaManagement) buildMeasurementPoints(table InternalSchemas.Scope, s
 	return points, nil
 }
 
-func (p *SchemaManagement) buildSchemaPoints(table InternalSchemas.Scope, schemas []*InternalSchemas.Schema) ([]*InfluxClient.Point, error) {
+func (p *SchemaManagement) buildSchemaPoints(table InfluxSchemas.Scope, schemas []*InfluxSchemas.Schema) ([]*InfluxClient.Point, error) {
 	points := make([]*InfluxClient.Point, 0)
 
 	for _, schema := range schemas {
@@ -268,7 +268,7 @@ func (p *SchemaManagement) buildSchemaPoints(table InternalSchemas.Scope, schema
 	return points, nil
 }
 
-func (p *SchemaManagement) buildDropMeasurementsQuery(table InternalSchemas.Scope, category, schemaType string) string {
+func (p *SchemaManagement) buildDropMeasurementsQuery(table InfluxSchemas.Scope, category, schemaType string) string {
 	keys := make([]string, 0)
 	values := make([]string, 0)
 	operators := make([]string, 0)
@@ -294,7 +294,7 @@ func (p *SchemaManagement) buildDropMeasurementsQuery(table InternalSchemas.Scop
 	return query.BuildDropCmd()
 }
 
-func (p *SchemaManagement) buildDropSchemasQuery(table InternalSchemas.Scope, category, schemaType string) string {
+func (p *SchemaManagement) buildDropSchemasQuery(table InfluxSchemas.Scope, category, schemaType string) string {
 	keys := make([]string, 0)
 	values := make([]string, 0)
 	operators := make([]string, 0)

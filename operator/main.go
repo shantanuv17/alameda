@@ -32,9 +32,9 @@ import (
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 
-	"github.com/containers-ai/alameda/internal/pkg/database/prometheus"
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
 	kafkaclient "github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/client"
+	"github.com/containers-ai/alameda/pkg/database/prometheus"
 	"github.com/containers-ai/alameda/pkg/provider"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"

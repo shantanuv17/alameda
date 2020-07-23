@@ -3,14 +3,14 @@ package influxdb
 import (
 	DaoPredictionTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/predictions/types"
 	RepoInfluxPrediction "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/predictions"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 )
 
 type NamespacePredictions struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewNamespacePredictionsWithConfig(config InternalInflux.Config) DaoPredictionTypes.NamespacePredictionsDAO {
+func NewNamespacePredictionsWithConfig(config InfluxDB.Config) DaoPredictionTypes.NamespacePredictionsDAO {
 	return &NamespacePredictions{InfluxDBConfig: config}
 }
 

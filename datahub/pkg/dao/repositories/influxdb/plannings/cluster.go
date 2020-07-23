@@ -5,27 +5,26 @@ import (
 	"strconv"
 	"time"
 
-	//"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 
 	EntityInfluxPlanning "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/plannings"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
 	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	ApiPlannings "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/plannings"
 	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 )
 
 type ClusterRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewClusterRepository(influxDBCfg *InternalInflux.Config) *ClusterRepository {
+func NewClusterRepository(influxDBCfg *InfluxDB.Config) *ClusterRepository {
 	return &ClusterRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -187,7 +186,7 @@ func (c *ClusterRepository) CreatePlannings(in *ApiPlannings.CreateClusterPlanni
 func (c *ClusterRepository) ListPlannings(in *ApiPlannings.ListClusterPlanningsRequest) ([]*ApiPlannings.ClusterPlanning, error) {
 	plannings := make([]*ApiPlannings.ClusterPlanning, 0)
 
-	influxdbStatement := InternalInflux.Statement{
+	influxdbStatement := InfluxDB.Statement{
 		Measurement:    Cluster,
 		QueryCondition: DBCommon.BuildQueryConditionV1(in.GetQueryCondition()),
 		GroupByTags:    []string{EntityInfluxPlanning.ClusterName},
@@ -259,7 +258,7 @@ func (c *ClusterRepository) queryPlannings(cmd string, granularity int64) ([]*Ap
 		return ret, err
 	}
 
-	rows := InternalInflux.PackMap(results)
+	rows := InfluxDB.PackMap(results)
 
 	for _, row := range rows {
 		for _, data := range row.Data {

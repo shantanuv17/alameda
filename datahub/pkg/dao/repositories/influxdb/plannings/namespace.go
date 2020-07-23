@@ -5,27 +5,26 @@ import (
 	"strconv"
 	"time"
 
-	//"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 
 	EntityInfluxPlanning "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/plannings"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
 	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	ApiPlannings "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/plannings"
 	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 )
 
 type NamespaceRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewNamespaceRepository(influxDBCfg *InternalInflux.Config) *NamespaceRepository {
+func NewNamespaceRepository(influxDBCfg *InfluxDB.Config) *NamespaceRepository {
 	return &NamespaceRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -189,7 +188,7 @@ func (c *NamespaceRepository) CreatePlannings(in *ApiPlannings.CreateNamespacePl
 func (c *NamespaceRepository) ListPlannings(in *ApiPlannings.ListNamespacePlanningsRequest) ([]*ApiPlannings.NamespacePlanning, error) {
 	plannings := make([]*ApiPlannings.NamespacePlanning, 0)
 
-	influxdbStatement := InternalInflux.Statement{
+	influxdbStatement := InfluxDB.Statement{
 		Measurement:    Namespace,
 		QueryCondition: DBCommon.BuildQueryConditionV1(in.GetQueryCondition()),
 		GroupByTags:    []string{EntityInfluxPlanning.NamespaceName},
@@ -267,7 +266,7 @@ func (c *NamespaceRepository) queryPlannings(cmd string, granularity int64) ([]*
 		return ret, err
 	}
 
-	rows := InternalInflux.PackMap(results)
+	rows := InfluxDB.PackMap(results)
 
 	for _, row := range rows {
 		for _, data := range row.Data {

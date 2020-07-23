@@ -9,20 +9,20 @@ import (
 	RepoInfluxMetric "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/metrics"
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	Utils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	"github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	"github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	"github.com/pkg/errors"
 	"strings"
 	"time"
 )
 
 type ControllerMetrics struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 	ControllerDAO  DaoClusterStatusTypes.ControllerDAO
 	ControllerRepo *RepoInfluxMetric.Controller
 }
 
-func NewControllerMetricsWithConfig(config InternalInflux.Config) DaoMetricTypes.ControllerMetricsDAO {
+func NewControllerMetricsWithConfig(config InfluxDB.Config) DaoMetricTypes.ControllerMetricsDAO {
 	controllerMetrics := ControllerMetrics{
 		InfluxDBConfig: config,
 		ControllerDAO:  influxdb.NewControllerWithConfig(config),

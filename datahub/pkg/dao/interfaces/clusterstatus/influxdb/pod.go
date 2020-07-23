@@ -4,15 +4,15 @@ import (
 	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
 	RepoInfluxCluster "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
 	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	"github.com/containers-ai/alameda/pkg/database/influxdb"
 )
 
 // Implement ContainerOperation interface
 type Pod struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig influxdb.Config
 }
 
-func NewPodWithConfig(config InternalInflux.Config) DaoClusterTypes.PodDAO {
+func NewPodWithConfig(config influxdb.Config) DaoClusterTypes.PodDAO {
 	return &Pod{InfluxDBConfig: config}
 }
 

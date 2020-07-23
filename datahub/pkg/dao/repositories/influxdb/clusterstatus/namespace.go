@@ -4,19 +4,19 @@ import (
 	EntityInfluxCluster "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
 	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
 )
 
 type NamespaceRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewNamespaceRepository(influxDBCfg InternalInflux.Config) *NamespaceRepository {
+func NewNamespaceRepository(influxDBCfg InfluxDB.Config) *NamespaceRepository {
 	return &NamespaceRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -54,7 +54,7 @@ func (p *NamespaceRepository) CreateNamespaces(namespaces []*DaoClusterTypes.Nam
 func (p *NamespaceRepository) ListNamespaces(request *DaoClusterTypes.ListNamespacesRequest) ([]*DaoClusterTypes.Namespace, error) {
 	namespaces := make([]*DaoClusterTypes.Namespace, 0)
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: &request.QueryCondition,
 		Measurement:    Namespace,
 		GroupByTags:    []string{string(EntityInfluxCluster.NamespaceClusterName)},
@@ -73,7 +73,7 @@ func (p *NamespaceRepository) ListNamespaces(request *DaoClusterTypes.ListNamesp
 		return make([]*DaoClusterTypes.Namespace, 0), errors.Wrap(err, "failed to list namespaces")
 	}
 
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)
@@ -89,7 +89,7 @@ func (p *NamespaceRepository) ListNamespaces(request *DaoClusterTypes.ListNamesp
 }
 
 func (p *NamespaceRepository) DeleteNamespaces(request *DaoClusterTypes.DeleteNamespacesRequest) error {
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		Measurement: Namespace,
 	}
 

@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
 )

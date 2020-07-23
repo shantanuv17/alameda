@@ -10,14 +10,14 @@ import (
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
 	Utils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalPromth "github.com/containers-ai/alameda/internal/pkg/database/prometheus"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	Prometheus "github.com/containers-ai/alameda/pkg/database/prometheus"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
 )
 
 type ClusterMetrics struct {
-	PrometheusConfig InternalPromth.Config
+	PrometheusConfig Prometheus.Config
 
 	clusterStatusDAO DaoClusterStatusTypes.ClusterDAO
 	nodeDAO          DaoClusterStatusTypes.NodeDAO
@@ -26,7 +26,7 @@ type ClusterMetrics struct {
 }
 
 // NewClusterMetricsWithConfig Constructor of prometheus namespace metric dao
-func NewClusterMetricsWithConfig(config InternalPromth.Config, clusterStatusDAO DaoClusterStatusTypes.ClusterDAO, nodeDAO DaoClusterStatusTypes.NodeDAO, clusterUID string) DaoMetricTypes.ClusterMetricsDAO {
+func NewClusterMetricsWithConfig(config Prometheus.Config, clusterStatusDAO DaoClusterStatusTypes.ClusterDAO, nodeDAO DaoClusterStatusTypes.NodeDAO, clusterUID string) DaoMetricTypes.ClusterMetricsDAO {
 	return &ClusterMetrics{
 		PrometheusConfig: config,
 

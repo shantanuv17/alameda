@@ -1,27 +1,27 @@
 package common
 
 import (
-	InternalCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/golang/protobuf/ptypes"
 )
 
-func NewRows(rows []*common.Row) []*InternalCommon.Row {
+func NewRows(rows []*common.Row) []*DBCommon.Row {
 	if rows == nil {
 		return nil
 	}
-	rs := make([]*InternalCommon.Row, 0)
+	rs := make([]*DBCommon.Row, 0)
 	for _, row := range rows {
 		rs = append(rs, NewRow(row))
 	}
 	return rs
 }
 
-func NewRow(row *common.Row) *InternalCommon.Row {
+func NewRow(row *common.Row) *DBCommon.Row {
 	if row == nil {
 		return nil
 	}
-	r := InternalCommon.Row{}
+	r := DBCommon.Row{}
 	if row.GetTime() != nil {
 		timestamp, _ := ptypes.Timestamp(row.GetTime())
 		r.Time = &timestamp

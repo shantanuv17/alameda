@@ -145,11 +145,11 @@ func BuildQueryConditionV1(condition *ApiCommon.QueryCondition) *QueryCondition 
 	stepTime, _ := ptypes.Duration(condition.GetTimeRange().GetStep())
 
 	queryCondition := QueryCondition{
-		StartTime: &startTime,
-		EndTime: &endTime,
-		StepTime: &stepTime,
+		StartTime:      &startTime,
+		EndTime:        &endTime,
+		StepTime:       &stepTime,
 		TimestampOrder: Order(condition.GetOrder()),
-		Limit: int(condition.GetLimit()),
+		Limit:          int(condition.GetLimit()),
 	}
 
 	return &queryCondition

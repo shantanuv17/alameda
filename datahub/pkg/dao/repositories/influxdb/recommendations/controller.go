@@ -3,8 +3,8 @@ package recommendations
 import (
 	EntityInfluxRecommend "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/recommendations"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	ApiRecommendations "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations"
 	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/golang/protobuf/ptypes"
@@ -15,12 +15,12 @@ import (
 )
 
 type ControllerRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewControllerRepository(influxDBCfg *InternalInflux.Config) *ControllerRepository {
+func NewControllerRepository(influxDBCfg *InfluxDB.Config) *ControllerRepository {
 	return &ControllerRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -103,7 +103,7 @@ func (c *ControllerRepository) CreateControllerRecommendations(controllerRecomme
 }
 
 func (c *ControllerRepository) ListControllerRecommendations(in *ApiRecommendations.ListControllerRecommendationsRequest) ([]*ApiRecommendations.ControllerRecommendation, error) {
-	influxdbStatement := InternalInflux.Statement{
+	influxdbStatement := InfluxDB.Statement{
 		Measurement:    Controller,
 		QueryCondition: DBCommon.BuildQueryConditionV1(in.GetQueryCondition()),
 	}
@@ -151,13 +151,13 @@ func (c *ControllerRepository) ListControllerRecommendations(in *ApiRecommendati
 		return make([]*ApiRecommendations.ControllerRecommendation, 0), err
 	}
 
-	influxdbRows := InternalInflux.PackMap(results)
+	influxdbRows := InfluxDB.PackMap(results)
 	recommendations := c.getControllersRecommendationsFromInfluxRows(influxdbRows)
 
 	return recommendations, nil
 }
 
-func (c *ControllerRepository) getControllersRecommendationsFromInfluxRows(rows []*InternalInflux.InfluxRow) []*ApiRecommendations.ControllerRecommendation {
+func (c *ControllerRepository) getControllersRecommendationsFromInfluxRows(rows []*InfluxDB.InfluxRow) []*ApiRecommendations.ControllerRecommendation {
 	recommendations := make([]*ApiRecommendations.ControllerRecommendation, 0)
 	for _, influxdbRow := range rows {
 		for _, data := range influxdbRow.Data {

@@ -6,16 +6,16 @@ import (
 	RepoInfluxGpuPrediction "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/gpu/nvidia/predictions"
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	"strconv"
 )
 
 type Prediction struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewPredictionWithConfig(config InternalInflux.Config) DaoGpu.PredictionsDAO {
+func NewPredictionWithConfig(config InfluxDB.Config) DaoGpu.PredictionsDAO {
 	return Prediction{InfluxDBConfig: config}
 }
 

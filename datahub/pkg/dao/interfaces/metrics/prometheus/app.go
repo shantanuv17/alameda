@@ -9,14 +9,14 @@ import (
 	RepoPromthMetric "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/prometheus/metrics"
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	Utils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalPromth "github.com/containers-ai/alameda/internal/pkg/database/prometheus"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	Prometheus "github.com/containers-ai/alameda/pkg/database/prometheus"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
 )
 
 type AppMetrics struct {
-	PrometheusConfig InternalPromth.Config
+	PrometheusConfig Prometheus.Config
 
 	appDAO DaoClusterStatusTypes.ApplicationDAO
 
@@ -24,7 +24,7 @@ type AppMetrics struct {
 }
 
 // NewAppMetricsWithConfig Constructor of prometheus app metric dao
-func NewAppMetricsWithConfig(config InternalPromth.Config, appDAO DaoClusterStatusTypes.ApplicationDAO, clusterUID string) DaoMetricTypes.AppMetricsDAO {
+func NewAppMetricsWithConfig(config Prometheus.Config, appDAO DaoClusterStatusTypes.ApplicationDAO, clusterUID string) DaoMetricTypes.AppMetricsDAO {
 	return &AppMetrics{
 		PrometheusConfig: config,
 

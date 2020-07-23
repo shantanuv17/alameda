@@ -1,12 +1,12 @@
 package common
 
 import (
-	InternalCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/golang/protobuf/ptypes"
 )
 
-func NewRows(rows []*InternalCommon.Row) []*common.Row {
+func NewRows(rows []*DBCommon.Row) []*common.Row {
 	if rows == nil {
 		return nil
 	}
@@ -17,7 +17,7 @@ func NewRows(rows []*InternalCommon.Row) []*common.Row {
 	return rs
 }
 
-func NewRow(row *InternalCommon.Row) *common.Row {
+func NewRow(row *DBCommon.Row) *common.Row {
 	if row == nil {
 		return nil
 	}

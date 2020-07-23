@@ -5,9 +5,9 @@ import (
 	EntityEvent "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/events"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
 	RepoEvent "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/events"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalRabbitmq "github.com/containers-ai/alameda/internal/pkg/message-queue/rabbitmq"
+	Rabbitmq "github.com/containers-ai/alameda/internal/pkg/message-queue/rabbitmq"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	DatahubLog "github.com/containers-ai/alameda/pkg/utils/log"
 	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"github.com/golang/protobuf/ptypes"
@@ -89,7 +89,7 @@ func (e *EventMgt) ListEvents(in *ApiEvents.ListEventsRequest) ([]*ApiEvents.Eve
 		eventLevelList = append(eventLevelList, eventLevel.String())
 	}
 
-	influxdbStatement := InternalInflux.Statement{
+	influxdbStatement := InfluxDB.Statement{
 		Measurement:    RepoEvent.Event,
 		QueryCondition: DBCommon.BuildQueryConditionV1(in.GetQueryCondition()),
 	}
@@ -110,13 +110,13 @@ func (e *EventMgt) ListEvents(in *ApiEvents.ListEventsRequest) ([]*ApiEvents.Eve
 		return make([]*ApiEvents.Event, 0), err
 	}
 
-	influxdbRows := InternalInflux.PackMap(results)
+	influxdbRows := InfluxDB.PackMap(results)
 	events := e.getEventsFromInfluxRows(influxdbRows)
 
 	return events, nil
 }
 
-func (e *EventMgt) getEventsFromInfluxRows(rows []*InternalInflux.InfluxRow) []*ApiEvents.Event {
+func (e *EventMgt) getEventsFromInfluxRows(rows []*InfluxDB.InfluxRow) []*ApiEvents.Event {
 	events := make([]*ApiEvents.Event, 0)
 
 	for _, influxdbRow := range rows {
@@ -186,7 +186,7 @@ func (e *EventMgt) getEventsFromInfluxRows(rows []*InternalInflux.InfluxRow) []*
 }
 
 func (e *EventMgt) sendEventsToMsgQueue(in *ApiEvents.CreateEventsRequest) error {
-	messageQueue, err := InternalRabbitmq.NewRabbitMQSender(e.RabbitMQConfig)
+	messageQueue, err := Rabbitmq.NewRabbitMQSender(e.RabbitMQConfig)
 	if err != nil {
 		return err
 	}

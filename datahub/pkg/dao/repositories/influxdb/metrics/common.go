@@ -5,9 +5,9 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	"github.com/containers-ai/alameda/internal/pkg/database/common"
-	"github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	"github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
+	"github.com/containers-ai/alameda/pkg/database/common"
+	"github.com/containers-ai/alameda/pkg/database/influxdb"
+	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
 )
 
 var aggregateFuncToInfluxDBFunc = map[common.AggregateFunction]influxdb.Functions{

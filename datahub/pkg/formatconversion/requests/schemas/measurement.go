@@ -1,17 +1,17 @@
 package schemas
 
 import (
-	InternalSchema "github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
+	InfluxSchema "github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
 	ApiSchema "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 )
 
-func NewMeasurement(measurement *ApiSchema.Measurement) *InternalSchema.Measurement {
+func NewMeasurement(measurement *ApiSchema.Measurement) *InfluxSchema.Measurement {
 	if measurement != nil {
-		m := InternalSchema.Measurement{
+		m := InfluxSchema.Measurement{
 			Name:       measurement.GetName(),
-			MetricType: InternalSchema.MetricType(measurement.GetMetricType()),
-			Boundary:   InternalSchema.ResourceBoundary(measurement.GetResourceBoundary()),
-			Quota:      InternalSchema.ResourceQuota(measurement.GetResourceQuota()),
+			MetricType: InfluxSchema.MetricType(measurement.GetMetricType()),
+			Boundary:   InfluxSchema.ResourceBoundary(measurement.GetResourceBoundary()),
+			Quota:      InfluxSchema.ResourceQuota(measurement.GetResourceQuota()),
 			IsTS:       measurement.GetIsTs(),
 		}
 		for _, column := range measurement.Columns {

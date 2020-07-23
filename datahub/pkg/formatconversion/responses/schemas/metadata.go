@@ -1,11 +1,11 @@
 package schemas
 
 import (
-	InternalSchema "github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
+	InfluxSchema "github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
 	ApiSchema "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 )
 
-func NewSchemaMeta(schemaMeta *InternalSchema.SchemaMeta) *ApiSchema.SchemaMeta {
+func NewSchemaMeta(schemaMeta *InfluxSchema.SchemaMeta) *ApiSchema.SchemaMeta {
 	if schemaMeta != nil {
 		meta := ApiSchema.SchemaMeta{}
 		meta.Scope = ApiSchema.Scope(schemaMeta.Scope)

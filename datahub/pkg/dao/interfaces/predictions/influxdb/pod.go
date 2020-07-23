@@ -4,15 +4,15 @@ import (
 	DaoPredictionTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/predictions/types"
 	RepoInfluxPrediction "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/predictions"
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	ApiPredictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
 )
 
 type PodPredictions struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewPodPredictionsWithConfig(config InternalInflux.Config) DaoPredictionTypes.PodPredictionsDAO {
+func NewPodPredictionsWithConfig(config InfluxDB.Config) DaoPredictionTypes.PodPredictionsDAO {
 	return &PodPredictions{InfluxDBConfig: config}
 }
 

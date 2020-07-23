@@ -3,8 +3,8 @@ package recommendations
 import (
 	EntityInfluxRecommend "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/recommendations"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	ApiRecommendations "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations"
 	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/golang/protobuf/ptypes"
@@ -15,12 +15,12 @@ import (
 )
 
 type ClusterRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewClusterRepository(influxDBCfg *InternalInflux.Config) *ClusterRepository {
+func NewClusterRepository(influxDBCfg *InfluxDB.Config) *ClusterRepository {
 	return &ClusterRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -100,7 +100,7 @@ func (c *ClusterRepository) CreateRecommendations(recommendations []*ApiRecommen
 }
 
 func (c *ClusterRepository) ListRecommendations(in *ApiRecommendations.ListClusterRecommendationsRequest) ([]*ApiRecommendations.ClusterRecommendation, error) {
-	influxdbStatement := InternalInflux.Statement{
+	influxdbStatement := InfluxDB.Statement{
 		Measurement:    Cluster,
 		QueryCondition: DBCommon.BuildQueryConditionV1(in.GetQueryCondition()),
 	}
@@ -140,13 +140,13 @@ func (c *ClusterRepository) ListRecommendations(in *ApiRecommendations.ListClust
 		return make([]*ApiRecommendations.ClusterRecommendation, 0), err
 	}
 
-	influxdbRows := InternalInflux.PackMap(results)
+	influxdbRows := InfluxDB.PackMap(results)
 	recommendations := c.getRecommendationsFromInfluxRows(influxdbRows)
 
 	return recommendations, nil
 }
 
-func (c *ClusterRepository) getRecommendationsFromInfluxRows(rows []*InternalInflux.InfluxRow) []*ApiRecommendations.ClusterRecommendation {
+func (c *ClusterRepository) getRecommendationsFromInfluxRows(rows []*InfluxDB.InfluxRow) []*ApiRecommendations.ClusterRecommendation {
 	recommendations := make([]*ApiRecommendations.ClusterRecommendation, 0)
 	for _, influxdbRow := range rows {
 		for _, data := range influxdbRow.Data {

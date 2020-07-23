@@ -8,20 +8,20 @@ import (
 	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
 	Metadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
 	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
 	"strconv"
 )
 
 type NodeRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewNodeRepositoryWithConfig(influxDBCfg InternalInflux.Config) *NodeRepository {
+func NewNodeRepositoryWithConfig(influxDBCfg InfluxDB.Config) *NodeRepository {
 	return &NodeRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -52,7 +52,7 @@ func (r *NodeRepository) CreatePredictions(predictions DaoPredictionTypes.NodePr
 func (r *NodeRepository) ListPredictions(request DaoPredictionTypes.ListNodePredictionsRequest) ([]*DaoPredictionTypes.NodePrediction, error) {
 	nodePredictionList := make([]*DaoPredictionTypes.NodePrediction, 0)
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: &request.QueryCondition,
 		Measurement:    Node,
 		GroupByTags: []string{
@@ -96,7 +96,7 @@ func (r *NodeRepository) ListPredictions(request DaoPredictionTypes.ListNodePred
 		return make([]*DaoPredictionTypes.NodePrediction, 0), errors.Wrap(err, "failed to list node prediction")
 	}
 
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)

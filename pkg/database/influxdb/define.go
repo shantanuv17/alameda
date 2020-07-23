@@ -1,7 +1,7 @@
 package influxdb
 
 import (
-	"github.com/containers-ai/alameda/internal/pkg/database/common"
+	"github.com/containers-ai/alameda/pkg/database/common"
 )
 
 type Functions = string
@@ -23,15 +23,15 @@ var FunctionNameMap = map[common.FunctionType]string{
 	common.NoneFunction: "",
 
 	// Aggregation Function
-	common.FunctionCount:      "COUNT",
-	common.FuncDistinct:       "DISTINCT",
-	common.FuncIntegral:       "INTEGRAL",
-	common.FunctionMean:       "MEAN",
-	common.FunctionMedian:     "MEDIAN",
-	common.FunctionMode:       "MODE",
-	common.FunctionSpread:     "SPREAD",
-	common.FunctionStddev:     "STDDEV",
-	common.FunctionSum:        "SUM",
+	common.FunctionCount:  "COUNT",
+	common.FuncDistinct:   "DISTINCT",
+	common.FuncIntegral:   "INTEGRAL",
+	common.FunctionMean:   "MEAN",
+	common.FunctionMedian: "MEDIAN",
+	common.FunctionMode:   "MODE",
+	common.FunctionSpread: "SPREAD",
+	common.FunctionStddev: "STDDEV",
+	common.FunctionSum:    "SUM",
 
 	// Selector function
 	common.FunctionBottom:     "BOTTOM",
@@ -44,5 +44,5 @@ var FunctionNameMap = map[common.FunctionType]string{
 	common.FunctionTop:        "TOP",
 
 	// Transformation function
-	common.FuncDerivative:     "DERIVATIVE",
+	common.FuncDerivative: "DERIVATIVE",
 }

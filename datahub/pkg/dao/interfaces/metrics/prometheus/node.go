@@ -9,14 +9,14 @@ import (
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
 	Utils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalPromth "github.com/containers-ai/alameda/internal/pkg/database/prometheus"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	Prometheus "github.com/containers-ai/alameda/pkg/database/prometheus"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
 )
 
 type NodeMetrics struct {
-	PrometheusConfig InternalPromth.Config
+	PrometheusConfig Prometheus.Config
 
 	nodeDAO DaoClusterStatusTypes.NodeDAO
 
@@ -24,7 +24,7 @@ type NodeMetrics struct {
 }
 
 // NewNodeMetricsWithConfig Constructor of prometheus node metric dao
-func NewNodeMetricsWithConfig(config InternalPromth.Config, nodeDAO DaoClusterStatusTypes.NodeDAO, clusterUID string) DaoMetricTypes.NodeMetricsDAO {
+func NewNodeMetricsWithConfig(config Prometheus.Config, nodeDAO DaoClusterStatusTypes.NodeDAO, clusterUID string) DaoMetricTypes.NodeMetricsDAO {
 	return &NodeMetrics{
 		PrometheusConfig: config,
 

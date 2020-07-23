@@ -2,7 +2,7 @@ package predictions
 
 import (
 	"github.com/containers-ai/alameda/datahub/pkg/utils"
-	"github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	"github.com/containers-ai/alameda/pkg/database/influxdb"
 	"time"
 )
 

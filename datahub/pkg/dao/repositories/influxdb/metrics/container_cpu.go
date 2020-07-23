@@ -8,8 +8,8 @@ import (
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
 	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
@@ -21,12 +21,12 @@ var (
 )
 
 type ContainerCpuRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewContainerCpuRepositoryWithConfig(influxDBCfg InternalInflux.Config) *ContainerCpuRepository {
+func NewContainerCpuRepositoryWithConfig(influxDBCfg InfluxDB.Config) *ContainerCpuRepository {
 	return &ContainerCpuRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -92,7 +92,7 @@ func (r *ContainerCpuRepository) ListMetrics(request DaoMetricTypes.ListPodMetri
 func (r *ContainerCpuRepository) read(request DaoMetricTypes.ListPodMetricsRequest) ([]*DaoMetricTypes.ContainerMetric, error) {
 	containerMetricList := make([]*DaoMetricTypes.ContainerMetric, 0)
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: &request.QueryCondition,
 		Measurement:    ContainerCpu,
 		GroupByTags: []string{string(EntityInfluxMetric.ContainerPodNamespace), string(EntityInfluxMetric.ContainerPodName), string(EntityInfluxMetric.ContainerName), string(EntityInfluxMetric.ContainerRateRange),
@@ -112,13 +112,13 @@ func (r *ContainerCpuRepository) read(request DaoMetricTypes.ListPodMetricsReque
 	statement.SetLimitClauseFromQueryCondition()
 	cmd := statement.BuildQueryCmd()
 
-	scope.Debugf("Query inlfuxdb: cmd: %s", cmd)
+	scope.Debugf("Query influxdb: cmd: %s", cmd)
 	response, err := r.influxDB.QueryDB(cmd, string(RepoInflux.Metric))
 	if err != nil {
 		return make([]*DaoMetricTypes.ContainerMetric, 0), errors.Wrap(err, "failed to list container cpu metrics")
 	}
 
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)
@@ -149,7 +149,7 @@ func (r *ContainerCpuRepository) steps(request DaoMetricTypes.ListPodMetricsRequ
 
 	groupByTime := fmt.Sprintf("%s(%ds)", EntityInfluxMetric.ContainerTime, int(request.StepTime.Seconds()))
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: &request.QueryCondition,
 		Measurement:    ContainerCpu,
 		SelectedFields: []string{string(EntityInfluxMetric.ContainerValue)},
@@ -172,16 +172,16 @@ func (r *ContainerCpuRepository) steps(request DaoMetricTypes.ListPodMetricsRequ
 	if !exist {
 		return nil, errors.Errorf(`not supported aggregate function "%d"`, request.AggregateOverTimeFunction)
 	}
-	statement.SetFunction(InternalInflux.Select, f, string(EntityInfluxMetric.ContainerValue))
+	statement.SetFunction(InfluxDB.Select, f, string(EntityInfluxMetric.ContainerValue))
 	cmd := statement.BuildQueryCmd()
 
-	scope.Debugf("Query inlfuxdb: cmd: %s", cmd)
+	scope.Debugf("Query influxdb: cmd: %s", cmd)
 	response, err := r.influxDB.QueryDB(cmd, string(RepoInflux.Metric))
 	if err != nil {
 		return make([]*DaoMetricTypes.ContainerMetric, 0), errors.Wrap(err, "failed to list container cpu metrics")
 	}
 
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)

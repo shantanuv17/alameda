@@ -1,7 +1,7 @@
 package types
 
 import (
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
+	"github.com/containers-ai/alameda/pkg/database/common"
 	"time"
 )
 
@@ -20,5 +20,5 @@ type SimulatedSchedulingScore struct {
 
 // ListRequest Request argument for list api.
 type ListRequest struct {
-	DBCommon.QueryCondition
+	common.QueryCondition
 }
