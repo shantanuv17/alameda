@@ -1,7 +1,7 @@
 package enumconv
 
 import (
-	"github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
+	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
 	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 )
 

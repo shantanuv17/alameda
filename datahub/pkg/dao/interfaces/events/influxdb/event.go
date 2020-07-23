@@ -4,17 +4,17 @@ import (
 	"encoding/json"
 	DaoEventTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/events/types"
 	RepoInfluxEvent "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/events"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
 	InternalRabbitMQ "github.com/containers-ai/alameda/internal/pkg/message-queue/rabbitmq"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 )
 
 type Event struct {
-	InfluxDBConfig *InternalInflux.Config
+	InfluxDBConfig *InfluxDB.Config
 	RabbitMQConfig *InternalRabbitMQ.Config
 }
 
-func NewEventWithConfig(influxConfig *InternalInflux.Config, rabbitMQConfig *InternalRabbitMQ.Config) DaoEventTypes.EventDAO {
+func NewEventWithConfig(influxConfig *InfluxDB.Config, rabbitMQConfig *InternalRabbitMQ.Config) DaoEventTypes.EventDAO {
 	return &Event{InfluxDBConfig: influxConfig, RabbitMQConfig: rabbitMQConfig}
 }
 

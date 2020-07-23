@@ -3,26 +3,26 @@ package metrics
 import (
 	EntityInfluxGpuMetric "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/gpu/nvidia/metrics"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	"github.com/pkg/errors"
 )
 
 type NumDevicesRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewNumDevicesRepositoryWithConfig(cfg InternalInflux.Config) *NumDevicesRepository {
+func NewNumDevicesRepositoryWithConfig(cfg InfluxDB.Config) *NumDevicesRepository {
 	return &NumDevicesRepository{
-		influxDB: InternalInflux.NewClient(&cfg),
+		influxDB: InfluxDB.NewClient(&cfg),
 	}
 }
 
 func (r *NumDevicesRepository) ListNumDevices(host, instance string, condition *DBCommon.QueryCondition) ([]*EntityInfluxGpuMetric.NumDevicesEntity, error) {
 	entities := make([]*EntityInfluxGpuMetric.NumDevicesEntity, 0)
 
-	influxdbStatement := InternalInflux.Statement{
+	influxdbStatement := InfluxDB.Statement{
 		QueryCondition: condition,
 		Measurement:    NumDevices,
 		GroupByTags:    []string{"host"},
@@ -40,7 +40,7 @@ func (r *NumDevicesRepository) ListNumDevices(host, instance string, condition *
 		return entities, errors.Wrap(err, "failed to list nvidia gpu num devices")
 	}
 
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)

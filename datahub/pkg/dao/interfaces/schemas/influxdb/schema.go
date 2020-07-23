@@ -3,8 +3,8 @@ package influxdb
 import (
 	DaoSchemaTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/schemas/types"
 	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schemamgt"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalSchemas "github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxSchemas "github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 )
 
@@ -13,10 +13,10 @@ var (
 )
 
 type Schema struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewSchemaWithConfig(config InternalInflux.Config) DaoSchemaTypes.SchemaDAO {
+func NewSchemaWithConfig(config InfluxDB.Config) DaoSchemaTypes.SchemaDAO {
 	return &Schema{InfluxDBConfig: config}
 }
 
@@ -34,10 +34,10 @@ func (p *Schema) CreateSchemas(request *DaoSchemaTypes.CreateSchemasRequest) err
 	return nil
 }
 
-func (p *Schema) ListSchemas(request *DaoSchemaTypes.ListSchemasRequest) ([]*InternalSchemas.Schema, error) {
+func (p *Schema) ListSchemas(request *DaoSchemaTypes.ListSchemasRequest) ([]*InfluxSchemas.Schema, error) {
 	schemaMgt := SchemaMgt.NewSchemaManagement()
 	if request.SchemaMeta == nil {
-		return schemaMgt.GetSchemas(InternalSchemas.ScopeUndefined, "", ""), nil
+		return schemaMgt.GetSchemas(InfluxSchemas.ScopeUndefined, "", ""), nil
 	}
 	return schemaMgt.GetSchemas(request.SchemaMeta.Scope, request.SchemaMeta.Category, request.SchemaMeta.Type), nil
 }

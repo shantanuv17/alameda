@@ -2,7 +2,7 @@ package clusterstatus
 
 import (
 	"github.com/containers-ai/alameda/datahub/pkg/utils"
-	"github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	"github.com/containers-ai/alameda/pkg/database/influxdb"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"strconv"
 	"time"

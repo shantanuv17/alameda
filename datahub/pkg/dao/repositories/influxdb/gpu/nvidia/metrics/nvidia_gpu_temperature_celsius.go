@@ -4,20 +4,20 @@ import (
 	"fmt"
 	EntityInfluxGpuMetric "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/gpu/nvidia/metrics"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	Client "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
 )
 
 type TemperatureCelsiusRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewTemperatureCelsiusRepositoryWithConfig(cfg InternalInflux.Config) *TemperatureCelsiusRepository {
+func NewTemperatureCelsiusRepositoryWithConfig(cfg InfluxDB.Config) *TemperatureCelsiusRepository {
 	return &TemperatureCelsiusRepository{
-		influxDB: InternalInflux.NewClient(&cfg),
+		influxDB: InfluxDB.NewClient(&cfg),
 	}
 }
 
@@ -33,7 +33,7 @@ func (r *TemperatureCelsiusRepository) ListMetrics(host, minorNumber string, con
 func (r *TemperatureCelsiusRepository) read(host, minorNumber string, condition *DBCommon.QueryCondition) ([]*EntityInfluxGpuMetric.TemperatureCelsiusEntity, error) {
 	entities := make([]*EntityInfluxGpuMetric.TemperatureCelsiusEntity, 0)
 
-	influxdbStatement := InternalInflux.Statement{
+	influxdbStatement := InfluxDB.Statement{
 		QueryCondition: condition,
 		Measurement:    TemperatureCelsius,
 		GroupByTags:    []string{"host"},
@@ -69,7 +69,7 @@ func (r *TemperatureCelsiusRepository) steps(host, minorNumber string, condition
 	if err != nil {
 		return entities, errors.Wrap(err, "failed to list nvidia gpu temperature celsius with max")
 	}
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			entityPtr := &EntityInfluxGpuMetric.TemperatureCelsiusEntity{}
@@ -114,7 +114,7 @@ func (r *TemperatureCelsiusRepository) last(host, minorNumber string, condition 
 	queryCondition := *condition
 	queryCondition.Limit = 1
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: &queryCondition,
 		Measurement:    TemperatureCelsius,
 		GroupByTags:    []string{"uuid"},
@@ -134,7 +134,7 @@ func (r *TemperatureCelsiusRepository) max(host, minorNumber string, condition *
 	seconds := int(condition.StepTime.Seconds())
 	groupTag := fmt.Sprintf("time(%ds)", seconds)
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: condition,
 		Measurement:    TemperatureCelsius,
 		GroupByTags:    []string{"uuid", groupTag},
@@ -145,7 +145,7 @@ func (r *TemperatureCelsiusRepository) max(host, minorNumber string, condition *
 	statement.AppendWhereClauseFromTimeCondition()
 	statement.SetOrderClauseFromQueryCondition()
 	statement.SetLimitClauseFromQueryCondition()
-	statement.SetFunction(InternalInflux.Select, "MAX", "")
+	statement.SetFunction(InfluxDB.Select, "MAX", "")
 	cmd := statement.BuildQueryCmd()
 
 	return r.influxDB.QueryDB(cmd, string(RepoInflux.Gpu))
@@ -154,7 +154,7 @@ func (r *TemperatureCelsiusRepository) max(host, minorNumber string, condition *
 func (r *TemperatureCelsiusRepository) genEntities(response []Client.Result) []*EntityInfluxGpuMetric.TemperatureCelsiusEntity {
 	entities := make([]*EntityInfluxGpuMetric.TemperatureCelsiusEntity, 0)
 
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)

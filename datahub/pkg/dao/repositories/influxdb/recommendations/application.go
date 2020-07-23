@@ -3,8 +3,8 @@ package recommendations
 import (
 	EntityInfluxRecommend "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/recommendations"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	ApiRecommendations "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations"
 	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/golang/protobuf/ptypes"
@@ -15,12 +15,12 @@ import (
 )
 
 type AppRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewAppRepository(influxDBCfg *InternalInflux.Config) *AppRepository {
+func NewAppRepository(influxDBCfg *InfluxDB.Config) *AppRepository {
 	return &AppRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -103,7 +103,7 @@ func (c *AppRepository) CreateRecommendations(recommendations []*ApiRecommendati
 }
 
 func (c *AppRepository) ListRecommendations(in *ApiRecommendations.ListApplicationRecommendationsRequest) ([]*ApiRecommendations.ApplicationRecommendation, error) {
-	influxdbStatement := InternalInflux.Statement{
+	influxdbStatement := InfluxDB.Statement{
 		Measurement:    Application,
 		QueryCondition: DBCommon.BuildQueryConditionV1(in.GetQueryCondition()),
 	}
@@ -147,13 +147,13 @@ func (c *AppRepository) ListRecommendations(in *ApiRecommendations.ListApplicati
 		return make([]*ApiRecommendations.ApplicationRecommendation, 0), err
 	}
 
-	influxdbRows := InternalInflux.PackMap(results)
+	influxdbRows := InfluxDB.PackMap(results)
 	recommendations := c.getRecommendationsFromInfluxRows(influxdbRows)
 
 	return recommendations, nil
 }
 
-func (c *AppRepository) getRecommendationsFromInfluxRows(rows []*InternalInflux.InfluxRow) []*ApiRecommendations.ApplicationRecommendation {
+func (c *AppRepository) getRecommendationsFromInfluxRows(rows []*InfluxDB.InfluxRow) []*ApiRecommendations.ApplicationRecommendation {
 	recommendations := make([]*ApiRecommendations.ApplicationRecommendation, 0)
 	for _, influxdbRow := range rows {
 		for _, data := range influxdbRow.Data {

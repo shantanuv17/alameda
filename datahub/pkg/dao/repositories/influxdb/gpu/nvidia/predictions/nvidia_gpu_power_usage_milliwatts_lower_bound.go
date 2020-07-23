@@ -5,21 +5,21 @@ import (
 	DaoGpu "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/gpu/influxdb"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
 	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
 	"strconv"
 )
 
 type PowerUsageMilliWattsLowerBoundRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewPowerUsageMilliWattsLowerBoundRepositoryWithConfig(cfg InternalInflux.Config) *PowerUsageMilliWattsLowerBoundRepository {
+func NewPowerUsageMilliWattsLowerBoundRepositoryWithConfig(cfg InfluxDB.Config) *PowerUsageMilliWattsLowerBoundRepository {
 	return &PowerUsageMilliWattsLowerBoundRepository{
-		influxDB: InternalInflux.NewClient(&cfg),
+		influxDB: InfluxDB.NewClient(&cfg),
 	}
 }
 
@@ -78,7 +78,7 @@ func (r *PowerUsageMilliWattsLowerBoundRepository) CreatePredictions(predictions
 func (r *PowerUsageMilliWattsLowerBoundRepository) ListPredictions(host, minorNumber, modelId, predictionId, granularity string, condition *DBCommon.QueryCondition) ([]*EntityInfluxGpuPrediction.PowerUsageMilliWattsEntity, error) {
 	entities := make([]*EntityInfluxGpuPrediction.PowerUsageMilliWattsEntity, 0)
 
-	influxdbStatement := InternalInflux.Statement{
+	influxdbStatement := InfluxDB.Statement{
 		QueryCondition: condition,
 		Measurement:    PowerUsageMilliWattsLowerBound,
 		GroupByTags:    []string{"host", "uuid"},
@@ -99,7 +99,7 @@ func (r *PowerUsageMilliWattsLowerBoundRepository) ListPredictions(host, minorNu
 		return entities, errors.Wrap(err, "failed to list nvidia gpu power usage milli watts lower bound predictions")
 	}
 
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)

@@ -2,15 +2,15 @@ package influxdb
 
 import (
 	RepoInfluxPlanning "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/plannings"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	ApiPlannings "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/plannings"
 )
 
 type NamespacePlannings struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewNamespacePlanningsWithConfig(config InternalInflux.Config) *NamespacePlannings {
+func NewNamespacePlanningsWithConfig(config InfluxDB.Config) *NamespacePlannings {
 	return &NamespacePlannings{InfluxDBConfig: config}
 }
 

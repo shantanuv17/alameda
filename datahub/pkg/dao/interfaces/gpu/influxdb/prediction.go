@@ -3,7 +3,7 @@ package influxdb
 import (
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
 )
 
 type GpuPredictionMap map[FormatEnum.GpuMetricType][]*GpuPrediction

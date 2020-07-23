@@ -4,8 +4,8 @@ import (
 	EntityInfluxCluster "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
 	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
@@ -13,12 +13,12 @@ import (
 )
 
 type ContainerRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewContainerRepository(influxDBCfg InternalInflux.Config) *ContainerRepository {
+func NewContainerRepository(influxDBCfg InfluxDB.Config) *ContainerRepository {
 	return &ContainerRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -68,7 +68,7 @@ func (p *ContainerRepository) CreateContainers(containers map[string][]*DaoClust
 func (p *ContainerRepository) ListContainers(request DaoClusterTypes.ListContainersRequest) (map[string][]*DaoClusterTypes.Container, error) {
 	containerMap := make(map[string][]*DaoClusterTypes.Container, 0)
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: &request.QueryCondition,
 		Measurement:    Container,
 		GroupByTags:    []string{string(EntityInfluxCluster.ContainerPodName), string(EntityInfluxCluster.ContainerNamespace), string(EntityInfluxCluster.ContainerNodeName), string(EntityInfluxCluster.ContainerClusterName)},
@@ -117,7 +117,7 @@ func (p *ContainerRepository) ListContainers(request DaoClusterTypes.ListContain
 		return make(map[string][]*DaoClusterTypes.Container, 0), errors.Wrap(err, "failed to list containers")
 	}
 
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)
@@ -138,7 +138,7 @@ func (p *ContainerRepository) ListContainers(request DaoClusterTypes.ListContain
 
 // DeleteContainers set containers' field is_deleted to true into container measurement
 func (p *ContainerRepository) DeleteContainers(request DaoClusterTypes.DeleteContainersRequest) error {
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		Measurement: Container,
 	}
 

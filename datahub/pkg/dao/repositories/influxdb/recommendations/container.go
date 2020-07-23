@@ -5,8 +5,8 @@ import (
 	EntityInfluxRecommend "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/recommendations"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
 	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	ApiRecommendations "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations"
@@ -25,13 +25,13 @@ var (
 
 // ContainerRepository is used to operate node measurement of recommendation database
 type ContainerRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
 // NewContainerRepository creates the ContainerRepository instance
-func NewContainerRepository(influxDBCfg *InternalInflux.Config) *ContainerRepository {
+func NewContainerRepository(influxDBCfg *InfluxDB.Config) *ContainerRepository {
 	return &ContainerRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -230,7 +230,7 @@ func (c *ContainerRepository) CreateContainerRecommendations(in *ApiRecommendati
 func (c *ContainerRepository) ListContainerRecommendations(in *ApiRecommendations.ListPodRecommendationsRequest) ([]*ApiRecommendations.PodRecommendation, error) {
 	podRecommendations := make([]*ApiRecommendations.PodRecommendation, 0)
 
-	influxdbStatement := InternalInflux.Statement{
+	influxdbStatement := InfluxDB.Statement{
 		Measurement:    Container,
 		QueryCondition: DBCommon.BuildQueryConditionV1(in.GetQueryCondition()),
 		GroupByTags:    []string{EntityInfluxRecommend.ContainerClusterName, EntityInfluxRecommend.ContainerName, EntityInfluxRecommend.ContainerNamespace, EntityInfluxRecommend.ContainerPodName},
@@ -310,7 +310,7 @@ func (c *ContainerRepository) ListAvailablePodRecommendations(in *ApiRecommendat
 
 	podRecommendations := make([]*ApiRecommendations.PodRecommendation, 0)
 
-	influxdbStatement := InternalInflux.Statement{
+	influxdbStatement := InfluxDB.Statement{
 		Measurement:    Container,
 		QueryCondition: DBCommon.BuildQueryConditionV1(in.GetQueryCondition()),
 		GroupByTags:    []string{EntityInfluxRecommend.ContainerClusterName, EntityInfluxRecommend.ContainerName, EntityInfluxRecommend.ContainerNamespace, EntityInfluxRecommend.ContainerPodName},
@@ -383,7 +383,7 @@ func (c *ContainerRepository) queryRecommendation(cmd string, granularity int64)
 		return podRecommendations, err
 	}
 
-	rows := InternalInflux.PackMap(results)
+	rows := InfluxDB.PackMap(results)
 
 	for _, row := range rows {
 		for _, data := range row.Data {

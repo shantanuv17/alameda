@@ -3,14 +3,14 @@ package influxdb
 import (
 	DaoPredictionTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/predictions/types"
 	RepoInfluxPrediction "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/predictions"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 )
 
 type ApplicationPredictions struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewApplicationPredictionsWithConfig(config InternalInflux.Config) DaoPredictionTypes.ApplicationPredictionsDAO {
+func NewApplicationPredictionsWithConfig(config InfluxDB.Config) DaoPredictionTypes.ApplicationPredictionsDAO {
 	return &ApplicationPredictions{InfluxDBConfig: config}
 }
 

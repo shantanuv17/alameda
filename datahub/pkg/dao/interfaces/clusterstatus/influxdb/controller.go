@@ -4,14 +4,14 @@ import (
 	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
 	RepoInfluxCluster "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
 	Metadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 )
 
 type Controller struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewControllerWithConfig(config InternalInflux.Config) DaoClusterTypes.ControllerDAO {
+func NewControllerWithConfig(config InfluxDB.Config) DaoClusterTypes.ControllerDAO {
 	return &Controller{InfluxDBConfig: config}
 }
 

@@ -5,11 +5,11 @@ import (
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
 	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	InternalPromth "github.com/containers-ai/alameda/internal/pkg/database/prometheus"
+	"github.com/containers-ai/alameda/pkg/database/prometheus"
 )
 
 type ContainerCPUUsageMillicoresEntity struct {
-	PrometheusEntity InternalPromth.Entity
+	PrometheusEntity prometheus.Entity
 
 	Namespace     string
 	PodName       string
@@ -41,7 +41,7 @@ func (e *ContainerCPUUsageMillicoresEntity) ContainerMetric() DaoMetricTypes.Con
 }
 
 type ContainerMemoryUsageBytesEntity struct {
-	PrometheusEntity InternalPromth.Entity
+	PrometheusEntity prometheus.Entity
 
 	Namespace     string
 	PodName       string

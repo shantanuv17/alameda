@@ -11,19 +11,19 @@ import (
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
 	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
 )
 
 type NamespaceMemoryRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewNamespaceMemoryRepositoryWithConfig(influxDBCfg InternalInflux.Config) *NamespaceMemoryRepository {
+func NewNamespaceMemoryRepositoryWithConfig(influxDBCfg InfluxDB.Config) *NamespaceMemoryRepository {
 	return &NamespaceMemoryRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -93,7 +93,7 @@ func (r *NamespaceMemoryRepository) GetNamespaceMetricMap(ctx context.Context, r
 
 func (r *NamespaceMemoryRepository) read(ctx context.Context, request DaoMetricTypes.ListNamespaceMetricsRequest) (DaoMetricTypes.NamespaceMetricMap, error) {
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		Measurement:    NamespaceMemory,
 		QueryCondition: &request.QueryCondition,
 		GroupByTags: []string{
@@ -112,14 +112,14 @@ func (r *NamespaceMemoryRepository) read(ctx context.Context, request DaoMetricT
 	statement.SetLimitClauseFromQueryCondition()
 	cmd := statement.BuildQueryCmd()
 
-	scope.Debugf("Query inlfuxdb: cmd: %s", cmd)
+	scope.Debugf("Query influxdb: cmd: %s", cmd)
 	response, err := r.influxDB.QueryDB(cmd, string(RepoInflux.Metric))
 	if err != nil {
 		return DaoMetricTypes.NamespaceMetricMap{}, errors.Wrap(err, "query influxdb failed")
 	}
 
 	metricMap := DaoMetricTypes.NewNamespaceMetricMap()
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)
@@ -146,7 +146,7 @@ func (r *NamespaceMemoryRepository) steps(ctx context.Context, request DaoMetric
 
 	groupByTime := fmt.Sprintf("%s(%ds)", EntityInfluxMetric.NamespaceTime, int(request.StepTime.Seconds()))
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: &request.QueryCondition,
 		Measurement:    NamespaceMemory,
 		SelectedFields: []string{string(EntityInfluxMetric.NamespaceValue)},
@@ -168,17 +168,17 @@ func (r *NamespaceMemoryRepository) steps(ctx context.Context, request DaoMetric
 	if !exist {
 		return DaoMetricTypes.NamespaceMetricMap{}, errors.Errorf(`not supported aggregate function "%d"`, request.AggregateOverTimeFunction)
 	}
-	statement.SetFunction(InternalInflux.Select, f, string(EntityInfluxMetric.NamespaceValue))
+	statement.SetFunction(InfluxDB.Select, f, string(EntityInfluxMetric.NamespaceValue))
 	cmd := statement.BuildQueryCmd()
 
-	scope.Debugf("Query inlfuxdb: cmd: %s", cmd)
+	scope.Debugf("Query influxdb: cmd: %s", cmd)
 	response, err := r.influxDB.QueryDB(cmd, string(RepoInflux.Metric))
 	if err != nil {
 		return DaoMetricTypes.NamespaceMetricMap{}, errors.Wrap(err, "query influxdb failed")
 	}
 
 	metricMap := DaoMetricTypes.NewNamespaceMetricMap()
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)

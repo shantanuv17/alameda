@@ -5,19 +5,19 @@ import (
 	DaoGpu "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/gpu/influxdb"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
 	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
 	"strconv"
 )
 
 type MemoryUsagePercentageRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewMemoryUsagePercentageRepositoryWithConfig(cfg InternalInflux.Config) *MemoryUsagePercentageRepository {
+func NewMemoryUsagePercentageRepositoryWithConfig(cfg InfluxDB.Config) *MemoryUsagePercentageRepository {
 	return &MemoryUsagePercentageRepository{
-		influxDB: InternalInflux.NewClient(&cfg),
+		influxDB: InfluxDB.NewClient(&cfg),
 	}
 }
 

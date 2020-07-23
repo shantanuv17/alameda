@@ -1,29 +1,29 @@
 package eventmgt
 
 import (
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalRabbitMQ "github.com/containers-ai/alameda/internal/pkg/message-queue/rabbitmq"
+	RabbitMQ "github.com/containers-ai/alameda/internal/pkg/message-queue/rabbitmq"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 )
 
 var (
-	gInfluxDBCfg    = InternalInflux.NewDefaultConfig()
-	gRabbitMQConfig = InternalRabbitMQ.NewDefaultConfig()
+	gInfluxDBCfg    = InfluxDB.NewDefaultConfig()
+	gRabbitMQConfig = RabbitMQ.NewDefaultConfig()
 )
 
 type EventMgt struct {
-	RabbitMQConfig *InternalRabbitMQ.Config
-	influxDB       *InternalInflux.InfluxClient
+	RabbitMQConfig *RabbitMQ.Config
+	influxDB       *InfluxDB.InfluxClient
 }
 
-func InitEventMgt(influxDBCfg *InternalInflux.Config, rabbitMQConfig *InternalRabbitMQ.Config) {
+func InitEventMgt(influxDBCfg *InfluxDB.Config, rabbitMQConfig *RabbitMQ.Config) {
 	gInfluxDBCfg = influxDBCfg
 	gRabbitMQConfig = rabbitMQConfig
 }
 
-func NewEventMgt(influxDBCfg *InternalInflux.Config, rabbitMQConfig *InternalRabbitMQ.Config) *EventMgt {
+func NewEventMgt(influxDBCfg *InfluxDB.Config, rabbitMQConfig *RabbitMQ.Config) *EventMgt {
 	return &EventMgt{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,

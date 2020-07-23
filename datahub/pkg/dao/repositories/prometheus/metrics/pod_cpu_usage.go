@@ -8,18 +8,18 @@ import (
 
 	EntityPromthMetric "github.com/containers-ai/alameda/datahub/pkg/dao/entities/prometheus/metrics"
 	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalPromth "github.com/containers-ai/alameda/internal/pkg/database/prometheus"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	Prometheus "github.com/containers-ai/alameda/pkg/database/prometheus"
 	"github.com/pkg/errors"
 )
 
 // PodCPUUsageRepository Repository to access metric namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate from prometheus
 type PodCPUUsageRepository struct {
-	PrometheusConfig InternalPromth.Config
+	PrometheusConfig Prometheus.Config
 }
 
 // NewPodCPUUsageRepositoryWithConfig New pod cpu usage millicores repository with prometheus configuration
-func NewPodCPUUsageRepositoryWithConfig(cfg InternalPromth.Config) PodCPUUsageRepository {
+func NewPodCPUUsageRepositoryWithConfig(cfg Prometheus.Config) PodCPUUsageRepository {
 	return PodCPUUsageRepository{PrometheusConfig: cfg}
 }
 
@@ -28,12 +28,12 @@ func (c PodCPUUsageRepository) ListPodCPUUsageMillicoresEntitiesBySummingPodMetr
 	// 1000 * sum(namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate{pod_name!="",container_name!="POD",namespace="@n1",pod_name=~"@p1|@p2"})
 
 	var (
-		response  InternalPromth.Response
+		response  Prometheus.Response
 		labelType = 0
 		err       error
 	)
 
-	prometheusClient, err := InternalPromth.NewClient(&c.PrometheusConfig)
+	prometheusClient, err := Prometheus.NewClient(&c.PrometheusConfig)
 	if err != nil {
 		return nil, errors.Wrap(err, "new prometheus client failed")
 	}
@@ -56,7 +56,7 @@ func (c PodCPUUsageRepository) ListPodCPUUsageMillicoresEntitiesBySummingPodMetr
 		}
 		queryExpression := fmt.Sprintf(`%s{%s}`, ContainerCpuUsagePercentageMetricName, queryLabelsString)
 		stepTimeInSeconds := int64(opt.StepTime.Nanoseconds() / int64(time.Second))
-		queryExpression, err = InternalPromth.WrapQueryExpression(queryExpression, opt.AggregateOverTimeFunc, stepTimeInSeconds)
+		queryExpression, err = Prometheus.WrapQueryExpression(queryExpression, opt.AggregateOverTimeFunc, stepTimeInSeconds)
 		if err != nil {
 			return nil, errors.Wrap(err, "wrap query expression failed")
 		}
@@ -66,7 +66,7 @@ func (c PodCPUUsageRepository) ListPodCPUUsageMillicoresEntitiesBySummingPodMetr
 		response, err = prometheusClient.QueryRange(ctx, queryExpression, opt.StartTime, opt.EndTime, opt.StepTime)
 		if err != nil {
 			return nil, errors.Wrap(err, "query prometheus failed")
-		} else if response.Status != InternalPromth.StatusSuccess {
+		} else if response.Status != Prometheus.StatusSuccess {
 			return nil, errors.Errorf("query prometheus failed: receive error response from prometheus: %s", response.Error)
 		}
 		if len(response.Data.Result) != 0 {
@@ -96,7 +96,7 @@ func (c PodCPUUsageRepository) buildDefaultQueryLabelsString(labelType int) stri
 	return queryLabelsString
 }
 
-func (c PodCPUUsageRepository) newPodCPUUsageMillicoresEntity(e InternalPromth.Entity, labelType int) EntityPromthMetric.PodCPUUsageMillicoresEntity {
+func (c PodCPUUsageRepository) newPodCPUUsageMillicoresEntity(e Prometheus.Entity, labelType int) EntityPromthMetric.PodCPUUsageMillicoresEntity {
 
 	samples := make([]FormatTypes.Sample, len(e.Values))
 	for i, value := range e.Values {

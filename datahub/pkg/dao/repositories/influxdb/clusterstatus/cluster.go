@@ -4,19 +4,19 @@ import (
 	EntityInfluxCluster "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
 	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
 )
 
 type ClusterRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewClusterRepository(influxDBCfg InternalInflux.Config) *ClusterRepository {
+func NewClusterRepository(influxDBCfg InfluxDB.Config) *ClusterRepository {
 	return &ClusterRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -54,7 +54,7 @@ func (p *ClusterRepository) CreateClusters(clusters []*DaoClusterTypes.Cluster) 
 func (p *ClusterRepository) ListClusters(request *DaoClusterTypes.ListClustersRequest) ([]*DaoClusterTypes.Cluster, error) {
 	clusters := make([]*DaoClusterTypes.Cluster, 0)
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: &request.QueryCondition,
 		Measurement:    Cluster,
 	}
@@ -72,7 +72,7 @@ func (p *ClusterRepository) ListClusters(request *DaoClusterTypes.ListClustersRe
 		return make([]*DaoClusterTypes.Cluster, 0), errors.Wrap(err, "failed to list clusters")
 	}
 
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)
@@ -88,7 +88,7 @@ func (p *ClusterRepository) ListClusters(request *DaoClusterTypes.ListClustersRe
 }
 
 func (p *ClusterRepository) DeleteClusters(request *DaoClusterTypes.DeleteClustersRequest) error {
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		Measurement: Cluster,
 	}
 

@@ -4,21 +4,21 @@ import (
 	EntityInfluxScore "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/scores"
 	DaoScoreTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/scores/types"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
 )
 
 // SimulatedSchedulingScoreRepository Repository of simulated_scheduling_score data
 type SimulatedSchedulingScoreRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
 // NewRepositoryWithConfig New SimulatedSchedulingScoreRepository with influxdb configuration
-func NewRepositoryWithConfig(cfg InternalInflux.Config) SimulatedSchedulingScoreRepository {
+func NewRepositoryWithConfig(cfg InfluxDB.Config) SimulatedSchedulingScoreRepository {
 	return SimulatedSchedulingScoreRepository{
-		influxDB: InternalInflux.NewClient(&cfg),
+		influxDB: InfluxDB.NewClient(&cfg),
 	}
 }
 
@@ -29,7 +29,7 @@ func (r SimulatedSchedulingScoreRepository) ListScoresByRequest(request DaoScore
 		err error
 
 		results      []InfluxClient.Result
-		influxdbRows []*InternalInflux.InfluxRow
+		influxdbRows []*InfluxDB.InfluxRow
 		scores       = make([]*EntityInfluxScore.SimulatedSchedulingScoreEntity, 0)
 	)
 
@@ -41,7 +41,7 @@ func (r SimulatedSchedulingScoreRepository) ListScoresByRequest(request DaoScore
 		Limit:          request.QueryCondition.Limit,
 	}
 
-	influxdbStatement := InternalInflux.Statement{
+	influxdbStatement := InfluxDB.Statement{
 		QueryCondition: &queryCondition,
 		Measurement:    SimulatedSchedulingScore,
 	}
@@ -56,7 +56,7 @@ func (r SimulatedSchedulingScoreRepository) ListScoresByRequest(request DaoScore
 		return scores, errors.Wrap(err, "list scores failed")
 	}
 
-	influxdbRows = InternalInflux.PackMap(results)
+	influxdbRows = InfluxDB.PackMap(results)
 	for _, influxdbRow := range influxdbRows {
 		for _, data := range influxdbRow.Data {
 			scoreEntity := EntityInfluxScore.NewSimulatedSchedulingScoreEntityFromMap(data)

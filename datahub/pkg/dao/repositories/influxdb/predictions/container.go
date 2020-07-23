@@ -7,8 +7,8 @@ import (
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
 	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
 	"strconv"
@@ -16,13 +16,13 @@ import (
 
 // ContainerRepository Repository to access containers' prediction data
 type ContainerRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
 // NewContainerRepositoryWithConfig New container repository with influxDB configuration
-func NewContainerRepositoryWithConfig(influxDBCfg InternalInflux.Config) *ContainerRepository {
+func NewContainerRepositoryWithConfig(influxDBCfg InfluxDB.Config) *ContainerRepository {
 	return &ContainerRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -89,7 +89,7 @@ func (r *ContainerRepository) CreatePredictions(predictions []*DaoPredictionType
 func (r *ContainerRepository) ListPredictions(request DaoPredictionTypes.ListPodPredictionsRequest) ([]*DaoPredictionTypes.ContainerPrediction, error) {
 	containerPredictionList := make([]*DaoPredictionTypes.ContainerPrediction, 0)
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: &request.QueryCondition,
 		Measurement:    Container,
 		GroupByTags: []string{
@@ -138,7 +138,7 @@ func (r *ContainerRepository) ListPredictions(request DaoPredictionTypes.ListPod
 		return make([]*DaoPredictionTypes.ContainerPrediction, 0), errors.Wrap(err, "failed to list container prediction")
 	}
 
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)

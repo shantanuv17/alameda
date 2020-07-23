@@ -3,7 +3,7 @@ package metrics
 import (
 	"fmt"
 	Keycodes "github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"math"
 	"strconv"
@@ -28,7 +28,7 @@ type KeycodeMetrics struct {
 	expired     bool
 }
 
-func NewKeycodeMetrics(notifier *Notifier, influxCfg *InternalInflux.Config) *KeycodeMetrics {
+func NewKeycodeMetrics(notifier *Notifier, influxCfg *InfluxDB.Config) *KeycodeMetrics {
 	keycode := KeycodeMetrics{}
 	keycode.name = "keycode"
 	keycode.notifier = notifier

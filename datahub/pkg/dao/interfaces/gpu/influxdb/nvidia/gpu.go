@@ -3,8 +3,8 @@ package nvidia
 import (
 	DaoGpu "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/gpu/influxdb"
 	RepoInfluxGpuMetric "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/gpu/nvidia/metrics"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 )
 
@@ -13,10 +13,10 @@ var (
 )
 
 type Gpu struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewGpuWithConfig(config InternalInflux.Config) DaoGpu.GpuDAO {
+func NewGpuWithConfig(config InfluxDB.Config) DaoGpu.GpuDAO {
 	return Gpu{InfluxDBConfig: config}
 }
 

@@ -4,8 +4,8 @@ import (
 	EntityInfluxCluster "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
 	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
@@ -16,12 +16,12 @@ var (
 )
 
 type ApplicationRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewApplicationRepository(influxDBCfg InternalInflux.Config) *ApplicationRepository {
+func NewApplicationRepository(influxDBCfg InfluxDB.Config) *ApplicationRepository {
 	return &ApplicationRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -59,7 +59,7 @@ func (p *ApplicationRepository) CreateApplications(applications []*DaoClusterTyp
 func (p *ApplicationRepository) ListApplications(request *DaoClusterTypes.ListApplicationsRequest) ([]*DaoClusterTypes.Application, error) {
 	applications := make([]*DaoClusterTypes.Application, 0)
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: &request.QueryCondition,
 		Measurement:    Application,
 		GroupByTags:    []string{string(EntityInfluxCluster.ApplicationClusterName)},
@@ -82,7 +82,7 @@ func (p *ApplicationRepository) ListApplications(request *DaoClusterTypes.ListAp
 		return make([]*DaoClusterTypes.Application, 0), errors.Wrap(err, "failed to list applications")
 	}
 
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)
@@ -98,7 +98,7 @@ func (p *ApplicationRepository) ListApplications(request *DaoClusterTypes.ListAp
 }
 
 func (p *ApplicationRepository) DeleteApplications(request *DaoClusterTypes.DeleteApplicationsRequest) error {
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		Measurement: Application,
 	}
 

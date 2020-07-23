@@ -4,16 +4,16 @@ import (
 	EntityInfluxScore "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/scores"
 	DaoScore "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/scores/types"
 	RepoInfluxScore "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/scores"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	"github.com/pkg/errors"
 )
 
 type Score struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
 // NewWithConfig New influxdb score dao implement
-func NewScoreWithConfig(config InternalInflux.Config) DaoScore.ScoreDAO {
+func NewScoreWithConfig(config InfluxDB.Config) DaoScore.ScoreDAO {
 	return &Score{InfluxDBConfig: config}
 }
 

@@ -2,7 +2,7 @@ package influxdb
 
 import (
 	RepoInfluxPlanning "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/plannings"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 	ApiPlannings "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/plannings"
 )
@@ -13,10 +13,10 @@ var (
 
 // Container Implements ContainerOperation interface
 type ContainerPlannings struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewContainerPlanningsWithConfig(config InternalInflux.Config) *ContainerPlannings {
+func NewContainerPlanningsWithConfig(config InfluxDB.Config) *ContainerPlannings {
 	return &ContainerPlannings{InfluxDBConfig: config}
 }
 

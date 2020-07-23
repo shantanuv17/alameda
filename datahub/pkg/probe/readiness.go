@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 	RepoPromthMetric "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/prometheus/metrics"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalPromth "github.com/containers-ai/alameda/internal/pkg/database/prometheus"
 	InternalRabbitMQ "github.com/containers-ai/alameda/internal/pkg/message-queue/rabbitmq"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	Prometheus "github.com/containers-ai/alameda/pkg/database/prometheus"
 	"github.com/pkg/errors"
 	"github.com/streadway/amqp"
 	"os/exec"
@@ -15,12 +15,12 @@ import (
 )
 
 type ReadinessProbeConfig struct {
-	InfluxdbCfg   *InternalInflux.Config
-	PrometheusCfg *InternalPromth.Config
+	InfluxdbCfg   *InfluxDB.Config
+	PrometheusCfg *Prometheus.Config
 	RabbitMQCfg   *InternalRabbitMQ.Config
 }
 
-func queryInfluxdb(influxdbConfig *InternalInflux.Config) error {
+func queryInfluxdb(influxdbConfig *InfluxDB.Config) error {
 	err := pingInfluxdb(influxdbConfig.Address)
 	if err != nil {
 		return errors.Wrap(err, "failed to ping to influxdb")
@@ -28,7 +28,7 @@ func queryInfluxdb(influxdbConfig *InternalInflux.Config) error {
 	return nil
 }
 
-func queryPrometheus(prometheusConfig *InternalPromth.Config) error {
+func queryPrometheus(prometheusConfig *Prometheus.Config) error {
 	emr := "exceeded maximum resolution"
 	options := []DBCommon.Option{}
 	ctx := context.Background()

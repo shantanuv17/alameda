@@ -4,14 +4,14 @@ import (
 	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
 	RepoInfluxCluster "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
 	Metadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 )
 
 type Namespace struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewNamespaceWithConfig(config InternalInflux.Config) DaoClusterTypes.NamespaceDAO {
+func NewNamespaceWithConfig(config InfluxDB.Config) DaoClusterTypes.NamespaceDAO {
 	return &Namespace{InfluxDBConfig: config}
 }
 

@@ -12,8 +12,8 @@ import (
 	EntityInfluxPlanning "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/plannings"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
 	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	ApiPlannings "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/plannings"
@@ -26,13 +26,13 @@ var (
 
 // ContainerRepository is used to operate container measurement of planning database
 type ContainerRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
 // NewContainerRepository creates the ContainerRepository instance
-func NewContainerRepository(influxDBCfg *InternalInflux.Config) *ContainerRepository {
+func NewContainerRepository(influxDBCfg *InfluxDB.Config) *ContainerRepository {
 	return &ContainerRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -235,7 +235,7 @@ func (c *ContainerRepository) CreateContainerPlannings(in *ApiPlannings.CreatePo
 func (c *ContainerRepository) ListContainerPlannings(in *ApiPlannings.ListPodPlanningsRequest) ([]*ApiPlannings.PodPlanning, error) {
 	podPlannings := make([]*ApiPlannings.PodPlanning, 0)
 
-	influxdbStatement := InternalInflux.Statement{
+	influxdbStatement := InfluxDB.Statement{
 		Measurement:    Container,
 		QueryCondition: DBCommon.BuildQueryConditionV1(in.GetQueryCondition()),
 		GroupByTags:    []string{EntityInfluxPlanning.ContainerName, EntityInfluxPlanning.ContainerNamespace, EntityInfluxPlanning.ContainerPodName},
@@ -298,7 +298,7 @@ func (c *ContainerRepository) queryPlannings(cmd string, granularity int64) ([]*
 		return podPlannings, err
 	}
 
-	rows := InternalInflux.PackMap(results)
+	rows := InfluxDB.PackMap(results)
 
 	for _, row := range rows {
 		for _, data := range row.Data {

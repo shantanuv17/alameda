@@ -6,7 +6,7 @@ import (
 	ClusterStatusEntity "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
 	RepoClusterStatus "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"math"
@@ -18,11 +18,11 @@ type KeycodeMgt struct {
 	Executor      *KeycodeExecutor
 	Status        *KeycodeStatusObject
 	KeycodeStatus int
-	InfluxCfg     *InternalInflux.Config
+	InfluxCfg     *InfluxDB.Config
 	InvalidReason string
 }
 
-func NewKeycodeMgt(config *InternalInflux.Config) *KeycodeMgt {
+func NewKeycodeMgt(config *InfluxDB.Config) *KeycodeMgt {
 	keycodeMgt := KeycodeMgt{}
 	keycodeMgt.Executor = NewKeycodeExecutor()
 	keycodeMgt.Status = NewKeycodeStatusObject()
@@ -337,7 +337,7 @@ func (c *KeycodeMgt) refresh(force bool) error {
 
 func (c *KeycodeMgt) writeInfluxEntry(keycode, status string) error {
 	points := make([]*InfluxClient.Point, 0)
-	client := InternalInflux.NewClient(InfluxConfig)
+	client := InfluxDB.NewClient(InfluxConfig)
 
 	tags := map[string]string{
 		string(ClusterStatusEntity.Keycode): keycode,
@@ -373,7 +373,7 @@ func (c *KeycodeMgt) writeInfluxEntry(keycode, status string) error {
 
 func (c *KeycodeMgt) deleteInfluxEntry(keycode string) error {
 	if keycode != "" {
-		client := InternalInflux.NewClient(InfluxConfig)
+		client := InfluxDB.NewClient(InfluxConfig)
 
 		cmd := fmt.Sprintf("DROP SERIES FROM %s WHERE \"%s\"='%s'", RepoClusterStatus.Keycode, ClusterStatusEntity.Keycode, keycode)
 		scope.Debugf("delete keycode in influxdb command: %s", cmd)

@@ -8,20 +8,20 @@ import (
 	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
 	Metadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
 	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalInfluxModels "github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
 	"strconv"
 )
 
 type ApplicationRepository struct {
-	influxDB *InternalInflux.InfluxClient
+	influxDB *InfluxDB.InfluxClient
 }
 
-func NewApplicationRepositoryWithConfig(influxDBCfg InternalInflux.Config) *ApplicationRepository {
+func NewApplicationRepositoryWithConfig(influxDBCfg InfluxDB.Config) *ApplicationRepository {
 	return &ApplicationRepository{
-		influxDB: &InternalInflux.InfluxClient{
+		influxDB: &InfluxDB.InfluxClient{
 			Address:  influxDBCfg.Address,
 			Username: influxDBCfg.Username,
 			Password: influxDBCfg.Password,
@@ -52,7 +52,7 @@ func (r *ApplicationRepository) CreatePredictions(predictions DaoPredictionTypes
 func (r *ApplicationRepository) ListPredictions(request DaoPredictionTypes.ListApplicationPredictionsRequest) ([]*DaoPredictionTypes.ApplicationPrediction, error) {
 	applicationPredictionList := make([]*DaoPredictionTypes.ApplicationPrediction, 0)
 
-	statement := InternalInflux.Statement{
+	statement := InfluxDB.Statement{
 		QueryCondition: &request.QueryCondition,
 		Measurement:    Application,
 		GroupByTags: []string{
@@ -95,7 +95,7 @@ func (r *ApplicationRepository) ListPredictions(request DaoPredictionTypes.ListA
 		return make([]*DaoPredictionTypes.ApplicationPrediction, 0), errors.Wrap(err, "failed to list application prediction")
 	}
 
-	results := InternalInfluxModels.NewInfluxResults(response)
+	results := InfluxModels.NewInfluxResults(response)
 	for _, result := range results {
 		for i := 0; i < result.GetGroupNum(); i++ {
 			group := result.GetGroup(i)

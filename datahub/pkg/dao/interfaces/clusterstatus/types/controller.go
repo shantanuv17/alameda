@@ -3,8 +3,8 @@ package types
 import (
 	"github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
 	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	"github.com/containers-ai/alameda/internal/pkg/database/common"
-	"github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	"github.com/containers-ai/alameda/pkg/database/common"
+	"github.com/containers-ai/alameda/pkg/database/influxdb"
 	"strconv"
 )
 

@@ -7,14 +7,14 @@ import (
 	RepoInfluxMetric "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/metrics"
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	Utils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
+	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 )
 
 type NodeMetrics struct {
-	InfluxDBConfig InternalInflux.Config
+	InfluxDBConfig InfluxDB.Config
 }
 
-func NewNodeMetricsWithConfig(config InternalInflux.Config) DaoMetricTypes.NodeMetricsDAO {
+func NewNodeMetricsWithConfig(config InfluxDB.Config) DaoMetricTypes.NodeMetricsDAO {
 	return &NodeMetrics{InfluxDBConfig: config}
 }
 

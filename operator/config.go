@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/containers-ai/alameda/internal/pkg/database/prometheus"
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
-	datahub "github.com/containers-ai/alameda/operator/datahub"
+	"github.com/containers-ai/alameda/operator/datahub"
+	"github.com/containers-ai/alameda/pkg/database/prometheus"
 	"github.com/containers-ai/alameda/pkg/utils/log"
 
 	"sigs.k8s.io/controller-runtime/pkg/manager"

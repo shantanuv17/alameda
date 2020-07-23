@@ -1,8 +1,8 @@
 package defaults
 
 import (
-	"github.com/containers-ai/alameda/internal/pkg/database/common"
-	"github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
+	"github.com/containers-ai/alameda/pkg/database/common"
+	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
 )
 
 func SchemaPredictionKafkaTopic() *schemas.Schema {

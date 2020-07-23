@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
 	Common "github.com/containers-ai/api/common"
 	"github.com/golang/protobuf/ptypes/timestamp"
 )

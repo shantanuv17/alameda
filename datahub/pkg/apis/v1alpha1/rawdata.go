@@ -2,10 +2,10 @@ package v1alpha1
 
 import (
 	"fmt"
-	InternalInflux "github.com/containers-ai/alameda/internal/pkg/database/influxdb"
-	InternalPromth "github.com/containers-ai/alameda/internal/pkg/database/prometheus"
-	ApiRawdata "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/rawdata"
-	Common "github.com/containers-ai/api/common"
+	"github.com/containers-ai/alameda/pkg/database/influxdb"
+	"github.com/containers-ai/alameda/pkg/database/prometheus"
+	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/rawdata"
+	"github.com/containers-ai/api/common"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
@@ -13,47 +13,47 @@ import (
 )
 
 // Read rawdata from database
-func (s *ServiceV1alpha1) ReadRawdata(ctx context.Context, in *ApiRawdata.ReadRawdataRequest) (*ApiRawdata.ReadRawdataResponse, error) {
+func (s *ServiceV1alpha1) ReadRawdata(ctx context.Context, in *rawdata.ReadRawdataRequest) (*rawdata.ReadRawdataResponse, error) {
 	scope.Debug("Request received from ReadRawdata grpc function")
 
 	var (
-		err     error
-		rawdata = make([]*Common.ReadRawdata, 0)
+		err   error
+		rData = make([]*common.ReadRawdata, 0)
 	)
 
 	switch in.GetDatabaseType() {
-	case Common.DatabaseType_INFLUXDB:
-		rawdata, err = InternalInflux.ReadRawdata(s.Config.InfluxDB, in.GetQueries())
-	case Common.DatabaseType_PROMETHEUS:
-		rawdata, err = InternalPromth.ReadRawdata(s.Config.Prometheus, in.GetQueries())
+	case common.DatabaseType_INFLUXDB:
+		rData, err = influxdb.ReadRawdata(s.Config.InfluxDB, in.GetQueries())
+	case common.DatabaseType_PROMETHEUS:
+		rData, err = prometheus.ReadRawdata(s.Config.Prometheus, in.GetQueries())
 	default:
-		err = errors.New(fmt.Sprintf("database type(%s) is not supported", Common.DatabaseType_name[int32(in.GetDatabaseType())]))
+		err = errors.New(fmt.Sprintf("database type(%s) is not supported", common.DatabaseType_name[int32(in.GetDatabaseType())]))
 	}
 
 	if err != nil {
 		scope.Errorf("api ReadRawdata failed: %v", err)
-		response := &ApiRawdata.ReadRawdataResponse{
+		response := &rawdata.ReadRawdataResponse{
 			Status: &status.Status{
 				Code:    int32(code.Code_INTERNAL),
 				Message: err.Error(),
 			},
-			Rawdata: rawdata,
+			Rawdata: rData,
 		}
 		return response, err
 	}
 
-	response := &ApiRawdata.ReadRawdataResponse{
+	response := &rawdata.ReadRawdataResponse{
 		Status: &status.Status{
 			Code: int32(code.Code_OK),
 		},
-		Rawdata: rawdata,
+		Rawdata: rData,
 	}
 
 	return response, nil
 }
 
 // Write rawdata to database
-func (s *ServiceV1alpha1) WriteRawdata(ctx context.Context, in *ApiRawdata.WriteRawdataRequest) (*status.Status, error) {
+func (s *ServiceV1alpha1) WriteRawdata(ctx context.Context, in *rawdata.WriteRawdataRequest) (*status.Status, error) {
 	scope.Debug("Request received from WriteRawdata grpc function")
 
 	var (
@@ -61,12 +61,12 @@ func (s *ServiceV1alpha1) WriteRawdata(ctx context.Context, in *ApiRawdata.Write
 	)
 
 	switch in.GetDatabaseType() {
-	case Common.DatabaseType_INFLUXDB:
-		err = InternalInflux.WriteRawdata(s.Config.InfluxDB, in.GetRawdata())
-	case Common.DatabaseType_PROMETHEUS:
-		err = errors.New(fmt.Sprintf("database type(%s) is not supported yet", Common.DatabaseType_name[int32(in.GetDatabaseType())]))
+	case common.DatabaseType_INFLUXDB:
+		err = influxdb.WriteRawdata(s.Config.InfluxDB, in.GetRawdata())
+	case common.DatabaseType_PROMETHEUS:
+		err = errors.New(fmt.Sprintf("database type(%s) is not supported yet", common.DatabaseType_name[int32(in.GetDatabaseType())]))
 	default:
-		err = errors.New(fmt.Sprintf("database type(%s) is not supported", Common.DatabaseType_name[int32(in.GetDatabaseType())]))
+		err = errors.New(fmt.Sprintf("database type(%s) is not supported", common.DatabaseType_name[int32(in.GetDatabaseType())]))
 	}
 
 	if err != nil {

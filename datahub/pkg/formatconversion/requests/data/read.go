@@ -8,7 +8,7 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/metrics"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/schemas"
 	"github.com/containers-ai/alameda/datahub/pkg/schemamgt"
-	"github.com/containers-ai/alameda/internal/pkg/database/common"
+	"github.com/containers-ai/alameda/pkg/database/common"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	Schemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 )

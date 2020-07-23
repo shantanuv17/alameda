@@ -11,13 +11,13 @@ import (
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
 	Utils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalPromth "github.com/containers-ai/alameda/internal/pkg/database/prometheus"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	Prometheus "github.com/containers-ai/alameda/pkg/database/prometheus"
 	"github.com/pkg/errors"
 )
 
 type PodMetrics struct {
-	PrometheusConfig InternalPromth.Config
+	PrometheusConfig Prometheus.Config
 
 	podDAO DaoClusterStatusTypes.PodDAO
 
@@ -25,7 +25,7 @@ type PodMetrics struct {
 }
 
 // NewPodMetricsWithConfig Constructor of prometheus pod metric dao
-func NewPodMetricsWithConfig(config InternalPromth.Config, podDAO DaoClusterStatusTypes.PodDAO, clusterUID string) DaoMetricTypes.PodMetricsDAO {
+func NewPodMetricsWithConfig(config Prometheus.Config, podDAO DaoClusterStatusTypes.PodDAO, clusterUID string) DaoMetricTypes.PodMetricsDAO {
 	return &PodMetrics{
 		PrometheusConfig: config,
 

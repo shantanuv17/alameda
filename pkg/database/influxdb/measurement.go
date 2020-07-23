@@ -3,21 +3,21 @@ package influxdb
 import (
 	"errors"
 	"fmt"
-	"github.com/containers-ai/alameda/internal/pkg/database/common"
-	"github.com/containers-ai/alameda/internal/pkg/database/influxdb/models"
-	"github.com/containers-ai/alameda/internal/pkg/database/influxdb/schemas"
+	"github.com/containers-ai/alameda/pkg/database/common"
+	models2 "github.com/containers-ai/alameda/pkg/database/influxdb/models"
+	schemas2 "github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
 	InfluxDB "github.com/influxdata/influxdb/client/v2"
 	"strconv"
 	"time"
 )
 
 type InfluxMeasurement struct {
-	*schemas.Measurement
+	*schemas2.Measurement
 	Database string
 	Client   *InfluxClient
 }
 
-func NewMeasurement(database string, measurement *schemas.Measurement, config Config) *InfluxMeasurement {
+func NewMeasurement(database string, measurement *schemas2.Measurement, config Config) *InfluxMeasurement {
 	m := InfluxMeasurement{
 		Measurement: measurement,
 		Database:    database,
@@ -37,7 +37,7 @@ func (p *InfluxMeasurement) Read(query *InfluxQuery) ([]*common.Group, error) {
 		return make([]*common.Group, 0), err
 	}
 
-	results := models.NewInfluxResults(response)
+	results := models2.NewInfluxResults(response)
 	if query.QueryCondition.Function != nil {
 		groups = p.aggregationData(results)
 	} else {
@@ -55,7 +55,7 @@ func (p *InfluxMeasurement) Read(query *InfluxQuery) ([]*common.Group, error) {
 }
 
 func (p *InfluxMeasurement) Write(columns []string, rows []*common.Row) error {
-	columnTypes := make([]schemas.ColumnType, 0)
+	columnTypes := make([]schemas2.ColumnType, 0)
 	dataTypes := make([]common.DataType, 0)
 
 	// Generate column & data types
@@ -118,7 +118,7 @@ func (p *InfluxMeasurement) genDataType(query *InfluxQuery) {
 	}
 }
 
-func (p *InfluxMeasurement) buildPoints(columnTypes []schemas.ColumnType, dataTypes []common.DataType, columns []string, rows []*common.Row) ([]*InfluxDB.Point, error)  {
+func (p *InfluxMeasurement) buildPoints(columnTypes []schemas2.ColumnType, dataTypes []common.DataType, columns []string, rows []*common.Row) ([]*InfluxDB.Point, error)  {
 	points := make([]*InfluxDB.Point, 0)
 
 	for _, row := range rows {
@@ -129,9 +129,9 @@ func (p *InfluxMeasurement) buildPoints(columnTypes []schemas.ColumnType, dataTy
 		// Pack influx tags & fields
 		for _, value := range row.Values {
 			switch columnTypes[index] {
-			case schemas.Tag:
+			case schemas2.Tag:
 				tags[columns[index]] = value
-			case schemas.Field:
+			case schemas2.Field:
 				v, err := p.format(value, dataTypes[index])
 				fields[columns[index]] = v
 				if err != nil {
@@ -168,7 +168,7 @@ func (p *InfluxMeasurement) buildPoints(columnTypes []schemas.ColumnType, dataTy
 	return points, nil
 }
 
-func (p *InfluxMeasurement) regularData(results []*models.InfluxResultExtend) []*common.Group {
+func (p *InfluxMeasurement) regularData(results []*models2.InfluxResultExtend) []*common.Group {
 	groups := make([]*common.Group, 0)
 
 	for _, result := range results {
@@ -204,7 +204,7 @@ func (p *InfluxMeasurement) regularData(results []*models.InfluxResultExtend) []
 	return groups
 }
 
-func (p *InfluxMeasurement) aggregationData(results []*models.InfluxResultExtend) []*common.Group {
+func (p *InfluxMeasurement) aggregationData(results []*models2.InfluxResultExtend) []*common.Group {
 	groups := make([]*common.Group, 0)
 
 	for _, result := range results {

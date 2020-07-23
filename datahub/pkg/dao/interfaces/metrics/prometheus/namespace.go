@@ -12,12 +12,12 @@ import (
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
 	Utils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	DBCommon "github.com/containers-ai/alameda/internal/pkg/database/common"
-	InternalPromth "github.com/containers-ai/alameda/internal/pkg/database/prometheus"
+	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	Prometheus "github.com/containers-ai/alameda/pkg/database/prometheus"
 )
 
 type NamespaceMetrics struct {
-	PrometheusConfig InternalPromth.Config
+	PrometheusConfig Prometheus.Config
 
 	namespaceDAO DaoClusterStatusTypes.NamespaceDAO
 
@@ -25,7 +25,7 @@ type NamespaceMetrics struct {
 }
 
 // NewNamespaceMetricsWithConfig Constructor of prometheus namespace metric dao
-func NewNamespaceMetricsWithConfig(config InternalPromth.Config, namespaceDAO DaoClusterStatusTypes.NamespaceDAO, clusterUID string) DaoMetricTypes.NamespaceMetricsDAO {
+func NewNamespaceMetricsWithConfig(config Prometheus.Config, namespaceDAO DaoClusterStatusTypes.NamespaceDAO, clusterUID string) DaoMetricTypes.NamespaceMetricsDAO {
 	return &NamespaceMetrics{
 		PrometheusConfig: config,
 
