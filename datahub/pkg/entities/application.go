@@ -5,15 +5,14 @@ import (
 )
 
 type ApplicationKafkaTopic struct {
-	DatahubEntity          `scope:"application" category:"kafka" type:"topic"`
-	Measurement            *Measurement `name:"kafka_topic" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
-	Time                   *time.Time   `json:"time"                     required:"false" column:"tag"   type:"time"`
-	Name                   string       `json:"name"                     required:"true"  column:"tag"   type:"string"`
-	Namespace              string       `json:"namespace"                required:"true"  column:"tag"   type:"string"`
-	ClusterName            string       `json:"cluster_name"             required:"true"  column:"tag"   type:"string"`
-	AlamedaScalerName      string       `json:"alameda_scaler_name"      required:"true"  column:"tag"   type:"string"`
-	AlamedaScalerNamespace string       `json:"alameda_scaler_namespace" required:"true"  column:"tag"   type:"string"`
-	Dummy                  string       `json:"dummy"                    required:"true"  column:"field" type:"string"`
+	DatahubEntity          `scope:"application" category:"kafka" type:"topic" measurement:"kafka_topic" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
+	Time                   *time.Time `json:"time"                     required:"false" column:"tag"   type:"time"`
+	Name                   string     `json:"name"                     required:"true"  column:"tag"   type:"string"`
+	Namespace              string     `json:"namespace"                required:"true"  column:"tag"   type:"string"`
+	ClusterName            string     `json:"cluster_name"             required:"true"  column:"tag"   type:"string"`
+	AlamedaScalerName      string     `json:"alameda_scaler_name"      required:"true"  column:"tag"   type:"string"`
+	AlamedaScalerNamespace string     `json:"alameda_scaler_namespace" required:"true"  column:"tag"   type:"string"`
+	Dummy                  string     `json:"dummy"                    required:"true"  column:"field" type:"string"`
 }
 
 type ApplicationKafkaConsumerGroup struct {
