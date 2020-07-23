@@ -10,20 +10,13 @@ import (
 )
 
 var (
-	scope           = log.RegisterScope("entity", "datahub entity library", 0)
-	ColumnTimeIndex = 2
+	scope = log.RegisterScope("entity", "datahub entity library", 0)
 )
 
 type Row struct {
 	Time    *timestamp.Timestamp
 	Columns []string
 	Values  []string
-}
-
-type SchemaMeta struct {
-}
-
-type Measurement struct {
 }
 
 type Entity interface {
