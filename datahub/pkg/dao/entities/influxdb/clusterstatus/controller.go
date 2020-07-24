@@ -84,7 +84,7 @@ type ControllerEntity struct {
 	MinReplicas                int32
 	MaxReplicas                int32
 	AlamedaSpecPolicy          string
-	AlamedaSpecEnableExecution string
+	AlamedaSpecEnableExecution bool
 }
 
 func NewControllerEntity(data map[string]string) *ControllerEntity {
@@ -140,7 +140,8 @@ func NewControllerEntity(data map[string]string) *ControllerEntity {
 		entity.AlamedaSpecPolicy = value
 	}
 	if value, exist := data[string(ControllerAlamedaSpecEnableExecution)]; exist {
-		entity.AlamedaSpecEnableExecution = value
+		valueBool, _ := strconv.ParseBool(value)
+		entity.AlamedaSpecEnableExecution = valueBool
 	}
 
 	return &entity

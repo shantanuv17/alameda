@@ -5,7 +5,6 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
 	"github.com/containers-ai/alameda/pkg/database/common"
 	"github.com/containers-ai/alameda/pkg/database/influxdb"
-	"strconv"
 )
 
 type ControllerDAO interface {
@@ -91,8 +90,7 @@ func NewAlamedaControllerSpec(entity *clusterstatus.ControllerEntity) *AlamedaCo
 	spec.Policy = entity.AlamedaSpecPolicy
 	spec.MinReplicas = entity.MinReplicas
 	spec.MaxReplicas = entity.MaxReplicas
-	enableExecution, _ := strconv.ParseBool(entity.AlamedaSpecEnableExecution)
-	spec.EnableExecution = enableExecution
+	spec.EnableExecution = entity.AlamedaSpecEnableExecution
 	return &spec
 }
 
@@ -120,7 +118,7 @@ func (p *Controller) BuildEntity() *clusterstatus.ControllerEntity {
 		entity.AlamedaSpecPolicy = p.AlamedaControllerSpec.Policy
 		entity.MinReplicas = p.AlamedaControllerSpec.MinReplicas
 		entity.MaxReplicas = p.AlamedaControllerSpec.MaxReplicas
-		entity.AlamedaSpecEnableExecution = strconv.FormatBool(p.AlamedaControllerSpec.EnableExecution)
+		entity.AlamedaSpecEnableExecution = p.AlamedaControllerSpec.EnableExecution
 	}
 
 	return &entity
