@@ -78,6 +78,8 @@ spec:
                     properties:
                       consumerGroup:
                         properties:
+                          groupId:
+                            type: string
                           kind:
                             enum:
                             - Deployment

@@ -68,6 +68,7 @@ func SchemaTargetKafkaConsumerGroup() *schemas.Schema {
 	measurement.AddColumn("resource_k8s_min_replicas", false, schemas.Field, common.Int32)
 	measurement.AddColumn("resource_k8s_max_replicas", false, schemas.Field, common.Int32)
 	measurement.AddColumn("policy", false, schemas.Field, common.String)
+	measurement.AddColumn("group_id", true, schemas.Field, common.String)
 	measurement.AddColumn("enable_execution", false, schemas.Field, common.Bool)
 	measurement.AddColumn("raw_spec", true, schemas.Field, common.String)
 	schema.Measurements = append(schema.Measurements, measurement)

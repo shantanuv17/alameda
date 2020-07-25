@@ -96,6 +96,9 @@ func CreateV1Alpha2Scaler(
 				EnableExecution:          enableExecution,
 				RawSpec:                  string(cgRawSpec),
 			}
+			if controller.Kafka.ConsumerGroup.GroupId != nil {
+				targetCgEntity.GroupId = *controller.Kafka.ConsumerGroup.GroupId
+			}
 			if controller.Scaling == autoscalingv1alpha2.HPAScaling && controller.Kafka.HpaParameters != nil {
 				if controller.Kafka.HpaParameters.MinReplicas != nil {
 					targetCgEntity.ResourceK8sMinReplicas = *controller.Kafka.HpaParameters.MinReplicas
