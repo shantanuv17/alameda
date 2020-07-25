@@ -37,20 +37,6 @@ func SchemaTargetController() *schemas.Schema {
 	return schema
 }
 
-func SchemaTargetKafkaTopic() *schemas.Schema {
-	// Kafka topic
-	schema := schemas.NewSchema(schemas.Target, "kafka", "topic")
-	measurement := schemas.NewMeasurement("kafka_topic", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, false)
-	measurement.AddColumn("name", true, schemas.Tag, common.String)
-	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("exporter_namespace", true, schemas.Tag, common.String)
-	measurement.AddColumn("alameda_scaler_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("alameda_scaler_namespace", true, schemas.Tag, common.String)
-	measurement.AddColumn("raw_spec", true, schemas.Field, common.String)
-	schema.Measurements = append(schema.Measurements, measurement)
-	return schema
-}
-
 func SchemaTargetKafkaConsumerGroup() *schemas.Schema {
 	// Kafka consumer group
 	schema := schemas.NewSchema(schemas.Target, "kafka", "consumer_group")

@@ -30,17 +30,6 @@ type TargetClusterStatusController struct {
 	RawSpec                  string     `json:"raw_spec"                    required:"false" column:"field" type:"string"`
 }
 
-type TargetKafkaTopic struct {
-	DatahubEntity          `scope:"target" category:"kafka" type:"topic" measurement:"kafka_topic" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
-	Time                   *time.Time `json:"time"                     required:"false" column:"tag"   type:"time"`
-	Name                   string     `json:"name"                     required:"true"  column:"tag"   type:"string"`
-	ClusterName            string     `json:"cluster_name"             required:"true"  column:"tag"   type:"string"`
-	ExporterNamespace      string     `json:"exporter_namespace"       required:"true"  column:"tag"   type:"string"`
-	AlamedaScalerName      string     `json:"alameda_scaler_name"      required:"true"  column:"tag"   type:"string"`
-	AlamedaScalerNamespace string     `json:"alameda_scaler_namespace" required:"true"  column:"tag"   type:"string"`
-	RawSpec                string     `json:"raw_spec"                 required:"true"  column:"field" type:"string"`
-}
-
 type TargetKafkaConsumerGroup struct {
 	DatahubEntity            `scope:"target" category:"kafka" type:"consumer_group" measurement:"kafka_consumer_group" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
 	Time                     *time.Time `json:"time"                        required:"false" column:"tag"   type:"time"`

@@ -49,7 +49,6 @@ func CreateV1Alpha2Scaler(
 
 	targetCtls := []entities.TargetClusterStatusController{}
 	targetKafkaCgs := []entities.TargetKafkaConsumerGroup{}
-	targetKafkaTopics := []entities.TargetKafkaTopic{}
 	for _, controller := range scaler.Spec.Controllers {
 		enableExecution := false
 		if controller.EnableExecution != nil {
@@ -108,16 +107,6 @@ func CreateV1Alpha2Scaler(
 				}
 			}
 			targetKafkaCgs = append(targetKafkaCgs, targetCgEntity)
-			targetTopicEntity := entities.TargetKafkaTopic{
-				ClusterName:            scaler.Spec.ClusterName,
-				Name:                   controller.Kafka.ConsumerGroup.Topic,
-				ExporterNamespace:      controller.Kafka.ExporterNamespce,
-				AlamedaScalerName:      scaler.Name,
-				AlamedaScalerNamespace: scaler.Namespace,
-				RawSpec:                string(cgRawSpec),
-			}
-			targetKafkaTopics = append(targetKafkaTopics, targetTopicEntity)
-
 			targetCtlEntity := entities.TargetClusterStatusController{
 				Name:                     controller.Kafka.ConsumerGroup.Name,
 				Namespace:                controller.Kafka.ConsumerGroup.Namespace,
@@ -138,10 +127,6 @@ func CreateV1Alpha2Scaler(
 		return err
 	}
 	err = datahubClient.Create(&targetKafkaCgs)
-	if err != nil {
-		return err
-	}
-	err = datahubClient.Create(&targetKafkaTopics)
 	if err != nil {
 		return err
 	}

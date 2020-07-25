@@ -59,18 +59,6 @@ func DeleteV1Alpha2Scaler(
 	if err != nil {
 		return err
 	}
-	err = datahubClient.DeleteByOpts(&entities.TargetKafkaTopic{},
-		datahubpkg.Option{
-			Entity: entities.TargetKafkaTopic{
-				ClusterName:            scalerClusterName,
-				AlamedaScalerNamespace: scalerNamespace,
-				AlamedaScalerName:      scalerName,
-			},
-			Fields: []string{"ClusterName", "AlamedaScalerNamespace", "AlamedaScalerName"},
-		})
-	if err != nil {
-		return err
-	}
 
 	if !enabledDA {
 		err = datahubClient.DeleteByOpts(&entities.ResourceClusterStatusContainer{},
