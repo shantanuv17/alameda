@@ -5,7 +5,8 @@ import (
 )
 
 type RecommendationKafkaConsumerGroup struct {
-	DatahubEntity         `scope:"recommendation" category:"kafka" type:"consumer_group" measurement:"kafka_consumer_group" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
+	DatahubEntity         `scope:"recommendation" category:"kafka" type:"consumer_group"`
+	Metadata              *Metadata  `measurement:"kafka_consumer_group" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                  *time.Time `json:"time"                    required:"false" column:"tag"   type:"time"`
 	Name                  string     `json:"name"                    required:"true"  column:"tag"   type:"string"`
 	Namespace             string     `json:"namespace"               required:"true"  column:"tag"   type:"string"`
@@ -53,7 +54,8 @@ type RecommendationClusterAutoscalerMachinegroup struct {
 }
 
 type RecommendationClusterStatusApplication struct {
-	DatahubEntity         `scope:"recommendation" category:"cluster_status" type:"application" measurement:"application" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
+	DatahubEntity         `scope:"recommendation" category:"cluster_status" type:"application"`
+	Metadata              *Metadata  `measurement:"application" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                  *time.Time `json:"time"                 required:"false" column:"tag"   type:"time"`
 	Name                  string     `json:"name"                 required:"true"  column:"tag"   type:"string"`
 	Namespace             string     `json:"namespace"            required:"true"  column:"tag"   type:"string"`
@@ -73,7 +75,8 @@ type RecommendationClusterStatusApplication struct {
 }
 
 type RecommendationClusterStatusCluster struct {
-	DatahubEntity         `scope:"recommendation" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
+	DatahubEntity         `scope:"recommendation" category:"cluster_status" type:"cluster"`
+	Metadata              *Metadata  `measurement:"cluster" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                  *time.Time `json:"time"                 required:"false" column:"tag"   type:"time"`
 	Name                  string     `json:"name"                 required:"true"  column:"tag"   type:"string"`
 	Type                  string     `json:"type"                 required:"true"  column:"tag"   type:"string"`
@@ -91,7 +94,8 @@ type RecommendationClusterStatusCluster struct {
 }
 
 type RecommendationClusterStatusContainerLimit struct {
-	DatahubEntity              `scope:"recommendation" category:"cluster_status" type:"container" measurement:"container" metric:"undefined" boundary:"undefined" quota:"limit" ts:"true"`
+	DatahubEntity              `scope:"recommendation" category:"cluster_status" type:"container"`
+	Metadata                   *Metadata  `measurement:"container" metric:"undefined" boundary:"undefined" quota:"limit" ts:"true"`
 	Time                       *time.Time `json:"time"                          required:"false" column:"tag"   type:"time"`
 	Name                       string     `json:"name"                          required:"true"  column:"tag"   type:"string"`
 	Namespace                  string     `json:"namespace"                     required:"true"  column:"tag"   type:"string"`
@@ -112,7 +116,8 @@ type RecommendationClusterStatusContainerLimit struct {
 }
 
 type RecommendationClusterStatusContainerRequest struct {
-	DatahubEntity                `scope:"recommendation" category:"cluster_status" type:"container" measurement:"container" metric:"undefined" boundary:"undefined" quota:"request" ts:"true"`
+	DatahubEntity                `scope:"recommendation" category:"cluster_status" type:"container"`
+	Metadata                     *Metadata  `measurement:"container" metric:"undefined" boundary:"undefined" quota:"request" ts:"true"`
 	Time                         *time.Time `json:"time"                            required:"false" column:"tag"   type:"time"`
 	Name                         string     `json:"name"                            required:"true"  column:"tag"   type:"string"`
 	Namespace                    string     `json:"namespace"                       required:"true"  column:"tag"   type:"string"`
@@ -133,7 +138,8 @@ type RecommendationClusterStatusContainerRequest struct {
 }
 
 type RecommendationClusterStatusController struct {
-	DatahubEntity         `scope:"recommendation" category:"cluster_status" type:"controller" measurement:"controller" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
+	DatahubEntity         `scope:"recommendation" category:"cluster_status" type:"controller"`
+	Metadata              *Metadata  `measurement:"controller" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                  *time.Time `json:"time"                 required:"false" column:"tag"   type:"time"`
 	Name                  string     `json:"name"                 required:"true"  column:"tag"   type:"string"`
 	Namespace             string     `json:"namespace"            required:"true"  column:"tag"   type:"string"`
@@ -153,7 +159,8 @@ type RecommendationClusterStatusController struct {
 }
 
 type RecommendationClusterStatusNamespace struct {
-	DatahubEntity         `scope:"recommendation" category:"cluster_status" type:"namespace" measurement:"namespace" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
+	DatahubEntity         `scope:"recommendation" category:"cluster_status" type:"namespace"`
+	Metadata              *Metadata  `measurement:"namespace" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                  *time.Time `json:"time"                 required:"false" column:"tag"   type:"time"`
 	Name                  string     `json:"name"                 required:"true"  column:"tag"   type:"string"`
 	ClusterName           string     `json:"cluster_name"         required:"true"  column:"tag"   type:"string"`
@@ -172,7 +179,8 @@ type RecommendationClusterStatusNamespace struct {
 }
 
 type RecommendationClusterStatusNode struct {
-	DatahubEntity         `scope:"recommendation" category:"cluster_status" type:"node" measurement:"node" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
+	DatahubEntity         `scope:"recommendation" category:"cluster_status" type:"node"`
+	Metadata              *Metadata  `measurement:"node" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                  *time.Time `json:"time"                 required:"false" column:"tag"   type:"time"`
 	Name                  string     `json:"name"                 required:"true"  column:"tag"   type:"string"`
 	ClusterName           string     `json:"cluster_name"         required:"true"  column:"tag"   type:"string"`

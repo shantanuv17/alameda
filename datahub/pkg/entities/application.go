@@ -5,7 +5,8 @@ import (
 )
 
 type ApplicationKafkaTopic struct {
-	DatahubEntity          `scope:"application" category:"kafka" type:"topic" measurement:"kafka_topic" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
+	DatahubEntity          `scope:"application" category:"kafka" type:"topic"`
+	Metadata               *Metadata  `measurement:"kafka_topic" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
 	Time                   *time.Time `json:"time"                     required:"false" column:"tag"   type:"time"`
 	Name                   string     `json:"name"                     required:"true"  column:"tag"   type:"string"`
 	Namespace              string     `json:"namespace"                required:"true"  column:"tag"   type:"string"`
@@ -16,7 +17,8 @@ type ApplicationKafkaTopic struct {
 }
 
 type ApplicationKafkaConsumerGroup struct {
-	DatahubEntity            `scope:"application" category:"kafka" type:"consumer_group" measurement:"kafka_consumer_group" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
+	DatahubEntity            `scope:"application" category:"kafka" type:"consumer_group"`
+	Metadata                 *Metadata  `measurement:"kafka_consumer_group" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
 	Time                     *time.Time `json:"time"                        required:"false" column:"tag"   type:"time"`
 	Name                     string     `json:"name"                        required:"true"  column:"tag"   type:"string"`
 	Namespace                string     `json:"namespace"                   required:"true"  column:"tag"   type:"string"`

@@ -10,7 +10,8 @@ import (
 )
 
 var (
-	scope = log.RegisterScope("entity", "datahub entity library", 0)
+	scope            = log.RegisterScope("entity", "datahub entity library", 0)
+	ColumnStartIndex = 2
 )
 
 type Row struct {
@@ -22,6 +23,9 @@ type Row struct {
 type Entity interface {
 	Populate(entity interface{}, timestamp *timestamp.Timestamp, columns, values []string)
 	Row(entity interface{}, fields []string) *Row
+}
+
+type Metadata struct {
 }
 
 type DatahubEntity struct {
@@ -37,7 +41,8 @@ func (p *DatahubEntity) Populate(entity interface{}, timestamp *timestamp.Timest
 
 	// Populate other tags and fields
 	for index, column := range columns {
-		for i := 1; i < fields.NumField(); i++ {
+		// Index is started at 2 to skip DatahubEntity and Measurement fields
+		for i := ColumnStartIndex; i < fields.NumField(); i++ {
 			if column == fields.Field(i).Tag.Get("json") {
 				fieldValue := reflect.ValueOf(entity).Elem().Field(i)
 				switch fieldValue.Kind() {
@@ -74,13 +79,15 @@ func (p *DatahubEntity) Row(entity interface{}, fields []string) *Row {
 	values := reflect.TypeOf(entity).Elem()
 	fieldNames := fields
 	if len(fieldNames) == 0 {
-		for i := 1; i < values.NumField(); i++ {
+		// Index is started at 2 to skip DatahubEntity and Measurement fields
+		for i := ColumnStartIndex; i < values.NumField(); i++ {
 			fieldNames = append(fieldNames, values.Field(i).Name)
 		}
 	}
 
 	for _, name := range fieldNames {
-		for i := 1; i < values.NumField(); i++ {
+		// Index is started at 2 to skip DatahubEntity and Measurement fields
+		for i := ColumnStartIndex; i < values.NumField(); i++ {
 			if name == values.Field(i).Name {
 				fieldValue := reflect.ValueOf(entity).Elem().Field(i)
 				switch fieldValue.Kind() {
@@ -114,7 +121,8 @@ func (p *DatahubEntity) Tags(entity interface{}) []string {
 	tags := make([]string, 0)
 
 	fieldType := reflect.TypeOf(entity)
-	for i := 2; i < fieldType.NumField(); i++ {
+	// Index is started at 3 to skip DatahubEntity, Measurement and Time fields
+	for i := ColumnStartIndex + 1; i < fieldType.NumField(); i++ {
 		if fieldType.Field(i).Tag.Get("column") == "tag" {
 			tags = append(tags, fieldType.Field(i).Tag.Get("json"))
 		}
@@ -127,7 +135,8 @@ func (p *DatahubEntity) Fields(entity interface{}) []string {
 	fields := make([]string, 0)
 
 	fieldType := reflect.TypeOf(entity)
-	for i := 2; i < fieldType.NumField(); i++ {
+	// Index is started at 3 to skip DatahubEntity, Measurement and Time fields
+	for i := ColumnStartIndex + 1; i < fieldType.NumField(); i++ {
 		if fieldType.Field(i).Tag.Get("column") == "field" {
 			fields = append(fields, fieldType.Field(i).Tag.Get("json"))
 		}
@@ -140,7 +149,8 @@ func (p *DatahubEntity) TagNames(entity interface{}) []string {
 	tagNames := make([]string, 0)
 
 	fieldType := reflect.TypeOf(entity)
-	for i := 2; i < fieldType.NumField(); i++ {
+	// Index is started at 3 to skip DatahubEntity, Measurement and Time fields
+	for i := ColumnStartIndex + 1; i < fieldType.NumField(); i++ {
 		if fieldType.Field(i).Tag.Get("column") == "tag" {
 			tagNames = append(tagNames, fieldType.Field(i).Name)
 		}
@@ -153,7 +163,8 @@ func (p *DatahubEntity) FieldNames(entity interface{}) []string {
 	fields := make([]string, 0)
 
 	fieldType := reflect.TypeOf(entity)
-	for i := 2; i < fieldType.NumField(); i++ {
+	// Index is started at 3 to skip DatahubEntity, Measurement and Time fields
+	for i := ColumnStartIndex + 1; i < fieldType.NumField(); i++ {
 		if fieldType.Field(i).Tag.Get("column") == "field" {
 			fields = append(fields, fieldType.Field(i).Name)
 		}

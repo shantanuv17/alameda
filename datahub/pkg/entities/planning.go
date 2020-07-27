@@ -5,7 +5,8 @@ import (
 )
 
 type PlanningClusterStatusApplication struct {
-	DatahubEntity                `scope:"planning" category:"cluster_status" type:"application" measurement:"application" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
+	DatahubEntity                `scope:"planning" category:"cluster_status" type:"application"`
+	Metadata                     *Metadata  `measurement:"application" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                         *time.Time `json:"time"                            required:"false" column:"tag"   type:"time"`
 	Name                         string     `json:"name"                            required:"true"  column:"tag"   type:"string"`
 	Namespace                    string     `json:"namespace"                       required:"true"  column:"tag"   type:"string"`
@@ -28,7 +29,8 @@ type PlanningClusterStatusApplication struct {
 }
 
 type PlanningClusterStatusCluster struct {
-	DatahubEntity                `scope:"planning" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
+	DatahubEntity                `scope:"planning" category:"cluster_status" type:"cluster"`
+	Metadata                     *Metadata  `measurement:"cluster" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                         *time.Time `json:"time" required:"false" column:"tag" type:"time"`
 	Name                         string     `json:"name"                            required:"true"  column:"tag"   type:"string"`
 	PlanningId                   string     `json:"planning_id"                     required:"true"  column:"tag"   type:"string"`
@@ -49,7 +51,8 @@ type PlanningClusterStatusCluster struct {
 }
 
 type PlanningClusterStatusContainer struct {
-	DatahubEntity                `scope:"planning" category:"cluster_status" type:"container" measurement:"container" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
+	DatahubEntity                `scope:"planning" category:"cluster_status" type:"container"`
+	Metadata                     *Metadata  `measurement:"container" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                         *time.Time `json:"time" required:"false" column:"tag" type:"time"`
 	Name                         string     `json:"name"                            required:"true"  column:"tag"   type:"string"`
 	PodName                      string     `json:"pod_name"                        required:"true"  column:"tag"   type:"string"`
@@ -76,7 +79,8 @@ type PlanningClusterStatusContainer struct {
 }
 
 type PlanningClusterStatusController struct {
-	DatahubEntity                `scope:"planning" category:"cluster_status" type:"controller" measurement:"controller" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
+	DatahubEntity                `scope:"planning" category:"cluster_status" type:"controller"`
+	Metadata                     *Metadata  `measurement:"controller" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                         *time.Time `json:"time" required:"false" column:"tag" type:"time"`
 	Name                         string     `json:"name"                            required:"true"  column:"tag"   type:"string"`
 	Namespace                    string     `json:"namespace"                       required:"true"  column:"tag"   type:"string"`
@@ -100,7 +104,8 @@ type PlanningClusterStatusController struct {
 }
 
 type PlanningClusterStatusNamespace struct {
-	DatahubEntity                `scope:"planning" category:"cluster_status" type:"namespace" measurement:"namespace" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
+	DatahubEntity                `scope:"planning" category:"cluster_status" type:"namespace"`
+	Metadata                     *Metadata  `measurement:"namespace" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                         *time.Time `json:"time" required:"false" column:"tag" type:"time"`
 	Name                         string     `json:"name"                            required:"true"  column:"tag"   type:"string"`
 	ClusterName                  string     `json:"cluster_name"                    required:"true"  column:"tag"   type:"string"`
@@ -122,7 +127,8 @@ type PlanningClusterStatusNamespace struct {
 }
 
 type PlanningClusterStatusNode struct {
-	DatahubEntity                `scope:"planning" category:"cluster_status" type:"node" measurement:"node" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
+	DatahubEntity                `scope:"planning" category:"cluster_status" type:"node"`
+	Metadata                     *Metadata  `measurement:"node" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                         *time.Time `json:"time" required:"false" column:"tag" type:"time"`
 	Name                         string     `json:"name"                            required:"true"  column:"tag"   type:"string"`
 	ClusterName                  string     `json:"cluster_name"                    required:"true"  column:"tag"   type:"string"`

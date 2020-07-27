@@ -5,7 +5,8 @@ import (
 )
 
 type TargetClusterStatusCluster struct {
-	DatahubEntity          `scope:"target" category:"cluster_status" type:"cluster" measurement:"cluster" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
+	DatahubEntity          `scope:"target" category:"cluster_status" type:"cluster"`
+	Metadata               *Metadata  `measurement:"cluster" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
 	Time                   *time.Time `json:"time"                     required:"false" column:"tag"   type:"time"`
 	Name                   string     `json:"name"                     required:"true"  column:"tag"   type:"string"`
 	AlamedaScalerName      string     `json:"alameda_scaler_name"      required:"true"  column:"tag"   type:"string"`
@@ -14,7 +15,8 @@ type TargetClusterStatusCluster struct {
 }
 
 type TargetClusterStatusController struct {
-	DatahubEntity            `scope:"target" category:"cluster_status" type:"controller" measurement:"controller" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
+	DatahubEntity            `scope:"target" category:"cluster_status" type:"controller"`
+	Metadata                 *Metadata  `measurement:"controller" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
 	Time                     *time.Time `json:"time"                        required:"false" column:"tag"   type:"time"`
 	Name                     string     `json:"name"                        required:"true"  column:"tag"   type:"string"`
 	Namespace                string     `json:"namespace"                   required:"true"  column:"tag"   type:"string"`
@@ -42,7 +44,8 @@ type TargetKafkaTopic struct {
 }
 
 type TargetKafkaConsumerGroup struct {
-	DatahubEntity            `scope:"target" category:"kafka" type:"consumer_group" measurement:"kafka_consumer_group" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
+	DatahubEntity            `scope:"target" category:"kafka" type:"consumer_group"`
+	Metadata                 *Metadata  `measurement:"kafka_consumer_group" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
 	Time                     *time.Time `json:"time"                        required:"false" column:"tag"   type:"time"`
 	Name                     string     `json:"name"                        required:"true"  column:"tag"   type:"string"`
 	ClusterName              string     `json:"cluster_name"                required:"true"  column:"tag"   type:"string"`
