@@ -6,8 +6,8 @@ import (
 	DaoMetricTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics/types"
 	RepoInfluxMetric "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/metrics"
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	Utils "github.com/containers-ai/alameda/datahub/pkg/utils"
 	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	Utils "github.com/containers-ai/alameda/pkg/utils"
 )
 
 type PodMetrics struct {

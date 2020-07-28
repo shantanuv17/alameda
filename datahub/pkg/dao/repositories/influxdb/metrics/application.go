@@ -25,7 +25,7 @@ func (p *Application) GetMetricMap(metricType enumconv.MetricType, applications 
 	schemaMgt := SchemaMgt.NewSchemaManagement()
 	schema := schemaMgt.GetSchemas(InfluxSchemas.Metric, "cluster_status", "container")[0]
 	m := schema.GetMeasurement("", metricTypeMapTable[metricType], InfluxSchemas.ResourceBoundaryUndefined, InfluxSchemas.ResourceQuotaUndefined)
-	measurement := InfluxDB.NewMeasurement(SchemaMgt.DatabaseNameMap[InfluxSchemas.Metric], m, p.InfluxDBConfig)
+	measurement := InfluxDB.NewMeasurement(InfluxSchemas.DatabaseNameMap[InfluxSchemas.Metric], m, p.InfluxDBConfig)
 
 	for _, application := range applications {
 		// List pods which are belonged to this application

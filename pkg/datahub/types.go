@@ -3,14 +3,12 @@ package datahub
 import (
 	Entities "github.com/containers-ai/alameda/datahub/pkg/entities"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/enumconv"
-	"github.com/containers-ai/alameda/datahub/pkg/utils"
 	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	"github.com/containers-ai/alameda/pkg/utils"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
-	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/duration"
-	"github.com/golang/protobuf/ptypes/timestamp"
 	"reflect"
 	"strconv"
 	"time"
@@ -38,11 +36,11 @@ type Function struct {
 
 func NewWriteData(entities interface{}, fields []string) *data.WriteData {
 	writeData := data.WriteData{}
-	metadata := ExtractField(entities, "Metadata")
-	writeData.Measurement = metadata.Tag.Get("measurement")
-	writeData.MetricType = MetricTypeValue[metadata.Tag.Get("metric")]
-	writeData.ResourceBoundary = ResourceBoundaryValue[metadata.Tag.Get("boundary")]
-	writeData.ResourceQuota = ResourceQuotaValue[metadata.Tag.Get("quota")]
+	measurement := ExtractField(entities, "Measurement")
+	writeData.Measurement = measurement.Tag.Get("name")
+	writeData.MetricType = MetricTypeValue[measurement.Tag.Get("metric")]
+	writeData.ResourceBoundary = ResourceBoundaryValue[measurement.Tag.Get("boundary")]
+	writeData.ResourceQuota = ResourceQuotaValue[measurement.Tag.Get("quota")]
 	writeData.Columns = NewColumns(entities, fields)
 	writeData.Rows = NewRows(entities, writeData.Columns)
 	return &writeData
@@ -51,11 +49,11 @@ func NewWriteData(entities interface{}, fields []string) *data.WriteData {
 func NewReadData(entities interface{}, fields []string, timeRange *TimeRange, function *Function, opts ...Option) *data.ReadData {
 	readData := data.ReadData{}
 	selects := make([]string, 0)
-	metadata := ExtractField(entities, "Metadata")
-	readData.Measurement = metadata.Tag.Get("measurement")
-	readData.MetricType = MetricTypeValue[metadata.Tag.Get("metric")]
-	readData.ResourceBoundary = ResourceBoundaryValue[metadata.Tag.Get("boundary")]
-	readData.ResourceQuota = ResourceQuotaValue[metadata.Tag.Get("quota")]
+	measurement := ExtractField(entities, "Measurement")
+	readData.Measurement = measurement.Tag.Get("name")
+	readData.MetricType = MetricTypeValue[measurement.Tag.Get("metric")]
+	readData.ResourceBoundary = ResourceBoundaryValue[measurement.Tag.Get("boundary")]
+	readData.ResourceQuota = ResourceQuotaValue[measurement.Tag.Get("quota")]
 	entityType := reflect.TypeOf(entities).Elem().Elem()
 	for _, field := range fields {
 		f, _ := entityType.FieldByName(field)
@@ -67,11 +65,11 @@ func NewReadData(entities interface{}, fields []string, timeRange *TimeRange, fu
 
 func NewDeleteData(entities interface{}, opts ...Option) *data.DeleteData {
 	deleteData := data.DeleteData{}
-	metadata := ExtractField(entities, "Metadata")
-	deleteData.Measurement = metadata.Tag.Get("measurement")
-	deleteData.MetricType = MetricTypeValue[metadata.Tag.Get("metric")]
-	deleteData.ResourceBoundary = ResourceBoundaryValue[metadata.Tag.Get("boundary")]
-	deleteData.ResourceQuota = ResourceQuotaValue[metadata.Tag.Get("quota")]
+	measurement := ExtractField(entities, "Measurement")
+	deleteData.Measurement = measurement.Tag.Get("name")
+	deleteData.MetricType = MetricTypeValue[measurement.Tag.Get("metric")]
+	deleteData.ResourceBoundary = ResourceBoundaryValue[measurement.Tag.Get("boundary")]
+	deleteData.ResourceQuota = ResourceQuotaValue[measurement.Tag.Get("quota")]
 	deleteData.QueryCondition = NewQueryCondition(nil, nil, nil, opts...)
 	return &deleteData
 }
@@ -140,7 +138,7 @@ func NewRows(entities interface{}, columns []string) []*common.Row {
 
 func NewRow(value reflect.Value, columns []string) *common.Row {
 	row := common.Row{}
-	row.Time = NewTimestampProto(value.FieldByName("Time").Interface().(*time.Time))
+	row.Time = utils.TimestampProto(value.FieldByName("Time").Interface().(*time.Time))
 
 	for _, column := range columns {
 		// Index is started at 2 to skip DatahubEntity and Measurement fields
@@ -239,10 +237,10 @@ func NewTimeRange(tr *TimeRange) *common.TimeRange {
 	if tr != nil {
 		timeRange := common.TimeRange{}
 		if tr.StartTime != nil {
-			timeRange.StartTime = NewTimestampProto(tr.StartTime)
+			timeRange.StartTime = utils.TimestampProto(tr.StartTime)
 		}
 		if tr.EndTime != nil {
-			timeRange.EndTime = NewTimestampProto(tr.EndTime)
+			timeRange.EndTime = utils.TimestampProto(tr.EndTime)
 		}
 		if tr.Step != 0 {
 			timeRange.Step = &duration.Duration{Seconds: int64(tr.Step)}
@@ -262,14 +260,4 @@ func NewFunction(function *Function) *common.Function {
 		return &f
 	}
 	return nil
-}
-
-func NewTimestampProto(ts *time.Time) *timestamp.Timestamp {
-	tsProto := &timestamp.Timestamp{}
-	if ts == nil {
-		tsProto, _ = ptypes.TimestampProto(time.Unix(0, 0).UTC())
-	} else {
-		tsProto, _ = ptypes.TimestampProto(*ts)
-	}
-	return tsProto
 }

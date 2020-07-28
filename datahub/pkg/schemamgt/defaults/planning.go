@@ -1,8 +1,7 @@
 package defaults
 
 import (
-	"github.com/containers-ai/alameda/pkg/database/common"
-	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
 )
 
 /*
@@ -10,159 +9,26 @@ import (
   Kind: "KIND_UNDEFINED", "DEPLOYMENT", "DEPLOYMENTCONFIG", "STATEFULSET", "ALAMEDASCALER"
 */
 
-func SchemaPlanningClusterStatusApplication() *schemas.Schema {
-	// cluster-status application
-	schema := schemas.NewSchema(schemas.Planning, "cluster_status", "application")
-	measurement := schemas.NewMeasurement("application", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
-	measurement.AddColumn("name", true, schemas.Tag, common.String)
-	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
-	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("planning_id", true, schemas.Tag, common.String)
-	measurement.AddColumn("planning_type", true, schemas.Tag, common.String)
-	measurement.AddColumn("granularity", true, schemas.Tag, common.String)
-	measurement.AddColumn("resource_request_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_request_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_limit_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_limit_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_request_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_request_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_limit_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_limit_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("start_time", false, schemas.Field, common.Int64)
-	measurement.AddColumn("end_time", false, schemas.Field, common.Int64)
-	measurement.AddColumn("total_cost", false, schemas.Field, common.Float64)
-	measurement.AddColumn("apply_planning_now", false, schemas.Field, common.Bool)
-	schema.Measurements = append(schema.Measurements, measurement)
-	return schema
-}
+func DefaultSchemaPlanning() []interface{} {
+	schemas := make([]interface{}, 0)
 
-func SchemaPlanningClusterStatusCluster() *schemas.Schema {
-	// cluster-status cluster
-	schema := schemas.NewSchema(schemas.Planning, "cluster_status", "cluster")
-	measurement := schemas.NewMeasurement("cluster", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
-	measurement.AddColumn("name", true, schemas.Tag, common.String)
-	measurement.AddColumn("planning_id", true, schemas.Tag, common.String)
-	measurement.AddColumn("planning_type", true, schemas.Tag, common.String)
-	measurement.AddColumn("granularity", true, schemas.Tag, common.String)
-	measurement.AddColumn("resource_request_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_request_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_limit_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_limit_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_request_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_request_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_limit_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_limit_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("start_time", false, schemas.Field, common.Int64)
-	measurement.AddColumn("end_time", false, schemas.Field, common.Int64)
-	measurement.AddColumn("total_cost", false, schemas.Field, common.Float64)
-	measurement.AddColumn("apply_planning_now", false, schemas.Field, common.Bool)
-	schema.Measurements = append(schema.Measurements, measurement)
-	return schema
-}
+	// Cluster-status application
+	schemas = append(schemas, &entities.PlanningClusterStatusApplication{})
 
-func SchemaPlanningClusterStatusContainer() *schemas.Schema {
-	// cluster-status container
-	schema := schemas.NewSchema(schemas.Planning, "cluster_status", "container")
-	measurement := schemas.NewMeasurement("container", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
-	measurement.AddColumn("name", true, schemas.Tag, common.String)
-	measurement.AddColumn("pod_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
-	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("planning_id", true, schemas.Tag, common.String)
-	measurement.AddColumn("planning_type", true, schemas.Tag, common.String)
-	measurement.AddColumn("granularity", true, schemas.Tag, common.String)
-	measurement.AddColumn("top_controller_name", false, schemas.Field, common.String)
-	measurement.AddColumn("top_controller_kind", false, schemas.Field, common.String)
-	measurement.AddColumn("policy", false, schemas.Field, common.String)
-	measurement.AddColumn("policy_time", false, schemas.Field, common.Int64)
-	measurement.AddColumn("resource_request_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_request_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_limit_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_limit_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_request_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_request_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_limit_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_limit_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("start_time", false, schemas.Field, common.Int64)
-	measurement.AddColumn("end_time", false, schemas.Field, common.Int64)
-	measurement.AddColumn("pod_total_cost", false, schemas.Field, common.Float64)
-	schema.Measurements = append(schema.Measurements, measurement)
-	return schema
-}
+	// Cluster-status cluster
+	schemas = append(schemas, &entities.PlanningClusterStatusCluster{})
 
-func SchemaPlanningClusterStatusController() *schemas.Schema {
-	// cluster-status controller
-	schema := schemas.NewSchema(schemas.Planning, "cluster_status", "controller")
-	measurement := schemas.NewMeasurement("controller", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
-	measurement.AddColumn("name", true, schemas.Tag, common.String)
-	measurement.AddColumn("namespace", true, schemas.Tag, common.String)
-	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("planning_id", true, schemas.Tag, common.String)
-	measurement.AddColumn("planning_type", true, schemas.Tag, common.String)
-	measurement.AddColumn("kind", true, schemas.Tag, common.String)
-	measurement.AddColumn("granularity", true, schemas.Tag, common.String)
-	measurement.AddColumn("resource_request_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_request_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_limit_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_limit_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_request_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_request_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_limit_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_limit_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("start_time", false, schemas.Field, common.Int64)
-	measurement.AddColumn("end_time", false, schemas.Field, common.Int64)
-	measurement.AddColumn("total_cost", false, schemas.Field, common.Float64)
-	measurement.AddColumn("apply_planning_now", false, schemas.Field, common.Bool)
-	schema.Measurements = append(schema.Measurements, measurement)
-	return schema
-}
+	// Cluster-status container
+	schemas = append(schemas, &entities.PlanningClusterStatusContainer{})
 
-func SchemaPlanningClusterStatusNamespace() *schemas.Schema {
-	// cluster-status namespace
-	schema := schemas.NewSchema(schemas.Planning, "cluster_status", "namespace")
-	measurement := schemas.NewMeasurement("namespace", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
-	measurement.AddColumn("name", true, schemas.Tag, common.String)
-	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("planning_id", true, schemas.Tag, common.String)
-	measurement.AddColumn("planning_type", true, schemas.Tag, common.String)
-	measurement.AddColumn("granularity", true, schemas.Tag, common.String)
-	measurement.AddColumn("resource_request_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_request_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_limit_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_limit_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_request_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_request_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_limit_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_limit_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("start_time", false, schemas.Field, common.Int64)
-	measurement.AddColumn("end_time", false, schemas.Field, common.Int64)
-	measurement.AddColumn("total_cost", false, schemas.Field, common.Float64)
-	measurement.AddColumn("apply_planning_now", false, schemas.Field, common.Bool)
-	schema.Measurements = append(schema.Measurements, measurement)
-	return schema
-}
+	// Cluster-status controller
+	schemas = append(schemas, &entities.PlanningClusterStatusController{})
 
-func SchemaPlanningClusterStatusNode() *schemas.Schema {
-	// cluster-status node
-	schema := schemas.NewSchema(schemas.Planning, "cluster_status", "node")
-	measurement := schemas.NewMeasurement("node", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined, true)
-	measurement.AddColumn("name", true, schemas.Tag, common.String)
-	measurement.AddColumn("cluster_name", true, schemas.Tag, common.String)
-	measurement.AddColumn("planning_id", true, schemas.Tag, common.String)
-	measurement.AddColumn("planning_type", true, schemas.Tag, common.String)
-	measurement.AddColumn("granularity", true, schemas.Tag, common.String)
-	measurement.AddColumn("resource_request_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_request_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_limit_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("resource_limit_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_request_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_request_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_limit_cpu", false, schemas.Field, common.Float64)
-	measurement.AddColumn("initial_resource_limit_memory", false, schemas.Field, common.Float64)
-	measurement.AddColumn("start_time", false, schemas.Field, common.Int64)
-	measurement.AddColumn("end_time", false, schemas.Field, common.Int64)
-	measurement.AddColumn("total_cost", false, schemas.Field, common.Float64)
-	measurement.AddColumn("apply_planning_now", false, schemas.Field, common.Bool)
-	schema.Measurements = append(schema.Measurements, measurement)
-	return schema
+	// Cluster-status namespace
+	schemas = append(schemas, &entities.PlanningClusterStatusNamespace{})
+
+	// Cluster-status node
+	schemas = append(schemas, &entities.PlanningClusterStatusNode{})
+
+	return schemas
 }

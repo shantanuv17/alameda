@@ -35,7 +35,7 @@ func (p *Data) WriteData(request *DaoDataTypes.WriteDataRequest) error {
 			scope.Error("measurement is not found when writing data")
 			return errors.New("measurement is not found")
 		}
-		measurement := InfluxDB.NewMeasurement(SchemaMgt.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
+		measurement := InfluxDB.NewMeasurement(InfluxSchema.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
 		err := measurement.Write(w.Columns, w.Rows)
 		if err != nil {
 			scope.Error(err.Error())
@@ -62,7 +62,7 @@ func (p *Data) ReadData(request *DaoDataTypes.ReadDataRequest) (*DaoDataTypes.Da
 			scope.Error("measurement is not found when reading data")
 			return nil, errors.New("measurement is not found")
 		}
-		measurement := InfluxDB.NewMeasurement(SchemaMgt.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
+		measurement := InfluxDB.NewMeasurement(InfluxSchema.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
 		groups, err := measurement.Read(InfluxDB.NewQuery(r.QueryCondition, measurement.Name))
 		if err != nil {
 			scope.Error(err.Error())
@@ -97,7 +97,7 @@ func (p *Data) DeleteData(request *DaoDataTypes.DeleteDataRequest) error {
 			scope.Error("measurement is not found when reading data")
 			return errors.New("measurement is not found")
 		}
-		measurement := InfluxDB.NewMeasurement(SchemaMgt.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
+		measurement := InfluxDB.NewMeasurement(InfluxSchema.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
 		err := measurement.Drop(InfluxDB.NewQuery(d.QueryCondition, measurement.Name))
 		if err != nil {
 			scope.Error(err.Error())
@@ -120,7 +120,7 @@ func (p *Data) WriteMeta(request *DaoDataTypes.WriteMetaRequest) error {
 			scope.Error("measurement is not found when reading data")
 			return errors.New("measurement is not found")
 		}
-		measurement := InfluxDB.NewMeasurement(SchemaMgt.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
+		measurement := InfluxDB.NewMeasurement(InfluxSchema.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
 
 		// Do drop first
 		queryCondition := common.QueryCondition{}

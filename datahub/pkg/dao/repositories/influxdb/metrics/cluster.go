@@ -25,7 +25,7 @@ func (p *Cluster) GetMetricMap(metricType enumconv.MetricType, clusters []*DaoCl
 	schemaMgt := SchemaMgt.NewSchemaManagement()
 	schema := schemaMgt.GetSchemas(InfluxSchemas.Metric, "cluster_status", "node")[0]
 	m := schema.GetMeasurement("", metricTypeMapTable[metricType], InfluxSchemas.ResourceBoundaryUndefined, InfluxSchemas.ResourceQuotaUndefined)
-	measurement := InfluxDB.NewMeasurement(SchemaMgt.DatabaseNameMap[InfluxSchemas.Metric], m, p.InfluxDBConfig)
+	measurement := InfluxDB.NewMeasurement(InfluxSchemas.DatabaseNameMap[InfluxSchemas.Metric], m, p.InfluxDBConfig)
 
 	for _, cluster := range clusters {
 		// List nodes which are belonged to this cluster

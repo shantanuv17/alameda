@@ -6,747 +6,747 @@ import (
 
 type PredictionKafkaTopicCurrentOffset struct {
 	DatahubEntity `scope:"prediction" category:"kafka" type:"topic"`
-	Metadata      *Metadata  `measurement:"kafka_topic_partition_current_offset" metric:"current_offset" boundary:"raw" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"kafka_topic_partition_current_offset" metric:"current_offset" boundary:"raw" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionKafkaTopicCurrentOffsetUpperBound struct {
 	DatahubEntity `scope:"prediction" category:"kafka" type:"topic"`
-	Metadata      *Metadata  `measurement:"kafka_topic_partition_current_offset_upper_bound" metric:"current_offset" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"kafka_topic_partition_current_offset_upper_bound" metric:"current_offset" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionKafkaTopicCurrentOffsetLowerBound struct {
 	DatahubEntity `scope:"prediction" category:"kafka" type:"topic"`
-	Metadata      *Metadata  `measurement:"kafka_topic_partition_current_offset_lower_bound" metric:"current_offset" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"kafka_topic_partition_current_offset_lower_bound" metric:"current_offset" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionKafkaConsumerGroupCurrentOffset struct {
 	DatahubEntity `scope:"prediction" category:"kafka" type:"consumer_group"`
-	Metadata      *Metadata  `measurement:"kafka_consumer_group_current_offset" metric:"current_offset" boundary:"raw" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	TopicName     string     `json:"topic_name"    required:"true"  column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"kafka_consumer_group_current_offset" metric:"current_offset" boundary:"raw" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	TopicName     string       `json:"topic_name"    required:"true"  column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionKafkaConsumerGroupCurrentOffsetUpperBound struct {
 	DatahubEntity `scope:"prediction" category:"kafka" type:"consumer_group"`
-	Metadata      *Metadata  `measurement:"kafka_consumer_group_current_offset_upper_bound" metric:"current_offset" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	TopicName     string     `json:"topic_name"    required:"true"  column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"kafka_consumer_group_current_offset_upper_bound" metric:"current_offset" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	TopicName     string       `json:"topic_name"    required:"true"  column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionKafkaConsumerGroupCurrentOffsetLowerBound struct {
 	DatahubEntity `scope:"prediction" category:"kafka" type:"consumer_group"`
-	Metadata      *Metadata  `measurement:"kafka_consumer_group_current_offset_lower_bound" metric:"current_offset" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	TopicName     string     `json:"topic_name"    required:"true"  column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"kafka_consumer_group_current_offset_lower_bound" metric:"current_offset" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	TopicName     string       `json:"topic_name"    required:"true"  column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionNginxHttpResponseTotal struct {
 	DatahubEntity               `scope:"prediction" category:"nginx" type:"nginx"`
-	Metadata                    *Metadata  `measurement:"nginx_http_response_total" metric:"number" boundary:"raw" quota:"undefined" ts:"true"`
-	Time                        *time.Time `json:"time"                           required:"false" column:"tag"   type:"time"`
-	ClusterName                 string     `json:"cluster_name"                   required:"true"  column:"tag"   type:"string"`
-	ResourceK8sServiceName      string     `json:"resource_k8s_service_name"      required:"true"  column:"tag"   type:"string"`
-	ResourceK8sServiceNamespace string     `json:"resource_k8s_service_namespace" required:"true"  column:"tag"   type:"string"`
-	ResourceK8sName             string     `json:"resource_k8s_name"              required:"true"  column:"tag"   type:"string"`
-	ResourceK8sNamespace        string     `json:"resource_k8s_namespace"         required:"true"  column:"tag"   type:"string"`
-	ResourceK8sKind             string     `json:"resource_k8s_kind"              required:"true"  column:"tag"   type:"string"`
-	Granularity                 string     `json:"granularity"                    required:"true"  column:"tag"   type:"string"`
-	ModelId                     string     `json:"model_id"                       required:"true"  column:"field" type:"string"`
-	PredictionId                string     `json:"prediction_id"                  required:"true"  column:"field" type:"string"`
-	Value                       float64    `json:"value"                          required:"true"  column:"field" type:"float64"`
+	Measurement                 *Measurement `name:"nginx_http_response_total" metric:"number" boundary:"raw" quota:"undefined" ts:"true"`
+	Time                        *time.Time   `json:"time"                           required:"false" column:"tag"`
+	ClusterName                 string       `json:"cluster_name"                   required:"true"  column:"tag"`
+	ResourceK8sServiceName      string       `json:"resource_k8s_service_name"      required:"true"  column:"tag"`
+	ResourceK8sServiceNamespace string       `json:"resource_k8s_service_namespace" required:"true"  column:"tag"`
+	ResourceK8sName             string       `json:"resource_k8s_name"              required:"true"  column:"tag"`
+	ResourceK8sNamespace        string       `json:"resource_k8s_namespace"         required:"true"  column:"tag"`
+	ResourceK8sKind             string       `json:"resource_k8s_kind"              required:"true"  column:"tag"`
+	Granularity                 string       `json:"granularity"                    required:"true"  column:"tag"`
+	ModelId                     string       `json:"model_id"                       required:"true"  column:"field"`
+	PredictionId                string       `json:"prediction_id"                  required:"true"  column:"field"`
+	Value                       float64      `json:"value"                          required:"true"  column:"field"`
 }
 
 type PredictionNginxHttpResponseTotalUpperBound struct {
 	DatahubEntity               `scope:"prediction" category:"nginx" type:"nginx"`
-	Metadata                    *Metadata  `measurement:"nginx_http_response_total_upper_bound" metric:"number" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time                        *time.Time `json:"time"                           required:"false" column:"tag"   type:"time"`
-	ClusterName                 string     `json:"cluster_name"                   required:"true"  column:"tag"   type:"string"`
-	ResourceK8sServiceName      string     `json:"resource_k8s_service_name"      required:"true"  column:"tag"   type:"string"`
-	ResourceK8sServiceNamespace string     `json:"resource_k8s_service_namespace" required:"true"  column:"tag"   type:"string"`
-	ResourceK8sName             string     `json:"resource_k8s_name"              required:"true"  column:"tag"   type:"string"`
-	ResourceK8sNamespace        string     `json:"resource_k8s_namespace"         required:"true"  column:"tag"   type:"string"`
-	ResourceK8sKind             string     `json:"resource_k8s_kind"              required:"true"  column:"tag"   type:"string"`
-	Granularity                 string     `json:"granularity"                    required:"true"  column:"tag"   type:"string"`
-	ModelId                     string     `json:"model_id"                       required:"true"  column:"field" type:"string"`
-	PredictionId                string     `json:"prediction_id"                  required:"true"  column:"field" type:"string"`
-	Value                       float64    `json:"value"                          required:"true"  column:"field" type:"float64"`
+	Measurement                 *Measurement `name:"nginx_http_response_total_upper_bound" metric:"number" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time                        *time.Time   `json:"time"                           required:"false" column:"tag"`
+	ClusterName                 string       `json:"cluster_name"                   required:"true"  column:"tag"`
+	ResourceK8sServiceName      string       `json:"resource_k8s_service_name"      required:"true"  column:"tag"`
+	ResourceK8sServiceNamespace string       `json:"resource_k8s_service_namespace" required:"true"  column:"tag"`
+	ResourceK8sName             string       `json:"resource_k8s_name"              required:"true"  column:"tag"`
+	ResourceK8sNamespace        string       `json:"resource_k8s_namespace"         required:"true"  column:"tag"`
+	ResourceK8sKind             string       `json:"resource_k8s_kind"              required:"true"  column:"tag"`
+	Granularity                 string       `json:"granularity"                    required:"true"  column:"tag"`
+	ModelId                     string       `json:"model_id"                       required:"true"  column:"field"`
+	PredictionId                string       `json:"prediction_id"                  required:"true"  column:"field"`
+	Value                       float64      `json:"value"                          required:"true"  column:"field"`
 }
 
 type PredictionNginxHttpResponseTotalLowerBound struct {
 	DatahubEntity               `scope:"prediction" category:"nginx" type:"nginx"`
-	Metadata                    *Metadata  `measurement:"nginx_http_response_total_lower_bound" metric:"number" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time                        *time.Time `json:"time"                           required:"false" column:"tag"   type:"time"`
-	ClusterName                 string     `json:"cluster_name"                   required:"true"  column:"tag"   type:"string"`
-	ResourceK8sServiceName      string     `json:"resource_k8s_service_name"      required:"true"  column:"tag"   type:"string"`
-	ResourceK8sServiceNamespace string     `json:"resource_k8s_service_namespace" required:"true"  column:"tag"   type:"string"`
-	ResourceK8sName             string     `json:"resource_k8s_name"              required:"true"  column:"tag"   type:"string"`
-	ResourceK8sNamespace        string     `json:"resource_k8s_namespace"         required:"true"  column:"tag"   type:"string"`
-	ResourceK8sKind             string     `json:"resource_k8s_kind"              required:"true"  column:"tag"   type:"string"`
-	Granularity                 string     `json:"granularity"                    required:"true"  column:"tag"   type:"string"`
-	ModelId                     string     `json:"model_id"                       required:"true"  column:"field" type:"string"`
-	PredictionId                string     `json:"prediction_id"                  required:"true"  column:"field" type:"string"`
-	Value                       float64    `json:"value"                          required:"true"  column:"field" type:"float64"`
+	Measurement                 *Measurement `name:"nginx_http_response_total_lower_bound" metric:"number" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time                        *time.Time   `json:"time"                           required:"false" column:"tag"`
+	ClusterName                 string       `json:"cluster_name"                   required:"true"  column:"tag"`
+	ResourceK8sServiceName      string       `json:"resource_k8s_service_name"      required:"true"  column:"tag"`
+	ResourceK8sServiceNamespace string       `json:"resource_k8s_service_namespace" required:"true"  column:"tag"`
+	ResourceK8sName             string       `json:"resource_k8s_name"              required:"true"  column:"tag"`
+	ResourceK8sNamespace        string       `json:"resource_k8s_namespace"         required:"true"  column:"tag"`
+	ResourceK8sKind             string       `json:"resource_k8s_kind"              required:"true"  column:"tag"`
+	Granularity                 string       `json:"granularity"                    required:"true"  column:"tag"`
+	ModelId                     string       `json:"model_id"                       required:"true"  column:"field"`
+	PredictionId                string       `json:"prediction_id"                  required:"true"  column:"field"`
+	Value                       float64      `json:"value"                          required:"true"  column:"field"`
 }
 
 type PredictionClusterAutoscalerMachinegroupCPU struct {
 	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup"`
-	Metadata      *Metadata  `measurement:"machinegroup_cpu" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"machinegroup_cpu" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterAutoscalerMachinegroupCPUUpperBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup"`
-	Metadata      *Metadata  `measurement:"machinegroup_cpu_upper_bound" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"machinegroup_cpu_upper_bound" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterAutoscalerMachinegroupCPULowerBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup"`
-	Metadata      *Metadata  `measurement:"machinegroup_cpu_lower_bound" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"machinegroup_cpu_lower_bound" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterAutoscalerMachinegroupMemory struct {
 	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup"`
-	Metadata      *Metadata  `measurement:"machinegroup_memory" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"machinegroup_memory" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterAutoscalerMachinegroupMemoryUpperBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup"`
-	Metadata      *Metadata  `measurement:"machinegroup_memory_upper_bound" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"machinegroup_memory_upper_bound" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterAutoscalerMachinegroupMemoryLowerBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup"`
-	Metadata      *Metadata  `measurement:"machinegroup_memory_lower_bound" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"machinegroup_memory_lower_bound" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusApplicationCPU struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application"`
-	Metadata      *Metadata  `measurement:"application" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"application" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusApplicationCPUUpperBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application"`
-	Metadata      *Metadata  `measurement:"application" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"application" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusApplicationCPULowerBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application"`
-	Metadata      *Metadata  `measurement:"application" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"application" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusApplicationMemory struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application"`
-	Metadata      *Metadata  `measurement:"application" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"application" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusApplicationMemoryUpperBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application"`
-	Metadata      *Metadata  `measurement:"application" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"application" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusApplicationMemoryLowerBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"application"`
-	Metadata      *Metadata  `measurement:"application" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"application" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusClusterCPU struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster"`
-	Metadata      *Metadata  `measurement:"cluster" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"cluster" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusClusterCPUUpperBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster"`
-	Metadata      *Metadata  `measurement:"cluster" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"cluster" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusClusterCPULowerBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster"`
-	Metadata      *Metadata  `measurement:"cluster" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"cluster" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusClusterMemory struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster"`
-	Metadata      *Metadata  `measurement:"cluster" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"cluster" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusClusterMemoryUpperBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster"`
-	Metadata      *Metadata  `measurement:"cluster" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"cluster" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusClusterMemoryLowerBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"cluster"`
-	Metadata      *Metadata  `measurement:"cluster" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"cluster" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusContainerCPU struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container"`
-	Metadata      *Metadata  `measurement:"container" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	PodName       string     `json:"pod_name"      required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	NodeName      string     `json:"node_name"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"container" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	PodName       string       `json:"pod_name"      required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	NodeName      string       `json:"node_name"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusContainerCPUUpperBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container"`
-	Metadata      *Metadata  `measurement:"container" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	PodName       string     `json:"pod_name"      required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	NodeName      string     `json:"node_name"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"container" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	PodName       string       `json:"pod_name"      required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	NodeName      string       `json:"node_name"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusContainerCPULowerBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container"`
-	Metadata      *Metadata  `measurement:"container" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	PodName       string     `json:"pod_name"      required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	NodeName      string     `json:"node_name"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"container" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	PodName       string       `json:"pod_name"      required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	NodeName      string       `json:"node_name"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusContainerMemory struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container"`
-	Metadata      *Metadata  `measurement:"container" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	PodName       string     `json:"pod_name"      required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	NodeName      string     `json:"node_name"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"container" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	PodName       string       `json:"pod_name"      required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	NodeName      string       `json:"node_name"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusContainerMemoryUpperBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container"`
-	Metadata      *Metadata  `measurement:"container" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	PodName       string     `json:"pod_name"      required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	NodeName      string     `json:"node_name"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"container" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	PodName       string       `json:"pod_name"      required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	NodeName      string       `json:"node_name"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusContainerMemoryLowerBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"container"`
-	Metadata      *Metadata  `measurement:"container" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	PodName       string     `json:"pod_name"      required:"true"  column:"tag"   type:"string"`
-	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
-	NodeName      string     `json:"node_name"     required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"container" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	PodName       string       `json:"pod_name"      required:"true"  column:"tag"`
+	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
+	NodeName      string       `json:"node_name"     required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusControllerCPU struct {
 	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller"`
-	Metadata       *Metadata  `measurement:"controller" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined" ts:"true"`
-	Time           *time.Time `json:"time"            required:"false" column:"tag"   type:"time"`
-	Name           string     `json:"name"            required:"true"  column:"tag"   type:"string"`
-	Namespace      string     `json:"namespace"       required:"true"  column:"tag"   type:"string"`
-	ClusterName    string     `json:"cluster_name"    required:"true"  column:"tag"   type:"string"`
-	Metric         string     `json:"metric"          required:"false" column:"tag"   type:"string"`
-	Kind           string     `json:"kind"            required:"false" column:"tag"   type:"string"`
-	Granularity    string     `json:"granularity"     required:"true"  column:"tag"   type:"string"`
-	ControllerKind string     `json:"controller_kind" required:"true"  column:"tag"   type:"string"`
-	ModelId        string     `json:"model_id"        required:"true"  column:"field" type:"string"`
-	PredictionId   string     `json:"prediction_id"   required:"true"  column:"field" type:"string"`
-	Value          float64    `json:"value"           required:"true"  column:"field" type:"float64"`
+	Measurement    *Measurement `name:"controller" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined" ts:"true"`
+	Time           *time.Time   `json:"time"            required:"false" column:"tag"`
+	Name           string       `json:"name"            required:"true"  column:"tag"`
+	Namespace      string       `json:"namespace"       required:"true"  column:"tag"`
+	ClusterName    string       `json:"cluster_name"    required:"true"  column:"tag"`
+	Metric         string       `json:"metric"          required:"false" column:"tag"`
+	Kind           string       `json:"kind"            required:"false" column:"tag"`
+	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
+	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
+	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
+	PredictionId   string       `json:"prediction_id"   required:"true"  column:"field"`
+	Value          float64      `json:"value"           required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusControllerCPUUpperBound struct {
 	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller"`
-	Metadata       *Metadata  `measurement:"controller" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time           *time.Time `json:"time"            required:"false" column:"tag"   type:"time"`
-	Name           string     `json:"name"            required:"true"  column:"tag"   type:"string"`
-	Namespace      string     `json:"namespace"       required:"true"  column:"tag"   type:"string"`
-	ClusterName    string     `json:"cluster_name"    required:"true"  column:"tag"   type:"string"`
-	Metric         string     `json:"metric"          required:"false" column:"tag"   type:"string"`
-	Kind           string     `json:"kind"            required:"false" column:"tag"   type:"string"`
-	Granularity    string     `json:"granularity"     required:"true"  column:"tag"   type:"string"`
-	ControllerKind string     `json:"controller_kind" required:"true"  column:"tag"   type:"string"`
-	ModelId        string     `json:"model_id"        required:"true"  column:"field" type:"string"`
-	PredictionId   string     `json:"prediction_id"   required:"true"  column:"field" type:"string"`
-	Value          float64    `json:"value"           required:"true"  column:"field" type:"float64"`
+	Measurement    *Measurement `name:"controller" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time           *time.Time   `json:"time"            required:"false" column:"tag"`
+	Name           string       `json:"name"            required:"true"  column:"tag"`
+	Namespace      string       `json:"namespace"       required:"true"  column:"tag"`
+	ClusterName    string       `json:"cluster_name"    required:"true"  column:"tag"`
+	Metric         string       `json:"metric"          required:"false" column:"tag"`
+	Kind           string       `json:"kind"            required:"false" column:"tag"`
+	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
+	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
+	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
+	PredictionId   string       `json:"prediction_id"   required:"true"  column:"field"`
+	Value          float64      `json:"value"           required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusControllerCPULowerBound struct {
 	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller"`
-	Metadata       *Metadata  `measurement:"controller" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time           *time.Time `json:"time"            required:"false" column:"tag"   type:"time"`
-	Name           string     `json:"name"            required:"true"  column:"tag"   type:"string"`
-	Namespace      string     `json:"namespace"       required:"true"  column:"tag"   type:"string"`
-	ClusterName    string     `json:"cluster_name"    required:"true"  column:"tag"   type:"string"`
-	Metric         string     `json:"metric"          required:"false" column:"tag"   type:"string"`
-	Kind           string     `json:"kind"            required:"false" column:"tag"   type:"string"`
-	Granularity    string     `json:"granularity"     required:"true"  column:"tag"   type:"string"`
-	ControllerKind string     `json:"controller_kind" required:"true"  column:"tag"   type:"string"`
-	ModelId        string     `json:"model_id"        required:"true"  column:"field" type:"string"`
-	PredictionId   string     `json:"prediction_id"   required:"true"  column:"field" type:"string"`
-	Value          float64    `json:"value"           required:"true"  column:"field" type:"float64"`
+	Measurement    *Measurement `name:"controller" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time           *time.Time   `json:"time"            required:"false" column:"tag"`
+	Name           string       `json:"name"            required:"true"  column:"tag"`
+	Namespace      string       `json:"namespace"       required:"true"  column:"tag"`
+	ClusterName    string       `json:"cluster_name"    required:"true"  column:"tag"`
+	Metric         string       `json:"metric"          required:"false" column:"tag"`
+	Kind           string       `json:"kind"            required:"false" column:"tag"`
+	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
+	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
+	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
+	PredictionId   string       `json:"prediction_id"   required:"true"  column:"field"`
+	Value          float64      `json:"value"           required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusControllerMemory struct {
 	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller"`
-	Metadata       *Metadata  `measurement:"controller" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined" ts:"true"`
-	Time           *time.Time `json:"time"            required:"false" column:"tag"   type:"time"`
-	Name           string     `json:"name"            required:"true"  column:"tag"   type:"string"`
-	Namespace      string     `json:"namespace"       required:"true"  column:"tag"   type:"string"`
-	ClusterName    string     `json:"cluster_name"    required:"true"  column:"tag"   type:"string"`
-	Metric         string     `json:"metric"          required:"false" column:"tag"   type:"string"`
-	Kind           string     `json:"kind"            required:"false" column:"tag"   type:"string"`
-	Granularity    string     `json:"granularity"     required:"true"  column:"tag"   type:"string"`
-	ControllerKind string     `json:"controller_kind" required:"true"  column:"tag"   type:"string"`
-	ModelId        string     `json:"model_id"        required:"true"  column:"field" type:"string"`
-	PredictionId   string     `json:"prediction_id"   required:"true"  column:"field" type:"string"`
-	Value          float64    `json:"value"           required:"true"  column:"field" type:"float64"`
+	Measurement    *Measurement `name:"controller" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined" ts:"true"`
+	Time           *time.Time   `json:"time"            required:"false" column:"tag"`
+	Name           string       `json:"name"            required:"true"  column:"tag"`
+	Namespace      string       `json:"namespace"       required:"true"  column:"tag"`
+	ClusterName    string       `json:"cluster_name"    required:"true"  column:"tag"`
+	Metric         string       `json:"metric"          required:"false" column:"tag"`
+	Kind           string       `json:"kind"            required:"false" column:"tag"`
+	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
+	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
+	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
+	PredictionId   string       `json:"prediction_id"   required:"true"  column:"field"`
+	Value          float64      `json:"value"           required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusControllerMemoryUpperBound struct {
 	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller"`
-	Metadata       *Metadata  `measurement:"controller" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time           *time.Time `json:"time"            required:"false" column:"tag"   type:"time"`
-	Name           string     `json:"name"            required:"true"  column:"tag"   type:"string"`
-	Namespace      string     `json:"namespace"       required:"true"  column:"tag"   type:"string"`
-	ClusterName    string     `json:"cluster_name"    required:"true"  column:"tag"   type:"string"`
-	Metric         string     `json:"metric"          required:"false" column:"tag"   type:"string"`
-	Kind           string     `json:"kind"            required:"false" column:"tag"   type:"string"`
-	Granularity    string     `json:"granularity"     required:"true"  column:"tag"   type:"string"`
-	ControllerKind string     `json:"controller_kind" required:"true"  column:"tag"   type:"string"`
-	ModelId        string     `json:"model_id"        required:"true"  column:"field" type:"string"`
-	PredictionId   string     `json:"prediction_id"   required:"true"  column:"field" type:"string"`
-	Value          float64    `json:"value"           required:"true"  column:"field" type:"float64"`
+	Measurement    *Measurement `name:"controller" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time           *time.Time   `json:"time"            required:"false" column:"tag"`
+	Name           string       `json:"name"            required:"true"  column:"tag"`
+	Namespace      string       `json:"namespace"       required:"true"  column:"tag"`
+	ClusterName    string       `json:"cluster_name"    required:"true"  column:"tag"`
+	Metric         string       `json:"metric"          required:"false" column:"tag"`
+	Kind           string       `json:"kind"            required:"false" column:"tag"`
+	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
+	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
+	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
+	PredictionId   string       `json:"prediction_id"   required:"true"  column:"field"`
+	Value          float64      `json:"value"           required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusControllerMemoryLowerBound struct {
 	DatahubEntity  `scope:"prediction" category:"cluster_status" type:"controller"`
-	Metadata       *Metadata  `measurement:"controller" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time           *time.Time `json:"time"            required:"false" column:"tag"   type:"time"`
-	Name           string     `json:"name"            required:"true"  column:"tag"   type:"string"`
-	Namespace      string     `json:"namespace"       required:"true"  column:"tag"   type:"string"`
-	ClusterName    string     `json:"cluster_name"    required:"true"  column:"tag"   type:"string"`
-	Metric         string     `json:"metric"          required:"false" column:"tag"   type:"string"`
-	Kind           string     `json:"kind"            required:"false" column:"tag"   type:"string"`
-	Granularity    string     `json:"granularity"     required:"true"  column:"tag"   type:"string"`
-	ControllerKind string     `json:"controller_kind" required:"true"  column:"tag"   type:"string"`
-	ModelId        string     `json:"model_id"        required:"true"  column:"field" type:"string"`
-	PredictionId   string     `json:"prediction_id"   required:"true"  column:"field" type:"string"`
-	Value          float64    `json:"value"           required:"true"  column:"field" type:"float64"`
+	Measurement    *Measurement `name:"controller" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time           *time.Time   `json:"time"            required:"false" column:"tag"`
+	Name           string       `json:"name"            required:"true"  column:"tag"`
+	Namespace      string       `json:"namespace"       required:"true"  column:"tag"`
+	ClusterName    string       `json:"cluster_name"    required:"true"  column:"tag"`
+	Metric         string       `json:"metric"          required:"false" column:"tag"`
+	Kind           string       `json:"kind"            required:"false" column:"tag"`
+	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
+	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
+	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
+	PredictionId   string       `json:"prediction_id"   required:"true"  column:"field"`
+	Value          float64      `json:"value"           required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusNamespaceCPU struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace"`
-	Metadata      *Metadata  `measurement:"namespace" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"namespace" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusNamespaceCPUUpperBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace"`
-	Metadata      *Metadata  `measurement:"namespace" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"namespace" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusNamespaceCPULowerBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace"`
-	Metadata      *Metadata  `measurement:"namespace" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"namespace" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusNamespaceMemory struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace"`
-	Metadata      *Metadata  `measurement:"namespace" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"namespace" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusNamespaceMemoryUpperBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace"`
-	Metadata      *Metadata  `measurement:"namespace" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"namespace" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusNamespaceMemoryLowerBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"namespace"`
-	Metadata      *Metadata  `measurement:"namespace" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"namespace" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusNodeCPU struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node"`
-	Metadata      *Metadata  `measurement:"node" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	IsScheduled   string     `json:"is_scheduled"  required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"node" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	IsScheduled   string       `json:"is_scheduled"  required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusNodeCPUUpperBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node"`
-	Metadata      *Metadata  `measurement:"node" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	IsScheduled   string     `json:"is_scheduled"  required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"node" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	IsScheduled   string       `json:"is_scheduled"  required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusNodeCPULowerBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node"`
-	Metadata      *Metadata  `measurement:"node" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	IsScheduled   string     `json:"is_scheduled"  required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"node" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	IsScheduled   string       `json:"is_scheduled"  required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusNodeMemory struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node"`
-	Metadata      *Metadata  `measurement:"node" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	IsScheduled   string     `json:"is_scheduled"  required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"node" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	IsScheduled   string       `json:"is_scheduled"  required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusNodeMemoryUpperBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node"`
-	Metadata      *Metadata  `measurement:"node" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	IsScheduled   string     `json:"is_scheduled"  required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"node" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	IsScheduled   string       `json:"is_scheduled"  required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
 
 type PredictionClusterStatusNodeMemoryLowerBound struct {
 	DatahubEntity `scope:"prediction" category:"cluster_status" type:"node"`
-	Metadata      *Metadata  `measurement:"node" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
-	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
-	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
-	ClusterName   string     `json:"cluster_name"  required:"true"  column:"tag"   type:"string"`
-	Metric        string     `json:"metric"        required:"false" column:"tag"   type:"string"`
-	Kind          string     `json:"kind"          required:"false" column:"tag"   type:"string"`
-	Granularity   string     `json:"granularity"   required:"true"  column:"tag"   type:"string"`
-	IsScheduled   string     `json:"is_scheduled"  required:"true"  column:"tag"   type:"string"`
-	ModelId       string     `json:"model_id"      required:"true"  column:"field" type:"string"`
-	PredictionId  string     `json:"prediction_id" required:"true"  column:"field" type:"string"`
-	Value         float64    `json:"value"         required:"true"  column:"field" type:"float64"`
+	Measurement   *Measurement `name:"node" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
+	Name          string       `json:"name"          required:"true"  column:"tag"`
+	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
+	Metric        string       `json:"metric"        required:"false" column:"tag"`
+	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
+	IsScheduled   string       `json:"is_scheduled"  required:"true"  column:"tag"`
+	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
+	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
+	Value         float64      `json:"value"         required:"true"  column:"field"`
 }
