@@ -40,7 +40,6 @@ import (
 	"github.com/containers-ai/alameda/pkg/provider"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
-	datahubv1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
 	osappsapi "github.com/openshift/api/apps/v1"
 	"github.com/pkg/errors"
@@ -250,15 +249,6 @@ func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 		DatahubClient: datahubClient,
 		IsOpenshift:   hasOpenShiftAPIAppsv1,
 		KafkaClient:   kafkaClient,
-	}).SetupWithManager(mgr); err != nil {
-		return err
-	}
-
-	if err = (&controllers.AlamedaRecommendationReconciler{
-		Client:        mgr.GetClient(),
-		Scheme:        mgr.GetScheme(),
-		ClusterUID:    clusterUID,
-		DatahubClient: datahubv1alpha1.NewDatahubServiceClient(datahubConn),
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}

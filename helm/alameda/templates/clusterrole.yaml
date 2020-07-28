@@ -49,8 +49,7 @@ rules:
 - apiGroups:
   - autoscaling.containers.ai
   resources:
-  - alamedascalers
-  - alamedarecommendations
+  - alamedascalers  
   verbs:
   - get
   - list
@@ -137,12 +136,4 @@ rules:
   - create
   - update
   - delete
-- apiGroups:
-  - autoscaling.containers.ai
-  resources:
-  - alamedarecommendations
-  verbs:
-  - get
-  - list
-  - watch
 {{- end }}

@@ -79,13 +79,6 @@ func (getResource *GetResource) GetAlamedaScaler(namespace, name string) (*autus
 	return alamedaScaler, err
 }
 
-// GetAlamedaRecommendation return AlamedaRecommendation
-func (getResource *GetResource) GetAlamedaRecommendation(namespace, name string) (*autuscaling.AlamedaRecommendation, error) {
-	alamedaRecommendation := &autuscaling.AlamedaRecommendation{}
-	err := getResource.getResource(alamedaRecommendation, namespace, name)
-	return alamedaRecommendation, err
-}
-
 func (getResource *GetResource) GetObservingAlamedaScalerOfController(controllerType autuscaling.AlamedaControllerType, controllerNamespace, controllerName string) (*autuscaling.AlamedaScaler, error) {
 
 	listResources := NewListResources(getResource)

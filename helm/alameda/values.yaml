@@ -45,12 +45,6 @@ global:
         port: 8086
         username: "alameda"
         password: "alameda"
-    evictioner:
-      name: "alameda-evictioner"
-      replicaCount: 1
-    admission:
-      name: "admission-controller"
-      replicaCount: 1
     recommender:
       name: "alameda-recommender"
       replicaCount: 1

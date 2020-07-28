@@ -17,7 +17,7 @@ Here is an example _alamedascaler_ CR:
   spec:
     policy: stable
     scalingTool:
-      type: vpa
+      type: hpa
     enableExecution: false
     selector:
       matchLabels:
@@ -25,7 +25,6 @@ Here is an example _alamedascaler_ CR:
 ```
 
 In this example, it creates an _AlamedaScaler_ CR with name _alameda_ in namespace _webapp_. With this CR, Alameda will look for K8s deployment and deploymentconfig resource objects with label _app_ equals to _nginx_ in the same _webapp_ namespace. Any containers derivated from the found objects will be managed for their resource usages by Alameda.
-The `policy` field tells Alameda to make recommendations with _stable_ policy and the _vpa_ type `scalingTool` will be used in the recommendations. The `enableExecution` field is set to _false_ to instruct Alameda not to execute recommendations for containers selected by this CR.
 Please also note that the label `app.federator.ai/name` of this CR tells Alameda that the selected objects by this CR belongs to application _nginx_ and the label `app.federator.ai/part-of` says they are also part of the higher application called _wordpress_. In another word, the _wordpress_ application is built by _nginx_ and maybe also other components, and this AlamedaScaler CR is created to autoscale the _nginx_ deployment.  
 For detailed _AlamedaScaler_ schema, check out the remaining sections of this document.
 
@@ -55,12 +54,7 @@ items:
     enableExecution: false
     policy: stable
     scalingTool:
-      type: vpa
-      executionStrategy:
-        maxUnavailable: 25%
-        triggerThreshold:
-          cpu: 10%
-          memory: 10%
+      type: hpa
     selector:
       matchLabels:
         app.kubernetes.io/name: alameda-ai
@@ -88,13 +82,6 @@ metadata:
 ```
 
 The `status` field shows no _deploymentconfigs_ resource is selected and one _deployment_ called _alameda-ai_ is seleted.
-
-Besides the selected api objects information is kept in an _AlamedaScaler_ CR, Alameda will also create _AlamedaRecommendation_ CR(s) for each selected pod to expose resource recommendations. This is an integration point for any programs (including Alameda itself) to leverage the resource usage recommendations. For example, in the above example, users can see an _AlamedaRecommendation_ CR called `alameda-ai-7f5b6b6d8-8fqrv` is created. Here you can find more information about [`AlamedaRecommendation` CRD](./crd_alamedarecommendation.md).
-```
-$ kubectl get alamedarecommendations -n alameda
-NAME                         AGE
-alameda-ai-7f5b6b6d8-8fqrv   18m
-```
 
 ## Schema of AlamedaScaler
 
@@ -142,35 +129,9 @@ app.federator.ai/part-of  | The name of a higher level application this one is p
 
 - Field: type
   - type: string
-  - description: Type of scaling tool that will be used in recommendations. Currently supported tools are _N/A_, _vpa_ and _hpa_.
+  - description: Type of scaling tool that will be used in recommendations. Currently supported tools are _N/A_ and _hpa_.
 _N/A_ means Alameda will only produces resource predictions.
-_vpa_ means Alameda will make recommendations to change the cpu and memory resource _limit_ and _request_ of a managed container. _hpa_ means Alameda will make recommendations to change the _replicas_ of a managed _Deployment_/_DeploymentConfig_ object. Default is _N/A_.
-- Field: executionStrategy
-  - type: [ExecutionStrategy](#executionstrategy)
-  - description: Configuration of execution strategy.
-
-### ExecutionStrategy
-
-- Field: maxUnavailable
-  - type: string
-  - description: The maximum number of unavailable pods that can be tolerable during rolling update. The value can be an absoult number or a percentage of desired pods. Absolute number is calculated from percentage by rounding up. Alameda-Evictioner will keep at least (spec.replicas - absoult number) of pods in running in Deployments/DeploymentConfig to prevent service offline. For example: when this field is set to 30%, and their are 4 replicas running in the Deployments, Alameda-Evictioner will keep 2 (calculated from 4 - round_up(4 * 0.3)) pods in running phase while doing rolling update. This field can not be 0 and the default value is 25%.
-> **Note** : This option will only work for _vpa_ scalingTool. For _hpa_ scalingTool, the rolling update policy is specified in the _Deployment_/_DeploymentConfig_ object itself.
-- Field: resources
-  - type: [ResourceRequirements](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#resourcerequirements-v1-core)
-  - description: The schema of this fields is as same as **ResourceRequirements** defined in kubernetes API documentation. Currently, only supports field is ResourceRequirements.Requests. Setting ResourceRequirements.Requests will prevents AlamedaExecution from patching too low resources into Pod spec.
-> **Note** : This option will only work for _vpa_ scalingTool.
-- Field: triggerThreshold
-  - type: [TriggerThreshold](#triggerthreshold)
-  - description: Configuration of trigger threshold.
-
-### TriggerThreshold
-
-- Field: cpu
-  - type: string
-  - description: The thresold of percent variance between limit/request cpu recommendation and container's current spec that will trigger alameda execution. Defaullt is _10%_.
-- Field: memory
-  - type: string
-  - description:  The thresold of percent variance between limit/request memory recommendation and container's current spec that will trigger alameda execution. Defaullt is _10%_.
+_hpa_ means Alameda will make recommendations to change the _replicas_ of a managed _Deployment_/_DeploymentConfig_ object. Default is _N/A_.
 
 ### KafkaSpec
 

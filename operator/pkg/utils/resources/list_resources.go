@@ -275,23 +275,6 @@ func (listResources *ListResources) ListNamespaceAlamedaScaler(namespace string)
 	return alamedaScalerList.Items, nil
 }
 
-// ListAlamedaRecommendationOwnedByAlamedaScaler return all AlamedaRecommendation created by input AlamedaScaler
-func (listResources *ListResources) ListAlamedaRecommendationOwnedByAlamedaScaler(alamedaScaler *autuscaling.AlamedaScaler) ([]autuscaling.AlamedaRecommendation, error) {
-
-	alamedaRecommendationList := &autuscaling.AlamedaRecommendationList{}
-
-	lbls := make(map[string]string)
-	for k, v := range alamedaScaler.GetLabelMapToSetToAlamedaRecommendationLabel() {
-		lbls[k] = v
-	}
-
-	if err := listResources.listResourcesByNamespaceLabels(alamedaRecommendationList, alamedaScaler.Namespace, lbls); err != nil {
-		return []autuscaling.AlamedaRecommendation{}, err
-	}
-
-	return alamedaRecommendationList.Items, nil
-}
-
 func (listResources *ListResources) listAllResources(resourceList runtime.Object) error {
 	if err := listResources.client.List(context.TODO(),
 		resourceList); err != nil {

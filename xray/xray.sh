@@ -406,8 +406,7 @@ rm -f ${outfile}.temp
                                  | while read wh junk; do \
                                      echo \"kubectl get validatingwebhookconfiguration -o yaml > ${workdir}/alameda/validatingwebhookconfiguration.\${wh}.yaml\"; \
                                    done | sh -x"
-    get_command 180 alameda/alamedascalers.yaml "kubectl get alamedascalers --all-namespaces -o yaml"
-    get_command 180 alameda/alamedarecommendations.yaml "kubectl get alamedarecommendations --all-namespaces -o yaml"
+    get_command 180 alameda/alamedascalers.yaml "kubectl get alamedascalers --all-namespaces -o yaml"    
     get_command 180 alameda/alamedaservices.yaml "kubectl get alamedaservices --all-namespaces -o yaml"
     # copy /xray.sh from pod and run as "xray.sh [ns] [pod] [dest_dir]"
     # i.e each pod's xray.sh collect its files into <dest_dir>

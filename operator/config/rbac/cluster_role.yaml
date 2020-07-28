@@ -30,7 +30,6 @@ rules:
   - autoscaling.containers.ai
   resources:
   - alamedaresources
-  - alamedarecommendations
   verbs:
   - get
   - list

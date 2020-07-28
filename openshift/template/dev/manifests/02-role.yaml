@@ -45,8 +45,7 @@ rules:
 - apiGroups:
   - autoscaling.containers.ai
   resources:
-  - alamedascalers
-  - alamedarecommendations
+  - alamedascalers  
   verbs:
   - get
   - list
@@ -74,10 +73,3 @@ rules:
   - namespaces
   verbs: 
   - get
-- apiGroups:
-  - autoscaling.containers.ai
-  resources:
-  - alamedarecommendations
-  verbs:
-  - get
-  - update
