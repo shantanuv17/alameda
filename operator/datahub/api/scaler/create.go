@@ -157,284 +157,6 @@ func CreateV1Alpha2Scaler(
 				uid, scaler.Spec.ClusterName)
 		}
 
-		for _, targetCtl := range targetCtls {
-			enableExecution := targetCtl.EnableExecution
-			resourceK8sMinReplicas := targetCtl.MinReplicas
-			resourceK8sMaxReplicas := targetCtl.MaxReplicas
-			resourceCtlEntity := entities.ResourceClusterStatusController{
-				Name:                     targetCtl.Name,
-				Namespace:                targetCtl.Namespace,
-				ClusterName:              targetCtl.ClusterName,
-				Kind:                     targetCtl.Kind,
-				AlamedaScalerName:        targetCtl.AlamedaScalerName,
-				AlamedaScalerNamespace:   targetCtl.AlamedaScalerNamespace,
-				AlamedaScalerScalingTool: targetCtl.AlamedaScalerScalingTool,
-				ResourceK8sMinReplicas:   resourceK8sMinReplicas,
-				ResourceK8sMaxReplicas:   resourceK8sMaxReplicas,
-				EnableExecution:          enableExecution,
-			}
-			if targetCtl.Kind == autoscalingv1alpha2.ControllerKindMap[autoscalingv1alpha2.DeploymentController] {
-				deployIns := appsv1.Deployment{}
-				err := k8sClient.Get(ctx, types.NamespacedName{Namespace: targetCtl.Namespace, Name: targetCtl.Name}, &deployIns)
-				if err != nil && k8serrors.IsNotFound(err) {
-					continue
-				} else if err != nil {
-					return err
-				}
-				resourceCtlEntity.SpecReplicas = *deployIns.Spec.Replicas
-				resourceCtlEntity.Replicas = deployIns.Status.AvailableReplicas
-				podInsList := corev1.PodList{}
-				labelMap, err := metav1.LabelSelectorAsMap(deployIns.Spec.Selector)
-				if err != nil {
-					return err
-				}
-				err = k8sClient.List(ctx, &podInsList, &client.ListOptions{
-					Namespace:     deployIns.Namespace,
-					LabelSelector: labels.SelectorFromSet(labelMap),
-				})
-				if err != nil {
-					return err
-				}
-				for _, pod := range podInsList.Items {
-					podNamespace := pod.GetNamespace()
-					podName := pod.GetName()
-					nodeName := pod.Spec.NodeName
-					deployName := deployIns.GetName()
-					podNamePattern := fmt.Sprintf(DeploymentPodFormat, deployName)
-					regExp := regexp.MustCompile(podNamePattern)
-					res := regExp.FindAllStringSubmatch(pod.GetName(), -1)
-					if len(res) > 0 {
-						appName := fmt.Sprintf("%s-%s", scaler.Namespace, scaler.Name)
-						if _, exist := scaler.Labels["app.federator.ai/name"]; exist {
-							appName = scaler.Labels["app.federator.ai/name"]
-						}
-						appPartOf := appName
-						if _, exist := scaler.Labels["app.federator.ai/part-of"]; exist {
-							appPartOf = scaler.Labels["app.federator.ai/part-of"]
-						}
-
-						resourcePods = append(resourcePods, entities.ResourceClusterStatusPod{
-							Name:                     podName,
-							Namespace:                podNamespace,
-							NodeName:                 nodeName,
-							ClusterName:              targetCtl.ClusterName,
-							TopControllerName:        targetCtl.Name,
-							TopControllerKind:        targetCtl.Kind,
-							AlamedaScalerName:        targetCtl.AlamedaScalerName,
-							AlamedaScalerNamespace:   targetCtl.AlamedaScalerNamespace,
-							AlamedaScalerScalingTool: targetCtl.AlamedaScalerScalingTool,
-							AppName:                  appName,
-							AppPartOf:                appPartOf,
-							PodCreateTime:            pod.GetCreationTimestamp().Time.Unix(),
-							TopControllerReplicas:    resourceCtlEntity.Replicas,
-						})
-						for _, container := range pod.Spec.Containers {
-							resourceContainerEntity := entities.ResourceClusterStatusContainer{
-								Name:                     container.Name,
-								Namespace:                podNamespace,
-								NodeName:                 nodeName,
-								ClusterName:              targetCtl.ClusterName,
-								PodName:                  podName,
-								TopControllerName:        targetCtl.Name,
-								TopControllerKind:        targetCtl.Kind,
-								AlamedaScalerName:        targetCtl.AlamedaScalerName,
-								AlamedaScalerNamespace:   targetCtl.AlamedaScalerNamespace,
-								AlamedaScalerScalingTool: targetCtl.AlamedaScalerScalingTool,
-							}
-							if container.Resources.Limits.Cpu() != nil {
-								resourceContainerEntity.ResourceLimitCpu =
-									strconv.FormatInt(container.Resources.Limits.Cpu().MilliValue(), 10)
-							}
-							if container.Resources.Limits.Memory() != nil {
-								resourceContainerEntity.ResourceLimitMemory =
-									strconv.FormatInt(container.Resources.Limits.Memory().Value(), 10)
-							}
-							if container.Resources.Requests.Cpu() != nil {
-								resourceContainerEntity.ResourceRequestCPU =
-									strconv.FormatInt(container.Resources.Requests.Cpu().MilliValue(), 10)
-							}
-							if container.Resources.Requests.Memory() != nil {
-								resourceContainerEntity.ResourceRequestMemory =
-									strconv.FormatInt(container.Resources.Requests.Memory().Value(), 10)
-							}
-							resourceContainers = append(resourceContainers, resourceContainerEntity)
-						}
-					}
-				}
-			}
-			if targetCtl.Kind == autoscalingv1alpha2.ControllerKindMap[autoscalingv1alpha2.StatefulSetController] {
-				stsIns := appsv1.StatefulSet{}
-				err := k8sClient.Get(ctx, types.NamespacedName{Namespace: targetCtl.Namespace, Name: targetCtl.Name}, &stsIns)
-				if err != nil && k8serrors.IsNotFound(err) {
-					continue
-				} else if err != nil {
-					return err
-				}
-				resourceCtlEntity.SpecReplicas = *stsIns.Spec.Replicas
-				resourceCtlEntity.Replicas = stsIns.Status.CurrentReplicas
-				podInsList := corev1.PodList{}
-				labelMap, err := metav1.LabelSelectorAsMap(stsIns.Spec.Selector)
-				if err != nil {
-					return err
-				}
-				err = k8sClient.List(ctx, &podInsList, &client.ListOptions{
-					Namespace:     stsIns.Namespace,
-					LabelSelector: labels.SelectorFromSet(labelMap),
-				})
-				if err != nil {
-					return err
-				}
-				for _, pod := range podInsList.Items {
-					podNamespace := pod.GetNamespace()
-					podName := pod.GetName()
-					nodeName := pod.Spec.NodeName
-					stsName := stsIns.GetName()
-					podNamePattern := fmt.Sprintf(StatefulSetPodFormat, stsName)
-					regExp := regexp.MustCompile(podNamePattern)
-					res := regExp.FindAllStringSubmatch(pod.GetName(), -1)
-					if len(res) > 0 {
-						appName := fmt.Sprintf("%s-%s", scaler.Namespace, scaler.Name)
-						if _, exist := scaler.Labels["app.federator.ai/name"]; exist {
-							appName = scaler.Labels["app.federator.ai/name"]
-						}
-						appPartOf := appName
-						if _, exist := scaler.Labels["app.federator.ai/part-of"]; exist {
-							appPartOf = scaler.Labels["app.federator.ai/part-of"]
-						}
-
-						resourcePods = append(resourcePods, entities.ResourceClusterStatusPod{
-							Name:                     podName,
-							Namespace:                podNamespace,
-							NodeName:                 nodeName,
-							ClusterName:              targetCtl.ClusterName,
-							TopControllerName:        targetCtl.Name,
-							TopControllerKind:        targetCtl.Kind,
-							AlamedaScalerName:        targetCtl.AlamedaScalerName,
-							AlamedaScalerScalingTool: targetCtl.AlamedaScalerScalingTool,
-							AppName:                  appName,
-							AppPartOf:                appPartOf,
-							PodCreateTime:            pod.GetCreationTimestamp().Time.Unix(),
-							TopControllerReplicas:    resourceCtlEntity.Replicas,
-						})
-						for _, container := range pod.Spec.Containers {
-							resourceContainerEntity := entities.ResourceClusterStatusContainer{
-								Name:                     container.Name,
-								Namespace:                podNamespace,
-								NodeName:                 nodeName,
-								ClusterName:              targetCtl.ClusterName,
-								PodName:                  podName,
-								TopControllerName:        targetCtl.Name,
-								TopControllerKind:        targetCtl.Kind,
-								AlamedaScalerName:        targetCtl.AlamedaScalerName,
-								AlamedaScalerScalingTool: targetCtl.AlamedaScalerScalingTool,
-							}
-							if container.Resources.Limits.Cpu() != nil {
-								resourceContainerEntity.ResourceLimitCpu =
-									strconv.FormatInt(container.Resources.Limits.Cpu().MilliValue(), 10)
-							}
-							if container.Resources.Limits.Memory() != nil {
-								resourceContainerEntity.ResourceLimitMemory =
-									strconv.FormatInt(container.Resources.Limits.Memory().Value(), 10)
-							}
-							if container.Resources.Requests.Cpu() != nil {
-								resourceContainerEntity.ResourceRequestCPU =
-									strconv.FormatInt(container.Resources.Requests.Cpu().MilliValue(), 10)
-							}
-							if container.Resources.Requests.Memory() != nil {
-								resourceContainerEntity.ResourceRequestMemory =
-									strconv.FormatInt(container.Resources.Requests.Memory().Value(), 10)
-							}
-							resourceContainers = append(resourceContainers, resourceContainerEntity)
-						}
-					}
-				}
-			}
-			if isOpenshift && targetCtl.Kind == autoscalingv1alpha2.ControllerKindMap[autoscalingv1alpha2.DeploymentConfigController] {
-				dcIns := openshiftappsv1.DeploymentConfig{}
-				err := k8sClient.Get(ctx, types.NamespacedName{Namespace: targetCtl.Namespace, Name: targetCtl.Name}, &dcIns)
-				if err != nil && k8serrors.IsNotFound(err) {
-					continue
-				} else if err != nil {
-					return err
-				}
-				resourceCtlEntity.SpecReplicas = dcIns.Spec.Replicas
-				resourceCtlEntity.Replicas = dcIns.Status.AvailableReplicas
-				podInsList := corev1.PodList{}
-				err = k8sClient.List(ctx, &podInsList, &client.ListOptions{
-					Namespace:     dcIns.Namespace,
-					LabelSelector: labels.SelectorFromSet(labels.Set(dcIns.Spec.Selector)),
-				})
-				if err != nil {
-					return err
-				}
-				for _, pod := range podInsList.Items {
-					podNamespace := pod.GetNamespace()
-					podName := pod.GetName()
-					nodeName := pod.Spec.NodeName
-					dcName := dcIns.GetName()
-					podNamePattern := fmt.Sprintf(DeploymentConfigPodFormat, dcName)
-					regExp := regexp.MustCompile(podNamePattern)
-					res := regExp.FindAllStringSubmatch(pod.GetName(), -1)
-					if len(res) > 0 {
-						appName := fmt.Sprintf("%s-%s", scaler.Namespace, scaler.Name)
-						if _, exist := scaler.Labels["app.federator.ai/name"]; exist {
-							appName = scaler.Labels["app.federator.ai/name"]
-						}
-						appPartOf := appName
-						if _, exist := scaler.Labels["app.federator.ai/part-of"]; exist {
-							appPartOf = scaler.Labels["app.federator.ai/part-of"]
-						}
-
-						resourcePods = append(resourcePods, entities.ResourceClusterStatusPod{
-							Name:                     podName,
-							Namespace:                podNamespace,
-							NodeName:                 nodeName,
-							ClusterName:              targetCtl.ClusterName,
-							TopControllerName:        targetCtl.Name,
-							TopControllerKind:        targetCtl.Kind,
-							AlamedaScalerName:        targetCtl.AlamedaScalerName,
-							AlamedaScalerScalingTool: targetCtl.AlamedaScalerScalingTool,
-							AppName:                  appName,
-							AppPartOf:                appPartOf,
-							PodCreateTime:            pod.GetCreationTimestamp().Time.Unix(),
-							TopControllerReplicas:    resourceCtlEntity.Replicas,
-						})
-						for _, container := range pod.Spec.Containers {
-							resourceContainerEntity := entities.ResourceClusterStatusContainer{
-								Name:                     container.Name,
-								Namespace:                podNamespace,
-								NodeName:                 nodeName,
-								ClusterName:              targetCtl.ClusterName,
-								PodName:                  podName,
-								TopControllerName:        targetCtl.Name,
-								TopControllerKind:        targetCtl.Kind,
-								AlamedaScalerName:        targetCtl.AlamedaScalerName,
-								AlamedaScalerScalingTool: targetCtl.AlamedaScalerScalingTool,
-							}
-							if container.Resources.Limits.Cpu() != nil {
-								resourceContainerEntity.ResourceLimitCpu =
-									strconv.FormatInt(container.Resources.Limits.Cpu().MilliValue(), 10)
-							}
-							if container.Resources.Limits.Memory() != nil {
-								resourceContainerEntity.ResourceLimitMemory =
-									strconv.FormatInt(container.Resources.Limits.Memory().Value(), 10)
-							}
-							if container.Resources.Requests.Cpu() != nil {
-								resourceContainerEntity.ResourceRequestCPU =
-									strconv.FormatInt(container.Resources.Requests.Cpu().MilliValue(), 10)
-							}
-							if container.Resources.Requests.Memory() != nil {
-								resourceContainerEntity.ResourceRequestMemory =
-									strconv.FormatInt(container.Resources.Requests.Memory().Value(), 10)
-							}
-							resourceContainers = append(resourceContainers, resourceContainerEntity)
-						}
-					}
-				}
-			}
-			resourceControllers = append(resourceControllers, resourceCtlEntity)
-		}
-
 		if openErr := kafkaClient.Open(); openErr != nil {
 			return openErr
 		}
@@ -661,12 +383,351 @@ func CreateV1Alpha2Scaler(
 				})
 			}
 		}
+
+		for _, targetCtl := range targetCtls {
+			enableExecution := targetCtl.EnableExecution
+			resourceK8sMinReplicas := targetCtl.MinReplicas
+			resourceK8sMaxReplicas := targetCtl.MaxReplicas
+			resourceCtlEntity := entities.ResourceClusterStatusController{
+				Name:                     targetCtl.Name,
+				Namespace:                targetCtl.Namespace,
+				ClusterName:              targetCtl.ClusterName,
+				Kind:                     targetCtl.Kind,
+				AlamedaScalerName:        targetCtl.AlamedaScalerName,
+				AlamedaScalerNamespace:   targetCtl.AlamedaScalerNamespace,
+				AlamedaScalerScalingTool: targetCtl.AlamedaScalerScalingTool,
+				ResourceK8sMinReplicas:   resourceK8sMinReplicas,
+				ResourceK8sMaxReplicas:   resourceK8sMaxReplicas,
+				EnableExecution:          enableExecution,
+			}
+			if targetCtl.Kind == autoscalingv1alpha2.ControllerKindMap[autoscalingv1alpha2.DeploymentController] {
+				deployIns := appsv1.Deployment{}
+				err := k8sClient.Get(ctx, types.NamespacedName{Namespace: targetCtl.Namespace, Name: targetCtl.Name}, &deployIns)
+				if err != nil && k8serrors.IsNotFound(err) {
+					continue
+				} else if err != nil {
+					return err
+				}
+				resourceCtlEntity.SpecReplicas = *deployIns.Spec.Replicas
+				resourceCtlEntity.Replicas = deployIns.Status.AvailableReplicas
+			}
+			if targetCtl.Kind == autoscalingv1alpha2.ControllerKindMap[autoscalingv1alpha2.StatefulSetController] {
+				stsIns := appsv1.StatefulSet{}
+				err := k8sClient.Get(ctx, types.NamespacedName{Namespace: targetCtl.Namespace, Name: targetCtl.Name}, &stsIns)
+				if err != nil && k8serrors.IsNotFound(err) {
+					continue
+				} else if err != nil {
+					return err
+				}
+				resourceCtlEntity.SpecReplicas = *stsIns.Spec.Replicas
+				resourceCtlEntity.Replicas = stsIns.Status.CurrentReplicas
+			}
+			if isOpenshift && targetCtl.Kind == autoscalingv1alpha2.ControllerKindMap[autoscalingv1alpha2.DeploymentConfigController] {
+				dcIns := openshiftappsv1.DeploymentConfig{}
+				err := k8sClient.Get(ctx, types.NamespacedName{Namespace: targetCtl.Namespace, Name: targetCtl.Name}, &dcIns)
+				if err != nil && k8serrors.IsNotFound(err) {
+					continue
+				} else if err != nil {
+					return err
+				}
+				resourceCtlEntity.SpecReplicas = dcIns.Spec.Replicas
+				resourceCtlEntity.Replicas = dcIns.Status.AvailableReplicas
+			}
+			resourceControllers = append(resourceControllers, resourceCtlEntity)
+		}
 	}
+
+	finalResourceControllers := []entities.ResourceClusterStatusController{}
+	for _, resourceController := range resourceControllers {
+		isValidCtl := true
+		for _, targetKafkaCg := range targetKafkaCgs {
+			if targetKafkaCg.ClusterName == resourceController.ClusterName &&
+				targetKafkaCg.ResourceK8sNamespace == resourceController.Namespace &&
+				targetKafkaCg.ResourceK8sName == resourceController.Name {
+				isValidCtl = false
+				for _, appKafkaCg := range appKafkaCgs {
+					if targetKafkaCg.ClusterName == appKafkaCg.ClusterName &&
+						targetKafkaCg.ResourceK8sNamespace == appKafkaCg.ResourceK8sNamespace &&
+						targetKafkaCg.ResourceK8sName == appKafkaCg.ResourceK8sName {
+						isValidCtl = true
+						break
+					}
+				}
+				if isValidCtl {
+					break
+				}
+			}
+		}
+		if isValidCtl {
+			finalResourceControllers = append(finalResourceControllers, resourceController)
+		}
+	}
+
+	for _, finalResourceController := range finalResourceControllers {
+		if finalResourceController.Kind == autoscalingv1alpha2.ControllerKindMap[autoscalingv1alpha2.DeploymentController] {
+			deployIns := appsv1.Deployment{}
+			err := k8sClient.Get(ctx, types.NamespacedName{Namespace: finalResourceController.Namespace, Name: finalResourceController.Name}, &deployIns)
+			if err != nil && k8serrors.IsNotFound(err) {
+				continue
+			} else if err != nil {
+				return err
+			}
+
+			podInsList := corev1.PodList{}
+			labelMap, err := metav1.LabelSelectorAsMap(deployIns.Spec.Selector)
+			if err != nil {
+				return err
+			}
+			err = k8sClient.List(ctx, &podInsList, &client.ListOptions{
+				Namespace:     deployIns.Namespace,
+				LabelSelector: labels.SelectorFromSet(labelMap),
+			})
+			if err != nil {
+				return err
+			}
+			for _, pod := range podInsList.Items {
+				podNamespace := pod.GetNamespace()
+				podName := pod.GetName()
+				nodeName := pod.Spec.NodeName
+				deployName := deployIns.GetName()
+				podNamePattern := fmt.Sprintf(DeploymentPodFormat, deployName)
+				regExp := regexp.MustCompile(podNamePattern)
+				res := regExp.FindAllStringSubmatch(pod.GetName(), -1)
+				if len(res) > 0 {
+					appName := fmt.Sprintf("%s-%s", scaler.Namespace, scaler.Name)
+					if _, exist := scaler.Labels["app.federator.ai/name"]; exist {
+						appName = scaler.Labels["app.federator.ai/name"]
+					}
+					appPartOf := appName
+					if _, exist := scaler.Labels["app.federator.ai/part-of"]; exist {
+						appPartOf = scaler.Labels["app.federator.ai/part-of"]
+					}
+
+					resourcePods = append(resourcePods, entities.ResourceClusterStatusPod{
+						Name:                     podName,
+						Namespace:                podNamespace,
+						NodeName:                 nodeName,
+						ClusterName:              finalResourceController.ClusterName,
+						TopControllerName:        finalResourceController.Name,
+						TopControllerKind:        finalResourceController.Kind,
+						AlamedaScalerName:        finalResourceController.AlamedaScalerName,
+						AlamedaScalerNamespace:   finalResourceController.AlamedaScalerNamespace,
+						AlamedaScalerScalingTool: finalResourceController.AlamedaScalerScalingTool,
+						AppName:                  appName,
+						AppPartOf:                appPartOf,
+						PodCreateTime:            pod.GetCreationTimestamp().Time.Unix(),
+						TopControllerReplicas:    finalResourceController.Replicas,
+					})
+					for _, container := range pod.Spec.Containers {
+						resourceContainerEntity := entities.ResourceClusterStatusContainer{
+							Name:                     container.Name,
+							Namespace:                podNamespace,
+							NodeName:                 nodeName,
+							ClusterName:              finalResourceController.ClusterName,
+							PodName:                  podName,
+							TopControllerName:        finalResourceController.Name,
+							TopControllerKind:        finalResourceController.Kind,
+							AlamedaScalerName:        finalResourceController.AlamedaScalerName,
+							AlamedaScalerNamespace:   finalResourceController.AlamedaScalerNamespace,
+							AlamedaScalerScalingTool: finalResourceController.AlamedaScalerScalingTool,
+						}
+						if container.Resources.Limits.Cpu() != nil {
+							resourceContainerEntity.ResourceLimitCpu =
+								strconv.FormatInt(container.Resources.Limits.Cpu().MilliValue(), 10)
+						}
+						if container.Resources.Limits.Memory() != nil {
+							resourceContainerEntity.ResourceLimitMemory =
+								strconv.FormatInt(container.Resources.Limits.Memory().Value(), 10)
+						}
+						if container.Resources.Requests.Cpu() != nil {
+							resourceContainerEntity.ResourceRequestCPU =
+								strconv.FormatInt(container.Resources.Requests.Cpu().MilliValue(), 10)
+						}
+						if container.Resources.Requests.Memory() != nil {
+							resourceContainerEntity.ResourceRequestMemory =
+								strconv.FormatInt(container.Resources.Requests.Memory().Value(), 10)
+						}
+						resourceContainers = append(resourceContainers, resourceContainerEntity)
+					}
+				}
+			}
+		}
+		if finalResourceController.Kind == autoscalingv1alpha2.ControllerKindMap[autoscalingv1alpha2.StatefulSetController] {
+			stsIns := appsv1.StatefulSet{}
+			err := k8sClient.Get(ctx, types.NamespacedName{Namespace: finalResourceController.Namespace, Name: finalResourceController.Name}, &stsIns)
+			if err != nil && k8serrors.IsNotFound(err) {
+				continue
+			} else if err != nil {
+				return err
+			}
+
+			podInsList := corev1.PodList{}
+			labelMap, err := metav1.LabelSelectorAsMap(stsIns.Spec.Selector)
+			if err != nil {
+				return err
+			}
+			err = k8sClient.List(ctx, &podInsList, &client.ListOptions{
+				Namespace:     stsIns.Namespace,
+				LabelSelector: labels.SelectorFromSet(labelMap),
+			})
+			if err != nil {
+				return err
+			}
+			for _, pod := range podInsList.Items {
+				podNamespace := pod.GetNamespace()
+				podName := pod.GetName()
+				nodeName := pod.Spec.NodeName
+				stsName := stsIns.GetName()
+				podNamePattern := fmt.Sprintf(StatefulSetPodFormat, stsName)
+				regExp := regexp.MustCompile(podNamePattern)
+				res := regExp.FindAllStringSubmatch(pod.GetName(), -1)
+				if len(res) > 0 {
+					appName := fmt.Sprintf("%s-%s", scaler.Namespace, scaler.Name)
+					if _, exist := scaler.Labels["app.federator.ai/name"]; exist {
+						appName = scaler.Labels["app.federator.ai/name"]
+					}
+					appPartOf := appName
+					if _, exist := scaler.Labels["app.federator.ai/part-of"]; exist {
+						appPartOf = scaler.Labels["app.federator.ai/part-of"]
+					}
+
+					resourcePods = append(resourcePods, entities.ResourceClusterStatusPod{
+						Name:                     podName,
+						Namespace:                podNamespace,
+						NodeName:                 nodeName,
+						ClusterName:              finalResourceController.ClusterName,
+						TopControllerName:        finalResourceController.Name,
+						TopControllerKind:        finalResourceController.Kind,
+						AlamedaScalerName:        finalResourceController.AlamedaScalerName,
+						AlamedaScalerScalingTool: finalResourceController.AlamedaScalerScalingTool,
+						AppName:                  appName,
+						AppPartOf:                appPartOf,
+						PodCreateTime:            pod.GetCreationTimestamp().Time.Unix(),
+						TopControllerReplicas:    finalResourceController.Replicas,
+					})
+					for _, container := range pod.Spec.Containers {
+						resourceContainerEntity := entities.ResourceClusterStatusContainer{
+							Name:                     container.Name,
+							Namespace:                podNamespace,
+							NodeName:                 nodeName,
+							ClusterName:              finalResourceController.ClusterName,
+							PodName:                  podName,
+							TopControllerName:        finalResourceController.Name,
+							TopControllerKind:        finalResourceController.Kind,
+							AlamedaScalerName:        finalResourceController.AlamedaScalerName,
+							AlamedaScalerScalingTool: finalResourceController.AlamedaScalerScalingTool,
+						}
+						if container.Resources.Limits.Cpu() != nil {
+							resourceContainerEntity.ResourceLimitCpu =
+								strconv.FormatInt(container.Resources.Limits.Cpu().MilliValue(), 10)
+						}
+						if container.Resources.Limits.Memory() != nil {
+							resourceContainerEntity.ResourceLimitMemory =
+								strconv.FormatInt(container.Resources.Limits.Memory().Value(), 10)
+						}
+						if container.Resources.Requests.Cpu() != nil {
+							resourceContainerEntity.ResourceRequestCPU =
+								strconv.FormatInt(container.Resources.Requests.Cpu().MilliValue(), 10)
+						}
+						if container.Resources.Requests.Memory() != nil {
+							resourceContainerEntity.ResourceRequestMemory =
+								strconv.FormatInt(container.Resources.Requests.Memory().Value(), 10)
+						}
+						resourceContainers = append(resourceContainers, resourceContainerEntity)
+					}
+				}
+			}
+
+		}
+		if isOpenshift && finalResourceController.Kind == autoscalingv1alpha2.ControllerKindMap[autoscalingv1alpha2.DeploymentConfigController] {
+			dcIns := openshiftappsv1.DeploymentConfig{}
+			err := k8sClient.Get(ctx, types.NamespacedName{Namespace: finalResourceController.Namespace, Name: finalResourceController.Name}, &dcIns)
+			if err != nil && k8serrors.IsNotFound(err) {
+				continue
+			} else if err != nil {
+				return err
+			}
+
+			podInsList := corev1.PodList{}
+			err = k8sClient.List(ctx, &podInsList, &client.ListOptions{
+				Namespace:     dcIns.Namespace,
+				LabelSelector: labels.SelectorFromSet(labels.Set(dcIns.Spec.Selector)),
+			})
+			if err != nil {
+				return err
+			}
+			for _, pod := range podInsList.Items {
+				podNamespace := pod.GetNamespace()
+				podName := pod.GetName()
+				nodeName := pod.Spec.NodeName
+				dcName := dcIns.GetName()
+				podNamePattern := fmt.Sprintf(DeploymentConfigPodFormat, dcName)
+				regExp := regexp.MustCompile(podNamePattern)
+				res := regExp.FindAllStringSubmatch(pod.GetName(), -1)
+				if len(res) > 0 {
+					appName := fmt.Sprintf("%s-%s", scaler.Namespace, scaler.Name)
+					if _, exist := scaler.Labels["app.federator.ai/name"]; exist {
+						appName = scaler.Labels["app.federator.ai/name"]
+					}
+					appPartOf := appName
+					if _, exist := scaler.Labels["app.federator.ai/part-of"]; exist {
+						appPartOf = scaler.Labels["app.federator.ai/part-of"]
+					}
+
+					resourcePods = append(resourcePods, entities.ResourceClusterStatusPod{
+						Name:                     podName,
+						Namespace:                podNamespace,
+						NodeName:                 nodeName,
+						ClusterName:              finalResourceController.ClusterName,
+						TopControllerName:        finalResourceController.Name,
+						TopControllerKind:        finalResourceController.Kind,
+						AlamedaScalerName:        finalResourceController.AlamedaScalerName,
+						AlamedaScalerScalingTool: finalResourceController.AlamedaScalerScalingTool,
+						AppName:                  appName,
+						AppPartOf:                appPartOf,
+						PodCreateTime:            pod.GetCreationTimestamp().Time.Unix(),
+						TopControllerReplicas:    finalResourceController.Replicas,
+					})
+					for _, container := range pod.Spec.Containers {
+						resourceContainerEntity := entities.ResourceClusterStatusContainer{
+							Name:                     container.Name,
+							Namespace:                podNamespace,
+							NodeName:                 nodeName,
+							ClusterName:              finalResourceController.ClusterName,
+							PodName:                  podName,
+							TopControllerName:        finalResourceController.Name,
+							TopControllerKind:        finalResourceController.Kind,
+							AlamedaScalerName:        finalResourceController.AlamedaScalerName,
+							AlamedaScalerScalingTool: finalResourceController.AlamedaScalerScalingTool,
+						}
+						if container.Resources.Limits.Cpu() != nil {
+							resourceContainerEntity.ResourceLimitCpu =
+								strconv.FormatInt(container.Resources.Limits.Cpu().MilliValue(), 10)
+						}
+						if container.Resources.Limits.Memory() != nil {
+							resourceContainerEntity.ResourceLimitMemory =
+								strconv.FormatInt(container.Resources.Limits.Memory().Value(), 10)
+						}
+						if container.Resources.Requests.Cpu() != nil {
+							resourceContainerEntity.ResourceRequestCPU =
+								strconv.FormatInt(container.Resources.Requests.Cpu().MilliValue(), 10)
+						}
+						if container.Resources.Requests.Memory() != nil {
+							resourceContainerEntity.ResourceRequestMemory =
+								strconv.FormatInt(container.Resources.Requests.Memory().Value(), 10)
+						}
+						resourceContainers = append(resourceContainers, resourceContainerEntity)
+					}
+				}
+			}
+		}
+	}
+
 	err = datahubClient.Create(&resourceContainers)
 	if err != nil {
 		return err
 	}
-	err = datahubClient.Create(&resourceControllers)
+	err = datahubClient.Create(&finalResourceControllers)
 	if err != nil {
 		return err
 	}
