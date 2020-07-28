@@ -1,8 +1,8 @@
 package entities
 
 import (
+	"github.com/containers-ai/alameda/pkg/utils"
 	"github.com/containers-ai/alameda/pkg/utils/log"
-	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"reflect"
 	"strconv"
@@ -25,7 +25,7 @@ type Entity interface {
 	Row(entity interface{}, fields []string) *Row
 }
 
-type Metadata struct {
+type Measurement struct {
 }
 
 type DatahubEntity struct {
@@ -35,7 +35,7 @@ func (p *DatahubEntity) Populate(entity interface{}, timestamp *timestamp.Timest
 	fields := reflect.TypeOf(entity).Elem()
 
 	// Populate Time filed
-	ts := Timestamp(timestamp)
+	ts := utils.Timestamp(timestamp)
 	timeField := reflect.ValueOf(entity).Elem().FieldByName("Time")
 	timeField.Set(reflect.ValueOf(ts))
 
@@ -73,7 +73,7 @@ func (p *DatahubEntity) Populate(entity interface{}, timestamp *timestamp.Timest
 }
 
 func (p *DatahubEntity) Row(entity interface{}, fields []string) *Row {
-	row := Row{Time: TimestampProto(reflect.ValueOf(entity).Elem().FieldByName("Time").Interface().(*time.Time))}
+	row := Row{Time: utils.TimestampProto(reflect.ValueOf(entity).Elem().FieldByName("Time").Interface().(*time.Time))}
 
 	// If fields is empty which means to iterate through all the fields of the entity
 	values := reflect.TypeOf(entity).Elem()
@@ -171,19 +171,4 @@ func (p *DatahubEntity) FieldNames(entity interface{}) []string {
 	}
 
 	return fields
-}
-
-func Timestamp(timestamp *timestamp.Timestamp) *time.Time {
-	ts, _ := ptypes.Timestamp(timestamp)
-	return &ts
-}
-
-func TimestampProto(ts *time.Time) *timestamp.Timestamp {
-	var t *timestamp.Timestamp
-	if ts == nil {
-		t, _ = ptypes.TimestampProto(time.Unix(0, 0).UTC())
-	} else {
-		t, _ = ptypes.TimestampProto(*ts)
-	}
-	return t
 }

@@ -9,9 +9,9 @@ import (
 	RepoPromthMetric "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/prometheus/metrics"
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	Utils "github.com/containers-ai/alameda/datahub/pkg/utils"
 	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
 	Prometheus "github.com/containers-ai/alameda/pkg/database/prometheus"
+	Utils "github.com/containers-ai/alameda/pkg/utils"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
 )

@@ -23,7 +23,7 @@ func (p *SchemaManagement) Refresh() error {
 	Schemas.Schemas = make(map[InfluxSchemas.Scope][]*InfluxSchemas.Schema)
 
 	// Build measurement definition
-	for table, measurement := range MeasurementNameMap {
+	for table, measurement := range InfluxSchemas.MeasurementNameMap {
 		Schemas.Schemas[table] = make([]*InfluxSchemas.Schema, 0)
 		results, err := p.read(measurement)
 		if len(results) == 0 {
@@ -44,7 +44,7 @@ func (p *SchemaManagement) Refresh() error {
 	}
 
 	// Build measurement schema definition
-	for table, measurement := range MeasurementSchemaNameMap {
+	for table, measurement := range InfluxSchemas.MeasurementSchemaNameMap {
 		results, err := p.read(measurement)
 		if len(results) == 0 {
 			continue
@@ -223,7 +223,7 @@ func (p *SchemaManagement) buildMeasurementPoints(table InfluxSchemas.Scope, sch
 		}
 
 		// Add to influx point list
-		pt, err := InfluxClient.NewPoint(MeasurementNameMap[table], tags, fields, influxdb.ZeroTime)
+		pt, err := InfluxClient.NewPoint(InfluxSchemas.MeasurementNameMap[table], tags, fields, influxdb.ZeroTime)
 		if err != nil {
 			scope.Error(err.Error())
 			return make([]*InfluxClient.Point, 0), errors.New("failed to instance measurement influxdb data point")
@@ -256,7 +256,7 @@ func (p *SchemaManagement) buildSchemaPoints(table InfluxSchemas.Scope, schemas 
 			}
 
 			// Add to influx point list
-			pt, err := InfluxClient.NewPoint(MeasurementSchemaNameMap[table], tags, fields, influxdb.ZeroTime)
+			pt, err := InfluxClient.NewPoint(InfluxSchemas.MeasurementSchemaNameMap[table], tags, fields, influxdb.ZeroTime)
 			if err != nil {
 				scope.Error(err.Error())
 				return make([]*InfluxClient.Point, 0), errors.New("failed to instance schema influxdb data point")
@@ -288,7 +288,7 @@ func (p *SchemaManagement) buildDropMeasurementsQuery(table InfluxSchemas.Scope,
 		types = append(types, common.String)
 	}
 
-	query := influxdb.NewQuery(nil, MeasurementNameMap[table])
+	query := influxdb.NewQuery(nil, InfluxSchemas.MeasurementNameMap[table])
 	query.AppendCondition(keys, values, operators, types)
 
 	return query.BuildDropCmd()
@@ -314,7 +314,7 @@ func (p *SchemaManagement) buildDropSchemasQuery(table InfluxSchemas.Scope, cate
 		types = append(types, common.String)
 	}
 
-	query := influxdb.NewQuery(nil, MeasurementSchemaNameMap[table])
+	query := influxdb.NewQuery(nil, InfluxSchemas.MeasurementSchemaNameMap[table])
 	query.AppendCondition(keys, values, operators, types)
 
 	return query.BuildDropCmd()

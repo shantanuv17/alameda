@@ -1,38 +1,57 @@
 package schemamgt
 
 import (
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
+	"github.com/containers-ai/alameda/pkg/database/common"
 	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
+	"github.com/containers-ai/alameda/pkg/utils"
+	"reflect"
+	"strconv"
 )
 
-var MeasurementNameMap = map[schemas.Scope]string{
-	schemas.Application:    "application",
-	schemas.Fedemeter:      "fedemeter",
-	schemas.Metric:         "metric",
-	schemas.Planning:       "planning",
-	schemas.Prediction:     "prediction",
-	schemas.Recommendation: "recommendation",
-	schemas.Resource:       "resource",
-	schemas.Target:         "target",
+func NewSchema(entity interface{}) *schemas.Schema {
+	schemaMeta := NewSchemaMeta(entity)
+	schema := schemas.NewSchema(schemaMeta.Scope, schemaMeta.Category, schemaMeta.Type)
+	schema.Measurements = append(schema.Measurements, NewMeasurement(entity))
+	return schema
 }
 
-var MeasurementSchemaNameMap = map[schemas.Scope]string{
-	schemas.Application:    "application_schema",
-	schemas.Fedemeter:      "fedemeter_schema",
-	schemas.Metric:         "metric_schema",
-	schemas.Planning:       "planning_schema",
-	schemas.Prediction:     "prediction_schema",
-	schemas.Recommendation: "recommendation_schema",
-	schemas.Resource:       "resource_schema",
-	schemas.Target:         "target_schema",
+func NewSchemaMeta(entity interface{}) *schemas.SchemaMeta {
+	datahubEntity := utils.ExtractField(entity, "DatahubEntity")
+	schemaMeta := schemas.SchemaMeta{
+		Scope:    schemas.ScopeValue[datahubEntity.Tag.Get("scope")],
+		Category: datahubEntity.Tag.Get("category"),
+		Type:     datahubEntity.Tag.Get("type"),
+	}
+	return &schemaMeta
 }
 
-var DatabaseNameMap = map[schemas.Scope]string{
-	schemas.Application:    "alameda_application",
-	schemas.Fedemeter:      "alameda_fedemeter",
-	schemas.Metric:         "alameda_metric",
-	schemas.Planning:       "alameda_planning",
-	schemas.Prediction:     "alameda_prediction",
-	schemas.Recommendation: "alameda_recommendation",
-	schemas.Resource:       "alameda_cluster_status",
-	schemas.Target:         "alameda_target",
+func NewMeasurement(entity interface{}) *schemas.Measurement {
+	m := utils.ExtractField(entity, "Measurement")
+	measurement := schemas.Measurement{
+		Name:       m.Tag.Get("name"),
+		MetricType: schemas.MetricTypeValue[m.Tag.Get("metric")],
+		Boundary:   schemas.ResourceBoundaryValue[m.Tag.Get("boundary")],
+		Quota:      schemas.ResourceQuotaValue[m.Tag.Get("quota")],
+		IsTS:       string2Bool(m.Tag.Get("ts")),
+	}
+
+	// Add columns
+	entityType := reflect.TypeOf(entity).Elem()
+	for i := entities.ColumnStartIndex + 1; i < entityType.NumField(); i++ {
+		fieldType := entityType.Field(i)
+		measurement.AddColumn(
+			fieldType.Tag.Get("json"),
+			string2Bool(fieldType.Tag.Get("required")),
+			schemas.ColumnTypeValue[fieldType.Tag.Get("column")],
+			common.DataTypeValue[fieldType.Type.Kind()],
+		)
+	}
+
+	return &measurement
+}
+
+func string2Bool(str string) bool {
+	valueBool, _ := strconv.ParseBool(str)
+	return valueBool
 }

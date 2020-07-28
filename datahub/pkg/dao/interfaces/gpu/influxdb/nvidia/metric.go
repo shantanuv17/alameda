@@ -5,9 +5,9 @@ import (
 	RepoInfluxGpuMetric "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/gpu/nvidia/metrics"
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	Utils "github.com/containers-ai/alameda/datahub/pkg/utils"
 	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
 	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	Utils "github.com/containers-ai/alameda/pkg/utils"
 	"strconv"
 )
 
