@@ -25,34 +25,28 @@ import (
 	"strings"
 	"time"
 
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
-	"github.com/pkg/errors"
-	"github.com/spf13/viper"
-	"golang.org/x/sync/errgroup"
-	"google.golang.org/grpc"
-
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
 	kafkaclient "github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/client"
-	"github.com/containers-ai/alameda/pkg/provider"
-	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
-	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
-	datahubv1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
-
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/api/v1alpha2"
 	"github.com/containers-ai/alameda/operator/controllers"
 	datahub_client_application "github.com/containers-ai/alameda/operator/datahub/client/application"
 	datahub_client_cluster "github.com/containers-ai/alameda/operator/datahub/client/cluster"
-	datahub_client_controller "github.com/containers-ai/alameda/operator/datahub/client/controller"
-	datahub_client_kafka "github.com/containers-ai/alameda/operator/datahub/client/kafka"
 	datahub_client_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
 	datahub_client_node "github.com/containers-ai/alameda/operator/datahub/client/node"
-	datahub_client_pod "github.com/containers-ai/alameda/operator/datahub/client/pod"
 	"github.com/containers-ai/alameda/operator/pkg/probe"
 	"github.com/containers-ai/alameda/operator/pkg/utils"
-
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
+	"github.com/containers-ai/alameda/pkg/provider"
+	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
+	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
+	datahubv1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
 	osappsapi "github.com/openshift/api/apps/v1"
+	"github.com/pkg/errors"
+	"github.com/spf13/viper"
+	"golang.org/x/sync/errgroup"
+	"google.golang.org/grpc"
 	"k8s.io/apimachinery/pkg/runtime"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -269,26 +263,6 @@ func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 		return err
 	}
 
-	if err = (&controllers.DeploymentReconciler{
-		Client:     mgr.GetClient(),
-		Scheme:     mgr.GetScheme(),
-		EnabledDA:  enabledDA,
-		ClusterUID: clusterUID,
-	}).SetupWithManager(mgr); err != nil {
-		return err
-	}
-
-	if hasOpenShiftAPIAppsv1 {
-		if err = (&controllers.DeploymentConfigReconciler{
-			Client:     mgr.GetClient(),
-			Scheme:     mgr.GetScheme(),
-			EnabledDA:  enabledDA,
-			ClusterUID: clusterUID,
-		}).SetupWithManager(mgr); err != nil {
-			return err
-		}
-	}
-
 	if err = (&controllers.NamespaceReconciler{
 		Client:        mgr.GetClient(),
 		Scheme:        mgr.GetScheme(),
@@ -320,15 +294,6 @@ func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 		RegionName:    regionName,
 		DatahubNodeRepo: *datahub_client_node.NewNodeRepository(
 			datahubClient, clusterUID),
-	}).SetupWithManager(mgr); err != nil {
-		return err
-	}
-
-	if err = (&controllers.StatefulSetReconciler{
-		Client:     mgr.GetClient(),
-		Scheme:     mgr.GetScheme(),
-		EnabledDA:  enabledDA,
-		ClusterUID: clusterUID,
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}
@@ -442,10 +407,11 @@ func syncResourcesWithDatahub(
 		}
 		time.Sleep(time.Duration(1) * time.Second)
 	}
+
 	go func() {
-		if err := datahub_client_application.SyncWithDatahub(client,
+		if err := datahub_client_application.RemoveOutOfDate(client,
 			datahubClient); err != nil {
-			scope.Errorf("sync application failed at start due to %s", err.Error())
+			scope.Errorf("remove out-of-date application failed at start due to %s", err.Error())
 		}
 	}()
 	if !enabledDA {
@@ -465,23 +431,6 @@ func syncResourcesWithDatahub(
 			if err := datahub_client_cluster.SyncWithDatahub(client,
 				datahubConn); err != nil {
 				scope.Errorf("sync cluster failed at start due to %s", err.Error())
-			}
-		}()
-		go func() {
-			if err := datahub_client_controller.SyncWithDatahub(client,
-				datahubConn); err != nil {
-				scope.Errorf("sync controller failed at start due to %s", err.Error())
-			}
-		}()
-		go func() {
-			if err := datahub_client_pod.SyncWithDatahub(client,
-				datahubConn); err != nil {
-				scope.Errorf("sync pod failed at start due to %s", err.Error())
-			}
-		}()
-		go func() {
-			if err := datahub_client_kafka.SyncWithDatahub(client, datahubClient); err != nil {
-				scope.Errorf("sync kafka failed at start due to %s", err.Error())
 			}
 		}()
 	}
