@@ -1,4 +1,4 @@
-package controllers
+package utils
 
 import (
 	"testing"
@@ -37,7 +37,7 @@ func TestAdd(t *testing.T) {
 	}
 	assert := assert.New(t)
 	for _, testCase := range testCases {
-		testCase.have.dest.add(testCase.have.src)
+		testCase.have.dest.Add(testCase.have.src)
 		assert.Equal(testCase.have.dest, testCase.want)
 	}
 }

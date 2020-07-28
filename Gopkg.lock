@@ -10,12 +10,12 @@
   version = "v0.29.0"
 
 [[projects]]
-  digest = "1:757cefb4bfcdad512a2df0ce4fec9b18be2e1477ab320767d940ea08c570670d"
+  digest = "1:8d1ab3bd9499d826abadd4fb2d1f40894d50b46089ef4757d2d48759fad1caef"
   name = "github.com/Shopify/sarama"
   packages = ["."]
   pruneopts = "T"
-  revision = "5c534984511622acd51d041459e23173947e646e"
-  version = "v1.26.0"
+  revision = "4d2231eabe90d4ab508cc55a0c97f88976cd2f3c"
+  version = "v1.26.4"
 
 [[projects]]
   branch = "master"
@@ -1525,6 +1525,7 @@
     "k8s.io/apimachinery/pkg/api/meta",
     "k8s.io/apimachinery/pkg/api/resource",
     "k8s.io/apimachinery/pkg/apis/meta/v1",
+    "k8s.io/apimachinery/pkg/labels",
     "k8s.io/apimachinery/pkg/runtime",
     "k8s.io/apimachinery/pkg/runtime/schema",
     "k8s.io/apimachinery/pkg/runtime/serializer",
@@ -1543,7 +1544,6 @@
     "sigs.k8s.io/controller-runtime/pkg/client",
     "sigs.k8s.io/controller-runtime/pkg/client/config",
     "sigs.k8s.io/controller-runtime/pkg/controller",
-    "sigs.k8s.io/controller-runtime/pkg/controller/controllerutil",
     "sigs.k8s.io/controller-runtime/pkg/envtest",
     "sigs.k8s.io/controller-runtime/pkg/envtest/printer",
     "sigs.k8s.io/controller-runtime/pkg/handler",

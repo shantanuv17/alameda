@@ -26,13 +26,6 @@ version = "2.4.0"
   username = ""
   password = ""
 
-[prometheus]
-requiredMetrics = ["kafka_topic_partition_current_offset", "kafka_consumergroup_current_offset"]
-url = "https://prometheus-k8s.openshift-monitoring:9091"
-bearerTokenFile = "/var/run/secrets/kubernetes.io/serviceaccount/token"
-  [prometheus.tlsConfig]
-  insecureSkipVerify = true
-
 [dataAdapter]
 enabled = true
 

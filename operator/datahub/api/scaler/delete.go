@@ -97,6 +97,30 @@ func DeleteV1Alpha2Scaler(
 		if err != nil {
 			return err
 		}
+		err = datahubClient.DeleteByOpts(&entities.ApplicationKafkaConsumerGroup{},
+			datahubpkg.Option{
+				Entity: entities.ApplicationKafkaConsumerGroup{
+					ClusterName:            scalerClusterName,
+					AlamedaScalerNamespace: scalerNamespace,
+					AlamedaScalerName:      scalerName,
+				},
+				Fields: []string{"ClusterName", "AlamedaScalerName", "AlamedaScalerName"},
+			})
+		if err != nil {
+			return err
+		}
+		err = datahubClient.DeleteByOpts(&entities.ApplicationKafkaTopic{},
+			datahubpkg.Option{
+				Entity: entities.ApplicationKafkaTopic{
+					ClusterName:            scalerClusterName,
+					AlamedaScalerNamespace: scalerNamespace,
+					AlamedaScalerName:      scalerName,
+				},
+				Fields: []string{"ClusterName", "AlamedaScalerName", "AlamedaScalerName"},
+			})
+		if err != nil {
+			return err
+		}
 	}
 
 	// finally delete application

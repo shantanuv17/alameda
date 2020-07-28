@@ -1,4 +1,4 @@
-package controllers
+package utils
 
 import (
 	"context"
@@ -15,7 +15,7 @@ type VolumeCapacity struct {
 	PVC   int64
 }
 
-func getVolumeCapacityUsedByPod(ctx context.Context, k8sClient client.Client, pod corev1.Pod) (VolumeCapacity, error) {
+func GetVolumeCapacityUsedByPod(ctx context.Context, k8sClient client.Client, pod corev1.Pod) (VolumeCapacity, error) {
 	totalSize := int64(0)
 	pvcsSize := int64(0)
 	pvcsName := make([]string, 0)
@@ -44,7 +44,7 @@ func getVolumeCapacityUsedByPod(ctx context.Context, k8sClient client.Client, po
 	}, nil
 }
 
-func (v *VolumeCapacity) add(in VolumeCapacity) {
+func (v *VolumeCapacity) Add(in VolumeCapacity) {
 	inV := reflect.ValueOf(in)
 
 	ptrV := reflect.ValueOf(v)

@@ -14,9 +14,10 @@ import (
 	gosync "sync"
 	"time"
 
+	metrics "github.com/rcrowley/go-metrics"
+
 	"github.com/Shopify/sarama"
 	"github.com/Shopify/sarama/tools/tls"
-	metrics "github.com/rcrowley/go-metrics"
 )
 
 var (
@@ -80,6 +81,11 @@ var (
 		0,
 		"The maximum number of messages to send per second (0 for no limit).",
 	)
+	maxOpenRequests = flag.Int(
+		"max-open-requests",
+		5,
+		"The maximum number of unacknowledged requests the client will send on a single connection before blocking (default: 5).",
+	)
 	maxMessageBytes = flag.Int(
 		"max-message-bytes",
 		1000000,
@@ -124,16 +130,6 @@ var (
 		"flush-max-messages",
 		0,
 		"The maximum number of messages the producer will send in a single request.",
-	)
-	retryMax = flag.Int(
-		"retry-max",
-		3,
-		"The total number of times to retry sending a message.",
-	)
-	retryBackoff = flag.Duration(
-		"retry-backoff",
-		100*time.Millisecond,
-		"The duration the producer will wait for the cluster to settle between retries.",
 	)
 	clientID = flag.String(
 		"client-id",
@@ -248,6 +244,7 @@ func main() {
 
 	config := sarama.NewConfig()
 
+	config.Net.MaxOpenRequests = *maxOpenRequests
 	config.Producer.MaxMessageBytes = *maxMessageBytes
 	config.Producer.RequiredAcks = sarama.RequiredAcks(*requiredAcks)
 	config.Producer.Timeout = *timeout
@@ -430,17 +427,20 @@ func printMetrics(w io.Writer, r metrics.Registry) {
 	recordSendRateMetric := r.Get("record-send-rate")
 	requestLatencyMetric := r.Get("request-latency-in-ms")
 	outgoingByteRateMetric := r.Get("outgoing-byte-rate")
+	requestsInFlightMetric := r.Get("requests-in-flight")
 
-	if recordSendRateMetric == nil || requestLatencyMetric == nil || outgoingByteRateMetric == nil {
+	if recordSendRateMetric == nil || requestLatencyMetric == nil || outgoingByteRateMetric == nil ||
+		requestsInFlightMetric == nil {
 		return
 	}
 	recordSendRate := recordSendRateMetric.(metrics.Meter).Snapshot()
 	requestLatency := requestLatencyMetric.(metrics.Histogram).Snapshot()
 	requestLatencyPercentiles := requestLatency.Percentiles([]float64{0.5, 0.75, 0.95, 0.99, 0.999})
 	outgoingByteRate := outgoingByteRateMetric.(metrics.Meter).Snapshot()
+	requestsInFlight := requestsInFlightMetric.(metrics.Counter).Count()
 	fmt.Fprintf(w, "%d records sent, %.1f records/sec (%.2f MiB/sec ingress, %.2f MiB/sec egress), "+
 		"%.1f ms avg latency, %.1f ms stddev, %.1f ms 50th, %.1f ms 75th, "+
-		"%.1f ms 95th, %.1f ms 99th, %.1f ms 99.9th\n",
+		"%.1f ms 95th, %.1f ms 99th, %.1f ms 99.9th, %d total req. in flight\n",
 		recordSendRate.Count(),
 		recordSendRate.RateMean(),
 		recordSendRate.RateMean()*float64(*messageSize)/1024/1024,
@@ -452,6 +452,7 @@ func printMetrics(w io.Writer, r metrics.Registry) {
 		requestLatencyPercentiles[2],
 		requestLatencyPercentiles[3],
 		requestLatencyPercentiles[4],
+		requestsInFlight,
 	)
 }
 

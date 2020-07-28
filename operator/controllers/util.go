@@ -3,6 +3,7 @@ package controllers
 import (
 	"time"
 
+	operatorutils "github.com/containers-ai/alameda/operator/pkg/utils"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -57,25 +58,8 @@ func getFirstCreatedObjectMeta(objs []metav1.ObjectMeta) metav1.ObjectMeta {
 	return firstCreatedObe
 }
 
-func getTotalResourceFromContainers(containers []corev1.Container) corev1.ResourceRequirements {
-	total := corev1.ResourceRequirements{
-		Limits:   corev1.ResourceList{},
-		Requests: corev1.ResourceList{},
-	}
-	for _, c := range containers {
-		for resourceName, quantity := range c.Resources.Limits {
-			q := total.Limits[resourceName]
-			q.Add(quantity)
-			total.Limits[resourceName] = q
-		}
-		for resourceName, quantity := range c.Resources.Requests {
-			q := total.Requests[resourceName]
-			q.Add(quantity)
-			total.Requests[resourceName] = q
-		}
-	}
-
-	return total
+func GetTotalResourceFromContainers(containers []corev1.Container) corev1.ResourceRequirements {
+	return operatorutils.GetTotalResourceFromContainers(containers)
 }
 
 func getFirstTime(times []time.Time) time.Time {

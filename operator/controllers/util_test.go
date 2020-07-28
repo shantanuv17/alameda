@@ -1,9 +1,10 @@
 package controllers
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
@@ -21,7 +22,7 @@ func TestIsLabelsSelectedBySelector(t *testing.T) {
 	}
 
 	testCases := []testCase{
-		testCase{
+		{
 			have: testCaseHave{
 				selector: metav1.LabelSelector{
 					MatchLabels: map[string]string{
@@ -37,7 +38,7 @@ func TestIsLabelsSelectedBySelector(t *testing.T) {
 			},
 			want: true,
 		},
-		testCase{
+		{
 			have: testCaseHave{
 				selector: metav1.LabelSelector{
 					MatchLabels: map[string]string{
@@ -72,21 +73,21 @@ func TestGetFirstCreatedObjectMeta(t *testing.T) {
 	now_2m := metav1.NewTime(time.Now().Add(2 * time.Minute))
 
 	testCases := []testCase{
-		testCase{
+		{
 			have: []metav1.ObjectMeta{
-				metav1.ObjectMeta{
+				{
 					Namespace:         "test",
 					Name:              "o1",
 					UID:               "1",
 					CreationTimestamp: now,
 				},
-				metav1.ObjectMeta{
+				{
 					Namespace:         "test",
 					Name:              "o2",
 					UID:               "2",
 					CreationTimestamp: now_1m,
 				},
-				metav1.ObjectMeta{
+				{
 					Namespace:         "test",
 					Name:              "o3",
 					UID:               "3",
@@ -100,21 +101,21 @@ func TestGetFirstCreatedObjectMeta(t *testing.T) {
 				CreationTimestamp: now,
 			},
 		},
-		testCase{
+		{
 			have: []metav1.ObjectMeta{
-				metav1.ObjectMeta{
+				{
 					Namespace:         "test",
 					Name:              "o1",
 					UID:               "1",
 					CreationTimestamp: now_2m,
 				},
-				metav1.ObjectMeta{
+				{
 					Namespace:         "test",
 					Name:              "o2",
 					UID:               "2",
 					CreationTimestamp: now_1m,
 				},
-				metav1.ObjectMeta{
+				{
 					Namespace:         "test",
 					Name:              "o3",
 					UID:               "3",
@@ -154,9 +155,9 @@ func TestGetTotalResourceFromContainers(t *testing.T) {
 	mem4M := resource.MustParse("4Mi")
 
 	testCases := []testCase{
-		testCase{
+		{
 			have: []corev1.Container{
-				corev1.Container{
+				{
 					Resources: corev1.ResourceRequirements{
 						Limits: corev1.ResourceList{
 							corev1.ResourceCPU:    cpu100,
@@ -168,7 +169,7 @@ func TestGetTotalResourceFromContainers(t *testing.T) {
 						},
 					},
 				},
-				corev1.Container{
+				{
 					Resources: corev1.ResourceRequirements{
 						Limits: corev1.ResourceList{
 							corev1.ResourceCPU:    cpu200,
@@ -195,7 +196,7 @@ func TestGetTotalResourceFromContainers(t *testing.T) {
 	}
 	assert := assert.New(t)
 	for _, testCase := range testCases {
-		actual := getTotalResourceFromContainers(testCase.have)
+		actual := GetTotalResourceFromContainers(testCase.have)
 		for resourceName, quantity := range testCase.want.Limits {
 			assert.Equal(quantity.Cmp(actual.Limits[resourceName]), 0)
 		}

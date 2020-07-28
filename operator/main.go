@@ -34,7 +34,6 @@ import (
 
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
 	kafkaclient "github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/client"
-	"github.com/containers-ai/alameda/pkg/database/prometheus"
 	"github.com/containers-ai/alameda/pkg/provider"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
@@ -99,11 +98,10 @@ var (
 	clusterUID string
 
 	// Third party clients
-	k8sClient        client.Client
-	datahubConn      *grpc.ClientConn
-	datahubClient    *datahubpkg.Client
-	kafkaClient      kafka.Client
-	prometheusClient prometheus.Prometheus
+	k8sClient     client.Client
+	datahubConn   *grpc.ClientConn
+	datahubClient *datahubpkg.Client
+	kafkaClient   kafka.Client
 )
 
 func init() {
@@ -210,12 +208,6 @@ func initThirdPartyClient() error {
 		kafkaClient = cli
 	}
 
-	if cli, err := prometheus.NewClient(&operatorConf.Prometheus.Config); err != nil {
-		return errors.Wrap(err, "new Prometheus client failed")
-	} else {
-		prometheusClient = *cli
-	}
-
 	return nil
 }
 
@@ -263,6 +255,7 @@ func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 		EnabledDA:     enabledDA,
 		DatahubClient: datahubClient,
 		IsOpenshift:   hasOpenShiftAPIAppsv1,
+		KafkaClient:   kafkaClient,
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}

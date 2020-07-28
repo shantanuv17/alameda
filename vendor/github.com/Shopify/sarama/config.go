@@ -96,8 +96,9 @@ type Config struct {
 			GSSAPI GSSAPIConfig
 		}
 
-		// KeepAlive specifies the keep-alive period for an active network connection.
-		// If zero, keep-alives are disabled. (default is 0: disabled).
+		// KeepAlive specifies the keep-alive period for an active network connection (defaults to 0).
+		// If zero or positive, keep-alives are enabled.
+		// If negative, keep-alives are disabled.
 		KeepAlive time.Duration
 
 		// LocalAddr is the local address to use when dialing an
@@ -352,6 +353,11 @@ type Config struct {
 		// offsets. This currently requires the manual use of an OffsetManager
 		// but will eventually be automated.
 		Offsets struct {
+			// Deprecated: CommitInterval exists for historical compatibility
+			// and should not be used. Please use Consumer.Offsets.AutoCommit
+			CommitInterval time.Duration
+
+			// AutoCommit specifies configuration for commit messages automatically.
 			AutoCommit struct {
 				// Whether or not to auto-commit updated offsets back to the broker.
 				// (default enabled).
@@ -391,6 +397,10 @@ type Config struct {
 	// debugging, and auditing purposes. Defaults to "sarama", but you should
 	// probably set it to something specific to your application.
 	ClientID string
+	// A rack identifier for this client. This can be any string value which
+	// indicates where this client is physically located.
+	// It corresponds with the broker config 'broker.rack'
+	RackID string
 	// The number of events to buffer in internal and external channels. This
 	// permits the producer and consumer to continue processing some messages
 	// in the background while user code is working, greatly improving throughput.
@@ -528,8 +538,6 @@ func (c *Config) Validate() error {
 		return ConfigurationError("Net.ReadTimeout must be > 0")
 	case c.Net.WriteTimeout <= 0:
 		return ConfigurationError("Net.WriteTimeout must be > 0")
-	case c.Net.KeepAlive < 0:
-		return ConfigurationError("Net.KeepAlive must be >= 0")
 	case c.Net.SASL.Enable:
 		if c.Net.SASL.Mechanism == "" {
 			c.Net.SASL.Mechanism = SASLTypePlaintext
@@ -679,13 +687,18 @@ func (c *Config) Validate() error {
 	case c.Consumer.Retry.Backoff < 0:
 		return ConfigurationError("Consumer.Retry.Backoff must be >= 0")
 	case c.Consumer.Offsets.AutoCommit.Interval <= 0:
-		return ConfigurationError("Consumer.Offsets.CommitInterval must be > 0")
+		return ConfigurationError("Consumer.Offsets.AutoCommit.Interval must be > 0")
 	case c.Consumer.Offsets.Initial != OffsetOldest && c.Consumer.Offsets.Initial != OffsetNewest:
 		return ConfigurationError("Consumer.Offsets.Initial must be OffsetOldest or OffsetNewest")
 	case c.Consumer.Offsets.Retry.Max < 0:
 		return ConfigurationError("Consumer.Offsets.Retry.Max must be >= 0")
 	case c.Consumer.IsolationLevel != ReadUncommitted && c.Consumer.IsolationLevel != ReadCommitted:
 		return ConfigurationError("Consumer.IsolationLevel must be ReadUncommitted or ReadCommitted")
+	}
+
+	if c.Consumer.Offsets.CommitInterval != 0 {
+		Logger.Println("Deprecation warning: Consumer.Offsets.CommitInterval exists for historical compatibility" +
+			" and should not be used. Please use Consumer.Offsets.AutoCommit, the current value will be ignored")
 	}
 
 	// validate IsolationLevel
@@ -720,4 +733,17 @@ func (c *Config) Validate() error {
 	}
 
 	return nil
+}
+
+func (c *Config) getDialer() proxy.Dialer {
+	if c.Net.Proxy.Enable {
+		Logger.Printf("using proxy %s", c.Net.Proxy.Dialer)
+		return c.Net.Proxy.Dialer
+	} else {
+		return &net.Dialer{
+			Timeout:   c.Net.DialTimeout,
+			KeepAlive: c.Net.KeepAlive,
+			LocalAddr: c.Net.LocalAddr,
+		}
+	}
 }

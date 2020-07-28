@@ -3,13 +3,17 @@ package scaler
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"regexp"
 	"strconv"
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
+	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
 	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/api/v1alpha2"
+	operatorutils "github.com/containers-ai/alameda/operator/pkg/utils"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
+	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	openshiftappsv1 "github.com/openshift/api/apps/v1"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -20,14 +24,19 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
+const (
+	DeploymentPodFormat       = `%s-([a-z0-9]+)-([a-z0-9]+)`
+	StatefulSetPodFormat      = `%s-([0-9]+)`
+	DeploymentConfigPodFormat = `%s-([0-9]+)-([a-z0-9]+)`
+)
+
 func CreateV1Alpha2Scaler(
-	datahubClient *datahubpkg.Client,
-	k8sClient client.Client, scaler *autoscalingv1alpha2.AlamedaScaler,
+	datahubClient *datahubpkg.Client, k8sClient client.Client,
+	kafkaClient kafka.Client, scaler *autoscalingv1alpha2.AlamedaScaler,
 	enabledDA, isOpenshift bool) error {
-	// finally delete application
 	err := datahubClient.Create(&[]entities.ResourceClusterStatusApplication{
 		{
-			ClusterName: scaler.ClusterName,
+			ClusterName: scaler.Spec.ClusterName,
 			Namespace:   scaler.Namespace,
 			Name:        scaler.Name,
 		},
@@ -139,6 +148,15 @@ func CreateV1Alpha2Scaler(
 	appKafkaCgs := []entities.ApplicationKafkaConsumerGroup{}
 	ctx := context.TODO()
 	if !enabledDA {
+		if uid, err := k8sutils.GetClusterUID(k8sClient); err != nil {
+			return err
+		} else if uid == "" {
+			return errors.New("get empty cluster uid")
+		} else if uid != scaler.Spec.ClusterName {
+			return fmt.Errorf("local cluster id %s is not matched with scaler defined cluster name %s",
+				uid, scaler.Spec.ClusterName)
+		}
+
 		for _, targetCtl := range targetCtls {
 			enableExecution := targetCtl.EnableExecution
 			resourceK8sMinReplicas := targetCtl.MinReplicas
@@ -182,7 +200,7 @@ func CreateV1Alpha2Scaler(
 					podName := pod.GetName()
 					nodeName := pod.Spec.NodeName
 					deployName := deployIns.GetName()
-					podNamePattern := fmt.Sprintf(`%s-([a-z0-9]+)-([a-z0-9]+)`, deployName)
+					podNamePattern := fmt.Sprintf(DeploymentPodFormat, deployName)
 					regExp := regexp.MustCompile(podNamePattern)
 					res := regExp.FindAllStringSubmatch(pod.GetName(), -1)
 					if len(res) > 0 {
@@ -271,7 +289,7 @@ func CreateV1Alpha2Scaler(
 					podName := pod.GetName()
 					nodeName := pod.Spec.NodeName
 					stsName := stsIns.GetName()
-					podNamePattern := fmt.Sprintf(`%s-([0-9]+)`, stsName)
+					podNamePattern := fmt.Sprintf(StatefulSetPodFormat, stsName)
 					regExp := regexp.MustCompile(podNamePattern)
 					res := regExp.FindAllStringSubmatch(pod.GetName(), -1)
 					if len(res) > 0 {
@@ -354,7 +372,7 @@ func CreateV1Alpha2Scaler(
 					podName := pod.GetName()
 					nodeName := pod.Spec.NodeName
 					dcName := dcIns.GetName()
-					podNamePattern := fmt.Sprintf(`%s-([0-9]+)-([a-z0-9]+)`, dcName)
+					podNamePattern := fmt.Sprintf(DeploymentConfigPodFormat, dcName)
 					regExp := regexp.MustCompile(podNamePattern)
 					res := regExp.FindAllStringSubmatch(pod.GetName(), -1)
 					if len(res) > 0 {
@@ -417,8 +435,232 @@ func CreateV1Alpha2Scaler(
 			resourceControllers = append(resourceControllers, resourceCtlEntity)
 		}
 
-		//for _, targetKafkaCg := range targetKafkaCgs {
-		//}
+		if openErr := kafkaClient.Open(); openErr != nil {
+			return openErr
+		}
+		for _, targetKafkaCg := range targetKafkaCgs {
+			consumedTopics, err := kafkaClient.ListConsumeTopics(ctx, targetKafkaCg.GroupId)
+			if err != nil {
+				return err
+			}
+			topicMatched := false
+			for _, consumedTopic := range consumedTopics {
+				if consumedTopic == targetKafkaCg.TopicName {
+					topicMatched = true
+				}
+			}
+			if !topicMatched {
+				continue
+			}
+
+			if targetKafkaCg.ResourceK8sKind == autoscalingv1alpha2.ControllerKindMap[autoscalingv1alpha2.DeploymentController] {
+				deployIns := appsv1.Deployment{}
+				err := k8sClient.Get(ctx, types.NamespacedName{
+					Namespace: targetKafkaCg.ResourceK8sNamespace,
+					Name:      targetKafkaCg.ResourceK8sName,
+				}, &deployIns)
+				if err != nil && k8serrors.IsNotFound(err) {
+					continue
+				} else if err != nil {
+					return err
+				}
+
+				podInsList := corev1.PodList{}
+				labelMap, err := metav1.LabelSelectorAsMap(deployIns.Spec.Selector)
+				if err != nil {
+					return err
+				}
+				err = k8sClient.List(ctx, &podInsList, &client.ListOptions{
+					Namespace:     deployIns.Namespace,
+					LabelSelector: labels.SelectorFromSet(labelMap),
+				})
+				if err != nil {
+					return err
+				}
+
+				appCgEntity := entities.ApplicationKafkaConsumerGroup{
+					Name:                     targetKafkaCg.GroupId,
+					Namespace:                targetKafkaCg.ExporterNamespace,
+					ClusterName:              targetKafkaCg.ClusterName,
+					TopicName:                targetKafkaCg.TopicName,
+					AlamedaScalerName:        targetKafkaCg.AlamedaScalerName,
+					AlamedaScalerNamespace:   targetKafkaCg.AlamedaScalerNamespace,
+					AlamedaScalerScalingTool: targetKafkaCg.AlamedaScalerScalingTool,
+					ResourceK8sName:          targetKafkaCg.ResourceK8sName,
+					ResourceK8sNamespace:     targetKafkaCg.ResourceK8sNamespace,
+					ResourceK8sKind:          targetKafkaCg.ResourceK8sKind,
+					ResourceK8sSpecReplicas:  *deployIns.Spec.Replicas,
+					ResourceK8sReplicas:      deployIns.Status.AvailableReplicas,
+					ResourceK8sMinReplicas:   targetKafkaCg.ResourceK8sMinReplicas,
+					ResourceK8sMaxReplicas:   targetKafkaCg.ResourceK8sMaxReplicas,
+					Policy:                   targetKafkaCg.Policy,
+					EnableExecution:          targetKafkaCg.EnableExecution,
+				}
+				resource := operatorutils.GetTotalResourceFromContainers(
+					deployIns.Spec.Template.Spec.Containers)
+				appCgEntity.ResourceCPULimit =
+					strconv.FormatInt(resource.Limits.Cpu().MilliValue(), 10)
+				appCgEntity.ResourceCPURequest =
+					strconv.FormatInt(resource.Requests.Cpu().MilliValue(), 10)
+				appCgEntity.ResourceMemoryLimit =
+					strconv.FormatInt(resource.Limits.Memory().Value(), 10)
+				appCgEntity.ResourceMemoryRequest =
+					strconv.FormatInt(resource.Requests.Memory().Value(), 10)
+				volumeCapacity := operatorutils.VolumeCapacity{}
+				for _, pod := range podInsList.Items {
+					v, err := operatorutils.GetVolumeCapacityUsedByPod(ctx, k8sClient, pod)
+					if err != nil {
+						return err
+					}
+					volumeCapacity.Add(v)
+				}
+				appCgEntity.VolumesSize = strconv.FormatInt(volumeCapacity.Total, 10)
+				appCgEntity.VolumesPvcSize = strconv.FormatInt(volumeCapacity.PVC, 10)
+				appKafkaCgs = append(appKafkaCgs, appCgEntity)
+				appKafkaTopics = append(appKafkaTopics, entities.ApplicationKafkaTopic{
+					Name:                   appCgEntity.TopicName,
+					Namespace:              appCgEntity.Namespace,
+					ClusterName:            appCgEntity.ClusterName,
+					AlamedaScalerName:      appCgEntity.AlamedaScalerName,
+					AlamedaScalerNamespace: appCgEntity.AlamedaScalerNamespace,
+				})
+			}
+			if targetKafkaCg.ResourceK8sKind == autoscalingv1alpha2.ControllerKindMap[autoscalingv1alpha2.StatefulSetController] {
+				stsIns := appsv1.StatefulSet{}
+				err := k8sClient.Get(ctx, types.NamespacedName{
+					Namespace: targetKafkaCg.ResourceK8sNamespace, Name: targetKafkaCg.ResourceK8sName,
+				}, &stsIns)
+				if err != nil && k8serrors.IsNotFound(err) {
+					continue
+				} else if err != nil {
+					return err
+				}
+				podInsList := corev1.PodList{}
+				labelMap, err := metav1.LabelSelectorAsMap(stsIns.Spec.Selector)
+				if err != nil {
+					return err
+				}
+				err = k8sClient.List(ctx, &podInsList, &client.ListOptions{
+					Namespace:     stsIns.Namespace,
+					LabelSelector: labels.SelectorFromSet(labelMap),
+				})
+				if err != nil {
+					return err
+				}
+
+				appCgEntity := entities.ApplicationKafkaConsumerGroup{
+					Name:                     targetKafkaCg.GroupId,
+					Namespace:                targetKafkaCg.ExporterNamespace,
+					ClusterName:              targetKafkaCg.ClusterName,
+					TopicName:                targetKafkaCg.TopicName,
+					AlamedaScalerName:        targetKafkaCg.AlamedaScalerName,
+					AlamedaScalerNamespace:   targetKafkaCg.AlamedaScalerNamespace,
+					AlamedaScalerScalingTool: targetKafkaCg.AlamedaScalerScalingTool,
+					ResourceK8sName:          targetKafkaCg.ResourceK8sName,
+					ResourceK8sNamespace:     targetKafkaCg.ResourceK8sNamespace,
+					ResourceK8sKind:          targetKafkaCg.ResourceK8sKind,
+					ResourceK8sSpecReplicas:  *stsIns.Spec.Replicas,
+					ResourceK8sReplicas:      stsIns.Status.CurrentReplicas,
+					ResourceK8sMinReplicas:   targetKafkaCg.ResourceK8sMinReplicas,
+					ResourceK8sMaxReplicas:   targetKafkaCg.ResourceK8sMaxReplicas,
+					Policy:                   targetKafkaCg.Policy,
+					EnableExecution:          targetKafkaCg.EnableExecution,
+				}
+				resource := operatorutils.GetTotalResourceFromContainers(
+					stsIns.Spec.Template.Spec.Containers)
+				appCgEntity.ResourceCPULimit =
+					strconv.FormatInt(resource.Limits.Cpu().MilliValue(), 10)
+				appCgEntity.ResourceCPURequest =
+					strconv.FormatInt(resource.Requests.Cpu().MilliValue(), 10)
+				appCgEntity.ResourceMemoryLimit =
+					strconv.FormatInt(resource.Limits.Memory().Value(), 10)
+				appCgEntity.ResourceMemoryRequest =
+					strconv.FormatInt(resource.Requests.Memory().Value(), 10)
+				volumeCapacity := operatorutils.VolumeCapacity{}
+				for _, pod := range podInsList.Items {
+					v, err := operatorutils.GetVolumeCapacityUsedByPod(ctx, k8sClient, pod)
+					if err != nil {
+						return err
+					}
+					volumeCapacity.Add(v)
+				}
+				appCgEntity.VolumesSize = strconv.FormatInt(volumeCapacity.Total, 10)
+				appCgEntity.VolumesPvcSize = strconv.FormatInt(volumeCapacity.PVC, 10)
+				appKafkaCgs = append(appKafkaCgs, appCgEntity)
+				appKafkaTopics = append(appKafkaTopics, entities.ApplicationKafkaTopic{
+					Name:                   appCgEntity.TopicName,
+					Namespace:              appCgEntity.Namespace,
+					ClusterName:            appCgEntity.ClusterName,
+					AlamedaScalerName:      appCgEntity.AlamedaScalerName,
+					AlamedaScalerNamespace: appCgEntity.AlamedaScalerNamespace,
+				})
+			}
+			if isOpenshift && targetKafkaCg.ResourceK8sKind == autoscalingv1alpha2.ControllerKindMap[autoscalingv1alpha2.DeploymentConfigController] {
+				dcIns := openshiftappsv1.DeploymentConfig{}
+				err := k8sClient.Get(ctx, types.NamespacedName{
+					Namespace: targetKafkaCg.ResourceK8sNamespace, Name: targetKafkaCg.ResourceK8sName,
+				}, &dcIns)
+				if err != nil && k8serrors.IsNotFound(err) {
+					continue
+				} else if err != nil {
+					return err
+				}
+				podInsList := corev1.PodList{}
+				err = k8sClient.List(ctx, &podInsList, &client.ListOptions{
+					Namespace:     dcIns.Namespace,
+					LabelSelector: labels.SelectorFromSet(labels.Set(dcIns.Spec.Selector)),
+				})
+				if err != nil {
+					return err
+				}
+				appCgEntity := entities.ApplicationKafkaConsumerGroup{
+					Name:                     targetKafkaCg.GroupId,
+					Namespace:                targetKafkaCg.ExporterNamespace,
+					ClusterName:              targetKafkaCg.ClusterName,
+					TopicName:                targetKafkaCg.TopicName,
+					AlamedaScalerName:        targetKafkaCg.AlamedaScalerName,
+					AlamedaScalerNamespace:   targetKafkaCg.AlamedaScalerNamespace,
+					AlamedaScalerScalingTool: targetKafkaCg.AlamedaScalerScalingTool,
+					ResourceK8sName:          targetKafkaCg.ResourceK8sName,
+					ResourceK8sNamespace:     targetKafkaCg.ResourceK8sNamespace,
+					ResourceK8sKind:          targetKafkaCg.ResourceK8sKind,
+					ResourceK8sSpecReplicas:  dcIns.Spec.Replicas,
+					ResourceK8sReplicas:      dcIns.Status.AvailableReplicas,
+					ResourceK8sMinReplicas:   targetKafkaCg.ResourceK8sMinReplicas,
+					ResourceK8sMaxReplicas:   targetKafkaCg.ResourceK8sMaxReplicas,
+					Policy:                   targetKafkaCg.Policy,
+					EnableExecution:          targetKafkaCg.EnableExecution,
+				}
+				resource := operatorutils.GetTotalResourceFromContainers(
+					dcIns.Spec.Template.Spec.Containers)
+				appCgEntity.ResourceCPULimit =
+					strconv.FormatInt(resource.Limits.Cpu().MilliValue(), 10)
+				appCgEntity.ResourceCPURequest =
+					strconv.FormatInt(resource.Requests.Cpu().MilliValue(), 10)
+				appCgEntity.ResourceMemoryLimit =
+					strconv.FormatInt(resource.Limits.Memory().Value(), 10)
+				appCgEntity.ResourceMemoryRequest =
+					strconv.FormatInt(resource.Requests.Memory().Value(), 10)
+				volumeCapacity := operatorutils.VolumeCapacity{}
+				for _, pod := range podInsList.Items {
+					v, err := operatorutils.GetVolumeCapacityUsedByPod(ctx, k8sClient, pod)
+					if err != nil {
+						return err
+					}
+					volumeCapacity.Add(v)
+				}
+				appCgEntity.VolumesSize = strconv.FormatInt(volumeCapacity.Total, 10)
+				appCgEntity.VolumesPvcSize = strconv.FormatInt(volumeCapacity.PVC, 10)
+				appKafkaCgs = append(appKafkaCgs, appCgEntity)
+				appKafkaTopics = append(appKafkaTopics, entities.ApplicationKafkaTopic{
+					Name:                   appCgEntity.TopicName,
+					Namespace:              appCgEntity.Namespace,
+					ClusterName:            appCgEntity.ClusterName,
+					AlamedaScalerName:      appCgEntity.AlamedaScalerName,
+					AlamedaScalerNamespace: appCgEntity.AlamedaScalerNamespace,
+				})
+			}
+		}
 	}
 	err = datahubClient.Create(&resourceContainers)
 	if err != nil {

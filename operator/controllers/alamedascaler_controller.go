@@ -20,6 +20,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
 	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/api/v1alpha2"
 	datahubscaler "github.com/containers-ai/alameda/operator/datahub/api/scaler"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
@@ -38,6 +39,7 @@ type AlamedaScalerReconciler struct {
 	DatahubClient *datahubpkg.Client
 	Scheme        *runtime.Scheme
 	IsOpenshift   bool
+	KafkaClient   kafka.Client
 }
 
 var (
@@ -48,35 +50,44 @@ var (
 // +kubebuilder:rbac:groups=autoscaling.containers.ai,resources=alamedascalers,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=autoscaling.containers.ai,resources=alamedascalers/status,verbs=get;update;patch
 
-func (r *AlamedaScalerReconciler) updateDatahubByScaler(scaler *autoscalingv1alpha2.AlamedaScaler) error {
-	if err := datahubscaler.DeleteV1Alpha2Scaler(
-		r.DatahubClient, r.Client, scaler.GetNamespace(), scaler.GetName(), r.EnabledDA); err != nil {
+func (r *AlamedaScalerReconciler) updateDatahubByScaler(
+	scaler *autoscalingv1alpha2.AlamedaScaler) error {
+
+	if err := datahubscaler.DeleteV1Alpha2Scaler(r.DatahubClient, r.Client,
+		scaler.GetNamespace(), scaler.GetName(), r.EnabledDA); err != nil {
 		return err
 	}
-	if err := datahubscaler.CreateV1Alpha2Scaler(
-		r.DatahubClient, r.Client, scaler, r.EnabledDA, r.IsOpenshift); err != nil {
+	if err := datahubscaler.CreateV1Alpha2Scaler(r.DatahubClient, r.Client,
+		r.KafkaClient, scaler, r.EnabledDA, r.IsOpenshift); err != nil {
 		return err
 	}
 	return nil
 }
 
 func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
+
 	ctx := context.TODO()
 	instance := &autoscalingv1alpha2.AlamedaScaler{}
-	err := r.Get(ctx, types.NamespacedName{Namespace: req.Namespace, Name: req.Name}, instance)
+	err := r.Get(ctx, types.NamespacedName{
+		Namespace: req.Namespace, Name: req.Name,
+	}, instance)
 	if err != nil && k8sErrors.IsNotFound(err) {
-		if err := datahubscaler.DeleteV1Alpha2Scaler(r.DatahubClient, r.Client, req.Namespace, req.Name, r.EnabledDA); err != nil {
-			scope.Errorf("Delete AlamedaScaler(%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
+		if err := datahubscaler.DeleteV1Alpha2Scaler(r.DatahubClient, r.Client,
+			req.Namespace, req.Name, r.EnabledDA); err != nil {
+			scope.Errorf("Delete AlamedaScaler(%s/%s) failed: %s",
+				req.Namespace, req.Name, err.Error())
 			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
 		}
 		return ctrl.Result{Requeue: false}, nil
 	} else if err != nil {
-		scope.Errorf("Get AlamedaScaler(%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
+		scope.Errorf("Get AlamedaScaler(%s/%s) failed: %s",
+			req.Namespace, req.Name, err.Error())
 		return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
 	}
 
 	if err := r.updateDatahubByScaler(instance); err != nil {
-		scope.Errorf("Update AlamedaScaler(%s/%s) failed: %s", req.Namespace, req.Name, err.Error())
+		scope.Errorf("Update AlamedaScaler(%s/%s) failed: %s",
+			req.Namespace, req.Name, err.Error())
 		return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
 	}
 
