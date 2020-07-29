@@ -16,6 +16,7 @@ spec:
           name: kafka1
           kind: Deployment
           topic: topic0001
+          groupId: group0001
         hpaParameters:
           maxReplicas: 40
           minReplicas: 1
@@ -29,6 +30,7 @@ spec:
           name: kafka2
           kind: StatefulSet
           topic: topic0003
+          groupId: group0002
         hpaParameters:
           maxReplicas: 20
           minReplicas: 2
