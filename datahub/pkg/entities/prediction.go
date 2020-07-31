@@ -218,8 +218,8 @@ type PredictionClusterStatusApplicationCPU struct {
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -233,8 +233,8 @@ type PredictionClusterStatusApplicationCPUUpperBound struct {
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -248,8 +248,8 @@ type PredictionClusterStatusApplicationCPULowerBound struct {
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -263,8 +263,8 @@ type PredictionClusterStatusApplicationMemory struct {
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -278,8 +278,8 @@ type PredictionClusterStatusApplicationMemoryUpperBound struct {
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -293,8 +293,8 @@ type PredictionClusterStatusApplicationMemoryLowerBound struct {
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -306,8 +306,8 @@ type PredictionClusterStatusClusterCPU struct {
 	Measurement   *Measurement `name:"cluster" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined" ts:"true"`
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -319,8 +319,8 @@ type PredictionClusterStatusClusterCPUUpperBound struct {
 	Measurement   *Measurement `name:"cluster" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -332,8 +332,8 @@ type PredictionClusterStatusClusterCPULowerBound struct {
 	Measurement   *Measurement `name:"cluster" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -345,8 +345,8 @@ type PredictionClusterStatusClusterMemory struct {
 	Measurement   *Measurement `name:"cluster" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined" ts:"true"`
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -358,8 +358,8 @@ type PredictionClusterStatusClusterMemoryUpperBound struct {
 	Measurement   *Measurement `name:"cluster" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -371,8 +371,8 @@ type PredictionClusterStatusClusterMemoryLowerBound struct {
 	Measurement   *Measurement `name:"cluster" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -388,8 +388,8 @@ type PredictionClusterStatusContainerCPU struct {
 	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
 	NodeName      string       `json:"node_name"     required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -405,8 +405,8 @@ type PredictionClusterStatusContainerCPUUpperBound struct {
 	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
 	NodeName      string       `json:"node_name"     required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -422,8 +422,8 @@ type PredictionClusterStatusContainerCPULowerBound struct {
 	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
 	NodeName      string       `json:"node_name"     required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -439,8 +439,8 @@ type PredictionClusterStatusContainerMemory struct {
 	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
 	NodeName      string       `json:"node_name"     required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -456,8 +456,8 @@ type PredictionClusterStatusContainerMemoryUpperBound struct {
 	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
 	NodeName      string       `json:"node_name"     required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -473,8 +473,8 @@ type PredictionClusterStatusContainerMemoryLowerBound struct {
 	Namespace     string       `json:"namespace"     required:"true"  column:"tag"`
 	NodeName      string       `json:"node_name"     required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -488,8 +488,8 @@ type PredictionClusterStatusControllerCPU struct {
 	Name           string       `json:"name"            required:"true"  column:"tag"`
 	Namespace      string       `json:"namespace"       required:"true"  column:"tag"`
 	ClusterName    string       `json:"cluster_name"    required:"true"  column:"tag"`
-	Metric         string       `json:"metric"          required:"false" column:"tag"`
-	Kind           string       `json:"kind"            required:"false" column:"tag"`
+	MetricType     MetricType   `json:"metric"          required:"false" column:"tag"`
+	Boundary       Boundary     `json:"kind"            required:"false" column:"tag"`
 	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
 	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
 	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
@@ -504,8 +504,8 @@ type PredictionClusterStatusControllerCPUUpperBound struct {
 	Name           string       `json:"name"            required:"true"  column:"tag"`
 	Namespace      string       `json:"namespace"       required:"true"  column:"tag"`
 	ClusterName    string       `json:"cluster_name"    required:"true"  column:"tag"`
-	Metric         string       `json:"metric"          required:"false" column:"tag"`
-	Kind           string       `json:"kind"            required:"false" column:"tag"`
+	MetricType     MetricType   `json:"metric"          required:"false" column:"tag"`
+	Boundary       Boundary     `json:"kind"            required:"false" column:"tag"`
 	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
 	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
 	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
@@ -520,8 +520,8 @@ type PredictionClusterStatusControllerCPULowerBound struct {
 	Name           string       `json:"name"            required:"true"  column:"tag"`
 	Namespace      string       `json:"namespace"       required:"true"  column:"tag"`
 	ClusterName    string       `json:"cluster_name"    required:"true"  column:"tag"`
-	Metric         string       `json:"metric"          required:"false" column:"tag"`
-	Kind           string       `json:"kind"            required:"false" column:"tag"`
+	MetricType     MetricType   `json:"metric"          required:"false" column:"tag"`
+	Boundary       Boundary     `json:"kind"            required:"false" column:"tag"`
 	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
 	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
 	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
@@ -536,8 +536,8 @@ type PredictionClusterStatusControllerMemory struct {
 	Name           string       `json:"name"            required:"true"  column:"tag"`
 	Namespace      string       `json:"namespace"       required:"true"  column:"tag"`
 	ClusterName    string       `json:"cluster_name"    required:"true"  column:"tag"`
-	Metric         string       `json:"metric"          required:"false" column:"tag"`
-	Kind           string       `json:"kind"            required:"false" column:"tag"`
+	MetricType     MetricType   `json:"metric"          required:"false" column:"tag"`
+	Boundary       Boundary     `json:"kind"            required:"false" column:"tag"`
 	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
 	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
 	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
@@ -552,8 +552,8 @@ type PredictionClusterStatusControllerMemoryUpperBound struct {
 	Name           string       `json:"name"            required:"true"  column:"tag"`
 	Namespace      string       `json:"namespace"       required:"true"  column:"tag"`
 	ClusterName    string       `json:"cluster_name"    required:"true"  column:"tag"`
-	Metric         string       `json:"metric"          required:"false" column:"tag"`
-	Kind           string       `json:"kind"            required:"false" column:"tag"`
+	MetricType     MetricType   `json:"metric"          required:"false" column:"tag"`
+	Boundary       Boundary     `json:"kind"            required:"false" column:"tag"`
 	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
 	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
 	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
@@ -568,8 +568,8 @@ type PredictionClusterStatusControllerMemoryLowerBound struct {
 	Name           string       `json:"name"            required:"true"  column:"tag"`
 	Namespace      string       `json:"namespace"       required:"true"  column:"tag"`
 	ClusterName    string       `json:"cluster_name"    required:"true"  column:"tag"`
-	Metric         string       `json:"metric"          required:"false" column:"tag"`
-	Kind           string       `json:"kind"            required:"false" column:"tag"`
+	MetricType     MetricType   `json:"metric"          required:"false" column:"tag"`
+	Boundary       Boundary     `json:"kind"            required:"false" column:"tag"`
 	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
 	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
 	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
@@ -583,8 +583,8 @@ type PredictionClusterStatusNamespaceCPU struct {
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -597,8 +597,8 @@ type PredictionClusterStatusNamespaceCPUUpperBound struct {
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -611,8 +611,8 @@ type PredictionClusterStatusNamespaceCPULowerBound struct {
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -625,8 +625,8 @@ type PredictionClusterStatusNamespaceMemory struct {
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -639,8 +639,8 @@ type PredictionClusterStatusNamespaceMemoryUpperBound struct {
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -653,8 +653,8 @@ type PredictionClusterStatusNamespaceMemoryLowerBound struct {
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
 	PredictionId  string       `json:"prediction_id" required:"true"  column:"field"`
@@ -667,8 +667,8 @@ type PredictionClusterStatusNodeCPU struct {
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	IsScheduled   string       `json:"is_scheduled"  required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
@@ -682,8 +682,8 @@ type PredictionClusterStatusNodeCPUUpperBound struct {
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	IsScheduled   string       `json:"is_scheduled"  required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
@@ -697,8 +697,8 @@ type PredictionClusterStatusNodeCPULowerBound struct {
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	IsScheduled   string       `json:"is_scheduled"  required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
@@ -712,8 +712,8 @@ type PredictionClusterStatusNodeMemory struct {
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	IsScheduled   string       `json:"is_scheduled"  required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
@@ -727,8 +727,8 @@ type PredictionClusterStatusNodeMemoryUpperBound struct {
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	IsScheduled   string       `json:"is_scheduled"  required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
@@ -742,8 +742,8 @@ type PredictionClusterStatusNodeMemoryLowerBound struct {
 	Time          *time.Time   `json:"time"          required:"false" column:"tag"`
 	Name          string       `json:"name"          required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name"  required:"true"  column:"tag"`
-	Metric        string       `json:"metric"        required:"false" column:"tag"`
-	Kind          string       `json:"kind"          required:"false" column:"tag"`
+	MetricType    MetricType   `json:"metric"        required:"false" column:"tag"`
+	Boundary      Boundary     `json:"kind"          required:"false" column:"tag"`
 	Granularity   string       `json:"granularity"   required:"true"  column:"tag"`
 	IsScheduled   string       `json:"is_scheduled"  required:"true"  column:"tag"`
 	ModelId       string       `json:"model_id"      required:"true"  column:"field"`
