@@ -173,7 +173,7 @@ type MetricClusterStatusControllerCPUUsage struct {
 	Name          string       `json:"name"         required:"true"  column:"tag"`
 	Namespace     string       `json:"namespace"    required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name" required:"true"  column:"tag"`
-	Kind          string       `json:"kind"         required:"true"  column:"tag"`
+	Kind          Kind         `json:"kind"         required:"true"  column:"tag"`
 	Uid           string       `json:"uid"          required:"true"  column:"tag"`
 	Value         float64      `json:"value"        required:"true"  column:"field"`
 }
@@ -185,7 +185,7 @@ type MetricClusterStatusControllerMemoryUsage struct {
 	Name          string       `json:"name"         required:"true"  column:"tag"`
 	Namespace     string       `json:"namespace"    required:"true"  column:"tag"`
 	ClusterName   string       `json:"cluster_name" required:"true"  column:"tag"`
-	Kind          string       `json:"kind"         required:"true"  column:"tag"`
+	Kind          Kind         `json:"kind"         required:"true"  column:"tag"`
 	Uid           string       `json:"uid"          required:"true"  column:"tag"`
 	Value         float64      `json:"value"        required:"true"  column:"field"`
 }
