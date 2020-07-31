@@ -46,9 +46,9 @@ const (
 type PlanningType string
 
 const (
-	PlanningUndefined   PlanningType = "PT_UNDEFINED"
-	PTRecommendation    PlanningType = "PT_RECOMMENDATION"
-	PTPlanning          PlanningType = "PT_PLANNING"
+	PlanningUndefined PlanningType = "PT_UNDEFINED"
+	PTRecommendation  PlanningType = "PT_RECOMMENDATION"
+	PTPlanning        PlanningType = "PT_PLANNING"
 )
 
 type RecommendationType string

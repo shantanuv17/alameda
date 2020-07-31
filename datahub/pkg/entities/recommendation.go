@@ -147,7 +147,7 @@ type RecommendationClusterStatusNamespace struct {
 
 type RecommendationClusterStatusNode struct {
 	DatahubEntity         `scope:"recommendation" category:"cluster_status" type:"node"`
-	Measurement           *Measurement `name:"node" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
+	Measurement           *Measurement       `name:"node" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                  *time.Time         `json:"time"                 required:"false" column:"tag"`
 	Name                  string             `json:"name"                 required:"true"  column:"tag"`
 	ClusterName           string             `json:"cluster_name"         required:"true"  column:"tag"`
