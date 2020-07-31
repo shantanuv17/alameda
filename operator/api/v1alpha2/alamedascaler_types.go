@@ -31,11 +31,11 @@ const (
 	KafkaTarget   TargetType = "kafka"
 )
 
-// +kubebuilder:validation:Enum=hpa;predicitOnly
+// +kubebuilder:validation:Enum=hpa;predictOnly
 type ScalingType string
 
 const (
-	NonScaling ScalingType = "predicitOnly"
+	NonScaling ScalingType = "predictOnly"
 	HPAScaling ScalingType = "hpa"
 )
 
