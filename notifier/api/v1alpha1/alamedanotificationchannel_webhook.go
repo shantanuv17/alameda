@@ -36,9 +36,10 @@ import (
 
 // log is for logging in this package.
 var channelWhScope = log.RegisterScope("channel_webhook_logic", "channel webhook logic", 0)
+var manager ctrl.Manager
 
 func (r *AlamedaNotificationChannel) SetupWebhookWithManager(mgr ctrl.Manager) error {
-	r.Mgr = mgr
+	manager = mgr
 	return ctrl.NewWebhookManagedBy(mgr).
 		For(r).
 		Complete()
@@ -59,7 +60,7 @@ func (r *AlamedaNotificationChannel) Default() {
 		r.Spec.Email.Encryption = "tls"
 	}
 
-	k8sClnt := r.Mgr.GetClient()
+	k8sClnt := manager.GetClient()
 	oldChannel := &AlamedaNotificationChannel{}
 	k8sClnt.Get(context.TODO(), client.ObjectKey{
 		Namespace: r.GetNamespace(),
@@ -189,7 +190,7 @@ func (r *AlamedaNotificationChannel) updateAnnotationToCR() error {
 	retry := int(10)
 	crName := r.GetName()
 	crNamespace := r.GetNamespace()
-	k8sclnt := r.Mgr.GetClient()
+	k8sclnt := manager.GetClient()
 	channelWhScope.Debugf("UpdateAnnotationToCR, CR values: %#v", r)
 	for i := 0; i < retry; i++ {
 		channelWhScope.Debugf("  =>update CR(%s) %d", crName, i)
