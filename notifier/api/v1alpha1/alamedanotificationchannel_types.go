@@ -18,7 +18,6 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	ctrl "sigs.k8s.io/controller-runtime"
 )
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
@@ -58,8 +57,6 @@ type AlamedaChannelTest struct {
 // +kubebuilder:resource:path=alamedanotificationchannels,scope=Cluster
 // AlamedaNotificationChannel is the Schema for the alamedanotificationchannels API
 type AlamedaNotificationChannel struct {
-	Mgr ctrl.Manager `json:"-"`
-
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
