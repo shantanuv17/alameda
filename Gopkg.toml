@@ -17,6 +17,9 @@ required = [
 
 [prune]
   go-tests = true
+  [[prune.project]]
+    name = "github.com/containers-ai/api"
+    unused-packages = true
 
 
 # STANZAS BELOW ARE GENERATED AND MAY BE WRITTEN - DO NOT MODIFY BELOW THIS LINE.
