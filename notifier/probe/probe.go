@@ -10,7 +10,13 @@ import (
 var scope = log.RegisterScope("probe", "ai dispatcher health probe", 0)
 
 func LivenessProbe(cfg *LivenessProbeConfig) {
-	os.Exit(0)
+	queueURL := viper.GetString("rabbitmq.url")
+	err := CheckRBMQEventQueueAccess(queueURL)
+	if err != nil {
+		os.Exit(1)
+	} else {
+		os.Exit(0)
+	}
 }
 
 func ReadinessProbe(cfg *ReadinessProbeConfig) {
