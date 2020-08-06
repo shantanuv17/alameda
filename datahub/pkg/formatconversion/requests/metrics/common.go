@@ -75,8 +75,15 @@ func normalizeListMetricsRequestTimeRangeByMetricsDBType(t ApiCommon.TimeRange, 
 			Seconds: t.EndTime.Seconds - t.EndTime.Seconds%t.Step.Seconds,
 		}
 	case MetricsDBTypeInfluxdb:
-		t.EndTime = &timestamp.Timestamp{
-			Seconds: t.EndTime.Seconds - t.EndTime.Seconds%t.Step.Seconds - 1,
+		// If start time and end time are at the same HOUR frame
+		if (t.StartTime.Seconds / t.Step.Seconds) == (t.EndTime.Seconds / t.Step.Seconds) {
+			t.EndTime = &timestamp.Timestamp{
+				Seconds: t.EndTime.Seconds + (t.Step.Seconds - (t.EndTime.Seconds % t.Step.Seconds) - 1),
+			}
+		} else {
+			t.EndTime = &timestamp.Timestamp{
+				Seconds: t.EndTime.Seconds - t.EndTime.Seconds%t.Step.Seconds - 1,
+			}
 		}
 	}
 	return t
