@@ -8,7 +8,6 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
 	"github.com/spf13/viper"
-	"google.golang.org/grpc"
 )
 
 type modelCompleteMsg struct {
@@ -36,8 +35,7 @@ type namespacedName struct {
 	Name      string `json:"name"`
 }
 
-func ModelCompleteNotification(modelMapper *ModelMapper,
-	datahubGrpcCn *grpc.ClientConn, metricExporter *metrics.Exporter) {
+func ModelCompleteNotification(modelMapper *ModelMapper, metricExporter *metrics.Exporter) {
 
 	reconnectInterval := viper.GetInt64("queue.consumer.reconnectInterval")
 	queueConnRetryItvMS := viper.GetInt64("queue.retry.connectIntervalMs")

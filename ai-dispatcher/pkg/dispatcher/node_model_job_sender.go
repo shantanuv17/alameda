@@ -10,6 +10,7 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
 	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_metrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
@@ -19,19 +20,18 @@ import (
 	"github.com/golang/protobuf/ptypes/duration"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/spf13/viper"
-	"google.golang.org/grpc"
 )
 
 type nodeModelJobSender struct {
-	datahubGrpcCn  *grpc.ClientConn
+	datahubClient  *datahubpkg.Client
 	modelMapper    *ModelMapper
 	metricExporter *metrics.Exporter
 }
 
-func NewNodeModelJobSender(datahubGrpcCn *grpc.ClientConn, modelMapper *ModelMapper,
+func NewNodeModelJobSender(datahubClient *datahubpkg.Client, modelMapper *ModelMapper,
 	metricExporter *metrics.Exporter) *nodeModelJobSender {
 	return &nodeModelJobSender{
-		datahubGrpcCn:  datahubGrpcCn,
+		datahubClient:  datahubClient,
 		modelMapper:    modelMapper,
 		metricExporter: metricExporter,
 	}
@@ -51,10 +51,8 @@ func (sender *nodeModelJobSender) sendModelJobs(nodes []*datahub_resources.Node,
 func (sender *nodeModelJobSender) sendNodeModelJobs(node *datahub_resources.Node,
 	queueSender queue.QueueSender, pdUnit string, granularity int64, predictionStep int64, wg *sync.WaitGroup) {
 	dataGranularity := queue.GetGranularityStr(granularity)
-	datahubServiceClnt := datahub_v1alpha1.NewDatahubServiceClient(sender.datahubGrpcCn)
-
 	nodeName := node.GetObjectMeta().GetName()
-	lastPredictionMetrics, err := sender.getLastMIdPrediction(datahubServiceClnt, node, granularity)
+	lastPredictionMetrics, err := sender.getLastMIdPrediction(sender.datahubClient, node, granularity)
 	if err != nil {
 		scope.Infof("[NODE][%s][%s] Get last prediction failed: %s",
 			dataGranularity, nodeName, err.Error())
@@ -62,7 +60,7 @@ func (sender *nodeModelJobSender) sendNodeModelJobs(node *datahub_resources.Node
 	}
 
 	sender.sendJobByMetrics(node, queueSender, pdUnit, granularity, predictionStep,
-		datahubServiceClnt, lastPredictionMetrics)
+		sender.datahubClient, lastPredictionMetrics)
 }
 
 func (sender *nodeModelJobSender) sendJob(node *datahub_resources.Node, queueSender queue.QueueSender, pdUnit string,

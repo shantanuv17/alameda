@@ -7,22 +7,22 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/config"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
 	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_data "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	datahub_gpu "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/golang/protobuf/jsonpb"
 	"github.com/spf13/viper"
-	"google.golang.org/grpc"
 )
 
 type predictJobSender struct {
-	datahubGrpcCn *grpc.ClientConn
+	datahubClient *datahubpkg.Client
 }
 
-func NewPredictJobSender(datahubGrpcCn *grpc.ClientConn) *predictJobSender {
+func NewPredictJobSender(datahubClient *datahubpkg.Client) *predictJobSender {
 	return &predictJobSender{
-		datahubGrpcCn: datahubGrpcCn,
+		datahubClient: datahubClient,
 	}
 }
 

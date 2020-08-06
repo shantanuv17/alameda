@@ -10,6 +10,7 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
 	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_metrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
@@ -19,19 +20,18 @@ import (
 	"github.com/golang/protobuf/ptypes/duration"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/spf13/viper"
-	"google.golang.org/grpc"
 )
 
 type namespaceModelJobSender struct {
-	datahubGrpcCn  *grpc.ClientConn
+	datahubClient  *datahubpkg.Client
 	modelMapper    *ModelMapper
 	metricExporter *metrics.Exporter
 }
 
-func NewNamespaceModelJobSender(datahubGrpcCn *grpc.ClientConn, modelMapper *ModelMapper,
+func NewNamespaceModelJobSender(datahubClient *datahubpkg.Client, modelMapper *ModelMapper,
 	metricExporter *metrics.Exporter) *namespaceModelJobSender {
 	return &namespaceModelJobSender{
-		datahubGrpcCn:  datahubGrpcCn,
+		datahubClient:  datahubClient,
 		modelMapper:    modelMapper,
 		metricExporter: metricExporter,
 	}
@@ -51,10 +51,8 @@ func (sender *namespaceModelJobSender) sendModelJobs(namespaces []*datahub_resou
 func (sender *namespaceModelJobSender) sendNamespaceModelJobs(namespace *datahub_resources.Namespace,
 	queueSender queue.QueueSender, pdUnit string, granularity int64, predictionStep int64, wg *sync.WaitGroup) {
 	dataGranularity := queue.GetGranularityStr(granularity)
-	datahubServiceClnt := datahub_v1alpha1.NewDatahubServiceClient(sender.datahubGrpcCn)
-
 	namespaceName := namespace.GetObjectMeta().GetName()
-	lastPredictionMetrics, err := sender.getLastMIdPrediction(datahubServiceClnt, namespace, granularity)
+	lastPredictionMetrics, err := sender.getLastMIdPrediction(sender.datahubClient, namespace, granularity)
 	if err != nil {
 		scope.Infof("[NAMESPACE][%s][%s] Get last prediction failed: %s",
 			dataGranularity, namespaceName, err.Error())
@@ -62,7 +60,7 @@ func (sender *namespaceModelJobSender) sendNamespaceModelJobs(namespace *datahub
 	}
 
 	sender.sendJobByMetrics(namespace, queueSender, pdUnit, granularity, predictionStep,
-		datahubServiceClnt, lastPredictionMetrics)
+		sender.datahubClient, lastPredictionMetrics)
 }
 
 func (sender *namespaceModelJobSender) sendJob(namespace *datahub_resources.Namespace,
