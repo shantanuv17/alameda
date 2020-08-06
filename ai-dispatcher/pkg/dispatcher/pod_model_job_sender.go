@@ -10,6 +10,7 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
 	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
+	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_metrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
@@ -19,19 +20,18 @@ import (
 	"github.com/golang/protobuf/ptypes/duration"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/spf13/viper"
-	"google.golang.org/grpc"
 )
 
 type podModelJobSender struct {
-	datahubGrpcCn  *grpc.ClientConn
+	datahubClient  datahub.DatahubServiceClient
 	modelMapper    *ModelMapper
 	metricExporter *metrics.Exporter
 }
 
-func NewPodModelJobSender(datahubGrpcCn *grpc.ClientConn, modelMapper *ModelMapper,
+func NewPodModelJobSender(datahubClient datahub.DatahubServiceClient, modelMapper *ModelMapper,
 	metricExporter *metrics.Exporter) *podModelJobSender {
 	return &podModelJobSender{
-		datahubGrpcCn:  datahubGrpcCn,
+		datahubClient:  datahubClient,
 		modelMapper:    modelMapper,
 		metricExporter: metricExporter,
 	}
@@ -50,19 +50,18 @@ func (sender *podModelJobSender) sendModelJobs(pods []*datahub_resources.Pod, qu
 
 func (sender *podModelJobSender) sendPodModelJobs(pod *datahub_resources.Pod, queueSender queue.QueueSender,
 	pdUnit string, granularity int64, predictionStep int64, wg *sync.WaitGroup) {
-	datahubServiceClnt := datahub_v1alpha1.NewDatahubServiceClient(sender.datahubGrpcCn)
 	dataGranularity := queue.GetGranularityStr(granularity)
 
 	podNS := pod.GetObjectMeta().GetNamespace()
 	podName := pod.GetObjectMeta().GetName()
-	lastPredictionContainers, err := sender.getLastMIdPrediction(datahubServiceClnt, pod, granularity)
+	lastPredictionContainers, err := sender.getLastMIdPrediction(sender.datahubClient, pod, granularity)
 	if err != nil {
 		scope.Errorf("[POD][%s][%s/%s] Get last prediction failed: %s",
 			dataGranularity, podNS, podName, err.Error())
 		return
 	}
 	sender.sendJobByMetrics(pod, queueSender, pdUnit, granularity, predictionStep,
-		datahubServiceClnt, lastPredictionContainers)
+		sender.datahubClient, lastPredictionContainers)
 }
 
 func (sender *podModelJobSender) sendJob(pod *datahub_resources.Pod, queueSender queue.QueueSender, pdUnit string,

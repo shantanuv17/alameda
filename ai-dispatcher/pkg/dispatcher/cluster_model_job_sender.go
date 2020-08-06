@@ -10,6 +10,7 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
 	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
+	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_metrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
@@ -19,19 +20,18 @@ import (
 	"github.com/golang/protobuf/ptypes/duration"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/spf13/viper"
-	"google.golang.org/grpc"
 )
 
 type clusterModelJobSender struct {
-	datahubGrpcCn  *grpc.ClientConn
+	datahubClient  datahub.DatahubServiceClient
 	modelMapper    *ModelMapper
 	metricExporter *metrics.Exporter
 }
 
-func NewClusterModelJobSender(datahubGrpcCn *grpc.ClientConn, modelMapper *ModelMapper,
+func NewClusterModelJobSender(datahubClient datahub.DatahubServiceClient, modelMapper *ModelMapper,
 	metricExporter *metrics.Exporter) *clusterModelJobSender {
 	return &clusterModelJobSender{
-		datahubGrpcCn:  datahubGrpcCn,
+		datahubClient:  datahubClient,
 		modelMapper:    modelMapper,
 		metricExporter: metricExporter,
 	}
@@ -51,9 +51,8 @@ func (sender *clusterModelJobSender) sendModelJobs(clusters []*datahub_resources
 func (sender *clusterModelJobSender) sendClusterModelJobs(cluster *datahub_resources.Cluster,
 	queueSender queue.QueueSender, pdUnit string, granularity int64, predictionStep int64, wg *sync.WaitGroup) {
 	dataGranularity := queue.GetGranularityStr(granularity)
-	datahubServiceClnt := datahub_v1alpha1.NewDatahubServiceClient(sender.datahubGrpcCn)
 	clusterName := cluster.GetObjectMeta().GetName()
-	lastPredictionMetrics, err := sender.getLastMIdPrediction(datahubServiceClnt, cluster, granularity)
+	lastPredictionMetrics, err := sender.getLastMIdPrediction(sender.datahubClient, cluster, granularity)
 	if err != nil {
 		scope.Infof("[CLUSTER][%s][%s] Get last prediction failed: %s",
 			dataGranularity, clusterName, err.Error())
@@ -61,7 +60,7 @@ func (sender *clusterModelJobSender) sendClusterModelJobs(cluster *datahub_resou
 	}
 
 	sender.sendJobByMetrics(cluster, queueSender, pdUnit, granularity, predictionStep,
-		datahubServiceClnt, lastPredictionMetrics)
+		sender.datahubClient, lastPredictionMetrics)
 }
 
 func (sender *clusterModelJobSender) sendJob(cluster *datahub_resources.Cluster,

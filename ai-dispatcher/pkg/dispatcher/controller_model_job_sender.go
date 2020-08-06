@@ -10,6 +10,7 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
 	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
+	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_metrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
@@ -19,19 +20,18 @@ import (
 	"github.com/golang/protobuf/ptypes/duration"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/spf13/viper"
-	"google.golang.org/grpc"
 )
 
 type controllerModelJobSender struct {
-	datahubGrpcCn  *grpc.ClientConn
+	datahubClient  datahub.DatahubServiceClient
 	modelMapper    *ModelMapper
 	metricExporter *metrics.Exporter
 }
 
-func NewControllerModelJobSender(datahubGrpcCn *grpc.ClientConn, modelMapper *ModelMapper,
+func NewControllerModelJobSender(datahubClient datahub.DatahubServiceClient, modelMapper *ModelMapper,
 	metricExporter *metrics.Exporter) *controllerModelJobSender {
 	return &controllerModelJobSender{
-		datahubGrpcCn:  datahubGrpcCn,
+		datahubClient:  datahubClient,
 		modelMapper:    modelMapper,
 		metricExporter: metricExporter,
 	}
@@ -51,19 +51,17 @@ func (sender *controllerModelJobSender) sendModelJobs(controllers []*datahub_res
 func (sender *controllerModelJobSender) sendControllerModelJobs(controller *datahub_resources.Controller,
 	queueSender queue.QueueSender, pdUnit string, granularity int64, predictionStep int64, wg *sync.WaitGroup) {
 	dataGranularity := queue.GetGranularityStr(granularity)
-	datahubServiceClnt := datahub_v1alpha1.NewDatahubServiceClient(sender.datahubGrpcCn)
-
 	controllerNS := controller.GetObjectMeta().GetNamespace()
 	controllerName := controller.GetObjectMeta().GetName()
 
-	lastPredictionMetrics, err := sender.getLastMIdPrediction(datahubServiceClnt, controller, granularity)
+	lastPredictionMetrics, err := sender.getLastMIdPrediction(sender.datahubClient, controller, granularity)
 	if err != nil {
 		scope.Infof("[CONTROLLER][%s][%s][%s/%s] Get last prediction failed: %s",
 			controller.GetKind().String(), dataGranularity, controllerNS, controllerName, err.Error())
 		return
 	}
 	sender.sendJobByMetrics(controller, queueSender, pdUnit, granularity, predictionStep,
-		datahubServiceClnt, lastPredictionMetrics)
+		sender.datahubClient, lastPredictionMetrics)
 }
 
 func (sender *controllerModelJobSender) sendJob(controller *datahub_resources.Controller,
