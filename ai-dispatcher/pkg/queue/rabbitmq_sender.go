@@ -51,8 +51,8 @@ func (sender *RabbitMQSender) SendJsonString(queueName, jsonStr, msgID string, g
 
 func (sender *RabbitMQSender) sendJob(queueName, jsonStr, msgID string) error {
 	if sender.conn.IsClosed() {
+		scope.Warnf("try to send job but the connection is close, establish a new connection")
 		sender.conn = GetQueueConn(sender.queueURL, sender.retryItvMS)
-		return fmt.Errorf("send job failed due to connection is closed")
 	}
 	queueCH, err := sender.conn.Channel()
 	if err != nil {
