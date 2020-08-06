@@ -10,16 +10,14 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/config"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/dispatcher"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/streadway/amqp"
-
 	alameda_app "github.com/containers-ai/alameda/cmd/app"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/containers-ai/alameda/pkg/utils/log"
-	datahubv1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"github.com/streadway/amqp"
 	"google.golang.org/grpc"
 )
 
@@ -71,12 +69,16 @@ var rootCmd = &cobra.Command{
 		}
 		cfg.Init()
 
+		retryIntervalSec := 1
+		if viper.IsSet("datahub.query.retryInterval") {
+			retryIntervalSec = viper.GetInt("datahub.query.retryInterval")
+		}
 		datahubAddr := viper.GetString("datahub.address")
 		if datahubAddr == "" {
 			scope.Errorf("No configuration of datahub address.")
 			return
 		}
-		datahubConnRetry := viper.GetInt("datahub.connRetry")
+		datahubClient := datahubpkg.NewClient(datahubAddr)
 		queueURL := viper.GetString("queue.url")
 		if queueURL == "" {
 			scope.Errorf("No configuration of queue url.")
@@ -91,36 +93,31 @@ var rootCmd = &cobra.Command{
 			} else {
 				scope.Errorf("connect queue failed on init: %s", err.Error())
 			}
-			time.Sleep(time.Duration(1) * time.Second)
+			time.Sleep(time.Duration(retryIntervalSec) * time.Second)
 		}
 
 		for {
-			conn, _ = grpc.Dial(datahubAddr, grpc.WithInsecure(),
-				grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(
-					grpc_retry.WithMax(uint(datahubConnRetry)))))
-			if checkResourceIsExist(conn) {
+			if checkResourceIsExist(datahubClient) {
 				break
 			}
-			time.Sleep(time.Duration(1) * time.Second)
+			time.Sleep(time.Duration(retryIntervalSec) * time.Second)
 		}
 
-		defer conn.Close()
 		metricExporter := metrics.NewExporter()
 		go launchMetricServer()
 		granularities := viper.GetStringSlice("serviceSetting.granularities")
 		predictUnits := viper.GetStringSlice("serviceSetting.predictUnits")
 		modelMapper := dispatcher.NewModelMapper()
 		if viper.GetBool("model.enabled") {
-			go dispatcher.ModelCompleteNotification(modelMapper, conn, metricExporter)
+			go dispatcher.ModelCompleteNotification(modelMapper, metricExporter)
 		}
-		dp := dispatcher.NewDispatcher(conn, granularities, predictUnits,
+		dp := dispatcher.NewDispatcher(datahubClient, granularities, predictUnits,
 			modelMapper, metricExporter, cfg)
 		dp.Start()
 	},
 }
 
-func checkResourceIsExist(conn *grpc.ClientConn) bool {
-	datahubClient := datahubv1alpha1.NewDatahubServiceClient(conn)
+func checkResourceIsExist(datahubClient *datahubpkg.Client) bool {
 	nodeResult, err := datahubClient.ListNodes(context.Background(), &datahub_resources.ListNodesRequest{})
 	nodeCount := len(nodeResult.GetNodes())
 	if err != nil || nodeCount <= 0 {

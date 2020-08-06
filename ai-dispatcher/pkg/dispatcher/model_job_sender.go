@@ -12,7 +12,7 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/stats"
 	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_data "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	datahub_gpu "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"
@@ -21,14 +21,12 @@ import (
 	"github.com/golang/protobuf/ptypes/duration"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/spf13/viper"
-	"google.golang.org/grpc"
 )
 
 type modelJobSender struct {
-	datahubServiceClnt datahub_v1alpha1.DatahubServiceClient
-	datahubGrpcCn      *grpc.ClientConn
-	modelMapper        *ModelMapper
-	metricExporter     *metrics.Exporter
+	datahubClient  *datahubpkg.Client
+	modelMapper    *ModelMapper
+	metricExporter *metrics.Exporter
 
 	podModelJobSender         *podModelJobSender
 	nodeModelJobSender        *nodeModelJobSender
@@ -39,28 +37,26 @@ type modelJobSender struct {
 	controllerModelJobSender  *controllerModelJobSender
 }
 
-func NewModelJobSender(datahubGrpcCn *grpc.ClientConn, modelMapper *ModelMapper,
+func NewModelJobSender(datahubClient *datahubpkg.Client, modelMapper *ModelMapper,
 	metricExporter *metrics.Exporter) *modelJobSender {
 
 	return &modelJobSender{
-		datahubGrpcCn:      datahubGrpcCn,
-		modelMapper:        modelMapper,
-		metricExporter:     metricExporter,
-		datahubServiceClnt: datahub_v1alpha1.NewDatahubServiceClient(datahubGrpcCn),
-
-		podModelJobSender: NewPodModelJobSender(datahubGrpcCn, modelMapper,
+		datahubClient:  datahubClient,
+		modelMapper:    modelMapper,
+		metricExporter: metricExporter,
+		podModelJobSender: NewPodModelJobSender(datahubClient, modelMapper,
 			metricExporter),
-		nodeModelJobSender: NewNodeModelJobSender(datahubGrpcCn, modelMapper,
+		nodeModelJobSender: NewNodeModelJobSender(datahubClient, modelMapper,
 			metricExporter),
-		gpuModelJobSender: NewGPUModelJobSender(datahubGrpcCn, modelMapper,
+		gpuModelJobSender: NewGPUModelJobSender(datahubClient, modelMapper,
 			metricExporter),
-		applicationModelJobSender: NewApplicationModelJobSender(datahubGrpcCn, modelMapper,
+		applicationModelJobSender: NewApplicationModelJobSender(datahubClient, modelMapper,
 			metricExporter),
-		namespaceModelJobSender: NewNamespaceModelJobSender(datahubGrpcCn, modelMapper,
+		namespaceModelJobSender: NewNamespaceModelJobSender(datahubClient, modelMapper,
 			metricExporter),
-		clusterModelJobSender: NewClusterModelJobSender(datahubGrpcCn, modelMapper,
+		clusterModelJobSender: NewClusterModelJobSender(datahubClient, modelMapper,
 			metricExporter),
-		controllerModelJobSender: NewControllerModelJobSender(datahubGrpcCn, modelMapper,
+		controllerModelJobSender: NewControllerModelJobSender(datahubClient, modelMapper,
 			metricExporter),
 	}
 }
@@ -154,7 +150,7 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 						},
 					})
 				}
-				readDataRes, err := utils.ReadData(dispatcher.datahubServiceClnt, &datahub_schemas.SchemaMeta{
+				readDataRes, err := utils.ReadData(dispatcher.datahubClient, &datahub_schemas.SchemaMeta{
 					Scope:    unit.Prediction.Scope,
 					Category: unit.Prediction.Category,
 					Type:     unit.Prediction.Type,
@@ -163,6 +159,18 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 					jobID, _ := utils.GetJobID(unit, row.GetValues(), rawDatumColumns,
 						datahub_common.MetricType_METRICS_TYPE_UNDEFINED, granularity)
 					scope.Errorf("[%s] List last prediction point failed: %s", jobID, err.Error())
+					continue
+				} else if readDataRes.GetData() == nil {
+					for _, unitMetric := range unit.MetricTypes {
+						jobID, _ := utils.GetJobID(unit, row.GetValues(), rawDatumColumns,
+							unitMetric, granularity)
+						scope.Infof("[%s] No prediction found, send model job.", jobID)
+						err := dispatcher.tryToJobSending(modelQueueName, unit, rawDatumColumns, row.GetValues(),
+							unitMetric, granularity, queueSender, jobID)
+						if err != nil {
+							scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
+						}
+					}
 					continue
 				}
 
@@ -260,7 +268,7 @@ func (dispatcher *modelJobSender) driftEval(modelID string,
 					},
 				}
 
-				readDataRes, err := utils.ReadData(dispatcher.datahubServiceClnt, &datahub_schemas.SchemaMeta{
+				readDataRes, err := utils.ReadData(dispatcher.datahubClient, &datahub_schemas.SchemaMeta{
 					Scope:    unit.Prediction.Scope,
 					Category: unit.Prediction.Category,
 					Type:     unit.Prediction.Type,
@@ -269,6 +277,18 @@ func (dispatcher *modelJobSender) driftEval(modelID string,
 					jobID, _ := utils.GetJobID(unit, row.GetValues(), rawDatumColumns,
 						datahub_common.MetricType_METRICS_TYPE_UNDEFINED, granularity)
 					scope.Errorf("[%s] List prediction with model id %s failed: %s", jobID, modelID, err.Error())
+					continue
+				} else if readDataRes.GetData() == nil {
+					for _, unitMetric := range unit.MetricTypes {
+						jobID, _ := utils.GetJobID(unit, row.GetValues(), rawDatumColumns,
+							unitMetric, granularity)
+						scope.Infof("[%s] No prediction found, send model job.", jobID)
+						err := dispatcher.tryToJobSending(modelQueueName, unit, rawDatumColumns, row.GetValues(),
+							unitMetric, granularity, queueSender, jobID)
+						if err != nil {
+							scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
+						}
+					}
 					continue
 				}
 
@@ -456,7 +476,7 @@ func (dispatcher *modelJobSender) formatMetrics(metricStartT int64, jobID string
 		},
 	}}
 
-	return utils.ReadData(dispatcher.datahubServiceClnt, &datahub_schemas.SchemaMeta{
+	return utils.ReadData(dispatcher.datahubClient, &datahub_schemas.SchemaMeta{
 		Scope:    unit.Metric.Scope,
 		Category: unit.Metric.Category,
 		Type:     unit.Metric.Type,
@@ -501,7 +521,7 @@ func (dispatcher *modelJobSender) formatMachineGroupMetrics(metricStartT int64, 
 			},
 		},
 	}}
-	machineSetReadDataRes, err := utils.ReadData(dispatcher.datahubServiceClnt, &datahub_schemas.SchemaMeta{
+	machineSetReadDataRes, err := utils.ReadData(dispatcher.datahubClient, &datahub_schemas.SchemaMeta{
 		Scope:    unit.Scope,
 		Category: unit.Category,
 		Type:     unit.UnitParameters.MachineSetType,
@@ -540,7 +560,7 @@ func (dispatcher *modelJobSender) formatMachineGroupMetrics(metricStartT int64, 
 						},
 					},
 				}}
-				nodeReadDataRes, err := utils.ReadData(dispatcher.datahubServiceClnt, &datahub_schemas.SchemaMeta{
+				nodeReadDataRes, err := utils.ReadData(dispatcher.datahubClient, &datahub_schemas.SchemaMeta{
 					Scope:    unit.Scope,
 					Category: unit.UnitParameters.ClusterStatusCategory,
 					Type:     unit.UnitParameters.NodeType,
@@ -595,7 +615,7 @@ func (dispatcher *modelJobSender) formatMachineGroupMetrics(metricStartT int64, 
 		})
 	}
 
-	metricReadDataRes, err := utils.ReadData(dispatcher.datahubServiceClnt, &datahub_schemas.SchemaMeta{
+	metricReadDataRes, err := utils.ReadData(dispatcher.datahubClient, &datahub_schemas.SchemaMeta{
 		Scope:    unit.Metric.Scope,
 		Category: unit.UnitParameters.ClusterStatusCategory,
 		Type:     unit.UnitParameters.NodeType,

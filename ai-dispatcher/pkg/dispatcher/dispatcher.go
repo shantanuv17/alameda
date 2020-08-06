@@ -12,15 +12,14 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
 	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/containers-ai/alameda/pkg/utils/log"
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_data "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	datahub_gpu "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	datahub_schemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	"github.com/spf13/viper"
 	"github.com/streadway/amqp"
-	"google.golang.org/grpc"
 )
 
 const queueName = "predict"
@@ -36,7 +35,7 @@ var scope = log.RegisterScope("dispatcher", "dispatcher dispatch jobs", 0)
 type Dispatcher struct {
 	svcGranularities []string
 	svcPredictUnits  []string
-	datahubGrpcCn    *grpc.ClientConn
+	datahubClient    *datahubpkg.Client
 	queueConn        *amqp.Connection
 
 	modelJobSender   *modelJobSender
@@ -44,15 +43,15 @@ type Dispatcher struct {
 	cfg              *config.Config
 }
 
-func NewDispatcher(datahubGrpcCn *grpc.ClientConn, granularities []string,
+func NewDispatcher(datahubClient *datahubpkg.Client, granularities []string,
 	predictUnits []string, modelMapper *ModelMapper, metricExporter *metrics.Exporter,
 	cfg *config.Config) *Dispatcher {
-	modelJobSender := NewModelJobSender(datahubGrpcCn, modelMapper, metricExporter)
-	predictJobSender := NewPredictJobSender(datahubGrpcCn)
+	modelJobSender := NewModelJobSender(datahubClient, modelMapper, metricExporter)
+	predictJobSender := NewPredictJobSender(datahubClient)
 	dispatcher := &Dispatcher{
 		svcGranularities: granularities,
 		svcPredictUnits:  predictUnits,
-		datahubGrpcCn:    datahubGrpcCn,
+		datahubClient:    datahubClient,
 		modelJobSender:   modelJobSender,
 		predictJobSender: predictJobSender,
 		cfg:              cfg,
@@ -212,8 +211,7 @@ func (dispatcher *Dispatcher) dispatch(granularity string, predictionStep int64,
 
 func (dispatcher *Dispatcher) getAndPushJobsV2(queueSender queue.QueueSender,
 	pdUnit *config.Unit, granularity int64, predictionStep int64, queueJobType string) {
-	datahubServiceClnt := datahub_v1alpha1.NewDatahubServiceClient(dispatcher.datahubGrpcCn)
-	data, err := utils.ReadData(datahubServiceClnt, &datahub_schemas.SchemaMeta{
+	data, err := utils.ReadData(dispatcher.datahubClient, &datahub_schemas.SchemaMeta{
 		Scope:    pdUnit.Scope,
 		Category: pdUnit.Category,
 		Type:     pdUnit.Type,
@@ -235,21 +233,18 @@ func (dispatcher *Dispatcher) getAndPushJobsV2(queueSender queue.QueueSender,
 		})
 	}
 
-	if queueJobType == "predictionJobSendIntervalSec" {
+	if queueJobType == "predictionJobSendIntervalSec" && data.GetData() != nil {
 		dispatcher.predictJobSender.SendPredictJobs(data.GetData().GetRawdata(), queueSender, pdUnit, granularity)
 	}
-	if viper.GetBool("model.enabled") && queueJobType == "modelJobSendIntervalSec" {
+	if viper.GetBool("model.enabled") && queueJobType == "modelJobSendIntervalSec" && data.GetData() != nil {
 		dispatcher.modelJobSender.SendModelJobs(data.GetData().GetRawdata(), queueSender, pdUnit, granularity)
 	}
 }
 
 func (dispatcher *Dispatcher) getAndPushJobs(queueSender queue.QueueSender,
 	pdUnit string, granularity int64, predictionStep int64, queueJobType string) {
-
-	datahubServiceClnt := datahub_v1alpha1.NewDatahubServiceClient(dispatcher.datahubGrpcCn)
-
 	if pdUnit == consts.UnitTypeNode {
-		res, err := datahubServiceClnt.ListNodes(context.Background(),
+		res, err := dispatcher.datahubClient.ListNodes(context.Background(),
 			&datahub_resources.ListNodesRequest{})
 		if err != nil {
 			scope.Errorf(
@@ -289,7 +284,7 @@ func (dispatcher *Dispatcher) getAndPushJobs(queueSender queue.QueueSender,
 			len(nodes), granularity)
 
 	} else if pdUnit == consts.UnitTypePod {
-		res, err := datahubServiceClnt.ListPods(context.Background(),
+		res, err := dispatcher.datahubClient.ListPods(context.Background(),
 			&datahub_resources.ListPodsRequest{
 				ScalingTool: datahub_resources.ScalingTool_VPA,
 			})
@@ -336,7 +331,7 @@ func (dispatcher *Dispatcher) getAndPushJobs(queueSender queue.QueueSender,
 			"Sending %v pod jobs to queue completely with granularity %v seconds.",
 			len(pods), granularity)
 	} else if pdUnit == consts.UnitTypeGPU {
-		res, err := datahubServiceClnt.ListGpus(context.Background(),
+		res, err := dispatcher.datahubClient.ListGpus(context.Background(),
 			&datahub_gpu.ListGpusRequest{})
 		if err != nil {
 			scope.Errorf(
@@ -361,7 +356,7 @@ func (dispatcher *Dispatcher) getAndPushJobs(queueSender queue.QueueSender,
 		scope.Infof("Sending %v gpu jobs to queue completely with granularity %v seconds.",
 			len(gpus), granularity)
 	} else if pdUnit == consts.UnitTypeApplication {
-		res, err := datahubServiceClnt.ListApplications(context.Background(),
+		res, err := dispatcher.datahubClient.ListApplications(context.Background(),
 			&datahub_resources.ListApplicationsRequest{})
 		if err != nil {
 			scope.Errorf(
@@ -394,7 +389,7 @@ func (dispatcher *Dispatcher) getAndPushJobs(queueSender queue.QueueSender,
 		scope.Infof("Sending %v application jobs to queue completely with granularity %v seconds.",
 			len(applications), granularity)
 	} else if pdUnit == consts.UnitTypeNamespace {
-		res, err := datahubServiceClnt.ListNamespaces(context.Background(),
+		res, err := dispatcher.datahubClient.ListNamespaces(context.Background(),
 			&datahub_resources.ListNamespacesRequest{})
 		if err != nil {
 			scope.Errorf(
@@ -421,7 +416,7 @@ func (dispatcher *Dispatcher) getAndPushJobs(queueSender queue.QueueSender,
 			"Sending %v namespace jobs to queue completely with granularity %v seconds.",
 			len(namespaces), granularity)
 	} else if pdUnit == consts.UnitTypeCluster {
-		res, err := datahubServiceClnt.ListClusters(context.Background(),
+		res, err := dispatcher.datahubClient.ListClusters(context.Background(),
 			&datahub_resources.ListClustersRequest{})
 		if err != nil {
 			scope.Errorf(
@@ -448,7 +443,7 @@ func (dispatcher *Dispatcher) getAndPushJobs(queueSender queue.QueueSender,
 			"Sending %v cluster jobs to queue completely with granularity %v seconds.",
 			len(clusters), granularity)
 	} else if pdUnit == consts.UnitTypeController {
-		res, err := datahubServiceClnt.ListControllers(context.Background(),
+		res, err := dispatcher.datahubClient.ListControllers(context.Background(),
 			&datahub_resources.ListControllersRequest{})
 		if err != nil {
 			scope.Errorf(
