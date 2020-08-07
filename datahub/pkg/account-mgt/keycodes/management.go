@@ -295,39 +295,36 @@ func (c *KeycodeMgt) refresh(force bool) error {
 		scope.Infof("keycode cache data refreshed for CUD OP, keycode: %s", keycode)
 	}
 
-	if c.KeycodeStatus != c.GetStatus() {
+	if c.KeycodeStatus != c.GetStatus() || KeycodeCount != len(KeycodeList) {
 		KeycodeStatus = c.GetStatus()
+		KeycodeCount = len(KeycodeList)
 		c.KeycodeStatus = c.GetStatus()
+
+		c.deleteInfluxEntries()
 
 		// Update InfluxDB and post event
 		switch KeycodeStatus {
 		case KeycodeStatusNoKeycode:
-			c.writeInfluxEntry("N/A", KeycodeStatusName[KeycodeStatusNoKeycode])
-			c.deleteInfluxEntry("Summary")
+			c.updateInfluxEntries("N/A", KeycodeStatusName[KeycodeStatusNoKeycode])
 			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_ERROR, KeycodeStatusMessage[KeycodeStatusNoKeycode])
 		case KeycodeStatusInvalid:
 			msg := KeycodeStatusMessage[KeycodeStatusInvalid]
 			if c.InvalidReason != "" {
 				msg = c.InvalidReason
 			}
-			c.writeInfluxEntry("Summary", KeycodeStatusName[KeycodeStatusInvalid])
-			c.deleteInfluxEntry("N/A")
+			c.updateInfluxEntries("Summary", KeycodeStatusName[KeycodeStatusInvalid])
 			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_ERROR, msg)
 		case KeycodeStatusExpired:
-			c.writeInfluxEntry("Summary", KeycodeStatusName[KeycodeStatusExpired])
-			c.deleteInfluxEntry("N/A")
+			c.updateInfluxEntries("Summary", KeycodeStatusName[KeycodeStatusExpired])
 			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_ERROR, KeycodeStatusMessage[KeycodeStatusExpired])
 		case KeycodeStatusNotActivated:
-			c.writeInfluxEntry("Summary", KeycodeStatusName[KeycodeStatusNotActivated])
-			c.deleteInfluxEntry("N/A")
+			c.updateInfluxEntries("Summary", KeycodeStatusName[KeycodeStatusNotActivated])
 			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_WARNING, KeycodeStatusMessage[KeycodeStatusNotActivated])
 		case KeycodeStatusValid:
-			c.writeInfluxEntry("Summary", KeycodeStatusName[KeycodeStatusValid])
-			c.deleteInfluxEntry("N/A")
+			c.updateInfluxEntries("Summary", KeycodeStatusName[KeycodeStatusValid])
 			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_INFO, KeycodeStatusMessage[KeycodeStatusValid])
 		default:
-			c.writeInfluxEntry("Summary", KeycodeStatusName[KeycodeStatusUnknown])
-			c.deleteInfluxEntry("N/A")
+			c.updateInfluxEntries("Summary", KeycodeStatusName[KeycodeStatusUnknown])
 			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_ERROR, KeycodeStatusMessage[KeycodeStatusUnknown])
 		}
 	}
@@ -335,7 +332,7 @@ func (c *KeycodeMgt) refresh(force bool) error {
 	return nil
 }
 
-func (c *KeycodeMgt) writeInfluxEntry(keycode, status string) error {
+func (c *KeycodeMgt) updateInfluxEntries(keycode, status string) error {
 	points := make([]*InfluxClient.Point, 0)
 	client := InfluxDB.NewClient(InfluxConfig)
 
@@ -343,6 +340,7 @@ func (c *KeycodeMgt) writeInfluxEntry(keycode, status string) error {
 		string(ClusterStatusEntity.Keycode): keycode,
 	}
 
+	// Generate keycode summary influxdb point
 	jsonStr, _ := json.Marshal(KeycodeSummary)
 	fields := map[string]interface{}{
 		string(ClusterStatusEntity.KeycodeStatus):          status,
@@ -359,6 +357,28 @@ func (c *KeycodeMgt) writeInfluxEntry(keycode, status string) error {
 	}
 	points = append(points, pt)
 
+	// Generate keycode influxdb points
+	if KeycodeList != nil {
+		for _, keyInfo := range KeycodeList {
+			fields = map[string]interface{}{
+				string(ClusterStatusEntity.KeycodeStatus):          keyInfo.LicenseState,
+				string(ClusterStatusEntity.KeycodeType):            keyInfo.KeycodeType,
+				string(ClusterStatusEntity.KeycodeState):           keyInfo.LicenseState,
+				string(ClusterStatusEntity.KeycodeRegistered):      keyInfo.Registered,
+				string(ClusterStatusEntity.KeycodeExpireTimestamp): keyInfo.ExpireTimestamp,
+				string(ClusterStatusEntity.KeycodeRawdata):         string(jsonStr[:]),
+			}
+			tags = map[string]string{
+				string(ClusterStatusEntity.Keycode): keyInfo.Keycode,
+			}
+			pt, err = InfluxClient.NewPoint(string(RepoClusterStatus.Keycode), tags, fields, time.Unix(0, 0))
+			if err != nil {
+				scope.Error(err.Error())
+			}
+			points = append(points, pt)
+		}
+	}
+
 	err = client.WritePoints(points, InfluxClient.BatchPointsConfig{
 		Database: string(RepoInflux.ClusterStatus),
 	})
@@ -371,17 +391,16 @@ func (c *KeycodeMgt) writeInfluxEntry(keycode, status string) error {
 	return nil
 }
 
-func (c *KeycodeMgt) deleteInfluxEntry(keycode string) error {
-	if keycode != "" {
-		client := InfluxDB.NewClient(InfluxConfig)
+func (c *KeycodeMgt) deleteInfluxEntries() error {
+	client := InfluxDB.NewClient(InfluxConfig)
 
-		cmd := fmt.Sprintf("DROP SERIES FROM %s WHERE \"%s\"='%s'", RepoClusterStatus.Keycode, ClusterStatusEntity.Keycode, keycode)
-		scope.Debugf("delete keycode in influxdb command: %s", cmd)
-		_, err := client.QueryDB(cmd, string(RepoInflux.ClusterStatus))
-		if err != nil {
-			scope.Errorf(err.Error())
-			return nil
-		}
+	cmd := fmt.Sprintf("DROP SERIES FROM \"%s\"", RepoClusterStatus.Keycode)
+
+	_, err := client.QueryDB(cmd, string(RepoInflux.ClusterStatus))
+	if err != nil {
+		scope.Errorf(err.Error())
+		return err
 	}
+
 	return nil
 }

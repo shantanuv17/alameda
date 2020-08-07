@@ -18,6 +18,7 @@ var (
 	KeycodeStatus               = KeycodeStatusUnknown
 	KeycodeAesKey               = []byte("")
 	KeycodeTimestamp int64      = 0
+	KeycodeCount                = 0
 	KeycodeList      []*Keycode = nil
 	KeycodeSummary   *Keycode   = nil
 	KeycodeTM        time.Time
