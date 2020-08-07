@@ -3,14 +3,16 @@ package datahub
 import (
 	"context"
 	"errors"
-	"reflect"
-	"time"
-
 	Entities "github.com/containers-ai/alameda/datahub/pkg/entities"
 	"github.com/containers-ai/alameda/pkg/utils/log"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
+	grpcretry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/connectivity"
+	"reflect"
+	"sync"
+	"time"
+
 )
 
 var (
@@ -20,32 +22,99 @@ var (
 type Client struct {
 	datahub.DatahubServiceClient
 	Connection *grpc.ClientConn
+	RWLock     *sync.RWMutex
 	Address    string
 }
 
 func NewClient(address string) *Client {
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
+	client := Client{}
+	client.Address = address
+	client.RWLock = new(sync.RWMutex)
 
 	// Create a client connection to datahub
-	conn, err := grpc.DialContext(ctx, address, grpc.WithBlock(), grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(3)))))
-
-	if err != nil {
+	if err := client.Reconnect(5); err != nil {
 		scope.Errorf("failed to dial to datahub via address(%s): %s", address, err.Error())
 		return nil
 	}
 
-	// Create datahub service client and initialize member variable
-	client := Client{DatahubServiceClient: datahub.NewDatahubServiceClient(conn)}
-	client.Address = address
-	client.Connection = conn
-
 	return &client
 }
 
+func (p *Client) Reconnect(retry int) error {
+	// Check if connection is alive first
+	if p.IsAlive() {
+		scope.Info("connection to datahub is alive, no necessary to reconnect")
+		return nil
+	}
+
+	// Get WRITE lock
+	p.RWLock.Lock()
+	defer p.RWLock.Unlock()
+
+	// Do close connection before connecting to datahub
+	if err := p.Close(); err != nil {
+		scope.Errorf("failed to close reconnect of datahub: %s", err.Error())
+		return err
+	}
+
+	for i := 0; i < retry; i++ {
+		// Create a client connection to datahub
+		conn, err := grpc.Dial(p.Address,
+			grpc.WithBlock(),
+			grpc.WithTimeout(30 * time.Second),
+			grpc.WithInsecure(),
+			grpc.WithUnaryInterceptor(grpcretry.UnaryClientInterceptor(grpcretry.WithMax(uint(3)))),
+		)
+
+		if err == nil {
+			scope.Info("successfully create connection to datahub")
+			p.Connection = conn
+			p.DatahubServiceClient = datahub.NewDatahubServiceClient(p.Connection)
+			break
+		}
+
+		scope.Errorf("failed to create connection to datahub, try again: %s", err.Error())
+		time.Sleep(1 * time.Second)
+	}
+
+	return nil
+}
+
 func (p *Client) Close() error {
-	return p.Connection.Close()
+	if p.Connection != nil {
+		if err := p.Connection.Close(); err != nil {
+			scope.Error(err.Error())
+			return err
+		}
+	}
+	p.Connection = nil
+	return nil
+}
+
+func (p *Client) IsAlive() bool {
+	// Get READ lock
+	p.RWLock.RLock()
+	defer p.RWLock.RUnlock()
+
+	if p.Connection != nil {
+		state := p.Connection.GetState()
+		switch state {
+		case connectivity.Idle:
+			return true
+		case connectivity.Connecting:
+			return true
+		case connectivity.Ready:
+			return true
+		case connectivity.TransientFailure:
+			return false
+		case connectivity.Shutdown:
+			return false
+		default:
+			scope.Errorf("unknown connectivity state: %d", state)
+			return false
+		}
+	}
+	return false
 }
 
 func (p *Client) Create(entities interface{}, fields ...string) error {
