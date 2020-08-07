@@ -11,7 +11,6 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
 	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_metrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
 	datahub_predictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
@@ -108,13 +107,15 @@ func (sender *applicationModelJobSender) sendJob(application *datahub_resources.
 	}
 }
 
-func (sender *applicationModelJobSender) getLastMIdPrediction(datahubServiceClnt datahub_v1alpha1.DatahubServiceClient,
+func (sender *applicationModelJobSender) getLastMIdPrediction(datahubServiceClnt *datahubpkg.Client,
 	application *datahub_resources.Application, granularity int64) ([]*datahub_predictions.MetricData, error) {
 
 	metricData := []*datahub_predictions.MetricData{}
 	dataGranularity := queue.GetGranularityStr(granularity)
 	applicationNS := application.GetObjectMeta().GetNamespace()
 	applicationName := application.GetObjectMeta().GetName()
+
+	utils.RefreshConnIfNecessary(datahubServiceClnt)
 	applicationPredictRes, err := datahubServiceClnt.ListApplicationPredictions(context.Background(),
 		&datahub_predictions.ListApplicationPredictionsRequest{
 			ObjectMeta: []*datahub_resources.ObjectMeta{
@@ -159,6 +160,8 @@ func (sender *applicationModelJobSender) getLastMIdPrediction(datahubServiceClnt
 				dataGranularity, applicationNS, applicationName, pdRD.GetMetricType())
 			continue
 		}
+
+		utils.RefreshConnIfNecessary(datahubServiceClnt)
 		applicationPredictRes, err = datahubServiceClnt.ListApplicationPredictions(context.Background(),
 			&datahub_predictions.ListApplicationPredictionsRequest{
 				ObjectMeta: []*datahub_resources.ObjectMeta{
@@ -205,7 +208,7 @@ func (sender *applicationModelJobSender) getQueryMetricStartTime(
 }
 
 func (sender *applicationModelJobSender) sendJobByMetrics(application *datahub_resources.Application, queueSender queue.QueueSender,
-	pdUnit string, granularity int64, predictionStep int64, datahubServiceClnt datahub_v1alpha1.DatahubServiceClient,
+	pdUnit string, granularity int64, predictionStep int64, datahubServiceClnt *datahubpkg.Client,
 	lastPredictionMetrics []*datahub_predictions.MetricData) {
 
 	dataGranularity := queue.GetGranularityStr(granularity)
@@ -254,6 +257,8 @@ func (sender *applicationModelJobSender) sendJobByMetrics(application *datahub_r
 			if firstPDTime > 0 && firstPDTime <= time.Now().Unix() {
 				queryStartTime = firstPDTime
 			}
+
+			utils.RefreshConnIfNecessary(datahubServiceClnt)
 			applicationMetricsRes, err := datahubServiceClnt.ListApplicationMetrics(context.Background(),
 				&datahub_metrics.ListApplicationMetricsRequest{
 					QueryCondition: &datahub_common.QueryCondition{
