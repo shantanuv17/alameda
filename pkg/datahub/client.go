@@ -31,7 +31,7 @@ func NewClient(address string) *Client {
 	client.RWLock = new(sync.RWMutex)
 
 	// Create a client connection to datahub
-	if err := client.Reconnect(5); err != nil {
+	if err := client.Reconnect(3, 30); err != nil {
 		scope.Errorf("failed to dial to datahub via address(%s): %s", address, err.Error())
 		return nil
 	}
@@ -39,7 +39,7 @@ func NewClient(address string) *Client {
 	return &client
 }
 
-func (p *Client) Reconnect(retry int) error {
+func (p *Client) Reconnect(retry, timeout int) error {
 	// Check if connection is alive first
 	if p.IsAlive() {
 		scope.Info("connection to datahub is alive, no necessary to reconnect")
@@ -52,29 +52,26 @@ func (p *Client) Reconnect(retry int) error {
 
 	// Do close connection before connecting to datahub
 	if err := p.Close(); err != nil {
-		scope.Errorf("failed to close reconnect of datahub: %s", err.Error())
+		scope.Errorf("failed to close reconnect to datahub: %s", err.Error())
 		return err
 	}
 
-	for i := 0; i < retry; i++ {
-		// Create a client connection to datahub
-		conn, err := grpc.Dial(p.Address,
-			grpc.WithBlock(),
-			grpc.WithTimeout(30 * time.Second),
-			grpc.WithInsecure(),
-			grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(3)))),
-		)
+	// Create a client connection to datahub
+	conn, err := grpc.Dial(p.Address,
+		grpc.WithBlock(),
+		grpc.WithTimeout(time.Duration(timeout) * time.Second),
+		grpc.WithInsecure(),
+		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(retry)))),
+	)
 
-		if err == nil {
-			scope.Info("successfully create connection to datahub")
-			p.Connection = conn
-			p.DatahubServiceClient = datahub.NewDatahubServiceClient(p.Connection)
-			break
-		}
-
-		scope.Errorf("failed to create connection to datahub, try again: %s", err.Error())
-		time.Sleep(1 * time.Second)
+	if err != nil {
+		scope.Errorf("failed to create connection to datahub: %s", err.Error())
+		return err
 	}
+
+	scope.Info("successfully create connection to datahub")
+	p.Connection = conn
+	p.DatahubServiceClient = datahub.NewDatahubServiceClient(p.Connection)
 
 	return nil
 }
