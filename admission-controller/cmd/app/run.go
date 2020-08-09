@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	admission_controller "github.com/containers-ai/alameda/admission-controller"
 	admission_controller_kubernetes "github.com/containers-ai/alameda/admission-controller/pkg/kubernetes"
@@ -18,7 +19,7 @@ import (
 	"github.com/containers-ai/alameda/pkg/utils/log"
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
+	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	openshiftappsv1 "github.com/openshift/api/apps/v1"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
@@ -170,9 +171,11 @@ func initLog() {
 }
 
 func initThirdPartyClient() error {
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
 
-	var err error
-	conn, err := grpc.Dial(config.Datahub.Address, grpc.WithInsecure(), grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(config.GRPC.Retry))))
+	conn, err := grpc.DialContext(ctx, config.Datahub.Address, grpc.WithBlock(), grpc.WithInsecure(),
+		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(config.GRPC.Retry)))))
 	if err != nil {
 		return err
 	}

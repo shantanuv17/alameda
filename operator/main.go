@@ -30,7 +30,7 @@ import (
 	datahub_client_nginx "github.com/containers-ai/alameda/operator/datahub/client/nginx"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	alamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
+	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	routeapi_v1 "github.com/openshift/api/route/v1"
 	openshift_machineapi_v1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	"github.com/pkg/errors"
@@ -205,13 +205,10 @@ func initThirdPartyClient() error {
 	}
 	k8sClient = cli
 
-	datahubConn, err = grpc.Dial(operatorConf.Datahub.Address,
-		grpc.WithBlock(),
-		grpc.WithTimeout(30*time.Second),
-		grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(
-			grpc_retry.WithMax(uint(3)))),
-	)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	datahubConn, err = grpc.DialContext(ctx, operatorConf.Datahub.Address, grpc.WithBlock(), grpc.WithInsecure(),
+		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(3)))))
 	if err != nil {
 		return errors.Wrap(err, "new connection to datahub failed")
 	}

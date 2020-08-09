@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"context"
 	"reflect"
 	"testing"
 	"time"
@@ -11,15 +12,17 @@ import (
 	datahub_schemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	"github.com/golang/protobuf/ptypes/duration"
 	"github.com/golang/protobuf/ptypes/timestamp"
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
+	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	"google.golang.org/grpc"
 )
 
 func TestReadData(t *testing.T) {
 	datahubAddr := "127.0.0.1:50050"
-	conn, err := grpc.Dial(datahubAddr, grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(
-			grpc_retry.WithMax(5))))
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	conn, err := grpc.DialContext(ctx, datahubAddr, grpc.WithBlock(), grpc.WithInsecure(),
+		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(5)))))
 
 	queryStartT := time.Now().AddDate(0, 0, -1).Unix()
 	metricReadData := []*datahub_data.ReadData{}

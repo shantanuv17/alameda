@@ -1,22 +1,25 @@
 package event
 
 import (
+	"context"
 	"testing"
 	"time"
 
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_events "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"github.com/golang/protobuf/ptypes/timestamp"
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
+	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	"google.golang.org/grpc"
 )
 
 func Test_eventSender_SendEvents(t *testing.T) {
 	connRetry := 5
 	datahubAddr := "localhost:50050"
-	conn, err := grpc.Dial(datahubAddr, grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(
-			grpc_retry.WithMax(uint(connRetry)))))
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+
+	defer cancel()
+	conn, err := grpc.DialContext(ctx, datahubAddr, grpc.WithBlock(), grpc.WithInsecure(),
+		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(connRetry)))))
 	if err != nil {
 		t.Errorf("eventSender.sendEvents() error = %v", err)
 	}

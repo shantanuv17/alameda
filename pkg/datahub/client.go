@@ -3,13 +3,14 @@ package datahub
 import (
 	"context"
 	"errors"
+	"reflect"
+	"time"
+
 	Entities "github.com/containers-ai/alameda/datahub/pkg/entities"
 	"github.com/containers-ai/alameda/pkg/utils/log"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
-	"github.com/grpc-ecosystem/go-grpc-middleware/retry"
+	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	"google.golang.org/grpc"
-	"reflect"
-	"time"
 )
 
 var (
@@ -23,13 +24,12 @@ type Client struct {
 }
 
 func NewClient(address string) *Client {
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
 	// Create a client connection to datahub
-	conn, err := grpc.Dial(address,
-		grpc.WithBlock(),
-		grpc.WithTimeout(30*time.Second),
-		grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(3)))),
-	)
+	conn, err := grpc.DialContext(ctx, address, grpc.WithBlock(), grpc.WithInsecure(),
+		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(3)))))
 
 	if err != nil {
 		scope.Errorf("failed to dial to datahub via address(%s): %s", address, err.Error())
@@ -121,7 +121,7 @@ func (p *Client) Delete(entities interface{}) error {
 		entity := values.Index(i).Interface()
 		datahubEntity := values.Index(i).Field(0).Interface().(Entities.DatahubEntity)
 		tags := datahubEntity.TagNames(entity)
-		opts = append(opts, Option{Entity: entity, Fields: tags,})
+		opts = append(opts, Option{Entity: entity, Fields: tags})
 	}
 
 	request := NewDeleteDataRequest(entities, opts...)
@@ -139,7 +139,6 @@ func (p *Client) Delete(entities interface{}) error {
 
 	return nil
 }
-
 
 // Entity is indicator, delete by options
 func (p *Client) DeleteByOpts(entity interface{}, opts ...Option) error {

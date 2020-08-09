@@ -4,9 +4,11 @@ import (
 	"context"
 	"fmt"
 	"os/exec"
+	"time"
 
 	datahub_client "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
+	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	"google.golang.org/grpc"
 )
 
@@ -16,7 +18,11 @@ type ReadinessProbeConfig struct {
 }
 
 func queryDatahub(datahubAddr string) error {
-	conn, err := grpc.Dial(datahubAddr, grpc.WithInsecure())
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	conn, err := grpc.DialContext(ctx, datahubAddr, grpc.WithBlock(), grpc.WithInsecure(),
+		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(3)))))
 	if conn != nil {
 		defer conn.Close()
 	}

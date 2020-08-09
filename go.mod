@@ -12,8 +12,8 @@ require (
 	github.com/eapache/go-resiliency v1.2.0 // indirect
 	github.com/go-logr/logr v0.1.0
 	github.com/golang/mock v1.4.0
-	github.com/golang/protobuf v1.3.2
-	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0
+	github.com/golang/protobuf v1.4.2
+	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.2
 	github.com/hashicorp/go-uuid v1.0.2 // indirect
 	github.com/influxdata/influxdb v1.7.7
 	github.com/jcmturner/gofork v1.0.0 // indirect
@@ -29,7 +29,7 @@ require (
 	github.com/openshift/client-go v0.0.0-20200521150516-05eb9880269c
 	github.com/openshift/machine-api-operator v0.2.1-0.20200529045911-d19e8d007f7c
 	github.com/pierrec/lz4 v2.4.1+incompatible // indirect
-	github.com/pkg/errors v0.8.1
+	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.1.0
 	github.com/rcrowley/go-metrics v0.0.0-20190826022208-cac0b30c2563 // indirect
 	github.com/robfig/cron v1.2.0
@@ -41,8 +41,8 @@ require (
 	go.uber.org/zap v1.10.0
 	golang.org/x/net v0.0.0-20200421231249-e086a090c8fd
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e
-	google.golang.org/genproto v0.0.0-20190819201941-24fa4b261c55
-	google.golang.org/grpc v1.27.1
+	google.golang.org/genproto v0.0.0-20200806141610-86f49bd18e98
+	google.golang.org/grpc v1.31.0
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/jcmturner/gokrb5.v7 v7.4.0 // indirect
 	gopkg.in/mail.v2 v2.3.1

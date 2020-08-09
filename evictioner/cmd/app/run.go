@@ -1,15 +1,18 @@
 package app
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"sync"
+	"time"
 
 	"github.com/containers-ai/alameda/cmd/app"
 	"github.com/containers-ai/alameda/evictioner/pkg/eviction"
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	k8s_utils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	openshift_apps "github.com/openshift/api/apps"
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
@@ -43,7 +46,11 @@ func displayConfig() {
 }
 
 func startEvictioner() {
-	conn, err := grpc.Dial(config.Datahub.Address, grpc.WithInsecure())
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	conn, err := grpc.DialContext(ctx, config.Datahub.Address, grpc.WithBlock(), grpc.WithInsecure(),
+		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(3)))))
 	if err != nil {
 		scope.Errorf("create pods to datahub failed: %s", err.Error())
 		return

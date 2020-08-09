@@ -16,16 +16,18 @@ limitations under the License.
 package main
 
 import (
+	"context"
 	"flag"
 	"os"
 	"strings"
+	"time"
 
 	notifyingv1alpha1 "github.com/containers-ai/alameda/notifier/api/v1alpha1"
 	"github.com/containers-ai/alameda/notifier/controllers"
 	"github.com/containers-ai/alameda/notifier/probe"
 	"github.com/containers-ai/alameda/notifier/queue"
 	"github.com/containers-ai/alameda/pkg/utils/log"
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
+	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
@@ -129,9 +131,11 @@ func main() {
 
 	datahubAddr := viper.GetString("datahub.address")
 	datahubConnRetry := viper.GetInt("datahub.connRetry")
-	conn, err := grpc.Dial(datahubAddr, grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(
-			grpc_retry.WithMax(uint(datahubConnRetry)))))
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	conn, err := grpc.DialContext(ctx, datahubAddr, grpc.WithBlock(), grpc.WithInsecure(),
+		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(datahubConnRetry)))))
 	// +kubebuilder:scaffold:builder
 	go launchQueueConsumer(mgr, conn)
 
