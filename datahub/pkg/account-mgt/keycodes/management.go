@@ -10,7 +10,6 @@ import (
 	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"math"
-	"strings"
 	"time"
 )
 
@@ -78,10 +77,8 @@ func (c *KeycodeMgt) GetKeycode(keycode string) (*Keycode, error) {
 		return nil, err
 	}
 
-	stripped := strings.Replace(keycode, "-", "", -1)
-
 	for _, keycodeObj := range KeycodeList {
-		if keycodeObj.Keycode == stripped {
+		if keycodeObj.Keycode == keycode {
 			return keycodeObj, nil
 		}
 	}
@@ -117,9 +114,8 @@ func (c *KeycodeMgt) GetKeycodes(keycodes []string) ([]*Keycode, *Keycode, error
 	}
 
 	for _, keycode := range keycodes {
-		stripped := strings.Replace(keycode, "-", "", -1)
 		for _, keycodeObj := range KeycodeList {
-			if keycodeObj.Keycode == stripped {
+			if keycodeObj.Keycode == keycode {
 				keycodeList = append(keycodeList, keycodeObj)
 			}
 		}
