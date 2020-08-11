@@ -1,6 +1,7 @@
 package metrics
 
 import (
+	"fmt"
 	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
 	DaoMetricTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics/types"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
@@ -28,14 +29,7 @@ func (p *Application) GetMetricMap(metricType enumconv.MetricType, applications 
 	measurement := InfluxDB.NewMeasurement(InfluxSchemas.DatabaseNameMap[InfluxSchemas.Metric], m, p.InfluxDBConfig)
 
 	for _, application := range applications {
-		// List pods which are belonged to this application
-		pods, err := ListPodsByApplication(p.InfluxDBConfig, application)
-		if err != nil {
-			scope.Error(err.Error())
-			return DaoMetricTypes.AppMetricMap{}, err
-		}
-
-		p.rebuildQueryCondition(pods, req.QueryCondition.SubQuery)
+		p.rebuildQueryCondition(application.Controllers, req.QueryCondition.SubQuery)
 
 		groups, err := measurement.Read(InfluxDB.NewQuery(&req.QueryCondition, measurement.Name))
 		if err != nil {
@@ -52,14 +46,16 @@ func (p *Application) GetMetricMap(metricType enumconv.MetricType, applications 
 	return metricMap, nil
 }
 
-func (p *Application) rebuildQueryCondition(pods []*DaoClusterTypes.Pod, queryCondition *DBCommon.QueryCondition) {
+func (p *Application) rebuildQueryCondition(controllers []*DaoClusterTypes.Controller, queryCondition *DBCommon.QueryCondition) {
 	queryCondition.WhereCondition = make([]*DBCommon.Condition, 0)
 
-	for _, pod := range pods {
+	for _, controller := range controllers {
 		condition := DBCommon.Condition{}
 		condition.Keys = []string{"pod_name", "pod_namespace", "cluster_name"}
-		condition.Values = []string{pod.ObjectMeta.Name, pod.ObjectMeta.Namespace, pod.ObjectMeta.ClusterName}
-		condition.Operators = []string{"=", "=", "="}
+		condition.Values = append(condition.Values, fmt.Sprintf(PodNameRegularExpression[controller.Kind], controller.ObjectMeta.Name))
+		condition.Values = append(condition.Values, controller.ObjectMeta.Namespace)
+		condition.Values = append(condition.Values, controller.ObjectMeta.ClusterName)
+		condition.Operators = []string{"=~", "=", "="}
 		condition.Types = []DBCommon.DataType{DBCommon.String, DBCommon.String, DBCommon.String}
 		queryCondition.WhereCondition = append(queryCondition.WhereCondition, &condition)
 	}

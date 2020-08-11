@@ -64,6 +64,31 @@ func IsOKDCluster() (bool, error) {
 	return false, nil
 }
 
+func GetClusterName(k8sClient client.Client) (string, error) {
+	possibleNSList := []string{"default"}
+	errorList := make([]string, 0)
+	clusterName := ""
+
+	for _, possibleNS := range possibleNSList {
+		clusterInfoCM := &Corev1.ConfigMap{}
+		err := k8sClient.Get(context.Background(), client.ObjectKey{
+			Name:      "cluster-info",
+			Namespace: possibleNS,
+		}, clusterInfoCM)
+		if err == nil {
+			return clusterInfoCM.GetName(), nil
+		} else if !K8SErrors.IsNotFound(err) {
+			errorList = append(errorList, err.Error())
+		}
+	}
+
+	if len(errorList) == 0 {
+		return clusterName, fmt.Errorf("no cluster info found")
+	}
+
+	return clusterName, errors.New(strings.Join(errorList, ","))
+}
+
 func GetClusterUID(k8sClient client.Client) (string, error) {
 	possibleNSList := []string{"default"}
 	errorList := make([]string, 0)
