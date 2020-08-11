@@ -12,6 +12,7 @@ import (
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
 	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/api/v1alpha2"
 	operatorutils "github.com/containers-ai/alameda/operator/pkg/utils"
+	alamedaconsts "github.com/containers-ai/alameda/pkg/consts"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	openshiftappsv1 "github.com/openshift/api/apps/v1"
@@ -22,12 +23,6 @@ import (
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-)
-
-const (
-	DeploymentPodFormat       = `%s-([a-z0-9]+)-([a-z0-9]+)`
-	StatefulSetPodFormat      = `%s-([0-9]+)`
-	DeploymentConfigPodFormat = `%s-([0-9]+)-([a-z0-9]+)`
 )
 
 func CreateV1Alpha2Scaler(
@@ -490,7 +485,7 @@ func CreateV1Alpha2Scaler(
 				podName := pod.GetName()
 				nodeName := pod.Spec.NodeName
 				deployName := deployIns.GetName()
-				podNamePattern := fmt.Sprintf(DeploymentPodFormat, deployName)
+				podNamePattern := fmt.Sprintf(alamedaconsts.DeploymentPodFormat, deployName)
 				regExp := regexp.MustCompile(podNamePattern)
 				res := regExp.FindAllStringSubmatch(pod.GetName(), -1)
 				if len(res) > 0 {
@@ -578,7 +573,7 @@ func CreateV1Alpha2Scaler(
 				podName := pod.GetName()
 				nodeName := pod.Spec.NodeName
 				stsName := stsIns.GetName()
-				podNamePattern := fmt.Sprintf(StatefulSetPodFormat, stsName)
+				podNamePattern := fmt.Sprintf(alamedaconsts.StatefulSetPodFormat, stsName)
 				regExp := regexp.MustCompile(podNamePattern)
 				res := regExp.FindAllStringSubmatch(pod.GetName(), -1)
 				if len(res) > 0 {
@@ -661,7 +656,7 @@ func CreateV1Alpha2Scaler(
 				podName := pod.GetName()
 				nodeName := pod.Spec.NodeName
 				dcName := dcIns.GetName()
-				podNamePattern := fmt.Sprintf(DeploymentConfigPodFormat, dcName)
+				podNamePattern := fmt.Sprintf(alamedaconsts.DeploymentConfigPodFormat, dcName)
 				regExp := regexp.MustCompile(podNamePattern)
 				res := regExp.FindAllStringSubmatch(pod.GetName(), -1)
 				if len(res) > 0 {

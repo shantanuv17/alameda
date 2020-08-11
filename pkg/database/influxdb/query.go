@@ -323,6 +323,10 @@ func (p *InfluxQuery) expression(key, operator, value string, dataType common.Da
 	case common.Float64:
 		return fmt.Sprintf("\"%s\"%s%s", key, operator, value)
 	case common.String:
+		// Regular expression
+		if operator == "=~" {
+			return fmt.Sprintf("\"%s\"%s/(?i)%s/", key, operator, value)
+		}
 		return fmt.Sprintf("\"%s\"%s'%s'", key, operator, value)
 	default:
 		fmt.Println("not support")

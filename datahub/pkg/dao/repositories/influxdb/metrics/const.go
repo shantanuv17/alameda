@@ -1,6 +1,7 @@
 package metrics
 
 import (
+	"github.com/containers-ai/alameda/pkg/consts"
 	"github.com/containers-ai/alameda/pkg/database/influxdb"
 )
 
@@ -18,3 +19,9 @@ const (
 	ControllerCpu     influxdb.Measurement = "controller_cpu"
 	ControllerMemory  influxdb.Measurement = "controller_memory"
 )
+
+var PodNameRegularExpression = map[string]string{
+	"DEPLOYMENT":       consts.DeploymentPodFormat,
+	"STATEFULSET":      consts.StatefulSetPodFormat,
+	"DEPLOYMENTCONFIG": consts.DeploymentConfigPodFormat,
+}

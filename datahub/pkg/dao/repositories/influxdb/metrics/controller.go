@@ -1,6 +1,7 @@
 package metrics
 
 import (
+	"fmt"
 	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
 	DaoMetricTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics/types"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
@@ -28,14 +29,7 @@ func (p *Controller) GetMetricMap(metricType enumconv.MetricType, controllers []
 	measurement := InfluxDB.NewMeasurement(InfluxSchemas.DatabaseNameMap[InfluxSchemas.Metric], m, p.InfluxDBConfig)
 
 	for _, controller := range controllers {
-		// List pods which are belonged to this controller
-		pods, err := ListPodsByController(p.InfluxDBConfig, controller)
-		if err != nil {
-			scope.Error(err.Error())
-			return DaoMetricTypes.ControllerMetricMap{}, err
-		}
-
-		p.rebuildQueryCondition(pods, req.QueryCondition.SubQuery)
+		p.rebuildQueryCondition(controller, req.QueryCondition.SubQuery)
 
 		groups, err := measurement.Read(InfluxDB.NewQuery(&req.QueryCondition, measurement.Name))
 		if err != nil {
@@ -52,17 +46,15 @@ func (p *Controller) GetMetricMap(metricType enumconv.MetricType, controllers []
 	return metricMap, nil
 }
 
-func (p *Controller) rebuildQueryCondition(pods []*DaoClusterTypes.Pod, queryCondition *DBCommon.QueryCondition) {
-	queryCondition.WhereCondition = make([]*DBCommon.Condition, 0)
-
-	for _, pod := range pods {
-		condition := DBCommon.Condition{}
-		condition.Keys = []string{"pod_name", "pod_namespace", "cluster_name"}
-		condition.Values = []string{pod.ObjectMeta.Name, pod.ObjectMeta.Namespace, pod.ObjectMeta.ClusterName}
-		condition.Operators = []string{"=", "=", "="}
-		condition.Types = []DBCommon.DataType{DBCommon.String, DBCommon.String, DBCommon.String}
-		queryCondition.WhereCondition = append(queryCondition.WhereCondition, &condition)
-	}
+func (p *Controller) rebuildQueryCondition(controller *DaoClusterTypes.Controller, queryCondition *DBCommon.QueryCondition) {
+	condition := DBCommon.Condition{}
+	condition.Keys = []string{"pod_name", "pod_namespace", "cluster_name"}
+	condition.Values = append(condition.Values, fmt.Sprintf(PodNameRegularExpression[controller.Kind], controller.ObjectMeta.Name))
+	condition.Values = append(condition.Values, controller.ObjectMeta.Namespace)
+	condition.Values = append(condition.Values, controller.ObjectMeta.ClusterName)
+	condition.Operators = []string{"=~", "=", "="}
+	condition.Types = []DBCommon.DataType{DBCommon.String, DBCommon.String, DBCommon.String}
+	queryCondition.WhereCondition = append(queryCondition.WhereCondition, &condition)
 }
 
 func (p *Controller) genMetric(metricType enumconv.MetricType, controller *DaoClusterTypes.Controller, groups []*DBCommon.Group) *DaoMetricTypes.ControllerMetric {
