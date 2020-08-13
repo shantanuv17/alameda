@@ -1,18 +1,11 @@
 package datahub
 
 import (
-	"context"
-	"errors"
-	Entities "github.com/containers-ai/alameda/datahub/pkg/entities"
 	"github.com/containers-ai/alameda/pkg/utils/log"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
-	grpcretry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
+	"github.com/containers-ai/api/datahub/keycodes"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/connectivity"
-	"reflect"
 	"sync"
-	"time"
-
 )
 
 var (
@@ -21,9 +14,12 @@ var (
 
 type Client struct {
 	datahub.DatahubServiceClient
-	Connection *grpc.ClientConn
+	keycodes.KeycodesServiceClient
+
 	RWLock     *sync.RWMutex
 	Address    string
+
+	connection *grpc.ClientConn
 }
 
 func NewClient(address string) *Client {
@@ -31,195 +27,11 @@ func NewClient(address string) *Client {
 	client.Address = address
 	client.RWLock = new(sync.RWMutex)
 
-	// Create a client connection to datahub
-	if err := client.Reconnect(3, 30); err != nil {
-		scope.Errorf("failed to dial to datahub via address(%s): %s", address, err.Error())
+	// Connect to datahub
+	if err := client.Connect(3, 30); err != nil {
+		scope.Errorf("failed to connect to datahub: %s", err.Error())
 		return nil
 	}
 
 	return &client
-}
-
-func (p *Client) Reconnect(retry, timeout int) error {
-	// Check if connection is alive first
-	if p.IsAlive() {
-		scope.Info("connection to datahub is alive, no necessary to reconnect")
-		return nil
-	}
-
-	// Get WRITE lock
-	p.RWLock.Lock()
-	defer p.RWLock.Unlock()
-
-	// Do close connection before connecting to datahub
-	if err := p.Close(); err != nil {
-		scope.Errorf("failed to close reconnect to datahub: %s", err.Error())
-		return err
-	}
-
-	// Create a client connection to datahub
-	conn, err := grpc.Dial(p.Address,
-		grpc.WithBlock(),
-		grpc.WithTimeout(time.Duration(timeout) * time.Second),
-		grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(grpcretry.UnaryClientInterceptor(grpcretry.WithMax(uint(retry)))),
-	)
-
-	if err != nil {
-		scope.Errorf("failed to create connection to datahub: %s", err.Error())
-		return err
-	}
-
-	scope.Info("successfully create connection to datahub")
-	p.Connection = conn
-	p.DatahubServiceClient = datahub.NewDatahubServiceClient(p.Connection)
-
-	return nil
-}
-
-func (p *Client) Close() error {
-	if p.Connection != nil {
-		if err := p.Connection.Close(); err != nil {
-			scope.Error(err.Error())
-			return err
-		}
-	}
-	p.Connection = nil
-	return nil
-}
-
-func (p *Client) IsAlive() bool {
-	// Get READ lock
-	p.RWLock.RLock()
-	defer p.RWLock.RUnlock()
-
-	if p.Connection != nil {
-		state := p.Connection.GetState()
-		switch state {
-		case connectivity.Idle:
-			return true
-		case connectivity.Connecting:
-			return true
-		case connectivity.Ready:
-			return true
-		case connectivity.TransientFailure:
-			return false
-		case connectivity.Shutdown:
-			return false
-		default:
-			scope.Errorf("unknown connectivity state: %d", state)
-			return false
-		}
-	}
-	return false
-}
-
-func (p *Client) Create(entities interface{}, fields ...string) error {
-	request := NewWriteDataRequest(entities, fields)
-	status, err := p.WriteData(context.Background(), request)
-
-	// Check error
-	if err != nil {
-		return err
-	}
-
-	// Check response status code
-	if status.Code != 0 {
-		return errors.New(status.GetMessage())
-	}
-
-	return nil
-}
-
-func (p *Client) List(entities interface{}, opts ...Option) error {
-	request := NewReadDataRequest(entities, nil, nil, nil, opts...)
-	response, err := p.ReadData(context.Background(), request)
-
-	// Check error
-	if err != nil {
-		return err
-	}
-
-	// Check response status code
-	if response.Status.Code != 0 {
-		return errors.New(response.Status.GetMessage())
-	}
-
-	// Copy results
-	DeepCopyEntity(entities, response.Data)
-
-	return nil
-}
-
-func (p *Client) ListTS(entities interface{}, timeRange *TimeRange, function *Function, fields []string, opts ...Option) error {
-	request := NewReadDataRequest(entities, fields, timeRange, function, opts...)
-	response, err := p.ReadData(context.Background(), request)
-
-	// Check error
-	if err != nil {
-		return err
-	}
-
-	// Check response status code
-	if response.Status.Code != 0 {
-		return errors.New(response.Status.GetMessage())
-	}
-
-	// Copy results
-	DeepCopyEntity(entities, response.Data)
-
-	return nil
-}
-
-// Delete by tags
-func (p *Client) Delete(entities interface{}) error {
-	opts := make([]Option, 0)
-
-	values := reflect.ValueOf(entities).Elem()
-
-	// If length of entities list is ZERO which means to delete nothing
-	if values.Len() == 0 {
-		return nil
-	}
-
-	// Iterate the entities to find all the tags
-	for i := 0; i < values.Len(); i++ {
-		entity := values.Index(i).Interface()
-		datahubEntity := values.Index(i).Field(0).Interface().(Entities.DatahubEntity)
-		tags := datahubEntity.TagNames(entity)
-		opts = append(opts, Option{Entity: entity, Fields: tags})
-	}
-
-	request := NewDeleteDataRequest(entities, opts...)
-	status, err := p.DeleteData(context.Background(), request)
-
-	// Check error
-	if err != nil {
-		return err
-	}
-
-	// Check response status code
-	if status.Code != 0 {
-		return errors.New(status.GetMessage())
-	}
-
-	return nil
-}
-
-// Entity is indicator, delete by options
-func (p *Client) DeleteByOpts(entity interface{}, opts ...Option) error {
-	request := NewDeleteDataRequest(entity, opts...)
-	status, err := p.DeleteData(context.Background(), request)
-
-	// Check error
-	if err != nil {
-		return err
-	}
-
-	// Check response status code
-	if status.Code != 0 {
-		return errors.New(status.GetMessage())
-	}
-
-	return nil
 }
