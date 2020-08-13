@@ -1,7 +1,6 @@
 package dispatcher
 
 import (
-	"context"
 	"fmt"
 	"sync"
 	"time"
@@ -115,8 +114,7 @@ func (sender *controllerModelJobSender) getLastMIdPrediction(datahubServiceClnt 
 	controllerNS := controller.GetObjectMeta().GetNamespace()
 	controllerName := controller.GetObjectMeta().GetName()
 
-	utils.RefreshConnIfNecessary(datahubServiceClnt)
-	controllerPredictRes, err := datahubServiceClnt.ListControllerPredictions(context.Background(),
+	controllerPredictRes, err := datahubServiceClnt.ListControllerPredictions(
 		&datahub_predictions.ListControllerPredictionsRequest{
 			ObjectMeta: []*datahub_resources.ObjectMeta{
 				{
@@ -162,8 +160,7 @@ func (sender *controllerModelJobSender) getLastMIdPrediction(datahubServiceClnt 
 				controller.GetKind().String(), dataGranularity, controllerNS, controllerName, pdRD.GetMetricType())
 		}
 
-		utils.RefreshConnIfNecessary(datahubServiceClnt)
-		controllerPredictRes, err = datahubServiceClnt.ListControllerPredictions(context.Background(),
+		controllerPredictRes, err = datahubServiceClnt.ListControllerPredictions(
 			&datahub_predictions.ListControllerPredictionsRequest{
 				ObjectMeta: []*datahub_resources.ObjectMeta{
 					{
@@ -261,8 +258,7 @@ func (sender *controllerModelJobSender) sendJobByMetrics(controller *datahub_res
 				queryStartTime = firstPDTime
 			}
 
-			utils.RefreshConnIfNecessary(datahubServiceClnt)
-			controllerMetricsRes, err := datahubServiceClnt.ListControllerMetrics(context.Background(),
+			controllerMetricsRes, err := datahubServiceClnt.ListControllerMetrics(
 				&datahub_metrics.ListControllerMetricsRequest{
 					QueryCondition: &datahub_common.QueryCondition{
 						Order: datahub_common.QueryCondition_DESC,

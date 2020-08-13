@@ -1,7 +1,6 @@
 package dispatcher
 
 import (
-	"context"
 	"fmt"
 	"sync"
 	"time"
@@ -106,8 +105,7 @@ func (sender *clusterModelJobSender) getLastMIdPrediction(datahubServiceClnt *da
 	dataGranularity := queue.GetGranularityStr(granularity)
 	clusterName := cluster.ObjectMeta.GetName()
 
-	utils.RefreshConnIfNecessary(datahubServiceClnt)
-	clusterPredictRes, err := datahubServiceClnt.ListClusterPredictions(context.Background(),
+	clusterPredictRes, err := datahubServiceClnt.ListClusterPredictions(
 		&datahub_predictions.ListClusterPredictionsRequest{
 			ObjectMeta: []*datahub_resources.ObjectMeta{
 				{
@@ -148,8 +146,7 @@ func (sender *clusterModelJobSender) getLastMIdPrediction(datahubServiceClnt *da
 				dataGranularity, clusterName, pdRD.GetMetricType())
 		}
 
-		utils.RefreshConnIfNecessary(datahubServiceClnt)
-		clusterPredictRes, err = datahubServiceClnt.ListClusterPredictions(context.Background(),
+		clusterPredictRes, err = datahubServiceClnt.ListClusterPredictions(
 			&datahub_predictions.ListClusterPredictionsRequest{
 				ObjectMeta: []*datahub_resources.ObjectMeta{
 					{
@@ -240,8 +237,7 @@ func (sender *clusterModelJobSender) sendJobByMetrics(cluster *datahub_resources
 				queryStartTime = firstPDTime
 			}
 
-			utils.RefreshConnIfNecessary(datahubServiceClnt)
-			clusterMetricsRes, err := datahubServiceClnt.ListClusterMetrics(context.Background(),
+			clusterMetricsRes, err := datahubServiceClnt.ListClusterMetrics(
 				&datahub_metrics.ListClusterMetricsRequest{
 					QueryCondition: &datahub_common.QueryCondition{
 						Order: datahub_common.QueryCondition_DESC,

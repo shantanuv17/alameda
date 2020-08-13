@@ -20,14 +20,11 @@ import (
 	"context"
 	"time"
 
-	"github.com/pkg/errors"
-	"google.golang.org/grpc"
-
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	datahub_node "github.com/containers-ai/alameda/operator/datahub/client/node"
 	nodeinfo "github.com/containers-ai/alameda/operator/pkg/nodeinfo"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-
+	"github.com/pkg/errors"
 	corev1 "k8s.io/api/core/v1"
 	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -41,7 +38,6 @@ type NodeReconciler struct {
 	client.Client
 	Scheme          *runtime.Scheme
 	EnabledDA       bool
-	conn            *grpc.ClientConn
 	DatahubClient   *datahubpkg.Client
 	DatahubNodeRepo datahub_node.AlamedaNodeRepository
 

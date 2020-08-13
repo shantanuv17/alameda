@@ -29,6 +29,7 @@ func CreateV1Alpha2Scaler(
 	datahubClient *datahubpkg.Client, k8sClient client.Client,
 	kafkaClient kafka.Client, scaler *autoscalingv1alpha2.AlamedaScaler,
 	enabledDA, isOpenshift bool) error {
+
 	err := datahubClient.Create(&[]entities.ResourceClusterStatusApplication{
 		{
 			ClusterName: scaler.Spec.ClusterName,
@@ -39,6 +40,7 @@ func CreateV1Alpha2Scaler(
 	if err != nil {
 		return err
 	}
+
 	err = datahubClient.Create(&[]entities.TargetClusterStatusCluster{
 		{
 			Name:                   scaler.Spec.ClusterName,
@@ -130,6 +132,7 @@ func CreateV1Alpha2Scaler(
 	if err != nil {
 		return err
 	}
+
 	err = datahubClient.Create(&targetKafkaCgs)
 	if err != nil {
 		return err
@@ -722,18 +725,22 @@ func CreateV1Alpha2Scaler(
 	if err != nil {
 		return err
 	}
+
 	err = datahubClient.Create(&finalResourceControllers)
 	if err != nil {
 		return err
 	}
+
 	err = datahubClient.Create(&resourcePods)
 	if err != nil {
 		return err
 	}
+
 	err = datahubClient.Create(&appKafkaTopics)
 	if err != nil {
 		return err
 	}
+
 	err = datahubClient.Create(&appKafkaCgs)
 	if err != nil {
 		return err

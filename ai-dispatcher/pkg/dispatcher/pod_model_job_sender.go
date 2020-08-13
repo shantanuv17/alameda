@@ -1,7 +1,6 @@
 package dispatcher
 
 import (
-	"context"
 	"fmt"
 	"sync"
 	"time"
@@ -112,8 +111,7 @@ func (sender *podModelJobSender) getLastMIdPrediction(datahubServiceClnt *datahu
 	podNS := pod.GetObjectMeta().GetNamespace()
 	podName := pod.GetObjectMeta().GetName()
 
-	utils.RefreshConnIfNecessary(datahubServiceClnt)
-	podPredictRes, err := datahubServiceClnt.ListPodPredictions(context.Background(),
+	podPredictRes, err := datahubServiceClnt.ListPodPredictions(
 		&datahub_predictions.ListPodPredictionsRequest{
 			Granularity: granularity,
 			ObjectMeta: []*datahub_resources.ObjectMeta{
@@ -158,8 +156,8 @@ func (sender *podModelJobSender) getLastMIdPrediction(datahubServiceClnt *datahu
 				scope.Warnf("[POD][%s][%s/%s/%s] Query last model id for metric %s is empty",
 					dataGranularity, podNS, podName, lctPrediction.GetName(), pdRD.GetMetricType())
 			}
-			utils.RefreshConnIfNecessary(datahubServiceClnt)
-			podPredictRes, err = datahubServiceClnt.ListPodPredictions(context.Background(),
+
+			podPredictRes, err = datahubServiceClnt.ListPodPredictions(
 				&datahub_predictions.ListPodPredictionsRequest{
 					Granularity: granularity,
 					ObjectMeta: []*datahub_resources.ObjectMeta{
@@ -327,8 +325,7 @@ func (sender *podModelJobSender) sendJobByMetrics(pod *datahub_resources.Pod, qu
 					aggFun = datahub_common.TimeRange_MAX
 				}
 
-				utils.RefreshConnIfNecessary(datahubServiceClnt)
-				podMetricsRes, err := datahubServiceClnt.ListPodMetrics(context.Background(),
+				podMetricsRes, err := datahubServiceClnt.ListPodMetrics(
 					&datahub_metrics.ListPodMetricsRequest{
 						QueryCondition: &datahub_common.QueryCondition{
 							Order: datahub_common.QueryCondition_DESC,

@@ -35,6 +35,7 @@ func DeleteV1Alpha2Scaler(
 	if err != nil {
 		return err
 	}
+
 	err = datahubClient.DeleteByOpts(&entities.TargetClusterStatusController{},
 		datahubpkg.Option{
 			Entity: entities.TargetClusterStatusController{
@@ -47,6 +48,7 @@ func DeleteV1Alpha2Scaler(
 	if err != nil {
 		return err
 	}
+
 	err = datahubClient.DeleteByOpts(&entities.TargetKafkaConsumerGroup{},
 		datahubpkg.Option{
 			Entity: entities.TargetKafkaConsumerGroup{
@@ -73,6 +75,7 @@ func DeleteV1Alpha2Scaler(
 		if err != nil {
 			return err
 		}
+
 		err = datahubClient.DeleteByOpts(&entities.ResourceClusterStatusPod{},
 			datahubpkg.Option{
 				Entity: entities.ResourceClusterStatusPod{
@@ -85,6 +88,7 @@ func DeleteV1Alpha2Scaler(
 		if err != nil {
 			return err
 		}
+
 		err = datahubClient.DeleteByOpts(&entities.ResourceClusterStatusController{},
 			datahubpkg.Option{
 				Entity: entities.ResourceClusterStatusController{
@@ -109,6 +113,7 @@ func DeleteV1Alpha2Scaler(
 		if err != nil {
 			return err
 		}
+
 		err = datahubClient.DeleteByOpts(&entities.ApplicationKafkaTopic{},
 			datahubpkg.Option{
 				Entity: entities.ApplicationKafkaTopic{

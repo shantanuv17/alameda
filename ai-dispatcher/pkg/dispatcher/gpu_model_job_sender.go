@@ -1,7 +1,6 @@
 package dispatcher
 
 import (
-	"context"
 	"fmt"
 	"sync"
 	"time"
@@ -111,8 +110,7 @@ func (sender *gpuModelJobSender) getLastMIdPrediction(datahubServiceClnt *datahu
 	gpuHost := gpu.GetMetadata().GetHost()
 	gpuMinorNumber := gpu.GetMetadata().GetMinorNumber()
 
-	utils.RefreshConnIfNecessary(datahubServiceClnt)
-	gpuPredictRes, err := datahubServiceClnt.ListGpuPredictions(context.Background(),
+	gpuPredictRes, err := datahubServiceClnt.ListGpuPredictions(
 		&datahub_gpu.ListGpuPredictionsRequest{
 			Host:        gpuHost,
 			MinorNumber: gpuMinorNumber,
@@ -152,8 +150,7 @@ func (sender *gpuModelJobSender) getLastMIdPrediction(datahubServiceClnt *datahu
 				dataGranularity, gpuHost, gpuMinorNumber, pdRD.GetMetricType())
 		}
 
-		utils.RefreshConnIfNecessary(datahubServiceClnt)
-		gpuPredictRes, err = datahubServiceClnt.ListGpuPredictions(context.Background(),
+		gpuPredictRes, err = datahubServiceClnt.ListGpuPredictions(
 			&datahub_gpu.ListGpuPredictionsRequest{
 				Host:        gpuHost,
 				MinorNumber: gpuMinorNumber,
@@ -243,8 +240,7 @@ func (sender *gpuModelJobSender) sendJobByMetrics(gpu *datahub_gpu.Gpu, queueSen
 				queryStartTime = firstPDTime
 			}
 
-			utils.RefreshConnIfNecessary(datahubServiceClnt)
-			gpuMetricsRes, err := datahubServiceClnt.ListGpuMetrics(context.Background(),
+			gpuMetricsRes, err := datahubServiceClnt.ListGpuMetrics(
 				&datahub_gpu.ListGpuMetricsRequest{
 					QueryCondition: &datahub_common.QueryCondition{
 						Order: datahub_common.QueryCondition_DESC,

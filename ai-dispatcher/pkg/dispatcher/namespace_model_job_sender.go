@@ -1,7 +1,6 @@
 package dispatcher
 
 import (
-	"context"
 	"fmt"
 	"sync"
 	"time"
@@ -108,8 +107,7 @@ func (sender *namespaceModelJobSender) getLastMIdPrediction(datahubServiceClnt *
 	dataGranularity := queue.GetGranularityStr(granularity)
 	namespaceName := namespace.GetObjectMeta().GetName()
 
-	utils.RefreshConnIfNecessary(datahubServiceClnt)
-	namespacePredictRes, err := datahubServiceClnt.ListNamespacePredictions(context.Background(),
+	namespacePredictRes, err := datahubServiceClnt.ListNamespacePredictions(
 		&datahub_predictions.ListNamespacePredictionsRequest{
 			ObjectMeta: []*datahub_resources.ObjectMeta{
 				{
@@ -152,8 +150,7 @@ func (sender *namespaceModelJobSender) getLastMIdPrediction(datahubServiceClnt *
 				dataGranularity, namespaceName, pdRD.GetMetricType())
 		}
 
-		utils.RefreshConnIfNecessary(datahubServiceClnt)
-		namespacePredictRes, err = datahubServiceClnt.ListNamespacePredictions(context.Background(),
+		namespacePredictRes, err = datahubServiceClnt.ListNamespacePredictions(
 			&datahub_predictions.ListNamespacePredictionsRequest{
 				ObjectMeta: []*datahub_resources.ObjectMeta{
 					{
@@ -248,8 +245,7 @@ func (sender *namespaceModelJobSender) sendJobByMetrics(namespace *datahub_resou
 				queryStartTime = firstPDTime
 			}
 
-			utils.RefreshConnIfNecessary(datahubServiceClnt)
-			namespaceMetricsRes, err := datahubServiceClnt.ListNamespaceMetrics(context.Background(),
+			namespaceMetricsRes, err := datahubServiceClnt.ListNamespaceMetrics(
 				&datahub_metrics.ListNamespaceMetricsRequest{
 					QueryCondition: &datahub_common.QueryCondition{
 						Order: datahub_common.QueryCondition_DESC,

@@ -1,7 +1,6 @@
 package dispatcher
 
 import (
-	"context"
 	"fmt"
 	"sync"
 	"time"
@@ -115,8 +114,7 @@ func (sender *applicationModelJobSender) getLastMIdPrediction(datahubServiceClnt
 	applicationNS := application.GetObjectMeta().GetNamespace()
 	applicationName := application.GetObjectMeta().GetName()
 
-	utils.RefreshConnIfNecessary(datahubServiceClnt)
-	applicationPredictRes, err := datahubServiceClnt.ListApplicationPredictions(context.Background(),
+	applicationPredictRes, err := datahubServiceClnt.ListApplicationPredictions(
 		&datahub_predictions.ListApplicationPredictionsRequest{
 			ObjectMeta: []*datahub_resources.ObjectMeta{
 				{
@@ -161,8 +159,7 @@ func (sender *applicationModelJobSender) getLastMIdPrediction(datahubServiceClnt
 			continue
 		}
 
-		utils.RefreshConnIfNecessary(datahubServiceClnt)
-		applicationPredictRes, err = datahubServiceClnt.ListApplicationPredictions(context.Background(),
+		applicationPredictRes, err = datahubServiceClnt.ListApplicationPredictions(
 			&datahub_predictions.ListApplicationPredictionsRequest{
 				ObjectMeta: []*datahub_resources.ObjectMeta{
 					{
@@ -258,8 +255,7 @@ func (sender *applicationModelJobSender) sendJobByMetrics(application *datahub_r
 				queryStartTime = firstPDTime
 			}
 
-			utils.RefreshConnIfNecessary(datahubServiceClnt)
-			applicationMetricsRes, err := datahubServiceClnt.ListApplicationMetrics(context.Background(),
+			applicationMetricsRes, err := datahubServiceClnt.ListApplicationMetrics(
 				&datahub_metrics.ListApplicationMetricsRequest{
 					QueryCondition: &datahub_common.QueryCondition{
 						Order: datahub_common.QueryCondition_DESC,

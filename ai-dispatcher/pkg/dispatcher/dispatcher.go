@@ -1,7 +1,6 @@
 package dispatcher
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"sync"
@@ -244,7 +243,7 @@ func (dispatcher *Dispatcher) getAndPushJobsV2(queueSender queue.QueueSender,
 func (dispatcher *Dispatcher) getAndPushJobs(queueSender queue.QueueSender,
 	pdUnit string, granularity int64, predictionStep int64, queueJobType string) {
 	if pdUnit == consts.UnitTypeNode {
-		res, err := dispatcher.datahubClient.ListNodes(context.Background(),
+		res, err := dispatcher.datahubClient.ListNodes(
 			&datahub_resources.ListNodesRequest{})
 		if err != nil {
 			scope.Errorf(
@@ -284,7 +283,7 @@ func (dispatcher *Dispatcher) getAndPushJobs(queueSender queue.QueueSender,
 			len(nodes), granularity)
 
 	} else if pdUnit == consts.UnitTypePod {
-		res, err := dispatcher.datahubClient.ListPods(context.Background(),
+		res, err := dispatcher.datahubClient.ListPods(
 			&datahub_resources.ListPodsRequest{
 				ScalingTool: datahub_resources.ScalingTool_VPA,
 			})
@@ -331,7 +330,7 @@ func (dispatcher *Dispatcher) getAndPushJobs(queueSender queue.QueueSender,
 			"Sending %v pod jobs to queue completely with granularity %v seconds.",
 			len(pods), granularity)
 	} else if pdUnit == consts.UnitTypeGPU {
-		res, err := dispatcher.datahubClient.ListGpus(context.Background(),
+		res, err := dispatcher.datahubClient.ListGpus(
 			&datahub_gpu.ListGpusRequest{})
 		if err != nil {
 			scope.Errorf(
@@ -356,7 +355,7 @@ func (dispatcher *Dispatcher) getAndPushJobs(queueSender queue.QueueSender,
 		scope.Infof("Sending %v gpu jobs to queue completely with granularity %v seconds.",
 			len(gpus), granularity)
 	} else if pdUnit == consts.UnitTypeApplication {
-		res, err := dispatcher.datahubClient.ListApplications(context.Background(),
+		res, err := dispatcher.datahubClient.ListApplications(
 			&datahub_resources.ListApplicationsRequest{})
 		if err != nil {
 			scope.Errorf(
@@ -386,7 +385,7 @@ func (dispatcher *Dispatcher) getAndPushJobs(queueSender queue.QueueSender,
 		scope.Infof("Sending %v application jobs to queue completely with granularity %v seconds.",
 			len(applications), granularity)
 	} else if pdUnit == consts.UnitTypeNamespace {
-		res, err := dispatcher.datahubClient.ListNamespaces(context.Background(),
+		res, err := dispatcher.datahubClient.ListNamespaces(
 			&datahub_resources.ListNamespacesRequest{})
 		if err != nil {
 			scope.Errorf(
@@ -413,7 +412,7 @@ func (dispatcher *Dispatcher) getAndPushJobs(queueSender queue.QueueSender,
 			"Sending %v namespace jobs to queue completely with granularity %v seconds.",
 			len(namespaces), granularity)
 	} else if pdUnit == consts.UnitTypeCluster {
-		res, err := dispatcher.datahubClient.ListClusters(context.Background(),
+		res, err := dispatcher.datahubClient.ListClusters(
 			&datahub_resources.ListClustersRequest{})
 		if err != nil {
 			scope.Errorf(
@@ -440,7 +439,7 @@ func (dispatcher *Dispatcher) getAndPushJobs(queueSender queue.QueueSender,
 			"Sending %v cluster jobs to queue completely with granularity %v seconds.",
 			len(clusters), granularity)
 	} else if pdUnit == consts.UnitTypeController {
-		res, err := dispatcher.datahubClient.ListControllers(context.Background(),
+		res, err := dispatcher.datahubClient.ListControllers(
 			&datahub_resources.ListControllersRequest{})
 		if err != nil {
 			scope.Errorf(

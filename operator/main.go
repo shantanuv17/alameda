@@ -40,12 +40,10 @@ import (
 	"github.com/containers-ai/alameda/pkg/provider"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
 	osappsapi "github.com/openshift/api/apps/v1"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 	"golang.org/x/sync/errgroup"
-	"google.golang.org/grpc"
 	"k8s.io/apimachinery/pkg/runtime"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -92,7 +90,6 @@ var (
 
 	// Third party clients
 	k8sClient     client.Client
-	datahubConn   *grpc.ClientConn
 	datahubClient *datahubpkg.Client
 	kafkaClient   kafka.Client
 )
@@ -184,12 +181,6 @@ func initThirdPartyClient() error {
 	}
 	k8sClient = cli
 
-	datahubConn, err = grpc.Dial(operatorConf.Datahub.Address,
-		grpc.WithBlock(),
-		grpc.WithTimeout(30*time.Second),
-		grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(3)))),
-	)
 	if err != nil {
 		return errors.Wrap(err, "new connection to datahub failed")
 	}
@@ -368,7 +359,7 @@ func main() {
 				scope.Error("Wait for cache synchronization failed")
 			} else {
 				go syncResourcesWithDatahub(mgr.GetClient(),
-					datahubConn, datahubClient, enabledDA)
+					datahubClient, enabledDA)
 			}
 			return nil
 		})
@@ -385,7 +376,7 @@ func printSoftwareInfo() {
 }
 
 func syncResourcesWithDatahub(
-	client client.Client, datahubConn *grpc.ClientConn,
+	client client.Client,
 	datahubClient *datahubpkg.Client, enabledDA bool) {
 	for {
 		clusterUID, err := k8sutils.GetClusterUID(client)
@@ -418,8 +409,7 @@ func syncResourcesWithDatahub(
 			}
 		}()
 		go func() {
-			if err := datahub_client_cluster.SyncWithDatahub(client,
-				datahubConn); err != nil {
+			if err := datahub_client_cluster.SyncWithDatahub(client, datahubClient); err != nil {
 				scope.Errorf("sync cluster failed at start due to %s", err.Error())
 			}
 		}()

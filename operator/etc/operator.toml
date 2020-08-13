@@ -12,8 +12,9 @@ filePath = "/var/log/alameda/alameda-operator.log"
 
 [datahub]
 address = "datahub.alameda.svc.cluster.local:50050"
-  [datahub.retryInterval]
-  default = 3 # second
+  [datahub.retry]
+  interval = 3 # second
+  timeout = 30 # second
 
 [kafka]
 brokerAddresses = ["my-kafka.kafka:9092"]

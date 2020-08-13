@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"context"
 	"fmt"
 	"time"
 
@@ -36,8 +35,7 @@ func ReadData(datahubServiceClnt *datahubpkg.Client,
 		retryIntervalSec = viper.GetInt64("datahub.query.retryInterval")
 	}
 	for i := 1; i < retry; i++ {
-		RefreshConnIfNecessary(datahubServiceClnt)
-		data, err := datahubServiceClnt.ReadData(context.Background(),
+		data, err := datahubServiceClnt.ReadData(
 			&datahub_data.ReadDataRequest{
 				SchemaMeta: schemaMeta,
 				ReadData:   readData,
@@ -78,18 +76,4 @@ func GetGranularitySec(granularityStr string) int64 {
 		return 86400
 	}
 	return 30
-}
-
-func RefreshConnIfNecessary(datahubClient *datahubpkg.Client) {
-	retry := 3
-	timeout := 30
-	if viper.IsSet("datahub.connRetry") {
-		retry = viper.GetInt("datahub.connRetry")
-	}
-	if viper.IsSet("datahub.connTimeout") {
-		timeout = viper.GetInt("datahub.connTimeout")
-	}
-	if !datahubClient.IsAlive() {
-		datahubClient.Reconnect(retry, timeout)
-	}
 }
