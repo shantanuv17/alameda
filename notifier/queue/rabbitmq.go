@@ -7,34 +7,33 @@ import (
 
 	"github.com/containers-ai/alameda/notifier/notifying"
 	notifier_utils "github.com/containers-ai/alameda/notifier/utils"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	k8s_utils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	"github.com/containers-ai/alameda/pkg/utils/log"
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_events "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"github.com/spf13/viper"
 	"github.com/streadway/amqp"
-	"google.golang.org/grpc"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 )
 
 var scope = log.RegisterScope("queue", "queue", 0)
 
 type rabbitmqClient struct {
-	conn        *amqp.Connection
-	datahubConn *grpc.ClientConn
-	mgr         manager.Manager
+	conn          *amqp.Connection
+	datahubClient *datahubpkg.Client
+	mgr           manager.Manager
 }
 
-func NewRabbitMQClient(mgr manager.Manager, queueURL string, datahubConn *grpc.ClientConn) *rabbitmqClient {
+func NewRabbitMQClient(mgr manager.Manager, queueURL string, datahubClient *datahubpkg.Client) *rabbitmqClient {
 	retryConn := viper.GetInt("rabbitmq.connRetry")
 	retryConnInterval := viper.GetInt64("rabbitmq.connRetryInterval")
 	for retry := 0; retry < retryConn; retry++ {
 		conn, err := amqp.Dial(queueURL)
 		if err == nil {
 			return &rabbitmqClient{
-				conn:        conn,
-				datahubConn: datahubConn,
-				mgr:         mgr,
+				conn:          conn,
+				datahubClient: datahubClient,
+				mgr:           mgr,
 			}
 		}
 		if err != nil {
@@ -51,8 +50,8 @@ func NewRabbitMQClient(mgr manager.Manager, queueURL string, datahubConn *grpc.C
 	}
 
 	return &rabbitmqClient{
-		datahubConn: datahubConn,
-		mgr:         mgr,
+		datahubClient: datahubClient,
+		mgr:           mgr,
 	}
 }
 
@@ -89,7 +88,6 @@ func (client *rabbitmqClient) Start() {
 		scope.Errorf(err.Error())
 	}
 	forever := make(chan bool)
-	datahubClient := datahub_v1alpha1.NewDatahubServiceClient(client.datahubConn)
 	scope.Infof("get cluster info - begin")
 	clusterInfo, err := notifier_utils.GetClusterInfo(client.mgr.GetClient())
 	if err != nil {
@@ -103,7 +101,7 @@ func (client *rabbitmqClient) Start() {
 		clusterInfo.UID = uid
 	}
 	scope.Infof("clusterInfo: %#v", clusterInfo)
-	notifier := notifying.NewNotifier(client.mgr, datahubClient, &clusterInfo)
+	notifier := notifying.NewNotifier(client.mgr, client.datahubClient, &clusterInfo)
 	go func() {
 		for d := range msgs {
 			scope.Infof("Received events: %s", d.Body)

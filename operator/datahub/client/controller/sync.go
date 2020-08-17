@@ -4,10 +4,10 @@ import (
 	"context"
 	"time"
 
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	appsapi_v1 "github.com/openshift/api/apps/v1"
 	"github.com/pkg/errors"
-	"google.golang.org/grpc"
 	appsv1 "k8s.io/api/apps/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
@@ -16,7 +16,7 @@ import (
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 )
 
-func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
+func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
@@ -61,7 +61,7 @@ func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
 		return errors.Wrap(err, "get cluster uid failed")
 	}
 
-	datahubControllerRepo := NewControllerRepository(conn, clusterUID)
+	datahubControllerRepo := NewControllerRepository(datahubClient, clusterUID)
 	controllersFromDatahub, err := datahubControllerRepo.ListControllers()
 	if err != nil {
 		return fmt.Errorf(

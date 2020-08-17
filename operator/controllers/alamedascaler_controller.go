@@ -793,7 +793,7 @@ func (r *AlamedaScalerReconciler) handleAlamedaScalerDeletion(namespace, name st
 			},
 		}
 		scope.Debugf("Deleting applications from datahub. AlamedaScaler: %s/%s. Applications: %+v", namespace, name, applicationObejctMetas)
-		if err := r.DatahubApplicationRepo.DeleteApplications(ctx, applicationObejctMetas); err != nil {
+		if err := r.DatahubApplicationRepo.DeleteApplications(applicationObejctMetas); err != nil {
 			return errors.Wrapf(err, "delete Application(%s/%s) from datahub failed", namespace, name)
 		}
 		scope.Debugf("Delete applications from datahub success. AlamedaScaler: %s/%s. Applications: %+v", namespace, name, applicationObejctMetas)

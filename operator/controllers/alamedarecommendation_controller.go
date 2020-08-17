@@ -26,7 +26,7 @@ import (
 
 	"github.com/containers-ai/alameda/datahub/pkg/utils"
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_recommendations "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
@@ -45,7 +45,7 @@ var alamedarecommendationFirstSynced = false
 type AlamedaRecommendationReconciler struct {
 	client.Client
 	Scheme        *runtime.Scheme
-	DatahubClient datahub_v1alpha1.DatahubServiceClient
+	DatahubClient *datahubpkg.Client
 
 	ClusterUID string
 }
@@ -90,7 +90,7 @@ func (r *AlamedaRecommendationReconciler) Reconcile(req ctrl.Request) (ctrl.Resu
 	}
 
 	// Update this AlamedaRecommendation with the latest recommendation value from Datahub
-	resp, err := r.DatahubClient.ListPodRecommendations(ctx, &datahub_recommendations.ListPodRecommendationsRequest{
+	resp, err := r.DatahubClient.ListPodRecommendations(&datahub_recommendations.ListPodRecommendationsRequest{
 		ObjectMeta: []*datahub_resources.ObjectMeta{
 			&datahub_resources.ObjectMeta{
 				Namespace:   req.Namespace,

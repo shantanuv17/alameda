@@ -10,7 +10,7 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/stats"
 	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_data "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	datahub_gpu "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"
@@ -22,7 +22,7 @@ import (
 )
 
 type modelJobSender struct {
-	datahubClient  datahub.DatahubServiceClient
+	datahubClient  *datahubpkg.Client
 	modelMapper    *ModelMapper
 	metricExporter *metrics.Exporter
 
@@ -35,7 +35,7 @@ type modelJobSender struct {
 	controllerModelJobSender  *controllerModelJobSender
 }
 
-func NewModelJobSender(datahubClient datahub.DatahubServiceClient, modelMapper *ModelMapper,
+func NewModelJobSender(datahubClient *datahubpkg.Client, modelMapper *ModelMapper,
 	metricExporter *metrics.Exporter) *modelJobSender {
 
 	return &modelJobSender{

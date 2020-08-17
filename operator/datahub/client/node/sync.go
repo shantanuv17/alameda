@@ -5,18 +5,16 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/pkg/errors"
-	"google.golang.org/grpc"
-
 	nodeinfo "github.com/containers-ai/alameda/operator/pkg/nodeinfo"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
-
+	"github.com/pkg/errors"
 	corev1 "k8s.io/api/core/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
+func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	nodeList := corev1.NodeList{}
@@ -30,7 +28,7 @@ func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
 		return errors.Wrap(err, "get cluster uid failed")
 	}
 
-	datahubNodeRepo := NewNodeRepository(conn, clusterUID)
+	datahubNodeRepo := NewNodeRepository(datahubClient, clusterUID)
 	nodes := make([]*datahub_resources.Node, len(nodeList.Items))
 	for i, node := range nodeList.Items {
 		nodeInfo, err := nodeinfo.NewNodeInfo(node)
@@ -40,6 +38,7 @@ func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
 		node := nodeInfo.DatahubNode(clusterUID)
 		nodes[i] = &node
 	}
+
 	if err := datahubNodeRepo.CreateNodes(nodes); err != nil {
 		return fmt.Errorf(
 			"Sync nodes with datahub failed due to register node failed: %s", err.Error())

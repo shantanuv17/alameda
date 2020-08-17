@@ -7,7 +7,7 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/config"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
 	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_data "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	datahub_gpu "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"
@@ -17,10 +17,10 @@ import (
 )
 
 type predictJobSender struct {
-	datahubClient datahub.DatahubServiceClient
+	datahubClient *datahubpkg.Client
 }
 
-func NewPredictJobSender(datahubClient datahub.DatahubServiceClient) *predictJobSender {
+func NewPredictJobSender(datahubClient *datahubpkg.Client) *predictJobSender {
 	return &predictJobSender{
 		datahubClient: datahubClient,
 	}

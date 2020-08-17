@@ -7,17 +7,17 @@ import (
 	"time"
 
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	k8SUtils "github.com/containers-ai/alameda/pkg/utils"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
-	"google.golang.org/grpc"
 	corev1 "k8s.io/api/core/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
+func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
@@ -26,7 +26,7 @@ func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
 		return errors.Wrap(err, "get cluster uid failed")
 	}
 
-	datahubNamespaceRepo := NewNamespaceRepository(conn, clusterUID)
+	datahubNamespaceRepo := NewNamespaceRepository(datahubClient, clusterUID)
 	alamedaScalerList := autoscalingv1alpha1.AlamedaScalerList{}
 	err = client.List(ctx, &alamedaScalerList)
 	if err != nil {

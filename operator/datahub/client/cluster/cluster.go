@@ -1,33 +1,23 @@
 package cluster
 
 import (
-	"context"
-
-	"github.com/pkg/errors"
-	"google.golang.org/grpc"
-
 	"github.com/containers-ai/alameda/operator/datahub/client"
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
+	"github.com/pkg/errors"
 )
 
 type ClusterRepository struct {
-	conn          *grpc.ClientConn
-	datahubClient datahub_v1alpha1.DatahubServiceClient
+	datahubClient *datahubpkg.Client
 
 	clusterUID string
 }
 
 // NewClusterRepository return ClusterRepository instance
-func NewClusterRepository(conn *grpc.ClientConn, clusterUID string) *ClusterRepository {
-
-	datahubClient := datahub_v1alpha1.NewDatahubServiceClient(conn)
-
+func NewClusterRepository(datahubClient *datahubpkg.Client, clusterUID string) *ClusterRepository {
 	return &ClusterRepository{
-		conn:          conn,
 		datahubClient: datahubClient,
-
-		clusterUID: clusterUID,
+		clusterUID:    clusterUID,
 	}
 }
 
@@ -42,7 +32,7 @@ func (repo *ClusterRepository) CreateClusters(arg interface{}) error {
 		Clusters: clusters,
 	}
 
-	if resp, err := repo.datahubClient.CreateClusters(context.Background(), &req); err != nil {
+	if resp, err := repo.datahubClient.CreateClusters(&req); err != nil {
 		return errors.Wrap(err, "create clusters to datahub failed")
 	} else if _, err := client.IsResponseStatusOK(resp); err != nil {
 		return errors.Wrap(err, "create clusters to datahub failed")
@@ -59,7 +49,7 @@ func (repo *ClusterRepository) ListClusters() ([]*datahub_resources.Cluster, err
 		},
 	}
 
-	resp, err := repo.datahubClient.ListClusters(context.Background(), &req)
+	resp, err := repo.datahubClient.ListClusters(&req)
 	if err != nil {
 		return nil, errors.Wrap(err, "list clusters from Datahub failed")
 	} else if resp == nil {
@@ -68,8 +58,4 @@ func (repo *ClusterRepository) ListClusters() ([]*datahub_resources.Cluster, err
 		return nil, errors.Wrap(err, "list clusters from Datahub failed")
 	}
 	return resp.Clusters, nil
-}
-
-func (repo *ClusterRepository) Close() {
-	repo.conn.Close()
 }

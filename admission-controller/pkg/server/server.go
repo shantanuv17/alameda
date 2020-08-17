@@ -1,7 +1,6 @@
 package server
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -9,9 +8,6 @@ import (
 	"sort"
 	"sync"
 	"time"
-
-	"github.com/mattbaird/jsonpatch"
-	"github.com/pkg/errors"
 
 	admission_controller_kubernetes "github.com/containers-ai/alameda/admission-controller/pkg/kubernetes"
 	"github.com/containers-ai/alameda/admission-controller/pkg/recommendator/resource"
@@ -22,11 +18,12 @@ import (
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
 	alamedascaler_reconciler "github.com/containers-ai/alameda/operator/pkg/reconciler/alamedascaler"
 	"github.com/containers-ai/alameda/operator/pkg/utils/resources"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	metadata_utils "github.com/containers-ai/alameda/pkg/utils/kubernetes/metadata"
 	"github.com/containers-ai/alameda/pkg/utils/log"
-	datahub_client "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_events "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
-
+	"github.com/mattbaird/jsonpatch"
+	"github.com/pkg/errors"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	admission_v1beta1 "k8s.io/api/admission/v1beta1"
 	core_v1 "k8s.io/api/core/v1"
@@ -74,7 +71,7 @@ type admissionController struct {
 	k8sDeserializer      runtime.Decoder
 	ownerReferenceTracer *metadata_utils.OwnerReferenceTracer
 
-	datahubClient         datahub_client.DatahubServiceClient
+	datahubClient         *datahubpkg.Client
 	resourceRecommendator resource.ResourceRecommendator
 	controllerValidator   controller_validator.Validator
 
@@ -84,7 +81,7 @@ type admissionController struct {
 }
 
 // NewAdmissionControllerWithConfig creates AdmissionController with configuration and dependencies
-func NewAdmissionControllerWithConfig(cfg Config, sigsK8SClient client.Client, datahubClient datahub_client.DatahubServiceClient, podMutatePatchValdationFunction admission_controller_utils.ValidatePatchFunc, clusterID string) (AdmissionController, error) {
+func NewAdmissionControllerWithConfig(cfg Config, sigsK8SClient client.Client, datahubClient *datahubpkg.Client, podMutatePatchValdationFunction admission_controller_utils.ValidatePatchFunc, clusterID string) (AdmissionController, error) {
 
 	defaultOwnerReferenceTracer, err := metadata_utils.NewDefaultOwnerReferenceTracer()
 	if err != nil {
@@ -444,7 +441,7 @@ func (ac *admissionController) sendEvents(events []*datahub_events.Event) error 
 	request := datahub_events.CreateEventsRequest{
 		Events: events,
 	}
-	status, err := ac.datahubClient.CreateEvents(context.TODO(), &request)
+	status, err := ac.datahubClient.CreateEvents(&request)
 	if err != nil {
 		return errors.Errorf("send events to Datahub failed: %s", err.Error())
 	} else if status == nil {

@@ -8,11 +8,10 @@ import (
 	"github.com/containers-ai/alameda/cmd/app"
 	"github.com/containers-ai/alameda/evictioner/pkg/eviction"
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	k8s_utils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	openshift_apps "github.com/openshift/api/apps"
 	"github.com/spf13/cobra"
-	"google.golang.org/grpc"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	k8s_config "sigs.k8s.io/controller-runtime/pkg/client/config"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
@@ -43,15 +42,7 @@ func displayConfig() {
 }
 
 func startEvictioner() {
-	conn, err := grpc.Dial(config.Datahub.Address, grpc.WithInsecure())
-	if err != nil {
-		scope.Errorf("create pods to datahub failed: %s", err.Error())
-		return
-	}
-
-	defer conn.Close()
-
-	datahubServiceClnt := datahub_v1alpha1.NewDatahubServiceClient(conn)
+	datahubServiceClnt := datahubpkg.NewClient(config.Datahub.Address)
 
 	k8sClientConfig, err := k8s_config.GetConfig()
 	if err != nil {

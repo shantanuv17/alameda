@@ -2,20 +2,18 @@ package application
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
-	"github.com/pkg/errors"
-	"google.golang.org/grpc"
-	"sigs.k8s.io/controller-runtime/pkg/client"
-
-	"fmt"
-
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
+	"github.com/pkg/errors"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
+func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	applicationList := autoscalingv1alpha1.AlamedaScalerList{}
@@ -29,7 +27,7 @@ func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
 		return errors.Wrap(err, "get cluster uid failed")
 	}
 
-	datahubApplicationRepo := NewApplicationRepository(conn, clusterUID)
+	datahubApplicationRepo := NewApplicationRepository(datahubClient, clusterUID)
 	if len(applicationList.Items) > 0 {
 		if err := datahubApplicationRepo.CreateApplications(applicationList.Items); err != nil {
 			return fmt.Errorf(
@@ -59,7 +57,7 @@ func SyncWithDatahub(client client.Client, conn *grpc.ClientConn) error {
 		applicationsNeedDeleting = append(applicationsNeedDeleting, n.ObjectMeta)
 	}
 	if len(applicationsNeedDeleting) > 0 {
-		err = datahubApplicationRepo.DeleteApplications(context.TODO(), applicationsNeedDeleting)
+		err = datahubApplicationRepo.DeleteApplications(applicationsNeedDeleting)
 		if err != nil {
 			return errors.Wrap(err, "delete applications from Datahub failed")
 		}

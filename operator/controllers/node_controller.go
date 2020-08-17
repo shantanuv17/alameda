@@ -20,15 +20,11 @@ import (
 	"context"
 	"time"
 
-	"github.com/pkg/errors"
-	"google.golang.org/grpc"
-
 	datahub_node "github.com/containers-ai/alameda/operator/datahub/client/node"
 	nodeinfo "github.com/containers-ai/alameda/operator/pkg/nodeinfo"
-
-	datahubv1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
-
+	"github.com/pkg/errors"
 	corev1 "k8s.io/api/core/v1"
 	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -40,15 +36,12 @@ import (
 // NodeReconciler reconciles a Node object
 type NodeReconciler struct {
 	client.Client
-	Scheme *runtime.Scheme
-
-	conn            *grpc.ClientConn
-	datahubClient   datahubv1alpha1.DatahubServiceClient
+	Scheme          *runtime.Scheme
+	DatahubClient   *datahubpkg.Client
 	DatahubNodeRepo datahub_node.AlamedaNodeRepository
-
-	Cloudprovider string
-	RegionName    string
-	ClusterUID    string
+	Cloudprovider   string
+	RegionName      string
+	ClusterUID      string
 }
 
 // Reconcile reads that state of the cluster for a Node object and makes changes based on the state read

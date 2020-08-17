@@ -10,9 +10,9 @@ import (
 
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
 	utilsresource "github.com/containers-ai/alameda/operator/pkg/utils/resources"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/containers-ai/alameda/pkg/utils"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
-	datahub_client "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_events "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	datahub_recommendations "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations"
@@ -36,7 +36,7 @@ var (
 // Evictioner deletes pods which need to apply recommendation
 type Evictioner struct {
 	checkCycle              int64
-	datahubClnt             datahub_client.DatahubServiceClient
+	datahubClnt             *datahubpkg.Client
 	k8sClienit              client.Client
 	evictCfg                Config
 	purgeContainerCPUMemory bool
@@ -46,7 +46,7 @@ type Evictioner struct {
 
 // NewEvictioner return Evictioner instance
 func NewEvictioner(checkCycle int64,
-	datahubClnt datahub_client.DatahubServiceClient,
+	datahubClnt *datahubpkg.Client,
 	k8sClienit client.Client,
 	evictCfg Config,
 	purgeContainerCPUMemory bool,
@@ -416,7 +416,7 @@ func (evictioner *Evictioner) sendEvents(events []*datahub_events.Event) error {
 	request := datahub_events.CreateEventsRequest{
 		Events: events,
 	}
-	status, err := evictioner.datahubClnt.CreateEvents(context.TODO(), &request)
+	status, err := evictioner.datahubClnt.CreateEvents(&request)
 	if err != nil {
 		return errors.Errorf("send events to Datahub failed: %s", err.Error())
 	} else if status == nil {

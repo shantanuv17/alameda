@@ -24,12 +24,6 @@ import (
 	"strings"
 	"time"
 
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
-	"github.com/pkg/errors"
-	"github.com/spf13/viper"
-	"golang.org/x/sync/errgroup"
-	"google.golang.org/grpc"
-
 	"github.com/containers-ai/alameda/internal/pkg/database/prometheus"
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
 	kafkaclient "github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/client"
@@ -46,13 +40,15 @@ import (
 	internaldatahubschema "github.com/containers-ai/alameda/operator/datahub/schema"
 	"github.com/containers-ai/alameda/operator/pkg/probe"
 	"github.com/containers-ai/alameda/operator/pkg/utils"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/containers-ai/alameda/pkg/provider"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
-	datahubv1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahubschemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
-
 	osappsapi "github.com/openshift/api/apps/v1"
+	"github.com/pkg/errors"
+	"github.com/spf13/viper"
+	"golang.org/x/sync/errgroup"
 	"k8s.io/apimachinery/pkg/runtime"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -102,9 +98,9 @@ var (
 	}
 
 	// Third party clients
+
 	k8sClient        client.Client
-	datahubConn      *grpc.ClientConn
-	datahubClient    datahubv1alpha1.DatahubServiceClient
+	datahubClient    *datahubpkg.Client
 	kafkaClient      kafka.Client
 	prometheusClient prometheus.Prometheus
 
@@ -199,16 +195,10 @@ func initThirdPartyClient() error {
 	}
 	k8sClient = cli
 
-	datahubConn, err = grpc.Dial(operatorConf.Datahub.Address,
-		grpc.WithBlock(),
-		grpc.WithTimeout(30*time.Second),
-		grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(3)))),
-	)
 	if err != nil {
 		return errors.Wrap(err, "new connection to datahub failed")
 	}
-	datahubClient = datahubv1alpha1.NewDatahubServiceClient(datahubConn)
+	datahubClient = datahubpkg.NewClient(operatorConf.Datahub.Address)
 
 	if cli, err := kafkaclient.NewClient(*operatorConf.Kafka); err != nil {
 		return errors.Wrap(err, "new Kafka client failed")
@@ -264,7 +254,7 @@ func initDatahubSchemas(ctx context.Context) error {
 
 	// List schemas from Datahub
 	listSchemaReq := datahubschemas.ListSchemasRequest{}
-	listSchemaResp, err := datahubClient.ListSchemas(ctx, &listSchemaReq)
+	listSchemaResp, err := datahubClient.ListSchemas(&listSchemaReq)
 	if err != nil {
 		return errors.Wrap(err, "list schemas failed")
 	} else if listSchemaResp == nil {
@@ -302,9 +292,9 @@ func addNecessaryAPIToScheme(scheme *runtime.Scheme) error {
 }
 
 func addControllersToManager(mgr manager.Manager) error {
-	datahubControllerRepo := datahub_client_controller.NewControllerRepository(datahubConn, clusterUID)
-	datahubPodRepo := datahub_client_pod.NewPodRepository(datahubConn, clusterUID)
-	datahubNamespaceRepo := datahub_client_namespace.NewNamespaceRepository(datahubConn, clusterUID)
+	datahubControllerRepo := datahub_client_controller.NewControllerRepository(datahubClient, clusterUID)
+	datahubPodRepo := datahub_client_pod.NewPodRepository(datahubClient, clusterUID)
+	datahubNamespaceRepo := datahub_client_namespace.NewNamespaceRepository(datahubClient, clusterUID)
 
 	var err error
 
@@ -312,7 +302,7 @@ func addControllersToManager(mgr manager.Manager) error {
 		Client:                 mgr.GetClient(),
 		Scheme:                 mgr.GetScheme(),
 		ClusterUID:             clusterUID,
-		DatahubApplicationRepo: datahub_client_application.NewApplicationRepository(datahubConn, clusterUID),
+		DatahubApplicationRepo: datahub_client_application.NewApplicationRepository(datahubClient, clusterUID),
 		DatahubControllerRepo:  datahubControllerRepo,
 		DatahubNamespaceRepo:   datahubNamespaceRepo,
 		DatahubPodRepo:         datahubPodRepo,
@@ -326,7 +316,7 @@ func addControllersToManager(mgr manager.Manager) error {
 		Client:        mgr.GetClient(),
 		Scheme:        mgr.GetScheme(),
 		ClusterUID:    clusterUID,
-		DatahubClient: datahubv1alpha1.NewDatahubServiceClient(datahubConn),
+		DatahubClient: datahubClient,
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}
@@ -375,7 +365,7 @@ func addControllersToManager(mgr manager.Manager) error {
 		ClusterUID:      clusterUID,
 		Cloudprovider:   cloudprovider,
 		RegionName:      regionName,
-		DatahubNodeRepo: *datahub_client_node.NewNodeRepository(datahubConn, clusterUID),
+		DatahubNodeRepo: *datahub_client_node.NewNodeRepository(datahubClient, clusterUID),
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}
@@ -495,8 +485,7 @@ func main() {
 			if !ok {
 				scope.Error("Wait for cache synchronization failed")
 			} else {
-				go syncResourcesWithDatahub(mgr.GetClient(),
-					datahubConn)
+				go syncResourcesWithDatahub(mgr.GetClient(), datahubClient)
 			}
 			return nil
 		})

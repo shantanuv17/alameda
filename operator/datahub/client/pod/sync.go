@@ -4,9 +4,9 @@ import (
 	"context"
 
 	"github.com/pkg/errors"
-	"google.golang.org/grpc"
 
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 
@@ -15,21 +15,21 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func SyncWithDatahub(k8sClient client.Client, conn *grpc.ClientConn) error {
-	err := deleteRedudantPodFromDatahub(k8sClient, conn)
+func SyncWithDatahub(k8sClient client.Client, datahubClient *datahubpkg.Client) error {
+	err := deleteRedudantPodFromDatahub(k8sClient, datahubClient)
 	if err != nil {
 		return errors.Wrap(err, "delete redudant pods from Datahub failed")
 	}
 	return nil
 }
 
-func deleteRedudantPodFromDatahub(k8sClient client.Client, conn *grpc.ClientConn) error {
+func deleteRedudantPodFromDatahub(k8sClient client.Client, datahubClient *datahubpkg.Client) error {
 
 	clusterUID, err := k8sutils.GetClusterUID(k8sClient)
 	if err != nil {
 		return errors.Wrap(err, "get cluster uid failed")
 	}
-	datahubPodRepo := NewPodRepository(conn, clusterUID)
+	datahubPodRepo := NewPodRepository(datahubClient, clusterUID)
 	pods, err := datahubPodRepo.ListAlamedaPods()
 	if err != nil {
 		return errors.Wrap(err, "list pods from Datahub failed")

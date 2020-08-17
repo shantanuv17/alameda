@@ -6,9 +6,9 @@ import (
 	"strconv"
 
 	"github.com/containers-ai/alameda/admission-controller/pkg/recommendator/resource"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/containers-ai/alameda/pkg/framework/datahub"
 	"github.com/containers-ai/alameda/pkg/utils/log"
-	datahub_client "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_recommendations "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
@@ -42,11 +42,11 @@ var (
 var _ resource.ResourceRecommendator = &datahubResourceRecommendator{}
 
 type datahubResourceRecommendator struct {
-	datahubServiceClient datahub_client.DatahubServiceClient
+	datahubServiceClient *datahubpkg.Client
 	clusterName          string
 }
 
-func NewDatahubResourceRecommendator(client datahub_client.DatahubServiceClient, clusterName string) (resource.ResourceRecommendator, error) {
+func NewDatahubResourceRecommendator(client *datahubpkg.Client, clusterName string) (resource.ResourceRecommendator, error) {
 
 	return &datahubResourceRecommendator{
 		datahubServiceClient: client,

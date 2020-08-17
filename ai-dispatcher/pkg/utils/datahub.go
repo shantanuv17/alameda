@@ -1,11 +1,10 @@
 package utils
 
 import (
-	"context"
 	"fmt"
 	"time"
 
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	datahub_data "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	datahub_schemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	"github.com/spf13/viper"
@@ -23,7 +22,7 @@ func GetRowValue(values, columns []string, field string) (string, error) {
 	return "", fmt.Errorf("no matched field %s found", field)
 }
 
-func ReadData(datahubServiceClnt datahub_v1alpha1.DatahubServiceClient,
+func ReadData(datahubServiceClnt *datahubpkg.Client,
 	schemaMeta *datahub_schemas.SchemaMeta, readData []*datahub_data.ReadData) (
 	*datahub_data.ReadDataResponse, error) {
 	retry := 5
@@ -36,7 +35,7 @@ func ReadData(datahubServiceClnt datahub_v1alpha1.DatahubServiceClient,
 		retryIntervalSec = viper.GetInt64("datahub.query.retryInterval")
 	}
 	for i := 1; i < retry; i++ {
-		data, err := datahubServiceClnt.ReadData(context.Background(),
+		data, err := datahubServiceClnt.ReadData(
 			&datahub_data.ReadDataRequest{
 				SchemaMeta: schemaMeta,
 				ReadData:   readData,

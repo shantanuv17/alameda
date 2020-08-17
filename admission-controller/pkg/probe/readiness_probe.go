@@ -1,13 +1,11 @@
 package probe
 
 import (
-	"context"
 	"fmt"
 	"os/exec"
 
-	datahub_client "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
-	"google.golang.org/grpc"
 )
 
 type ReadinessProbeConfig struct {
@@ -16,16 +14,8 @@ type ReadinessProbeConfig struct {
 }
 
 func queryDatahub(datahubAddr string) error {
-	conn, err := grpc.Dial(datahubAddr, grpc.WithInsecure())
-	if conn != nil {
-		defer conn.Close()
-	}
-	if err != nil {
-		return err
-	}
-
-	datahubServiceClnt := datahub_client.NewDatahubServiceClient(conn)
-	_, err = datahubServiceClnt.ListNodes(context.Background(), &datahub_resources.ListNodesRequest{})
+	datahubServiceClnt := datahubpkg.NewClient(datahubAddr)
+	_, err := datahubServiceClnt.ListNodes(&datahub_resources.ListNodesRequest{})
 	if err != nil {
 		return err
 	}

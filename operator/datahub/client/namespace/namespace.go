@@ -1,17 +1,15 @@
 package namespace
 
 import (
-	"context"
 	"regexp"
 
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
-	"google.golang.org/grpc"
 
 	"github.com/containers-ai/alameda/operator/datahub/client"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	k8SUtils "github.com/containers-ai/alameda/pkg/utils"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 
 	corev1 "k8s.io/api/core/v1"
@@ -20,22 +18,15 @@ import (
 var scope = logUtil.RegisterScope("datahub_client_namespace", "namespace of datahub client", 0)
 
 type NamespaceRepository struct {
-	conn          *grpc.ClientConn
-	datahubClient datahub_v1alpha1.DatahubServiceClient
-
-	clusterUID string
+	datahubClient *datahubpkg.Client
+	clusterUID    string
 }
 
 // NewNamespaceRepository return NamespaceRepository instance
-func NewNamespaceRepository(conn *grpc.ClientConn, clusterUID string) *NamespaceRepository {
-
-	datahubClient := datahub_v1alpha1.NewDatahubServiceClient(conn)
-
+func NewNamespaceRepository(datahubClient *datahubpkg.Client, clusterUID string) *NamespaceRepository {
 	return &NamespaceRepository{
-		conn:          conn,
 		datahubClient: datahubClient,
-
-		clusterUID: clusterUID,
+		clusterUID:    clusterUID,
 	}
 }
 
@@ -66,7 +57,7 @@ func (repo *NamespaceRepository) CreateNamespaces(arg interface{}) error {
 		Namespaces: namespaces,
 	}
 
-	if resp, err := repo.datahubClient.CreateNamespaces(context.Background(), &req); err != nil {
+	if resp, err := repo.datahubClient.CreateNamespaces(&req); err != nil {
 		return errors.Wrap(err, "create namespaces to datahub failed")
 	} else if _, err := client.IsResponseStatusOK(resp); err != nil {
 		return errors.Wrap(err, "create namespaces to datahub failed")
@@ -84,7 +75,7 @@ func (repo *NamespaceRepository) ListNamespaces() (
 		},
 	}
 
-	resp, err := repo.datahubClient.ListNamespaces(context.Background(), &req)
+	resp, err := repo.datahubClient.ListNamespaces(&req)
 	if err != nil {
 		return nil, errors.Wrap(err, "list namespaces from Datahub failed")
 	} else if resp == nil {
@@ -120,7 +111,7 @@ func (repo *NamespaceRepository) DeleteNamespaces(arg interface{}) error {
 		ObjectMeta: objMeta,
 	}
 
-	resp, err := repo.datahubClient.DeleteNamespaces(context.Background(), &req)
+	resp, err := repo.datahubClient.DeleteNamespaces(&req)
 	if err != nil {
 		return errors.Wrap(err, "delete namespace from Datahub failed")
 	} else if _, err := client.IsResponseStatusOK(resp); err != nil {
@@ -129,17 +120,13 @@ func (repo *NamespaceRepository) DeleteNamespaces(arg interface{}) error {
 	return nil
 }
 
-func (repo *NamespaceRepository) Close() {
-	repo.conn.Close()
-}
-
 func (repo *NamespaceRepository) IsNSExcluded(ns string) bool {
 	req := &datahub_resources.ListApplicationsRequest{
 		ObjectMeta: []*datahub_resources.ObjectMeta{
 			&datahub_resources.ObjectMeta{},
 		},
 	}
-	resp, err := repo.datahubClient.ListApplications(context.Background(), req)
+	resp, err := repo.datahubClient.ListApplications(req)
 	if err != nil {
 		scope.Errorf("namespace exclusion check error: %s", err.Error())
 	} else {

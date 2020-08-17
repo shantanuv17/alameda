@@ -5,6 +5,7 @@ import (
 	"reflect"
 	"strconv"
 
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/pkg/errors"
 	"google.golang.org/genproto/googleapis/rpc/code"
 
@@ -13,7 +14,6 @@ import (
 	"github.com/containers-ai/alameda/operator/datahub/client/kafka/entity"
 	"github.com/containers-ai/alameda/operator/pkg/kafka"
 	"github.com/containers-ai/alameda/pkg/utils/log"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
@@ -26,12 +26,12 @@ const (
 )
 
 type KafkaRepository struct {
-	datahubClient datahub.DatahubServiceClient
+	datahubClient *datahubpkg.Client
 	schemaConfig  config
 	logger        *log.Scope
 }
 
-func NewKafkaRepository(datahubClient datahub.DatahubServiceClient, logger *log.Scope) KafkaRepository {
+func NewKafkaRepository(datahubClient *datahubpkg.Client, logger *log.Scope) KafkaRepository {
 	if logger == nil {
 		logger = log.RegisterScope("datahub-client", "", 0)
 	}
@@ -218,7 +218,7 @@ func (k KafkaRepository) DeleteConsumerGroupsByOption(ctx context.Context, optio
 
 func (k KafkaRepository) sendWriteDataRequest(ctx context.Context, req data.WriteDataRequest) error {
 	k.logger.Debugf("Write data to Datahub. Request: %+v", req)
-	status, err := k.datahubClient.WriteData(ctx, &req)
+	status, err := k.datahubClient.WriteData(&req)
 	if err != nil {
 		return errors.Wrap(err, "send WriteDataRequest failed")
 	} else if status == nil {
@@ -231,7 +231,7 @@ func (k KafkaRepository) sendWriteDataRequest(ctx context.Context, req data.Writ
 
 func (k KafkaRepository) sendReadDataRequest(ctx context.Context, req data.ReadDataRequest) (data.Data, error) {
 	k.logger.Debugf("Read data from Datahub. Request: %+v", req)
-	resp, err := k.datahubClient.ReadData(ctx, &req)
+	resp, err := k.datahubClient.ReadData(&req)
 	if err != nil {
 		return data.Data{}, errors.Wrap(err, "send ReadDataRequest failed")
 	} else if resp == nil {
@@ -249,7 +249,7 @@ func (k KafkaRepository) sendReadDataRequest(ctx context.Context, req data.ReadD
 
 func (k KafkaRepository) sendDeleteDataRequest(ctx context.Context, req data.DeleteDataRequest) error {
 	k.logger.Debugf("Delete data from Datahub. Request: %+v", req)
-	status, err := k.datahubClient.DeleteData(ctx, &req)
+	status, err := k.datahubClient.DeleteData(&req)
 	if err != nil {
 		return errors.Wrap(err, "send DeleteDataRequest failed")
 	} else if status == nil {

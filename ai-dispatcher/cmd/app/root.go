@@ -1,7 +1,6 @@
 package app
 
 import (
-	"context"
 	"net/http"
 	"os"
 	"strings"
@@ -11,10 +10,9 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/dispatcher"
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
 	alameda_app "github.com/containers-ai/alameda/cmd/app"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/containers-ai/alameda/pkg/utils/log"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -78,7 +76,7 @@ var rootCmd = &cobra.Command{
 			return
 		}
 
-		datahubConnRetry := viper.GetInt("datahub.connRetry")
+		datahubClient := datahubpkg.NewClient(datahubAddr)
 		queueURL := viper.GetString("queue.url")
 		if queueURL == "" {
 			scope.Errorf("No configuration of queue url.")
@@ -96,28 +94,11 @@ var rootCmd = &cobra.Command{
 			time.Sleep(time.Duration(retryIntervalSec) * time.Second)
 		}
 
-		var datahubClient datahub.DatahubServiceClient
 		for {
-			resReady := false
-			conn, err = grpc.Dial(datahubAddr, grpc.WithInsecure(),
-				grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(
-					grpc_retry.WithMax(uint(datahubConnRetry)))))
-			datahubClient = datahub.NewDatahubServiceClient(conn)
-			if err != nil {
-				scope.Errorf("connect datahub failed on init: %s", err.Error())
-				time.Sleep(time.Duration(retryIntervalSec) * time.Second)
-				continue
-			}
-			for {
-				if checkResourceIsExist(datahubClient) {
-					resReady = true
-					break
-				}
-				time.Sleep(time.Duration(retryIntervalSec) * time.Second)
-			}
-			if resReady {
+			if checkResourceIsExist(datahubClient) {
 				break
 			}
+			time.Sleep(time.Duration(retryIntervalSec) * time.Second)
 		}
 
 		metricExporter := metrics.NewExporter()
@@ -134,8 +115,8 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-func checkResourceIsExist(datahubClient datahub.DatahubServiceClient) bool {
-	nodeResult, err := datahubClient.ListNodes(context.Background(), &datahub_resources.ListNodesRequest{})
+func checkResourceIsExist(datahubClient *datahubpkg.Client) bool {
+	nodeResult, err := datahubClient.ListNodes(&datahub_resources.ListNodesRequest{})
 	nodeCount := len(nodeResult.GetNodes())
 	if err != nil || nodeCount <= 0 {
 		if err != nil {
@@ -146,7 +127,7 @@ func checkResourceIsExist(datahubClient datahub.DatahubServiceClient) bool {
 		}
 		return false
 	}
-	clusterResult, err := datahubClient.ListClusters(context.Background(), &datahub_resources.ListClustersRequest{})
+	clusterResult, err := datahubClient.ListClusters(&datahub_resources.ListClustersRequest{})
 	clusterCount := len(clusterResult.GetClusters())
 	if err != nil || clusterCount <= 0 {
 		if err != nil {

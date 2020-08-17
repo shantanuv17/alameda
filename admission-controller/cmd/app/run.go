@@ -12,19 +12,17 @@ import (
 	admission_controller_kubernetes "github.com/containers-ai/alameda/admission-controller/pkg/kubernetes"
 	"github.com/containers-ai/alameda/admission-controller/pkg/server"
 	admission_controller_utils "github.com/containers-ai/alameda/admission-controller/pkg/utils"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	utils "github.com/containers-ai/alameda/pkg/utils"
 	k8s_utils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	"github.com/containers-ai/alameda/pkg/utils/kubernetes/metadata"
 	"github.com/containers-ai/alameda/pkg/utils/log"
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
 	openshiftappsv1 "github.com/openshift/api/apps/v1"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	context "golang.org/x/net/context"
-	"google.golang.org/grpc"
 	admissionregistration_v1beta1 "k8s.io/api/admissionregistration/v1beta1"
 	appsv1 "k8s.io/api/apps/v1"
 	k8s_errors "k8s.io/apimachinery/pkg/api/errors"
@@ -53,7 +51,7 @@ var (
 	ownerReferenceOfControllerOwningAdmissionController meta_v1.OwnerReference
 
 	sigsK8SClient        sigs_k8s_client.Client
-	datahubServiceClient datahub_v1alpha1.DatahubServiceClient
+	datahubServiceClient *datahubpkg.Client
 
 	clusterID string
 
@@ -170,14 +168,8 @@ func initLog() {
 }
 
 func initThirdPartyClient() error {
-
 	var err error
-	conn, err := grpc.Dial(config.Datahub.Address, grpc.WithInsecure(), grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(config.GRPC.Retry))))
-	if err != nil {
-		return err
-	}
-	datahubServiceClient = datahub_v1alpha1.NewDatahubServiceClient(conn)
-
+	datahubServiceClient = datahubpkg.NewClient(config.Datahub.Address)
 	sigsK8SClient, err = sigs_k8s_client.New(k8sRestConfig, sigs_k8s_client.Options{Scheme: admission_controller_kubernetes.Scheme})
 	if err != nil {
 		return err

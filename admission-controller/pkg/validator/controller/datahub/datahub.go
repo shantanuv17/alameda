@@ -5,8 +5,8 @@ import (
 
 	"github.com/containers-ai/alameda/admission-controller/pkg/validator/controller"
 	autoscaling_v1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/containers-ai/alameda/pkg/utils/log"
-	datahub_client "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/pkg/errors"
 	context "golang.org/x/net/context"
@@ -19,13 +19,13 @@ var (
 )
 
 type validator struct {
-	datahubServiceClient datahub_client.DatahubServiceClient
+	datahubServiceClient *datahubpkg.Client
 	sigsK8SClient        client.Client
 	clusterName          string
 }
 
 // NewControllerValidator returns controller validator which fetch controller information from containers-ai/alameda Datahub
-func NewControllerValidator(datahubServiceClient datahub_client.DatahubServiceClient, sigsK8SClient client.Client, clusterName string) controller.Validator {
+func NewControllerValidator(datahubServiceClient *datahubpkg.Client, sigsK8SClient client.Client, clusterName string) controller.Validator {
 	return &validator{
 		datahubServiceClient: datahubServiceClient,
 		sigsK8SClient:        sigsK8SClient,
@@ -52,7 +52,7 @@ func (v *validator) IsControllerEnabledExecution(namespace, name, kind string) (
 		Kind: datahub_resources.Kind(datahubKind),
 	}
 	scope.Debugf("query ListControllers to datahub, send request: %+v", req)
-	resp, err := v.datahubServiceClient.ListControllers(ctx, req)
+	resp, err := v.datahubServiceClient.ListControllers(req)
 	scope.Debugf("query ListControllers to datahub, received response: %+v", resp)
 	if err != nil {
 		return false, errors.Errorf("query ListControllers to datahub failed: errMsg: %s", err.Error())

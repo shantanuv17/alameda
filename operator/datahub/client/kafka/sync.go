@@ -5,7 +5,6 @@ import (
 
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
-	"google.golang.org/grpc"
 
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/autoscaling/v1alpha1"
 	"github.com/containers-ai/alameda/operator/pkg/kafka"
@@ -14,7 +13,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func (r KafkaRepository) SyncWithDatahub(ctx context.Context, k8sClient client.Client, conn *grpc.ClientConn) error {
+func (r KafkaRepository) SyncWithDatahub(ctx context.Context, k8sClient client.Client) error {
 	clusterUID, err := k8sutils.GetClusterUID(k8sClient)
 	if err != nil {
 		return errors.Wrap(err, "get cluster uid failed")
