@@ -78,7 +78,7 @@ func (r *ListPodMetricsRequestExtended) SetDefaultWithMetricsDBType(dbType Metri
 	case 30:
 		q.TimeRange.AggregateFunction = ApiCommon.TimeRange_MAX
 	default:
-		q.TimeRange.AggregateFunction = ApiCommon.TimeRange_AVG
+		q.TimeRange.AggregateFunction = ApiCommon.TimeRange_MAX
 	}
 	r.Request.QueryCondition = &q
 }

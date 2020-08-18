@@ -67,7 +67,7 @@ func (r *ListClusterMetricsRequestExtended) Validate() error {
 
 func (r *ListClusterMetricsRequestExtended) SetDefaultWithMetricsDBType(dbType MetricsDBType) {
 	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(*r.Request.QueryCondition, dbType)
-	q.TimeRange.AggregateFunction = ApiCommon.TimeRange_AVG
+	q.TimeRange.AggregateFunction = ApiCommon.TimeRange_MAX
 	r.Request.QueryCondition = &q
 }
 

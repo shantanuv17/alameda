@@ -58,7 +58,7 @@ func (r *ListNodeMetricsRequestExtended) Validate() error {
 
 func (r *ListNodeMetricsRequestExtended) SetDefaultWithMetricsDBType(dbType MetricsDBType) {
 	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(*r.Request.QueryCondition, dbType)
-	q.TimeRange.AggregateFunction = ApiCommon.TimeRange_AVG
+	q.TimeRange.AggregateFunction = ApiCommon.TimeRange_MAX
 	r.Request.QueryCondition = &q
 }
 
