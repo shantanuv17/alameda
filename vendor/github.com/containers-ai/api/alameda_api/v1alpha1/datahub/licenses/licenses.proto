@@ -6,6 +6,9 @@ package containersai.alameda.v1alpha1.datahub.licenses;
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/licenses";
 
+/**
+ * Represents the information of a license.
+ */
 message License {
     bool Valid = 1;
 }

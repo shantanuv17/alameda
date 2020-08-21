@@ -10,19 +10,31 @@ import "google/rpc/status.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas";
 
+/**
+ * Represents a request for creating datahub schemas.
+ */
 message CreateSchemasRequest {
     repeated Schema schemas = 1;
 }
 
+/**
+ * Represents a request for listing datahub schemas.
+ */
 message ListSchemasRequest {
     SchemaMeta schema_meta = 1;
 }
 
+/**
+ * Represents a response for a listing datahub schemas request.
+ */
 message ListSchemasResponse {
     google.rpc.Status status  = 1;
     repeated Schema   schemas = 2;
 }
 
+/**
+ * Represents a request for deleting datahub schemas.
+ */
 message DeleteSchemasRequest {
     SchemaMeta schema_meta = 1;
 }

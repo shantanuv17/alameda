@@ -1,4 +1,4 @@
-// This file has messages related to metric data of containers, pods, and nodes
+// This file has messages related to create alameda scaler
 
 syntax = "proto3";
 
@@ -9,16 +9,25 @@ import "alameda_api/v1alpha1/datahub/common/rawdata.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/applications";
 
+/**
+ * Represents the data of alameda scaler which is to be created.
+ */
 message WriteApplication {
     string           measurement = 1;
     common.WriteData write_data  = 2;
 }
 
+/**
+ * Represents the condition of reading alameda scalers.
+ */
 message ReadApplication {
     string                    measurement     = 1;
     repeated common.Condition where_condition = 2;
 }
 
+/**
+ * Represents the condition of deleting alameda scalers.
+ */
 message DeleteApplication {
     string                    measurement     = 1;
     repeated common.Condition where_condition = 2;

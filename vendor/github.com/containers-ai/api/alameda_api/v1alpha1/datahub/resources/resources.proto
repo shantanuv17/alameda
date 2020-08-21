@@ -11,14 +11,18 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources";
 
-// Represents a container and its containing limit and requeset configurations
+/**
+ * Represents a container and its containing limit and requeset configurations.
+ */
 message Container {
     string               name      = 1;
     ResourceRequirements resources = 2;
     ContainerStatus      status    = 3;
 }
 
-// Represents a Kubernetes pod
+/**
+ * Represents a Kubernetes pod.
+ */
 message Pod {
     ObjectMeta                object_meta      = 1;
     google.protobuf.Timestamp start_time       = 2;
@@ -31,6 +35,9 @@ message Pod {
     repeated Container        containers       = 9;
 }
 
+/**
+ * Represents a Kubernetes namespace.
+ */
 message Controller {
     ObjectMeta              object_meta             = 1;
     Kind                    kind                    = 2;
@@ -39,17 +46,25 @@ message Controller {
     AlamedaControllerSpec   alameda_controller_spec = 5;
 }
 
+/**
+ * Represents a alameda scaler.
+ */
 message Application {
     ObjectMeta             object_meta              = 1;
     AlamedaApplicationSpec alameda_application_spec = 2;
     repeated Controller    controllers              = 3;
 }
 
+/**
+ * Represents a Kubernetes namespace.
+ */
 message Namespace {
     ObjectMeta object_meta = 1;
 }
 
-// Represents a Kubernetes node
+/**
+ * Represents a Kubernetes node.
+ */
 message Node {
     ObjectMeta                object_meta        = 1;
     google.protobuf.Timestamp start_time         = 2;
@@ -58,6 +73,9 @@ message Node {
     AlamedaNodeSpec           alameda_node_spec  = 5;
 }
 
+/**
+ * Represents a Kubernetes cluster.
+ */
 message Cluster {
     ObjectMeta object_meta = 1;
 }

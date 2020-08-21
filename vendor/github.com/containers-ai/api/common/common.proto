@@ -8,13 +8,18 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/containers-ai/api/common";
 
+/**
+ * Represents a specified database whcih is to query.
+ */
 enum DatabaseType {
     UNDEFINED = 0;
     INFLUXDB = 1;
     PROMETHEUS = 2;
 }
 
-// Represents a time range definition
+/**
+ * Represents a time range definition.
+ */
 message TimeRange {
     google.protobuf.Timestamp start_time = 1;
     google.protobuf.Timestamp end_time = 2;
@@ -29,6 +34,9 @@ message TimeRange {
     google.protobuf.Timestamp apply_time = 6;
 }
 
+/**
+ * Represents a datahub query request.
+ */
 message QueryCondition {
     TimeRange time_range = 1;
     enum Order {
@@ -43,6 +51,9 @@ message QueryCondition {
     uint64 limit = 6;
 }
 
+/**
+ * Represents a general datahub query request.
+ */
 message Query {
     string database = 1;
     string table = 2;
@@ -50,15 +61,24 @@ message Query {
     QueryCondition condition = 4;
 }
 
+/**
+ * Represents a record of data.
+ */
 message Row {
     google.protobuf.Timestamp time = 1;
     repeated string values = 2;
 }
 
+/**
+ * Represents a dataset which are collected that have the same attributes.
+ */
 message Group {
     repeated Row rows = 1;
 }
 
+/**
+ * Represents a rawdata whcih is read from datahub.
+ */
 message ReadRawdata {
     common.Query query = 1;
     repeated string columns = 2;
@@ -66,6 +86,9 @@ message ReadRawdata {
     string rawdata = 4;
 }
 
+/**
+ * Represents a rawdata which will be written to datahub.
+ */
 message WriteRawdata {
     string database = 1;
     string table = 2;

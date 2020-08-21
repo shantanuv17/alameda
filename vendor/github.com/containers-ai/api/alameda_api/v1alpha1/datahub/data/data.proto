@@ -11,6 +11,9 @@ import "alameda_api/v1alpha1/datahub/common/types.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data";
 
+/**
+ * Represents the data which is to be written to datahub.
+ */
 message WriteData {
     string                  measurement       = 1;
     common.MetricType       metric_type       = 2;
@@ -20,6 +23,9 @@ message WriteData {
     repeated common.Row     rows              = 6;
 }
 
+/**
+ * Represents the condition of reading data from datahub.
+ */
 message ReadData {
     string                  measurement       = 1;
     common.MetricType       metric_type       = 2;
@@ -28,10 +34,26 @@ message ReadData {
     common.QueryCondition   query_condition   = 5;
 }
 
+/**
+ * Represents the condition of deleting data in datahub.
+ */
 message DeleteData {
     string                  measurement       = 1;
     common.MetricType       metric_type       = 2;
     common.ResourceBoundary resource_boundary = 3;
     common.ResourceQuota    resource_quota    = 4;
     common.QueryCondition   query_condition   = 5;
+}
+
+/**
+ * Represents the data(none time-series) which is to be written to datahub.
+ */
+message WriteMeta {
+    string                  measurement       = 1;
+    common.MetricType       metric_type       = 2;
+    common.ResourceBoundary resource_boundary = 3;
+    common.ResourceQuota    resource_quota    = 4;
+    common.Condition        condition         = 5;
+    repeated string         columns           = 6;
+    repeated common.Row     rows              = 7;
 }

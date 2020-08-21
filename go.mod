@@ -8,7 +8,7 @@ require (
 	github.com/chzyer/logex v1.1.10 // indirect
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e // indirect
 	github.com/chzyer/test v0.0.0-20180213035817-a1ea475d72b1 // indirect
-	github.com/containers-ai/api v4.2.790-0.20200714053606-32a93688cdee+incompatible
+	github.com/containers-ai/api v4.2.790-0.20200821083229-d06b7a5bbc8f+incompatible
 	github.com/eapache/go-resiliency v1.2.0 // indirect
 	github.com/go-logr/logr v0.1.0
 	github.com/golang/mock v1.4.0

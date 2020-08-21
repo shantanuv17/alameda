@@ -9,6 +9,9 @@ import "alameda_api/v1alpha1/datahub/resources/policies.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources";
 
+/**
+ * Represents the private alameda pod specification.
+ */
 message AlamedaPodSpec {
     ObjectMeta           alameda_scaler           = 1;
     ScalingTool          scaling_tool             = 2;
@@ -17,6 +20,9 @@ message AlamedaPodSpec {
     ResourceRequirements alameda_scaler_resources = 5;
 }
 
+/**
+ * Represents the private alameda controller specification.
+ */
 message AlamedaControllerSpec {
     ObjectMeta           alameda_scaler                  = 1;
     ScalingTool          scaling_tool                    = 2;
@@ -26,12 +32,15 @@ message AlamedaControllerSpec {
     bool                 enable_recommendation_execution = 6;
 }
 
+/**
+ * Represents the private alameda applcation specification.
+ */
 message AlamedaApplicationSpec {
-    ScalingTool scaling_tool = 1;
-    string      app_spec     = 2;
-    string      selector     = 3;
 }
 
+/**
+ * Represents the private alameda node specification.
+ */
 message AlamedaNodeSpec {
     Provider provider             = 1;
     string   machineset_name      = 2;
@@ -41,13 +50,18 @@ message AlamedaNodeSpec {
     bool     role_infra           = 6;
 }
 
-// Represents the capacity of a Kubernetes node
+/**
+ * Represents the capacity of a Kubernetes node.
+ */
 message Capacity {
     int64 cpu_cores                   = 1;
     int64 memory_bytes                = 2;
     int64 network_megabits_per_second = 3;
 }
 
+/**
+ * The information of cloud service provider.
+ */
 message Provider {
     string provider      = 1;
     string instance_type = 2;

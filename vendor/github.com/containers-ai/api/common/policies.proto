@@ -4,7 +4,9 @@ package containersai.common;
 
 option go_package = "github.com/containers-ai/api/common";
 
-// Recommendation policy. A policy may be either stable or compact.
+/**
+ *  Recommendation policy. A policy may be either stable or compact.
+ */
 enum RecommendationPolicy {
     RECOMMENDATION_POLICY_UNDEFINED = 0;
     STABLE = 1;

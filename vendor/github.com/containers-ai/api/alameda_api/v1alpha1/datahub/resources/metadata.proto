@@ -1,4 +1,4 @@
-// This file has messages related to compute resources
+// This file has messages related to the metadata of kubernetes objects
 
 syntax = "proto3";
 
@@ -6,7 +6,9 @@ package containersai.alameda.v1alpha1.datahub.resources;
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources";
 
-// Represents kubernetes resource kind
+/**
+ * Represents Kubernetes resource kind.
+ */
 enum Kind {
     KIND_UNDEFINED   = 0;
     DEPLOYMENT       = 1;
@@ -15,6 +17,9 @@ enum Kind {
     ALAMEDASCALER    = 4;
 }
 
+/**
+ * Represents the scaling tool for managing Kubernetes resources.
+ */
 enum ScalingTool {
     SCALING_TOOL_UNDEFINED = 0;
     NONE                   = 1;
@@ -23,6 +28,9 @@ enum ScalingTool {
     CA                     = 4;
 }
 
+/**
+ * Represents the private metadata of alameda object.
+ */
 message ObjectMeta {
     string name         = 1;
     string namespace    = 2;
@@ -31,6 +39,9 @@ message ObjectMeta {
     string uid          = 5;
 }
 
+/**
+ * Represents the owner of Kubernetes object. The owned objects are called dependents of the owner object.
+ */
 message OwnerReference {
     ObjectMeta object_meta = 1;
     Kind       kind        = 2;
