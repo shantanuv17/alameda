@@ -22,7 +22,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// Represents a request for reading rawdata from database
+//*
+// Represents a request for reading rawdata from database.
 type ReadRawdataRequest struct {
 	DatabaseType         common.DatabaseType `protobuf:"varint,1,opt,name=database_type,json=databaseType,proto3,enum=containersai.common.DatabaseType" json:"database_type,omitempty"`
 	Queries              []*common.Query     `protobuf:"bytes,2,rep,name=queries,proto3" json:"queries,omitempty"`
@@ -70,7 +71,8 @@ func (m *ReadRawdataRequest) GetQueries() []*common.Query {
 	return nil
 }
 
-// Represents a response for listing rawdata from database
+//*
+// Represents a response for listing rawdata from database.
 type ReadRawdataResponse struct {
 	Status               *status.Status        `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	Rawdata              []*common.ReadRawdata `protobuf:"bytes,2,rep,name=rawdata,proto3" json:"rawdata,omitempty"`
@@ -118,7 +120,8 @@ func (m *ReadRawdataResponse) GetRawdata() []*common.ReadRawdata {
 	return nil
 }
 
-// Represents a request for writing rawdata to database
+//*
+// Represents a request for writing rawdata to database.
 type WriteRawdataRequest struct {
 	DatabaseType         common.DatabaseType    `protobuf:"varint,1,opt,name=database_type,json=databaseType,proto3,enum=containersai.common.DatabaseType" json:"database_type,omitempty"`
 	Rawdata              []*common.WriteRawdata `protobuf:"bytes,2,rep,name=rawdata,proto3" json:"rawdata,omitempty"`

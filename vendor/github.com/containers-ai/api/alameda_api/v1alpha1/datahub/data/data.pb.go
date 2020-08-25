@@ -21,6 +21,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents the data which is to be written to datahub.
 type WriteData struct {
 	Measurement          string                  `protobuf:"bytes,1,opt,name=measurement,proto3" json:"measurement,omitempty"`
 	MetricType           common.MetricType       `protobuf:"varint,2,opt,name=metric_type,json=metricType,proto3,enum=containersai.alameda.v1alpha1.datahub.common.MetricType" json:"metric_type,omitempty"`
@@ -100,6 +102,8 @@ func (m *WriteData) GetRows() []*common.Row {
 	return nil
 }
 
+//*
+// Represents the condition of reading data from datahub.
 type ReadData struct {
 	Measurement          string                  `protobuf:"bytes,1,opt,name=measurement,proto3" json:"measurement,omitempty"`
 	MetricType           common.MetricType       `protobuf:"varint,2,opt,name=metric_type,json=metricType,proto3,enum=containersai.alameda.v1alpha1.datahub.common.MetricType" json:"metric_type,omitempty"`
@@ -171,6 +175,8 @@ func (m *ReadData) GetQueryCondition() *common.QueryCondition {
 	return nil
 }
 
+//*
+// Represents the condition of deleting data in datahub.
 type DeleteData struct {
 	Measurement          string                  `protobuf:"bytes,1,opt,name=measurement,proto3" json:"measurement,omitempty"`
 	MetricType           common.MetricType       `protobuf:"varint,2,opt,name=metric_type,json=metricType,proto3,enum=containersai.alameda.v1alpha1.datahub.common.MetricType" json:"metric_type,omitempty"`
@@ -242,6 +248,8 @@ func (m *DeleteData) GetQueryCondition() *common.QueryCondition {
 	return nil
 }
 
+//*
+// Represents the data(none time-series) which is to be written to datahub.
 type WriteMeta struct {
 	Measurement          string                  `protobuf:"bytes,1,opt,name=measurement,proto3" json:"measurement,omitempty"`
 	MetricType           common.MetricType       `protobuf:"varint,2,opt,name=metric_type,json=metricType,proto3,enum=containersai.alameda.v1alpha1.datahub.common.MetricType" json:"metric_type,omitempty"`

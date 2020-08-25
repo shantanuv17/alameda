@@ -1,4 +1,4 @@
-// This file has messages related to metric data of containers, pods, and nodes
+// This file has messages related to the request of creating, listing deleting alameda scaler
 
 syntax = "proto3";
 
@@ -11,21 +11,33 @@ import "google/rpc/status.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/applications";
 
+/**
+ * Represents a request for adding alameda scalers that need to be predicted.
+ */
 message CreateApplicationsRequest {
     schemas.SchemaMeta        schema_meta  = 1;
     repeated WriteApplication applications = 2;
 }
 
+/**
+ * Represents a request for listing alameda scalers that need to be predicted.
+ */
 message ListApplicationsRequest {
     schemas.SchemaMeta       schema_meta  = 1;
     repeated ReadApplication applications = 2;
 }
 
+/**
+ * Represents a response for a listing alameda scalers request.
+ */
 message ListApplicationsResponse {
     google.rpc.Status status       = 1;
     Application       applications = 2;
 }
 
+/**
+ * Represents a request for stopping predicting alameda sclaers.
+ */
 message DeleteApplicationsRequest {
     schemas.SchemaMeta         schema_meta  = 1;
     repeated DeleteApplication applications = 2;

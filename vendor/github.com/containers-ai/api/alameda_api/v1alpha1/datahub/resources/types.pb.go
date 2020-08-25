@@ -20,6 +20,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents the private alameda pod specification.
 type AlamedaPodSpec struct {
 	AlamedaScaler          *ObjectMeta           `protobuf:"bytes,1,opt,name=alameda_scaler,json=alamedaScaler,proto3" json:"alameda_scaler,omitempty"`
 	ScalingTool            ScalingTool           `protobuf:"varint,2,opt,name=scaling_tool,json=scalingTool,proto3,enum=containersai.alameda.v1alpha1.datahub.resources.ScalingTool" json:"scaling_tool,omitempty"`
@@ -91,6 +93,8 @@ func (m *AlamedaPodSpec) GetAlamedaScalerResources() *ResourceRequirements {
 	return nil
 }
 
+//*
+// Represents the private alameda controller specification.
 type AlamedaControllerSpec struct {
 	AlamedaScaler                 *ObjectMeta          `protobuf:"bytes,1,opt,name=alameda_scaler,json=alamedaScaler,proto3" json:"alameda_scaler,omitempty"`
 	ScalingTool                   ScalingTool          `protobuf:"varint,2,opt,name=scaling_tool,json=scalingTool,proto3,enum=containersai.alameda.v1alpha1.datahub.resources.ScalingTool" json:"scaling_tool,omitempty"`
@@ -170,6 +174,8 @@ func (m *AlamedaControllerSpec) GetEnableRecommendationExecution() bool {
 	return false
 }
 
+//*
+// Represents the private alameda applcation specification.
 type AlamedaApplicationSpec struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -201,6 +207,8 @@ func (m *AlamedaApplicationSpec) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_AlamedaApplicationSpec proto.InternalMessageInfo
 
+//*
+// Represents the private alameda node specification.
 type AlamedaNodeSpec struct {
 	Provider             *Provider `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
@@ -240,7 +248,8 @@ func (m *AlamedaNodeSpec) GetProvider() *Provider {
 	return nil
 }
 
-// Represents the capacity of a Kubernetes node
+//*
+// Represents the capacity of a Kubernetes node.
 type Capacity struct {
 	CpuCores                 int64    `protobuf:"varint,1,opt,name=cpu_cores,json=cpuCores,proto3" json:"cpu_cores,omitempty"`
 	MemoryBytes              int64    `protobuf:"varint,2,opt,name=memory_bytes,json=memoryBytes,proto3" json:"memory_bytes,omitempty"`
@@ -296,6 +305,8 @@ func (m *Capacity) GetNetworkMegabitsPerSecond() int64 {
 	return 0
 }
 
+//*
+// The information of cloud service provider.
 type Provider struct {
 	Provider             string   `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`
 	InstanceType         string   `protobuf:"bytes,2,opt,name=instance_type,json=instanceType,proto3" json:"instance_type,omitempty"`

@@ -22,7 +22,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// Represents a request for creating pods
+//*
+// Represents a request for creating pods to be predicted.
 type CreatePodsRequest struct {
 	Pods                 []*Pod   `protobuf:"bytes,1,rep,name=pods,proto3" json:"pods,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -62,6 +63,8 @@ func (m *CreatePodsRequest) GetPods() []*Pod {
 	return nil
 }
 
+//*
+// Represents a request for creating controllers to be predicted.
 type CreateControllersRequest struct {
 	Controllers          []*Controller `protobuf:"bytes,1,rep,name=controllers,proto3" json:"controllers,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
@@ -101,6 +104,8 @@ func (m *CreateControllersRequest) GetControllers() []*Controller {
 	return nil
 }
 
+//*
+// Represents a request for creating alameda scalers.
 type CreateApplicationsRequest struct {
 	Applications         []*Application `protobuf:"bytes,1,rep,name=applications,proto3" json:"applications,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
@@ -140,6 +145,8 @@ func (m *CreateApplicationsRequest) GetApplications() []*Application {
 	return nil
 }
 
+//*
+// Represents a request for creating namespaces to be predicted.
 type CreateNamespacesRequest struct {
 	Namespaces           []*Namespace `protobuf:"bytes,1,rep,name=namespaces,proto3" json:"namespaces,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
@@ -179,7 +186,8 @@ func (m *CreateNamespacesRequest) GetNamespaces() []*Namespace {
 	return nil
 }
 
-// Represents a request for adding nodes that need to be predicted
+//*
+// Represents a request for adding nodes that need to be predicted.
 type CreateNodesRequest struct {
 	Nodes                []*Node  `protobuf:"bytes,1,rep,name=nodes,proto3" json:"nodes,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -219,6 +227,8 @@ func (m *CreateNodesRequest) GetNodes() []*Node {
 	return nil
 }
 
+//*
+// Represents a request for adding clusters that need to be predicted.
 type CreateClustersRequest struct {
 	Clusters             []*Cluster `protobuf:"bytes,1,rep,name=clusters,proto3" json:"clusters,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
@@ -258,7 +268,8 @@ func (m *CreateClustersRequest) GetClusters() []*Cluster {
 	return nil
 }
 
-// Represents a request for listing pods that need to be predicted
+//*
+// Represents a request for listing pods that need to be predicted.
 type ListPodsRequest struct {
 	QueryCondition       *common.QueryCondition `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*ObjectMeta          `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -322,7 +333,8 @@ func (m *ListPodsRequest) GetScalingTool() ScalingTool {
 	return ScalingTool_SCALING_TOOL_UNDEFINED
 }
 
-// Represents a response for a listing pods request
+//*
+// Represents a response for a listing pods request.
 type ListPodsResponse struct {
 	Status               *status.Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	Pods                 []*Pod         `protobuf:"bytes,2,rep,name=pods,proto3" json:"pods,omitempty"`
@@ -370,6 +382,8 @@ func (m *ListPodsResponse) GetPods() []*Pod {
 	return nil
 }
 
+//*
+// Represents a request for listing controllers that need to be predicted.
 type ListControllersRequest struct {
 	QueryCondition       *common.QueryCondition `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*ObjectMeta          `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -425,6 +439,8 @@ func (m *ListControllersRequest) GetKind() Kind {
 	return Kind_KIND_UNDEFINED
 }
 
+//*
+// Represents a response for a listing controllers request.
 type ListControllersResponse struct {
 	Status               *status.Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	Controllers          []*Controller  `protobuf:"bytes,2,rep,name=controllers,proto3" json:"controllers,omitempty"`
@@ -472,6 +488,8 @@ func (m *ListControllersResponse) GetControllers() []*Controller {
 	return nil
 }
 
+//*
+// Represents a request for listing alameda scalers.
 type ListApplicationsRequest struct {
 	ObjectMeta           []*ObjectMeta `protobuf:"bytes,1,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
@@ -511,6 +529,8 @@ func (m *ListApplicationsRequest) GetObjectMeta() []*ObjectMeta {
 	return nil
 }
 
+//*
+// Represents a response for a listing alameda scalers request.
 type ListApplicationsResponse struct {
 	Status               *status.Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	Applications         []*Application `protobuf:"bytes,2,rep,name=applications,proto3" json:"applications,omitempty"`
@@ -558,6 +578,8 @@ func (m *ListApplicationsResponse) GetApplications() []*Application {
 	return nil
 }
 
+//*
+// Represents a request for listing namespaces that need to be predicted.
 type ListNamespacesRequest struct {
 	ObjectMeta           []*ObjectMeta `protobuf:"bytes,1,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
@@ -597,6 +619,8 @@ func (m *ListNamespacesRequest) GetObjectMeta() []*ObjectMeta {
 	return nil
 }
 
+//*
+// Represents a response for a listing namespaces request.
 type ListNamespacesResponse struct {
 	Status               *status.Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	Namespaces           []*Namespace   `protobuf:"bytes,2,rep,name=namespaces,proto3" json:"namespaces,omitempty"`
@@ -644,7 +668,8 @@ func (m *ListNamespacesResponse) GetNamespaces() []*Namespace {
 	return nil
 }
 
-// Represents a request for listing nodes that need to be predicted
+//*
+// Represents a request for listing nodes that need to be predicted.
 type ListNodesRequest struct {
 	QueryCondition       *common.QueryCondition `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*ObjectMeta          `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -692,7 +717,8 @@ func (m *ListNodesRequest) GetObjectMeta() []*ObjectMeta {
 	return nil
 }
 
-// Represents a response for a listing nodes request
+//*
+// Represents a response for a listing nodes request.
 type ListNodesResponse struct {
 	Status               *status.Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	Nodes                []*Node        `protobuf:"bytes,2,rep,name=nodes,proto3" json:"nodes,omitempty"`
@@ -740,6 +766,8 @@ func (m *ListNodesResponse) GetNodes() []*Node {
 	return nil
 }
 
+//*
+// Represents a request for listing clusters that need to be predicted.
 type ListClustersRequest struct {
 	ObjectMeta           []*ObjectMeta `protobuf:"bytes,1,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
@@ -779,6 +807,8 @@ func (m *ListClustersRequest) GetObjectMeta() []*ObjectMeta {
 	return nil
 }
 
+//*
+// Represents a response for a listing clusters request.
 type ListClustersResponse struct {
 	Status               *status.Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	Clusters             []*Cluster     `protobuf:"bytes,2,rep,name=clusters,proto3" json:"clusters,omitempty"`
@@ -826,7 +856,8 @@ func (m *ListClustersResponse) GetClusters() []*Cluster {
 	return nil
 }
 
-// Represents a request for deleting pods data
+//*
+// Represents a request for stopping predicting pods.
 type DeletePodsRequest struct {
 	ObjectMeta           []*ObjectMeta `protobuf:"bytes,1,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
@@ -866,6 +897,8 @@ func (m *DeletePodsRequest) GetObjectMeta() []*ObjectMeta {
 	return nil
 }
 
+//*
+// Represents a request for stopping predicting controllers.
 type DeleteControllersRequest struct {
 	ObjectMeta           []*ObjectMeta `protobuf:"bytes,1,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	Kind                 Kind          `protobuf:"varint,2,opt,name=kind,proto3,enum=containersai.alameda.v1alpha1.datahub.resources.Kind" json:"kind,omitempty"`
@@ -913,6 +946,8 @@ func (m *DeleteControllersRequest) GetKind() Kind {
 	return Kind_KIND_UNDEFINED
 }
 
+//*
+// Represents a request for deleting alameda scalers data.
 type DeleteApplicationsRequest struct {
 	ObjectMeta           []*ObjectMeta `protobuf:"bytes,1,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
@@ -952,6 +987,8 @@ func (m *DeleteApplicationsRequest) GetObjectMeta() []*ObjectMeta {
 	return nil
 }
 
+//*
+// Represents a request for stopping predicting namespaces.
 type DeleteNamespacesRequest struct {
 	ObjectMeta           []*ObjectMeta `protobuf:"bytes,1,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
@@ -991,7 +1028,8 @@ func (m *DeleteNamespacesRequest) GetObjectMeta() []*ObjectMeta {
 	return nil
 }
 
-// Represents a request for stopping predicting nodes
+//*
+// Represents a request for stopping predicting nodes.
 type DeleteNodesRequest struct {
 	ObjectMeta           []*ObjectMeta `protobuf:"bytes,1,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
@@ -1031,6 +1069,8 @@ func (m *DeleteNodesRequest) GetObjectMeta() []*ObjectMeta {
 	return nil
 }
 
+//*
+// Represents a request for stopping predicting clusters.
 type DeleteClustersRequest struct {
 	ObjectMeta           []*ObjectMeta `protobuf:"bytes,1,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`

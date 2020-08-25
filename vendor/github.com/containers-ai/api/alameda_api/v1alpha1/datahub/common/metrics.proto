@@ -9,7 +9,7 @@ import "google/protobuf/timestamp.proto";
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common";
 
 /**
- * Metric type. A metric may be either CPU or memory.
+ * Metric type. A metric may be CPU, memory and etc.
  */
 enum MetricType {
     METRICS_TYPE_UNDEFINED   = 0;
@@ -46,6 +46,9 @@ enum MetricType {
     NUMBER                   = 31;
 }
 
+/**
+ * Represents Kubernetes resources which will be allocated to pods.
+ */
 enum ResourceName {
     RESOURCE_NAME_UNDEFINED = 0;
     CPU                     = 1;
@@ -53,7 +56,7 @@ enum ResourceName {
 }
 
 /**
- * Represents a data point of time-series metric data
+ * Represents a data point of time-series metric data.
  */
 message Sample {
     google.protobuf.Timestamp time     = 1;
@@ -62,10 +65,10 @@ message Sample {
 }
 
 /**
- * Represents a piece of metreic data
+ * Represents a piece of metreic data.
  */
 message MetricData {
     MetricType      metric_type = 1;
-    repeated Sample data        = 2; // data can be time series or non-time series
+    repeated Sample data        = 2; // Data can be time series or non-time series.
     int64           granularity = 3;
 }

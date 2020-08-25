@@ -11,11 +11,17 @@ import "alameda_api/v1alpha1/datahub/schemas/types.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data";
 
+/**
+ * Represents a dataset of rawdata which will be written to datahub.
+ */
 message Data {
     schemas.SchemaMeta schema_meta = 1;
     repeated Rawdata   rawdata     = 2;
 }
 
+/**
+ * Represents a private alameda specified rawdata.
+ */
 message Rawdata {
     string                  measurement       = 1;
     common.MetricType       metric_type       = 2;

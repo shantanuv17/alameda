@@ -22,6 +22,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents a dataset of private alameda scalers.
 type Application struct {
 	SchemaMeta           *schemas.SchemaMeta `protobuf:"bytes,1,opt,name=schema_meta,json=schemaMeta,proto3" json:"schema_meta,omitempty"`
 	ApplicationData      []*ApplicationData  `protobuf:"bytes,2,rep,name=application_data,json=applicationData,proto3" json:"application_data,omitempty"`
@@ -69,6 +71,8 @@ func (m *Application) GetApplicationData() []*ApplicationData {
 	return nil
 }
 
+//*
+// Represents a private alameda scaler.
 type ApplicationData struct {
 	Measurement          string           `protobuf:"bytes,1,opt,name=measurement,proto3" json:"measurement,omitempty"`
 	ReadData             *common.ReadData `protobuf:"bytes,2,opt,name=read_data,json=readData,proto3" json:"read_data,omitempty"`

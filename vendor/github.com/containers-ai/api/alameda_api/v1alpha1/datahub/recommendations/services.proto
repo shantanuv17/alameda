@@ -13,34 +13,52 @@ import "google/rpc/status.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations";
 
-// Represents a request for creating a pod's recommendation
+/**
+ * Represents a request for creating pods' recommendation.
+ */
 message CreatePodRecommendationsRequest {
     repeated PodRecommendation pod_recommendations = 1;
     int64                      granularity         = 2;
 }
 
-// Represents a request for creating a controller's recommendation
+/**
+ * Represents a request for creating controllers' recommendation.
+ */
 message CreateControllerRecommendationsRequest {
     repeated ControllerRecommendation controller_recommendations = 1;
 }
 
+/**
+ * Represents a request for creating alameda scalers' recommendation.
+ */
 message CreateApplicationRecommendationsRequest {
     repeated ApplicationRecommendation application_recommendations = 1;
 }
 
+/**
+ * Represents a request for creating namespaces' recommendation.
+ */
 message CreateNamespaceRecommendationsRequest {
     repeated NamespaceRecommendation namespace_recommendations = 1;
 }
 
+/**
+ * Represents a request for creating nodes' recommendation.
+ */
 message CreateNodeRecommendationsRequest {
     repeated NodeRecommendation node_recommendations = 1;
 }
 
+/**
+ * Represents a request for creating clusters' recommendation.
+ */
 message CreateClusterRecommendationsRequest {
     repeated ClusterRecommendation cluster_recommendations = 1;
 }
 
-// Represents a request for listing recommendations of pods
+/**
+ * Represents a request for listing recommendations of pods.
+ */
 message ListPodRecommendationsRequest {
     common.QueryCondition         query_condition = 1;
     repeated resources.ObjectMeta object_meta     = 2;
@@ -48,13 +66,17 @@ message ListPodRecommendationsRequest {
     int64                         granularity     = 4;
 }
 
-// Represents a response for listing pod recommendations request
+/**
+ * Represents a response for listing pods recommendations request.
+ */
 message ListPodRecommendationsResponse {
     google.rpc.Status          status              = 1;
     repeated PodRecommendation pod_recommendations = 2;
 }
 
-// Represents a request for listing recommendations of controllers
+/**
+ * Represents a request for listing recommendations of controllers.
+ */
 message ListControllerRecommendationsRequest {
     common.QueryCondition         query_condition  = 1;
     repeated resources.ObjectMeta object_meta      = 2;
@@ -62,12 +84,17 @@ message ListControllerRecommendationsRequest {
     ControllerRecommendedType     recommended_type = 4;
 }
 
-// Represents a response for listing controller recommendations request
+/**
+ * Represents a response for listing controllers recommendations request.
+ */
 message ListControllerRecommendationsResponse {
     google.rpc.Status                 status                     = 1;
     repeated ControllerRecommendation controller_recommendations = 2;
 }
 
+/**
+ * Represents a request for listing recommendations of alameda scalers.
+ */
 message ListApplicationRecommendationsRequest {
     common.QueryCondition         query_condition  = 1;
     repeated resources.ObjectMeta object_meta      = 2;
@@ -75,11 +102,17 @@ message ListApplicationRecommendationsRequest {
     ControllerRecommendedType     recommended_type = 4;
 }
 
+/**
+ * Represents a response for listing alameda scalers recommendations request.
+ */
 message ListApplicationRecommendationsResponse {
     google.rpc.Status                  status                      = 1;
     repeated ApplicationRecommendation application_recommendations = 2;
 }
 
+/**
+ * Represents a request for listing recommendations of namespaces.
+ */
 message ListNamespaceRecommendationsRequest {
     common.QueryCondition         query_condition  = 1;
     repeated resources.ObjectMeta object_meta      = 2;
@@ -87,11 +120,17 @@ message ListNamespaceRecommendationsRequest {
     ControllerRecommendedType     recommended_type = 4;
 }
 
+/**
+ * Represents a response for listing namespaces recommendations request.
+ */
 message ListNamespaceRecommendationsResponse {
     google.rpc.Status                status                    = 1;
     repeated NamespaceRecommendation namespace_recommendations = 2;
 }
 
+/**
+ * Represents a request for listing recommendations of nodes.
+ */
 message ListNodeRecommendationsRequest {
     common.QueryCondition         query_condition  = 1;
     repeated resources.ObjectMeta object_meta      = 2;
@@ -99,11 +138,17 @@ message ListNodeRecommendationsRequest {
     ControllerRecommendedType     recommended_type = 4;
 }
 
+/**
+ * Represents a response for listing nodes recommendations request.
+ */
 message ListNodeRecommendationsResponse {
     google.rpc.Status           status               = 1;
     repeated NodeRecommendation node_recommendations = 2;
 }
 
+/**
+ * Represents a request for listing recommendations of clusters.
+ */
 message ListClusterRecommendationsRequest {
     common.QueryCondition         query_condition  = 1;
     repeated resources.ObjectMeta object_meta      = 2;
@@ -111,6 +156,9 @@ message ListClusterRecommendationsRequest {
     ControllerRecommendedType     recommended_type = 4;
 }
 
+/**
+ * Represents a response for listing clusters recommendations request.
+ */
 message ListClusterRecommendationsResponse {
     google.rpc.Status              status                  = 1;
     repeated ClusterRecommendation cluster_recommendations = 2;

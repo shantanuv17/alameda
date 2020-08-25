@@ -20,6 +20,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents the datahub specified data type
 type DataType int32
 
 const (
@@ -84,6 +86,8 @@ func (DataType) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_9af5c0284d6e689a, []int{0}
 }
 
+//*
+// Represents the field type of a record which queried from datahub
 type ColumnType int32
 
 const (

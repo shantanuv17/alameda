@@ -6,6 +6,9 @@ package containersai.alameda.v1alpha1.datahub.common;
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common";
 
+/**
+ * Represents the amount resources that a Kubernete object is allowed to use.
+ */
 enum ResourceBoundary {
     RESOURCE_BOUNDARY_UNDEFINED = 0;
     RESOURCE_RAW                = 1;
@@ -13,6 +16,9 @@ enum ResourceBoundary {
     RESOURCE_LOWER_BOUND        = 3;
 }
 
+/**
+ * Represents the constraints that limit aggretage resource consumption per Kubernete object.
+ */
 enum ResourceQuota {
     RESOURCE_QUOTA_UNDEFINED = 0;
     RESOURCE_LIMIT           = 1;
@@ -21,6 +27,9 @@ enum ResourceQuota {
     RESOURCE_INITIAL_REQUEST = 4;
 }
 
+/**
+ * Represents the datahub specified data type.
+ */
 enum DataType {
     DATATYPE_UNDEFINED = 0;
     DATATYPE_BOOL      = 1;
@@ -39,12 +48,18 @@ enum DataType {
     DATATYPE_STRING    = 14;
 }
 
+/**
+ * Represents the field type of a record which queried from datahub.
+ */
 enum ColumnType {
     COLUMNTYPE_UDEFINED = 0;
     COLUMNTYPE_TAG      = 1;
     COLUMNTYPE_FIELD    = 2;
 }
 
+/**
+ * Represents the functional query type of datahub.
+ */
 enum FunctionType {
     FUNCTIONTYPE_UNDEFINED  = 0;
 

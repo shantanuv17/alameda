@@ -20,7 +20,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// Represents kubernetes resource kind
+//*
+// Represents Kubernetes resource kind.
 type Kind int32
 
 const (
@@ -55,6 +56,8 @@ func (Kind) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_18e74a27afdd3525, []int{0}
 }
 
+//*
+// Represents the scaling tool for managing Kubernetes resources.
 type ScalingTool int32
 
 const (
@@ -86,6 +89,8 @@ func (ScalingTool) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_18e74a27afdd3525, []int{1}
 }
 
+//*
+// Represents the private metadata of alameda object.
 type ObjectMeta struct {
 	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Namespace            string   `protobuf:"bytes,2,opt,name=namespace,proto3" json:"namespace,omitempty"`
@@ -157,6 +162,8 @@ func (m *ObjectMeta) GetUid() string {
 	return ""
 }
 
+//*
+// Represents the owner of Kubernetes object. The owned objects are called dependents of the owner object.
 type OwnerReference struct {
 	ObjectMeta           *ObjectMeta `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	Kind                 Kind        `protobuf:"varint,2,opt,name=kind,proto3,enum=containersai.alameda.v1alpha1.datahub.resources.Kind" json:"kind,omitempty"`

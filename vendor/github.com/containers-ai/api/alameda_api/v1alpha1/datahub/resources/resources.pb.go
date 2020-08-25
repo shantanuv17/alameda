@@ -21,7 +21,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// Represents a container and its containing limit and requeset configurations
+//*
+// Represents a container and its containing limit and requeset configurations.
 type Container struct {
 	Name                 string                `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Resources            *ResourceRequirements `protobuf:"bytes,2,opt,name=resources,proto3" json:"resources,omitempty"`
@@ -77,7 +78,8 @@ func (m *Container) GetStatus() *ContainerStatus {
 	return nil
 }
 
-// Represents a Kubernetes pod
+//*
+// Represents a Kubernetes pod.
 type Pod struct {
 	ObjectMeta           *ObjectMeta          `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	StartTime            *timestamp.Timestamp `protobuf:"bytes,2,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
@@ -181,6 +183,8 @@ func (m *Pod) GetContainers() []*Container {
 	return nil
 }
 
+//*
+// Represents a Kubernetes namespace.
 type Controller struct {
 	ObjectMeta            *ObjectMeta            `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	Kind                  Kind                   `protobuf:"varint,2,opt,name=kind,proto3,enum=containersai.alameda.v1alpha1.datahub.resources.Kind" json:"kind,omitempty"`
@@ -252,6 +256,8 @@ func (m *Controller) GetAlamedaControllerSpec() *AlamedaControllerSpec {
 	return nil
 }
 
+//*
+// Represents a alameda scaler.
 type Application struct {
 	ObjectMeta             *ObjectMeta             `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	AlamedaApplicationSpec *AlamedaApplicationSpec `protobuf:"bytes,2,opt,name=alameda_application_spec,json=alamedaApplicationSpec,proto3" json:"alameda_application_spec,omitempty"`
@@ -307,6 +313,8 @@ func (m *Application) GetControllers() []*Controller {
 	return nil
 }
 
+//*
+// Represents a Kubernetes namespace.
 type Namespace struct {
 	ObjectMeta           *ObjectMeta `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
@@ -346,7 +354,8 @@ func (m *Namespace) GetObjectMeta() *ObjectMeta {
 	return nil
 }
 
-// Represents a Kubernetes node
+//*
+// Represents a Kubernetes node.
 type Node struct {
 	ObjectMeta           *ObjectMeta          `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	StartTime            *timestamp.Timestamp `protobuf:"bytes,2,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
@@ -410,6 +419,8 @@ func (m *Node) GetAlamedaNodeSpec() *AlamedaNodeSpec {
 	return nil
 }
 
+//*
+// Represents a Kubernetes cluster.
 type Cluster struct {
 	ObjectMeta           *ObjectMeta `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}    `json:"-"`

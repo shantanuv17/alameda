@@ -12,6 +12,9 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions";
 
+/**
+ * Represents a data point of time-series metric data
+ */
 message Sample {
     google.protobuf.Timestamp time          = 1;
     google.protobuf.Timestamp end_time      = 2;
@@ -20,6 +23,9 @@ message Sample {
     string                    num_value     = 5;
 }
 
+/**
+ * Represents a piece of metreic data
+ */
 message MetricData {
     common.MetricType metric_type = 1;
     repeated Sample   data        = 2; // data can be time series or non-time series

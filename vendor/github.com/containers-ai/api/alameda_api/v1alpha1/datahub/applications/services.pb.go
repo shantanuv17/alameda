@@ -22,6 +22,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents a request for adding alameda scalers that need to be predicted.
 type CreateApplicationsRequest struct {
 	SchemaMeta           *schemas.SchemaMeta `protobuf:"bytes,1,opt,name=schema_meta,json=schemaMeta,proto3" json:"schema_meta,omitempty"`
 	Applications         []*WriteApplication `protobuf:"bytes,2,rep,name=applications,proto3" json:"applications,omitempty"`
@@ -69,6 +71,8 @@ func (m *CreateApplicationsRequest) GetApplications() []*WriteApplication {
 	return nil
 }
 
+//*
+// Represents a request for listing alameda scalers that need to be predicted.
 type ListApplicationsRequest struct {
 	SchemaMeta           *schemas.SchemaMeta `protobuf:"bytes,1,opt,name=schema_meta,json=schemaMeta,proto3" json:"schema_meta,omitempty"`
 	Applications         []*ReadApplication  `protobuf:"bytes,2,rep,name=applications,proto3" json:"applications,omitempty"`
@@ -116,6 +120,8 @@ func (m *ListApplicationsRequest) GetApplications() []*ReadApplication {
 	return nil
 }
 
+//*
+// Represents a response for a listing alameda scalers request.
 type ListApplicationsResponse struct {
 	Status               *status.Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	Applications         *Application   `protobuf:"bytes,2,opt,name=applications,proto3" json:"applications,omitempty"`
@@ -163,6 +169,8 @@ func (m *ListApplicationsResponse) GetApplications() *Application {
 	return nil
 }
 
+//*
+// Represents a request for stopping predicting alameda sclaers.
 type DeleteApplicationsRequest struct {
 	SchemaMeta           *schemas.SchemaMeta  `protobuf:"bytes,1,opt,name=schema_meta,json=schemaMeta,proto3" json:"schema_meta,omitempty"`
 	Applications         []*DeleteApplication `protobuf:"bytes,2,rep,name=applications,proto3" json:"applications,omitempty"`

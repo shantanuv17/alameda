@@ -23,6 +23,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents a data point of time-series metric data
 type Sample struct {
 	Time                 *timestamp.Timestamp `protobuf:"bytes,1,opt,name=time,proto3" json:"time,omitempty"`
 	EndTime              *timestamp.Timestamp `protobuf:"bytes,2,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`
@@ -94,6 +96,8 @@ func (m *Sample) GetNumValue() string {
 	return ""
 }
 
+//*
+// Represents a piece of metreic data
 type MetricData struct {
 	MetricType           common.MetricType `protobuf:"varint,1,opt,name=metric_type,json=metricType,proto3,enum=containersai.alameda.v1alpha1.datahub.common.MetricType" json:"metric_type,omitempty"`
 	Data                 []*Sample         `protobuf:"bytes,2,rep,name=data,proto3" json:"data,omitempty"`

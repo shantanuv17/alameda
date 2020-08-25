@@ -24,7 +24,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// Represents a request for creating predictions of containers' metric data belonging to a pod
+//*
+// Represents a request for creating predictions of containers' metric data belonging to a pod.
 type CreatePodPredictionsRequest struct {
 	PodPredictions       []*PodPrediction `protobuf:"bytes,1,rep,name=pod_predictions,json=podPredictions,proto3" json:"pod_predictions,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
@@ -64,6 +65,8 @@ func (m *CreatePodPredictionsRequest) GetPodPredictions() []*PodPrediction {
 	return nil
 }
 
+//*
+// Represents a request for creating predictions of controllers' metric data.
 type CreateControllerPredictionsRequest struct {
 	ControllerPredictions []*ControllerPrediction `protobuf:"bytes,1,rep,name=controller_predictions,json=controllerPredictions,proto3" json:"controller_predictions,omitempty"`
 	XXX_NoUnkeyedLiteral  struct{}                `json:"-"`
@@ -103,6 +106,8 @@ func (m *CreateControllerPredictionsRequest) GetControllerPredictions() []*Contr
 	return nil
 }
 
+//*
+// Represents a request for creating predictions of alameda scalers' metric data.
 type CreateApplicationPredictionsRequest struct {
 	ApplicationPredictions []*ApplicationPrediction `protobuf:"bytes,1,rep,name=application_predictions,json=applicationPredictions,proto3" json:"application_predictions,omitempty"`
 	XXX_NoUnkeyedLiteral   struct{}                 `json:"-"`
@@ -142,6 +147,8 @@ func (m *CreateApplicationPredictionsRequest) GetApplicationPredictions() []*App
 	return nil
 }
 
+//*
+// Represents a request for creating predictions of namespaces' metric data.
 type CreateNamespacePredictionsRequest struct {
 	NamespacePredictions []*NamespacePrediction `protobuf:"bytes,1,rep,name=namespace_predictions,json=namespacePredictions,proto3" json:"namespace_predictions,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}               `json:"-"`
@@ -181,7 +188,8 @@ func (m *CreateNamespacePredictionsRequest) GetNamespacePredictions() []*Namespa
 	return nil
 }
 
-// Represents a request for creating predictions of a node metric data
+//*
+// Represents a request for creating predictions nodes' metric data.
 type CreateNodePredictionsRequest struct {
 	NodePredictions      []*NodePrediction `protobuf:"bytes,1,rep,name=node_predictions,json=nodePredictions,proto3" json:"node_predictions,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
@@ -221,6 +229,8 @@ func (m *CreateNodePredictionsRequest) GetNodePredictions() []*NodePrediction {
 	return nil
 }
 
+//*
+// Represents a request for creating predictions clusters' metric data.
 type CreateClusterPredictionsRequest struct {
 	ClusterPredictions   []*ClusterPrediction `protobuf:"bytes,1,rep,name=cluster_predictions,json=clusterPredictions,proto3" json:"cluster_predictions,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
@@ -260,7 +270,8 @@ func (m *CreateClusterPredictionsRequest) GetClusterPredictions() []*ClusterPred
 	return nil
 }
 
-// Represents a request for listing predictions of pods
+//*
+// Represents a request for listing predictions of pods.
 type ListPodPredictionsRequest struct {
 	QueryCondition       *common.QueryCondition  `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -348,7 +359,8 @@ func (m *ListPodPredictionsRequest) GetPredictionId() string {
 	return ""
 }
 
-// Represents a response for a listing predictions of pods request
+//*
+// Represents a response for a listing predictions of pods request.
 type ListPodPredictionsResponse struct {
 	Status               *status.Status   `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	PodPredictions       []*PodPrediction `protobuf:"bytes,2,rep,name=pod_predictions,json=podPredictions,proto3" json:"pod_predictions,omitempty"`
@@ -396,6 +408,8 @@ func (m *ListPodPredictionsResponse) GetPodPredictions() []*PodPrediction {
 	return nil
 }
 
+//*
+// Represents a request for listing predictions of controllers.
 type ListControllerPredictionsRequest struct {
 	QueryCondition       *common.QueryCondition  `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -483,6 +497,8 @@ func (m *ListControllerPredictionsRequest) GetPredictionId() string {
 	return ""
 }
 
+//*
+// Represents a response for a listing predictions of controllers request.
 type ListControllerPredictionsResponse struct {
 	Status                *status.Status          `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	ControllerPredictions []*ControllerPrediction `protobuf:"bytes,2,rep,name=controller_predictions,json=controllerPredictions,proto3" json:"controller_predictions,omitempty"`
@@ -530,6 +546,8 @@ func (m *ListControllerPredictionsResponse) GetControllerPredictions() []*Contro
 	return nil
 }
 
+//*
+// Represents a request for listing predictions of alameda scalers.
 type ListApplicationPredictionsRequest struct {
 	QueryCondition       *common.QueryCondition  `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -609,6 +627,8 @@ func (m *ListApplicationPredictionsRequest) GetPredictionId() string {
 	return ""
 }
 
+//*
+// Represents a response for a listing predictions of alameda scalers request.
 type ListApplicationPredictionsResponse struct {
 	Status                 *status.Status           `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	ApplicationPredictions []*ApplicationPrediction `protobuf:"bytes,2,rep,name=application_predictions,json=applicationPredictions,proto3" json:"application_predictions,omitempty"`
@@ -656,6 +676,8 @@ func (m *ListApplicationPredictionsResponse) GetApplicationPredictions() []*Appl
 	return nil
 }
 
+//*
+// Represents a request for listing predictions of namespaces.
 type ListNamespacePredictionsRequest struct {
 	QueryCondition       *common.QueryCondition  `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -735,6 +757,8 @@ func (m *ListNamespacePredictionsRequest) GetPredictionId() string {
 	return ""
 }
 
+//*
+// Represents a response for a listing predictions of namespaces request.
 type ListNamespacePredictionsResponse struct {
 	Status               *status.Status         `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	NamespacePredictions []*NamespacePrediction `protobuf:"bytes,2,rep,name=namespace_predictions,json=namespacePredictions,proto3" json:"namespace_predictions,omitempty"`
@@ -782,6 +806,7 @@ func (m *ListNamespacePredictionsResponse) GetNamespacePredictions() []*Namespac
 	return nil
 }
 
+//*
 // Represents a request for listing predictions of nodes
 type ListNodePredictionsRequest struct {
 	QueryCondition       *common.QueryCondition  `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
@@ -862,7 +887,8 @@ func (m *ListNodePredictionsRequest) GetPredictionId() string {
 	return ""
 }
 
-// Represents a response for a listing predictions of nodes request
+//*
+// Represents a response for a listing predictions of nodes request.
 type ListNodePredictionsResponse struct {
 	Status               *status.Status    `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	NodePredictions      []*NodePrediction `protobuf:"bytes,2,rep,name=node_predictions,json=nodePredictions,proto3" json:"node_predictions,omitempty"`
@@ -910,6 +936,8 @@ func (m *ListNodePredictionsResponse) GetNodePredictions() []*NodePrediction {
 	return nil
 }
 
+//*
+// Represents a request for listing predictions of clusters.
 type ListClusterPredictionsRequest struct {
 	QueryCondition       *common.QueryCondition  `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -989,6 +1017,8 @@ func (m *ListClusterPredictionsRequest) GetPredictionId() string {
 	return ""
 }
 
+//*
+// Represents a response for a listing predictions of clusters request.
 type ListClusterPredictionsResponse struct {
 	Status               *status.Status       `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	ClusterPredictions   []*ClusterPrediction `protobuf:"bytes,2,rep,name=cluster_predictions,json=clusterPredictions,proto3" json:"cluster_predictions,omitempty"`

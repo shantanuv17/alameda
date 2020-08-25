@@ -69,6 +69,8 @@ func (m *Metric) GetMetricData() []*MetricData {
 	return nil
 }
 
+//*
+// Represents a piece of metreic data.
 type MetricData struct {
 	MetricType           common.MetricType `protobuf:"varint,1,opt,name=metric_type,json=metricType,proto3,enum=containersai.alameda.v1alpha1.datahub.common.MetricType" json:"metric_type,omitempty"`
 	ReadData             *common.ReadData  `protobuf:"bytes,2,opt,name=read_data,json=readData,proto3" json:"read_data,omitempty"`

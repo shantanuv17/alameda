@@ -4,6 +4,9 @@ package containersai.common;
 
 option go_package = "github.com/containers-ai/api/common";
 
+/**
+ * Represents the datahub specified data type
+ */
 enum DataType {
     DATATYPE_UNDEFINED = 0;
     DATATYPE_BOOL = 1;
@@ -22,6 +25,9 @@ enum DataType {
     DATATYPE_STRING = 14;
 }
 
+/**
+ * Represents the field type of a record which queried from datahub
+ */
 enum ColumnType {
     COLUMNTYPE_UDEFINED = 0;
     COLUMNTYPE_TAG = 1;

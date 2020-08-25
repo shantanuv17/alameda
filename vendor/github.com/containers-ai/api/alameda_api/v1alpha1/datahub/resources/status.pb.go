@@ -21,7 +21,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// The valid statuses of pods
+//*
+// The valid statuses of pods.
 type PodPhase int32
 
 const (
@@ -65,7 +66,8 @@ func (PodPhase) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_2b05727005fc317b, []int{0}
 }
 
-// ContainerStateWaiting is a waiting state of a container
+//*
+// ContainerStateWaiting is a waiting state of a container.
 type ContainerStateWaiting struct {
 	Reason               string   `protobuf:"bytes,1,opt,name=reason,proto3" json:"reason,omitempty"`
 	Message              string   `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
@@ -113,7 +115,8 @@ func (m *ContainerStateWaiting) GetMessage() string {
 	return ""
 }
 
-// ContainerStateRunning is a running state of a container
+//*
+// ContainerStateRunning is a running state of a container.
 type ContainerStateRunning struct {
 	StartedAt            *timestamp.Timestamp `protobuf:"bytes,1,opt,name=started_at,json=startedAt,proto3" json:"started_at,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
@@ -153,7 +156,8 @@ func (m *ContainerStateRunning) GetStartedAt() *timestamp.Timestamp {
 	return nil
 }
 
-// ContainerStateTerminated is a terminated state of a container
+//*
+// ContainerStateTerminated is a terminated state of a container.
 type ContainerStateTerminated struct {
 	ExitCode             int32                `protobuf:"varint,1,opt,name=exit_code,json=exitCode,proto3" json:"exit_code,omitempty"`
 	Reason               string               `protobuf:"bytes,2,opt,name=reason,proto3" json:"reason,omitempty"`
@@ -225,7 +229,8 @@ func (m *ContainerStateTerminated) GetFinishedAt() *timestamp.Timestamp {
 	return nil
 }
 
-// ContainerState holds a possible state of container
+//*
+// ContainerState holds a possible state of container.
 type ContainerState struct {
 	Waiting              *ContainerStateWaiting    `protobuf:"bytes,1,opt,name=waiting,proto3" json:"waiting,omitempty"`
 	Running              *ContainerStateRunning    `protobuf:"bytes,2,opt,name=running,proto3" json:"running,omitempty"`
@@ -281,7 +286,8 @@ func (m *ContainerState) GetTerminated() *ContainerStateTerminated {
 	return nil
 }
 
-// ContainerStatus contains details for the current status of this container
+//*
+// ContainerStatus contains details for the current status of this container.
 type ContainerStatus struct {
 	State                *ContainerState `protobuf:"bytes,1,opt,name=state,proto3" json:"state,omitempty"`
 	LastTerminationState *ContainerState `protobuf:"bytes,2,opt,name=last_termination_state,json=lastTerminationState,proto3" json:"last_termination_state,omitempty"`
@@ -337,7 +343,8 @@ func (m *ContainerStatus) GetRestartCount() int32 {
 	return 0
 }
 
-// PodStatus represents information about the status of a pod
+//*
+// PodStatus represents information about the status of a pod.
 type PodStatus struct {
 	Phase                PodPhase `protobuf:"varint,1,opt,name=phase,proto3,enum=containersai.alameda.v1alpha1.datahub.resources.PodPhase" json:"phase,omitempty"`
 	Message              string   `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`

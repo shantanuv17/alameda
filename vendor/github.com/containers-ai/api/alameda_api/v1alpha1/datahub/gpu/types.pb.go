@@ -20,6 +20,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents the metadata of a graphics processing unit.
 type GpuMetadata struct {
 	Host                 string   `protobuf:"bytes,1,opt,name=host,proto3" json:"host,omitempty"`
 	Instance             string   `protobuf:"bytes,2,opt,name=instance,proto3" json:"instance,omitempty"`
@@ -83,6 +85,8 @@ func (m *GpuMetadata) GetMinorNumber() string {
 	return ""
 }
 
+//*
+// Represents the spec of a graphics processing unit.
 type GpuSpec struct {
 	MemoryTotal          float32  `protobuf:"fixed32,1,opt,name=memory_total,json=memoryTotal,proto3" json:"memory_total,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`

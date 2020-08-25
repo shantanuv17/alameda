@@ -22,7 +22,7 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 //*
-// Metric type. A metric may be either CPU or memory.
+// Metric type. A metric may be CPU, memory and etc.
 type MetricType int32
 
 const (
@@ -138,6 +138,8 @@ func (MetricType) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_0dcb68d43798345b, []int{0}
 }
 
+//*
+// Represents Kubernetes resources which will be allocated to pods.
 type ResourceName int32
 
 const (
@@ -167,7 +169,7 @@ func (ResourceName) EnumDescriptor() ([]byte, []int) {
 }
 
 //*
-// Represents a data point of time-series metric data
+// Represents a data point of time-series metric data.
 type Sample struct {
 	Time                 *timestamp.Timestamp `protobuf:"bytes,1,opt,name=time,proto3" json:"time,omitempty"`
 	EndTime              *timestamp.Timestamp `protobuf:"bytes,2,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`
@@ -224,7 +226,7 @@ func (m *Sample) GetNumValue() string {
 }
 
 //*
-// Represents a piece of metreic data
+// Represents a piece of metreic data.
 type MetricData struct {
 	MetricType           MetricType `protobuf:"varint,1,opt,name=metric_type,json=metricType,proto3,enum=containersai.alameda.v1alpha1.datahub.common.MetricType" json:"metric_type,omitempty"`
 	Data                 []*Sample  `protobuf:"bytes,2,rep,name=data,proto3" json:"data,omitempty"`

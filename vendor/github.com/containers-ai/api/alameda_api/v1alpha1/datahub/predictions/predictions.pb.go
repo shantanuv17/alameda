@@ -22,7 +22,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// Represents a list of predicted metric data of a container
+//*
+// Represents a list of predicted metric data of a container.
 type ContainerPrediction struct {
 	Name                    string        `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	PredictedRawData        []*MetricData `protobuf:"bytes,2,rep,name=predicted_raw_data,json=predictedRawData,proto3" json:"predicted_raw_data,omitempty"`
@@ -86,7 +87,8 @@ func (m *ContainerPrediction) GetPredictedLowerboundData() []*MetricData {
 	return nil
 }
 
-// Represents a list of predicted metrics data of a pod
+//*
+// Represents a list of predicted metrics data of a pod.
 type PodPrediction struct {
 	ObjectMeta           *resources.ObjectMeta  `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	ContainerPredictions []*ContainerPrediction `protobuf:"bytes,2,rep,name=container_predictions,json=containerPredictions,proto3" json:"container_predictions,omitempty"`
@@ -134,6 +136,8 @@ func (m *PodPrediction) GetContainerPredictions() []*ContainerPrediction {
 	return nil
 }
 
+//*
+// Represents a list of predicted metrics data of a controller.
 type ControllerPrediction struct {
 	ObjectMeta              *resources.ObjectMeta `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	Kind                    resources.Kind        `protobuf:"varint,2,opt,name=kind,proto3,enum=containersai.alameda.v1alpha1.datahub.resources.Kind" json:"kind,omitempty"`
@@ -205,6 +209,8 @@ func (m *ControllerPrediction) GetPredictedLowerboundData() []*MetricData {
 	return nil
 }
 
+//*
+// Represents a list of predicted metrics data of a alameda scaler.
 type ApplicationPrediction struct {
 	ObjectMeta              *resources.ObjectMeta `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	PredictedRawData        []*MetricData         `protobuf:"bytes,2,rep,name=predicted_raw_data,json=predictedRawData,proto3" json:"predicted_raw_data,omitempty"`
@@ -268,6 +274,8 @@ func (m *ApplicationPrediction) GetPredictedLowerboundData() []*MetricData {
 	return nil
 }
 
+//*
+// Represents a list of predicted metrics data of a namespace.
 type NamespacePrediction struct {
 	ObjectMeta              *resources.ObjectMeta `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	PredictedRawData        []*MetricData         `protobuf:"bytes,2,rep,name=predicted_raw_data,json=predictedRawData,proto3" json:"predicted_raw_data,omitempty"`
@@ -331,7 +339,8 @@ func (m *NamespacePrediction) GetPredictedLowerboundData() []*MetricData {
 	return nil
 }
 
-// Represents a list of predicted metric data of a node
+//*
+// Represents a list of predicted metric data of a node.
 type NodePrediction struct {
 	ObjectMeta              *resources.ObjectMeta `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	IsScheduled             bool                  `protobuf:"varint,2,opt,name=is_scheduled,json=isScheduled,proto3" json:"is_scheduled,omitempty"`
@@ -403,6 +412,8 @@ func (m *NodePrediction) GetPredictedLowerboundData() []*MetricData {
 	return nil
 }
 
+//*
+// Represents a list of predicted metric data of a cluster.
 type ClusterPrediction struct {
 	ObjectMeta              *resources.ObjectMeta `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	PredictedRawData        []*MetricData         `protobuf:"bytes,2,rep,name=predicted_raw_data,json=predictedRawData,proto3" json:"predicted_raw_data,omitempty"`

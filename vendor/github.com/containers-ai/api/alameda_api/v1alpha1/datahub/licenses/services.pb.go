@@ -21,6 +21,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents a response for reading a license information request.
 type GetLicenseResponse struct {
 	Status               *status.Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	License              *License       `protobuf:"bytes,2,opt,name=license,proto3" json:"license,omitempty"`

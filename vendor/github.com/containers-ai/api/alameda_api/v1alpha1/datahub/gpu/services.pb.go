@@ -22,6 +22,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents a request for listing graphics processing units that need to be predicted.
 type ListGpusRequest struct {
 	QueryCondition       *common.QueryCondition `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	Host                 string                 `protobuf:"bytes,2,opt,name=host,proto3" json:"host,omitempty"`
@@ -77,6 +79,8 @@ func (m *ListGpusRequest) GetMinorNumber() string {
 	return ""
 }
 
+//*
+// Represents a response for a listing graphics processing units request.
 type ListGpusResponse struct {
 	Status               *status.Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	Gpus                 []*Gpu         `protobuf:"bytes,2,rep,name=gpus,proto3" json:"gpus,omitempty"`
@@ -124,6 +128,8 @@ func (m *ListGpusResponse) GetGpus() []*Gpu {
 	return nil
 }
 
+//*
+// Represents a request for listing metric data of graphics processing units.
 type ListGpuMetricsRequest struct {
 	QueryCondition       *common.QueryCondition `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	MetricTypes          []common.MetricType    `protobuf:"varint,2,rep,packed,name=metric_types,json=metricTypes,proto3,enum=containersai.alameda.v1alpha1.datahub.common.MetricType" json:"metric_types,omitempty"`
@@ -187,6 +193,8 @@ func (m *ListGpuMetricsRequest) GetMinorNumber() string {
 	return ""
 }
 
+//*
+// Represents a response for a listing graphics processing units metric data request.
 type ListGpuMetricsResponse struct {
 	Status               *status.Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	GpuMetrics           []*GpuMetric   `protobuf:"bytes,2,rep,name=gpu_metrics,json=gpuMetrics,proto3" json:"gpu_metrics,omitempty"`
@@ -234,6 +242,8 @@ func (m *ListGpuMetricsResponse) GetGpuMetrics() []*GpuMetric {
 	return nil
 }
 
+//*
+// Represents a request for creating predictions of graphics processing units' metric data.
 type CreateGpuPredictionsRequest struct {
 	GpuPredictions       []*GpuPrediction `protobuf:"bytes,1,rep,name=gpu_predictions,json=gpuPredictions,proto3" json:"gpu_predictions,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
@@ -273,6 +283,8 @@ func (m *CreateGpuPredictionsRequest) GetGpuPredictions() []*GpuPrediction {
 	return nil
 }
 
+//*
+// Represents a list of predicted metric data of graphics processing units.
 type ListGpuPredictionsRequest struct {
 	QueryCondition       *common.QueryCondition `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	Host                 string                 `protobuf:"bytes,2,opt,name=host,proto3" json:"host,omitempty"`
@@ -352,6 +364,8 @@ func (m *ListGpuPredictionsRequest) GetPredictionId() string {
 	return ""
 }
 
+//*
+// Represents a response for a listing predictions of graphics processing units request.
 type ListGpuPredictionsResponse struct {
 	Status               *status.Status   `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	GpuPredictions       []*GpuPrediction `protobuf:"bytes,2,rep,name=gpu_predictions,json=gpuPredictions,proto3" json:"gpu_predictions,omitempty"`

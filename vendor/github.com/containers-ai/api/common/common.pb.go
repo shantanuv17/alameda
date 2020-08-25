@@ -22,6 +22,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents a specified database whcih is to query
 type DatabaseType int32
 
 const (
@@ -106,6 +108,7 @@ func (QueryCondition_Order) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_8f954d82c0b891f6, []int{1, 0}
 }
 
+//*
 // Represents a time range definition
 type TimeRange struct {
 	StartTime            *timestamp.Timestamp        `protobuf:"bytes,1,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
@@ -186,6 +189,8 @@ func (m *TimeRange) GetApplyTime() *timestamp.Timestamp {
 	return nil
 }
 
+//*
+// Represents a datahub query request
 type QueryCondition struct {
 	TimeRange            *TimeRange           `protobuf:"bytes,1,opt,name=time_range,json=timeRange,proto3" json:"time_range,omitempty"`
 	Order                QueryCondition_Order `protobuf:"varint,2,opt,name=order,proto3,enum=containersai.common.QueryCondition_Order" json:"order,omitempty"`
@@ -265,6 +270,8 @@ func (m *QueryCondition) GetLimit() uint64 {
 	return 0
 }
 
+//*
+// Represents a general datahub query request
 type Query struct {
 	Database             string          `protobuf:"bytes,1,opt,name=database,proto3" json:"database,omitempty"`
 	Table                string          `protobuf:"bytes,2,opt,name=table,proto3" json:"table,omitempty"`
@@ -328,6 +335,8 @@ func (m *Query) GetCondition() *QueryCondition {
 	return nil
 }
 
+//*
+// Represents a record of data
 type Row struct {
 	Time                 *timestamp.Timestamp `protobuf:"bytes,1,opt,name=time,proto3" json:"time,omitempty"`
 	Values               []string             `protobuf:"bytes,2,rep,name=values,proto3" json:"values,omitempty"`
@@ -375,6 +384,8 @@ func (m *Row) GetValues() []string {
 	return nil
 }
 
+//*
+// Represents a dataset which are collected that have the same attributes
 type Group struct {
 	Rows                 []*Row   `protobuf:"bytes,1,rep,name=rows,proto3" json:"rows,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -414,6 +425,8 @@ func (m *Group) GetRows() []*Row {
 	return nil
 }
 
+//*
+// Represents a rawdata whcih is read from datahub
 type ReadRawdata struct {
 	Query                *Query   `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`
 	Columns              []string `protobuf:"bytes,2,rep,name=columns,proto3" json:"columns,omitempty"`
@@ -477,6 +490,8 @@ func (m *ReadRawdata) GetRawdata() string {
 	return ""
 }
 
+//*
+// Represents a rawdata which will be written to datahub
 type WriteRawdata struct {
 	Database             string       `protobuf:"bytes,1,opt,name=database,proto3" json:"database,omitempty"`
 	Table                string       `protobuf:"bytes,2,opt,name=table,proto3" json:"table,omitempty"`

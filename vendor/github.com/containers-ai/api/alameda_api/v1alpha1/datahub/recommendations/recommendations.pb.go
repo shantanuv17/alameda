@@ -23,8 +23,11 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// Represents a resource configuration recommendation
-// It includes recommended limits and requests for the initial stage (a container which is just started) and after the initial stage
+//*
+// Represents a resource configuration recommendation made by the AI Engine.
+//
+// It includes recommended limits and requests for the initial stage (a container which is just started) and after the initial strage.
+//
 type ContainerRecommendation struct {
 	Name                          string               `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	LimitRecommendations          []*common.MetricData `protobuf:"bytes,2,rep,name=limit_recommendations,json=limitRecommendations,proto3" json:"limit_recommendations,omitempty"`
@@ -96,7 +99,8 @@ func (m *ContainerRecommendation) GetInitialRequestRecommendations() []*common.M
 	return nil
 }
 
-// Represents a set of container resource configuration recommendations of a pod
+//*
+// Represents a set of container resource configuration recommendations of a pod.
 type PodRecommendation struct {
 	ObjectMeta               *resources.ObjectMeta      `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	ApplyRecommendationNow   bool                       `protobuf:"varint,2,opt,name=apply_recommendation_now,json=applyRecommendationNow,proto3" json:"apply_recommendation_now,omitempty"`
@@ -200,6 +204,8 @@ func (m *PodRecommendation) GetTotalCost() float64 {
 	return 0
 }
 
+//*
+// Represents resource configuration recommendations of a controller.
 type ControllerRecommendation struct {
 	ObjectMeta           *resources.ObjectMeta         `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	Kind                 resources.Kind                `protobuf:"varint,2,opt,name=kind,proto3,enum=containersai.alameda.v1alpha1.datahub.resources.Kind" json:"kind,omitempty"`
@@ -271,6 +277,8 @@ func (m *ControllerRecommendation) GetRecommendedSpecK8S() *ControllerRecommende
 	return nil
 }
 
+//*
+// Represents resource configuration recommendations of a alameda scaler.
 type ApplicationRecommendation struct {
 	ObjectMeta           *resources.ObjectMeta         `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	Kind                 resources.Kind                `protobuf:"varint,2,opt,name=kind,proto3,enum=containersai.alameda.v1alpha1.datahub.resources.Kind" json:"kind,omitempty"`
@@ -342,6 +350,8 @@ func (m *ApplicationRecommendation) GetRecommendedSpecK8S() *ControllerRecommend
 	return nil
 }
 
+//*
+// Represents resource configuration recommendations of a namespace.
 type NamespaceRecommendation struct {
 	ObjectMeta           *resources.ObjectMeta         `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	Kind                 resources.Kind                `protobuf:"varint,2,opt,name=kind,proto3,enum=containersai.alameda.v1alpha1.datahub.resources.Kind" json:"kind,omitempty"`
@@ -413,6 +423,8 @@ func (m *NamespaceRecommendation) GetRecommendedSpecK8S() *ControllerRecommended
 	return nil
 }
 
+//*
+// Represents resource configuration recommendations of a node.
 type NodeRecommendation struct {
 	ObjectMeta           *resources.ObjectMeta         `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	Kind                 resources.Kind                `protobuf:"varint,2,opt,name=kind,proto3,enum=containersai.alameda.v1alpha1.datahub.resources.Kind" json:"kind,omitempty"`
@@ -484,6 +496,8 @@ func (m *NodeRecommendation) GetRecommendedSpecK8S() *ControllerRecommendedSpecK
 	return nil
 }
 
+//*
+// Represents resource configuration recommendations of a cluster.
 type ClusterRecommendation struct {
 	ObjectMeta           *resources.ObjectMeta         `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	Kind                 resources.Kind                `protobuf:"varint,2,opt,name=kind,proto3,enum=containersai.alameda.v1alpha1.datahub.resources.Kind" json:"kind,omitempty"`

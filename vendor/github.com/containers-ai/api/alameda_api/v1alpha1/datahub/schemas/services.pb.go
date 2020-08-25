@@ -21,6 +21,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents a request for creating datahub schemas.
 type CreateSchemasRequest struct {
 	Schemas              []*Schema `protobuf:"bytes,1,rep,name=schemas,proto3" json:"schemas,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
@@ -60,6 +62,8 @@ func (m *CreateSchemasRequest) GetSchemas() []*Schema {
 	return nil
 }
 
+//*
+// Represents a request for listing datahub schemas.
 type ListSchemasRequest struct {
 	SchemaMeta           *SchemaMeta `protobuf:"bytes,1,opt,name=schema_meta,json=schemaMeta,proto3" json:"schema_meta,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
@@ -99,6 +103,8 @@ func (m *ListSchemasRequest) GetSchemaMeta() *SchemaMeta {
 	return nil
 }
 
+//*
+// Represents a response for a listing datahub schemas request.
 type ListSchemasResponse struct {
 	Status               *status.Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	Schemas              []*Schema      `protobuf:"bytes,2,rep,name=schemas,proto3" json:"schemas,omitempty"`
@@ -146,6 +152,8 @@ func (m *ListSchemasResponse) GetSchemas() []*Schema {
 	return nil
 }
 
+//*
+// Represents a request for deleting datahub schemas.
 type DeleteSchemasRequest struct {
 	SchemaMeta           *SchemaMeta `protobuf:"bytes,1,opt,name=schema_meta,json=schemaMeta,proto3" json:"schema_meta,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}    `json:"-"`

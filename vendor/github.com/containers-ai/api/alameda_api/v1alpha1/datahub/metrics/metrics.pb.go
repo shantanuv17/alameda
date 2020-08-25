@@ -22,7 +22,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// Represents metric data of a container
+//*
+// Represents metric data of a container.
 type ContainerMetric struct {
 	Name                 string               `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	MetricData           []*common.MetricData `protobuf:"bytes,2,rep,name=metric_data,json=metricData,proto3" json:"metric_data,omitempty"`
@@ -70,7 +71,8 @@ func (m *ContainerMetric) GetMetricData() []*common.MetricData {
 	return nil
 }
 
-// Represents metric data of a pod
+//*
+// Represents metric data of a pod.
 type PodMetric struct {
 	ObjectMeta           *resources.ObjectMeta `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	ContainerMetrics     []*ContainerMetric    `protobuf:"bytes,2,rep,name=container_metrics,json=containerMetrics,proto3" json:"container_metrics,omitempty"`
@@ -118,6 +120,8 @@ func (m *PodMetric) GetContainerMetrics() []*ContainerMetric {
 	return nil
 }
 
+//*
+// Represents metric data of a controller.
 type ControllerMetric struct {
 	ObjectMeta           *resources.ObjectMeta `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	Kind                 resources.Kind        `protobuf:"varint,2,opt,name=kind,proto3,enum=containersai.alameda.v1alpha1.datahub.resources.Kind" json:"kind,omitempty"`
@@ -173,6 +177,8 @@ func (m *ControllerMetric) GetMetricData() []*common.MetricData {
 	return nil
 }
 
+//*
+// Represents metric data of a alameda scaler.
 type ApplicationMetric struct {
 	ObjectMeta           *resources.ObjectMeta `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	MetricData           []*common.MetricData  `protobuf:"bytes,2,rep,name=metric_data,json=metricData,proto3" json:"metric_data,omitempty"`
@@ -220,6 +226,8 @@ func (m *ApplicationMetric) GetMetricData() []*common.MetricData {
 	return nil
 }
 
+//*
+// Represents metric data of a namespace.
 type NamespaceMetric struct {
 	ObjectMeta           *resources.ObjectMeta `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	MetricData           []*common.MetricData  `protobuf:"bytes,2,rep,name=metric_data,json=metricData,proto3" json:"metric_data,omitempty"`
@@ -267,7 +275,8 @@ func (m *NamespaceMetric) GetMetricData() []*common.MetricData {
 	return nil
 }
 
-// Represents metric data of a node
+//*
+// Represents metric data of a node.
 type NodeMetric struct {
 	ObjectMeta           *resources.ObjectMeta `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	MetricData           []*common.MetricData  `protobuf:"bytes,2,rep,name=metric_data,json=metricData,proto3" json:"metric_data,omitempty"`
@@ -315,6 +324,8 @@ func (m *NodeMetric) GetMetricData() []*common.MetricData {
 	return nil
 }
 
+//*
+// Represents metric data of a cluster.
 type ClusterMetric struct {
 	ObjectMeta           *resources.ObjectMeta `protobuf:"bytes,1,opt,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
 	MetricData           []*common.MetricData  `protobuf:"bytes,2,rep,name=metric_data,json=metricData,proto3" json:"metric_data,omitempty"`

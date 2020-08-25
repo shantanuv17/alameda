@@ -22,6 +22,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents a dataset of rawdata which will be written to datahub.
 type Data struct {
 	SchemaMeta           *schemas.SchemaMeta `protobuf:"bytes,1,opt,name=schema_meta,json=schemaMeta,proto3" json:"schema_meta,omitempty"`
 	Rawdata              []*Rawdata          `protobuf:"bytes,2,rep,name=rawdata,proto3" json:"rawdata,omitempty"`
@@ -69,6 +71,8 @@ func (m *Data) GetRawdata() []*Rawdata {
 	return nil
 }
 
+//*
+// Represents a private alameda specified rawdata.
 type Rawdata struct {
 	Measurement          string                  `protobuf:"bytes,1,opt,name=measurement,proto3" json:"measurement,omitempty"`
 	MetricType           common.MetricType       `protobuf:"varint,2,opt,name=metric_type,json=metricType,proto3,enum=containersai.alameda.v1alpha1.datahub.common.MetricType" json:"metric_type,omitempty"`
