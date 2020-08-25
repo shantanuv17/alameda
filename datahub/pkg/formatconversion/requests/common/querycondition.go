@@ -34,6 +34,9 @@ func NewQueryCondition(queryCondition *ApiCommon.QueryCondition) *DBCommon.Query
 			}
 			qc.AggregateOverTimeFunction = enumconv.AggregateFunctionNameMap[timeRange.GetAggregateFunction()]
 		}
+		if queryCondition.GetSubQuery() != nil {
+			qc.SubQuery = NewQueryCondition(queryCondition.GetSubQuery())
+		}
 		return &qc
 	}
 	return nil
