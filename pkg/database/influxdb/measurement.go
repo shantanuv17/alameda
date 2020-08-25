@@ -4,20 +4,20 @@ import (
 	"errors"
 	"fmt"
 	"github.com/containers-ai/alameda/pkg/database/common"
-	models2 "github.com/containers-ai/alameda/pkg/database/influxdb/models"
-	schemas2 "github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
+	"github.com/containers-ai/alameda/pkg/database/influxdb/models"
+	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
 	InfluxDB "github.com/influxdata/influxdb/client/v2"
 	"strconv"
 	"time"
 )
 
 type InfluxMeasurement struct {
-	*schemas2.Measurement
+	*schemas.Measurement
 	Database string
 	Client   *InfluxClient
 }
 
-func NewMeasurement(database string, measurement *schemas2.Measurement, config Config) *InfluxMeasurement {
+func NewMeasurement(database string, measurement *schemas.Measurement, config Config) *InfluxMeasurement {
 	m := InfluxMeasurement{
 		Measurement: measurement,
 		Database:    database,
@@ -37,7 +37,7 @@ func (p *InfluxMeasurement) Read(query *InfluxQuery) ([]*common.Group, error) {
 		return make([]*common.Group, 0), err
 	}
 
-	results := models2.NewInfluxResults(response)
+	results := models.NewInfluxResults(response)
 	if query.QueryCondition.Function != nil {
 		groups = p.aggregationData(results)
 	} else {
@@ -55,7 +55,7 @@ func (p *InfluxMeasurement) Read(query *InfluxQuery) ([]*common.Group, error) {
 }
 
 func (p *InfluxMeasurement) Write(columns []string, rows []*common.Row) error {
-	columnTypes := make([]schemas2.ColumnType, 0)
+	columnTypes := make([]schemas.ColumnType, 0)
 	dataTypes := make([]common.DataType, 0)
 
 	// Generate column & data types
@@ -99,26 +99,22 @@ func (p *InfluxMeasurement) Drop(query *InfluxQuery) error {
 }
 
 func (p *InfluxMeasurement) genDataType(query *InfluxQuery) {
+	// Main query
 	for _, condition := range query.QueryCondition.WhereCondition {
 		if len(condition.Types) == 0 {
-			for _, key := range condition.Keys {
-				// Since time field is not in schema, so we have to add its data type manually
-				if key == "time" {
-					condition.Types = append(condition.Types, common.String)
-					continue
-				}
-				for _, column := range p.Measurement.Columns {
-					if key == column.Name {
-						condition.Types = append(condition.Types, column.DataType)
-						break
-					}
-				}
-			}
+			p.types(condition)
+		}
+	}
+
+	// Sub query
+	for _, condition := range query.QueryCondition.SubQuery.WhereCondition {
+		if len(condition.Types) == 0 {
+			p.types(condition)
 		}
 	}
 }
 
-func (p *InfluxMeasurement) buildPoints(columnTypes []schemas2.ColumnType, dataTypes []common.DataType, columns []string, rows []*common.Row) ([]*InfluxDB.Point, error)  {
+func (p *InfluxMeasurement) buildPoints(columnTypes []schemas.ColumnType, dataTypes []common.DataType, columns []string, rows []*common.Row) ([]*InfluxDB.Point, error)  {
 	points := make([]*InfluxDB.Point, 0)
 
 	for _, row := range rows {
@@ -129,9 +125,9 @@ func (p *InfluxMeasurement) buildPoints(columnTypes []schemas2.ColumnType, dataT
 		// Pack influx tags & fields
 		for _, value := range row.Values {
 			switch columnTypes[index] {
-			case schemas2.Tag:
+			case schemas.Tag:
 				tags[columns[index]] = value
-			case schemas2.Field:
+			case schemas.Field:
 				v, err := p.format(value, dataTypes[index])
 				fields[columns[index]] = v
 				if err != nil {
@@ -168,7 +164,7 @@ func (p *InfluxMeasurement) buildPoints(columnTypes []schemas2.ColumnType, dataT
 	return points, nil
 }
 
-func (p *InfluxMeasurement) regularData(results []*models2.InfluxResultExtend) []*common.Group {
+func (p *InfluxMeasurement) regularData(results []*models.InfluxResultExtend) []*common.Group {
 	groups := make([]*common.Group, 0)
 
 	for _, result := range results {
@@ -204,7 +200,7 @@ func (p *InfluxMeasurement) regularData(results []*models2.InfluxResultExtend) [
 	return groups
 }
 
-func (p *InfluxMeasurement) aggregationData(results []*models2.InfluxResultExtend) []*common.Group {
+func (p *InfluxMeasurement) aggregationData(results []*models.InfluxResultExtend) []*common.Group {
 	groups := make([]*common.Group, 0)
 
 	for _, result := range results {
@@ -241,6 +237,22 @@ func (p *InfluxMeasurement) aggregationData(results []*models2.InfluxResultExten
 	}
 
 	return groups
+}
+
+func (p *InfluxMeasurement) types(condition *common.Condition) {
+	for _, key := range condition.Keys {
+		// Since time field is not in schema, so we have to add its data type manually
+		if key == "time" {
+			condition.Types = append(condition.Types, common.String)
+			continue
+		}
+		for _, column := range p.Measurement.Columns {
+			if key == column.Name {
+				condition.Types = append(condition.Types, column.DataType)
+				break
+			}
+		}
+	}
 }
 
 func (p *InfluxMeasurement) format(value string, dataType common.DataType) (interface{}, error) {
