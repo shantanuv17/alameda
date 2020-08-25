@@ -67,6 +67,8 @@ func (Scope) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_01194bf23370964f, []int{0}
 }
 
+//*
+// Represents the private metadata of datahub schema.
 type SchemaMeta struct {
 	Scope                Scope    `protobuf:"varint,1,opt,name=scope,proto3,enum=containersai.alameda.v1alpha1.datahub.schemas.Scope" json:"scope,omitempty"`
 	Category             string   `protobuf:"bytes,2,opt,name=category,proto3" json:"category,omitempty"`
@@ -122,6 +124,8 @@ func (m *SchemaMeta) GetType() string {
 	return ""
 }
 
+//*
+// Represents the information of measurment which datahub will write data in InfluxDB.
 type Measurement struct {
 	Name                 string                  `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	MetricType           common.MetricType       `protobuf:"varint,2,opt,name=metric_type,json=metricType,proto3,enum=containersai.alameda.v1alpha1.datahub.common.MetricType" json:"metric_type,omitempty"`
@@ -201,6 +205,8 @@ func (m *Measurement) GetColumns() []*Column {
 	return nil
 }
 
+//*
+// Represents a data record.
 type Column struct {
 	Name                 string            `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Required             bool              `protobuf:"varint,2,opt,name=required,proto3" json:"required,omitempty"`

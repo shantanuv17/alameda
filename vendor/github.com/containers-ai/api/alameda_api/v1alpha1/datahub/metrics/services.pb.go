@@ -24,7 +24,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// Represents a request for creating metrics data of pods
+//*
+// Represents a request for creating metrics data of pods.
 type CreatePodMetricsRequest struct {
 	PodMetrics           []*PodMetric `protobuf:"bytes,1,rep,name=pod_metrics,json=podMetrics,proto3" json:"pod_metrics,omitempty"`
 	RateRange            uint64       `protobuf:"varint,2,opt,name=rate_range,json=rateRange,proto3" json:"rate_range,omitempty"`
@@ -72,6 +73,8 @@ func (m *CreatePodMetricsRequest) GetRateRange() uint64 {
 	return 0
 }
 
+//*
+// Represents a request for creating metrics data of controllers.
 type CreateControllerMetricsRequest struct {
 	ControllerMetrics    []*ControllerMetric `protobuf:"bytes,1,rep,name=controller_metrics,json=controllerMetrics,proto3" json:"controller_metrics,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
@@ -111,6 +114,8 @@ func (m *CreateControllerMetricsRequest) GetControllerMetrics() []*ControllerMet
 	return nil
 }
 
+//*
+// Represents a request for creating metrics data of alameda scalers.
 type CreateApplicationMetricsRequest struct {
 	ApplicationMetrics   []*ApplicationMetric `protobuf:"bytes,1,rep,name=application_metrics,json=applicationMetrics,proto3" json:"application_metrics,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
@@ -150,6 +155,8 @@ func (m *CreateApplicationMetricsRequest) GetApplicationMetrics() []*Application
 	return nil
 }
 
+//*
+// Represents a request for creating metrics data of namespaces.
 type CreateNamespaceMetricsRequest struct {
 	NamespaceMetrics     []*NamespaceMetric `protobuf:"bytes,1,rep,name=namespace_metrics,json=namespaceMetrics,proto3" json:"namespace_metrics,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
@@ -189,7 +196,8 @@ func (m *CreateNamespaceMetricsRequest) GetNamespaceMetrics() []*NamespaceMetric
 	return nil
 }
 
-// Represents a request for creating metrics data of nodes
+//*
+// Represents a request for creating metrics data of nodes.
 type CreateNodeMetricsRequest struct {
 	NodeMetrics          []*NodeMetric `protobuf:"bytes,1,rep,name=node_metrics,json=nodeMetrics,proto3" json:"node_metrics,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
@@ -229,6 +237,8 @@ func (m *CreateNodeMetricsRequest) GetNodeMetrics() []*NodeMetric {
 	return nil
 }
 
+//*
+// Represents a request for creating metrics data of clusters.
 type CreateClusterMetricsRequest struct {
 	ClusterMetrics       []*ClusterMetric `protobuf:"bytes,1,rep,name=cluster_metrics,json=clusterMetrics,proto3" json:"cluster_metrics,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
@@ -268,7 +278,8 @@ func (m *CreateClusterMetricsRequest) GetClusterMetrics() []*ClusterMetric {
 	return nil
 }
 
-// Represents a request for listing metric data of a pod
+//*
+// Represents a request for listing metric data of pods.
 type ListPodMetricsRequest struct {
 	QueryCondition       *common.QueryCondition  `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -332,7 +343,8 @@ func (m *ListPodMetricsRequest) GetRateRange() uint64 {
 	return 0
 }
 
-// Represents a response for a listing pod metric data request
+//*
+// Represents a response for a listing pods metric data request.
 type ListPodMetricsResponse struct {
 	Status               *status.Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	PodMetrics           []*PodMetric   `protobuf:"bytes,2,rep,name=pod_metrics,json=podMetrics,proto3" json:"pod_metrics,omitempty"`
@@ -380,6 +392,8 @@ func (m *ListPodMetricsResponse) GetPodMetrics() []*PodMetric {
 	return nil
 }
 
+//*
+// Represents a request for listing metric data of controllers.
 type ListControllerMetricsRequest struct {
 	QueryCondition       *common.QueryCondition  `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -443,6 +457,8 @@ func (m *ListControllerMetricsRequest) GetKind() resources.Kind {
 	return resources.Kind_KIND_UNDEFINED
 }
 
+//*
+// Represents a response for a listing controllers metric data request.
 type ListControllerMetricsResponse struct {
 	Status               *status.Status      `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	ControllerMetrics    []*ControllerMetric `protobuf:"bytes,2,rep,name=controller_metrics,json=controllerMetrics,proto3" json:"controller_metrics,omitempty"`
@@ -490,6 +506,8 @@ func (m *ListControllerMetricsResponse) GetControllerMetrics() []*ControllerMetr
 	return nil
 }
 
+//*
+// Represents a request for listing metric data of alameda scalers.
 type ListApplicationMetricsRequest struct {
 	QueryCondition       *common.QueryCondition  `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -545,6 +563,8 @@ func (m *ListApplicationMetricsRequest) GetMetricTypes() []common.MetricType {
 	return nil
 }
 
+//*
+// Represents a response for a listing alameda scalers metric data request.
 type ListApplicationMetricsResponse struct {
 	Status               *status.Status       `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	ApplicationMetrics   []*ApplicationMetric `protobuf:"bytes,2,rep,name=application_metrics,json=applicationMetrics,proto3" json:"application_metrics,omitempty"`
@@ -592,6 +612,8 @@ func (m *ListApplicationMetricsResponse) GetApplicationMetrics() []*ApplicationM
 	return nil
 }
 
+//*
+// Represents a request for listing metric data of namespaces.
 type ListNamespaceMetricsRequest struct {
 	QueryCondition       *common.QueryCondition  `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -647,6 +669,8 @@ func (m *ListNamespaceMetricsRequest) GetMetricTypes() []common.MetricType {
 	return nil
 }
 
+//*
+// Represents a response for a listing namespaces metric data request.
 type ListNamespaceMetricsResponse struct {
 	Status               *status.Status     `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	NamespaceMetrics     []*NamespaceMetric `protobuf:"bytes,2,rep,name=namespace_metrics,json=namespaceMetrics,proto3" json:"namespace_metrics,omitempty"`
@@ -694,7 +718,8 @@ func (m *ListNamespaceMetricsResponse) GetNamespaceMetrics() []*NamespaceMetric 
 	return nil
 }
 
-// Represents a request for listing metric data of a node
+//*
+// Represents a request for listing metric data of nodes.
 type ListNodeMetricsRequest struct {
 	QueryCondition       *common.QueryCondition  `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -750,7 +775,8 @@ func (m *ListNodeMetricsRequest) GetMetricTypes() []common.MetricType {
 	return nil
 }
 
-// Represents a response for a listing node metrics request
+//*
+// Represents a response for a listing nodes metrics request.
 type ListNodeMetricsResponse struct {
 	Status               *status.Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	NodeMetrics          []*NodeMetric  `protobuf:"bytes,2,rep,name=node_metrics,json=nodeMetrics,proto3" json:"node_metrics,omitempty"`
@@ -798,6 +824,8 @@ func (m *ListNodeMetricsResponse) GetNodeMetrics() []*NodeMetric {
 	return nil
 }
 
+//*
+// Represents a request for listing metric data of clusters.
 type ListClusterMetricsRequest struct {
 	QueryCondition       *common.QueryCondition  `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -853,6 +881,8 @@ func (m *ListClusterMetricsRequest) GetMetricTypes() []common.MetricType {
 	return nil
 }
 
+//*
+// Represents a response for a listing clusters metrics request.
 type ListClusterMetricsResponse struct {
 	Status               *status.Status   `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	ClusterMetrics       []*ClusterMetric `protobuf:"bytes,2,rep,name=cluster_metrics,json=clusterMetrics,proto3" json:"cluster_metrics,omitempty"`

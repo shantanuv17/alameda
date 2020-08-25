@@ -24,7 +24,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// Represents a request for creating a pod's recommendation
+//*
+// Represents a request for creating pods' recommendation.
 type CreatePodRecommendationsRequest struct {
 	PodRecommendations   []*PodRecommendation `protobuf:"bytes,1,rep,name=pod_recommendations,json=podRecommendations,proto3" json:"pod_recommendations,omitempty"`
 	Granularity          int64                `protobuf:"varint,2,opt,name=granularity,proto3" json:"granularity,omitempty"`
@@ -72,7 +73,8 @@ func (m *CreatePodRecommendationsRequest) GetGranularity() int64 {
 	return 0
 }
 
-// Represents a request for creating a controller's recommendation
+//*
+// Represents a request for creating controllers' recommendation.
 type CreateControllerRecommendationsRequest struct {
 	ControllerRecommendations []*ControllerRecommendation `protobuf:"bytes,1,rep,name=controller_recommendations,json=controllerRecommendations,proto3" json:"controller_recommendations,omitempty"`
 	XXX_NoUnkeyedLiteral      struct{}                    `json:"-"`
@@ -114,6 +116,8 @@ func (m *CreateControllerRecommendationsRequest) GetControllerRecommendations() 
 	return nil
 }
 
+//*
+// Represents a request for creating alameda scalers' recommendation.
 type CreateApplicationRecommendationsRequest struct {
 	ApplicationRecommendations []*ApplicationRecommendation `protobuf:"bytes,1,rep,name=application_recommendations,json=applicationRecommendations,proto3" json:"application_recommendations,omitempty"`
 	XXX_NoUnkeyedLiteral       struct{}                     `json:"-"`
@@ -155,6 +159,8 @@ func (m *CreateApplicationRecommendationsRequest) GetApplicationRecommendations(
 	return nil
 }
 
+//*
+// Represents a request for creating namespaces' recommendation.
 type CreateNamespaceRecommendationsRequest struct {
 	NamespaceRecommendations []*NamespaceRecommendation `protobuf:"bytes,1,rep,name=namespace_recommendations,json=namespaceRecommendations,proto3" json:"namespace_recommendations,omitempty"`
 	XXX_NoUnkeyedLiteral     struct{}                   `json:"-"`
@@ -194,6 +200,8 @@ func (m *CreateNamespaceRecommendationsRequest) GetNamespaceRecommendations() []
 	return nil
 }
 
+//*
+// Represents a request for creating nodes' recommendation.
 type CreateNodeRecommendationsRequest struct {
 	NodeRecommendations  []*NodeRecommendation `protobuf:"bytes,1,rep,name=node_recommendations,json=nodeRecommendations,proto3" json:"node_recommendations,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
@@ -233,6 +241,8 @@ func (m *CreateNodeRecommendationsRequest) GetNodeRecommendations() []*NodeRecom
 	return nil
 }
 
+//*
+// Represents a request for creating clusters' recommendation.
 type CreateClusterRecommendationsRequest struct {
 	ClusterRecommendations []*ClusterRecommendation `protobuf:"bytes,1,rep,name=cluster_recommendations,json=clusterRecommendations,proto3" json:"cluster_recommendations,omitempty"`
 	XXX_NoUnkeyedLiteral   struct{}                 `json:"-"`
@@ -272,7 +282,8 @@ func (m *CreateClusterRecommendationsRequest) GetClusterRecommendations() []*Clu
 	return nil
 }
 
-// Represents a request for listing recommendations of pods
+//*
+// Represents a request for listing recommendations of pods.
 type ListPodRecommendationsRequest struct {
 	QueryCondition       *common.QueryCondition  `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -336,7 +347,8 @@ func (m *ListPodRecommendationsRequest) GetGranularity() int64 {
 	return 0
 }
 
-// Represents a response for listing pod recommendations request
+//*
+// Represents a response for listing pods recommendations request.
 type ListPodRecommendationsResponse struct {
 	Status               *status.Status       `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	PodRecommendations   []*PodRecommendation `protobuf:"bytes,2,rep,name=pod_recommendations,json=podRecommendations,proto3" json:"pod_recommendations,omitempty"`
@@ -384,7 +396,8 @@ func (m *ListPodRecommendationsResponse) GetPodRecommendations() []*PodRecommend
 	return nil
 }
 
-// Represents a request for listing recommendations of controllers
+//*
+// Represents a request for listing recommendations of controllers.
 type ListControllerRecommendationsRequest struct {
 	QueryCondition       *common.QueryCondition    `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta   `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -448,7 +461,8 @@ func (m *ListControllerRecommendationsRequest) GetRecommendedType() ControllerRe
 	return ControllerRecommendedType_CRT_UNDEFINED
 }
 
-// Represents a response for listing controller recommendations request
+//*
+// Represents a response for listing controllers recommendations request.
 type ListControllerRecommendationsResponse struct {
 	Status                    *status.Status              `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	ControllerRecommendations []*ControllerRecommendation `protobuf:"bytes,2,rep,name=controller_recommendations,json=controllerRecommendations,proto3" json:"controller_recommendations,omitempty"`
@@ -496,6 +510,8 @@ func (m *ListControllerRecommendationsResponse) GetControllerRecommendations() [
 	return nil
 }
 
+//*
+// Represents a request for listing recommendations of alameda scalers.
 type ListApplicationRecommendationsRequest struct {
 	QueryCondition       *common.QueryCondition    `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta   `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -559,6 +575,8 @@ func (m *ListApplicationRecommendationsRequest) GetRecommendedType() ControllerR
 	return ControllerRecommendedType_CRT_UNDEFINED
 }
 
+//*
+// Represents a response for listing alameda scalers recommendations request.
 type ListApplicationRecommendationsResponse struct {
 	Status                     *status.Status               `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	ApplicationRecommendations []*ApplicationRecommendation `protobuf:"bytes,2,rep,name=application_recommendations,json=applicationRecommendations,proto3" json:"application_recommendations,omitempty"`
@@ -608,6 +626,8 @@ func (m *ListApplicationRecommendationsResponse) GetApplicationRecommendations()
 	return nil
 }
 
+//*
+// Represents a request for listing recommendations of namespaces.
 type ListNamespaceRecommendationsRequest struct {
 	QueryCondition       *common.QueryCondition    `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta   `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -671,6 +691,8 @@ func (m *ListNamespaceRecommendationsRequest) GetRecommendedType() ControllerRec
 	return ControllerRecommendedType_CRT_UNDEFINED
 }
 
+//*
+// Represents a response for listing namespaces recommendations request.
 type ListNamespaceRecommendationsResponse struct {
 	Status                   *status.Status             `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	NamespaceRecommendations []*NamespaceRecommendation `protobuf:"bytes,2,rep,name=namespace_recommendations,json=namespaceRecommendations,proto3" json:"namespace_recommendations,omitempty"`
@@ -718,6 +740,8 @@ func (m *ListNamespaceRecommendationsResponse) GetNamespaceRecommendations() []*
 	return nil
 }
 
+//*
+// Represents a request for listing recommendations of nodes.
 type ListNodeRecommendationsRequest struct {
 	QueryCondition       *common.QueryCondition    `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta   `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -781,6 +805,8 @@ func (m *ListNodeRecommendationsRequest) GetRecommendedType() ControllerRecommen
 	return ControllerRecommendedType_CRT_UNDEFINED
 }
 
+//*
+// Represents a response for listing nodes recommendations request.
 type ListNodeRecommendationsResponse struct {
 	Status               *status.Status        `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	NodeRecommendations  []*NodeRecommendation `protobuf:"bytes,2,rep,name=node_recommendations,json=nodeRecommendations,proto3" json:"node_recommendations,omitempty"`
@@ -828,6 +854,8 @@ func (m *ListNodeRecommendationsResponse) GetNodeRecommendations() []*NodeRecomm
 	return nil
 }
 
+//*
+// Represents a request for listing recommendations of clusters.
 type ListClusterRecommendationsRequest struct {
 	QueryCondition       *common.QueryCondition    `protobuf:"bytes,1,opt,name=query_condition,json=queryCondition,proto3" json:"query_condition,omitempty"`
 	ObjectMeta           []*resources.ObjectMeta   `protobuf:"bytes,2,rep,name=object_meta,json=objectMeta,proto3" json:"object_meta,omitempty"`
@@ -891,6 +919,8 @@ func (m *ListClusterRecommendationsRequest) GetRecommendedType() ControllerRecom
 	return ControllerRecommendedType_CRT_UNDEFINED
 }
 
+//*
+// Represents a response for listing clusters recommendations request.
 type ListClusterRecommendationsResponse struct {
 	Status                 *status.Status           `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	ClusterRecommendations []*ClusterRecommendation `protobuf:"bytes,2,rep,name=cluster_recommendations,json=clusterRecommendations,proto3" json:"cluster_recommendations,omitempty"`

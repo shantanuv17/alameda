@@ -14,34 +14,52 @@ import "google/rpc/status.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics";
 
-// Represents a request for creating metrics data of pods
+/**
+ * Represents a request for creating metrics data of pods.
+ */
 message CreatePodMetricsRequest {
     repeated PodMetric pod_metrics = 1;
     uint64             rate_range  = 2;
 }
 
+/**
+ * Represents a request for creating metrics data of controllers.
+ */
 message CreateControllerMetricsRequest {
     repeated ControllerMetric controller_metrics = 1;
 }
 
+/**
+ * Represents a request for creating metrics data of alameda scalers.
+ */
 message CreateApplicationMetricsRequest {
     repeated ApplicationMetric application_metrics = 1;
 }
 
+/**
+ * Represents a request for creating metrics data of namespaces.
+ */
 message CreateNamespaceMetricsRequest {
     repeated NamespaceMetric namespace_metrics = 1;
 }
 
-// Represents a request for creating metrics data of nodes
+/**
+ * Represents a request for creating metrics data of nodes.
+ */
 message CreateNodeMetricsRequest {
     repeated NodeMetric node_metrics = 1;
 }
 
+/**
+ * Represents a request for creating metrics data of clusters.
+ */
 message CreateClusterMetricsRequest {
     repeated ClusterMetric cluster_metrics = 1;
 }
 
-// Represents a request for listing metric data of a pod
+/**
+ * Represents a request for listing metric data of pods.
+ */
 message ListPodMetricsRequest {
     common.QueryCondition         query_condition = 1;
     repeated resources.ObjectMeta object_meta     = 2;
@@ -49,12 +67,17 @@ message ListPodMetricsRequest {
     uint64                        rate_range      = 4;
 }
 
-// Represents a response for a listing pod metric data request
+/**
+ * Represents a response for a listing pods metric data request.
+ */
 message ListPodMetricsResponse {
     google.rpc.Status  status      = 1;
     repeated PodMetric pod_metrics = 2;
 }
 
+/**
+ * Represents a request for listing metric data of controllers.
+ */
 message ListControllerMetricsRequest {
     common.QueryCondition         query_condition = 1;
     repeated resources.ObjectMeta object_meta     = 2;
@@ -62,52 +85,77 @@ message ListControllerMetricsRequest {
     resources.Kind                kind            = 4;
 }
 
+/**
+ * Represents a response for a listing controllers metric data request.
+ */
 message ListControllerMetricsResponse {
     google.rpc.Status         status             = 1;
     repeated ControllerMetric controller_metrics = 2;
 }
 
+/**
+ * Represents a request for listing metric data of alameda scalers.
+ */
 message ListApplicationMetricsRequest {
     common.QueryCondition         query_condition = 1;
     repeated resources.ObjectMeta object_meta     = 2;
     repeated common.MetricType    metric_types    = 3;
 }
 
+/**
+ * Represents a response for a listing alameda scalers metric data request.
+ */
 message ListApplicationMetricsResponse {
     google.rpc.Status          status              = 1;
     repeated ApplicationMetric application_metrics = 2;
 }
 
+/**
+ * Represents a request for listing metric data of namespaces.
+ */
 message ListNamespaceMetricsRequest {
     common.QueryCondition         query_condition = 1;
     repeated resources.ObjectMeta object_meta     = 2;
     repeated common.MetricType    metric_types    = 3;
 }
 
+/**
+ * Represents a response for a listing namespaces metric data request.
+ */
 message ListNamespaceMetricsResponse {
     google.rpc.Status        status            = 1;
     repeated NamespaceMetric namespace_metrics = 2;
 }
 
-// Represents a request for listing metric data of a node
+/**
+ * Represents a request for listing metric data of nodes.
+ */
 message ListNodeMetricsRequest {
     common.QueryCondition         query_condition = 1;
     repeated resources.ObjectMeta object_meta     = 2;
     repeated common.MetricType    metric_types    = 3;
 }
 
-// Represents a response for a listing node metrics request
+/**
+ * Represents a response for a listing nodes metrics request.
+ */
 message ListNodeMetricsResponse {
     google.rpc.Status   status       = 1;
     repeated NodeMetric node_metrics = 2;
 }
 
+/**
+ * Represents a request for listing metric data of clusters.
+ */
 message ListClusterMetricsRequest {
     common.QueryCondition         query_condition = 1;
     repeated resources.ObjectMeta object_meta     = 2;
     repeated common.MetricType    metric_types    = 3;
 }
 
+/**
+ * Represents a response for a listing clusters metrics request.
+ */
 message ListClusterMetricsResponse {
     google.rpc.Status      status          = 1;
     repeated ClusterMetric cluster_metrics = 2;

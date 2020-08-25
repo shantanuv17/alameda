@@ -22,6 +22,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents a graphics processing unit.
 type Gpu struct {
 	Name                 string       `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Uuid                 string       `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
@@ -85,6 +87,8 @@ func (m *Gpu) GetSpec() *GpuSpec {
 	return nil
 }
 
+//*
+// Represents metric data of a graphics processing unit.
 type GpuMetric struct {
 	Name                 string               `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Uuid                 string               `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
@@ -148,6 +152,8 @@ func (m *GpuMetric) GetMetricData() []*common.MetricData {
 	return nil
 }
 
+//*
+// Represents a list of predicted metrics data of a graphics processing unit.
 type GpuPrediction struct {
 	Name                    string                    `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Uuid                    string                    `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`

@@ -18,6 +18,9 @@ enum ControllerRecommendedType {
     K8S           = 2;
 }
 
+/**
+ * Represents a private spec of a controller recommendation.
+ */
 message ControllerRecommendedSpec {
     int32                     current_replicas     = 1;
     int32                     desired_replicas     = 2;
@@ -39,11 +42,17 @@ message ControllerRecommendedSpecK8s {
     google.protobuf.Timestamp create_time      = 4;
 }
 
+/**
+ * Represents a set of container resource configuration recommendations of a pod.
+ */
 message Recommendation {
     schemas.SchemaMeta          schema_meta         = 1;
     repeated RecommendationData recommendation_data = 2;
 }
 
+/**
+ * Represents a piece of recommendation data.
+ */
 message RecommendationData {
     common.MetricType    metric_type    = 1;
     common.ResourceQuota resource_quota = 2;

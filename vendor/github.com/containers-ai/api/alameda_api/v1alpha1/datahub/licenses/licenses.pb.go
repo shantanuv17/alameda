@@ -20,6 +20,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents the information of a license.
 type License struct {
 	Valid                bool     `protobuf:"varint,1,opt,name=Valid,proto3" json:"Valid,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`

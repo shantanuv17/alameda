@@ -10,6 +10,9 @@ import "alameda_api/v1alpha1/datahub/predictions/types.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu";
 
+/**
+ * Represents a graphics processing unit.
+ */
 message Gpu {
     string      name     = 1;
     string      uuid     = 2;
@@ -17,6 +20,9 @@ message Gpu {
     GpuSpec     spec     = 4;
 }
 
+/**
+ * Represents metric data of a graphics processing unit.
+ */
 message GpuMetric {
     string                     name        = 1;
     string                     uuid        = 2;
@@ -24,6 +30,9 @@ message GpuMetric {
     repeated common.MetricData metric_data = 4;
 }
 
+/**
+ * Represents a list of predicted metrics data of a graphics processing unit.
+ */
 message GpuPrediction {
     string                          name                      = 1;
     string                          uuid                      = 2;

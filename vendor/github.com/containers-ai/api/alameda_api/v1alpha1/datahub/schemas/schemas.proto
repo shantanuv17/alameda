@@ -8,6 +8,9 @@ import "alameda_api/v1alpha1/datahub/schemas/types.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas";
 
+/**
+ * Represents the private datahub specific schema of data.
+ */
 message Schema {
     SchemaMeta           schema_meta  = 1;
     repeated Measurement measurements = 2;

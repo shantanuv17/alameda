@@ -20,7 +20,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// Recommendation policy. A policy may be either stable or compact.
+//*
+//  Recommendation policy. A policy may be either stable or compact.
 type RecommendationPolicy int32
 
 const (

@@ -195,26 +195,31 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type DatahubServiceClient interface {
-	// Applications --------------------------------------------------
 	CreateApps(ctx context.Context, in *applications.CreateApplicationsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	ListApps(ctx context.Context, in *applications.ListApplicationsRequest, opts ...grpc.CallOption) (*applications.ListApplicationsResponse, error)
 	DeleteApps(ctx context.Context, in *applications.DeleteApplicationsRequest, opts ...grpc.CallOption) (*status.Status, error)
-	// Data --------------------------------------------------
+	// Used to read data based on alameda specific schemas
 	ReadData(ctx context.Context, in *data.ReadDataRequest, opts ...grpc.CallOption) (*data.ReadDataResponse, error)
+	// Used to write data based on alameda specific schemas
 	WriteData(ctx context.Context, in *data.WriteDataRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to delete data based on alameda specific schemas
 	DeleteData(ctx context.Context, in *data.DeleteDataRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to write metadata based on alameda specific schemas
 	WriteMeta(ctx context.Context, in *data.WriteMetaRequest, opts ...grpc.CallOption) (*status.Status, error)
-	// Events --------------------------------------------------
+	// Used to create alameda specific events
 	CreateEvents(ctx context.Context, in *events.CreateEventsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to list alameda specific events
 	ListEvents(ctx context.Context, in *events.ListEventsRequest, opts ...grpc.CallOption) (*events.ListEventsResponse, error)
-	// GPU --------------------------------------------------
+	// Used to create GPU predictions
 	CreateGpuPredictions(ctx context.Context, in *gpu.CreateGpuPredictionsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to list GPU need to be predicted
 	ListGpus(ctx context.Context, in *gpu.ListGpusRequest, opts ...grpc.CallOption) (*gpu.ListGpusResponse, error)
+	// Used to list GPU metrics data
 	ListGpuMetrics(ctx context.Context, in *gpu.ListGpuMetricsRequest, opts ...grpc.CallOption) (*gpu.ListGpuMetricsResponse, error)
+	// Used to list GPU predictions
 	ListGpuPredictions(ctx context.Context, in *gpu.ListGpuPredictionsRequest, opts ...grpc.CallOption) (*gpu.ListGpuPredictionsResponse, error)
-	// Licenses --------------------------------------------------
+	// Used to get datahub license information
 	GetLicense(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*licenses.GetLicenseResponse, error)
-	// Metrics --------------------------------------------------
 	CreateMetrics(ctx context.Context, in *metrics.CreateMetricsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreatePodMetrics(ctx context.Context, in *metrics.CreatePodMetricsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateControllerMetrics(ctx context.Context, in *metrics.CreateControllerMetricsRequest, opts ...grpc.CallOption) (*status.Status, error)
@@ -223,15 +228,20 @@ type DatahubServiceClient interface {
 	CreateNodeMetrics(ctx context.Context, in *metrics.CreateNodeMetricsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateClusterMetrics(ctx context.Context, in *metrics.CreateClusterMetricsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	ListMetrics(ctx context.Context, in *metrics.ListMetricsRequest, opts ...grpc.CallOption) (*metrics.ListMetricsResponse, error)
+	// Used to list pod metric data
 	ListPodMetrics(ctx context.Context, in *metrics.ListPodMetricsRequest, opts ...grpc.CallOption) (*metrics.ListPodMetricsResponse, error)
+	// Used to list controller metric data
 	ListControllerMetrics(ctx context.Context, in *metrics.ListControllerMetricsRequest, opts ...grpc.CallOption) (*metrics.ListControllerMetricsResponse, error)
+	// Used to list alameda scaler metric data
 	ListApplicationMetrics(ctx context.Context, in *metrics.ListApplicationMetricsRequest, opts ...grpc.CallOption) (*metrics.ListApplicationMetricsResponse, error)
+	// Used to list namespace metric data
 	ListNamespaceMetrics(ctx context.Context, in *metrics.ListNamespaceMetricsRequest, opts ...grpc.CallOption) (*metrics.ListNamespaceMetricsResponse, error)
+	// Used to list node metric data
 	ListNodeMetrics(ctx context.Context, in *metrics.ListNodeMetricsRequest, opts ...grpc.CallOption) (*metrics.ListNodeMetricsResponse, error)
+	// Used to list cluster metric data
 	ListClusterMetrics(ctx context.Context, in *metrics.ListClusterMetricsRequest, opts ...grpc.CallOption) (*metrics.ListClusterMetricsResponse, error)
-	// Ping --------------------------------------------------
+	// Used to check if datahub is still alive
 	Ping(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*status.Status, error)
-	// Plannings --------------------------------------------------
 	CreatePlannings(ctx context.Context, in *plannings.CreatePlanningsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreatePodPlannings(ctx context.Context, in *plannings.CreatePodPlanningsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	CreateControllerPlannings(ctx context.Context, in *plannings.CreateControllerPlanningsRequest, opts ...grpc.CallOption) (*status.Status, error)
@@ -246,67 +256,98 @@ type DatahubServiceClient interface {
 	ListNamespacePlannings(ctx context.Context, in *plannings.ListNamespacePlanningsRequest, opts ...grpc.CallOption) (*plannings.ListNamespacePlanningsResponse, error)
 	ListNodePlannings(ctx context.Context, in *plannings.ListNodePlanningsRequest, opts ...grpc.CallOption) (*plannings.ListNodePlanningsResponse, error)
 	ListClusterPlannings(ctx context.Context, in *plannings.ListClusterPlanningsRequest, opts ...grpc.CallOption) (*plannings.ListClusterPlanningsResponse, error)
-	// Predictions --------------------------------------------------
 	CreatePredictions(ctx context.Context, in *predictions.CreatePredictionsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to create predictions of pods
 	CreatePodPredictions(ctx context.Context, in *predictions.CreatePodPredictionsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to create predictions of controllers
 	CreateControllerPredictions(ctx context.Context, in *predictions.CreateControllerPredictionsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to create predictions of alameda scalers
 	CreateApplicationPredictions(ctx context.Context, in *predictions.CreateApplicationPredictionsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to create predictions of namespaces
 	CreateNamespacePredictions(ctx context.Context, in *predictions.CreateNamespacePredictionsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to create predictions of nodes
 	CreateNodePredictions(ctx context.Context, in *predictions.CreateNodePredictionsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to create predictions of clusters
 	CreateClusterPredictions(ctx context.Context, in *predictions.CreateClusterPredictionsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	ListPredictions(ctx context.Context, in *predictions.ListPredictionsRequest, opts ...grpc.CallOption) (*predictions.ListPredictionsResponse, error)
+	// Used to list pod predictions
 	ListPodPredictions(ctx context.Context, in *predictions.ListPodPredictionsRequest, opts ...grpc.CallOption) (*predictions.ListPodPredictionsResponse, error)
+	// Used to list controller predictions
 	ListControllerPredictions(ctx context.Context, in *predictions.ListControllerPredictionsRequest, opts ...grpc.CallOption) (*predictions.ListControllerPredictionsResponse, error)
+	// Used to list alameda scaler predictions
 	ListApplicationPredictions(ctx context.Context, in *predictions.ListApplicationPredictionsRequest, opts ...grpc.CallOption) (*predictions.ListApplicationPredictionsResponse, error)
+	// Used to list namespace predictions
 	ListNamespacePredictions(ctx context.Context, in *predictions.ListNamespacePredictionsRequest, opts ...grpc.CallOption) (*predictions.ListNamespacePredictionsResponse, error)
+	// Used to list node predictions
 	ListNodePredictions(ctx context.Context, in *predictions.ListNodePredictionsRequest, opts ...grpc.CallOption) (*predictions.ListNodePredictionsResponse, error)
+	// Used to list cluster predictions
 	ListClusterPredictions(ctx context.Context, in *predictions.ListClusterPredictionsRequest, opts ...grpc.CallOption) (*predictions.ListClusterPredictionsResponse, error)
 	// Rawdata --------------------------------------------------
 	ReadRawdata(ctx context.Context, in *rawdata.ReadRawdataRequest, opts ...grpc.CallOption) (*rawdata.ReadRawdataResponse, error)
 	WriteRawdata(ctx context.Context, in *rawdata.WriteRawdataRequest, opts ...grpc.CallOption) (*status.Status, error)
-	// Recommendations --------------------------------------------------
 	CreateRecommendations(ctx context.Context, in *recommendations.CreateRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to create recommendations of pods
 	CreatePodRecommendations(ctx context.Context, in *recommendations.CreatePodRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to create recommendations of controllers
 	CreateControllerRecommendations(ctx context.Context, in *recommendations.CreateControllerRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to create recommendations of alameda scalers
 	CreateApplicationRecommendations(ctx context.Context, in *recommendations.CreateApplicationRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to create recommendations of namespaces
 	CreateNamespaceRecommendations(ctx context.Context, in *recommendations.CreateNamespaceRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to create recommendations of nodes
 	CreateNodeRecommendations(ctx context.Context, in *recommendations.CreateNodeRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to create recommendations of clusters
 	CreateClusterRecommendations(ctx context.Context, in *recommendations.CreateClusterRecommendationsRequest, opts ...grpc.CallOption) (*status.Status, error)
 	ListRecommendations(ctx context.Context, in *recommendations.ListRecommendationsRequest, opts ...grpc.CallOption) (*recommendations.ListRecommendationsResponse, error)
+	// Used to list pod recommenations
 	ListPodRecommendations(ctx context.Context, in *recommendations.ListPodRecommendationsRequest, opts ...grpc.CallOption) (*recommendations.ListPodRecommendationsResponse, error)
+	// Used to list available pod recommenations
 	ListAvailablePodRecommendations(ctx context.Context, in *recommendations.ListPodRecommendationsRequest, opts ...grpc.CallOption) (*recommendations.ListPodRecommendationsResponse, error)
+	// Used to list controller recommenations
 	ListControllerRecommendations(ctx context.Context, in *recommendations.ListControllerRecommendationsRequest, opts ...grpc.CallOption) (*recommendations.ListControllerRecommendationsResponse, error)
+	// Used to list alameda scaler recommenations
 	ListApplicationRecommendations(ctx context.Context, in *recommendations.ListApplicationRecommendationsRequest, opts ...grpc.CallOption) (*recommendations.ListApplicationRecommendationsResponse, error)
+	// Used to list namespace recommenations
 	ListNamespaceRecommendations(ctx context.Context, in *recommendations.ListNamespaceRecommendationsRequest, opts ...grpc.CallOption) (*recommendations.ListNamespaceRecommendationsResponse, error)
+	// Used to list node recommenations
 	ListNodeRecommendations(ctx context.Context, in *recommendations.ListNodeRecommendationsRequest, opts ...grpc.CallOption) (*recommendations.ListNodeRecommendationsResponse, error)
+	// Used to list cluster recommenations
 	ListClusterRecommendations(ctx context.Context, in *recommendations.ListClusterRecommendationsRequest, opts ...grpc.CallOption) (*recommendations.ListClusterRecommendationsResponse, error)
-	// Resources --------------------------------------------------
 	// Used to add pods that need to be predicted
 	CreatePods(ctx context.Context, in *resources.CreatePodsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to add controllers that need to be predicted
 	CreateControllers(ctx context.Context, in *resources.CreateControllersRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to add alameda scalers that need to be predicted
 	CreateApplications(ctx context.Context, in *resources.CreateApplicationsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to add namespaces that need to be predicted
 	CreateNamespaces(ctx context.Context, in *resources.CreateNamespacesRequest, opts ...grpc.CallOption) (*status.Status, error)
 	// Used to add nodes that need to be predicted
 	CreateNodes(ctx context.Context, in *resources.CreateNodesRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to add clusters that need to be predicted
 	CreateClusters(ctx context.Context, in *resources.CreateClustersRequest, opts ...grpc.CallOption) (*status.Status, error)
 	// Used to list pods need to be predicted
 	ListPods(ctx context.Context, in *resources.ListPodsRequest, opts ...grpc.CallOption) (*resources.ListPodsResponse, error)
+	// Used to list contollers need to be predicted
 	ListControllers(ctx context.Context, in *resources.ListControllersRequest, opts ...grpc.CallOption) (*resources.ListControllersResponse, error)
-	// Application
+	// Used to list alameda scalers need to be predicted
 	ListApplications(ctx context.Context, in *resources.ListApplicationsRequest, opts ...grpc.CallOption) (*resources.ListApplicationsResponse, error)
-	// Namespace
+	// Used to list namespaces need to be predicted
 	ListNamespaces(ctx context.Context, in *resources.ListNamespacesRequest, opts ...grpc.CallOption) (*resources.ListNamespacesResponse, error)
 	// Used to list nodes' information
 	ListNodes(ctx context.Context, in *resources.ListNodesRequest, opts ...grpc.CallOption) (*resources.ListNodesResponse, error)
-	// Cluster
+	// Used to list clusters' information
 	ListClusters(ctx context.Context, in *resources.ListClustersRequest, opts ...grpc.CallOption) (*resources.ListClustersResponse, error)
-	// Used to delete info of pods
+	// Used to stop generating predictions for the pods
 	DeletePods(ctx context.Context, in *resources.DeletePodsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to stop generating predictions for the controllers
 	DeleteControllers(ctx context.Context, in *resources.DeleteControllersRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to stop generating predictions for the applications
 	DeleteApplications(ctx context.Context, in *resources.DeleteApplicationsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to stop generating predictions for the namespaces
 	DeleteNamespaces(ctx context.Context, in *resources.DeleteNamespacesRequest, opts ...grpc.CallOption) (*status.Status, error)
 	// Used to stop generating predictions for the nodes
 	DeleteNodes(ctx context.Context, in *resources.DeleteNodesRequest, opts ...grpc.CallOption) (*status.Status, error)
+	// Used to stop generating predictions for the clusters
 	DeleteClusters(ctx context.Context, in *resources.DeleteClustersRequest, opts ...grpc.CallOption) (*status.Status, error)
 	// Schemas --------------------------------------------------
 	CreateSchemas(ctx context.Context, in *schemas.CreateSchemasRequest, opts ...grpc.CallOption) (*status.Status, error)
@@ -1282,26 +1323,31 @@ func (c *datahubServiceClient) GetWeaveScopeContainerDetails(ctx context.Context
 
 // DatahubServiceServer is the server API for DatahubService service.
 type DatahubServiceServer interface {
-	// Applications --------------------------------------------------
 	CreateApps(context.Context, *applications.CreateApplicationsRequest) (*status.Status, error)
 	ListApps(context.Context, *applications.ListApplicationsRequest) (*applications.ListApplicationsResponse, error)
 	DeleteApps(context.Context, *applications.DeleteApplicationsRequest) (*status.Status, error)
-	// Data --------------------------------------------------
+	// Used to read data based on alameda specific schemas
 	ReadData(context.Context, *data.ReadDataRequest) (*data.ReadDataResponse, error)
+	// Used to write data based on alameda specific schemas
 	WriteData(context.Context, *data.WriteDataRequest) (*status.Status, error)
+	// Used to delete data based on alameda specific schemas
 	DeleteData(context.Context, *data.DeleteDataRequest) (*status.Status, error)
+	// Used to write metadata based on alameda specific schemas
 	WriteMeta(context.Context, *data.WriteMetaRequest) (*status.Status, error)
-	// Events --------------------------------------------------
+	// Used to create alameda specific events
 	CreateEvents(context.Context, *events.CreateEventsRequest) (*status.Status, error)
+	// Used to list alameda specific events
 	ListEvents(context.Context, *events.ListEventsRequest) (*events.ListEventsResponse, error)
-	// GPU --------------------------------------------------
+	// Used to create GPU predictions
 	CreateGpuPredictions(context.Context, *gpu.CreateGpuPredictionsRequest) (*status.Status, error)
+	// Used to list GPU need to be predicted
 	ListGpus(context.Context, *gpu.ListGpusRequest) (*gpu.ListGpusResponse, error)
+	// Used to list GPU metrics data
 	ListGpuMetrics(context.Context, *gpu.ListGpuMetricsRequest) (*gpu.ListGpuMetricsResponse, error)
+	// Used to list GPU predictions
 	ListGpuPredictions(context.Context, *gpu.ListGpuPredictionsRequest) (*gpu.ListGpuPredictionsResponse, error)
-	// Licenses --------------------------------------------------
+	// Used to get datahub license information
 	GetLicense(context.Context, *empty.Empty) (*licenses.GetLicenseResponse, error)
-	// Metrics --------------------------------------------------
 	CreateMetrics(context.Context, *metrics.CreateMetricsRequest) (*status.Status, error)
 	CreatePodMetrics(context.Context, *metrics.CreatePodMetricsRequest) (*status.Status, error)
 	CreateControllerMetrics(context.Context, *metrics.CreateControllerMetricsRequest) (*status.Status, error)
@@ -1310,15 +1356,20 @@ type DatahubServiceServer interface {
 	CreateNodeMetrics(context.Context, *metrics.CreateNodeMetricsRequest) (*status.Status, error)
 	CreateClusterMetrics(context.Context, *metrics.CreateClusterMetricsRequest) (*status.Status, error)
 	ListMetrics(context.Context, *metrics.ListMetricsRequest) (*metrics.ListMetricsResponse, error)
+	// Used to list pod metric data
 	ListPodMetrics(context.Context, *metrics.ListPodMetricsRequest) (*metrics.ListPodMetricsResponse, error)
+	// Used to list controller metric data
 	ListControllerMetrics(context.Context, *metrics.ListControllerMetricsRequest) (*metrics.ListControllerMetricsResponse, error)
+	// Used to list alameda scaler metric data
 	ListApplicationMetrics(context.Context, *metrics.ListApplicationMetricsRequest) (*metrics.ListApplicationMetricsResponse, error)
+	// Used to list namespace metric data
 	ListNamespaceMetrics(context.Context, *metrics.ListNamespaceMetricsRequest) (*metrics.ListNamespaceMetricsResponse, error)
+	// Used to list node metric data
 	ListNodeMetrics(context.Context, *metrics.ListNodeMetricsRequest) (*metrics.ListNodeMetricsResponse, error)
+	// Used to list cluster metric data
 	ListClusterMetrics(context.Context, *metrics.ListClusterMetricsRequest) (*metrics.ListClusterMetricsResponse, error)
-	// Ping --------------------------------------------------
+	// Used to check if datahub is still alive
 	Ping(context.Context, *empty.Empty) (*status.Status, error)
-	// Plannings --------------------------------------------------
 	CreatePlannings(context.Context, *plannings.CreatePlanningsRequest) (*status.Status, error)
 	CreatePodPlannings(context.Context, *plannings.CreatePodPlanningsRequest) (*status.Status, error)
 	CreateControllerPlannings(context.Context, *plannings.CreateControllerPlanningsRequest) (*status.Status, error)
@@ -1333,67 +1384,98 @@ type DatahubServiceServer interface {
 	ListNamespacePlannings(context.Context, *plannings.ListNamespacePlanningsRequest) (*plannings.ListNamespacePlanningsResponse, error)
 	ListNodePlannings(context.Context, *plannings.ListNodePlanningsRequest) (*plannings.ListNodePlanningsResponse, error)
 	ListClusterPlannings(context.Context, *plannings.ListClusterPlanningsRequest) (*plannings.ListClusterPlanningsResponse, error)
-	// Predictions --------------------------------------------------
 	CreatePredictions(context.Context, *predictions.CreatePredictionsRequest) (*status.Status, error)
+	// Used to create predictions of pods
 	CreatePodPredictions(context.Context, *predictions.CreatePodPredictionsRequest) (*status.Status, error)
+	// Used to create predictions of controllers
 	CreateControllerPredictions(context.Context, *predictions.CreateControllerPredictionsRequest) (*status.Status, error)
+	// Used to create predictions of alameda scalers
 	CreateApplicationPredictions(context.Context, *predictions.CreateApplicationPredictionsRequest) (*status.Status, error)
+	// Used to create predictions of namespaces
 	CreateNamespacePredictions(context.Context, *predictions.CreateNamespacePredictionsRequest) (*status.Status, error)
+	// Used to create predictions of nodes
 	CreateNodePredictions(context.Context, *predictions.CreateNodePredictionsRequest) (*status.Status, error)
+	// Used to create predictions of clusters
 	CreateClusterPredictions(context.Context, *predictions.CreateClusterPredictionsRequest) (*status.Status, error)
 	ListPredictions(context.Context, *predictions.ListPredictionsRequest) (*predictions.ListPredictionsResponse, error)
+	// Used to list pod predictions
 	ListPodPredictions(context.Context, *predictions.ListPodPredictionsRequest) (*predictions.ListPodPredictionsResponse, error)
+	// Used to list controller predictions
 	ListControllerPredictions(context.Context, *predictions.ListControllerPredictionsRequest) (*predictions.ListControllerPredictionsResponse, error)
+	// Used to list alameda scaler predictions
 	ListApplicationPredictions(context.Context, *predictions.ListApplicationPredictionsRequest) (*predictions.ListApplicationPredictionsResponse, error)
+	// Used to list namespace predictions
 	ListNamespacePredictions(context.Context, *predictions.ListNamespacePredictionsRequest) (*predictions.ListNamespacePredictionsResponse, error)
+	// Used to list node predictions
 	ListNodePredictions(context.Context, *predictions.ListNodePredictionsRequest) (*predictions.ListNodePredictionsResponse, error)
+	// Used to list cluster predictions
 	ListClusterPredictions(context.Context, *predictions.ListClusterPredictionsRequest) (*predictions.ListClusterPredictionsResponse, error)
 	// Rawdata --------------------------------------------------
 	ReadRawdata(context.Context, *rawdata.ReadRawdataRequest) (*rawdata.ReadRawdataResponse, error)
 	WriteRawdata(context.Context, *rawdata.WriteRawdataRequest) (*status.Status, error)
-	// Recommendations --------------------------------------------------
 	CreateRecommendations(context.Context, *recommendations.CreateRecommendationsRequest) (*status.Status, error)
+	// Used to create recommendations of pods
 	CreatePodRecommendations(context.Context, *recommendations.CreatePodRecommendationsRequest) (*status.Status, error)
+	// Used to create recommendations of controllers
 	CreateControllerRecommendations(context.Context, *recommendations.CreateControllerRecommendationsRequest) (*status.Status, error)
+	// Used to create recommendations of alameda scalers
 	CreateApplicationRecommendations(context.Context, *recommendations.CreateApplicationRecommendationsRequest) (*status.Status, error)
+	// Used to create recommendations of namespaces
 	CreateNamespaceRecommendations(context.Context, *recommendations.CreateNamespaceRecommendationsRequest) (*status.Status, error)
+	// Used to create recommendations of nodes
 	CreateNodeRecommendations(context.Context, *recommendations.CreateNodeRecommendationsRequest) (*status.Status, error)
+	// Used to create recommendations of clusters
 	CreateClusterRecommendations(context.Context, *recommendations.CreateClusterRecommendationsRequest) (*status.Status, error)
 	ListRecommendations(context.Context, *recommendations.ListRecommendationsRequest) (*recommendations.ListRecommendationsResponse, error)
+	// Used to list pod recommenations
 	ListPodRecommendations(context.Context, *recommendations.ListPodRecommendationsRequest) (*recommendations.ListPodRecommendationsResponse, error)
+	// Used to list available pod recommenations
 	ListAvailablePodRecommendations(context.Context, *recommendations.ListPodRecommendationsRequest) (*recommendations.ListPodRecommendationsResponse, error)
+	// Used to list controller recommenations
 	ListControllerRecommendations(context.Context, *recommendations.ListControllerRecommendationsRequest) (*recommendations.ListControllerRecommendationsResponse, error)
+	// Used to list alameda scaler recommenations
 	ListApplicationRecommendations(context.Context, *recommendations.ListApplicationRecommendationsRequest) (*recommendations.ListApplicationRecommendationsResponse, error)
+	// Used to list namespace recommenations
 	ListNamespaceRecommendations(context.Context, *recommendations.ListNamespaceRecommendationsRequest) (*recommendations.ListNamespaceRecommendationsResponse, error)
+	// Used to list node recommenations
 	ListNodeRecommendations(context.Context, *recommendations.ListNodeRecommendationsRequest) (*recommendations.ListNodeRecommendationsResponse, error)
+	// Used to list cluster recommenations
 	ListClusterRecommendations(context.Context, *recommendations.ListClusterRecommendationsRequest) (*recommendations.ListClusterRecommendationsResponse, error)
-	// Resources --------------------------------------------------
 	// Used to add pods that need to be predicted
 	CreatePods(context.Context, *resources.CreatePodsRequest) (*status.Status, error)
+	// Used to add controllers that need to be predicted
 	CreateControllers(context.Context, *resources.CreateControllersRequest) (*status.Status, error)
+	// Used to add alameda scalers that need to be predicted
 	CreateApplications(context.Context, *resources.CreateApplicationsRequest) (*status.Status, error)
+	// Used to add namespaces that need to be predicted
 	CreateNamespaces(context.Context, *resources.CreateNamespacesRequest) (*status.Status, error)
 	// Used to add nodes that need to be predicted
 	CreateNodes(context.Context, *resources.CreateNodesRequest) (*status.Status, error)
+	// Used to add clusters that need to be predicted
 	CreateClusters(context.Context, *resources.CreateClustersRequest) (*status.Status, error)
 	// Used to list pods need to be predicted
 	ListPods(context.Context, *resources.ListPodsRequest) (*resources.ListPodsResponse, error)
+	// Used to list contollers need to be predicted
 	ListControllers(context.Context, *resources.ListControllersRequest) (*resources.ListControllersResponse, error)
-	// Application
+	// Used to list alameda scalers need to be predicted
 	ListApplications(context.Context, *resources.ListApplicationsRequest) (*resources.ListApplicationsResponse, error)
-	// Namespace
+	// Used to list namespaces need to be predicted
 	ListNamespaces(context.Context, *resources.ListNamespacesRequest) (*resources.ListNamespacesResponse, error)
 	// Used to list nodes' information
 	ListNodes(context.Context, *resources.ListNodesRequest) (*resources.ListNodesResponse, error)
-	// Cluster
+	// Used to list clusters' information
 	ListClusters(context.Context, *resources.ListClustersRequest) (*resources.ListClustersResponse, error)
-	// Used to delete info of pods
+	// Used to stop generating predictions for the pods
 	DeletePods(context.Context, *resources.DeletePodsRequest) (*status.Status, error)
+	// Used to stop generating predictions for the controllers
 	DeleteControllers(context.Context, *resources.DeleteControllersRequest) (*status.Status, error)
+	// Used to stop generating predictions for the applications
 	DeleteApplications(context.Context, *resources.DeleteApplicationsRequest) (*status.Status, error)
+	// Used to stop generating predictions for the namespaces
 	DeleteNamespaces(context.Context, *resources.DeleteNamespacesRequest) (*status.Status, error)
 	// Used to stop generating predictions for the nodes
 	DeleteNodes(context.Context, *resources.DeleteNodesRequest) (*status.Status, error)
+	// Used to stop generating predictions for the clusters
 	DeleteClusters(context.Context, *resources.DeleteClustersRequest) (*status.Status, error)
 	// Schemas --------------------------------------------------
 	CreateSchemas(context.Context, *schemas.CreateSchemasRequest) (*status.Status, error)

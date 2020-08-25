@@ -10,40 +10,58 @@ import "alameda_api/v1alpha1/datahub/resources/metadata.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics";
 
-// Represents metric data of a container
+/**
+ * Represents metric data of a container.
+ */
 message ContainerMetric {
     string                     name        = 1;
     repeated common.MetricData metric_data = 2;
 }
 
-// Represents metric data of a pod
+/**
+ * Represents metric data of a pod.
+ */
 message PodMetric {
     resources.ObjectMeta     object_meta       = 1;
     repeated ContainerMetric container_metrics = 2;
 }
 
+/**
+ * Represents metric data of a controller.
+ */
 message ControllerMetric  {
     resources.ObjectMeta       object_meta = 1;
     resources.Kind             kind        = 2;
     repeated common.MetricData metric_data = 3;
 }
 
+/**
+ * Represents metric data of a alameda scaler.
+ */
 message ApplicationMetric  {
     resources.ObjectMeta       object_meta = 1;
     repeated common.MetricData metric_data = 2;
 }
 
+/**
+ * Represents metric data of a namespace.
+ */
 message NamespaceMetric  {
     resources.ObjectMeta       object_meta = 1;
     repeated common.MetricData metric_data = 2;
 }
 
-// Represents metric data of a node
+/**
+ * Represents metric data of a node.
+ */
 message NodeMetric {
     resources.ObjectMeta       object_meta = 1;
     repeated common.MetricData metric_data = 2;
 }
 
+/**
+ * Represents metric data of a cluster.
+ */
 message ClusterMetric  {
     resources.ObjectMeta       object_meta = 1;
     repeated common.MetricData metric_data = 2;

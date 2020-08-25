@@ -21,6 +21,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents a dataset which will be written to datahub.
 type WriteData struct {
 	Columns              []string `protobuf:"bytes,1,rep,name=columns,proto3" json:"columns,omitempty"`
 	Rows                 []*Row   `protobuf:"bytes,2,rep,name=rows,proto3" json:"rows,omitempty"`
@@ -68,6 +70,8 @@ func (m *WriteData) GetRows() []*Row {
 	return nil
 }
 
+//*
+// Represents a dataset whcih is read from datahub.
 type ReadData struct {
 	Groups               []*Group `protobuf:"bytes,1,rep,name=groups,proto3" json:"groups,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -107,6 +111,8 @@ func (m *ReadData) GetGroups() []*Group {
 	return nil
 }
 
+//*
+// Represents a record of data.
 type Row struct {
 	Time                 *timestamp.Timestamp `protobuf:"bytes,1,opt,name=time,proto3" json:"time,omitempty"`
 	Values               []string             `protobuf:"bytes,2,rep,name=values,proto3" json:"values,omitempty"`
@@ -154,6 +160,8 @@ func (m *Row) GetValues() []string {
 	return nil
 }
 
+//*
+// Represents a dataset which are collected that have the same attributes.
 type Group struct {
 	Columns              []string `protobuf:"bytes,1,rep,name=columns,proto3" json:"columns,omitempty"`
 	Rows                 []*Row   `protobuf:"bytes,2,rep,name=rows,proto3" json:"rows,omitempty"`

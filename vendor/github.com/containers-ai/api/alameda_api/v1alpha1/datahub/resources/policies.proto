@@ -9,7 +9,7 @@ import "google/protobuf/timestamp.proto";
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources";
 
 /**
- *  Recommendation policy. A policy may be either stable or compact.
+ * Recommendation policy. A policy may be either stable or compact.
  */
 enum RecommendationPolicy {
     RECOMMENDATION_POLICY_UNDEFINED = 0;
@@ -18,19 +18,21 @@ enum RecommendationPolicy {
 }
 
 /**
- * Represents the priority of a node
+ * Represents the priority of a node.
  */
 message NodePriority {
     repeated string nodes = 1;
 }
 
+/**
+ * Represents a Kubernetes label selector.
+ */
 message Selector {
     map<string, string> selector = 1;
 }
 
 /**
- * Represents a recommended pod-to-node assignment (i.e. pod placement)
- *
+ * Represents a recommended pod-to-node assignment. (i.e. pod placement)
  */
 message AssignPodPolicy {
     google.protobuf.Timestamp time = 1;

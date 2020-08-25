@@ -1,4 +1,4 @@
-// This file has messages related to metric data of containers, pods, and nodes
+// This file has messages to describe alameda scaler structure
 
 syntax = "proto3";
 
@@ -9,11 +9,17 @@ import "alameda_api/v1alpha1/datahub/schemas/types.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/applications";
 
+/**
+ * Represents a dataset of private alameda scalers.
+ */
 message Application {
     schemas.SchemaMeta       schema_meta      = 1;
     repeated ApplicationData application_data = 2;
 }
 
+/**
+ * Represents a private alameda scaler.
+ */
 message ApplicationData {
     string          measurement = 1;
     common.ReadData read_data   = 2;

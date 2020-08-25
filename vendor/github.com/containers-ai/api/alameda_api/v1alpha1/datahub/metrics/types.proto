@@ -15,6 +15,9 @@ message Metric {
     repeated MetricData metric_data = 2;
 }
 
+/**
+ * Represents a piece of metreic data.
+ */
 message MetricData {
     common.MetricType metric_type = 1;
     common.ReadData   read_data   = 2;

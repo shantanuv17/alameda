@@ -21,6 +21,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents the data of alameda scaler which is to be created.
 type WriteApplication struct {
 	Measurement          string            `protobuf:"bytes,1,opt,name=measurement,proto3" json:"measurement,omitempty"`
 	WriteData            *common.WriteData `protobuf:"bytes,2,opt,name=write_data,json=writeData,proto3" json:"write_data,omitempty"`
@@ -68,6 +70,8 @@ func (m *WriteApplication) GetWriteData() *common.WriteData {
 	return nil
 }
 
+//*
+// Represents the condition of reading alameda scalers.
 type ReadApplication struct {
 	Measurement          string              `protobuf:"bytes,1,opt,name=measurement,proto3" json:"measurement,omitempty"`
 	WhereCondition       []*common.Condition `protobuf:"bytes,2,rep,name=where_condition,json=whereCondition,proto3" json:"where_condition,omitempty"`
@@ -115,6 +119,8 @@ func (m *ReadApplication) GetWhereCondition() []*common.Condition {
 	return nil
 }
 
+//*
+// Represents the condition of deleting alameda scalers.
 type DeleteApplication struct {
 	Measurement          string              `protobuf:"bytes,1,opt,name=measurement,proto3" json:"measurement,omitempty"`
 	WhereCondition       []*common.Condition `protobuf:"bytes,2,rep,name=where_condition,json=whereCondition,proto3" json:"where_condition,omitempty"`

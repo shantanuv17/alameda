@@ -20,6 +20,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents the amount resources that a Kubernete object is allowed to use.
 type ResourceBoundary int32
 
 const (
@@ -51,6 +53,8 @@ func (ResourceBoundary) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_ef50cddc61837d8f, []int{0}
 }
 
+//*
+// Represents the constraints that limit aggretage resource consumption per Kubernete object.
 type ResourceQuota int32
 
 const (
@@ -85,6 +89,8 @@ func (ResourceQuota) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_ef50cddc61837d8f, []int{1}
 }
 
+//*
+// Represents the datahub specified data type.
 type DataType int32
 
 const (
@@ -149,6 +155,8 @@ func (DataType) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_ef50cddc61837d8f, []int{2}
 }
 
+//*
+// Represents the field type of a record which queried from datahub.
 type ColumnType int32
 
 const (
@@ -177,6 +185,8 @@ func (ColumnType) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_ef50cddc61837d8f, []int{3}
 }
 
+//*
+// Represents the functional query type of datahub.
 type FunctionType int32
 
 const (

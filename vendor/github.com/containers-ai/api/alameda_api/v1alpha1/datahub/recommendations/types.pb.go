@@ -51,6 +51,8 @@ func (ControllerRecommendedType) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_b37098e336d1ed15, []int{0}
 }
 
+//*
+// Represents a private spec of a controller recommendation.
 type ControllerRecommendedSpec struct {
 	CurrentReplicas      int32                `protobuf:"varint,1,opt,name=current_replicas,json=currentReplicas,proto3" json:"current_replicas,omitempty"`
 	DesiredReplicas      int32                `protobuf:"varint,2,opt,name=desired_replicas,json=desiredReplicas,proto3" json:"desired_replicas,omitempty"`
@@ -233,6 +235,8 @@ func (m *ControllerRecommendedSpecK8S) GetCreateTime() *timestamp.Timestamp {
 	return nil
 }
 
+//*
+// Represents a set of container resource configuration recommendations of a pod.
 type Recommendation struct {
 	SchemaMeta           *schemas.SchemaMeta   `protobuf:"bytes,1,opt,name=schema_meta,json=schemaMeta,proto3" json:"schema_meta,omitempty"`
 	RecommendationData   []*RecommendationData `protobuf:"bytes,2,rep,name=recommendation_data,json=recommendationData,proto3" json:"recommendation_data,omitempty"`
@@ -280,6 +284,8 @@ func (m *Recommendation) GetRecommendationData() []*RecommendationData {
 	return nil
 }
 
+//*
+// Represents a piece of recommendation data.
 type RecommendationData struct {
 	MetricType           common.MetricType    `protobuf:"varint,1,opt,name=metric_type,json=metricType,proto3,enum=containersai.alameda.v1alpha1.datahub.common.MetricType" json:"metric_type,omitempty"`
 	ResourceQuota        common.ResourceQuota `protobuf:"varint,2,opt,name=resource_quota,json=resourceQuota,proto3,enum=containersai.alameda.v1alpha1.datahub.common.ResourceQuota" json:"resource_quota,omitempty"`

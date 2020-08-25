@@ -9,19 +9,25 @@ import "google/rpc/status.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/rawdata";
 
-// Represents a request for reading rawdata from database
+/**
+ * Represents a request for reading rawdata from database.
+ */
 message ReadRawdataRequest {
     containersai.common.DatabaseType   database_type = 1;
     repeated containersai.common.Query queries       = 2;
 }
 
-// Represents a response for listing rawdata from database
+/**
+ * Represents a response for listing rawdata from database.
+ */
 message ReadRawdataResponse {
     google.rpc.Status                        status  = 1;
     repeated containersai.common.ReadRawdata rawdata = 2;
 }
 
-// Represents a request for writing rawdata to database
+/**
+ * Represents a request for writing rawdata to database.
+ */
 message WriteRawdataRequest {
     containersai.common.DatabaseType          database_type = 1;
     repeated containersai.common.WriteRawdata rawdata       = 2;

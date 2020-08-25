@@ -22,6 +22,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+//*
+// Represents a request for writing data to datahub.
 type WriteDataRequest struct {
 	SchemaMeta           *schemas.SchemaMeta `protobuf:"bytes,1,opt,name=schema_meta,json=schemaMeta,proto3" json:"schema_meta,omitempty"`
 	WriteData            []*WriteData        `protobuf:"bytes,2,rep,name=write_data,json=writeData,proto3" json:"write_data,omitempty"`
@@ -69,6 +71,8 @@ func (m *WriteDataRequest) GetWriteData() []*WriteData {
 	return nil
 }
 
+//*
+// Represents a request for reading data from datahub.
 type ReadDataRequest struct {
 	SchemaMeta           *schemas.SchemaMeta `protobuf:"bytes,1,opt,name=schema_meta,json=schemaMeta,proto3" json:"schema_meta,omitempty"`
 	ReadData             []*ReadData         `protobuf:"bytes,2,rep,name=read_data,json=readData,proto3" json:"read_data,omitempty"`
@@ -116,6 +120,8 @@ func (m *ReadDataRequest) GetReadData() []*ReadData {
 	return nil
 }
 
+//*
+// Represents a response for a reading data request.
 type ReadDataResponse struct {
 	Status               *status.Status `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
 	Data                 *Data          `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
@@ -163,6 +169,8 @@ func (m *ReadDataResponse) GetData() *Data {
 	return nil
 }
 
+//*
+// Represents a request for deleting data in datahub.
 type DeleteDataRequest struct {
 	SchemaMeta           *schemas.SchemaMeta `protobuf:"bytes,1,opt,name=schema_meta,json=schemaMeta,proto3" json:"schema_meta,omitempty"`
 	DeleteData           []*DeleteData       `protobuf:"bytes,2,rep,name=delete_data,json=deleteData,proto3" json:"delete_data,omitempty"`
@@ -210,6 +218,8 @@ func (m *DeleteDataRequest) GetDeleteData() []*DeleteData {
 	return nil
 }
 
+//*
+// Represents a request for writing data(none time-series) to datahub.
 type WriteMetaRequest struct {
 	SchemaMeta           *schemas.SchemaMeta `protobuf:"bytes,1,opt,name=schema_meta,json=schemaMeta,proto3" json:"schema_meta,omitempty"`
 	WriteMeta            []*WriteMeta        `protobuf:"bytes,2,rep,name=write_meta,json=writeMeta,proto3" json:"write_meta,omitempty"`

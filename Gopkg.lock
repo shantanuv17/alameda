@@ -35,7 +35,7 @@
 
 [[projects]]
   branch = "4.3-husky"
-  digest = "1:f4801b8494649191b9c77ea76c87edc1f5a6940c0d20c5e889fc5d39afb99eb1"
+  digest = "1:473020127116ce02b0e84c23c84fb25de1b22cf262c3eff89986a0c554341904"
   name = "github.com/containers-ai/api"
   packages = [
     "alameda_api/v1alpha1/datahub",
@@ -58,7 +58,7 @@
     "datahub/keycodes",
   ]
   pruneopts = "UT"
-  revision = "f2cf187717e929945c241ada047ff51501872873"
+  revision = "c680289be5f249b5e76d5f4b4c57c7fab4eb5b8d"
 
 [[projects]]
   digest = "1:9f42202ac457c462ad8bb9642806d275af9ab4850cf0b1960b9c6f083d4a309a"
@@ -1499,6 +1499,7 @@
     "google.golang.org/genproto/googleapis/rpc/code",
     "google.golang.org/genproto/googleapis/rpc/status",
     "google.golang.org/grpc",
+    "google.golang.org/grpc/connectivity",
     "google.golang.org/grpc/grpclog",
     "google.golang.org/grpc/reflection",
     "gopkg.in/mail.v2",
