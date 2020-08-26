@@ -5,7 +5,8 @@ import (
 )
 
 type ResourceClusterAutoscalerMachinegroup struct {
-	DatahubEntity                         `scope:"resource" category:"cluster_autoscaler" type:"machinegroup" measurement:"cluster_autoscaler_machinegroup" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
+	DatahubEntity                         `scope:"resource" category:"cluster_autoscaler" type:"machinegroup"`
+	Metadata                              *Metadata  `measurement:"cluster_autoscaler_machinegroup" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
 	Time                                  *time.Time `json:"time"                                      required:"false" column:"tag"   type:"time"`
 	Name                                  string     `json:"name"                                      required:"true"  column:"tag"   type:"string"`
 	Namespace                             string     `json:"namespace"                                 required:"true"  column:"tag"   type:"string"`
@@ -25,7 +26,8 @@ type ResourceClusterAutoscalerMachinegroup struct {
 }
 
 type ResourceClusterAutoscalerMachineset struct {
-	DatahubEntity           `scope:"resource" category:"cluster_autoscaler" type:"machineset" measurement:"cluster_autoscaler_machineset" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
+	DatahubEntity           `scope:"resource" category:"cluster_autoscaler" type:"machineset"`
+	Metadata                *Metadata  `measurement:"cluster_autoscaler_machineset" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
 	Time                    *time.Time `json:"time"                       required:"false" column:"tag"   type:"time"`
 	Name                    string     `json:"name"                       required:"true"  column:"tag"   type:"string"`
 	Namespace               string     `json:"namespace"                  required:"true"  column:"tag"   type:"string"`

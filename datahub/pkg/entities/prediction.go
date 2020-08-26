@@ -86,7 +86,8 @@ type PredictionKafkaConsumerGroupCurrentOffsetLowerBound struct {
 }
 
 type PredictionNginxHttpResponseTotal struct {
-	DatahubEntity               `scope:"prediction" category:"nginx" type:"nginx" measurement:"nginx_http_response_total" metric:"number" boundary:"raw" quota:"undefined" ts:"true"`
+	DatahubEntity               `scope:"prediction" category:"nginx" type:"nginx"`
+	Metadata                    *Metadata  `measurement:"nginx_http_response_total" metric:"number" boundary:"raw" quota:"undefined" ts:"true"`
 	Time                        *time.Time `json:"time"                           required:"false" column:"tag"   type:"time"`
 	ClusterName                 string     `json:"cluster_name"                   required:"true"  column:"tag"   type:"string"`
 	ResourceK8sServiceName      string     `json:"resource_k8s_service_name"      required:"true"  column:"tag"   type:"string"`
@@ -101,7 +102,8 @@ type PredictionNginxHttpResponseTotal struct {
 }
 
 type PredictionNginxHttpResponseTotalUpperBound struct {
-	DatahubEntity               `scope:"prediction" category:"nginx" type:"nginx" measurement:"nginx_http_response_total_upper_bound" metric:"number" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	DatahubEntity               `scope:"prediction" category:"nginx" type:"nginx"`
+	Metadata                    *Metadata  `measurement:"nginx_http_response_total_upper_bound" metric:"number" boundary:"upper_bound" quota:"undefined" ts:"true"`
 	Time                        *time.Time `json:"time"                           required:"false" column:"tag"   type:"time"`
 	ClusterName                 string     `json:"cluster_name"                   required:"true"  column:"tag"   type:"string"`
 	ResourceK8sServiceName      string     `json:"resource_k8s_service_name"      required:"true"  column:"tag"   type:"string"`
@@ -116,7 +118,8 @@ type PredictionNginxHttpResponseTotalUpperBound struct {
 }
 
 type PredictionNginxHttpResponseTotalLowerBound struct {
-	DatahubEntity               `scope:"prediction" category:"nginx" type:"nginx" measurement:"nginx_http_response_total_lower_bound" metric:"number" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	DatahubEntity               `scope:"prediction" category:"nginx" type:"nginx"`
+	Metadata                    *Metadata  `measurement:"nginx_http_response_total_lower_bound" metric:"number" boundary:"lower_bound" quota:"undefined" ts:"true"`
 	Time                        *time.Time `json:"time"                           required:"false" column:"tag"   type:"time"`
 	ClusterName                 string     `json:"cluster_name"                   required:"true"  column:"tag"   type:"string"`
 	ResourceK8sServiceName      string     `json:"resource_k8s_service_name"      required:"true"  column:"tag"   type:"string"`
@@ -131,7 +134,8 @@ type PredictionNginxHttpResponseTotalLowerBound struct {
 }
 
 type PredictionClusterAutoscalerMachinegroupCPU struct {
-	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup" measurement:"machinegroup_cpu" metric:"cpu_usage_percentage" boundary:"raw" quota:"undefined" ts:"true"`
+	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup"`
+	Metadata      *Metadata  `measurement:"machinegroup_cpu" metric:"cpu_millicores_usage" boundary:"raw" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
@@ -143,7 +147,8 @@ type PredictionClusterAutoscalerMachinegroupCPU struct {
 }
 
 type PredictionClusterAutoscalerMachinegroupCPUUpperBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup" measurement:"machinegroup_cpu_upper_bound" metric:"cpu_usage_percentage" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup"`
+	Metadata      *Metadata  `measurement:"machinegroup_cpu_upper_bound" metric:"cpu_millicores_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
@@ -155,7 +160,8 @@ type PredictionClusterAutoscalerMachinegroupCPUUpperBound struct {
 }
 
 type PredictionClusterAutoscalerMachinegroupCPULowerBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup" measurement:"machinegroup_cpu_lower_bound" metric:"cpu_usage_percentage" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup"`
+	Metadata      *Metadata  `measurement:"machinegroup_cpu_lower_bound" metric:"cpu_millicores_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
@@ -167,7 +173,8 @@ type PredictionClusterAutoscalerMachinegroupCPULowerBound struct {
 }
 
 type PredictionClusterAutoscalerMachinegroupMemory struct {
-	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup" measurement:"machinegroup_memory" metric:"memory_usage_bytes" boundary:"raw" quota:"undefined" ts:"true"`
+	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup"`
+	Metadata      *Metadata  `measurement:"machinegroup_memory" metric:"memory_bytes_usage" boundary:"raw" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
@@ -179,7 +186,8 @@ type PredictionClusterAutoscalerMachinegroupMemory struct {
 }
 
 type PredictionClusterAutoscalerMachinegroupMemoryUpperBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup" measurement:"machinegroup_memory_upper_bound" metric:"memory_usage_bytes" boundary:"upper_bound" quota:"undefined" ts:"true"`
+	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup"`
+	Metadata      *Metadata  `measurement:"machinegroup_memory_upper_bound" metric:"memory_bytes_usage" boundary:"upper_bound" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`
@@ -191,7 +199,8 @@ type PredictionClusterAutoscalerMachinegroupMemoryUpperBound struct {
 }
 
 type PredictionClusterAutoscalerMachinegroupMemoryLowerBound struct {
-	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup" measurement:"machinegroup_memory_lower_bound" metric:"memory_usage_bytes" boundary:"lower_bound" quota:"undefined" ts:"true"`
+	DatahubEntity `scope:"prediction" category:"cluster_autoscaler" type:"machinegroup"`
+	Metadata      *Metadata  `measurement:"machinegroup_memory_lower_bound" metric:"memory_bytes_usage" boundary:"lower_bound" quota:"undefined" ts:"true"`
 	Time          *time.Time `json:"time"          required:"false" column:"tag"   type:"time"`
 	Name          string     `json:"name"          required:"true"  column:"tag"   type:"string"`
 	Namespace     string     `json:"namespace"     required:"true"  column:"tag"   type:"string"`

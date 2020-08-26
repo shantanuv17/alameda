@@ -21,7 +21,8 @@ type RecommendationKafkaConsumerGroup struct {
 }
 
 type RecommendationNginx struct {
-	DatahubEntity    `scope:"recommendation" category:"nginx" type:"nginx" measurement:"nginx" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
+	DatahubEntity    `scope:"recommendation" category:"nginx" type:"nginx"`
+	Metadata         *Metadata  `measurement:"nginx" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time             *time.Time `json:"time"               required:"false" column:"tag"   type:"time"`
 	Name             string     `json:"name"               required:"true"  column:"tag"   type:"string"`
 	Namespace        string     `json:"namespace"          required:"true"  column:"tag"   type:"string"`
@@ -41,7 +42,8 @@ type RecommendationNginx struct {
 }
 
 type RecommendationClusterAutoscalerMachinegroup struct {
-	DatahubEntity       `scope:"recommendation" category:"cluster_autoscaler" type:"machinegroup" measurement:"machinegroup" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
+	DatahubEntity       `scope:"recommendation" category:"cluster_autoscaler" type:"machinegroup"`
+	Metadata            *Metadata  `measurement:"machinegroup" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                *time.Time `json:"time"                 required:"false" column:"tag"   type:"time"`
 	Name                string     `json:"name"                 required:"true"  column:"tag"   type:"string"`
 	Namespace           string     `json:"namespace"            required:"true"  column:"tag"   type:"string"`

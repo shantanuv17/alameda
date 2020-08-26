@@ -37,7 +37,8 @@ type MetricKafkaConsumerGroupLag struct {
 }
 
 type MetricNginxHttpResponseTotal struct {
-	DatahubEntity               `scope:"metric" category:"nginx" type:"nginx" measurement:"nginx_http_response_total" metric:"number" boundary:"undefined" quota:"undefined" ts:"true"`
+	DatahubEntity               `scope:"metric" category:"nginx" type:"nginx"`
+	Metadata                    *Metadata  `measurement:"nginx_http_response_total" metric:"number" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                        *time.Time `json:"time"                           required:"false" column:"tag"   type:"time"`
 	ClusterName                 string     `json:"cluster_name"                   required:"true"  column:"tag"   type:"string"`
 	ResourceK8sServiceName      string     `json:"resource_k8s_service_name"      required:"true"  column:"tag"   type:"string"`
@@ -49,7 +50,8 @@ type MetricNginxHttpResponseTotal struct {
 }
 
 type MetricNginxHttpResponseLatency struct {
-	DatahubEntity               `scope:"metric" category:"nginx" type:"nginx" measurement:"nginx_http_response_latency_ms" metric:"latency" boundary:"undefined" quota:"undefined" ts:"true"`
+	DatahubEntity               `scope:"metric" category:"nginx" type:"nginx"`
+	Metadata                    *Metadata  `measurement:"nginx_http_response_latency_ms" metric:"latency" boundary:"undefined" quota:"undefined" ts:"true"`
 	Time                        *time.Time `json:"time"                           required:"false" column:"tag"   type:"time"`
 	ClusterName                 string     `json:"cluster_name"                   required:"true"  column:"tag"   type:"string"`
 	ResourceK8sServiceName      string     `json:"resource_k8s_service_name"      required:"true"  column:"tag"   type:"string"`

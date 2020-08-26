@@ -46,7 +46,8 @@ type ApplicationKafkaConsumerGroup struct {
 }
 
 type ApplicationNginx struct {
-	DatahubEntity               `scope:"application" category:"nginx" type:"nginx" measurement:"nginx" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
+	DatahubEntity               `scope:"application" category:"nginx" type:"nginx"`
+	Metadata                    *Metadata  `measurement:"nginx" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
 	Time                        *time.Time `json:"time"                           required:"false" column:"tag"   type:"time"`
 	Namespace                   string     `json:"namespace"                      required:"true"  column:"tag"   type:"string"`
 	ClusterName                 string     `json:"cluster_name"                   required:"true"  column:"tag"   type:"string"`
