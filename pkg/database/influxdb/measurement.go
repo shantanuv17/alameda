@@ -99,17 +99,22 @@ func (p *InfluxMeasurement) Drop(query *InfluxQuery) error {
 }
 
 func (p *InfluxMeasurement) genDataType(query *InfluxQuery) {
-	// Main query
-	for _, condition := range query.QueryCondition.WhereCondition {
-		if len(condition.Types) == 0 {
-			p.types(condition)
+	// Check if main query condition exists
+	if query.QueryCondition != nil {
+		// Generate data type list from main query condition
+		for _, condition := range query.QueryCondition.WhereCondition {
+			if len(condition.Types) == 0 {
+				p.types(condition)
+			}
 		}
-	}
-
-	// Sub query
-	for _, condition := range query.QueryCondition.SubQuery.WhereCondition {
-		if len(condition.Types) == 0 {
-			p.types(condition)
+		// Check if sub query condition exists
+		if query.QueryCondition.SubQuery != nil {
+			// Generate data type list from sub query condition
+			for _, condition := range query.QueryCondition.SubQuery.WhereCondition {
+				if len(condition.Types) == 0 {
+					p.types(condition)
+				}
+			}
 		}
 	}
 }
