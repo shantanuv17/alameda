@@ -10,6 +10,7 @@ const (
 	ClusterName         clusterTag = "name"
 	ClusterGranularity  clusterTag = "granularity"
 
+	ClusterPredictionId                 clusterField = "prediction_id"
 	ClusterResourceRequestCPU           clusterField = "resource_request_cpu"
 	ClusterResourceRequestMemory        clusterField = "resource_request_memory"
 	ClusterResourceLimitCPU             clusterField = "resource_limit_cpu"
@@ -34,6 +35,7 @@ var (
 	}
 
 	ClusterFields = []clusterField{
+		ClusterPredictionId,
 		ClusterResourceRequestCPU,
 		ClusterResourceRequestMemory,
 		ClusterResourceLimitCPU,

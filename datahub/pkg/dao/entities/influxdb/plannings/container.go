@@ -13,6 +13,7 @@ const (
 	ContainerPodName      containerTag = "pod_name"
 	ContainerGranularity  containerTag = "granularity"
 
+	ContainerPredictionId                 containerField = "prediction_id"
 	ContainerPolicy                       containerField = "policy"
 	ContainerPolicyTime                   containerField = "policy_time"
 	ContainerResourceRequestCPU           containerField = "resource_request_cpu"
@@ -57,6 +58,7 @@ var (
 	}
 
 	ContainerFields = []containerField{
+		ContainerPredictionId,
 		ContainerPolicy,
 		ContainerResourceRequestCPU,
 		ContainerResourceRequestMemory,

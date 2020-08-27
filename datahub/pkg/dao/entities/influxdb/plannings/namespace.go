@@ -11,6 +11,7 @@ const (
 	NamespaceName         namespaceTag = "name"
 	NamespaceGranularity  namespaceTag = "granularity"
 
+	NamespacePredictionId                 namespaceField = "prediction_id"
 	NamespaceResourceRequestCPU           namespaceField = "resource_request_cpu"
 	NamespaceResourceRequestMemory        namespaceField = "resource_request_memory"
 	NamespaceResourceLimitCPU             namespaceField = "resource_limit_cpu"
@@ -36,6 +37,7 @@ var (
 	}
 
 	NamespaceFields = []namespaceField{
+		NamespacePredictionId,
 		NamespaceResourceRequestCPU,
 		NamespaceResourceRequestMemory,
 		NamespaceResourceLimitCPU,

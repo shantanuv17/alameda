@@ -48,6 +48,7 @@ func (c *ClusterRepository) CreatePlannings(in *ApiPlannings.CreateClusterPlanni
 		planningId := clusterPlanning.GetPlanningId()
 		planningType := clusterPlanning.GetPlanningType().String()
 		name := clusterPlanning.GetObjectMeta().GetName()
+		predictionId := clusterPlanning.GetPredictionId()
 		totalCost := clusterPlanning.GetTotalCost()
 		applyPlanningNow := clusterPlanning.GetApplyPlanningNow()
 
@@ -60,6 +61,7 @@ func (c *ClusterRepository) CreatePlannings(in *ApiPlannings.CreateClusterPlanni
 				EntityInfluxPlanning.ClusterGranularity:  strconv.FormatInt(granularity, 10),
 			}
 			fields := map[string]interface{}{
+				EntityInfluxPlanning.ClusterPredictionId:     predictionId,
 				EntityInfluxPlanning.ClusterTotalCost:        totalCost,
 				EntityInfluxPlanning.ClusterApplyPlanningNow: applyPlanningNow,
 			}
@@ -275,6 +277,8 @@ func (c *ClusterRepository) queryPlannings(cmd string, granularity int64) ([]*Ap
 				}
 			}
 			clusterPlanning.PlanningType = planningType
+
+			clusterPlanning.PredictionId = data[EntityInfluxPlanning.ClusterPredictionId]
 
 			tempTotalCost, _ := strconv.ParseFloat(data[EntityInfluxPlanning.ClusterTotalCost], 64)
 			clusterPlanning.TotalCost = tempTotalCost

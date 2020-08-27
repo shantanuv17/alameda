@@ -12,6 +12,7 @@ const (
 	AppName         appTag = "name"
 	AppGranularity  appTag = "granularity"
 
+	AppPredictionId                 appField = "prediction_id"
 	AppResourceRequestCPU           appField = "resource_request_cpu"
 	AppResourceRequestMemory        appField = "resource_request_memory"
 	AppResourceLimitCPU             appField = "resource_limit_cpu"
@@ -54,6 +55,7 @@ var (
 	}
 
 	AppFields = []appField{
+		AppPredictionId,
 		AppResourceRequestCPU,
 		AppResourceRequestMemory,
 		AppResourceLimitCPU,
