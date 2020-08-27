@@ -14,6 +14,7 @@ type PlanningClusterStatusApplication struct {
 	PlanningId                   string       `json:"planning_id"                     required:"true"  column:"tag"`
 	PlanningType                 PlanningType `json:"planning_type"                   required:"true"  column:"tag"`
 	Granularity                  string       `json:"granularity"                     required:"true"  column:"tag"`
+	PredictionId                 string       `json:"prediction_id"                   required:"false" column:"field"`
 	ResourceRequestCPU           float64      `json:"resource_request_cpu"            required:"false" column:"field"`
 	ResourceRequestMemory        float64      `json:"resource_request_memory"         required:"false" column:"field"`
 	ResourceLimitCPU             float64      `json:"resource_limit_cpu"              required:"false" column:"field"`
@@ -36,6 +37,7 @@ type PlanningClusterStatusCluster struct {
 	PlanningId                   string       `json:"planning_id"                     required:"true"  column:"tag"`
 	PlanningType                 PlanningType `json:"planning_type"                   required:"true"  column:"tag"`
 	Granularity                  string       `json:"granularity"                     required:"true"  column:"tag"`
+	PredictionId                 string       `json:"prediction_id"                   required:"false" column:"field"`
 	ResourceRequestCPU           float64      `json:"resource_request_cpu"            required:"false" column:"field"`
 	ResourceRequestMemory        float64      `json:"resource_request_memory"         required:"false" column:"field"`
 	ResourceLimitCPU             float64      `json:"resource_limit_cpu"              required:"false" column:"field"`
@@ -61,6 +63,7 @@ type PlanningClusterStatusContainer struct {
 	PlanningId                   string       `json:"planning_id"                     required:"true"  column:"tag"`
 	PlanningType                 PlanningType `json:"planning_type"                   required:"true"  column:"tag"`
 	Granularity                  string       `json:"granularity"                     required:"true"  column:"tag"`
+	PredictionId                 string       `json:"prediction_id"                   required:"false" column:"field"`
 	TopControllerName            string       `json:"top_controller_name"             required:"false" column:"field"`
 	TopControllerKind            Kind         `json:"top_controller_kind"             required:"false" column:"field"`
 	Policy                       string       `json:"policy"                          required:"false" column:"field"`
@@ -89,6 +92,7 @@ type PlanningClusterStatusController struct {
 	PlanningType                 PlanningType `json:"planning_type"                   required:"true"  column:"tag"`
 	Kind                         Kind         `json:"kind"                            required:"true"  column:"tag"`
 	Granularity                  string       `json:"granularity"                     required:"true"  column:"tag"`
+	PredictionId                 string       `json:"prediction_id"                   required:"false" column:"field"`
 	ResourceRequestCPU           float64      `json:"resource_request_cpu"            required:"false" column:"field"`
 	ResourceRequestMemory        float64      `json:"resource_request_memory"         required:"false" column:"field"`
 	ResourceLimitCPU             float64      `json:"resource_limit_cpu"              required:"false" column:"field"`
@@ -112,6 +116,7 @@ type PlanningClusterStatusNamespace struct {
 	PlanningId                   string       `json:"planning_id"                     required:"true"  column:"tag"`
 	PlanningType                 PlanningType `json:"planning_type"                   required:"true"  column:"tag"`
 	Granularity                  string       `json:"granularity"                     required:"true"  column:"tag"`
+	PredictionId                 string       `json:"prediction_id"                   required:"false" column:"field"`
 	ResourceRequestCPU           float64      `json:"resource_request_cpu"            required:"false" column:"field"`
 	ResourceRequestMemory        float64      `json:"resource_request_memory"         required:"false" column:"field"`
 	ResourceLimitCPU             float64      `json:"resource_limit_cpu"              required:"false" column:"field"`
@@ -135,6 +140,7 @@ type PlanningClusterStatusNode struct {
 	PlanningId                   string       `json:"planning_id"                     required:"true"  column:"tag"`
 	PlanningType                 PlanningType `json:"planning_type"                   required:"true"  column:"tag"`
 	Granularity                  string       `json:"granularity"                     required:"true"  column:"tag"`
+	PredictionId                 string       `json:"prediction_id"                   required:"false" column:"field"`
 	ResourceRequestCPU           float64      `json:"resource_request_cpu"            required:"false" column:"field"`
 	ResourceRequestMemory        float64      `json:"resource_request_memory"         required:"false" column:"field"`
 	ResourceLimitCPU             float64      `json:"resource_limit_cpu"              required:"false" column:"field"`

@@ -13,6 +13,7 @@ const (
 	ControllerGranularity  controllerTag = "granularity"
 	ControllerKind         controllerTag = "kind"
 
+	ControllerPredictionId                 controllerField = "prediction_id"
 	ControllerResourceRequestCPU           controllerField = "resource_request_cpu"
 	ControllerResourceRequestMemory        controllerField = "resource_request_memory"
 	ControllerResourceLimitCPU             controllerField = "resource_limit_cpu"
@@ -41,6 +42,7 @@ var (
 	}
 	// ControllerFields is list of fields of alameda_controller_recommendation measurement
 	ControllerField = []controllerField{
+		ControllerPredictionId,
 		ControllerResourceRequestCPU,
 		ControllerResourceRequestMemory,
 		ControllerResourceLimitCPU,

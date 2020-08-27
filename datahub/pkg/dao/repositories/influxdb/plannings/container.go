@@ -69,6 +69,7 @@ func (c *ContainerRepository) CreateContainerPlannings(in *ApiPlannings.CreatePo
 		clusterName := podPlanning.GetObjectMeta().GetClusterName()
 		podNS := podPlanning.GetObjectMeta().GetNamespace()
 		podName := podPlanning.GetObjectMeta().GetName()
+		predictionId := podPlanning.GetPredictionId()
 		podTotalCost := podPlanning.GetTotalCost()
 		containerPlannings := podPlanning.GetContainerPlannings()
 		topController := podPlanning.GetTopController()
@@ -105,6 +106,7 @@ func (c *ContainerRepository) CreateContainerPlannings(in *ApiPlannings.CreatePo
 			fields := map[string]interface{}{
 				//TODO
 				//string(EntityInfluxRecommend.ContainerPolicy):            "",
+				EntityInfluxPlanning.ContainerPredictionId:      predictionId,
 				EntityInfluxPlanning.ContainerTopControllerName: topController.GetObjectMeta().GetName(),
 				EntityInfluxPlanning.ContainerTopControllerKind: topController.GetKind().String(),
 				EntityInfluxPlanning.ContainerPolicy:            podPolicyValue,
@@ -304,6 +306,7 @@ func (c *ContainerRepository) queryPlannings(cmd string, granularity int64) ([]*
 		for _, data := range row.Data {
 			podPlanning := &ApiPlannings.PodPlanning{}
 			podPlanning.PlanningType = ApiPlannings.PlanningType(ApiPlannings.PlanningType_value[data[EntityInfluxPlanning.ContainerPlanningType]])
+			podPlanning.PlanningId = data[EntityInfluxPlanning.ContainerPlanningId]
 			podPlanning.ObjectMeta = &ApiResources.ObjectMeta{
 				ClusterName: data[EntityInfluxPlanning.ContainerClusterName],
 				Namespace:   data[EntityInfluxPlanning.ContainerNamespace],
@@ -344,6 +347,8 @@ func (c *ContainerRepository) queryPlannings(cmd string, granularity int64) ([]*
 					NodeName: data[EntityInfluxPlanning.ContainerPolicy],
 				},
 			}
+
+			podPlanning.PredictionId = data[EntityInfluxPlanning.ContainerPredictionId]
 
 			tempTotalCost, _ := strconv.ParseFloat(data[EntityInfluxPlanning.ContainerPodTotalCost], 64)
 			podPlanning.TotalCost = tempTotalCost
