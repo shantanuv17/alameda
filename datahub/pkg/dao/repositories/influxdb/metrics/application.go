@@ -29,6 +29,13 @@ func (p *Application) GetMetricMap(metricType enumconv.MetricType, applications 
 	measurement := InfluxDB.NewMeasurement(InfluxSchemas.DatabaseNameMap[InfluxSchemas.Metric], m, p.InfluxDBConfig)
 
 	for _, application := range applications {
+		// If no controller is found, return empty metrics data
+		if len(application.Controllers) == 0 {
+			metric := p.genMetric(metricType, application, nil)
+			metricMap.AddAppMetric(metric)
+			continue
+		}
+
 		p.rebuildQueryCondition(application.Controllers, req.QueryCondition.SubQuery)
 
 		groups, err := measurement.Read(InfluxDB.NewQuery(&req.QueryCondition, measurement.Name))
@@ -64,9 +71,17 @@ func (p *Application) rebuildQueryCondition(controllers []*DaoClusterTypes.Contr
 func (p *Application) genMetric(metricType enumconv.MetricType, application *DaoClusterTypes.Application, groups []*DBCommon.Group) *DaoMetricTypes.AppMetric {
 	metric := DaoMetricTypes.NewAppMetric()
 	metric.ObjectMeta = *application.ObjectMeta
+
+	if groups == nil {
+		metric.Metrics = make(map[enumconv.MetricType][]types.Sample)
+		metric.Metrics[metricType] = make([]types.Sample, 0)
+		return metric
+	}
+
 	for _, row := range groups[0].Rows {
 		sample := types.Sample{Timestamp: *row.Time, Value: row.Values[0]}
 		metric.AddSample(metricType, sample)
 	}
+
 	return metric
 }
