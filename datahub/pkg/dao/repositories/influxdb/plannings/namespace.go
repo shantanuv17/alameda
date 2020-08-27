@@ -49,6 +49,7 @@ func (c *NamespaceRepository) CreatePlannings(in *ApiPlannings.CreateNamespacePl
 		planningType := namespacePlanning.GetPlanningType().String()
 		clusterName := namespacePlanning.GetObjectMeta().GetClusterName()
 		name := namespacePlanning.GetObjectMeta().GetName()
+		predictionId := namespacePlanning.GetPredictionId()
 		totalCost := namespacePlanning.GetTotalCost()
 		applyPlanningNow := namespacePlanning.GetApplyPlanningNow()
 
@@ -62,6 +63,7 @@ func (c *NamespaceRepository) CreatePlannings(in *ApiPlannings.CreateNamespacePl
 				EntityInfluxPlanning.NamespaceGranularity:  strconv.FormatInt(granularity, 10),
 			}
 			fields := map[string]interface{}{
+				EntityInfluxPlanning.NamespacePredictionId:     predictionId,
 				EntityInfluxPlanning.NamespaceTotalCost:        totalCost,
 				EntityInfluxPlanning.NamespaceApplyPlanningNow: applyPlanningNow,
 			}
@@ -284,6 +286,8 @@ func (c *NamespaceRepository) queryPlannings(cmd string, granularity int64) ([]*
 				}
 			}
 			namespacePlanning.PlanningType = planningType
+
+			namespacePlanning.PredictionId = data[EntityInfluxPlanning.NamespacePredictionId]
 
 			tempTotalCost, _ := strconv.ParseFloat(data[EntityInfluxPlanning.NamespaceTotalCost], 64)
 			namespacePlanning.TotalCost = tempTotalCost

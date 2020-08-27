@@ -11,6 +11,7 @@ const (
 	NodeName         nodeTag = "name"
 	NodeGranularity  nodeTag = "granularity"
 
+	NodePredictionId                 nodeField = "prediction_id"
 	NodeResourceRequestCPU           nodeField = "resource_request_cpu"
 	NodeResourceRequestMemory        nodeField = "resource_request_memory"
 	NodeResourceLimitCPU             nodeField = "resource_limit_cpu"
@@ -36,6 +37,7 @@ var (
 	}
 
 	NodeFields = []nodeField{
+		NodePredictionId,
 		NodeResourceRequestCPU,
 		NodeResourceRequestMemory,
 		NodeResourceLimitCPU,

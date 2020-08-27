@@ -50,6 +50,7 @@ func (c *ControllerRepository) CreateControllerPlannings(in *ApiPlannings.Create
 		clusterName := controllerPlanning.GetObjectMeta().GetClusterName()
 		namespace := controllerPlanning.GetObjectMeta().GetNamespace()
 		name := controllerPlanning.GetObjectMeta().GetName()
+		predictionId := controllerPlanning.GetPredictionId()
 		totalCost := controllerPlanning.GetTotalCost()
 		applyPlanningNow := controllerPlanning.GetApplyPlanningNow()
 		kind := controllerPlanning.GetKind().String()
@@ -66,6 +67,7 @@ func (c *ControllerRepository) CreateControllerPlannings(in *ApiPlannings.Create
 				EntityInfluxPlanning.ControllerKind:         kind,
 			}
 			fields := map[string]interface{}{
+				EntityInfluxPlanning.ControllerPredictionId:     predictionId,
 				EntityInfluxPlanning.ControllerTotalCost:        totalCost,
 				EntityInfluxPlanning.ControllerApplyPlanningNow: applyPlanningNow,
 			}
@@ -311,6 +313,8 @@ func (c *ControllerRepository) queryPlannings(cmd string, granularity int64) ([]
 				}
 			}
 			controllerPlanning.PlanningType = planningType
+
+			controllerPlanning.PredictionId = data[EntityInfluxPlanning.ControllerPredictionId]
 
 			tempTotalCost, _ := strconv.ParseFloat(data[EntityInfluxPlanning.ControllerTotalCost], 64)
 			controllerPlanning.TotalCost = tempTotalCost
