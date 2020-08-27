@@ -71,7 +71,8 @@ func startPublish() {
 				"x-message-deduplication": true,
 			}, // arguments
 		)
-		jsonStr := []byte("{'test': '123'}")
+		jsonStr := []byte(`{"test": "rabbitmq"}`)
+
 		err = ch.Publish(
 			"",     // exchange
 			q.Name, // routing key

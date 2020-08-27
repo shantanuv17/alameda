@@ -44,7 +44,7 @@ func checkRabbitmqNotBlock(url string) error {
 		false,  // immediate
 		amqp.Publishing{
 			ContentType:  "text/plain",
-			Body:         []byte("{'test': '123'}"),
+			Body:         []byte(`{"test": "dispatcher"}`),
 			DeliveryMode: 2, // 2 means persistent
 			Headers: amqp.Table{
 				//"x-deduplication-header": sender.getMessageHash(msgID),
