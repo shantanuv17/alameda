@@ -27,7 +27,7 @@ type RecommendationNginx struct {
 	Name             string       `json:"name"               required:"true"  column:"tag"`
 	Namespace        string       `json:"namespace"          required:"true"  column:"tag"`
 	ClusterName      string       `json:"cluster_name"       required:"true"  column:"tag"`
-	Kind             string       `json:"kind"               required:"true"  column:"tag"`
+	Kind             Kind         `json:"kind"               required:"true"  column:"tag"`
 	CreateTime       int64        `json:"create_time"        required:"true"  column:"field"`
 	CurrentReplicas  int32        `json:"current_replicas"   required:"true"  column:"field"`
 	DesiredReplicas  int32        `json:"desired_replicas"   required:"true"  column:"field"`
@@ -106,7 +106,7 @@ type RecommendationClusterStatusContainerLimit struct {
 	Granularity                string       `json:"granularity"                   required:"true"  column:"tag"`
 	TopControllerName          string       `json:"top_controller_name"           required:"true"  column:"field"`
 	TopControllerKind          Kind         `json:"top_controller_kind"           required:"true"  column:"field"`
-	Policy                     string       `json:"policy"                        required:"true"  column:"field"`
+	Policy                     Policy       `json:"policy"                        required:"true"  column:"field"`
 	PolicyTime                 int64        `json:"policy_time"                   required:"true"  column:"field"`
 	PodTotalCost               float64      `json:"pod_total_cost"                required:"true"  column:"field"`
 	StartTime                  int64        `json:"start_time"                    required:"true"  column:"field"`
@@ -128,7 +128,7 @@ type RecommendationClusterStatusContainerRequest struct {
 	Granularity                  string       `json:"granularity"                     required:"true"  column:"tag"`
 	TopControllerName            string       `json:"top_controller_name"             required:"true"  column:"field"`
 	TopControllerKind            Kind         `json:"top_controller_kind"             required:"true"  column:"field"`
-	Policy                       string       `json:"policy"                          required:"true"  column:"field"`
+	Policy                       Policy       `json:"policy"                          required:"true"  column:"field"`
 	PolicyTime                   int64        `json:"policy_time"                     required:"true"  column:"field"`
 	PodTotalCost                 float64      `json:"pod_total_cost"                  required:"true"  column:"field"`
 	StartTime                    int64        `json:"start_time"                      required:"true"  column:"field"`

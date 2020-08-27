@@ -94,7 +94,7 @@ type PredictionNginxHttpResponseTotal struct {
 	ResourceK8sServiceNamespace string       `json:"resource_k8s_service_namespace" required:"true"  column:"tag"`
 	ResourceK8sName             string       `json:"resource_k8s_name"              required:"true"  column:"tag"`
 	ResourceK8sNamespace        string       `json:"resource_k8s_namespace"         required:"true"  column:"tag"`
-	ResourceK8sKind             string       `json:"resource_k8s_kind"              required:"true"  column:"tag"`
+	ResourceK8sKind             Kind         `json:"resource_k8s_kind"              required:"true"  column:"tag"`
 	Granularity                 string       `json:"granularity"                    required:"true"  column:"tag"`
 	ModelId                     string       `json:"model_id"                       required:"true"  column:"field"`
 	PredictionId                string       `json:"prediction_id"                  required:"true"  column:"field"`
@@ -110,7 +110,7 @@ type PredictionNginxHttpResponseTotalUpperBound struct {
 	ResourceK8sServiceNamespace string       `json:"resource_k8s_service_namespace" required:"true"  column:"tag"`
 	ResourceK8sName             string       `json:"resource_k8s_name"              required:"true"  column:"tag"`
 	ResourceK8sNamespace        string       `json:"resource_k8s_namespace"         required:"true"  column:"tag"`
-	ResourceK8sKind             string       `json:"resource_k8s_kind"              required:"true"  column:"tag"`
+	ResourceK8sKind             Kind         `json:"resource_k8s_kind"              required:"true"  column:"tag"`
 	Granularity                 string       `json:"granularity"                    required:"true"  column:"tag"`
 	ModelId                     string       `json:"model_id"                       required:"true"  column:"field"`
 	PredictionId                string       `json:"prediction_id"                  required:"true"  column:"field"`
@@ -126,7 +126,7 @@ type PredictionNginxHttpResponseTotalLowerBound struct {
 	ResourceK8sServiceNamespace string       `json:"resource_k8s_service_namespace" required:"true"  column:"tag"`
 	ResourceK8sName             string       `json:"resource_k8s_name"              required:"true"  column:"tag"`
 	ResourceK8sNamespace        string       `json:"resource_k8s_namespace"         required:"true"  column:"tag"`
-	ResourceK8sKind             string       `json:"resource_k8s_kind"              required:"true"  column:"tag"`
+	ResourceK8sKind             Kind         `json:"resource_k8s_kind"              required:"true"  column:"tag"`
 	Granularity                 string       `json:"granularity"                    required:"true"  column:"tag"`
 	ModelId                     string       `json:"model_id"                       required:"true"  column:"field"`
 	PredictionId                string       `json:"prediction_id"                  required:"true"  column:"field"`
@@ -491,7 +491,7 @@ type PredictionClusterStatusControllerCPU struct {
 	MetricType     MetricType   `json:"metric"          required:"false" column:"tag"`
 	Boundary       Boundary     `json:"kind"            required:"false" column:"tag"`
 	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
-	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
+	ControllerKind Kind         `json:"controller_kind" required:"true"  column:"tag"`
 	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
 	PredictionId   string       `json:"prediction_id"   required:"true"  column:"field"`
 	Value          float64      `json:"value"           required:"true"  column:"field"`
@@ -507,7 +507,7 @@ type PredictionClusterStatusControllerCPUUpperBound struct {
 	MetricType     MetricType   `json:"metric"          required:"false" column:"tag"`
 	Boundary       Boundary     `json:"kind"            required:"false" column:"tag"`
 	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
-	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
+	ControllerKind Kind         `json:"controller_kind" required:"true"  column:"tag"`
 	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
 	PredictionId   string       `json:"prediction_id"   required:"true"  column:"field"`
 	Value          float64      `json:"value"           required:"true"  column:"field"`
@@ -523,7 +523,7 @@ type PredictionClusterStatusControllerCPULowerBound struct {
 	MetricType     MetricType   `json:"metric"          required:"false" column:"tag"`
 	Boundary       Boundary     `json:"kind"            required:"false" column:"tag"`
 	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
-	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
+	ControllerKind Kind         `json:"controller_kind" required:"true"  column:"tag"`
 	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
 	PredictionId   string       `json:"prediction_id"   required:"true"  column:"field"`
 	Value          float64      `json:"value"           required:"true"  column:"field"`
@@ -539,7 +539,7 @@ type PredictionClusterStatusControllerMemory struct {
 	MetricType     MetricType   `json:"metric"          required:"false" column:"tag"`
 	Boundary       Boundary     `json:"kind"            required:"false" column:"tag"`
 	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
-	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
+	ControllerKind Kind         `json:"controller_kind" required:"true"  column:"tag"`
 	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
 	PredictionId   string       `json:"prediction_id"   required:"true"  column:"field"`
 	Value          float64      `json:"value"           required:"true"  column:"field"`
@@ -555,7 +555,7 @@ type PredictionClusterStatusControllerMemoryUpperBound struct {
 	MetricType     MetricType   `json:"metric"          required:"false" column:"tag"`
 	Boundary       Boundary     `json:"kind"            required:"false" column:"tag"`
 	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
-	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
+	ControllerKind Kind         `json:"controller_kind" required:"true"  column:"tag"`
 	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
 	PredictionId   string       `json:"prediction_id"   required:"true"  column:"field"`
 	Value          float64      `json:"value"           required:"true"  column:"field"`
@@ -571,7 +571,7 @@ type PredictionClusterStatusControllerMemoryLowerBound struct {
 	MetricType     MetricType   `json:"metric"          required:"false" column:"tag"`
 	Boundary       Boundary     `json:"kind"            required:"false" column:"tag"`
 	Granularity    string       `json:"granularity"     required:"true"  column:"tag"`
-	ControllerKind string       `json:"controller_kind" required:"true"  column:"tag"`
+	ControllerKind Kind         `json:"controller_kind" required:"true"  column:"tag"`
 	ModelId        string       `json:"model_id"        required:"true"  column:"field"`
 	PredictionId   string       `json:"prediction_id"   required:"true"  column:"field"`
 	Value          float64      `json:"value"           required:"true"  column:"field"`

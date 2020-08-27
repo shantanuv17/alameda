@@ -45,7 +45,7 @@ type MetricNginxHttpResponseTotal struct {
 	ResourceK8sServiceNamespace string       `json:"resource_k8s_service_namespace" required:"true"  column:"tag"`
 	ResourceK8sName             string       `json:"resource_k8s_name"              required:"true"  column:"tag"`
 	ResourceK8sNamespace        string       `json:"resource_k8s_namespace"         required:"true"  column:"tag"`
-	ResourceK8sKind             string       `json:"resource_k8s_kind"              required:"true"  column:"tag"`
+	ResourceK8sKind             Kind         `json:"resource_k8s_kind"              required:"true"  column:"tag"`
 	Value                       float64      `json:"value"                          required:"true"  column:"field"`
 }
 
@@ -58,7 +58,7 @@ type MetricNginxHttpResponseLatency struct {
 	ResourceK8sServiceNamespace string       `json:"resource_k8s_service_namespace" required:"true"  column:"tag"`
 	ResourceK8sName             string       `json:"resource_k8s_name"              required:"true"  column:"tag"`
 	ResourceK8sNamespace        string       `json:"resource_k8s_namespace"         required:"true"  column:"tag"`
-	ResourceK8sKind             string       `json:"resource_k8s_kind"              required:"true"  column:"tag"`
+	ResourceK8sKind             Kind         `json:"resource_k8s_kind"              required:"true"  column:"tag"`
 	Value                       float64      `json:"value"                          required:"true"  column:"field"`
 }
 

@@ -63,7 +63,7 @@ type PlanningClusterStatusContainer struct {
 	Granularity                  string       `json:"granularity"                     required:"true"  column:"tag"`
 	TopControllerName            string       `json:"top_controller_name"             required:"false" column:"field"`
 	TopControllerKind            Kind         `json:"top_controller_kind"             required:"false" column:"field"`
-	Policy                       string       `json:"policy"                          required:"false" column:"field"`
+	Policy                       Policy       `json:"policy"                          required:"false" column:"field"`
 	PolicyTime                   int64        `json:"policy_time"                     required:"false" column:"field"`
 	ResourceRequestCPU           float64      `json:"resource_request_cpu"            required:"false" column:"field"`
 	ResourceRequestMemory        float64      `json:"resource_request_memory"         required:"false" column:"field"`

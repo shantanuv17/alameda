@@ -27,7 +27,7 @@ type TargetClusterStatusController struct {
 	AlamedaScalerScalingTool ScalingTool  `json:"alameda_scaler_scaling_tool" required:"true"  column:"tag"`
 	MinReplicas              int32        `json:"resource_k8s_min_replicas"   required:"false" column:"field"`
 	MaxReplicas              int32        `json:"resource_k8s_max_replicas"   required:"false" column:"field"`
-	Policy                   string       `json:"policy"                      required:"false" column:"field"`
+	Policy                   Policy       `json:"policy"                      required:"false" column:"field"`
 	EnableExecution          bool         `json:"enable_execution"            required:"false" column:"field"`
 	RawSpec                  string       `json:"raw_spec"                    required:"false" column:"field"`
 }
