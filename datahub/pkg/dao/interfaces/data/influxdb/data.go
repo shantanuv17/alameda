@@ -5,7 +5,7 @@ import (
 	DaoDataTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/data/types"
 	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schemamgt"
 	"github.com/containers-ai/alameda/pkg/database/common"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	"github.com/containers-ai/alameda/pkg/database/influxdb"
 	InfluxSchema "github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 )
@@ -15,10 +15,10 @@ var (
 )
 
 type Data struct {
-	InfluxDBConfig InfluxDB.Config
+	InfluxDBConfig influxdb.Config
 }
 
-func NewDataWithConfig(config InfluxDB.Config) DaoDataTypes.DataDAO {
+func NewDataWithConfig(config influxdb.Config) DaoDataTypes.DataDAO {
 	return &Data{InfluxDBConfig: config}
 }
 
@@ -35,7 +35,7 @@ func (p *Data) WriteData(request *DaoDataTypes.WriteDataRequest) error {
 			scope.Error("measurement is not found when writing data")
 			return errors.New("measurement is not found")
 		}
-		measurement := InfluxDB.NewMeasurement(InfluxSchema.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
+		measurement := influxdb.NewMeasurement(InfluxSchema.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
 		err := measurement.Write(w.Columns, w.Rows)
 		if err != nil {
 			scope.Error(err.Error())
@@ -62,8 +62,8 @@ func (p *Data) ReadData(request *DaoDataTypes.ReadDataRequest) (*DaoDataTypes.Da
 			scope.Error("measurement is not found when reading data")
 			return nil, errors.New("measurement is not found")
 		}
-		measurement := InfluxDB.NewMeasurement(InfluxSchema.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
-		groups, err := measurement.Read(InfluxDB.NewQuery(r.QueryCondition, measurement.Name))
+		measurement := influxdb.NewMeasurement(InfluxSchema.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
+		groups, err := measurement.Read(influxdb.NewQuery(r.QueryCondition, measurement.Name))
 		if err != nil {
 			scope.Error(err.Error())
 			return nil, err
@@ -97,8 +97,8 @@ func (p *Data) DeleteData(request *DaoDataTypes.DeleteDataRequest) error {
 			scope.Error("measurement is not found when reading data")
 			return errors.New("measurement is not found")
 		}
-		measurement := InfluxDB.NewMeasurement(InfluxSchema.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
-		err := measurement.Drop(InfluxDB.NewQuery(d.QueryCondition, measurement.Name))
+		measurement := influxdb.NewMeasurement(InfluxSchema.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
+		err := measurement.Drop(influxdb.NewQuery(d.QueryCondition, measurement.Name))
 		if err != nil {
 			scope.Error(err.Error())
 			return err
@@ -115,23 +115,60 @@ func (p *Data) WriteMeta(request *DaoDataTypes.WriteMetaRequest) error {
 	data := DaoDataTypes.Data{}
 	data.SchemaMeta = InfluxSchema.NewSchemaMeta(request.SchemaMeta.Scope, request.SchemaMeta.Category, request.SchemaMeta.Type)
 	for _, d := range request.WriteMeta {
+		dataInDB := make([]*influxdb.InfluxData, 0)
+		data2Update := make([]*influxdb.InfluxData, 0)
+		data2Delete := make([]*influxdb.InfluxData, 0)
+
 		m := schema.GetMeasurement(d.Measurement, d.MetricType, d.Boundary, d.Quota)
 		if m == nil {
 			scope.Error("measurement is not found when reading data")
 			return errors.New("measurement is not found")
 		}
-		measurement := InfluxDB.NewMeasurement(InfluxSchema.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
+		measurement := influxdb.NewMeasurement(InfluxSchema.DatabaseNameMap[request.SchemaMeta.Scope], m, p.InfluxDBConfig)
 
-		// Do drop first
+		// Generate the records which will be written or updated later
+		for _, row := range d.Rows {
+			data2Update = append(data2Update, influxdb.NewInfluxData(d.Columns, row, measurement.Columns))
+		}
+
+		// Read all records in influxdb by write meta
 		queryCondition := common.QueryCondition{}
 		queryCondition.WhereCondition = append(queryCondition.WhereCondition, d.Condition)
-		err := measurement.Drop(InfluxDB.NewQuery(&queryCondition, measurement.Name))
+		groups, err := measurement.Read(influxdb.NewQuery(&queryCondition, measurement.Name))
 		if err != nil {
 			scope.Error(err.Error())
 			return err
 		}
+		for _, group := range groups {
+			for _, row := range group.Rows {
+				dataInDB = append(dataInDB, influxdb.NewInfluxData(group.Columns, row, measurement.Columns))
+			}
+		}
 
-		// Then do write
+		// Find out those records which are NOT in write meta
+		for _, record := range dataInDB {
+			found := false
+			for _, r := range data2Update {
+				if influxdb.CompareInfluxDataByTags(r, record) {
+					found = true
+					break
+				}
+			}
+			if !found {
+				data2Delete = append(data2Delete, record)
+			}
+		}
+
+		// Do drop first (delete those records which are NOT in write meta)
+		if len(data2Delete) > 0 {
+			err = measurement.Drop(influxdb.NewQuery(influxdb.GenerateQueryConditionByInfluxData(data2Delete), measurement.Name))
+			if err != nil {
+				scope.Error(err.Error())
+				return err
+			}
+		}
+
+		// Then do write or update
 		err = measurement.Write(d.Columns, d.Rows)
 		if err != nil {
 			scope.Error(err.Error())
