@@ -74,10 +74,11 @@ type Target struct {
 type GenericHPAParameters struct {
 	// minimum limit of number of replicas
 	// +optional
+	// +kubebuilder:validation:Minimum=1
 	MinReplicas *int32 `json:"minReplicas,omitempty"`
 	// maximum limit of number of replicas
-	// +optional
-	MaxReplicas *int32 `json:"maxReplicas,omitempty"`
+	// +kubebuilder:validation:Minimum=1
+	MaxReplicas int32 `json:"maxReplicas"`
 }
 
 type Generic struct {
@@ -106,10 +107,11 @@ type ConsumerGroup struct {
 type KafkaHPAParameters struct {
 	// minimum limit of number of replicas
 	// +optional
+	// +kubebuilder:validation:Minimum=1
 	MinReplicas *int32 `json:"minReplicas,omitempty"`
 	// maximum limit of number of replicas
-	// +optional
-	MaxReplicas *int32 `json:"maxReplicas,omitempty"`
+	// +kubebuilder:validation:Minimum=1
+	MaxReplicas int32 `json:"maxReplicas"`
 }
 
 type Kafka struct {

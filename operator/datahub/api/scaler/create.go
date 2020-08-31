@@ -77,10 +77,10 @@ func CreateV1Alpha2Scaler(
 			if controller.Scaling == autoscalingv1alpha2.HPAScaling && controller.Generic.HpaParameters != nil {
 				if controller.Generic.HpaParameters.MinReplicas != nil {
 					targetCtlEntity.MinReplicas = *controller.Generic.HpaParameters.MinReplicas
+				} else {
+					targetCtlEntity.MinReplicas = 1
 				}
-				if controller.Generic.HpaParameters.MaxReplicas != nil {
-					targetCtlEntity.MaxReplicas = *controller.Generic.HpaParameters.MaxReplicas
-				}
+				targetCtlEntity.MaxReplicas = controller.Generic.HpaParameters.MaxReplicas
 			}
 			targetCtls = append(targetCtls, targetCtlEntity)
 		}
@@ -107,10 +107,10 @@ func CreateV1Alpha2Scaler(
 			if controller.Scaling == autoscalingv1alpha2.HPAScaling && controller.Kafka.HpaParameters != nil {
 				if controller.Kafka.HpaParameters.MinReplicas != nil {
 					targetCgEntity.ResourceK8sMinReplicas = *controller.Kafka.HpaParameters.MinReplicas
+				} else {
+					targetCgEntity.ResourceK8sMinReplicas = 1
 				}
-				if controller.Kafka.HpaParameters.MaxReplicas != nil {
-					targetCgEntity.ResourceK8sMaxReplicas = *controller.Kafka.HpaParameters.MaxReplicas
-				}
+				targetCgEntity.ResourceK8sMaxReplicas = controller.Kafka.HpaParameters.MaxReplicas
 			}
 			targetKafkaCgs = append(targetKafkaCgs, targetCgEntity)
 			targetCtlEntity := entities.TargetClusterStatusController{
