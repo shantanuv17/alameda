@@ -78,4 +78,5 @@ message QueryCondition {
     repeated string    selects         = 7;
     repeated string    groups          = 8;
     uint64             limit           = 9;
+    QueryCondition     sub_query       = 10;
 }

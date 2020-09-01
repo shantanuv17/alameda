@@ -900,7 +900,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ContainerPlanning.prototyp
  * @private {!Array<number>}
  * @const
  */
-proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.repeatedFields_ = [10];
+proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.repeatedFields_ = [11];
 
 
 
@@ -936,8 +936,9 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.toObject = fun
     objectMeta: (f = msg.getObjectMeta()) && alameda_api_v1alpha1_datahub_resources_metadata_pb.ObjectMeta.toObject(includeInstance, f),
     planningType: jspb.Message.getFieldWithDefault(msg, 2, 0),
     planningId: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    totalCost: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0),
-    applyPlanningNow: jspb.Message.getBooleanFieldWithDefault(msg, 5, false),
+    predictionId: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    totalCost: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
+    applyPlanningNow: jspb.Message.getBooleanFieldWithDefault(msg, 6, false),
     startTime: (f = msg.getStartTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     endTime: (f = msg.getEndTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     assignPodPolicy: (f = msg.getAssignPodPolicy()) && alameda_api_v1alpha1_datahub_resources_policies_pb.AssignPodPolicy.toObject(includeInstance, f),
@@ -994,34 +995,38 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.deserializeBin
       msg.setPlanningId(value);
       break;
     case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPredictionId(value);
+      break;
+    case 5:
       var value = /** @type {number} */ (reader.readDouble());
       msg.setTotalCost(value);
       break;
-    case 5:
+    case 6:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setApplyPlanningNow(value);
-      break;
-    case 6:
-      var value = new google_protobuf_timestamp_pb.Timestamp;
-      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setStartTime(value);
       break;
     case 7:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setEndTime(value);
+      msg.setStartTime(value);
       break;
     case 8:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setEndTime(value);
+      break;
+    case 9:
       var value = new alameda_api_v1alpha1_datahub_resources_policies_pb.AssignPodPolicy;
       reader.readMessage(value,alameda_api_v1alpha1_datahub_resources_policies_pb.AssignPodPolicy.deserializeBinaryFromReader);
       msg.setAssignPodPolicy(value);
       break;
-    case 9:
+    case 10:
       var value = new alameda_api_v1alpha1_datahub_resources_resources_pb.Controller;
       reader.readMessage(value,alameda_api_v1alpha1_datahub_resources_resources_pb.Controller.deserializeBinaryFromReader);
       msg.setTopController(value);
       break;
-    case 10:
+    case 11:
       var value = new proto.containersai.alameda.v1alpha1.datahub.plannings.ContainerPlanning;
       reader.readMessage(value,proto.containersai.alameda.v1alpha1.datahub.plannings.ContainerPlanning.deserializeBinaryFromReader);
       msg.addContainerPlannings(value);
@@ -1077,29 +1082,28 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.serializeBinar
       f
     );
   }
+  f = message.getPredictionId();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
   f = message.getTotalCost();
   if (f !== 0.0) {
     writer.writeDouble(
-      4,
+      5,
       f
     );
   }
   f = message.getApplyPlanningNow();
   if (f) {
     writer.writeBool(
-      5,
+      6,
       f
     );
   }
   f = message.getStartTime();
-  if (f != null) {
-    writer.writeMessage(
-      6,
-      f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
-    );
-  }
-  f = message.getEndTime();
   if (f != null) {
     writer.writeMessage(
       7,
@@ -1107,10 +1111,18 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.serializeBinar
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
-  f = message.getAssignPodPolicy();
+  f = message.getEndTime();
   if (f != null) {
     writer.writeMessage(
       8,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getAssignPodPolicy();
+  if (f != null) {
+    writer.writeMessage(
+      9,
       f,
       alameda_api_v1alpha1_datahub_resources_policies_pb.AssignPodPolicy.serializeBinaryToWriter
     );
@@ -1118,7 +1130,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.serializeBinar
   f = message.getTopController();
   if (f != null) {
     writer.writeMessage(
-      9,
+      10,
       f,
       alameda_api_v1alpha1_datahub_resources_resources_pb.Controller.serializeBinaryToWriter
     );
@@ -1126,7 +1138,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.serializeBinar
   f = message.getContainerPlanningsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      10,
+      11,
       f,
       proto.containersai.alameda.v1alpha1.datahub.plannings.ContainerPlanning.serializeBinaryToWriter
     );
@@ -1208,11 +1220,29 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.setP
 
 
 /**
- * optional double total_cost = 4;
+ * optional string prediction_id = 4;
+ * @return {string}
+ */
+proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.getPredictionId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning} returns this
+ */
+proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.setPredictionId = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional double total_cost = 5;
  * @return {number}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.getTotalCost = function() {
-  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 4, 0.0));
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 5, 0.0));
 };
 
 
@@ -1221,16 +1251,16 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.getT
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning} returns this
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.setTotalCost = function(value) {
-  return jspb.Message.setProto3FloatField(this, 4, value);
+  return jspb.Message.setProto3FloatField(this, 5, value);
 };
 
 
 /**
- * optional bool apply_planning_now = 5;
+ * optional bool apply_planning_now = 6;
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.getApplyPlanningNow = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 5, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 6, false));
 };
 
 
@@ -1239,17 +1269,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.getA
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning} returns this
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.setApplyPlanningNow = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 5, value);
+  return jspb.Message.setProto3BooleanField(this, 6, value);
 };
 
 
 /**
- * optional google.protobuf.Timestamp start_time = 6;
+ * optional google.protobuf.Timestamp start_time = 7;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.getStartTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 6));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
 };
 
 
@@ -1258,7 +1288,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.getS
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.setStartTime = function(value) {
-  return jspb.Message.setWrapperField(this, 6, value);
+  return jspb.Message.setWrapperField(this, 7, value);
 };
 
 
@@ -1276,17 +1306,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.clea
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.hasStartTime = function() {
-  return jspb.Message.getField(this, 6) != null;
+  return jspb.Message.getField(this, 7) != null;
 };
 
 
 /**
- * optional google.protobuf.Timestamp end_time = 7;
+ * optional google.protobuf.Timestamp end_time = 8;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.getEndTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 8));
 };
 
 
@@ -1295,7 +1325,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.getE
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.setEndTime = function(value) {
-  return jspb.Message.setWrapperField(this, 7, value);
+  return jspb.Message.setWrapperField(this, 8, value);
 };
 
 
@@ -1313,17 +1343,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.clea
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.hasEndTime = function() {
-  return jspb.Message.getField(this, 7) != null;
+  return jspb.Message.getField(this, 8) != null;
 };
 
 
 /**
- * optional containersai.alameda.v1alpha1.datahub.resources.AssignPodPolicy assign_pod_policy = 8;
+ * optional containersai.alameda.v1alpha1.datahub.resources.AssignPodPolicy assign_pod_policy = 9;
  * @return {?proto.containersai.alameda.v1alpha1.datahub.resources.AssignPodPolicy}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.getAssignPodPolicy = function() {
   return /** @type{?proto.containersai.alameda.v1alpha1.datahub.resources.AssignPodPolicy} */ (
-    jspb.Message.getWrapperField(this, alameda_api_v1alpha1_datahub_resources_policies_pb.AssignPodPolicy, 8));
+    jspb.Message.getWrapperField(this, alameda_api_v1alpha1_datahub_resources_policies_pb.AssignPodPolicy, 9));
 };
 
 
@@ -1332,7 +1362,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.getA
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.setAssignPodPolicy = function(value) {
-  return jspb.Message.setWrapperField(this, 8, value);
+  return jspb.Message.setWrapperField(this, 9, value);
 };
 
 
@@ -1350,17 +1380,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.clea
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.hasAssignPodPolicy = function() {
-  return jspb.Message.getField(this, 8) != null;
+  return jspb.Message.getField(this, 9) != null;
 };
 
 
 /**
- * optional containersai.alameda.v1alpha1.datahub.resources.Controller top_controller = 9;
+ * optional containersai.alameda.v1alpha1.datahub.resources.Controller top_controller = 10;
  * @return {?proto.containersai.alameda.v1alpha1.datahub.resources.Controller}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.getTopController = function() {
   return /** @type{?proto.containersai.alameda.v1alpha1.datahub.resources.Controller} */ (
-    jspb.Message.getWrapperField(this, alameda_api_v1alpha1_datahub_resources_resources_pb.Controller, 9));
+    jspb.Message.getWrapperField(this, alameda_api_v1alpha1_datahub_resources_resources_pb.Controller, 10));
 };
 
 
@@ -1369,7 +1399,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.getT
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.setTopController = function(value) {
-  return jspb.Message.setWrapperField(this, 9, value);
+  return jspb.Message.setWrapperField(this, 10, value);
 };
 
 
@@ -1387,17 +1417,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.clea
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.hasTopController = function() {
-  return jspb.Message.getField(this, 9) != null;
+  return jspb.Message.getField(this, 10) != null;
 };
 
 
 /**
- * repeated ContainerPlanning container_plannings = 10;
+ * repeated ContainerPlanning container_plannings = 11;
  * @return {!Array<!proto.containersai.alameda.v1alpha1.datahub.plannings.ContainerPlanning>}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.getContainerPlanningsList = function() {
   return /** @type{!Array<!proto.containersai.alameda.v1alpha1.datahub.plannings.ContainerPlanning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.containersai.alameda.v1alpha1.datahub.plannings.ContainerPlanning, 10));
+    jspb.Message.getRepeatedWrapperField(this, proto.containersai.alameda.v1alpha1.datahub.plannings.ContainerPlanning, 11));
 };
 
 
@@ -1406,7 +1436,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.getC
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.setContainerPlanningsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 10, value);
+  return jspb.Message.setRepeatedWrapperField(this, 11, value);
 };
 
 
@@ -1416,7 +1446,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.setC
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ContainerPlanning}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.addContainerPlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 10, opt_value, proto.containersai.alameda.v1alpha1.datahub.plannings.ContainerPlanning, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 11, opt_value, proto.containersai.alameda.v1alpha1.datahub.plannings.ContainerPlanning, opt_index);
 };
 
 
@@ -1435,7 +1465,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.PodPlanning.prototype.clea
  * @private {!Array<number>}
  * @const
  */
-proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.repeatedFields_ = [9];
+proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.repeatedFields_ = [10];
 
 
 
@@ -1472,8 +1502,9 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.toObjec
     kind: jspb.Message.getFieldWithDefault(msg, 2, 0),
     planningType: jspb.Message.getFieldWithDefault(msg, 3, 0),
     planningId: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    totalCost: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
-    applyPlanningNow: jspb.Message.getBooleanFieldWithDefault(msg, 6, false),
+    predictionId: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    totalCost: jspb.Message.getFloatingPointFieldWithDefault(msg, 6, 0.0),
+    applyPlanningNow: jspb.Message.getBooleanFieldWithDefault(msg, 7, false),
     startTime: (f = msg.getStartTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     endTime: (f = msg.getEndTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     planningsList: jspb.Message.toObjectList(msg.getPlanningsList(),
@@ -1532,24 +1563,28 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.deseria
       msg.setPlanningId(value);
       break;
     case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPredictionId(value);
+      break;
+    case 6:
       var value = /** @type {number} */ (reader.readDouble());
       msg.setTotalCost(value);
       break;
-    case 6:
+    case 7:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setApplyPlanningNow(value);
-      break;
-    case 7:
-      var value = new google_protobuf_timestamp_pb.Timestamp;
-      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setStartTime(value);
       break;
     case 8:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setEndTime(value);
+      msg.setStartTime(value);
       break;
     case 9:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setEndTime(value);
+      break;
+    case 10:
       var value = new proto.containersai.alameda.v1alpha1.datahub.plannings.Planning;
       reader.readMessage(value,proto.containersai.alameda.v1alpha1.datahub.plannings.Planning.deserializeBinaryFromReader);
       msg.addPlannings(value);
@@ -1612,29 +1647,28 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.seriali
       f
     );
   }
+  f = message.getPredictionId();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
+      f
+    );
+  }
   f = message.getTotalCost();
   if (f !== 0.0) {
     writer.writeDouble(
-      5,
+      6,
       f
     );
   }
   f = message.getApplyPlanningNow();
   if (f) {
     writer.writeBool(
-      6,
+      7,
       f
     );
   }
   f = message.getStartTime();
-  if (f != null) {
-    writer.writeMessage(
-      7,
-      f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
-    );
-  }
-  f = message.getEndTime();
   if (f != null) {
     writer.writeMessage(
       8,
@@ -1642,10 +1676,18 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.seriali
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
+  f = message.getEndTime();
+  if (f != null) {
+    writer.writeMessage(
+      9,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
   f = message.getPlanningsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      9,
+      10,
       f,
       proto.containersai.alameda.v1alpha1.datahub.plannings.Planning.serializeBinaryToWriter
     );
@@ -1745,11 +1787,29 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototy
 
 
 /**
- * optional double total_cost = 5;
+ * optional string prediction_id = 5;
+ * @return {string}
+ */
+proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototype.getPredictionId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning} returns this
+ */
+proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototype.setPredictionId = function(value) {
+  return jspb.Message.setProto3StringField(this, 5, value);
+};
+
+
+/**
+ * optional double total_cost = 6;
  * @return {number}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototype.getTotalCost = function() {
-  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 5, 0.0));
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 6, 0.0));
 };
 
 
@@ -1758,16 +1818,16 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototy
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning} returns this
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototype.setTotalCost = function(value) {
-  return jspb.Message.setProto3FloatField(this, 5, value);
+  return jspb.Message.setProto3FloatField(this, 6, value);
 };
 
 
 /**
- * optional bool apply_planning_now = 6;
+ * optional bool apply_planning_now = 7;
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototype.getApplyPlanningNow = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 6, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 7, false));
 };
 
 
@@ -1776,17 +1836,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototy
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning} returns this
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototype.setApplyPlanningNow = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 6, value);
+  return jspb.Message.setProto3BooleanField(this, 7, value);
 };
 
 
 /**
- * optional google.protobuf.Timestamp start_time = 7;
+ * optional google.protobuf.Timestamp start_time = 8;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototype.getStartTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 8));
 };
 
 
@@ -1795,7 +1855,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototy
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototype.setStartTime = function(value) {
-  return jspb.Message.setWrapperField(this, 7, value);
+  return jspb.Message.setWrapperField(this, 8, value);
 };
 
 
@@ -1813,17 +1873,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototy
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototype.hasStartTime = function() {
-  return jspb.Message.getField(this, 7) != null;
+  return jspb.Message.getField(this, 8) != null;
 };
 
 
 /**
- * optional google.protobuf.Timestamp end_time = 8;
+ * optional google.protobuf.Timestamp end_time = 9;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototype.getEndTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 8));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 9));
 };
 
 
@@ -1832,7 +1892,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototy
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototype.setEndTime = function(value) {
-  return jspb.Message.setWrapperField(this, 8, value);
+  return jspb.Message.setWrapperField(this, 9, value);
 };
 
 
@@ -1850,17 +1910,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototy
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototype.hasEndTime = function() {
-  return jspb.Message.getField(this, 8) != null;
+  return jspb.Message.getField(this, 9) != null;
 };
 
 
 /**
- * repeated Planning plannings = 9;
+ * repeated Planning plannings = 10;
  * @return {!Array<!proto.containersai.alameda.v1alpha1.datahub.plannings.Planning>}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototype.getPlanningsList = function() {
   return /** @type{!Array<!proto.containersai.alameda.v1alpha1.datahub.plannings.Planning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, 9));
+    jspb.Message.getRepeatedWrapperField(this, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, 10));
 };
 
 
@@ -1869,7 +1929,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototy
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototype.setPlanningsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 9, value);
+  return jspb.Message.setRepeatedWrapperField(this, 10, value);
 };
 
 
@@ -1879,7 +1939,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototy
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.Planning}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototype.addPlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 9, opt_value, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 10, opt_value, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, opt_index);
 };
 
 
@@ -1898,7 +1958,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ControllerPlanning.prototy
  * @private {!Array<number>}
  * @const
  */
-proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.repeatedFields_ = [8];
+proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.repeatedFields_ = [9];
 
 
 
@@ -1934,8 +1994,9 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.toObje
     objectMeta: (f = msg.getObjectMeta()) && alameda_api_v1alpha1_datahub_resources_metadata_pb.ObjectMeta.toObject(includeInstance, f),
     planningType: jspb.Message.getFieldWithDefault(msg, 2, 0),
     planningId: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    totalCost: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0),
-    applyPlanningNow: jspb.Message.getBooleanFieldWithDefault(msg, 5, false),
+    predictionId: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    totalCost: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
+    applyPlanningNow: jspb.Message.getBooleanFieldWithDefault(msg, 6, false),
     startTime: (f = msg.getStartTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     endTime: (f = msg.getEndTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     planningsList: jspb.Message.toObjectList(msg.getPlanningsList(),
@@ -1990,24 +2051,28 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.deseri
       msg.setPlanningId(value);
       break;
     case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPredictionId(value);
+      break;
+    case 5:
       var value = /** @type {number} */ (reader.readDouble());
       msg.setTotalCost(value);
       break;
-    case 5:
+    case 6:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setApplyPlanningNow(value);
-      break;
-    case 6:
-      var value = new google_protobuf_timestamp_pb.Timestamp;
-      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setStartTime(value);
       break;
     case 7:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setEndTime(value);
+      msg.setStartTime(value);
       break;
     case 8:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setEndTime(value);
+      break;
+    case 9:
       var value = new proto.containersai.alameda.v1alpha1.datahub.plannings.Planning;
       reader.readMessage(value,proto.containersai.alameda.v1alpha1.datahub.plannings.Planning.deserializeBinaryFromReader);
       msg.addPlannings(value);
@@ -2063,29 +2128,28 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.serial
       f
     );
   }
+  f = message.getPredictionId();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
   f = message.getTotalCost();
   if (f !== 0.0) {
     writer.writeDouble(
-      4,
+      5,
       f
     );
   }
   f = message.getApplyPlanningNow();
   if (f) {
     writer.writeBool(
-      5,
+      6,
       f
     );
   }
   f = message.getStartTime();
-  if (f != null) {
-    writer.writeMessage(
-      6,
-      f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
-    );
-  }
-  f = message.getEndTime();
   if (f != null) {
     writer.writeMessage(
       7,
@@ -2093,10 +2157,18 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.serial
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
+  f = message.getEndTime();
+  if (f != null) {
+    writer.writeMessage(
+      8,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
   f = message.getPlanningsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      8,
+      9,
       f,
       proto.containersai.alameda.v1alpha1.datahub.plannings.Planning.serializeBinaryToWriter
     );
@@ -2178,11 +2250,29 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.protot
 
 
 /**
- * optional double total_cost = 4;
+ * optional string prediction_id = 4;
+ * @return {string}
+ */
+proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.prototype.getPredictionId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning} returns this
+ */
+proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.prototype.setPredictionId = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional double total_cost = 5;
  * @return {number}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.prototype.getTotalCost = function() {
-  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 4, 0.0));
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 5, 0.0));
 };
 
 
@@ -2191,16 +2281,16 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.protot
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning} returns this
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.prototype.setTotalCost = function(value) {
-  return jspb.Message.setProto3FloatField(this, 4, value);
+  return jspb.Message.setProto3FloatField(this, 5, value);
 };
 
 
 /**
- * optional bool apply_planning_now = 5;
+ * optional bool apply_planning_now = 6;
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.prototype.getApplyPlanningNow = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 5, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 6, false));
 };
 
 
@@ -2209,17 +2299,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.protot
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning} returns this
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.prototype.setApplyPlanningNow = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 5, value);
+  return jspb.Message.setProto3BooleanField(this, 6, value);
 };
 
 
 /**
- * optional google.protobuf.Timestamp start_time = 6;
+ * optional google.protobuf.Timestamp start_time = 7;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.prototype.getStartTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 6));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
 };
 
 
@@ -2228,7 +2318,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.protot
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.prototype.setStartTime = function(value) {
-  return jspb.Message.setWrapperField(this, 6, value);
+  return jspb.Message.setWrapperField(this, 7, value);
 };
 
 
@@ -2246,17 +2336,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.protot
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.prototype.hasStartTime = function() {
-  return jspb.Message.getField(this, 6) != null;
+  return jspb.Message.getField(this, 7) != null;
 };
 
 
 /**
- * optional google.protobuf.Timestamp end_time = 7;
+ * optional google.protobuf.Timestamp end_time = 8;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.prototype.getEndTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 8));
 };
 
 
@@ -2265,7 +2355,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.protot
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.prototype.setEndTime = function(value) {
-  return jspb.Message.setWrapperField(this, 7, value);
+  return jspb.Message.setWrapperField(this, 8, value);
 };
 
 
@@ -2283,17 +2373,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.protot
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.prototype.hasEndTime = function() {
-  return jspb.Message.getField(this, 7) != null;
+  return jspb.Message.getField(this, 8) != null;
 };
 
 
 /**
- * repeated Planning plannings = 8;
+ * repeated Planning plannings = 9;
  * @return {!Array<!proto.containersai.alameda.v1alpha1.datahub.plannings.Planning>}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.prototype.getPlanningsList = function() {
   return /** @type{!Array<!proto.containersai.alameda.v1alpha1.datahub.plannings.Planning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, 8));
+    jspb.Message.getRepeatedWrapperField(this, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, 9));
 };
 
 
@@ -2302,7 +2392,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.protot
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.prototype.setPlanningsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 8, value);
+  return jspb.Message.setRepeatedWrapperField(this, 9, value);
 };
 
 
@@ -2312,7 +2402,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.protot
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.Planning}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.prototype.addPlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 8, opt_value, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 9, opt_value, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, opt_index);
 };
 
 
@@ -2331,7 +2421,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ApplicationPlanning.protot
  * @private {!Array<number>}
  * @const
  */
-proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.repeatedFields_ = [8];
+proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.repeatedFields_ = [9];
 
 
 
@@ -2367,8 +2457,9 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.toObject
     objectMeta: (f = msg.getObjectMeta()) && alameda_api_v1alpha1_datahub_resources_metadata_pb.ObjectMeta.toObject(includeInstance, f),
     planningType: jspb.Message.getFieldWithDefault(msg, 2, 0),
     planningId: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    totalCost: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0),
-    applyPlanningNow: jspb.Message.getBooleanFieldWithDefault(msg, 5, false),
+    predictionId: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    totalCost: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
+    applyPlanningNow: jspb.Message.getBooleanFieldWithDefault(msg, 6, false),
     startTime: (f = msg.getStartTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     endTime: (f = msg.getEndTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     planningsList: jspb.Message.toObjectList(msg.getPlanningsList(),
@@ -2423,24 +2514,28 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.deserial
       msg.setPlanningId(value);
       break;
     case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPredictionId(value);
+      break;
+    case 5:
       var value = /** @type {number} */ (reader.readDouble());
       msg.setTotalCost(value);
       break;
-    case 5:
+    case 6:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setApplyPlanningNow(value);
-      break;
-    case 6:
-      var value = new google_protobuf_timestamp_pb.Timestamp;
-      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setStartTime(value);
       break;
     case 7:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setEndTime(value);
+      msg.setStartTime(value);
       break;
     case 8:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setEndTime(value);
+      break;
+    case 9:
       var value = new proto.containersai.alameda.v1alpha1.datahub.plannings.Planning;
       reader.readMessage(value,proto.containersai.alameda.v1alpha1.datahub.plannings.Planning.deserializeBinaryFromReader);
       msg.addPlannings(value);
@@ -2496,29 +2591,28 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.serializ
       f
     );
   }
+  f = message.getPredictionId();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
   f = message.getTotalCost();
   if (f !== 0.0) {
     writer.writeDouble(
-      4,
+      5,
       f
     );
   }
   f = message.getApplyPlanningNow();
   if (f) {
     writer.writeBool(
-      5,
+      6,
       f
     );
   }
   f = message.getStartTime();
-  if (f != null) {
-    writer.writeMessage(
-      6,
-      f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
-    );
-  }
-  f = message.getEndTime();
   if (f != null) {
     writer.writeMessage(
       7,
@@ -2526,10 +2620,18 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.serializ
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
+  f = message.getEndTime();
+  if (f != null) {
+    writer.writeMessage(
+      8,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
   f = message.getPlanningsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      8,
+      9,
       f,
       proto.containersai.alameda.v1alpha1.datahub.plannings.Planning.serializeBinaryToWriter
     );
@@ -2611,11 +2713,29 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototyp
 
 
 /**
- * optional double total_cost = 4;
+ * optional string prediction_id = 4;
+ * @return {string}
+ */
+proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototype.getPredictionId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning} returns this
+ */
+proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototype.setPredictionId = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional double total_cost = 5;
  * @return {number}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototype.getTotalCost = function() {
-  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 4, 0.0));
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 5, 0.0));
 };
 
 
@@ -2624,16 +2744,16 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototyp
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning} returns this
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototype.setTotalCost = function(value) {
-  return jspb.Message.setProto3FloatField(this, 4, value);
+  return jspb.Message.setProto3FloatField(this, 5, value);
 };
 
 
 /**
- * optional bool apply_planning_now = 5;
+ * optional bool apply_planning_now = 6;
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototype.getApplyPlanningNow = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 5, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 6, false));
 };
 
 
@@ -2642,17 +2762,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototyp
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning} returns this
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototype.setApplyPlanningNow = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 5, value);
+  return jspb.Message.setProto3BooleanField(this, 6, value);
 };
 
 
 /**
- * optional google.protobuf.Timestamp start_time = 6;
+ * optional google.protobuf.Timestamp start_time = 7;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototype.getStartTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 6));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
 };
 
 
@@ -2661,7 +2781,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototyp
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototype.setStartTime = function(value) {
-  return jspb.Message.setWrapperField(this, 6, value);
+  return jspb.Message.setWrapperField(this, 7, value);
 };
 
 
@@ -2679,17 +2799,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototyp
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototype.hasStartTime = function() {
-  return jspb.Message.getField(this, 6) != null;
+  return jspb.Message.getField(this, 7) != null;
 };
 
 
 /**
- * optional google.protobuf.Timestamp end_time = 7;
+ * optional google.protobuf.Timestamp end_time = 8;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototype.getEndTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 8));
 };
 
 
@@ -2698,7 +2818,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototyp
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototype.setEndTime = function(value) {
-  return jspb.Message.setWrapperField(this, 7, value);
+  return jspb.Message.setWrapperField(this, 8, value);
 };
 
 
@@ -2716,17 +2836,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototyp
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototype.hasEndTime = function() {
-  return jspb.Message.getField(this, 7) != null;
+  return jspb.Message.getField(this, 8) != null;
 };
 
 
 /**
- * repeated Planning plannings = 8;
+ * repeated Planning plannings = 9;
  * @return {!Array<!proto.containersai.alameda.v1alpha1.datahub.plannings.Planning>}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototype.getPlanningsList = function() {
   return /** @type{!Array<!proto.containersai.alameda.v1alpha1.datahub.plannings.Planning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, 8));
+    jspb.Message.getRepeatedWrapperField(this, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, 9));
 };
 
 
@@ -2735,7 +2855,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototyp
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototype.setPlanningsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 8, value);
+  return jspb.Message.setRepeatedWrapperField(this, 9, value);
 };
 
 
@@ -2745,7 +2865,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototyp
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.Planning}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototype.addPlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 8, opt_value, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 9, opt_value, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, opt_index);
 };
 
 
@@ -2764,7 +2884,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NamespacePlanning.prototyp
  * @private {!Array<number>}
  * @const
  */
-proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.repeatedFields_ = [8];
+proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.repeatedFields_ = [9];
 
 
 
@@ -2800,8 +2920,9 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.toObject = fu
     objectMeta: (f = msg.getObjectMeta()) && alameda_api_v1alpha1_datahub_resources_metadata_pb.ObjectMeta.toObject(includeInstance, f),
     planningType: jspb.Message.getFieldWithDefault(msg, 2, 0),
     planningId: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    totalCost: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0),
-    applyPlanningNow: jspb.Message.getBooleanFieldWithDefault(msg, 5, false),
+    predictionId: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    totalCost: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
+    applyPlanningNow: jspb.Message.getBooleanFieldWithDefault(msg, 6, false),
     startTime: (f = msg.getStartTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     endTime: (f = msg.getEndTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     planningsList: jspb.Message.toObjectList(msg.getPlanningsList(),
@@ -2856,24 +2977,28 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.deserializeBi
       msg.setPlanningId(value);
       break;
     case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPredictionId(value);
+      break;
+    case 5:
       var value = /** @type {number} */ (reader.readDouble());
       msg.setTotalCost(value);
       break;
-    case 5:
+    case 6:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setApplyPlanningNow(value);
-      break;
-    case 6:
-      var value = new google_protobuf_timestamp_pb.Timestamp;
-      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setStartTime(value);
       break;
     case 7:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setEndTime(value);
+      msg.setStartTime(value);
       break;
     case 8:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setEndTime(value);
+      break;
+    case 9:
       var value = new proto.containersai.alameda.v1alpha1.datahub.plannings.Planning;
       reader.readMessage(value,proto.containersai.alameda.v1alpha1.datahub.plannings.Planning.deserializeBinaryFromReader);
       msg.addPlannings(value);
@@ -2929,29 +3054,28 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.serializeBina
       f
     );
   }
+  f = message.getPredictionId();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
   f = message.getTotalCost();
   if (f !== 0.0) {
     writer.writeDouble(
-      4,
+      5,
       f
     );
   }
   f = message.getApplyPlanningNow();
   if (f) {
     writer.writeBool(
-      5,
+      6,
       f
     );
   }
   f = message.getStartTime();
-  if (f != null) {
-    writer.writeMessage(
-      6,
-      f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
-    );
-  }
-  f = message.getEndTime();
   if (f != null) {
     writer.writeMessage(
       7,
@@ -2959,10 +3083,18 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.serializeBina
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
+  f = message.getEndTime();
+  if (f != null) {
+    writer.writeMessage(
+      8,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
   f = message.getPlanningsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      8,
+      9,
       f,
       proto.containersai.alameda.v1alpha1.datahub.plannings.Planning.serializeBinaryToWriter
     );
@@ -3044,11 +3176,29 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.set
 
 
 /**
- * optional double total_cost = 4;
+ * optional string prediction_id = 4;
+ * @return {string}
+ */
+proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.getPredictionId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning} returns this
+ */
+proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.setPredictionId = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional double total_cost = 5;
  * @return {number}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.getTotalCost = function() {
-  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 4, 0.0));
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 5, 0.0));
 };
 
 
@@ -3057,16 +3207,16 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.get
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning} returns this
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.setTotalCost = function(value) {
-  return jspb.Message.setProto3FloatField(this, 4, value);
+  return jspb.Message.setProto3FloatField(this, 5, value);
 };
 
 
 /**
- * optional bool apply_planning_now = 5;
+ * optional bool apply_planning_now = 6;
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.getApplyPlanningNow = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 5, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 6, false));
 };
 
 
@@ -3075,17 +3225,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.get
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning} returns this
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.setApplyPlanningNow = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 5, value);
+  return jspb.Message.setProto3BooleanField(this, 6, value);
 };
 
 
 /**
- * optional google.protobuf.Timestamp start_time = 6;
+ * optional google.protobuf.Timestamp start_time = 7;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.getStartTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 6));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
 };
 
 
@@ -3094,7 +3244,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.get
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.setStartTime = function(value) {
-  return jspb.Message.setWrapperField(this, 6, value);
+  return jspb.Message.setWrapperField(this, 7, value);
 };
 
 
@@ -3112,17 +3262,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.cle
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.hasStartTime = function() {
-  return jspb.Message.getField(this, 6) != null;
+  return jspb.Message.getField(this, 7) != null;
 };
 
 
 /**
- * optional google.protobuf.Timestamp end_time = 7;
+ * optional google.protobuf.Timestamp end_time = 8;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.getEndTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 8));
 };
 
 
@@ -3131,7 +3281,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.get
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.setEndTime = function(value) {
-  return jspb.Message.setWrapperField(this, 7, value);
+  return jspb.Message.setWrapperField(this, 8, value);
 };
 
 
@@ -3149,17 +3299,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.cle
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.hasEndTime = function() {
-  return jspb.Message.getField(this, 7) != null;
+  return jspb.Message.getField(this, 8) != null;
 };
 
 
 /**
- * repeated Planning plannings = 8;
+ * repeated Planning plannings = 9;
  * @return {!Array<!proto.containersai.alameda.v1alpha1.datahub.plannings.Planning>}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.getPlanningsList = function() {
   return /** @type{!Array<!proto.containersai.alameda.v1alpha1.datahub.plannings.Planning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, 8));
+    jspb.Message.getRepeatedWrapperField(this, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, 9));
 };
 
 
@@ -3168,7 +3318,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.get
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.setPlanningsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 8, value);
+  return jspb.Message.setRepeatedWrapperField(this, 9, value);
 };
 
 
@@ -3178,7 +3328,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.set
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.Planning}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.addPlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 8, opt_value, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 9, opt_value, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, opt_index);
 };
 
 
@@ -3197,7 +3347,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.NodePlanning.prototype.cle
  * @private {!Array<number>}
  * @const
  */
-proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.repeatedFields_ = [8];
+proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.repeatedFields_ = [9];
 
 
 
@@ -3233,8 +3383,9 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.toObject =
     objectMeta: (f = msg.getObjectMeta()) && alameda_api_v1alpha1_datahub_resources_metadata_pb.ObjectMeta.toObject(includeInstance, f),
     planningType: jspb.Message.getFieldWithDefault(msg, 2, 0),
     planningId: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    totalCost: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0),
-    applyPlanningNow: jspb.Message.getBooleanFieldWithDefault(msg, 5, false),
+    predictionId: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    totalCost: jspb.Message.getFloatingPointFieldWithDefault(msg, 5, 0.0),
+    applyPlanningNow: jspb.Message.getBooleanFieldWithDefault(msg, 6, false),
     startTime: (f = msg.getStartTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     endTime: (f = msg.getEndTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     planningsList: jspb.Message.toObjectList(msg.getPlanningsList(),
@@ -3289,24 +3440,28 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.deserializ
       msg.setPlanningId(value);
       break;
     case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPredictionId(value);
+      break;
+    case 5:
       var value = /** @type {number} */ (reader.readDouble());
       msg.setTotalCost(value);
       break;
-    case 5:
+    case 6:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setApplyPlanningNow(value);
-      break;
-    case 6:
-      var value = new google_protobuf_timestamp_pb.Timestamp;
-      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setStartTime(value);
       break;
     case 7:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
-      msg.setEndTime(value);
+      msg.setStartTime(value);
       break;
     case 8:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setEndTime(value);
+      break;
+    case 9:
       var value = new proto.containersai.alameda.v1alpha1.datahub.plannings.Planning;
       reader.readMessage(value,proto.containersai.alameda.v1alpha1.datahub.plannings.Planning.deserializeBinaryFromReader);
       msg.addPlannings(value);
@@ -3362,29 +3517,28 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.serializeB
       f
     );
   }
+  f = message.getPredictionId();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
   f = message.getTotalCost();
   if (f !== 0.0) {
     writer.writeDouble(
-      4,
+      5,
       f
     );
   }
   f = message.getApplyPlanningNow();
   if (f) {
     writer.writeBool(
-      5,
+      6,
       f
     );
   }
   f = message.getStartTime();
-  if (f != null) {
-    writer.writeMessage(
-      6,
-      f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
-    );
-  }
-  f = message.getEndTime();
   if (f != null) {
     writer.writeMessage(
       7,
@@ -3392,10 +3546,18 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.serializeB
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
+  f = message.getEndTime();
+  if (f != null) {
+    writer.writeMessage(
+      8,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
   f = message.getPlanningsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      8,
+      9,
       f,
       proto.containersai.alameda.v1alpha1.datahub.plannings.Planning.serializeBinaryToWriter
     );
@@ -3477,11 +3639,29 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.
 
 
 /**
- * optional double total_cost = 4;
+ * optional string prediction_id = 4;
+ * @return {string}
+ */
+proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.getPredictionId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning} returns this
+ */
+proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.setPredictionId = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional double total_cost = 5;
  * @return {number}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.getTotalCost = function() {
-  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 4, 0.0));
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 5, 0.0));
 };
 
 
@@ -3490,16 +3670,16 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning} returns this
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.setTotalCost = function(value) {
-  return jspb.Message.setProto3FloatField(this, 4, value);
+  return jspb.Message.setProto3FloatField(this, 5, value);
 };
 
 
 /**
- * optional bool apply_planning_now = 5;
+ * optional bool apply_planning_now = 6;
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.getApplyPlanningNow = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 5, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 6, false));
 };
 
 
@@ -3508,17 +3688,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning} returns this
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.setApplyPlanningNow = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 5, value);
+  return jspb.Message.setProto3BooleanField(this, 6, value);
 };
 
 
 /**
- * optional google.protobuf.Timestamp start_time = 6;
+ * optional google.protobuf.Timestamp start_time = 7;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.getStartTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 6));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
 };
 
 
@@ -3527,7 +3707,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.setStartTime = function(value) {
-  return jspb.Message.setWrapperField(this, 6, value);
+  return jspb.Message.setWrapperField(this, 7, value);
 };
 
 
@@ -3545,17 +3725,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.hasStartTime = function() {
-  return jspb.Message.getField(this, 6) != null;
+  return jspb.Message.getField(this, 7) != null;
 };
 
 
 /**
- * optional google.protobuf.Timestamp end_time = 7;
+ * optional google.protobuf.Timestamp end_time = 8;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.getEndTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 8));
 };
 
 
@@ -3564,7 +3744,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.setEndTime = function(value) {
-  return jspb.Message.setWrapperField(this, 7, value);
+  return jspb.Message.setWrapperField(this, 8, value);
 };
 
 
@@ -3582,17 +3762,17 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.hasEndTime = function() {
-  return jspb.Message.getField(this, 7) != null;
+  return jspb.Message.getField(this, 8) != null;
 };
 
 
 /**
- * repeated Planning plannings = 8;
+ * repeated Planning plannings = 9;
  * @return {!Array<!proto.containersai.alameda.v1alpha1.datahub.plannings.Planning>}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.getPlanningsList = function() {
   return /** @type{!Array<!proto.containersai.alameda.v1alpha1.datahub.plannings.Planning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, 8));
+    jspb.Message.getRepeatedWrapperField(this, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, 9));
 };
 
 
@@ -3601,7 +3781,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.setPlanningsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 8, value);
+  return jspb.Message.setRepeatedWrapperField(this, 9, value);
 };
 
 
@@ -3611,7 +3791,7 @@ proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.
  * @return {!proto.containersai.alameda.v1alpha1.datahub.plannings.Planning}
  */
 proto.containersai.alameda.v1alpha1.datahub.plannings.ClusterPlanning.prototype.addPlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 8, opt_value, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 9, opt_value, proto.containersai.alameda.v1alpha1.datahub.plannings.Planning, opt_index);
 };
 
 

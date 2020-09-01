@@ -34,13 +34,14 @@ message PodPlanning {
     resources.ObjectMeta       object_meta         = 1;
     PlanningType               planning_type       = 2;
     string                     planning_id         = 3;
-    double                     total_cost          = 4;
-    bool                       apply_planning_now  = 5;
-    google.protobuf.Timestamp  start_time          = 6;
-    google.protobuf.Timestamp  end_time            = 7;
-    resources.AssignPodPolicy  assign_pod_policy   = 8;
-    resources.Controller       top_controller      = 9;
-    repeated ContainerPlanning container_plannings = 10;
+    string                     prediction_id       = 4;
+    double                     total_cost          = 5;
+    bool                       apply_planning_now  = 6;
+    google.protobuf.Timestamp  start_time          = 7;
+    google.protobuf.Timestamp  end_time            = 8;
+    resources.AssignPodPolicy  assign_pod_policy   = 9;
+    resources.Controller       top_controller      = 10;
+    repeated ContainerPlanning container_plannings = 11;
 }
 
 message ControllerPlanning {
@@ -48,6 +49,19 @@ message ControllerPlanning {
     resources.Kind             kind                = 2;
     PlanningType               planning_type       = 3;
     string                     planning_id         = 4;
+    string                     prediction_id       = 5;
+    double                     total_cost          = 6;
+    bool                       apply_planning_now  = 7;
+    google.protobuf.Timestamp  start_time          = 8;
+    google.protobuf.Timestamp  end_time            = 9;
+    repeated Planning          plannings           = 10;
+}
+
+message ApplicationPlanning {
+    resources.ObjectMeta       object_meta         = 1;
+    PlanningType               planning_type       = 2;
+    string                     planning_id         = 3;
+    string                     prediction_id       = 4;
     double                     total_cost          = 5;
     bool                       apply_planning_now  = 6;
     google.protobuf.Timestamp  start_time          = 7;
@@ -55,48 +69,40 @@ message ControllerPlanning {
     repeated Planning          plannings           = 9;
 }
 
-message ApplicationPlanning {
-    resources.ObjectMeta       object_meta         = 1;
-    PlanningType               planning_type       = 2;
-    string                     planning_id         = 3;
-    double                     total_cost          = 4;
-    bool                       apply_planning_now  = 5;
-    google.protobuf.Timestamp  start_time          = 6;
-    google.protobuf.Timestamp  end_time            = 7;
-    repeated Planning          plannings           = 8;
-}
-
 message NamespacePlanning {
     resources.ObjectMeta       object_meta         = 1;
     PlanningType               planning_type       = 2;
     string                     planning_id         = 3;
-    double                     total_cost          = 4;
-    bool                       apply_planning_now  = 5;
-    google.protobuf.Timestamp  start_time          = 6;
-    google.protobuf.Timestamp  end_time            = 7;
-    repeated Planning          plannings           = 8;
+    string                     prediction_id       = 4;
+    double                     total_cost          = 5;
+    bool                       apply_planning_now  = 6;
+    google.protobuf.Timestamp  start_time          = 7;
+    google.protobuf.Timestamp  end_time            = 8;
+    repeated Planning          plannings           = 9;
 }
 
 message NodePlanning {
     resources.ObjectMeta       object_meta         = 1;
     PlanningType               planning_type       = 2;
     string                     planning_id         = 3;
-    double                     total_cost          = 4;
-    bool                       apply_planning_now  = 5;
-    google.protobuf.Timestamp  start_time          = 6;
-    google.protobuf.Timestamp  end_time            = 7;
-    repeated Planning          plannings           = 8;
+    string                     prediction_id       = 4;
+    double                     total_cost          = 5;
+    bool                       apply_planning_now  = 6;
+    google.protobuf.Timestamp  start_time          = 7;
+    google.protobuf.Timestamp  end_time            = 8;
+    repeated Planning          plannings           = 9;
 }
 
 message ClusterPlanning {
     resources.ObjectMeta       object_meta         = 1;
     PlanningType               planning_type       = 2;
     string                     planning_id         = 3;
-    double                     total_cost          = 4;
-    bool                       apply_planning_now  = 5;
-    google.protobuf.Timestamp  start_time          = 6;
-    google.protobuf.Timestamp  end_time            = 7;
-    repeated Planning          plannings           = 8;
+    string                     prediction_id       = 4;
+    double                     total_cost          = 5;
+    bool                       apply_planning_now  = 6;
+    google.protobuf.Timestamp  start_time          = 7;
+    google.protobuf.Timestamp  end_time            = 8;
+    repeated Planning          plannings           = 9;
 }
 
 message WritePlanning {

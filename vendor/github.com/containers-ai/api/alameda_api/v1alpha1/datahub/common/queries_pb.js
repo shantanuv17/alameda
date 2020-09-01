@@ -1429,7 +1429,8 @@ proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition.toObject = fun
     proto.containersai.alameda.v1alpha1.datahub.common.Condition.toObject, includeInstance),
     selectsList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f,
     groupsList: (f = jspb.Message.getRepeatedField(msg, 8)) == null ? undefined : f,
-    limit: jspb.Message.getFieldWithDefault(msg, 9, 0)
+    limit: jspb.Message.getFieldWithDefault(msg, 9, 0),
+    subQuery: (f = msg.getSubQuery()) && proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -1505,6 +1506,11 @@ proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition.deserializeBin
     case 9:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setLimit(value);
+      break;
+    case 10:
+      var value = new proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition;
+      reader.readMessage(value,proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition.deserializeBinaryFromReader);
+      msg.setSubQuery(value);
       break;
     default:
       reader.skipField();
@@ -1600,6 +1606,14 @@ proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition.serializeBinar
     writer.writeUint64(
       9,
       f
+    );
+  }
+  f = message.getSubQuery();
+  if (f != null) {
+    writer.writeMessage(
+      10,
+      f,
+      proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition.serializeBinaryToWriter
     );
   }
 };
@@ -1888,6 +1902,43 @@ proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition.prototype.getL
  */
 proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition.prototype.setLimit = function(value) {
   return jspb.Message.setProto3IntField(this, 9, value);
+};
+
+
+/**
+ * optional QueryCondition sub_query = 10;
+ * @return {?proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition}
+ */
+proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition.prototype.getSubQuery = function() {
+  return /** @type{?proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition, 10));
+};
+
+
+/**
+ * @param {?proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition} returns this
+*/
+proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition.prototype.setSubQuery = function(value) {
+  return jspb.Message.setWrapperField(this, 10, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition} returns this
+ */
+proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition.prototype.clearSubQuery = function() {
+  return this.setSubQuery(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.containersai.alameda.v1alpha1.datahub.common.QueryCondition.prototype.hasSubQuery = function() {
+  return jspb.Message.getField(this, 10) != null;
 };
 
 

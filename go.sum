@@ -59,8 +59,8 @@ github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDk
 github.com/cncf/udpa/go v0.0.0-20191209042840-269d4d468f6f/go.mod h1:M8M6+tZqaGXZJjfX53e64911xZQV5JYwmTeXPW+k8Sc=
 github.com/cockroachdb/datadriven v0.0.0-20190809214429-80d97fb3cbaa/go.mod h1:zn76sxSg3SzpJ0PPJaLDCu+Bu0Lg3sKTORVIj19EIF8=
 github.com/containerd/continuity v0.0.0-20190827140505-75bee3e2ccb6/go.mod h1:GL3xCUCBDV3CZiTSEKksMWbLE66hEyuu9qyDOOqM47Y=
-github.com/containers-ai/api v4.2.790-0.20200821083229-d06b7a5bbc8f+incompatible h1:oHu2MJuNG9ptWR9qElngWOXZ2tbOkxHHObl2vV8Ie1s=
-github.com/containers-ai/api v4.2.790-0.20200821083229-d06b7a5bbc8f+incompatible/go.mod h1:4lntUeoAjUdYzGVcVgb/N15po7roqVAgGWqeH1Twe04=
+github.com/containers-ai/api v4.2.790-0.20200901033718-5a100d7d727b+incompatible h1:YKBpzMo6ymj3Ck2PfBS3jmN/2pDbiQU4IIyHtWpnJrM=
+github.com/containers-ai/api v4.2.790-0.20200901033718-5a100d7d727b+incompatible/go.mod h1:4lntUeoAjUdYzGVcVgb/N15po7roqVAgGWqeH1Twe04=
 github.com/coreos/bbolt v1.3.1-coreos.6/go.mod h1:iRUV2dpdMOn7Bo10OQBFzIJO9kkE559Wcmn+qkEiiKk=
 github.com/coreos/etcd v3.3.10+incompatible/go.mod h1:uF7uidLiAD3TWHmW31ZFd/JWoc32PjwdhPthX9715RE=
 github.com/coreos/etcd v3.3.15+incompatible/go.mod h1:uF7uidLiAD3TWHmW31ZFd/JWoc32PjwdhPthX9715RE=
