@@ -10,14 +10,12 @@ import (
 	"golang.org/x/sync/errgroup"
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	"github.com/containers-ai/alameda/internal/pkg/database/prometheus"
+	"github.com/containers-ai/alameda/pkg/database/prometheus"
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	utilsresources "github.com/containers-ai/alameda/operator/pkg/utils/resources"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/containers-ai/alameda/pkg/utils/log"
-
-	datahubresources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 
 	openshiftapiappsv1 "github.com/openshift/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -393,12 +391,12 @@ func (r AlamedaScalerKafkaReconciler) listConsumerGroups(
 		return nil, errors.Wrap(err, "list topics partition counts failed")
 	}
 
-	policy := datahubresources.RecommendationPolicy_RECOMMENDATION_POLICY_UNDEFINED.String()
+	policy := entities.PolicyUndefined
 	switch alamedaScaler.Spec.Policy {
 	case autoscalingv1alpha1.RecommendationPolicySTABLE:
-		policy = datahubresources.RecommendationPolicy_STABLE.String()
+		policy = entities.Stable
 	case autoscalingv1alpha1.RecommendationPolicyCOMPACT:
-		policy = datahubresources.RecommendationPolicy_COMPACT.String()
+		policy = entities.Compact
 	}
 
 	consumerGroupSpecs := alamedaScaler.Spec.Kafka.ConsumerGroups
@@ -546,7 +544,7 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(
 
 		resource := getTotalResourceFromContainers(controller.Spec.Template.Spec.Containers)
 		consumerGroupEntity.ResourceK8sKind =
-			controller.GetObjectKind().GroupVersionKind().Kind
+			entities.Kind(controller.GetObjectKind().GroupVersionKind().Kind)
 		consumerGroupEntity.ResourceK8sNamespace = controller.GetNamespace()
 		consumerGroupEntity.ResourceK8sName = controller.GetName()
 		consumerGroupEntity.ResourceK8sReplicas = controller.Status.ReadyReplicas
@@ -588,7 +586,7 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(
 		resource := getTotalResourceFromContainers(
 			controller.Spec.Template.Spec.Containers)
 		consumerGroupEntity.ResourceK8sKind =
-			controller.GetObjectKind().GroupVersionKind().Kind
+			entities.Kind(controller.GetObjectKind().GroupVersionKind().Kind)
 		consumerGroupEntity.ResourceK8sNamespace = controller.GetNamespace()
 		consumerGroupEntity.ResourceK8sName = controller.GetName()
 		consumerGroupEntity.ResourceK8sReplicas = controller.Status.ReadyReplicas
@@ -627,7 +625,7 @@ func (r AlamedaScalerKafkaReconciler) getFirstCreatedMatchedKubernetesMetadata(
 		resource := getTotalResourceFromContainers(controller.Spec.Template.Spec.Containers)
 
 		consumerGroupEntity.ResourceK8sKind =
-			controller.GetObjectKind().GroupVersionKind().Kind
+			entities.Kind(controller.GetObjectKind().GroupVersionKind().Kind)
 		consumerGroupEntity.ResourceK8sNamespace = controller.GetNamespace()
 		consumerGroupEntity.ResourceK8sName = controller.GetName()
 		consumerGroupEntity.ResourceK8sReplicas = controller.Status.ReadyReplicas
@@ -876,7 +874,7 @@ func (r AlamedaScalerKafkaReconciler) getKafkaConsumerGroupStatusFromConsumerGro
 		status.Resource.Kubernetes = &autoscalingv1alpha1.KubernetesObjectMetadata{
 			Namespace: detail.ResourceK8sNamespace,
 			Name:      detail.ResourceK8sName,
-			Kind:      detail.ResourceK8sKind,
+			Kind:      string(detail.ResourceK8sKind),
 		}
 	}
 

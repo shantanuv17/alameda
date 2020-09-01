@@ -22,6 +22,7 @@ import (
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	ca_client "github.com/containers-ai/alameda/operator/datahub/client/ca"
+	datahubcommon "github.com/containers-ai/alameda/pkg/database/common"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	mahcinev1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	corev1 "k8s.io/api/core/v1"
@@ -160,7 +161,7 @@ func (r *MachineReconciler) sendExecutionTime(execTime *time.Time,
 func (r *MachineReconciler) hasScaleUpExecution(machineName string) (bool, error) {
 	msExecution := []entities.ExecutionClusterAutoscalerMachineset{}
 	err := r.DatahubClient.ListTS(&msExecution, &datahubpkg.TimeRange{
-		Order: datahubpkg.Desc,
+		Order: datahubcommon.Desc,
 	}, nil, nil, datahubpkg.Option{
 		Entity: entities.ExecutionClusterAutoscalerMachineset{
 			ClusterName: r.ClusterUID,

@@ -3,6 +3,7 @@ package schemas
 var ScopeValue = map[string]Scope{
 	"undefined":      ScopeUndefined,
 	"application":    Application,
+	"execution":      Execution,
 	"fedemeter":      Fedemeter,
 	"metric":         Metric,
 	"planning":       Planning,
