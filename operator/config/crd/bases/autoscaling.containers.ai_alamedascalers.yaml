@@ -62,11 +62,15 @@ spec:
                           maxReplicas:
                             description: maximum limit of number of replicas
                             format: int32
+                            minimum: 1
                             type: integer
                           minReplicas:
                             description: minimum limit of number of replicas
                             format: int32
+                            minimum: 1
                             type: integer
+                        required:
+                        - maxReplicas
                         type: object
                       target:
                         description: reference to generic application to be managed
@@ -135,11 +139,15 @@ spec:
                           maxReplicas:
                             description: maximum limit of number of replicas
                             format: int32
+                            minimum: 1
                             type: integer
                           minReplicas:
                             description: minimum limit of number of replicas
                             format: int32
+                            minimum: 1
                             type: integer
+                        required:
+                        - maxReplicas
                         type: object
                     required:
                     - consumerGroup
