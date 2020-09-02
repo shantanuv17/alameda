@@ -8,6 +8,7 @@ import "alameda_api/v1alpha1/datahub/applications/services.proto";
 import "alameda_api/v1alpha1/datahub/data/services.proto";
 import "alameda_api/v1alpha1/datahub/events/services.proto";
 import "alameda_api/v1alpha1/datahub/gpu/services.proto";
+import "alameda_api/v1alpha1/datahub/keycodes/services.proto";
 import "alameda_api/v1alpha1/datahub/licenses/services.proto";
 import "alameda_api/v1alpha1/datahub/metrics/services.proto";
 import "alameda_api/v1alpha1/datahub/plannings/services.proto";
@@ -73,6 +74,26 @@ service DatahubService {
     // Used to list GPU predictions
     rpc ListGpuPredictions(gpu.ListGpuPredictionsRequest)
         returns (gpu.ListGpuPredictionsResponse){}
+
+    // Used to add a keycode
+    rpc AddKeycode(keycodes.AddKeycodeRequest)
+        returns (keycodes.AddKeycodeResponse){}
+
+    // Used to retrieve keycodes detailed information
+    rpc ListKeycodes(keycodes.ListKeycodesRequest)
+        returns (keycodes.ListKeycodesResponse){}
+
+    // Used to delete a keycode
+    rpc DeleteKeycode(keycodes.DeleteKeycodeRequest)
+        returns (google.rpc.Status){}
+
+    // Used to generate license registration data
+    rpc GenerateRegistrationData(google.protobuf.Empty)
+        returns (keycodes.GenerateRegistrationDataResponse){}
+
+    // Used to activate license signature data
+    rpc ActivateRegistrationData(keycodes.ActivateRegistrationDataRequest)
+        returns (google.rpc.Status){}
 
     // Used to get datahub license information
     rpc GetLicense(google.protobuf.Empty)

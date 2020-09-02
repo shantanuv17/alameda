@@ -1,0 +1,26 @@
+// This file has messages related to keycode managements
+
+syntax = "proto3";
+
+package containersai.alameda.v1alpha1.datahub.keycodes;
+
+option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/keycodes";
+
+message Capacity {
+    int32 users = 1; // example: "-1"`
+    int32 hosts = 2; // example: "20"`
+    int32 disks = 3; // example: "200"`
+}
+
+message Functionality {
+    bool disk_prophet = 1; // example: "true"`
+    bool workload     = 2; // example: "true"`
+}
+
+message Retention {
+    int32 valid_month = 1; // example: "0"`
+    int32 years       = 2; // example: "1"`
+}
+
+message ServiceAgreement {
+}

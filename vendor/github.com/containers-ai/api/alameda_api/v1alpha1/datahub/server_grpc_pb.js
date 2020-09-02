@@ -9,6 +9,7 @@ var alameda_api_v1alpha1_datahub_applications_services_pb = require('../../../al
 var alameda_api_v1alpha1_datahub_data_services_pb = require('../../../alameda_api/v1alpha1/datahub/data/services_pb.js');
 var alameda_api_v1alpha1_datahub_events_services_pb = require('../../../alameda_api/v1alpha1/datahub/events/services_pb.js');
 var alameda_api_v1alpha1_datahub_gpu_services_pb = require('../../../alameda_api/v1alpha1/datahub/gpu/services_pb.js');
+var alameda_api_v1alpha1_datahub_keycodes_services_pb = require('../../../alameda_api/v1alpha1/datahub/keycodes/services_pb.js');
 var alameda_api_v1alpha1_datahub_licenses_services_pb = require('../../../alameda_api/v1alpha1/datahub/licenses/services_pb.js');
 var alameda_api_v1alpha1_datahub_metrics_services_pb = require('../../../alameda_api/v1alpha1/datahub/metrics/services_pb.js');
 var alameda_api_v1alpha1_datahub_plannings_services_pb = require('../../../alameda_api/v1alpha1/datahub/plannings/services_pb.js');
@@ -229,6 +230,83 @@ function serialize_containersai_alameda_v1alpha1_datahub_gpu_ListGpusResponse(ar
 
 function deserialize_containersai_alameda_v1alpha1_datahub_gpu_ListGpusResponse(buffer_arg) {
   return alameda_api_v1alpha1_datahub_gpu_services_pb.ListGpusResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_containersai_alameda_v1alpha1_datahub_keycodes_ActivateRegistrationDataRequest(arg) {
+  if (!(arg instanceof alameda_api_v1alpha1_datahub_keycodes_services_pb.ActivateRegistrationDataRequest)) {
+    throw new Error('Expected argument of type containersai.alameda.v1alpha1.datahub.keycodes.ActivateRegistrationDataRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_containersai_alameda_v1alpha1_datahub_keycodes_ActivateRegistrationDataRequest(buffer_arg) {
+  return alameda_api_v1alpha1_datahub_keycodes_services_pb.ActivateRegistrationDataRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_containersai_alameda_v1alpha1_datahub_keycodes_AddKeycodeRequest(arg) {
+  if (!(arg instanceof alameda_api_v1alpha1_datahub_keycodes_services_pb.AddKeycodeRequest)) {
+    throw new Error('Expected argument of type containersai.alameda.v1alpha1.datahub.keycodes.AddKeycodeRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_containersai_alameda_v1alpha1_datahub_keycodes_AddKeycodeRequest(buffer_arg) {
+  return alameda_api_v1alpha1_datahub_keycodes_services_pb.AddKeycodeRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_containersai_alameda_v1alpha1_datahub_keycodes_AddKeycodeResponse(arg) {
+  if (!(arg instanceof alameda_api_v1alpha1_datahub_keycodes_services_pb.AddKeycodeResponse)) {
+    throw new Error('Expected argument of type containersai.alameda.v1alpha1.datahub.keycodes.AddKeycodeResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_containersai_alameda_v1alpha1_datahub_keycodes_AddKeycodeResponse(buffer_arg) {
+  return alameda_api_v1alpha1_datahub_keycodes_services_pb.AddKeycodeResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_containersai_alameda_v1alpha1_datahub_keycodes_DeleteKeycodeRequest(arg) {
+  if (!(arg instanceof alameda_api_v1alpha1_datahub_keycodes_services_pb.DeleteKeycodeRequest)) {
+    throw new Error('Expected argument of type containersai.alameda.v1alpha1.datahub.keycodes.DeleteKeycodeRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_containersai_alameda_v1alpha1_datahub_keycodes_DeleteKeycodeRequest(buffer_arg) {
+  return alameda_api_v1alpha1_datahub_keycodes_services_pb.DeleteKeycodeRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_containersai_alameda_v1alpha1_datahub_keycodes_GenerateRegistrationDataResponse(arg) {
+  if (!(arg instanceof alameda_api_v1alpha1_datahub_keycodes_services_pb.GenerateRegistrationDataResponse)) {
+    throw new Error('Expected argument of type containersai.alameda.v1alpha1.datahub.keycodes.GenerateRegistrationDataResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_containersai_alameda_v1alpha1_datahub_keycodes_GenerateRegistrationDataResponse(buffer_arg) {
+  return alameda_api_v1alpha1_datahub_keycodes_services_pb.GenerateRegistrationDataResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_containersai_alameda_v1alpha1_datahub_keycodes_ListKeycodesRequest(arg) {
+  if (!(arg instanceof alameda_api_v1alpha1_datahub_keycodes_services_pb.ListKeycodesRequest)) {
+    throw new Error('Expected argument of type containersai.alameda.v1alpha1.datahub.keycodes.ListKeycodesRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_containersai_alameda_v1alpha1_datahub_keycodes_ListKeycodesRequest(buffer_arg) {
+  return alameda_api_v1alpha1_datahub_keycodes_services_pb.ListKeycodesRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_containersai_alameda_v1alpha1_datahub_keycodes_ListKeycodesResponse(arg) {
+  if (!(arg instanceof alameda_api_v1alpha1_datahub_keycodes_services_pb.ListKeycodesResponse)) {
+    throw new Error('Expected argument of type containersai.alameda.v1alpha1.datahub.keycodes.ListKeycodesResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_containersai_alameda_v1alpha1_datahub_keycodes_ListKeycodesResponse(buffer_arg) {
+  return alameda_api_v1alpha1_datahub_keycodes_services_pb.ListKeycodesResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_containersai_alameda_v1alpha1_datahub_licenses_GetLicenseResponse(arg) {
@@ -1761,6 +1839,66 @@ listGpuPredictions: {
     requestDeserialize: deserialize_containersai_alameda_v1alpha1_datahub_gpu_ListGpuPredictionsRequest,
     responseSerialize: serialize_containersai_alameda_v1alpha1_datahub_gpu_ListGpuPredictionsResponse,
     responseDeserialize: deserialize_containersai_alameda_v1alpha1_datahub_gpu_ListGpuPredictionsResponse,
+  },
+  // Used to add a keycode
+addKeycode: {
+    path: '/containersai.alameda.v1alpha1.datahub.DatahubService/AddKeycode',
+    requestStream: false,
+    responseStream: false,
+    requestType: alameda_api_v1alpha1_datahub_keycodes_services_pb.AddKeycodeRequest,
+    responseType: alameda_api_v1alpha1_datahub_keycodes_services_pb.AddKeycodeResponse,
+    requestSerialize: serialize_containersai_alameda_v1alpha1_datahub_keycodes_AddKeycodeRequest,
+    requestDeserialize: deserialize_containersai_alameda_v1alpha1_datahub_keycodes_AddKeycodeRequest,
+    responseSerialize: serialize_containersai_alameda_v1alpha1_datahub_keycodes_AddKeycodeResponse,
+    responseDeserialize: deserialize_containersai_alameda_v1alpha1_datahub_keycodes_AddKeycodeResponse,
+  },
+  // Used to retrieve keycodes detailed information
+listKeycodes: {
+    path: '/containersai.alameda.v1alpha1.datahub.DatahubService/ListKeycodes',
+    requestStream: false,
+    responseStream: false,
+    requestType: alameda_api_v1alpha1_datahub_keycodes_services_pb.ListKeycodesRequest,
+    responseType: alameda_api_v1alpha1_datahub_keycodes_services_pb.ListKeycodesResponse,
+    requestSerialize: serialize_containersai_alameda_v1alpha1_datahub_keycodes_ListKeycodesRequest,
+    requestDeserialize: deserialize_containersai_alameda_v1alpha1_datahub_keycodes_ListKeycodesRequest,
+    responseSerialize: serialize_containersai_alameda_v1alpha1_datahub_keycodes_ListKeycodesResponse,
+    responseDeserialize: deserialize_containersai_alameda_v1alpha1_datahub_keycodes_ListKeycodesResponse,
+  },
+  // Used to delete a keycode
+deleteKeycode: {
+    path: '/containersai.alameda.v1alpha1.datahub.DatahubService/DeleteKeycode',
+    requestStream: false,
+    responseStream: false,
+    requestType: alameda_api_v1alpha1_datahub_keycodes_services_pb.DeleteKeycodeRequest,
+    responseType: google_rpc_status_pb.Status,
+    requestSerialize: serialize_containersai_alameda_v1alpha1_datahub_keycodes_DeleteKeycodeRequest,
+    requestDeserialize: deserialize_containersai_alameda_v1alpha1_datahub_keycodes_DeleteKeycodeRequest,
+    responseSerialize: serialize_google_rpc_Status,
+    responseDeserialize: deserialize_google_rpc_Status,
+  },
+  // Used to generate license registration data
+generateRegistrationData: {
+    path: '/containersai.alameda.v1alpha1.datahub.DatahubService/GenerateRegistrationData',
+    requestStream: false,
+    responseStream: false,
+    requestType: google_protobuf_empty_pb.Empty,
+    responseType: alameda_api_v1alpha1_datahub_keycodes_services_pb.GenerateRegistrationDataResponse,
+    requestSerialize: serialize_google_protobuf_Empty,
+    requestDeserialize: deserialize_google_protobuf_Empty,
+    responseSerialize: serialize_containersai_alameda_v1alpha1_datahub_keycodes_GenerateRegistrationDataResponse,
+    responseDeserialize: deserialize_containersai_alameda_v1alpha1_datahub_keycodes_GenerateRegistrationDataResponse,
+  },
+  // Used to activate license signature data
+activateRegistrationData: {
+    path: '/containersai.alameda.v1alpha1.datahub.DatahubService/ActivateRegistrationData',
+    requestStream: false,
+    responseStream: false,
+    requestType: alameda_api_v1alpha1_datahub_keycodes_services_pb.ActivateRegistrationDataRequest,
+    responseType: google_rpc_status_pb.Status,
+    requestSerialize: serialize_containersai_alameda_v1alpha1_datahub_keycodes_ActivateRegistrationDataRequest,
+    requestDeserialize: deserialize_containersai_alameda_v1alpha1_datahub_keycodes_ActivateRegistrationDataRequest,
+    responseSerialize: serialize_google_rpc_Status,
+    responseDeserialize: deserialize_google_rpc_Status,
   },
   // Used to get datahub license information
 getLicense: {

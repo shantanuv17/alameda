@@ -20,6 +20,8 @@ var alameda_api_v1alpha1_datahub_events_services_pb = require('../../../alameda_
 goog.object.extend(proto, alameda_api_v1alpha1_datahub_events_services_pb);
 var alameda_api_v1alpha1_datahub_gpu_services_pb = require('../../../alameda_api/v1alpha1/datahub/gpu/services_pb.js');
 goog.object.extend(proto, alameda_api_v1alpha1_datahub_gpu_services_pb);
+var alameda_api_v1alpha1_datahub_keycodes_services_pb = require('../../../alameda_api/v1alpha1/datahub/keycodes/services_pb.js');
+goog.object.extend(proto, alameda_api_v1alpha1_datahub_keycodes_services_pb);
 var alameda_api_v1alpha1_datahub_licenses_services_pb = require('../../../alameda_api/v1alpha1/datahub/licenses/services_pb.js');
 goog.object.extend(proto, alameda_api_v1alpha1_datahub_licenses_services_pb);
 var alameda_api_v1alpha1_datahub_metrics_services_pb = require('../../../alameda_api/v1alpha1/datahub/metrics/services_pb.js');

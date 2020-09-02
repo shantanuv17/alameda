@@ -6,6 +6,7 @@ from alameda_api.v1alpha1.datahub.applications import services_pb2 as alameda__a
 from alameda_api.v1alpha1.datahub.data import services_pb2 as alameda__api_dot_v1alpha1_dot_datahub_dot_data_dot_services__pb2
 from alameda_api.v1alpha1.datahub.events import services_pb2 as alameda__api_dot_v1alpha1_dot_datahub_dot_events_dot_services__pb2
 from alameda_api.v1alpha1.datahub.gpu import services_pb2 as alameda__api_dot_v1alpha1_dot_datahub_dot_gpu_dot_services__pb2
+from alameda_api.v1alpha1.datahub.keycodes import services_pb2 as alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2
 from alameda_api.v1alpha1.datahub.licenses import services_pb2 as alameda__api_dot_v1alpha1_dot_datahub_dot_licenses_dot_services__pb2
 from alameda_api.v1alpha1.datahub.metrics import services_pb2 as alameda__api_dot_v1alpha1_dot_datahub_dot_metrics_dot_services__pb2
 from alameda_api.v1alpha1.datahub.plannings import services_pb2 as alameda__api_dot_v1alpha1_dot_datahub_dot_plannings_dot_services__pb2
@@ -94,6 +95,31 @@ class DatahubServiceStub(object):
                 '/containersai.alameda.v1alpha1.datahub.DatahubService/ListGpuPredictions',
                 request_serializer=alameda__api_dot_v1alpha1_dot_datahub_dot_gpu_dot_services__pb2.ListGpuPredictionsRequest.SerializeToString,
                 response_deserializer=alameda__api_dot_v1alpha1_dot_datahub_dot_gpu_dot_services__pb2.ListGpuPredictionsResponse.FromString,
+                )
+        self.AddKeycode = channel.unary_unary(
+                '/containersai.alameda.v1alpha1.datahub.DatahubService/AddKeycode',
+                request_serializer=alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.AddKeycodeRequest.SerializeToString,
+                response_deserializer=alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.AddKeycodeResponse.FromString,
+                )
+        self.ListKeycodes = channel.unary_unary(
+                '/containersai.alameda.v1alpha1.datahub.DatahubService/ListKeycodes',
+                request_serializer=alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.ListKeycodesRequest.SerializeToString,
+                response_deserializer=alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.ListKeycodesResponse.FromString,
+                )
+        self.DeleteKeycode = channel.unary_unary(
+                '/containersai.alameda.v1alpha1.datahub.DatahubService/DeleteKeycode',
+                request_serializer=alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.DeleteKeycodeRequest.SerializeToString,
+                response_deserializer=google_dot_rpc_dot_status__pb2.Status.FromString,
+                )
+        self.GenerateRegistrationData = channel.unary_unary(
+                '/containersai.alameda.v1alpha1.datahub.DatahubService/GenerateRegistrationData',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.GenerateRegistrationDataResponse.FromString,
+                )
+        self.ActivateRegistrationData = channel.unary_unary(
+                '/containersai.alameda.v1alpha1.datahub.DatahubService/ActivateRegistrationData',
+                request_serializer=alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.ActivateRegistrationDataRequest.SerializeToString,
+                response_deserializer=google_dot_rpc_dot_status__pb2.Status.FromString,
                 )
         self.GetLicense = channel.unary_unary(
                 '/containersai.alameda.v1alpha1.datahub.DatahubService/GetLicense',
@@ -644,6 +670,41 @@ class DatahubServiceServicer(object):
 
     def ListGpuPredictions(self, request, context):
         """Used to list GPU predictions
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddKeycode(self, request, context):
+        """Used to add a keycode
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListKeycodes(self, request, context):
+        """Used to retrieve keycodes detailed information
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteKeycode(self, request, context):
+        """Used to delete a keycode
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GenerateRegistrationData(self, request, context):
+        """Used to generate license registration data
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ActivateRegistrationData(self, request, context):
+        """Used to activate license signature data
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -1321,6 +1382,31 @@ def add_DatahubServiceServicer_to_server(servicer, server):
                     request_deserializer=alameda__api_dot_v1alpha1_dot_datahub_dot_gpu_dot_services__pb2.ListGpuPredictionsRequest.FromString,
                     response_serializer=alameda__api_dot_v1alpha1_dot_datahub_dot_gpu_dot_services__pb2.ListGpuPredictionsResponse.SerializeToString,
             ),
+            'AddKeycode': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddKeycode,
+                    request_deserializer=alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.AddKeycodeRequest.FromString,
+                    response_serializer=alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.AddKeycodeResponse.SerializeToString,
+            ),
+            'ListKeycodes': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListKeycodes,
+                    request_deserializer=alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.ListKeycodesRequest.FromString,
+                    response_serializer=alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.ListKeycodesResponse.SerializeToString,
+            ),
+            'DeleteKeycode': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteKeycode,
+                    request_deserializer=alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.DeleteKeycodeRequest.FromString,
+                    response_serializer=google_dot_rpc_dot_status__pb2.Status.SerializeToString,
+            ),
+            'GenerateRegistrationData': grpc.unary_unary_rpc_method_handler(
+                    servicer.GenerateRegistrationData,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.GenerateRegistrationDataResponse.SerializeToString,
+            ),
+            'ActivateRegistrationData': grpc.unary_unary_rpc_method_handler(
+                    servicer.ActivateRegistrationData,
+                    request_deserializer=alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.ActivateRegistrationDataRequest.FromString,
+                    response_serializer=google_dot_rpc_dot_status__pb2.Status.SerializeToString,
+            ),
             'GetLicense': grpc.unary_unary_rpc_method_handler(
                     servicer.GetLicense,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
@@ -1997,6 +2083,86 @@ class DatahubService(object):
         return grpc.experimental.unary_unary(request, target, '/containersai.alameda.v1alpha1.datahub.DatahubService/ListGpuPredictions',
             alameda__api_dot_v1alpha1_dot_datahub_dot_gpu_dot_services__pb2.ListGpuPredictionsRequest.SerializeToString,
             alameda__api_dot_v1alpha1_dot_datahub_dot_gpu_dot_services__pb2.ListGpuPredictionsResponse.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AddKeycode(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/containersai.alameda.v1alpha1.datahub.DatahubService/AddKeycode',
+            alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.AddKeycodeRequest.SerializeToString,
+            alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.AddKeycodeResponse.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ListKeycodes(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/containersai.alameda.v1alpha1.datahub.DatahubService/ListKeycodes',
+            alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.ListKeycodesRequest.SerializeToString,
+            alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.ListKeycodesResponse.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DeleteKeycode(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/containersai.alameda.v1alpha1.datahub.DatahubService/DeleteKeycode',
+            alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.DeleteKeycodeRequest.SerializeToString,
+            google_dot_rpc_dot_status__pb2.Status.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GenerateRegistrationData(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/containersai.alameda.v1alpha1.datahub.DatahubService/GenerateRegistrationData',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.GenerateRegistrationDataResponse.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ActivateRegistrationData(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/containersai.alameda.v1alpha1.datahub.DatahubService/ActivateRegistrationData',
+            alameda__api_dot_v1alpha1_dot_datahub_dot_keycodes_dot_services__pb2.ActivateRegistrationDataRequest.SerializeToString,
+            google_dot_rpc_dot_status__pb2.Status.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)
 
