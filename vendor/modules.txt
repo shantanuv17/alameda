@@ -129,8 +129,6 @@ github.com/magiconair/properties
 github.com/manifoldco/promptui
 github.com/manifoldco/promptui/list
 github.com/manifoldco/promptui/screenbuf
-# github.com/mattbaird/jsonpatch v0.0.0-20171005235357-81af80346b1a
-github.com/mattbaird/jsonpatch
 # github.com/mattn/go-colorable v0.1.2
 github.com/mattn/go-colorable
 # github.com/mattn/go-isatty v0.0.9

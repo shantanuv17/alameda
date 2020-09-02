@@ -1,7 +1,6 @@
 package dispatcher
 
 import (
-	"context"
 	"fmt"
 	"sync"
 	"time"
@@ -11,7 +10,6 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
 	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_metrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
 	datahub_predictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
@@ -99,13 +97,13 @@ func (sender *nodeModelJobSender) sendJob(node *datahub_resources.Node, queueSen
 	}
 }
 
-func (sender *nodeModelJobSender) getLastMIdPrediction(datahubServiceClnt datahub_v1alpha1.DatahubServiceClient,
+func (sender *nodeModelJobSender) getLastMIdPrediction(datahubServiceClnt *datahubpkg.Client,
 	node *datahub_resources.Node, granularity int64) ([]*datahub_predictions.MetricData, error) {
 
 	metricData := []*datahub_predictions.MetricData{}
 	dataGranularity := queue.GetGranularityStr(granularity)
 	nodeName := node.GetObjectMeta().GetName()
-	nodePredictRes, err := datahubServiceClnt.ListNodePredictions(context.Background(),
+	nodePredictRes, err := datahubServiceClnt.ListNodePredictions(
 		&datahub_predictions.ListNodePredictionsRequest{
 			ObjectMeta: []*datahub_resources.ObjectMeta{
 				{
@@ -148,7 +146,7 @@ func (sender *nodeModelJobSender) getLastMIdPrediction(datahubServiceClnt datahu
 				dataGranularity, nodeName, pdRD.GetMetricType())
 		}
 
-		nodePredictRes, err = datahubServiceClnt.ListNodePredictions(context.Background(),
+		nodePredictRes, err = datahubServiceClnt.ListNodePredictions(
 			&datahub_predictions.ListNodePredictionsRequest{
 				ObjectMeta: []*datahub_resources.ObjectMeta{
 					{
@@ -192,7 +190,7 @@ func (sender *nodeModelJobSender) getQueryMetricStartTime(metricData *datahub_pr
 }
 
 func (sender *nodeModelJobSender) sendJobByMetrics(node *datahub_resources.Node, queueSender queue.QueueSender,
-	pdUnit string, granularity int64, predictionStep int64, datahubServiceClnt datahub_v1alpha1.DatahubServiceClient,
+	pdUnit string, granularity int64, predictionStep int64, datahubServiceClnt *datahubpkg.Client,
 	lastPredictionMetrics []*datahub_predictions.MetricData) {
 
 	clusterID := node.GetObjectMeta().GetClusterName()
@@ -201,8 +199,8 @@ func (sender *nodeModelJobSender) sendJobByMetrics(node *datahub_resources.Node,
 	nowSeconds := time.Now().Unix()
 
 	for _, metricType := range []datahub_common.MetricType{
-		datahub_common.MetricType_MEMORY_USAGE_BYTES,
-		datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+		datahub_common.MetricType_MEMORY_BYTES_USAGE,
+		datahub_common.MetricType_CPU_MILLICORES_USAGE,
 	} {
 		mtNotFound := true
 		for _, lastPredictionMetric := range lastPredictionMetrics {
@@ -239,7 +237,7 @@ func (sender *nodeModelJobSender) sendJobByMetrics(node *datahub_resources.Node,
 			if firstPDTime > 0 && firstPDTime <= time.Now().Unix() {
 				queryStartTime = firstPDTime
 			}
-			nodeMetricsRes, err := datahubServiceClnt.ListNodeMetrics(context.Background(),
+			nodeMetricsRes, err := datahubServiceClnt.ListNodeMetrics(
 				&datahub_metrics.ListNodeMetricsRequest{
 					QueryCondition: &datahub_common.QueryCondition{
 						Order: datahub_common.QueryCondition_DESC,

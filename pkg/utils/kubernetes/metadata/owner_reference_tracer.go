@@ -22,8 +22,7 @@ import (
 )
 
 var (
-	alamedaRecommendationGVR = schema.GroupVersionResource{}
-	resourcesKindMapMutex    = &sync.Mutex{}
+	resourcesKindMapMutex = &sync.Mutex{}
 )
 
 // OwnerReferenceTracer struct to trace owner references

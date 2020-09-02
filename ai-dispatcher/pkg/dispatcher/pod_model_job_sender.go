@@ -1,7 +1,6 @@
 package dispatcher
 
 import (
-	"context"
 	"fmt"
 	"sync"
 	"time"
@@ -11,7 +10,6 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
 	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_metrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
 	datahub_predictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
@@ -106,13 +104,13 @@ func (sender *podModelJobSender) sendJob(pod *datahub_resources.Pod, queueSender
 
 }
 
-func (sender *podModelJobSender) getLastMIdPrediction(datahubServiceClnt datahub_v1alpha1.DatahubServiceClient,
+func (sender *podModelJobSender) getLastMIdPrediction(datahubServiceClnt *datahubpkg.Client,
 	pod *datahub_resources.Pod, granularity int64) ([]*datahub_predictions.ContainerPrediction, error) {
 	containerPredictions := []*datahub_predictions.ContainerPrediction{}
 	dataGranularity := queue.GetGranularityStr(granularity)
 	podNS := pod.GetObjectMeta().GetNamespace()
 	podName := pod.GetObjectMeta().GetName()
-	podPredictRes, err := datahubServiceClnt.ListPodPredictions(context.Background(),
+	podPredictRes, err := datahubServiceClnt.ListPodPredictions(
 		&datahub_predictions.ListPodPredictionsRequest{
 			Granularity: granularity,
 			ObjectMeta: []*datahub_resources.ObjectMeta{
@@ -157,7 +155,7 @@ func (sender *podModelJobSender) getLastMIdPrediction(datahubServiceClnt datahub
 				scope.Warnf("[POD][%s][%s/%s/%s] Query last model id for metric %s is empty",
 					dataGranularity, podNS, podName, lctPrediction.GetName(), pdRD.GetMetricType())
 			}
-			podPredictRes, err = datahubServiceClnt.ListPodPredictions(context.Background(),
+			podPredictRes, err = datahubServiceClnt.ListPodPredictions(
 				&datahub_predictions.ListPodPredictionsRequest{
 					Granularity: granularity,
 					ObjectMeta: []*datahub_resources.ObjectMeta{
@@ -255,7 +253,7 @@ func (sender *podModelJobSender) getQueryMetricStartTime(metricData *datahub_pre
 }
 
 func (sender *podModelJobSender) sendJobByMetrics(pod *datahub_resources.Pod, queueSender queue.QueueSender,
-	pdUnit string, granularity int64, predictionStep int64, datahubServiceClnt datahub_v1alpha1.DatahubServiceClient,
+	pdUnit string, granularity int64, predictionStep int64, datahubServiceClnt *datahubpkg.Client,
 	lastPredictionContainers []*datahub_predictions.ContainerPrediction) {
 	clusterID := pod.GetObjectMeta().GetClusterName()
 	podNS := pod.GetObjectMeta().GetNamespace()
@@ -267,8 +265,8 @@ func (sender *podModelJobSender) sendJobByMetrics(pod *datahub_resources.Pod, qu
 	if len(lastPredictionContainers) == 0 {
 		for _, ct := range pod.GetContainers() {
 			for _, metricType := range []datahub_common.MetricType{
-				datahub_common.MetricType_MEMORY_USAGE_BYTES,
-				datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+				datahub_common.MetricType_MEMORY_BYTES_USAGE,
+				datahub_common.MetricType_CPU_MILLICORES_USAGE,
 			} {
 				scope.Infof("[POD][%s][%s/%s/%s] No last prediction found, send model jobs",
 					dataGranularity, podNS, podName, ct.GetName())
@@ -282,8 +280,8 @@ func (sender *podModelJobSender) sendJobByMetrics(pod *datahub_resources.Pod, qu
 		lastPredictionMetrics := lastPredictionContainer.GetPredictedRawData()
 
 		for _, metricType := range []datahub_common.MetricType{
-			datahub_common.MetricType_MEMORY_USAGE_BYTES,
-			datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+			datahub_common.MetricType_MEMORY_BYTES_USAGE,
+			datahub_common.MetricType_CPU_MILLICORES_USAGE,
 		} {
 			mtNotFound := true
 			for _, lastPredictionMetric := range lastPredictionMetrics {
@@ -324,7 +322,7 @@ func (sender *podModelJobSender) sendJobByMetrics(pod *datahub_resources.Pod, qu
 				if granularity == 30 {
 					aggFun = datahub_common.TimeRange_MAX
 				}
-				podMetricsRes, err := datahubServiceClnt.ListPodMetrics(context.Background(),
+				podMetricsRes, err := datahubServiceClnt.ListPodMetrics(
 					&datahub_metrics.ListPodMetricsRequest{
 						QueryCondition: &datahub_common.QueryCondition{
 							Order: datahub_common.QueryCondition_DESC,

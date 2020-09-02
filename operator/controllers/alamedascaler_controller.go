@@ -20,7 +20,6 @@ import (
 	"context"
 	"fmt"
 	"strconv"
-	"strings"
 	"sync"
 	"time"
 
@@ -28,7 +27,6 @@ import (
 	datahub_client_application "github.com/containers-ai/alameda/operator/datahub/client/application"
 	datahub_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
 
@@ -39,8 +37,6 @@ import (
 	"github.com/containers-ai/alameda/operator/pkg/utils"
 	utilsresource "github.com/containers-ai/alameda/operator/pkg/utils/resources"
 	alamutils "github.com/containers-ai/alameda/pkg/utils"
-	datahubutilscontainer "github.com/containers-ai/alameda/pkg/utils/datahub/container"
-	datahubutilspod "github.com/containers-ai/alameda/pkg/utils/datahub/pod"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
@@ -52,7 +48,6 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 )
 
 var listCandidatesDefaultAlamedaScaler = func(
@@ -397,7 +392,7 @@ func (r AlamedaScalerReconciler) getIneffectiveAlamedaResource(
 func (r *AlamedaScalerReconciler) syncAlamedaScalerWithDepResources(
 	alamedaScaler *autoscalingv1alpha1.AlamedaScaler) error {
 
-	existingPodsMap := make(map[string]bool)
+	existingPodsMap := make(map[autoscalingv1alpha1.NamespacedName]bool)
 	existingPods := alamedaScaler.GetMonitoredPods()
 	for _, pod := range existingPods {
 		existingPodsMap[pod.GetNamespacedName()] = true
@@ -406,9 +401,6 @@ func (r *AlamedaScalerReconciler) syncAlamedaScalerWithDepResources(
 	wg := errgroup.Group{}
 	wg.Go(func() error {
 		return r.syncDatahubResourceByAlamedaScaler(context.TODO(), *alamedaScaler)
-	})
-	wg.Go(func() error {
-		return r.syncAlamedaRecommendation(alamedaScaler, existingPodsMap)
 	})
 	if err := wg.Wait(); err != nil {
 		return errors.Wrapf(err, "sync AlamedaScaler %s/%s with dependent resources failed",
@@ -456,7 +448,6 @@ func (r *AlamedaScalerReconciler) syncDatahubApplicationsByAlamedaScaler(
 		ClusterName: r.ClusterUID,
 		Namespace:   namespace,
 		Name:        name,
-		ScalingTool: scalingToolStr,
 	}
 
 	err := r.DatahubClient.Create(&[]entities.ResourceClusterStatusApplication{
@@ -504,11 +495,6 @@ func (r *AlamedaScalerReconciler) syncDatahubPodsByAlamedaScaler(ctx context.Con
 	// 	}
 	// 	return nil
 	// }
-
-	// Create pods
-	if err := r.createPodsToDatahubByAlamedaScaler(context.TODO(), alamedaScaler); err != nil {
-		return errors.Wrapf(err, "create pods to Datahub by AlamedaScaler failed")
-	}
 
 	// Delete pods from Datahub which are no longer monitered by AlamedaScaler.
 	monitoringPodMap := map[string]bool{}
@@ -586,7 +572,7 @@ func (r *AlamedaScalerReconciler) getDatahubControllersFromAlamedaScalerStatus(
 	isScalerEnableExecution := scaler.IsEnableExecution()
 	scalingTool := datahub_client_application.GetAlamedaScalerDatahubScalingTypeStr(scaler)
 
-	datahubKindToAlamedaResourceMap := map[datahub_resources.Kind]map[string]autoscalingv1alpha1.AlamedaResource{
+	datahubKindToAlamedaResourceMap := map[datahub_resources.Kind]map[autoscalingv1alpha1.NamespacedName]autoscalingv1alpha1.AlamedaResource{
 		datahub_resources.Kind_DEPLOYMENT:       scaler.Status.AlamedaController.Deployments,
 		datahub_resources.Kind_DEPLOYMENTCONFIG: scaler.Status.AlamedaController.DeploymentConfigs,
 		datahub_resources.Kind_STATEFULSET:      scaler.Status.AlamedaController.StatefulSets,
@@ -615,10 +601,10 @@ func (r *AlamedaScalerReconciler) getDatahubControllersFromAlamedaScalerStatus(
 				Name:                     alamedaResource.Name,
 				ClusterName:              r.ClusterUID,
 				AlamedaScalerName:        scaler.Name,
-				Kind:                     datahub_resources.Kind_name[int32(kind)],
-				Policy:                   datahub_resources.RecommendationPolicy_name[int32(policy)],
+				Kind:                     entities.Kind(datahub_resources.Kind_name[int32(kind)]),
+				Policy:                   entities.Policy(datahub_resources.RecommendationPolicy_name[int32(policy)]),
 				EnableExecution:          isScalerEnableExecution,
-				AlamedaScalerScalingTool: scalingTool,
+				AlamedaScalerScalingTool: entities.ScalingTool(scalingTool),
 				Replicas:                 int32(replicas),
 				SpecReplicas:             specReplicas,
 				ResourceK8sMinReplicas:   minReplicas,
@@ -638,10 +624,10 @@ func (r *AlamedaScalerReconciler) deleteAlamedaWatchedResourcesToDatahub(ctx con
 		datahub_resources.Kind_STATEFULSET:      {},
 	}
 	for _, ctlr := range ctlrsFromDH {
-		if !r.isControllerHasAlamedaScalerInfo(*ctlr, *scaler) {
+		if !r.isControllerHasAlamedaScalerInfo(ctlr, *scaler) {
 			continue
 		}
-		if r.isControllerExistsInAlamedaScalerStatus(*ctlr, *scaler) {
+		if r.isControllerExistsInAlamedaScalerStatus(ctlr, *scaler) {
 			continue
 		}
 		controllerMap[ctlr.Kind] = append(controllerMap[ctlr.Kind], ctlr.ObjectMeta)
@@ -659,140 +645,6 @@ func (r *AlamedaScalerReconciler) deleteAlamedaWatchedResourcesToDatahub(ctx con
 		scope.Debugf("Delete controllers from datahub success. AlamedaScaler: %s/%s. Controllers: %+v",
 			scaler.GetNamespace(), scaler.GetName(), controllers)
 	}
-	return nil
-}
-
-func (r *AlamedaScalerReconciler) createPodsToDatahubByAlamedaScaler(
-	ctx context.Context, scaler autoscalingv1alpha1.AlamedaScaler) error {
-
-	pods := scaler.GetMonitoredPods()
-
-	getResource := utilsresource.NewGetResource(r)
-
-	policy := datahub_resources.RecommendationPolicy_STABLE
-	if strings.ToLower(string(scaler.Spec.Policy)) ==
-		strings.ToLower(string(autoscalingv1alpha1.RecommendationPolicyCOMPACT)) {
-		policy = datahub_resources.RecommendationPolicy_COMPACT
-	} else if strings.ToLower(string(scaler.Spec.Policy)) ==
-		strings.ToLower(string(autoscalingv1alpha1.RecommendationPolicySTABLE)) {
-		policy = datahub_resources.RecommendationPolicy_STABLE
-	}
-
-	podsNeedCreating := []*datahub_resources.Pod{}
-	for _, pod := range pods {
-		containers := []*datahub_resources.Container{}
-		startTime := &timestamp.Timestamp{}
-		for _, container := range pod.Containers {
-			containers = append(containers, &datahub_resources.Container{
-				Name: container.Name,
-				Resources: &datahub_resources.ResourceRequirements{
-					Limits:   map[int32]string{},
-					Requests: map[int32]string{},
-				},
-			})
-		}
-
-		nodeName := ""
-		resourceLink := ""
-		podStatus := &datahub_resources.PodStatus{}
-		replicas := int32(-1)
-		if corePod, err := getResource.GetPod(pod.Namespace, pod.Name); err == nil {
-			podStatus = datahubutilspod.NewStatus(corePod)
-			replicas = datahubutilspod.GetReplicasFromPod(corePod, r)
-
-			for _, containerStatus := range corePod.Status.ContainerStatuses {
-				for containerIdx := range containers {
-					if containerStatus.Name == containers[containerIdx].GetName() {
-						containers[containerIdx].Status =
-							datahubutilscontainer.NewStatus(&containerStatus)
-						break
-					}
-				}
-			}
-			r.setResourceForContainers(corePod, containers)
-
-			nodeName = corePod.Spec.NodeName
-			startTime = &timestamp.Timestamp{
-				Seconds: corePod.ObjectMeta.GetCreationTimestamp().Unix(),
-			}
-			resourceLink = utilsresource.GetResourceLinkForPod(r.Client, corePod)
-			scope.Debugf(fmt.Sprintf("Resource link for pod (%s/%s) is %s",
-				corePod.GetNamespace(), corePod.GetName(), resourceLink))
-		} else {
-			scope.Errorf("build Datahub pod to create failed, skip this pod: get pod %s/%s from k8s failed: %s",
-				pod.Namespace, pod.Name, err.Error())
-			continue
-		}
-
-		topCtrl, err := utils.ParseResourceLinkForTopController(resourceLink)
-
-		if err != nil {
-			scope.Error(err.Error())
-		} else {
-			topCtrl.Replicas = replicas
-		}
-		appName := fmt.Sprintf("%s-%s", scaler.Namespace, scaler.Name)
-		if _, exist := scaler.Labels["app.federator.ai/name"]; exist {
-			appName = scaler.Labels["app.federator.ai/name"]
-		}
-		appPartOf := appName
-		if _, exist := scaler.Labels["app.federator.ai/part-of"]; exist {
-			appPartOf = scaler.Labels["app.federator.ai/part-of"]
-		}
-
-		scalingTool := datahub_resources.ScalingTool_NONE
-		scalingToolType := strings.ToLower(strings.Trim(scaler.Spec.ScalingTool.Type, " "))
-		if scalingToolType == "vpa" {
-			scalingTool = datahub_resources.ScalingTool_VPA
-		} else if scalingToolType == "hpa" {
-			scalingTool = datahub_resources.ScalingTool_HPA
-		}
-
-		podsNeedCreating = append(podsNeedCreating, &datahub_resources.Pod{
-			AlamedaPodSpec: &datahub_resources.AlamedaPodSpec{
-				AlamedaScaler: &datahub_resources.ObjectMeta{
-					Namespace: scaler.Namespace,
-					Name:      scaler.Name,
-				},
-				Policy:      datahub_resources.RecommendationPolicy(policy),
-				ScalingTool: scalingTool,
-				AlamedaScalerResources: &datahub_resources.ResourceRequirements{
-					Requests: map[int32]string{
-						int32(datahub_common.ResourceName_CPU):    scaler.GetRequestCPUMilliCores(),
-						int32(datahub_common.ResourceName_MEMORY): scaler.GetRequestMemoryBytes(),
-					},
-					Limits: map[int32]string{
-						int32(datahub_common.ResourceName_CPU):    scaler.GetLimitCPUMilliCores(),
-						int32(datahub_common.ResourceName_MEMORY): scaler.GetLimitMemoryBytes(),
-					},
-				},
-			},
-			ObjectMeta: &datahub_resources.ObjectMeta{
-				Name:        pod.Name,
-				Namespace:   pod.Namespace,
-				NodeName:    nodeName,
-				ClusterName: r.ClusterUID,
-			},
-			Containers:    containers,
-			ResourceLink:  resourceLink,
-			StartTime:     startTime,
-			TopController: topCtrl,
-			Status:        podStatus,
-			AppName:       appName,
-			AppPartOf:     appPartOf,
-		})
-	}
-
-	scope.Debugf("Creating pods to datahub. AlamedaScaler: %s/%s. Pods: %+v",
-		scaler.GetNamespace(), scaler.GetName(), podsNeedCreating)
-	err := r.DatahubPodRepo.CreatePods(ctx, podsNeedCreating)
-	if err != nil {
-		return errors.Wrapf(err, "create pods monitored by AlamedaScaler(%s/%s) to Datahub failed",
-			scaler.GetNamespace(), scaler.GetName())
-	}
-	scope.Debugf("Create pods to datahub success. AlamedaScaler: %s/%s. Pods: %+v",
-		scaler.GetNamespace(), scaler.GetName(), podsNeedCreating)
-
 	return nil
 }
 
@@ -971,136 +823,8 @@ func (r *AlamedaScalerReconciler) deletePodsFromDatahubByAlamedaScaler(
 	return nil
 }
 
-func (r *AlamedaScalerReconciler) syncAlamedaRecommendation(
-	alamedaScaler *autoscalingv1alpha1.AlamedaScaler, existingPodsMap map[string]bool) error {
-
-	currentPods := alamedaScaler.GetMonitoredPods()
-
-	if err := r.createAssociateRecommendation(alamedaScaler, currentPods); err != nil {
-		return errors.Wrapf(err, "sync AlamedaRecommendation failed: %s", err.Error())
-	}
-
-	if err := r.deleteAlamedaRecommendations(alamedaScaler, existingPodsMap); err != nil {
-		return errors.Wrapf(err, "sync AlamedaRecommendation failed: %s", err.Error())
-	}
-
-	return nil
-}
-
-func (r *AlamedaScalerReconciler) createAssociateRecommendation(
-	alamedaScaler *autoscalingv1alpha1.AlamedaScaler, pods []*autoscalingv1alpha1.AlamedaPod) error {
-
-	getResource := utilsresource.NewGetResource(r)
-	m := alamedaScaler.GetLabelMapToSetToAlamedaRecommendationLabel()
-
-	for _, pod := range pods {
-
-		// try to create the recommendation by pod
-		recommendationNS := pod.Namespace
-		recommendationName := pod.Name
-
-		recommendation := &autoscalingv1alpha1.AlamedaRecommendation{
-			ObjectMeta: metav1.ObjectMeta{
-				Name:      recommendationName,
-				Namespace: recommendationNS,
-				Labels:    m,
-			},
-			Spec: autoscalingv1alpha1.AlamedaRecommendationSpec{
-				Containers: pod.Containers,
-			},
-		}
-
-		err := controllerutil.SetControllerReference(alamedaScaler, recommendation, r.Scheme)
-		if err != nil {
-			scope.Errorf("set Recommendation %s/%s ownerReference failed, skip create Recommendation to kubernetes, error message: %s",
-				alamedaScaler.Namespace, alamedaScaler.Name, err.Error())
-			continue
-		}
-		_, err = getResource.GetAlamedaRecommendation(recommendationNS, recommendationName)
-		if err != nil && k8sErrors.IsNotFound(err) {
-			err = r.Create(context.TODO(), recommendation)
-			if err != nil {
-				return errors.Wrapf(err, "create recommendation %s/%s to kuernetes failed: %s",
-					alamedaScaler.Namespace, alamedaScaler.Name, err.Error())
-			}
-		}
-	}
-	return nil
-}
-
-func (r *AlamedaScalerReconciler) listAlamedaRecommendationsOwnedByAlamedaScaler(
-	alamedaScaler *autoscalingv1alpha1.AlamedaScaler) ([]*autoscalingv1alpha1.AlamedaRecommendation, error) {
-
-	listResource := utilsresource.NewListResources(r)
-	tmp := make([]*autoscalingv1alpha1.AlamedaRecommendation, 0)
-
-	alamedaRecommendations, err := listResource.ListAlamedaRecommendationOwnedByAlamedaScaler(alamedaScaler)
-	if err != nil {
-		return tmp, err
-	}
-
-	for _, alamedaRecommendation := range alamedaRecommendations {
-		cpAlamedaRecommendation := alamedaRecommendation
-		tmp = append(tmp, &cpAlamedaRecommendation)
-	}
-
-	return tmp, nil
-}
-
-func (r *AlamedaScalerReconciler) deleteAlamedaRecommendations(
-	alamedaScaler *autoscalingv1alpha1.AlamedaScaler, existingPodsMap map[string]bool) error {
-
-	alamedaRecommendations, err := r.getNeedDeletingAlamedaRecommendations(
-		alamedaScaler, existingPodsMap)
-	if err != nil {
-		return errors.Wrapf(err, "delete AlamedaRecommendations failed: %s", err.Error())
-	}
-
-	for _, alamedaRecommendation := range alamedaRecommendations {
-
-		recommendationNS := alamedaRecommendation.Namespace
-		recommendationName := alamedaRecommendation.Name
-
-		recommendation := &autoscalingv1alpha1.AlamedaRecommendation{
-			ObjectMeta: metav1.ObjectMeta{
-				Name:      recommendationName,
-				Namespace: recommendationNS,
-			},
-		}
-
-		if err := r.Delete(context.TODO(), recommendation); err != nil {
-			return errors.Wrapf(err, "delete AlamedaRecommendations %s/%s to kuernetes failed: %s",
-				recommendationNS, recommendationName, err.Error())
-		}
-	}
-
-	return nil
-}
-
-func (r *AlamedaScalerReconciler) getNeedDeletingAlamedaRecommendations(
-	alamedaScaler *autoscalingv1alpha1.AlamedaScaler,
-	existingPodsMap map[string]bool) ([]*autoscalingv1alpha1.AlamedaRecommendation, error) {
-
-	needDeletingAlamedaRecommendations := make([]*autoscalingv1alpha1.AlamedaRecommendation, 0)
-	alamedaRecommendations, err := r.listAlamedaRecommendationsOwnedByAlamedaScaler(alamedaScaler)
-	if err != nil {
-		return needDeletingAlamedaRecommendations, errors.Wrapf(err,
-			"get need deleting AlamedaRecommendations failed: %s", err.Error())
-	}
-	for _, alamedaRecommendation := range alamedaRecommendations {
-		cpAlamedaRecommendation := *alamedaRecommendation
-		namespacedName := alamedaRecommendation.GetNamespacedName()
-		if isExisting, exist := existingPodsMap[namespacedName]; !exist || !isExisting {
-			needDeletingAlamedaRecommendations = append(needDeletingAlamedaRecommendations,
-				&cpAlamedaRecommendation)
-		}
-	}
-
-	return needDeletingAlamedaRecommendations, nil
-}
-
 func (r *AlamedaScalerReconciler) isControllerHasAlamedaScalerInfo(
-	controller datahub_resources.Controller, alamedaScaler autoscalingv1alpha1.AlamedaScaler) bool {
+	controller *datahub_resources.Controller, alamedaScaler autoscalingv1alpha1.AlamedaScaler) bool {
 	if controller.AlamedaControllerSpec == nil || controller.AlamedaControllerSpec.AlamedaScaler == nil {
 		return false
 	}
@@ -1115,7 +839,7 @@ func (r *AlamedaScalerReconciler) isControllerHasAlamedaScalerInfo(
 }
 
 func (r *AlamedaScalerReconciler) isControllerExistsInAlamedaScalerStatus(
-	controller datahub_resources.Controller, alamedaScaler autoscalingv1alpha1.AlamedaScaler) bool {
+	controller *datahub_resources.Controller, alamedaScaler autoscalingv1alpha1.AlamedaScaler) bool {
 
 	isInAlamedaScaler := false
 	switch controller.Kind {

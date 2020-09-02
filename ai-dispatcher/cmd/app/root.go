@@ -1,7 +1,6 @@
 package app
 
 import (
-	"context"
 	"net/http"
 	"os"
 	"strings"
@@ -116,7 +115,7 @@ var rootCmd = &cobra.Command{
 }
 
 func checkResourceIsExist(datahubClient *datahubpkg.Client) bool {
-	nodeResult, err := datahubClient.ListNodes(context.Background(), &datahub_resources.ListNodesRequest{})
+	nodeResult, err := datahubClient.ListNodes(&datahub_resources.ListNodesRequest{})
 	nodeCount := len(nodeResult.GetNodes())
 	if err != nil || nodeCount <= 0 {
 		if err != nil {
@@ -127,7 +126,7 @@ func checkResourceIsExist(datahubClient *datahubpkg.Client) bool {
 		}
 		return false
 	}
-	clusterResult, err := datahubClient.ListClusters(context.Background(), &datahub_resources.ListClustersRequest{})
+	clusterResult, err := datahubClient.ListClusters(&datahub_resources.ListClustersRequest{})
 	clusterCount := len(clusterResult.GetClusters())
 	if err != nil || clusterCount <= 0 {
 		if err != nil {

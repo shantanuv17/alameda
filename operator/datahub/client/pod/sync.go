@@ -52,7 +52,7 @@ func deleteRedudantPodFromDatahub(k8sClient client.Client, conn *grpc.ClientConn
 			return errors.Wrapf(err, "get Pod(%s/%s) failed", namespace, name)
 		}
 
-		if exist, err := isMonitoringAlamedaScalerOfPodExist(k8sClient, *pod); err != nil {
+		if exist, err := isMonitoringAlamedaScalerOfPodExist(k8sClient, pod); err != nil {
 			return errors.Wrapf(err, "check if monitoring AlamedaScaler of Pod(%s/%s) is exist failed", namespace, name)
 		} else if !exist {
 			podsNeedToBeDeleted = append(podsNeedToBeDeleted, pod.ObjectMeta)
@@ -68,7 +68,7 @@ func deleteRedudantPodFromDatahub(k8sClient client.Client, conn *grpc.ClientConn
 	return nil
 }
 
-func isMonitoringAlamedaScalerOfPodExist(k8sClient client.Client, pod datahub_resources.Pod) (bool, error) {
+func isMonitoringAlamedaScalerOfPodExist(k8sClient client.Client, pod *datahub_resources.Pod) (bool, error) {
 
 	if pod.AlamedaPodSpec == nil || pod.AlamedaPodSpec.AlamedaScaler == nil ||
 		pod.AlamedaPodSpec.AlamedaScaler.Namespace == "" || pod.AlamedaPodSpec.AlamedaScaler.Name == "" {

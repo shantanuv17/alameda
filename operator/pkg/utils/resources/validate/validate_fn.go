@@ -4,12 +4,12 @@ import (
 	"fmt"
 
 	autoscalingapi "github.com/containers-ai/alameda/operator/api"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
 	"github.com/containers-ai/alameda/operator/pkg/utils/resources"
 	"github.com/containers-ai/alameda/pkg/utils"
 	"github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
 	openshift_apps_v1 "github.com/openshift/api/apps/v1"
-
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -88,14 +88,16 @@ func (r *ResourceValidate) IsScalerValid(client *client.Client, scalerObj *autos
 		}
 
 		for _, selectedDeployment := range selectedDeployments {
-			if _, ok := scaler.Status.AlamedaController.Deployments[fmt.Sprintf("%s/%s", selectedDeployment.GetNamespace(), selectedDeployment.GetName())]; ok {
+			if _, ok := scaler.Status.AlamedaController.Deployments[autoscalingv1alpha1.NamespacedName(fmt.Sprintf(
+				"%s/%s", selectedDeployment.GetNamespace(), selectedDeployment.GetName()))]; ok {
 				return false, fmt.Errorf("Deployment %s/%s selected by scaler %s/%s is already selected by scaler %s/%s",
 					selectedDeployment.GetNamespace(), selectedDeployment.GetName(),
 					scalerObj.Namespace, scalerObj.Name, scaler.GetNamespace(), scaler.GetName())
 			}
 		}
 		for _, selectedDeploymentConfig := range selectedDeploymentConfigs {
-			if _, ok := scaler.Status.AlamedaController.DeploymentConfigs[fmt.Sprintf("%s/%s", selectedDeploymentConfig.GetNamespace(), selectedDeploymentConfig.GetName())]; ok {
+			if _, ok := scaler.Status.AlamedaController.DeploymentConfigs[autoscalingv1alpha1.NamespacedName(fmt.Sprintf(
+				"%s/%s", selectedDeploymentConfig.GetNamespace(), selectedDeploymentConfig.GetName()))]; ok {
 				return false, fmt.Errorf("DeploymentConfig %s/%s selected by scaler %s/%s is already selected by scaler %s/%s",
 					selectedDeploymentConfig.GetNamespace(), selectedDeploymentConfig.GetName(),
 					scalerObj.Namespace, scalerObj.Name, scaler.GetNamespace(), scaler.GetName())

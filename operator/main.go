@@ -25,40 +25,36 @@ import (
 	"strings"
 	"time"
 
+	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
+	kafkaclient "github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/client"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
+	"github.com/containers-ai/alameda/operator/controllers"
+	datahub_client_application "github.com/containers-ai/alameda/operator/datahub/client/application"
 	datahub_client_cluster "github.com/containers-ai/alameda/operator/datahub/client/cluster"
+	datahub_client_controller "github.com/containers-ai/alameda/operator/datahub/client/controller"
 	datahub_client_kafka "github.com/containers-ai/alameda/operator/datahub/client/kafka"
+	datahub_client_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
 	datahub_client_nginx "github.com/containers-ai/alameda/operator/datahub/client/nginx"
+	datahub_client_node "github.com/containers-ai/alameda/operator/datahub/client/node"
+	datahub_client_pod "github.com/containers-ai/alameda/operator/datahub/client/pod"
+	"github.com/containers-ai/alameda/operator/pkg/probe"
+	"github.com/containers-ai/alameda/operator/pkg/utils"
+	"github.com/containers-ai/alameda/pkg/database/prometheus"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
+	"github.com/containers-ai/alameda/pkg/provider"
 	alamedaUtils "github.com/containers-ai/alameda/pkg/utils"
+	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
+	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
 	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
+	osappsapi "github.com/openshift/api/apps/v1"
 	routeapi_v1 "github.com/openshift/api/route/v1"
 	openshift_machineapi_v1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
-	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
-
-	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
-	kafkaclient "github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/client"
-	"github.com/containers-ai/alameda/pkg/database/prometheus"
-
-	"github.com/containers-ai/alameda/pkg/provider"
-	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
-	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
-
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
-	"github.com/containers-ai/alameda/operator/controllers"
-	datahub_client_application "github.com/containers-ai/alameda/operator/datahub/client/application"
-	datahub_client_controller "github.com/containers-ai/alameda/operator/datahub/client/controller"
-	datahub_client_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
-	datahub_client_node "github.com/containers-ai/alameda/operator/datahub/client/node"
-	datahub_client_pod "github.com/containers-ai/alameda/operator/datahub/client/pod"
-	"github.com/containers-ai/alameda/operator/pkg/probe"
-	"github.com/containers-ai/alameda/operator/pkg/utils"
-
-	osappsapi "github.com/openshift/api/apps/v1"
 	"k8s.io/apimachinery/pkg/runtime"
+	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -287,31 +283,7 @@ func addControllersToManager(mgr manager.Manager) error {
 		return err
 	}
 
-	if err = (&controllers.AlamedaRecommendationReconciler{
-		Client:        mgr.GetClient(),
-		Scheme:        mgr.GetScheme(),
-		ClusterUID:    clusterUID,
-		DatahubClient: datahubClient,
-	}).SetupWithManager(mgr); err != nil {
-		return err
-	}
-
-	if err = (&controllers.DeploymentReconciler{
-		Client:     mgr.GetClient(),
-		Scheme:     mgr.GetScheme(),
-		ClusterUID: clusterUID,
-	}).SetupWithManager(mgr); err != nil {
-		return err
-	}
-
 	if hasOpenShiftAPIAppsv1 {
-		if err = (&controllers.DeploymentConfigReconciler{
-			Client:     mgr.GetClient(),
-			Scheme:     mgr.GetScheme(),
-			ClusterUID: clusterUID,
-		}).SetupWithManager(mgr); err != nil {
-			return err
-		}
 
 		if err = (&controllers.MachineSetReconciler{
 			Client:           mgr.GetClient(),
@@ -363,40 +335,6 @@ func addControllersToManager(mgr manager.Manager) error {
 		DatahubClient: datahubClient,
 		DatahubNodeRepo: *datahub_client_node.NewNodeRepository(
 			datahubClient, clusterUID),
-	}).SetupWithManager(mgr); err != nil {
-		return err
-	}
-
-	if err = (&controllers.StatefulSetReconciler{
-		Client:     mgr.GetClient(),
-		Scheme:     mgr.GetScheme(),
-		ClusterUID: clusterUID,
-	}).SetupWithManager(mgr); err != nil {
-		return err
-	}
-
-	if err = (&controllers.AlamedaScalerKafkaReconciler{
-		DatahubClient:         datahubClient,
-		ClusterUID:            clusterUID,
-		HasOpenShiftAPIAppsv1: hasOpenShiftAPIAppsv1,
-		K8SClient:             mgr.GetClient(),
-		Scheme:                mgr.GetScheme(),
-		KafkaClient:           kafkaClient,
-		PrometheusClient:      prometheusClient,
-		ReconcileTimeout:      3 * time.Second,
-		Logger:                alamedaScalerKafkaControllerLogger,
-		NeededMetrics:         operatorConf.Prometheus.RequiredMetrics,
-	}).SetupWithManager(mgr); err != nil {
-		return err
-	}
-	if err = (&controllers.AlamedaScalerNginxReconciler{
-		ClusterUID:            clusterUID,
-		Client:                mgr.GetClient(),
-		Scheme:                mgr.GetScheme(),
-		ReconcileTimeout:      3 * time.Second,
-		DatahubClient:         datahubClient,
-		HasOpenShiftAPIAppsv1: hasOpenShiftAPIAppsv1,
-		Logger:                alamedaScalerNginxControllerLogger,
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}

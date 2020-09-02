@@ -1,7 +1,6 @@
 package dispatcher
 
 import (
-	"context"
 	"fmt"
 	"sync"
 	"time"
@@ -11,7 +10,6 @@ import (
 	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
 	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_gpu "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"
 	datahub_predictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
@@ -104,14 +102,14 @@ func (sender *gpuModelJobSender) sendJob(gpu *datahub_gpu.Gpu,
 
 }
 
-func (sender *gpuModelJobSender) getLastMIdPrediction(datahubServiceClnt datahub_v1alpha1.DatahubServiceClient,
+func (sender *gpuModelJobSender) getLastMIdPrediction(datahubServiceClnt *datahubpkg.Client,
 	gpu *datahub_gpu.Gpu, granularity int64) ([]*datahub_predictions.MetricData, error) {
 
 	metricData := []*datahub_predictions.MetricData{}
 	dataGranularity := queue.GetGranularityStr(granularity)
 	gpuHost := gpu.GetMetadata().GetHost()
 	gpuMinorNumber := gpu.GetMetadata().GetMinorNumber()
-	gpuPredictRes, err := datahubServiceClnt.ListGpuPredictions(context.Background(),
+	gpuPredictRes, err := datahubServiceClnt.ListGpuPredictions(
 		&datahub_gpu.ListGpuPredictionsRequest{
 			Host:        gpuHost,
 			MinorNumber: gpuMinorNumber,
@@ -151,7 +149,7 @@ func (sender *gpuModelJobSender) getLastMIdPrediction(datahubServiceClnt datahub
 				dataGranularity, gpuHost, gpuMinorNumber, pdRD.GetMetricType())
 		}
 
-		gpuPredictRes, err = datahubServiceClnt.ListGpuPredictions(context.Background(),
+		gpuPredictRes, err = datahubServiceClnt.ListGpuPredictions(
 			&datahub_gpu.ListGpuPredictionsRequest{
 				Host:        gpuHost,
 				MinorNumber: gpuMinorNumber,
@@ -193,7 +191,7 @@ func (sender *gpuModelJobSender) getQueryMetricStartTime(metricData *datahub_pre
 }
 
 func (sender *gpuModelJobSender) sendJobByMetrics(gpu *datahub_gpu.Gpu, queueSender queue.QueueSender,
-	pdUnit string, granularity int64, predictionStep int64, datahubServiceClnt datahub_v1alpha1.DatahubServiceClient,
+	pdUnit string, granularity int64, predictionStep int64, datahubServiceClnt *datahubpkg.Client,
 	lastPredictionMetrics []*datahub_predictions.MetricData) {
 	clusterID := "GPU_CLUSTER_NAME"
 	dataGranularity := queue.GetGranularityStr(granularity)
@@ -202,8 +200,8 @@ func (sender *gpuModelJobSender) sendJobByMetrics(gpu *datahub_gpu.Gpu, queueSen
 	nowSeconds := time.Now().Unix()
 
 	for _, metricType := range []datahub_common.MetricType{
-		datahub_common.MetricType_MEMORY_USAGE_BYTES,
-		datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+		datahub_common.MetricType_MEMORY_BYTES_USAGE,
+		datahub_common.MetricType_CPU_MILLICORES_USAGE,
 	} {
 		mtNotFound := true
 		for _, lastPredictionMetric := range lastPredictionMetrics {
@@ -240,7 +238,7 @@ func (sender *gpuModelJobSender) sendJobByMetrics(gpu *datahub_gpu.Gpu, queueSen
 			if firstPDTime > 0 && firstPDTime <= time.Now().Unix() {
 				queryStartTime = firstPDTime
 			}
-			gpuMetricsRes, err := datahubServiceClnt.ListGpuMetrics(context.Background(),
+			gpuMetricsRes, err := datahubServiceClnt.ListGpuMetrics(
 				&datahub_gpu.ListGpuMetricsRequest{
 					QueryCondition: &datahub_common.QueryCondition{
 						Order: datahub_common.QueryCondition_DESC,

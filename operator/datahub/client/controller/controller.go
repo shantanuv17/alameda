@@ -74,9 +74,8 @@ func (repo *ControllerRepository) ListControllersByApplication(ctx context.Conte
 	}
 	controllers := make([]*datahub_resources.Controller, 0)
 	for _, controller := range resp.Controllers {
-		copyController := *controller
-		if controller != nil && repo.isControllerHasApplicationInfo(*controller, namespace, name) {
-			controllers = append(controllers, &copyController)
+		if controller != nil && repo.isControllerHasApplicationInfo(controller, namespace, name) {
+			controllers = append(controllers, controller)
 		}
 	}
 	return controllers, nil
@@ -151,7 +150,7 @@ func (repo *ControllerRepository) Close() {
 	repo.conn.Close()
 }
 
-func (repo *ControllerRepository) isControllerHasApplicationInfo(controller datahub_resources.Controller, appNamespace, appName string) bool {
+func (repo *ControllerRepository) isControllerHasApplicationInfo(controller *datahub_resources.Controller, appNamespace, appName string) bool {
 	// TODO: Might compare namespace if Datahub return non empty controller.AlamedaControllerSpec.AlamedaScaler.Namespace
 	// if controller.AlamedaControllerSpec != nil && controller.AlamedaControllerSpec.AlamedaScaler != nil &&
 	// 	controller.AlamedaControllerSpec.AlamedaScaler.Namespace == appNamespace && controller.AlamedaControllerSpec.AlamedaScaler.Name == appName {

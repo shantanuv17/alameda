@@ -1,8 +1,6 @@
 package node
 
 import (
-	"context"
-
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	"github.com/containers-ai/alameda/operator/datahub/client"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
@@ -38,8 +36,7 @@ func (repo *AlamedaNodeRepository) DeleteNodes(arg interface{}) error {
 	objMeta := []*datahub_resources.ObjectMeta{}
 	if nodes, ok := arg.([]*datahub_resources.Node); ok {
 		for _, node := range nodes {
-			copyNode := *node
-			objMeta = append(objMeta, copyNode.ObjectMeta)
+			objMeta = append(objMeta, (*node).ObjectMeta)
 		}
 	}
 	if meta, ok := arg.([]*datahub_resources.ObjectMeta); ok {
@@ -60,7 +57,7 @@ func (repo *AlamedaNodeRepository) DeleteNodes(arg interface{}) error {
 		ObjectMeta: objMeta,
 	}
 
-	if resp, err := repo.datahubClient.DeleteNodes(context.Background(), &req); err != nil {
+	if resp, err := repo.datahubClient.DeleteNodes(&req); err != nil {
 		return errors.Wrap(err, "delete node from Datahub failed")
 	} else if _, err := client.IsResponseStatusOK(resp); err != nil {
 		return errors.Wrap(err, "delete nodes from Datahub failed")

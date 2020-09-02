@@ -166,9 +166,9 @@ func RMSE(measurementDataSet map[int64]*MeasurementData,
 	nPts := 0.0
 	result := 0.0
 	normalize := 1.0
-	if metricType == datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE {
+	if metricType == datahub_common.MetricType_CPU_MILLICORES_USAGE {
 		normalize = viper.GetFloat64("measurements.rmse.normalization.cpu")
-	} else if metricType == datahub_common.MetricType_MEMORY_USAGE_BYTES {
+	} else if metricType == datahub_common.MetricType_MEMORY_BYTES_USAGE {
 		normalize = viper.GetFloat64("measurements.rmse.normalization.memory")
 	} else if metricType == datahub_common.MetricType_DUTY_CYCLE {
 		normalize = viper.GetFloat64("measurements.rmse.normalization.dutyCycle")

@@ -20,15 +20,15 @@ import (
 	"context"
 	"time"
 
+	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	ca_client "github.com/containers-ai/alameda/operator/datahub/client/ca"
 	datahub_node "github.com/containers-ai/alameda/operator/datahub/client/node"
 	nodeinfo "github.com/containers-ai/alameda/operator/pkg/nodeinfo"
+	dbcommon "github.com/containers-ai/alameda/pkg/database/common"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
-
-	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	corev1 "k8s.io/api/core/v1"
 	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -80,7 +80,7 @@ func (r *NodeReconciler) Reconcile(request reconcile.Request) (reconcile.Result,
 	msExecution := []entities.ExecutionClusterAutoscalerMachineset{}
 	if datahubNode != nil {
 		err = r.DatahubClient.ListTS(&msExecution, &datahubpkg.TimeRange{
-			Order: datahubpkg.Desc,
+			Order: dbcommon.Desc,
 			Limit: 1,
 		}, nil, nil, datahubpkg.Option{
 			Entity: entities.ExecutionClusterAutoscalerMachineset{

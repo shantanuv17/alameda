@@ -21,7 +21,6 @@ require (
 	github.com/klauspost/compress v1.9.8 // indirect
 	github.com/lunixbochs/vtclean v1.0.0 // indirect
 	github.com/manifoldco/promptui v0.3.1
-	github.com/mattbaird/jsonpatch v0.0.0-20171005235357-81af80346b1a
 	github.com/mattn/go-isatty v0.0.9 // indirect
 	github.com/onsi/ginkgo v1.12.0
 	github.com/onsi/gomega v1.8.1

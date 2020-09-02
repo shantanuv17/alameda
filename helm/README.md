@@ -12,8 +12,6 @@ According to Alameda [architecture](https://github.com/containers-ai/alameda/blo
 - alameda-operator
 - alameda-datahub
 - alameda-ai
-- alameda-evictioner
-- admission-controller
 - alameda-influxdb (leverage the opensource InfluxDB)
 
 and assumes **Prometheus** is running in your cluster.
@@ -32,7 +30,7 @@ $ kubectl label namespace cert-manager certmanager.k8s.io/disable-validation="tr
 $ helm repo add jetstack https://charts.jetstack.io
 $ helm install --name cert-manager --namespace cert-manager jetstack/cert-manager
 ```
-3. Install Alameda chart for component _alameda-operator_, _alameda-datahub_, _alameda-ai_, _alameda-evictioner_ and _admission-controller_ _alameda-ai-dispatcher_ _alameda_notifier by executing:
+3. Install Alameda chart for component _alameda-operator_, _alameda-datahub_, _alameda-ai_, and _alameda-ai-dispatcher_ _alameda_notifier by executing:
 ```
 $ helm install --name alameda --namespace alameda ./alameda
 ```

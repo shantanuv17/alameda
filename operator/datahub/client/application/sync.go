@@ -37,7 +37,6 @@ func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) err
 				ClusterName: clusterUID,
 				Namespace:   applicationList.Items[idx].Namespace,
 				Name:        applicationList.Items[idx].Name,
-				ScalingTool: GetAlamedaScalerDatahubScalingTypeStr(applicationList.Items[idx]),
 			}
 			apps = append(apps, entity)
 		}
@@ -82,8 +81,6 @@ func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) err
 func GetAlamedaScalerDatahubScalingType(alamedaScaler autoscalingv1alpha1.AlamedaScaler) datahub_resources.ScalingTool {
 	scalingType := datahub_resources.ScalingTool_SCALING_TOOL_UNDEFINED
 	switch alamedaScaler.Spec.ScalingTool.Type {
-	case autoscalingv1alpha1.ScalingToolTypeVPA:
-		scalingType = datahub_resources.ScalingTool_VPA
 	case autoscalingv1alpha1.ScalingToolTypeHPA:
 		scalingType = datahub_resources.ScalingTool_HPA
 	case autoscalingv1alpha1.ScalingToolTypeDefault:
@@ -96,8 +93,6 @@ func GetAlamedaScalerDatahubScalingTypeStr(
 	alamedaScaler autoscalingv1alpha1.AlamedaScaler) string {
 	scalingType := datahub_resources.ScalingTool_name[int32(datahub_resources.ScalingTool_SCALING_TOOL_UNDEFINED)]
 	switch alamedaScaler.Spec.ScalingTool.Type {
-	case autoscalingv1alpha1.ScalingToolTypeVPA:
-		scalingType = datahub_resources.ScalingTool_name[int32(datahub_resources.ScalingTool_VPA)]
 	case autoscalingv1alpha1.ScalingToolTypeHPA:
 		scalingType = datahub_resources.ScalingTool_name[int32(datahub_resources.ScalingTool_HPA)]
 	case autoscalingv1alpha1.ScalingToolTypeCA:

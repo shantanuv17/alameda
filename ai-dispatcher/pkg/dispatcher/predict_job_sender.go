@@ -44,8 +44,8 @@ func (dispatcher *predictJobSender) SendNodePredictJobs(nodes []*datahub_resourc
 			continue
 		}
 		for _, metricType := range []datahub_common.MetricType{
-			datahub_common.MetricType_MEMORY_USAGE_BYTES,
-			datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+			datahub_common.MetricType_MEMORY_BYTES_USAGE,
+			datahub_common.MetricType_CPU_MILLICORES_USAGE,
 		} {
 			jb := queue.NewJobBuilder(node.GetObjectMeta().GetClusterName(),
 				pdUnit, granularity, metricType, nodeStr, nil)
@@ -89,8 +89,8 @@ func (dispatcher *predictJobSender) SendPodPredictJobs(pods []*datahub_resources
 		}
 		for _, ct := range pod.GetContainers() {
 			for _, metricType := range []datahub_common.MetricType{
-				datahub_common.MetricType_MEMORY_USAGE_BYTES,
-				datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+				datahub_common.MetricType_MEMORY_BYTES_USAGE,
+				datahub_common.MetricType_CPU_MILLICORES_USAGE,
 			} {
 				jb := queue.NewJobBuilder(pod.GetObjectMeta().GetClusterName(),
 					pdUnit, granularity, metricType, podStr, map[string]string{
@@ -137,8 +137,8 @@ func (dispatcher *predictJobSender) SendGPUPredictJobs(gpus []*datahub_gpu.Gpu,
 			continue
 		}
 		for _, metricType := range []datahub_common.MetricType{
-			datahub_common.MetricType_MEMORY_USAGE_BYTES,
-			datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+			datahub_common.MetricType_MEMORY_BYTES_USAGE,
+			datahub_common.MetricType_CPU_MILLICORES_USAGE,
 		} {
 			clusterID := "GPU_CLUSTER_NAME"
 			jb := queue.NewJobBuilder(clusterID,
@@ -185,8 +185,8 @@ func (dispatcher *predictJobSender) SendApplicationPredictJobs(
 			continue
 		}
 		for _, metricType := range []datahub_common.MetricType{
-			datahub_common.MetricType_MEMORY_USAGE_BYTES,
-			datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+			datahub_common.MetricType_MEMORY_BYTES_USAGE,
+			datahub_common.MetricType_CPU_MILLICORES_USAGE,
 		} {
 			jb := queue.NewJobBuilder(application.GetObjectMeta().GetClusterName(),
 				pdUnit, granularity, metricType, applicationStr, nil)
@@ -229,8 +229,8 @@ func (dispatcher *predictJobSender) SendNamespacePredictJobs(namespaces []*datah
 			continue
 		}
 		for _, metricType := range []datahub_common.MetricType{
-			datahub_common.MetricType_MEMORY_USAGE_BYTES,
-			datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+			datahub_common.MetricType_MEMORY_BYTES_USAGE,
+			datahub_common.MetricType_CPU_MILLICORES_USAGE,
 		} {
 			jb := queue.NewJobBuilder(namespace.GetObjectMeta().GetClusterName(),
 				pdUnit, granularity, metricType, namespaceStr, nil)
@@ -272,8 +272,8 @@ func (dispatcher *predictJobSender) SendClusterPredictJobs(clusters []*datahub_r
 			continue
 		}
 		for _, metricType := range []datahub_common.MetricType{
-			datahub_common.MetricType_MEMORY_USAGE_BYTES,
-			datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+			datahub_common.MetricType_MEMORY_BYTES_USAGE,
+			datahub_common.MetricType_CPU_MILLICORES_USAGE,
 		} {
 			jb := queue.NewJobBuilder(cluster.GetObjectMeta().GetClusterName(),
 				pdUnit, granularity, metricType, clusterStr, nil)
@@ -318,8 +318,8 @@ func (dispatcher *predictJobSender) SendControllerPredictJobs(
 			continue
 		}
 		for _, metricType := range []datahub_common.MetricType{
-			datahub_common.MetricType_MEMORY_USAGE_BYTES,
-			datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+			datahub_common.MetricType_MEMORY_BYTES_USAGE,
+			datahub_common.MetricType_CPU_MILLICORES_USAGE,
 		} {
 			jb := queue.NewJobBuilder(controller.GetObjectMeta().GetClusterName(),
 				pdUnit, granularity, metricType, controllerStr, nil)

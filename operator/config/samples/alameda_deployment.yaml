@@ -12,7 +12,7 @@ spec:
   policy: compact
   enableExecution: true
   scalingTool:
-    type: vpa
+    type: hpa
   selector:
     matchLabels:
       app: nginx

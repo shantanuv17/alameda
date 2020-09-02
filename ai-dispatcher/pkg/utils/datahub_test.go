@@ -1,28 +1,20 @@
 package utils
 
 import (
-	"context"
 	"reflect"
 	"testing"
 	"time"
 
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	datahub_data "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	datahub_schemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	"github.com/golang/protobuf/ptypes/duration"
 	"github.com/golang/protobuf/ptypes/timestamp"
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
-	"google.golang.org/grpc"
 )
 
 func TestReadData(t *testing.T) {
 	datahubAddr := "127.0.0.1:50050"
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
-
-	conn, err := grpc.DialContext(ctx, datahubAddr, grpc.WithBlock(), grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(5)))))
 
 	queryStartT := time.Now().AddDate(0, 0, -1).Unix()
 	metricReadData := []*datahub_data.ReadData{}
@@ -32,7 +24,7 @@ func TestReadData(t *testing.T) {
 		"okd4-tsztm-worker-0-vdtr7",
 	} {
 		metricReadData = append(metricReadData, &datahub_data.ReadData{
-			MetricType: datahub_common.MetricType_CPU_USAGE_SECONDS_PERCENTAGE,
+			MetricType: datahub_common.MetricType_CPU_MILLICORES_USAGE,
 			QueryCondition: &datahub_common.QueryCondition{
 				Selects: []string{"value"},
 				Order:   datahub_common.QueryCondition_DESC,
@@ -60,13 +52,9 @@ func TestReadData(t *testing.T) {
 			},
 		})
 	}
-	if err != nil {
-		t.Errorf("datahub connection error = %v", err)
-		return
-	}
 
 	type args struct {
-		datahubServiceClnt datahub_v1alpha1.DatahubServiceClient
+		datahubServiceClnt *datahubpkg.Client
 		schemaMeta         *datahub_schemas.SchemaMeta
 		readData           []*datahub_data.ReadData
 	}
@@ -79,7 +67,7 @@ func TestReadData(t *testing.T) {
 		{
 			name: "node metrics read data",
 			args: args{
-				datahubServiceClnt: datahub_v1alpha1.NewDatahubServiceClient(conn),
+				datahubServiceClnt: datahubpkg.NewClient(datahubAddr),
 				schemaMeta: &datahub_schemas.SchemaMeta{
 					Scope:    datahub_schemas.Scope_SCOPE_METRIC,
 					Category: "cluster_status",
