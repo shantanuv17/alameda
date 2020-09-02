@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/containers-ai/alameda/datahub/pkg/apis/keycodes"
 	"github.com/containers-ai/alameda/datahub/pkg/apis/v1alpha1"
 	DatahubConfig "github.com/containers-ai/alameda/datahub/pkg/config"
 	OperatorAPIs "github.com/containers-ai/alameda/operator/api/v1alpha1"
@@ -12,7 +11,6 @@ import (
 	K8SUtils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 	DatahubV1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
-	DatahubKeycodes "github.com/containers-ai/api/datahub/keycodes"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -139,9 +137,6 @@ func (s *Server) newGRPCServer() (*grpc.Server, error) {
 func (s *Server) register(server *grpc.Server) {
 	v1alpha1Srv := v1alpha1.NewService(&s.Config, s.K8SClient)
 	DatahubV1alpha1.RegisterDatahubServiceServer(server, v1alpha1Srv)
-
-	keycodesSrv := keycodes.NewService(&s.Config)
-	DatahubKeycodes.RegisterKeycodesServiceServer(server, keycodesSrv)
 }
 
 func (s *Server) createInfluxdbDatabase() {
