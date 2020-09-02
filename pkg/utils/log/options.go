@@ -33,7 +33,7 @@ const (
 	defaultErrorOutputPath    = "stderr"
 	defaultRotationMaxAge     = 30
 	defaultRotationMaxSize    = 100
-	defaultRotationMaxBackups = 1000
+	defaultRotationMaxBackups = 10
 )
 
 // Level is an enumeration of all supported log levels.
