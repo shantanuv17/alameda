@@ -14,7 +14,7 @@ import (
 func (s *ServiceV1alpha1) CreateClusterMetrics(ctx context.Context, in *ApiMetrics.CreateClusterMetricsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateClusterMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := metrics.CreateClusterMetricsRequestExtended{CreateClusterMetricsRequest: *in}
+	requestExtended := metrics.CreateClusterMetricsRequestExtended{CreateClusterMetricsRequest: in}
 	if err := requestExtended.Validate(); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INVALID_ARGUMENT),
@@ -65,7 +65,7 @@ func (s *ServiceV1alpha1) ListClusterMetrics(ctx context.Context, in *ApiMetrics
 	datahubClusterMetrics := make([]*ApiMetrics.ClusterMetric, len(metricMap.MetricMap))
 	for _, metric := range metricMap.MetricMap {
 		m := metrics2.ClusterMetricExtended{ClusterMetric: *metric}.ProduceMetrics()
-		datahubClusterMetrics[i] = &m
+		datahubClusterMetrics[i] = m
 		i++
 	}
 

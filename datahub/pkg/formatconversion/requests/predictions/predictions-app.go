@@ -17,7 +17,7 @@ var (
 )
 
 type CreateApplicationPredictionsRequestExtended struct {
-	ApiPredictions.CreateApplicationPredictionsRequest
+	*ApiPredictions.CreateApplicationPredictionsRequest
 }
 
 func (r *CreateApplicationPredictionsRequestExtended) Validate() error {

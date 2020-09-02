@@ -13,7 +13,7 @@ import (
 )
 
 type CreateNodeMetricsRequestExtended struct {
-	ApiMetrics.CreateNodeMetricsRequest
+	*ApiMetrics.CreateNodeMetricsRequest
 }
 
 func (r *CreateNodeMetricsRequestExtended) Validate() error {
@@ -57,9 +57,9 @@ func (r *ListNodeMetricsRequestExtended) Validate() error {
 }
 
 func (r *ListNodeMetricsRequestExtended) SetDefaultWithMetricsDBType(dbType MetricsDBType) {
-	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(*r.Request.QueryCondition, dbType)
+	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(r.Request.QueryCondition, dbType)
 	q.TimeRange.AggregateFunction = ApiCommon.TimeRange_AVG
-	r.Request.QueryCondition = &q
+	r.Request.QueryCondition = q
 }
 
 func (r *ListNodeMetricsRequestExtended) ProduceRequest() DaoMetricTypes.ListNodeMetricsRequest {

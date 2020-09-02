@@ -14,7 +14,7 @@ import (
 func (s *ServiceV1alpha1) CreateNamespacePredictions(ctx context.Context, in *ApiPredictions.CreateNamespacePredictionsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateNamespacePredictions grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := predictions.CreateNamespacePredictionsRequestExtended{CreateNamespacePredictionsRequest: *in}
+	requestExtended := predictions.CreateNamespacePredictionsRequestExtended{CreateNamespacePredictionsRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

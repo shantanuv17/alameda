@@ -12,7 +12,7 @@ import (
 )
 
 type CreateNodePredictionsRequestExtended struct {
-	ApiPredictions.CreateNodePredictionsRequest
+	*ApiPredictions.CreateNodePredictionsRequest
 }
 
 func (r *CreateNodePredictionsRequestExtended) Validate() error {

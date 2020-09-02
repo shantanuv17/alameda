@@ -6,7 +6,7 @@ import (
 )
 
 type CreateControllersRequestExtended struct {
-	ApiResources.CreateControllersRequest
+	*ApiResources.CreateControllersRequest
 }
 
 type ListControllersRequestExtended struct {

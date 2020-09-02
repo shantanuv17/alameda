@@ -12,7 +12,7 @@ import (
 )
 
 type CreateNamespacePredictionsRequestExtended struct {
-	ApiPredictions.CreateNamespacePredictionsRequest
+	*ApiPredictions.CreateNamespacePredictionsRequest
 }
 
 func (r *CreateNamespacePredictionsRequestExtended) Validate() error {

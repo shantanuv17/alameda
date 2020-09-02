@@ -14,9 +14,9 @@ type NodePredictionExtended struct {
 
 func (d *NodePredictionExtended) ProducePredictions() *ApiPredictions.NodePrediction {
 	var (
-		rawDataChan        = make(chan ApiPredictions.MetricData)
-		upperBoundDataChan = make(chan ApiPredictions.MetricData)
-		lowerBoundDataChan = make(chan ApiPredictions.MetricData)
+		rawDataChan        = make(chan *ApiPredictions.MetricData)
+		upperBoundDataChan = make(chan *ApiPredictions.MetricData)
+		lowerBoundDataChan = make(chan *ApiPredictions.MetricData)
 		numOfGoroutine     = 0
 
 		datahubNodePrediction ApiPredictions.NodePrediction
@@ -37,7 +37,7 @@ func (d *NodePredictionExtended) ProducePredictions() *ApiPredictions.NodePredic
 	}
 	for i := 0; i < numOfGoroutine; i++ {
 		receivedPredictionData := <-rawDataChan
-		datahubNodePrediction.PredictedRawData = append(datahubNodePrediction.PredictedRawData, &receivedPredictionData)
+		datahubNodePrediction.PredictedRawData = append(datahubNodePrediction.PredictedRawData, receivedPredictionData)
 	}
 
 	// Handle prediction upper bound data
@@ -50,7 +50,7 @@ func (d *NodePredictionExtended) ProducePredictions() *ApiPredictions.NodePredic
 	}
 	for i := 0; i < numOfGoroutine; i++ {
 		receivedPredictionData := <-upperBoundDataChan
-		datahubNodePrediction.PredictedUpperboundData = append(datahubNodePrediction.PredictedUpperboundData, &receivedPredictionData)
+		datahubNodePrediction.PredictedUpperboundData = append(datahubNodePrediction.PredictedUpperboundData, receivedPredictionData)
 	}
 
 	// Handle prediction lower bound data
@@ -63,7 +63,7 @@ func (d *NodePredictionExtended) ProducePredictions() *ApiPredictions.NodePredic
 	}
 	for i := 0; i < numOfGoroutine; i++ {
 		receivedPredictionData := <-lowerBoundDataChan
-		datahubNodePrediction.PredictedLowerboundData = append(datahubNodePrediction.PredictedLowerboundData, &receivedPredictionData)
+		datahubNodePrediction.PredictedLowerboundData = append(datahubNodePrediction.PredictedLowerboundData, receivedPredictionData)
 	}
 
 	return &datahubNodePrediction
@@ -93,9 +93,9 @@ type ContainerPredictionExtended struct {
 
 func (c *ContainerPredictionExtended) ProducePredictions() *ApiPredictions.ContainerPrediction {
 	var (
-		rawDataChan        = make(chan ApiPredictions.MetricData)
-		upperBoundDataChan = make(chan ApiPredictions.MetricData)
-		lowerBoundDataChan = make(chan ApiPredictions.MetricData)
+		rawDataChan        = make(chan *ApiPredictions.MetricData)
+		upperBoundDataChan = make(chan *ApiPredictions.MetricData)
+		lowerBoundDataChan = make(chan *ApiPredictions.MetricData)
 		numOfGoroutine     = 0
 
 		datahubContainerPrediction ApiPredictions.ContainerPrediction
@@ -115,7 +115,7 @@ func (c *ContainerPredictionExtended) ProducePredictions() *ApiPredictions.Conta
 	}
 	for i := 0; i < numOfGoroutine; i++ {
 		receivedPredictionData := <-rawDataChan
-		datahubContainerPrediction.PredictedRawData = append(datahubContainerPrediction.PredictedRawData, &receivedPredictionData)
+		datahubContainerPrediction.PredictedRawData = append(datahubContainerPrediction.PredictedRawData, receivedPredictionData)
 	}
 
 	// Handle prediction upper bound data
@@ -128,7 +128,7 @@ func (c *ContainerPredictionExtended) ProducePredictions() *ApiPredictions.Conta
 	}
 	for i := 0; i < numOfGoroutine; i++ {
 		receivedPredictionData := <-upperBoundDataChan
-		datahubContainerPrediction.PredictedUpperboundData = append(datahubContainerPrediction.PredictedUpperboundData, &receivedPredictionData)
+		datahubContainerPrediction.PredictedUpperboundData = append(datahubContainerPrediction.PredictedUpperboundData, receivedPredictionData)
 	}
 
 	// Handle prediction lower bound data
@@ -141,7 +141,7 @@ func (c *ContainerPredictionExtended) ProducePredictions() *ApiPredictions.Conta
 	}
 	for i := 0; i < numOfGoroutine; i++ {
 		receivedPredictionData := <-lowerBoundDataChan
-		datahubContainerPrediction.PredictedLowerboundData = append(datahubContainerPrediction.PredictedLowerboundData, &receivedPredictionData)
+		datahubContainerPrediction.PredictedLowerboundData = append(datahubContainerPrediction.PredictedLowerboundData, receivedPredictionData)
 	}
 
 	return &datahubContainerPrediction

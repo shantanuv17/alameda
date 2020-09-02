@@ -28,19 +28,19 @@ var MetricTypeNameMap = map[ApiCommon.MetricType]FormatEnum.MetricType{
 	ApiCommon.MetricType_DUTY_CYCLE:           FormatEnum.MetricTypeDutyCycle,
 }
 
-func normalizeListMetricsRequestQueryConditionWthMetricsDBType(q ApiCommon.QueryCondition, dbType MetricsDBType) ApiCommon.QueryCondition {
+func normalizeListMetricsRequestQueryConditionWthMetricsDBType(q *ApiCommon.QueryCondition, dbType MetricsDBType) *ApiCommon.QueryCondition {
 
 	t := q.TimeRange
 	if t == nil {
 		t = &ApiCommon.TimeRange{}
 	}
-	normalizeT := normalizeListMetricsRequestTimeRangeByMetricsDBType(*t, dbType)
-	q.TimeRange = &normalizeT
+	normalizeT := normalizeListMetricsRequestTimeRangeByMetricsDBType(t, dbType)
+	q.TimeRange = normalizeT
 
 	return q
 }
 
-func normalizeListMetricsRequestTimeRange(t ApiCommon.TimeRange) ApiCommon.TimeRange {
+func normalizeListMetricsRequestTimeRange(t *ApiCommon.TimeRange) *ApiCommon.TimeRange {
 
 	defaultStartTime := timestamp.Timestamp{}
 	defaultEndTime := *ptypes.TimestampNow()
@@ -61,7 +61,7 @@ func normalizeListMetricsRequestTimeRange(t ApiCommon.TimeRange) ApiCommon.TimeR
 	return t
 }
 
-func normalizeListMetricsRequestTimeRangeByMetricsDBType(t ApiCommon.TimeRange, metricsDBType MetricsDBType) ApiCommon.TimeRange {
+func normalizeListMetricsRequestTimeRangeByMetricsDBType(t *ApiCommon.TimeRange, metricsDBType MetricsDBType) *ApiCommon.TimeRange {
 
 	t = normalizeListMetricsRequestTimeRange(t)
 

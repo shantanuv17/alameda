@@ -15,7 +15,7 @@ import (
 func (s *ServiceV1alpha1) CreateNodePredictions(ctx context.Context, in *ApiPredictions.CreateNodePredictionsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateNodePredictions grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := predictions.CreateNodePredictionsRequestExtended{CreateNodePredictionsRequest: *in}
+	requestExtended := predictions.CreateNodePredictionsRequestExtended{CreateNodePredictionsRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

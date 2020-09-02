@@ -13,7 +13,7 @@ import (
 )
 
 type CreatePodMetricsRequestExtended struct {
-	ApiMetrics.CreatePodMetricsRequest
+	*ApiMetrics.CreatePodMetricsRequest
 }
 
 func (r *CreatePodMetricsRequestExtended) Validate() error {
@@ -73,14 +73,14 @@ func (r *ListPodMetricsRequestExtended) Validate() error {
 }
 
 func (r *ListPodMetricsRequestExtended) SetDefaultWithMetricsDBType(dbType MetricsDBType) {
-	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(*r.Request.QueryCondition, dbType)
+	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(r.Request.QueryCondition, dbType)
 	switch q.TimeRange.Step.Seconds {
 	case 30:
 		q.TimeRange.AggregateFunction = ApiCommon.TimeRange_MAX
 	default:
 		q.TimeRange.AggregateFunction = ApiCommon.TimeRange_AVG
 	}
-	r.Request.QueryCondition = &q
+	r.Request.QueryCondition = q
 }
 
 func (r *ListPodMetricsRequestExtended) ProduceRequest() DaoMetricTypes.ListPodMetricsRequest {

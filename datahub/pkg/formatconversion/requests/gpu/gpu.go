@@ -15,7 +15,7 @@ var (
 )
 
 type CreateGpuPredictionsRequestExtended struct {
-	ApiGpu.CreateGpuPredictionsRequest
+	*ApiGpu.CreateGpuPredictionsRequest
 }
 
 func (r *CreateGpuPredictionsRequestExtended) Validate() error {

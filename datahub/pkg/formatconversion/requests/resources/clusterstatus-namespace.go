@@ -7,7 +7,7 @@ import (
 )
 
 type CreateNamespacesRequestExtended struct {
-	ApiResources.CreateNamespacesRequest
+	*ApiResources.CreateNamespacesRequest
 }
 
 type ListNamespacesRequestExtended struct {

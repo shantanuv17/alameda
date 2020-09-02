@@ -6,7 +6,7 @@ import (
 )
 
 type CreateApplicationsRequestExtended struct {
-	ApiResources.CreateApplicationsRequest
+	*ApiResources.CreateApplicationsRequest
 }
 
 type ListApplicationsRequestExtended struct {

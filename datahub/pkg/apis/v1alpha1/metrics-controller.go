@@ -14,7 +14,7 @@ import (
 func (s *ServiceV1alpha1) CreateControllerMetrics(ctx context.Context, in *ApiMetrics.CreateControllerMetricsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateControllerMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := metrics.CreateControllerMetricsRequestExtended{CreateControllerMetricsRequest: *in}
+	requestExtended := metrics.CreateControllerMetricsRequestExtended{CreateControllerMetricsRequest: in}
 	if err := requestExtended.Validate(); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INVALID_ARGUMENT),
@@ -65,7 +65,7 @@ func (s *ServiceV1alpha1) ListControllerMetrics(ctx context.Context, in *ApiMetr
 	datahubControllerMetrics := make([]*ApiMetrics.ControllerMetric, len(metricMap.MetricMap))
 	for _, metric := range metricMap.MetricMap {
 		m := metrics2.ControllerMetricExtended{ControllerMetric: *metric}.ProduceMetrics()
-		datahubControllerMetrics[i] = &m
+		datahubControllerMetrics[i] = m
 		i++
 	}
 

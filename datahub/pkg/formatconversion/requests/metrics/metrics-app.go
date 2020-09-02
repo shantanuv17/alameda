@@ -14,7 +14,7 @@ import (
 )
 
 type CreateApplicationMetricsRequestExtended struct {
-	ApiMetrics.CreateApplicationMetricsRequest
+	*ApiMetrics.CreateApplicationMetricsRequest
 }
 
 func (r *CreateApplicationMetricsRequestExtended) Validate() error {
@@ -66,9 +66,9 @@ func (r *ListAppMetricsRequestExtended) Validate() error {
 }
 
 func (r *ListAppMetricsRequestExtended) SetDefaultWithMetricsDBType(dbType MetricsDBType) {
-	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(*r.Request.QueryCondition, dbType)
+	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(r.Request.QueryCondition, dbType)
 	q.TimeRange.AggregateFunction = ApiCommon.TimeRange_AVG
-	r.Request.QueryCondition = &q
+	r.Request.QueryCondition = q
 }
 
 func (r *ListAppMetricsRequestExtended) ProduceRequest() DaoMetricTypes.ListAppMetricsRequest {

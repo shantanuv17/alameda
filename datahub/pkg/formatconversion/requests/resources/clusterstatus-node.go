@@ -7,7 +7,7 @@ import (
 )
 
 type CreateNodesRequestExtended struct {
-	ApiResources.CreateNodesRequest
+	*ApiResources.CreateNodesRequest
 }
 
 type ListNodesRequestExtended struct {

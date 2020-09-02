@@ -8,7 +8,7 @@ import (
 )
 
 type CreatePodsRequestExtended struct {
-	ApiResources.CreatePodsRequest
+	*ApiResources.CreatePodsRequest
 }
 
 type ListPodsRequestExtended struct {

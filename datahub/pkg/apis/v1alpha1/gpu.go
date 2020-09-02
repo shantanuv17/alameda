@@ -195,7 +195,7 @@ func (s *ServiceV1alpha1) ListGpuPredictions(ctx context.Context, in *ApiGpu.Lis
 func (s *ServiceV1alpha1) CreateGpuPredictions(ctx context.Context, in *ApiGpu.CreateGpuPredictionsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateGpuPredictions grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := gpu.CreateGpuPredictionsRequestExtended{CreateGpuPredictionsRequest: *in}
+	requestExtended := gpu.CreateGpuPredictionsRequestExtended{CreateGpuPredictionsRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

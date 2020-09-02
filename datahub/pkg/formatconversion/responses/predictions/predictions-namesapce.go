@@ -14,9 +14,9 @@ type NamespacePredictionExtended struct {
 
 func (d *NamespacePredictionExtended) ProducePredictions() *ApiPredictions.NamespacePrediction {
 	var (
-		rawDataChan        = make(chan ApiPredictions.MetricData)
-		upperBoundDataChan = make(chan ApiPredictions.MetricData)
-		lowerBoundDataChan = make(chan ApiPredictions.MetricData)
+		rawDataChan        = make(chan *ApiPredictions.MetricData)
+		upperBoundDataChan = make(chan *ApiPredictions.MetricData)
+		lowerBoundDataChan = make(chan *ApiPredictions.MetricData)
 		numOfGoroutine     = 0
 
 		datahubNamespacePrediction ApiPredictions.NamespacePrediction
@@ -36,7 +36,7 @@ func (d *NamespacePredictionExtended) ProducePredictions() *ApiPredictions.Names
 	}
 	for i := 0; i < numOfGoroutine; i++ {
 		receivedPredictionData := <-rawDataChan
-		datahubNamespacePrediction.PredictedRawData = append(datahubNamespacePrediction.PredictedRawData, &receivedPredictionData)
+		datahubNamespacePrediction.PredictedRawData = append(datahubNamespacePrediction.PredictedRawData, receivedPredictionData)
 	}
 
 	// Handle prediction upper bound data
@@ -49,7 +49,7 @@ func (d *NamespacePredictionExtended) ProducePredictions() *ApiPredictions.Names
 	}
 	for i := 0; i < numOfGoroutine; i++ {
 		receivedPredictionData := <-upperBoundDataChan
-		datahubNamespacePrediction.PredictedUpperboundData = append(datahubNamespacePrediction.PredictedUpperboundData, &receivedPredictionData)
+		datahubNamespacePrediction.PredictedUpperboundData = append(datahubNamespacePrediction.PredictedUpperboundData, receivedPredictionData)
 	}
 
 	// Handle prediction lower bound data
@@ -62,7 +62,7 @@ func (d *NamespacePredictionExtended) ProducePredictions() *ApiPredictions.Names
 	}
 	for i := 0; i < numOfGoroutine; i++ {
 		receivedPredictionData := <-lowerBoundDataChan
-		datahubNamespacePrediction.PredictedLowerboundData = append(datahubNamespacePrediction.PredictedLowerboundData, &receivedPredictionData)
+		datahubNamespacePrediction.PredictedLowerboundData = append(datahubNamespacePrediction.PredictedLowerboundData, receivedPredictionData)
 	}
 
 	return &datahubNamespacePrediction

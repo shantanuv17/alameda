@@ -18,7 +18,7 @@ func (s *ServiceV1alpha1) CreateControllers(ctx context.Context, in *ApiResource
 		return &status.Status{Code: int32(code.Code_OK)}, nil
 	}
 
-	requestExtended := resources.CreateControllersRequestExtended{CreateControllersRequest: *in}
+	requestExtended := resources.CreateControllersRequestExtended{CreateControllersRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

@@ -6,7 +6,7 @@ import (
 )
 
 type CreateClustersRequestExtended struct {
-	ApiResources.CreateClustersRequest
+	*ApiResources.CreateClustersRequest
 }
 
 type ListClustersRequestExtended struct {

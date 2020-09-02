@@ -13,12 +13,12 @@ import (
 func TestNormalizeListMetricsRequestTimeRange(t *testing.T) {
 
 	type testCaseHave struct {
-		q      ApiCommon.QueryCondition
+		q      *ApiCommon.QueryCondition
 		dbType MetricsDBType
 	}
 	type testCase struct {
 		have testCaseHave
-		want ApiCommon.QueryCondition
+		want *ApiCommon.QueryCondition
 	}
 
 	st := timestamp.Timestamp{Seconds: 1575250000}
@@ -34,11 +34,11 @@ func TestNormalizeListMetricsRequestTimeRange(t *testing.T) {
 	g3600WantPrometheusEt := timestamp.Timestamp{Seconds: 1575259200}
 	g3600WantInfluxdbEt := timestamp.Timestamp{Seconds: 1575259199}
 
-	testCases := []testCase{
-		testCase{
+	testCases := []*testCase{
+		{
 			have: testCaseHave{
 				dbType: MetricsDBTypePromethues,
-				q: ApiCommon.QueryCondition{
+				q: &ApiCommon.QueryCondition{
 					TimeRange: &ApiCommon.TimeRange{
 						StartTime: &st,
 						EndTime:   &et,
@@ -46,7 +46,7 @@ func TestNormalizeListMetricsRequestTimeRange(t *testing.T) {
 					},
 				},
 			},
-			want: ApiCommon.QueryCondition{
+			want: &ApiCommon.QueryCondition{
 				TimeRange: &ApiCommon.TimeRange{
 					StartTime: &g30WantSt,
 					EndTime:   &g30WantPrometheusEt,
@@ -54,10 +54,10 @@ func TestNormalizeListMetricsRequestTimeRange(t *testing.T) {
 				},
 			},
 		},
-		testCase{
+		{
 			have: testCaseHave{
 				dbType: MetricsDBTypeInfluxdb,
-				q: ApiCommon.QueryCondition{
+				q: &ApiCommon.QueryCondition{
 					TimeRange: &ApiCommon.TimeRange{
 						StartTime: &st,
 						EndTime:   &et,
@@ -65,7 +65,7 @@ func TestNormalizeListMetricsRequestTimeRange(t *testing.T) {
 					},
 				},
 			},
-			want: ApiCommon.QueryCondition{
+			want: &ApiCommon.QueryCondition{
 				TimeRange: &ApiCommon.TimeRange{
 					StartTime: &g30WantSt,
 					EndTime:   &g30WantInfluxdbEt,
@@ -73,10 +73,10 @@ func TestNormalizeListMetricsRequestTimeRange(t *testing.T) {
 				},
 			},
 		},
-		testCase{
+		{
 			have: testCaseHave{
 				dbType: MetricsDBTypePromethues,
-				q: ApiCommon.QueryCondition{
+				q: &ApiCommon.QueryCondition{
 					TimeRange: &ApiCommon.TimeRange{
 						StartTime: &st,
 						EndTime:   &et,
@@ -84,7 +84,7 @@ func TestNormalizeListMetricsRequestTimeRange(t *testing.T) {
 					},
 				},
 			},
-			want: ApiCommon.QueryCondition{
+			want: &ApiCommon.QueryCondition{
 				TimeRange: &ApiCommon.TimeRange{
 					StartTime: &g3600WantSt,
 					EndTime:   &g3600WantPrometheusEt,
@@ -92,10 +92,10 @@ func TestNormalizeListMetricsRequestTimeRange(t *testing.T) {
 				},
 			},
 		},
-		testCase{
+		{
 			have: testCaseHave{
 				dbType: MetricsDBTypeInfluxdb,
-				q: ApiCommon.QueryCondition{
+				q: &ApiCommon.QueryCondition{
 					TimeRange: &ApiCommon.TimeRange{
 						StartTime: &st,
 						EndTime:   &et,
@@ -103,7 +103,7 @@ func TestNormalizeListMetricsRequestTimeRange(t *testing.T) {
 					},
 				},
 			},
-			want: ApiCommon.QueryCondition{
+			want: &ApiCommon.QueryCondition{
 				TimeRange: &ApiCommon.TimeRange{
 					StartTime: &g3600WantSt,
 					EndTime:   &g3600WantInfluxdbEt,

@@ -38,7 +38,7 @@ type ContainerMetricExtended struct {
 
 func (c *ContainerMetricExtended) ProduceMetrics() *ApiMetrics.ContainerMetric {
 	var (
-		metricDataChan  = make(chan ApiCommon.MetricData)
+		metricDataChan  = make(chan *ApiCommon.MetricData)
 		numOfGoroutines = 0
 
 		datahubContainerMetric ApiMetrics.ContainerMetric
@@ -57,7 +57,7 @@ func (c *ContainerMetricExtended) ProduceMetrics() *ApiMetrics.ContainerMetric {
 
 	for i := 0; i < numOfGoroutines; i++ {
 		receivedMetricData := <-metricDataChan
-		datahubContainerMetric.MetricData = append(datahubContainerMetric.MetricData, &receivedMetricData)
+		datahubContainerMetric.MetricData = append(datahubContainerMetric.MetricData, receivedMetricData)
 	}
 
 	return &datahubContainerMetric
@@ -69,7 +69,7 @@ type NodeMetricExtended struct {
 
 func (n *NodeMetricExtended) ProduceMetrics() *ApiMetrics.NodeMetric {
 	var (
-		metricDataChan  = make(chan ApiCommon.MetricData)
+		metricDataChan  = make(chan *ApiCommon.MetricData)
 		numOfGoroutines = 0
 
 		datahubNodeMetric ApiMetrics.NodeMetric
@@ -87,7 +87,7 @@ func (n *NodeMetricExtended) ProduceMetrics() *ApiMetrics.NodeMetric {
 
 	for i := 0; i < numOfGoroutines; i++ {
 		receivedMetricData := <-metricDataChan
-		datahubNodeMetric.MetricData = append(datahubNodeMetric.MetricData, &receivedMetricData)
+		datahubNodeMetric.MetricData = append(datahubNodeMetric.MetricData, receivedMetricData)
 	}
 
 	return &datahubNodeMetric
@@ -97,7 +97,7 @@ type AppMetricExtended struct {
 	DaoMetricTypes.AppMetric
 }
 
-func (n AppMetricExtended) ProduceMetrics() ApiMetrics.ApplicationMetric {
+func (n AppMetricExtended) ProduceMetrics() *ApiMetrics.ApplicationMetric {
 	var (
 		m ApiMetrics.ApplicationMetric
 	)
@@ -110,14 +110,14 @@ func (n AppMetricExtended) ProduceMetrics() ApiMetrics.ApplicationMetric {
 		Uid:         n.AppMetric.ObjectMeta.Uid,
 	}
 	m.MetricData = common.MetricMapToDatahubMetricSlice(n.AppMetric.Metrics)
-	return m
+	return &m
 }
 
 type ControllerMetricExtended struct {
 	DaoMetricTypes.ControllerMetric
 }
 
-func (n ControllerMetricExtended) ProduceMetrics() ApiMetrics.ControllerMetric {
+func (n ControllerMetricExtended) ProduceMetrics() *ApiMetrics.ControllerMetric {
 	var (
 		m ApiMetrics.ControllerMetric
 	)
@@ -132,14 +132,14 @@ func (n ControllerMetricExtended) ProduceMetrics() ApiMetrics.ControllerMetric {
 	m.Kind = ApiResources.Kind(ApiResources.Kind_value[n.ControllerMetric.ObjectMeta.Kind])
 	m.MetricData = common.MetricMapToDatahubMetricSlice(n.ControllerMetric.Metrics)
 
-	return m
+	return &m
 }
 
 type NamespaceMetricExtended struct {
 	DaoMetricTypes.NamespaceMetric
 }
 
-func (n NamespaceMetricExtended) ProduceMetrics() ApiMetrics.NamespaceMetric {
+func (n NamespaceMetricExtended) ProduceMetrics() *ApiMetrics.NamespaceMetric {
 	var (
 		m ApiMetrics.NamespaceMetric
 	)
@@ -153,14 +153,14 @@ func (n NamespaceMetricExtended) ProduceMetrics() ApiMetrics.NamespaceMetric {
 	}
 	m.MetricData = common.MetricMapToDatahubMetricSlice(n.NamespaceMetric.Metrics)
 
-	return m
+	return &m
 }
 
 type ClusterMetricExtended struct {
 	DaoMetricTypes.ClusterMetric
 }
 
-func (n ClusterMetricExtended) ProduceMetrics() ApiMetrics.ClusterMetric {
+func (n ClusterMetricExtended) ProduceMetrics() *ApiMetrics.ClusterMetric {
 	var (
 		m ApiMetrics.ClusterMetric
 	)
@@ -174,5 +174,5 @@ func (n ClusterMetricExtended) ProduceMetrics() ApiMetrics.ClusterMetric {
 	}
 	m.MetricData = common.MetricMapToDatahubMetricSlice(n.ClusterMetric.Metrics)
 
-	return m
+	return &m
 }

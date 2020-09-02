@@ -8,8 +8,8 @@ import (
 	"github.com/golang/protobuf/ptypes"
 )
 
-func ProduceMetricDataFromSamples(metricType ApiCommon.MetricType, samples []FormatTypes.Sample, MetricDataChan chan<- ApiCommon.MetricData) {
-	datahubMetricData := ApiCommon.MetricData{
+func ProduceMetricDataFromSamples(metricType ApiCommon.MetricType, samples []FormatTypes.Sample, MetricDataChan chan<- *ApiCommon.MetricData) {
+	datahubMetricData := &ApiCommon.MetricData{
 		MetricType: metricType,
 	}
 
@@ -27,8 +27,8 @@ func ProduceMetricDataFromSamples(metricType ApiCommon.MetricType, samples []For
 	MetricDataChan <- datahubMetricData
 }
 
-func ProducePredictionMetricDataFromSamples(metricType ApiCommon.MetricType, granularity int64, samples []FormatTypes.PredictionSample, MetricDataChan chan<- ApiPredictions.MetricData) {
-	datahubMetricData := ApiPredictions.MetricData{
+func ProducePredictionMetricDataFromSamples(metricType ApiCommon.MetricType, granularity int64, samples []FormatTypes.PredictionSample, MetricDataChan chan<- *ApiPredictions.MetricData) {
+	datahubMetricData := &ApiPredictions.MetricData{
 		MetricType:  metricType,
 		Granularity: granularity,
 	}

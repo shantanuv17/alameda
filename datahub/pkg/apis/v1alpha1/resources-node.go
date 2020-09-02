@@ -19,7 +19,7 @@ func (s *ServiceV1alpha1) CreateNodes(ctx context.Context, in *ApiResources.Crea
 		return &status.Status{Code: int32(code.Code_OK)}, nil
 	}
 
-	requestExtended := resources.CreateNodesRequestExtended{CreateNodesRequest: *in}
+	requestExtended := resources.CreateNodesRequestExtended{CreateNodesRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

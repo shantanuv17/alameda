@@ -18,7 +18,7 @@ func (s *ServiceV1alpha1) CreateNamespaces(ctx context.Context, in *ApiResources
 		return &status.Status{Code: int32(code.Code_OK)}, nil
 	}
 
-	requestExtended := resources.CreateNamespacesRequestExtended{CreateNamespacesRequest: *in}
+	requestExtended := resources.CreateNamespacesRequestExtended{CreateNamespacesRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

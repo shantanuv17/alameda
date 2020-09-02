@@ -14,7 +14,7 @@ import (
 func (s *ServiceV1alpha1) CreateNamespaceMetrics(ctx context.Context, in *ApiMetrics.CreateNamespaceMetricsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateNamespaceMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := metrics.CreateNamespaceMetricsRequestExtended{CreateNamespaceMetricsRequest: *in}
+	requestExtended := metrics.CreateNamespaceMetricsRequestExtended{CreateNamespaceMetricsRequest: in}
 	if err := requestExtended.Validate(); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INVALID_ARGUMENT),
@@ -65,7 +65,7 @@ func (s *ServiceV1alpha1) ListNamespaceMetrics(ctx context.Context, in *ApiMetri
 	datahubNamespaceMetrics := make([]*ApiMetrics.NamespaceMetric, len(metricMap.MetricMap))
 	for _, metric := range metricMap.MetricMap {
 		m := metrics2.NamespaceMetricExtended{NamespaceMetric: *metric}.ProduceMetrics()
-		datahubNamespaceMetrics[i] = &m
+		datahubNamespaceMetrics[i] = m
 		i++
 	}
 

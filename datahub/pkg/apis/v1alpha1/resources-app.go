@@ -18,7 +18,7 @@ func (s *ServiceV1alpha1) CreateApplications(ctx context.Context, in *ApiResourc
 		return &status.Status{Code: int32(code.Code_OK)}, nil
 	}
 
-	requestExtended := FormatRequest.CreateApplicationsRequestExtended{CreateApplicationsRequest: *in}
+	requestExtended := FormatRequest.CreateApplicationsRequestExtended{CreateApplicationsRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

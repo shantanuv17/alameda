@@ -14,9 +14,9 @@ type ApplicationPredictionExtended struct {
 
 func (d *ApplicationPredictionExtended) ProducePredictions() *ApiPredictions.ApplicationPrediction {
 	var (
-		rawDataChan        = make(chan ApiPredictions.MetricData)
-		upperBoundDataChan = make(chan ApiPredictions.MetricData)
-		lowerBoundDataChan = make(chan ApiPredictions.MetricData)
+		rawDataChan        = make(chan *ApiPredictions.MetricData)
+		upperBoundDataChan = make(chan *ApiPredictions.MetricData)
+		lowerBoundDataChan = make(chan *ApiPredictions.MetricData)
 		numOfGoroutine     = 0
 
 		datahubApplicationPrediction ApiPredictions.ApplicationPrediction
@@ -36,7 +36,7 @@ func (d *ApplicationPredictionExtended) ProducePredictions() *ApiPredictions.App
 	}
 	for i := 0; i < numOfGoroutine; i++ {
 		receivedPredictionData := <-rawDataChan
-		datahubApplicationPrediction.PredictedRawData = append(datahubApplicationPrediction.PredictedRawData, &receivedPredictionData)
+		datahubApplicationPrediction.PredictedRawData = append(datahubApplicationPrediction.PredictedRawData, receivedPredictionData)
 	}
 
 	// Handle prediction upper bound data
@@ -49,7 +49,7 @@ func (d *ApplicationPredictionExtended) ProducePredictions() *ApiPredictions.App
 	}
 	for i := 0; i < numOfGoroutine; i++ {
 		receivedPredictionData := <-upperBoundDataChan
-		datahubApplicationPrediction.PredictedUpperboundData = append(datahubApplicationPrediction.PredictedUpperboundData, &receivedPredictionData)
+		datahubApplicationPrediction.PredictedUpperboundData = append(datahubApplicationPrediction.PredictedUpperboundData, receivedPredictionData)
 	}
 
 	// Handle prediction lower bound data
@@ -62,7 +62,7 @@ func (d *ApplicationPredictionExtended) ProducePredictions() *ApiPredictions.App
 	}
 	for i := 0; i < numOfGoroutine; i++ {
 		receivedPredictionData := <-lowerBoundDataChan
-		datahubApplicationPrediction.PredictedLowerboundData = append(datahubApplicationPrediction.PredictedLowerboundData, &receivedPredictionData)
+		datahubApplicationPrediction.PredictedLowerboundData = append(datahubApplicationPrediction.PredictedLowerboundData, receivedPredictionData)
 	}
 
 	return &datahubApplicationPrediction

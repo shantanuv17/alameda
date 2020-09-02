@@ -14,7 +14,7 @@ import (
 func (s *ServiceV1alpha1) CreateNodeMetrics(ctx context.Context, in *ApiMetrics.CreateNodeMetricsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateNodeMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := metrics.CreateNodeMetricsRequestExtended{CreateNodeMetricsRequest: *in}
+	requestExtended := metrics.CreateNodeMetricsRequestExtended{CreateNodeMetricsRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

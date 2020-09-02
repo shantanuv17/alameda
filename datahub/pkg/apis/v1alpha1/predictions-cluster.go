@@ -14,7 +14,7 @@ import (
 func (s *ServiceV1alpha1) CreateClusterPredictions(ctx context.Context, in *ApiPredictions.CreateClusterPredictionsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateClusterPredictions grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := predictions.CreateClusterPredictionsRequestExtended{CreateClusterPredictionsRequest: *in}
+	requestExtended := predictions.CreateClusterPredictionsRequestExtended{CreateClusterPredictionsRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

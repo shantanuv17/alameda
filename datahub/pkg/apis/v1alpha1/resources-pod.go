@@ -19,7 +19,7 @@ func (s *ServiceV1alpha1) CreatePods(ctx context.Context, in *ApiResources.Creat
 		return &status.Status{Code: int32(code.Code_OK)}, nil
 	}
 
-	requestExtended := resources.CreatePodsRequestExtended{CreatePodsRequest: *in}
+	requestExtended := resources.CreatePodsRequestExtended{CreatePodsRequest: in}
 	if err := requestExtended.Validate(); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INVALID_ARGUMENT),

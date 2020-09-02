@@ -13,7 +13,7 @@ import (
 )
 
 type CreateControllerPredictionsRequestExtended struct {
-	ApiPredictions.CreateControllerPredictionsRequest
+	*ApiPredictions.CreateControllerPredictionsRequest
 }
 
 func (r *CreateControllerPredictionsRequestExtended) Validate() error {

@@ -14,7 +14,7 @@ import (
 )
 
 type CreateClusterMetricsRequestExtended struct {
-	ApiMetrics.CreateClusterMetricsRequest
+	*ApiMetrics.CreateClusterMetricsRequest
 }
 
 func (r *CreateClusterMetricsRequestExtended) Validate() error {
@@ -66,9 +66,9 @@ func (r *ListClusterMetricsRequestExtended) Validate() error {
 }
 
 func (r *ListClusterMetricsRequestExtended) SetDefaultWithMetricsDBType(dbType MetricsDBType) {
-	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(*r.Request.QueryCondition, dbType)
+	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(r.Request.QueryCondition, dbType)
 	q.TimeRange.AggregateFunction = ApiCommon.TimeRange_AVG
-	r.Request.QueryCondition = &q
+	r.Request.QueryCondition = q
 }
 
 func (r *ListClusterMetricsRequestExtended) ProduceRequest() DaoMetricTypes.ListClusterMetricsRequest {

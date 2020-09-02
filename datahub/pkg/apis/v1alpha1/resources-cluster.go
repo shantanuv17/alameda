@@ -18,7 +18,7 @@ func (s *ServiceV1alpha1) CreateClusters(ctx context.Context, in *ApiResources.C
 		return &status.Status{Code: int32(code.Code_OK)}, nil
 	}
 
-	requestExtended := resources.CreateClustersRequestExtended{CreateClustersRequest: *in}
+	requestExtended := resources.CreateClustersRequestExtended{CreateClustersRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

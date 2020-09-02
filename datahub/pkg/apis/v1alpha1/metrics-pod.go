@@ -21,7 +21,7 @@ import (
 func (s *ServiceV1alpha1) CreatePodMetrics(ctx context.Context, in *ApiMetrics.CreatePodMetricsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreatePodMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := metrics.CreatePodMetricsRequestExtended{CreatePodMetricsRequest: *in}
+	requestExtended := metrics.CreatePodMetricsRequestExtended{CreatePodMetricsRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

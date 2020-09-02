@@ -22,7 +22,7 @@ import (
 func (s *ServiceV1alpha1) CreatePodPredictions(ctx context.Context, in *ApiPredictions.CreatePodPredictionsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreatePodPredictions grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := predictions.CreatePodPredictionsRequestExtended{CreatePodPredictionsRequest: *in}
+	requestExtended := predictions.CreatePodPredictionsRequestExtended{CreatePodPredictionsRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

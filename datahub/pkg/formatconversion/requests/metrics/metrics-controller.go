@@ -14,7 +14,7 @@ import (
 )
 
 type CreateControllerMetricsRequestExtended struct {
-	ApiMetrics.CreateControllerMetricsRequest
+	*ApiMetrics.CreateControllerMetricsRequest
 }
 
 func (r *CreateControllerMetricsRequestExtended) Validate() error {
@@ -66,9 +66,9 @@ func (r *ListControllerMetricsRequestExtended) Validate() error {
 }
 
 func (r *ListControllerMetricsRequestExtended) SetDefaultWithMetricsDBType(dbType MetricsDBType) {
-	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(*r.Request.QueryCondition, dbType)
+	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(r.Request.QueryCondition, dbType)
 	q.TimeRange.AggregateFunction = ApiCommon.TimeRange_AVG
-	r.Request.QueryCondition = &q
+	r.Request.QueryCondition = q
 }
 
 func (r *ListControllerMetricsRequestExtended) ProduceRequest() DaoMetricTypes.ListControllerMetricsRequest {

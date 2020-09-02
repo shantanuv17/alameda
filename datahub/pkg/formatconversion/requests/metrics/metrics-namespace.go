@@ -14,7 +14,7 @@ import (
 )
 
 type CreateNamespaceMetricsRequestExtended struct {
-	ApiMetrics.CreateNamespaceMetricsRequest
+	*ApiMetrics.CreateNamespaceMetricsRequest
 }
 
 func (r *CreateNamespaceMetricsRequestExtended) Validate() error {
@@ -66,9 +66,9 @@ func (r *ListNamespaceMetricsRequestExtended) Validate() error {
 }
 
 func (r *ListNamespaceMetricsRequestExtended) SetDefaultWithMetricsDBType(dbType MetricsDBType) {
-	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(*r.Request.QueryCondition, dbType)
+	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(r.Request.QueryCondition, dbType)
 	q.TimeRange.AggregateFunction = ApiCommon.TimeRange_AVG
-	r.Request.QueryCondition = &q
+	r.Request.QueryCondition = q
 }
 
 func (r *ListNamespaceMetricsRequestExtended) ProduceRequest() DaoMetricTypes.ListNamespaceMetricsRequest {
