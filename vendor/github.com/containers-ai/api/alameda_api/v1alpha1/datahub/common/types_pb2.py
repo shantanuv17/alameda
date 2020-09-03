@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z@github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n/alameda_api/v1alpha1/datahub/common/types.proto\x12,containersai.alameda.v1alpha1.datahub.common*y\n\x10ResourceBoundary\x12\x1f\n\x1bRESOURCE_BOUNDARY_UNDEFINED\x10\x00\x12\x10\n\x0cRESOURCE_RAW\x10\x01\x12\x18\n\x14RESOURCE_UPPER_BOUND\x10\x02\x12\x18\n\x14RESOURCE_LOWER_BOUND\x10\x03*\x91\x01\n\rResourceQuota\x12\x1c\n\x18RESOURCE_QUOTA_UNDEFINED\x10\x00\x12\x12\n\x0eRESOURCE_LIMIT\x10\x01\x12\x14\n\x10RESOURCE_REQUEST\x10\x02\x12\x1a\n\x16RESOURCE_INITIAL_LIMIT\x10\x03\x12\x1c\n\x18RESOURCE_INITIAL_REQUEST\x10\x04*\xbd\x02\n\x08\x44\x61taType\x12\x16\n\x12\x44\x41TATYPE_UNDEFINED\x10\x00\x12\x11\n\rDATATYPE_BOOL\x10\x01\x12\x10\n\x0c\x44\x41TATYPE_INT\x10\x02\x12\x11\n\rDATATYPE_INT8\x10\x03\x12\x12\n\x0e\x44\x41TATYPE_INT16\x10\x04\x12\x12\n\x0e\x44\x41TATYPE_INT32\x10\x05\x12\x12\n\x0e\x44\x41TATYPE_INT64\x10\x06\x12\x11\n\rDATATYPE_UINT\x10\x07\x12\x12\n\x0e\x44\x41TATYPE_UINT8\x10\x08\x12\x13\n\x0f\x44\x41TATYPE_UINT16\x10\t\x12\x13\n\x0f\x44\x41TATYPE_UINT32\x10\n\x12\x13\n\x0f\x44\x41TATYPE_UTIN64\x10\x0b\x12\x14\n\x10\x44\x41TATYPE_FLOAT32\x10\x0c\x12\x14\n\x10\x44\x41TATYPE_FLOAT64\x10\r\x12\x13\n\x0f\x44\x41TATYPE_STRING\x10\x0e*O\n\nColumnType\x12\x17\n\x13\x43OLUMNTYPE_UDEFINED\x10\x00\x12\x12\n\x0e\x43OLUMNTYPE_TAG\x10\x01\x12\x14\n\x10\x43OLUMNTYPE_FIELD\x10\x02*\xe4\x03\n\x0c\x46unctionType\x12\x1a\n\x16\x46UNCTIONTYPE_UNDEFINED\x10\x00\x12\x16\n\x12\x46UNCTIONTYPE_COUNT\x10\x01\x12\x19\n\x15\x46UNCTIONTYPE_DISTINCT\x10\x02\x12\x19\n\x15\x46UNCTIONTYPE_INTEGRAL\x10\x03\x12\x15\n\x11\x46UNCTIONTYPE_MEAN\x10\x04\x12\x17\n\x13\x46UNCTIONTYPE_MEDIAN\x10\x05\x12\x15\n\x11\x46UNCTIONTYPE_MODE\x10\x06\x12\x17\n\x13\x46UNCTIONTYPE_SPREAD\x10\x07\x12\x17\n\x13\x46UNCTIONTYPE_STDDEV\x10\x08\x12\x14\n\x10\x46UNCTIONTYPE_SUM\x10\t\x12\x17\n\x13\x46UNCTIONTYPE_BOTTOM\x10\n\x12\x16\n\x12\x46UNCTIONTYPE_FIRST\x10\x0b\x12\x15\n\x11\x46UNCTIONTYPE_LAST\x10\x0c\x12\x14\n\x10\x46UNCTIONTYPE_MAX\x10\r\x12\x14\n\x10\x46UNCTIONTYPE_MIN\x10\x0e\x12\x1b\n\x17\x46UNCTIONTYPE_PERCENTILE\x10\x0f\x12\x17\n\x13\x46UNCTIONTYPE_SAMPLE\x10\x10\x12\x14\n\x10\x46UNCTIONTYPE_TOP\x10\x11\x12\x1b\n\x17\x46UNCTIONTYPE_DERIVATIVE\x10\x12\x42\x42Z@github.com/containers-ai/api/alameda_api/v1alpha1/datahub/commonb\x06proto3'
+  serialized_pb=b'\n/alameda_api/v1alpha1/datahub/common/types.proto\x12,containersai.alameda.v1alpha1.datahub.common*y\n\x10ResourceBoundary\x12\x1f\n\x1bRESOURCE_BOUNDARY_UNDEFINED\x10\x00\x12\x10\n\x0cRESOURCE_RAW\x10\x01\x12\x18\n\x14RESOURCE_UPPER_BOUND\x10\x02\x12\x18\n\x14RESOURCE_LOWER_BOUND\x10\x03*\x91\x01\n\rResourceQuota\x12\x1c\n\x18RESOURCE_QUOTA_UNDEFINED\x10\x00\x12\x12\n\x0eRESOURCE_LIMIT\x10\x01\x12\x14\n\x10RESOURCE_REQUEST\x10\x02\x12\x1a\n\x16RESOURCE_INITIAL_LIMIT\x10\x03\x12\x1c\n\x18RESOURCE_INITIAL_REQUEST\x10\x04*;\n\x0c\x44\x61tabaseType\x12\r\n\tUNDEFINED\x10\x00\x12\x0c\n\x08INFLUXDB\x10\x01\x12\x0e\n\nPROMETHEUS\x10\x02*\xbd\x02\n\x08\x44\x61taType\x12\x16\n\x12\x44\x41TATYPE_UNDEFINED\x10\x00\x12\x11\n\rDATATYPE_BOOL\x10\x01\x12\x10\n\x0c\x44\x41TATYPE_INT\x10\x02\x12\x11\n\rDATATYPE_INT8\x10\x03\x12\x12\n\x0e\x44\x41TATYPE_INT16\x10\x04\x12\x12\n\x0e\x44\x41TATYPE_INT32\x10\x05\x12\x12\n\x0e\x44\x41TATYPE_INT64\x10\x06\x12\x11\n\rDATATYPE_UINT\x10\x07\x12\x12\n\x0e\x44\x41TATYPE_UINT8\x10\x08\x12\x13\n\x0f\x44\x41TATYPE_UINT16\x10\t\x12\x13\n\x0f\x44\x41TATYPE_UINT32\x10\n\x12\x13\n\x0f\x44\x41TATYPE_UTIN64\x10\x0b\x12\x14\n\x10\x44\x41TATYPE_FLOAT32\x10\x0c\x12\x14\n\x10\x44\x41TATYPE_FLOAT64\x10\r\x12\x13\n\x0f\x44\x41TATYPE_STRING\x10\x0e*O\n\nColumnType\x12\x17\n\x13\x43OLUMNTYPE_UDEFINED\x10\x00\x12\x12\n\x0e\x43OLUMNTYPE_TAG\x10\x01\x12\x14\n\x10\x43OLUMNTYPE_FIELD\x10\x02*\xe4\x03\n\x0c\x46unctionType\x12\x1a\n\x16\x46UNCTIONTYPE_UNDEFINED\x10\x00\x12\x16\n\x12\x46UNCTIONTYPE_COUNT\x10\x01\x12\x19\n\x15\x46UNCTIONTYPE_DISTINCT\x10\x02\x12\x19\n\x15\x46UNCTIONTYPE_INTEGRAL\x10\x03\x12\x15\n\x11\x46UNCTIONTYPE_MEAN\x10\x04\x12\x17\n\x13\x46UNCTIONTYPE_MEDIAN\x10\x05\x12\x15\n\x11\x46UNCTIONTYPE_MODE\x10\x06\x12\x17\n\x13\x46UNCTIONTYPE_SPREAD\x10\x07\x12\x17\n\x13\x46UNCTIONTYPE_STDDEV\x10\x08\x12\x14\n\x10\x46UNCTIONTYPE_SUM\x10\t\x12\x17\n\x13\x46UNCTIONTYPE_BOTTOM\x10\n\x12\x16\n\x12\x46UNCTIONTYPE_FIRST\x10\x0b\x12\x15\n\x11\x46UNCTIONTYPE_LAST\x10\x0c\x12\x14\n\x10\x46UNCTIONTYPE_MAX\x10\r\x12\x14\n\x10\x46UNCTIONTYPE_MIN\x10\x0e\x12\x1b\n\x17\x46UNCTIONTYPE_PERCENTILE\x10\x0f\x12\x17\n\x13\x46UNCTIONTYPE_SAMPLE\x10\x10\x12\x14\n\x10\x46UNCTIONTYPE_TOP\x10\x11\x12\x1b\n\x17\x46UNCTIONTYPE_DERIVATIVE\x10\x12\x42\x42Z@github.com/containers-ai/api/alameda_api/v1alpha1/datahub/commonb\x06proto3'
 )
 
 _RESOURCEBOUNDARY = _descriptor.EnumDescriptor(
@@ -100,6 +100,37 @@ _RESOURCEQUOTA = _descriptor.EnumDescriptor(
 _sym_db.RegisterEnumDescriptor(_RESOURCEQUOTA)
 
 ResourceQuota = enum_type_wrapper.EnumTypeWrapper(_RESOURCEQUOTA)
+_DATABASETYPE = _descriptor.EnumDescriptor(
+  name='DatabaseType',
+  full_name='containersai.alameda.v1alpha1.datahub.common.DatabaseType',
+  filename=None,
+  file=DESCRIPTOR,
+  create_key=_descriptor._internal_create_key,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='UNDEFINED', index=0, number=0,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='INFLUXDB', index=1, number=1,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='PROMETHEUS', index=2, number=2,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=368,
+  serialized_end=427,
+)
+_sym_db.RegisterEnumDescriptor(_DATABASETYPE)
+
+DatabaseType = enum_type_wrapper.EnumTypeWrapper(_DATABASETYPE)
 _DATATYPE = _descriptor.EnumDescriptor(
   name='DataType',
   full_name='containersai.alameda.v1alpha1.datahub.common.DataType',
@@ -185,8 +216,8 @@ _DATATYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=369,
-  serialized_end=686,
+  serialized_start=430,
+  serialized_end=747,
 )
 _sym_db.RegisterEnumDescriptor(_DATATYPE)
 
@@ -216,8 +247,8 @@ _COLUMNTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=688,
-  serialized_end=767,
+  serialized_start=749,
+  serialized_end=828,
 )
 _sym_db.RegisterEnumDescriptor(_COLUMNTYPE)
 
@@ -327,8 +358,8 @@ _FUNCTIONTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=770,
-  serialized_end=1254,
+  serialized_start=831,
+  serialized_end=1315,
 )
 _sym_db.RegisterEnumDescriptor(_FUNCTIONTYPE)
 
@@ -342,6 +373,9 @@ RESOURCE_LIMIT = 1
 RESOURCE_REQUEST = 2
 RESOURCE_INITIAL_LIMIT = 3
 RESOURCE_INITIAL_REQUEST = 4
+UNDEFINED = 0
+INFLUXDB = 1
+PROMETHEUS = 2
 DATATYPE_UNDEFINED = 0
 DATATYPE_BOOL = 1
 DATATYPE_INT = 2
@@ -383,6 +417,7 @@ FUNCTIONTYPE_DERIVATIVE = 18
 
 DESCRIPTOR.enum_types_by_name['ResourceBoundary'] = _RESOURCEBOUNDARY
 DESCRIPTOR.enum_types_by_name['ResourceQuota'] = _RESOURCEQUOTA
+DESCRIPTOR.enum_types_by_name['DatabaseType'] = _DATABASETYPE
 DESCRIPTOR.enum_types_by_name['DataType'] = _DATATYPE
 DESCRIPTOR.enum_types_by_name['ColumnType'] = _COLUMNTYPE
 DESCRIPTOR.enum_types_by_name['FunctionType'] = _FUNCTIONTYPE

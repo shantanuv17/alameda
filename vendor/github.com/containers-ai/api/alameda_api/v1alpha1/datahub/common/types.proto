@@ -28,6 +28,15 @@ enum ResourceQuota {
 }
 
 /**
+ * Represents a specified database whcih is to query.
+ */
+enum DatabaseType {
+    UNDEFINED  = 0;
+    INFLUXDB   = 1;
+    PROMETHEUS = 2;
+}
+
+/**
  * Represents the datahub specified data type.
  */
 enum DataType {

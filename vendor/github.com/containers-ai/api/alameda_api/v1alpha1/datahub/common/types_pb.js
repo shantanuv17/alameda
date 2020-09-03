@@ -14,6 +14,7 @@ var global = Function('return this')();
 
 goog.exportSymbol('proto.containersai.alameda.v1alpha1.datahub.common.ColumnType', null, global);
 goog.exportSymbol('proto.containersai.alameda.v1alpha1.datahub.common.DataType', null, global);
+goog.exportSymbol('proto.containersai.alameda.v1alpha1.datahub.common.DatabaseType', null, global);
 goog.exportSymbol('proto.containersai.alameda.v1alpha1.datahub.common.FunctionType', null, global);
 goog.exportSymbol('proto.containersai.alameda.v1alpha1.datahub.common.ResourceBoundary', null, global);
 goog.exportSymbol('proto.containersai.alameda.v1alpha1.datahub.common.ResourceQuota', null, global);
@@ -36,6 +37,15 @@ proto.containersai.alameda.v1alpha1.datahub.common.ResourceQuota = {
   RESOURCE_REQUEST: 2,
   RESOURCE_INITIAL_LIMIT: 3,
   RESOURCE_INITIAL_REQUEST: 4
+};
+
+/**
+ * @enum {number}
+ */
+proto.containersai.alameda.v1alpha1.datahub.common.DatabaseType = {
+  UNDEFINED: 0,
+  INFLUXDB: 1,
+  PROMETHEUS: 2
 };
 
 /**

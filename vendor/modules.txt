@@ -6,7 +6,7 @@ github.com/Shopify/sarama
 github.com/beorn7/perks/quantile
 # github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
 github.com/chzyer/readline
-# github.com/containers-ai/api v4.2.790-0.20200902092140-cfcaaf231a20+incompatible
+# github.com/containers-ai/api v4.2.790-0.20200903064211-92db4535d26b+incompatible
 github.com/containers-ai/api/alameda_api/v1alpha1/datahub
 github.com/containers-ai/api/alameda_api/v1alpha1/datahub/applications
 github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common
@@ -24,7 +24,6 @@ github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources
 github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas
 github.com/containers-ai/api/alameda_api/v1alpha1/datahub/scores
 github.com/containers-ai/api/alameda_api/v1alpha1/datahub/weavescope
-github.com/containers-ai/api/common
 # github.com/davecgh/go-spew v1.1.1
 github.com/davecgh/go-spew/spew
 # github.com/eapache/go-resiliency v1.2.0

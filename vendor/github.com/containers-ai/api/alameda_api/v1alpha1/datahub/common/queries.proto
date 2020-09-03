@@ -16,14 +16,15 @@ option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/c
 message TimeRange {
     google.protobuf.Timestamp start_time = 1;
     google.protobuf.Timestamp end_time   = 2;
-    google.protobuf.Duration  step       = 3;
+    google.protobuf.Timestamp timeout    = 3;
+    google.protobuf.Duration  step       = 4;
     enum AggregateFunction {
         NONE = 0;
         MAX  = 1;
         AVG  = 2;
     }
-    AggregateFunction         aggregateFunction = 4;
-    google.protobuf.Timestamp apply_time        = 5;
+    AggregateFunction         aggregateFunction = 5;
+    google.protobuf.Timestamp apply_time        = 6;
 }
 
 /**

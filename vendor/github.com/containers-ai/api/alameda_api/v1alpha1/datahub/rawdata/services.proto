@@ -1,10 +1,12 @@
-// This file has messages related to predictions of containers, pods, and nodes
+// This file has messages related to read & write rawdata
 
 syntax = "proto3";
 
 package containersai.alameda.v1alpha1.datahub.rawdata;
 
-import "common/common.proto";
+import "alameda_api/v1alpha1/datahub/common/types.proto";
+import "alameda_api/v1alpha1/datahub/rawdata/rawdata.proto";
+import "alameda_api/v1alpha1/datahub/rawdata/types.proto";
 import "google/rpc/status.proto";
 
 option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/rawdata";
@@ -13,22 +15,22 @@ option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/r
  * Represents a request for reading rawdata from database.
  */
 message ReadRawdataRequest {
-    containersai.common.DatabaseType   database_type = 1;
-    repeated containersai.common.Query queries       = 2;
+    common.DatabaseType database_type = 1;
+    repeated Query      queries       = 2;
 }
 
 /**
  * Represents a response for listing rawdata from database.
  */
 message ReadRawdataResponse {
-    google.rpc.Status                        status  = 1;
-    repeated containersai.common.ReadRawdata rawdata = 2;
+    google.rpc.Status    status  = 1;
+    repeated ReadRawdata rawdata = 2;
 }
 
 /**
  * Represents a request for writing rawdata to database.
  */
 message WriteRawdataRequest {
-    containersai.common.DatabaseType          database_type = 1;
-    repeated containersai.common.WriteRawdata rawdata       = 2;
+    common.DatabaseType   database_type = 1;
+    repeated WriteRawdata rawdata       = 2;
 }

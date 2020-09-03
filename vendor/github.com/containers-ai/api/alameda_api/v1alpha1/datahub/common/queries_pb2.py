@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z@github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n1alameda_api/v1alpha1/datahub/common/queries.proto\x12,containersai.alameda.v1alpha1.datahub.common\x1a/alameda_api/v1alpha1/datahub/common/types.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xd9\x02\n\tTimeRange\x12.\n\nstart_time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\'\n\x04step\x18\x03 \x01(\x0b\x32\x19.google.protobuf.Duration\x12\x64\n\x11\x61ggregateFunction\x18\x04 \x01(\x0e\x32I.containersai.alameda.v1alpha1.datahub.common.TimeRange.AggregateFunction\x12.\n\napply_time\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"/\n\x11\x41ggregateFunction\x12\x08\n\x04NONE\x10\x00\x12\x07\n\x03MAX\x10\x01\x12\x07\n\x03\x41VG\x10\x02\"\x83\x01\n\tCondition\x12\x0c\n\x04keys\x18\x01 \x03(\t\x12\x0e\n\x06values\x18\x02 \x03(\t\x12\x11\n\toperators\x18\x03 \x03(\t\x12\x45\n\x05types\x18\x04 \x03(\x0e\x32\x36.containersai.alameda.v1alpha1.datahub.common.DataType\"\xbc\x01\n\x08\x46unction\x12H\n\x04type\x18\x01 \x01(\x0e\x32:.containersai.alameda.v1alpha1.datahub.common.FunctionType\x12\x0e\n\x06\x66ields\x18\x02 \x03(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12\x0e\n\x06target\x18\x04 \x01(\t\x12\x1a\n\x12regular_expression\x18\x05 \x01(\t\x12\x0c\n\x04unit\x18\x06 \x01(\t\x12\x0e\n\x06number\x18\x07 \x01(\x03\"\x89\x01\n\x04Into\x12\x10\n\x08\x64\x61tabase\x18\x01 \x01(\t\x12\x18\n\x10retention_policy\x18\x02 \x01(\t\x12\x13\n\x0bmeasurement\x18\x03 \x01(\t\x12#\n\x1bis_default_retention_policy\x18\x04 \x01(\x08\x12\x1b\n\x13is_all_measurements\x18\x05 \x01(\x08\"\xcb\x04\n\x0eQueryCondition\x12K\n\ntime_range\x18\x01 \x01(\x0b\x32\x37.containersai.alameda.v1alpha1.datahub.common.TimeRange\x12Q\n\x05order\x18\x02 \x01(\x0e\x32\x42.containersai.alameda.v1alpha1.datahub.common.QueryCondition.Order\x12H\n\x08\x66unction\x18\x03 \x01(\x0b\x32\x36.containersai.alameda.v1alpha1.datahub.common.Function\x12@\n\x04into\x18\x04 \x01(\x0b\x32\x32.containersai.alameda.v1alpha1.datahub.common.Into\x12\x14\n\x0cwhere_clause\x18\x05 \x01(\t\x12P\n\x0fwhere_condition\x18\x06 \x03(\x0b\x32\x37.containersai.alameda.v1alpha1.datahub.common.Condition\x12\x0f\n\x07selects\x18\x07 \x03(\t\x12\x0e\n\x06groups\x18\x08 \x03(\t\x12\r\n\x05limit\x18\t \x01(\x04\x12O\n\tsub_query\x18\n \x01(\x0b\x32<.containersai.alameda.v1alpha1.datahub.common.QueryCondition\"$\n\x05Order\x12\x08\n\x04NONE\x10\x00\x12\x07\n\x03\x41SC\x10\x01\x12\x08\n\x04\x44\x45SC\x10\x02\x42\x42Z@github.com/containers-ai/api/alameda_api/v1alpha1/datahub/commonb\x06proto3'
+  serialized_pb=b'\n1alameda_api/v1alpha1/datahub/common/queries.proto\x12,containersai.alameda.v1alpha1.datahub.common\x1a/alameda_api/v1alpha1/datahub/common/types.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x86\x03\n\tTimeRange\x12.\n\nstart_time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12+\n\x07timeout\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\'\n\x04step\x18\x04 \x01(\x0b\x32\x19.google.protobuf.Duration\x12\x64\n\x11\x61ggregateFunction\x18\x05 \x01(\x0e\x32I.containersai.alameda.v1alpha1.datahub.common.TimeRange.AggregateFunction\x12.\n\napply_time\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"/\n\x11\x41ggregateFunction\x12\x08\n\x04NONE\x10\x00\x12\x07\n\x03MAX\x10\x01\x12\x07\n\x03\x41VG\x10\x02\"\x83\x01\n\tCondition\x12\x0c\n\x04keys\x18\x01 \x03(\t\x12\x0e\n\x06values\x18\x02 \x03(\t\x12\x11\n\toperators\x18\x03 \x03(\t\x12\x45\n\x05types\x18\x04 \x03(\x0e\x32\x36.containersai.alameda.v1alpha1.datahub.common.DataType\"\xbc\x01\n\x08\x46unction\x12H\n\x04type\x18\x01 \x01(\x0e\x32:.containersai.alameda.v1alpha1.datahub.common.FunctionType\x12\x0e\n\x06\x66ields\x18\x02 \x03(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12\x0e\n\x06target\x18\x04 \x01(\t\x12\x1a\n\x12regular_expression\x18\x05 \x01(\t\x12\x0c\n\x04unit\x18\x06 \x01(\t\x12\x0e\n\x06number\x18\x07 \x01(\x03\"\x89\x01\n\x04Into\x12\x10\n\x08\x64\x61tabase\x18\x01 \x01(\t\x12\x18\n\x10retention_policy\x18\x02 \x01(\t\x12\x13\n\x0bmeasurement\x18\x03 \x01(\t\x12#\n\x1bis_default_retention_policy\x18\x04 \x01(\x08\x12\x1b\n\x13is_all_measurements\x18\x05 \x01(\x08\"\xcb\x04\n\x0eQueryCondition\x12K\n\ntime_range\x18\x01 \x01(\x0b\x32\x37.containersai.alameda.v1alpha1.datahub.common.TimeRange\x12Q\n\x05order\x18\x02 \x01(\x0e\x32\x42.containersai.alameda.v1alpha1.datahub.common.QueryCondition.Order\x12H\n\x08\x66unction\x18\x03 \x01(\x0b\x32\x36.containersai.alameda.v1alpha1.datahub.common.Function\x12@\n\x04into\x18\x04 \x01(\x0b\x32\x32.containersai.alameda.v1alpha1.datahub.common.Into\x12\x14\n\x0cwhere_clause\x18\x05 \x01(\t\x12P\n\x0fwhere_condition\x18\x06 \x03(\x0b\x32\x37.containersai.alameda.v1alpha1.datahub.common.Condition\x12\x0f\n\x07selects\x18\x07 \x03(\t\x12\x0e\n\x06groups\x18\x08 \x03(\t\x12\r\n\x05limit\x18\t \x01(\x04\x12O\n\tsub_query\x18\n \x01(\x0b\x32<.containersai.alameda.v1alpha1.datahub.common.QueryCondition\"$\n\x05Order\x12\x08\n\x04NONE\x10\x00\x12\x07\n\x03\x41SC\x10\x01\x12\x08\n\x04\x44\x45SC\x10\x02\x42\x42Z@github.com/containers-ai/api/alameda_api/v1alpha1/datahub/commonb\x06proto3'
   ,
   dependencies=[alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_types__pb2.DESCRIPTOR,google_dot_protobuf_dot_duration__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -53,8 +53,8 @@ _TIMERANGE_AGGREGATEFUNCTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=512,
-  serialized_end=559,
+  serialized_start=557,
+  serialized_end=604,
 )
 _sym_db.RegisterEnumDescriptor(_TIMERANGE_AGGREGATEFUNCTION)
 
@@ -83,8 +83,8 @@ _QUERYCONDITION_ORDER = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1578,
-  serialized_end=1614,
+  serialized_start=1623,
+  serialized_end=1659,
 )
 _sym_db.RegisterEnumDescriptor(_QUERYCONDITION_ORDER)
 
@@ -112,22 +112,29 @@ _TIMERANGE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='step', full_name='containersai.alameda.v1alpha1.datahub.common.TimeRange.step', index=2,
+      name='timeout', full_name='containersai.alameda.v1alpha1.datahub.common.TimeRange.timeout', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='aggregateFunction', full_name='containersai.alameda.v1alpha1.datahub.common.TimeRange.aggregateFunction', index=3,
-      number=4, type=14, cpp_type=8, label=1,
+      name='step', full_name='containersai.alameda.v1alpha1.datahub.common.TimeRange.step', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='aggregateFunction', full_name='containersai.alameda.v1alpha1.datahub.common.TimeRange.aggregateFunction', index=4,
+      number=5, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='apply_time', full_name='containersai.alameda.v1alpha1.datahub.common.TimeRange.apply_time', index=4,
-      number=5, type=11, cpp_type=10, label=1,
+      name='apply_time', full_name='containersai.alameda.v1alpha1.datahub.common.TimeRange.apply_time', index=5,
+      number=6, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -146,7 +153,7 @@ _TIMERANGE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=214,
-  serialized_end=559,
+  serialized_end=604,
 )
 
 
@@ -198,8 +205,8 @@ _CONDITION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=562,
-  serialized_end=693,
+  serialized_start=607,
+  serialized_end=738,
 )
 
 
@@ -272,8 +279,8 @@ _FUNCTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=696,
-  serialized_end=884,
+  serialized_start=741,
+  serialized_end=929,
 )
 
 
@@ -332,8 +339,8 @@ _INTO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=887,
-  serialized_end=1024,
+  serialized_start=932,
+  serialized_end=1069,
 )
 
 
@@ -428,12 +435,13 @@ _QUERYCONDITION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1027,
-  serialized_end=1614,
+  serialized_start=1072,
+  serialized_end=1659,
 )
 
 _TIMERANGE.fields_by_name['start_time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _TIMERANGE.fields_by_name['end_time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_TIMERANGE.fields_by_name['timeout'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _TIMERANGE.fields_by_name['step'].message_type = google_dot_protobuf_dot_duration__pb2._DURATION
 _TIMERANGE.fields_by_name['aggregateFunction'].enum_type = _TIMERANGE_AGGREGATEFUNCTION
 _TIMERANGE.fields_by_name['apply_time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP

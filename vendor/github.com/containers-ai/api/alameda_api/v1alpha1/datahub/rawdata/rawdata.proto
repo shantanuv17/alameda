@@ -1,0 +1,33 @@
+// This file has messages related to read & write rawdata
+
+syntax = "proto3";
+
+package containersai.alameda.v1alpha1.datahub.rawdata;
+
+import "alameda_api/v1alpha1/datahub/common/rawdata.proto";
+import "alameda_api/v1alpha1/datahub/common/types.proto";
+import "alameda_api/v1alpha1/datahub/rawdata/types.proto";
+
+option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/rawdata";
+
+/**
+ * Represents a rawdata whcih is read from datahub.
+ */
+message ReadRawdata {
+    Query                 query   = 1;
+    repeated string       columns = 2;
+    repeated common.Group groups  = 3;
+    string                rawdata = 4;
+}
+
+/**
+ * Represents a rawdata which will be written to datahub.
+ */
+message WriteRawdata {
+    string                     database     = 1;
+    string                     table        = 2;
+    repeated string            columns      = 3;
+    repeated common.Row        rows         = 4;
+    repeated common.ColumnType column_types = 5;
+    repeated common.DataType   data_types   = 6;
+}

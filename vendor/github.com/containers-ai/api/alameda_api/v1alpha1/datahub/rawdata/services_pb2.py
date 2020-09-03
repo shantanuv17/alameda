@@ -11,7 +11,9 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-from common import common_pb2 as common_dot_common__pb2
+from alameda_api.v1alpha1.datahub.common import types_pb2 as alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_types__pb2
+from alameda_api.v1alpha1.datahub.rawdata import rawdata_pb2 as alameda__api_dot_v1alpha1_dot_datahub_dot_rawdata_dot_rawdata__pb2
+from alameda_api.v1alpha1.datahub.rawdata import types_pb2 as alameda__api_dot_v1alpha1_dot_datahub_dot_rawdata_dot_types__pb2
 from google.rpc import status_pb2 as google_dot_rpc_dot_status__pb2
 
 
@@ -21,9 +23,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'ZAgithub.com/containers-ai/api/alameda_api/v1alpha1/datahub/rawdata',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n3alameda_api/v1alpha1/datahub/rawdata/services.proto\x12-containersai.alameda.v1alpha1.datahub.rawdata\x1a\x13\x63ommon/common.proto\x1a\x17google/rpc/status.proto\"{\n\x12ReadRawdataRequest\x12\x38\n\rdatabase_type\x18\x01 \x01(\x0e\x32!.containersai.common.DatabaseType\x12+\n\x07queries\x18\x02 \x03(\x0b\x32\x1a.containersai.common.Query\"l\n\x13ReadRawdataResponse\x12\"\n\x06status\x18\x01 \x01(\x0b\x32\x12.google.rpc.Status\x12\x31\n\x07rawdata\x18\x02 \x03(\x0b\x32 .containersai.common.ReadRawdata\"\x83\x01\n\x13WriteRawdataRequest\x12\x38\n\rdatabase_type\x18\x01 \x01(\x0e\x32!.containersai.common.DatabaseType\x12\x32\n\x07rawdata\x18\x02 \x03(\x0b\x32!.containersai.common.WriteRawdataBCZAgithub.com/containers-ai/api/alameda_api/v1alpha1/datahub/rawdatab\x06proto3'
+  serialized_pb=b'\n3alameda_api/v1alpha1/datahub/rawdata/services.proto\x12-containersai.alameda.v1alpha1.datahub.rawdata\x1a/alameda_api/v1alpha1/datahub/common/types.proto\x1a\x32\x61lameda_api/v1alpha1/datahub/rawdata/rawdata.proto\x1a\x30\x61lameda_api/v1alpha1/datahub/rawdata/types.proto\x1a\x17google/rpc/status.proto\"\xae\x01\n\x12ReadRawdataRequest\x12Q\n\rdatabase_type\x18\x01 \x01(\x0e\x32:.containersai.alameda.v1alpha1.datahub.common.DatabaseType\x12\x45\n\x07queries\x18\x02 \x03(\x0b\x32\x34.containersai.alameda.v1alpha1.datahub.rawdata.Query\"\x86\x01\n\x13ReadRawdataResponse\x12\"\n\x06status\x18\x01 \x01(\x0b\x32\x12.google.rpc.Status\x12K\n\x07rawdata\x18\x02 \x03(\x0b\x32:.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdata\"\xb6\x01\n\x13WriteRawdataRequest\x12Q\n\rdatabase_type\x18\x01 \x01(\x0e\x32:.containersai.alameda.v1alpha1.datahub.common.DatabaseType\x12L\n\x07rawdata\x18\x02 \x03(\x0b\x32;.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdataBCZAgithub.com/containers-ai/api/alameda_api/v1alpha1/datahub/rawdatab\x06proto3'
   ,
-  dependencies=[common_dot_common__pb2.DESCRIPTOR,google_dot_rpc_dot_status__pb2.DESCRIPTOR,])
+  dependencies=[alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_types__pb2.DESCRIPTOR,alameda__api_dot_v1alpha1_dot_datahub_dot_rawdata_dot_rawdata__pb2.DESCRIPTOR,alameda__api_dot_v1alpha1_dot_datahub_dot_rawdata_dot_types__pb2.DESCRIPTOR,google_dot_rpc_dot_status__pb2.DESCRIPTOR,])
 
 
 
@@ -62,8 +64,8 @@ _READRAWDATAREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=148,
-  serialized_end=271,
+  serialized_start=279,
+  serialized_end=453,
 )
 
 
@@ -101,8 +103,8 @@ _READRAWDATARESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=273,
-  serialized_end=381,
+  serialized_start=456,
+  serialized_end=590,
 )
 
 
@@ -140,16 +142,16 @@ _WRITERAWDATAREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=384,
-  serialized_end=515,
+  serialized_start=593,
+  serialized_end=775,
 )
 
-_READRAWDATAREQUEST.fields_by_name['database_type'].enum_type = common_dot_common__pb2._DATABASETYPE
-_READRAWDATAREQUEST.fields_by_name['queries'].message_type = common_dot_common__pb2._QUERY
+_READRAWDATAREQUEST.fields_by_name['database_type'].enum_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_types__pb2._DATABASETYPE
+_READRAWDATAREQUEST.fields_by_name['queries'].message_type = alameda__api_dot_v1alpha1_dot_datahub_dot_rawdata_dot_types__pb2._QUERY
 _READRAWDATARESPONSE.fields_by_name['status'].message_type = google_dot_rpc_dot_status__pb2._STATUS
-_READRAWDATARESPONSE.fields_by_name['rawdata'].message_type = common_dot_common__pb2._READRAWDATA
-_WRITERAWDATAREQUEST.fields_by_name['database_type'].enum_type = common_dot_common__pb2._DATABASETYPE
-_WRITERAWDATAREQUEST.fields_by_name['rawdata'].message_type = common_dot_common__pb2._WRITERAWDATA
+_READRAWDATARESPONSE.fields_by_name['rawdata'].message_type = alameda__api_dot_v1alpha1_dot_datahub_dot_rawdata_dot_rawdata__pb2._READRAWDATA
+_WRITERAWDATAREQUEST.fields_by_name['database_type'].enum_type = alameda__api_dot_v1alpha1_dot_datahub_dot_common_dot_types__pb2._DATABASETYPE
+_WRITERAWDATAREQUEST.fields_by_name['rawdata'].message_type = alameda__api_dot_v1alpha1_dot_datahub_dot_rawdata_dot_rawdata__pb2._WRITERAWDATA
 DESCRIPTOR.message_types_by_name['ReadRawdataRequest'] = _READRAWDATAREQUEST
 DESCRIPTOR.message_types_by_name['ReadRawdataResponse'] = _READRAWDATARESPONSE
 DESCRIPTOR.message_types_by_name['WriteRawdataRequest'] = _WRITERAWDATAREQUEST

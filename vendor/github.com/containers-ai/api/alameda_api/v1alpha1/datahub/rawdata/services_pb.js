@@ -12,8 +12,12 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var common_common_pb = require('../../../../common/common_pb.js');
-goog.object.extend(proto, common_common_pb);
+var alameda_api_v1alpha1_datahub_common_types_pb = require('../../../../alameda_api/v1alpha1/datahub/common/types_pb.js');
+goog.object.extend(proto, alameda_api_v1alpha1_datahub_common_types_pb);
+var alameda_api_v1alpha1_datahub_rawdata_rawdata_pb = require('../../../../alameda_api/v1alpha1/datahub/rawdata/rawdata_pb.js');
+goog.object.extend(proto, alameda_api_v1alpha1_datahub_rawdata_rawdata_pb);
+var alameda_api_v1alpha1_datahub_rawdata_types_pb = require('../../../../alameda_api/v1alpha1/datahub/rawdata/types_pb.js');
+goog.object.extend(proto, alameda_api_v1alpha1_datahub_rawdata_types_pb);
 var google_rpc_status_pb = require('../../../../google/rpc/status_pb.js');
 goog.object.extend(proto, google_rpc_status_pb);
 goog.exportSymbol('proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataRequest', null, global);
@@ -123,7 +127,7 @@ proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataRequest.toObject 
   var f, obj = {
     databaseType: jspb.Message.getFieldWithDefault(msg, 1, 0),
     queriesList: jspb.Message.toObjectList(msg.getQueriesList(),
-    common_common_pb.Query.toObject, includeInstance)
+    alameda_api_v1alpha1_datahub_rawdata_types_pb.Query.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -161,12 +165,12 @@ proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataRequest.deseriali
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {!proto.containersai.common.DatabaseType} */ (reader.readEnum());
+      var value = /** @type {!proto.containersai.alameda.v1alpha1.datahub.common.DatabaseType} */ (reader.readEnum());
       msg.setDatabaseType(value);
       break;
     case 2:
-      var value = new common_common_pb.Query;
-      reader.readMessage(value,common_common_pb.Query.deserializeBinaryFromReader);
+      var value = new alameda_api_v1alpha1_datahub_rawdata_types_pb.Query;
+      reader.readMessage(value,alameda_api_v1alpha1_datahub_rawdata_types_pb.Query.deserializeBinaryFromReader);
       msg.addQueries(value);
       break;
     default:
@@ -210,23 +214,23 @@ proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataRequest.serialize
     writer.writeRepeatedMessage(
       2,
       f,
-      common_common_pb.Query.serializeBinaryToWriter
+      alameda_api_v1alpha1_datahub_rawdata_types_pb.Query.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * optional containersai.common.DatabaseType database_type = 1;
- * @return {!proto.containersai.common.DatabaseType}
+ * optional containersai.alameda.v1alpha1.datahub.common.DatabaseType database_type = 1;
+ * @return {!proto.containersai.alameda.v1alpha1.datahub.common.DatabaseType}
  */
 proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataRequest.prototype.getDatabaseType = function() {
-  return /** @type {!proto.containersai.common.DatabaseType} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {!proto.containersai.alameda.v1alpha1.datahub.common.DatabaseType} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /**
- * @param {!proto.containersai.common.DatabaseType} value
+ * @param {!proto.containersai.alameda.v1alpha1.datahub.common.DatabaseType} value
  * @return {!proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataRequest} returns this
  */
 proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataRequest.prototype.setDatabaseType = function(value) {
@@ -235,17 +239,17 @@ proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataRequest.prototype
 
 
 /**
- * repeated containersai.common.Query queries = 2;
- * @return {!Array<!proto.containersai.common.Query>}
+ * repeated Query queries = 2;
+ * @return {!Array<!proto.containersai.alameda.v1alpha1.datahub.rawdata.Query>}
  */
 proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataRequest.prototype.getQueriesList = function() {
-  return /** @type{!Array<!proto.containersai.common.Query>} */ (
-    jspb.Message.getRepeatedWrapperField(this, common_common_pb.Query, 2));
+  return /** @type{!Array<!proto.containersai.alameda.v1alpha1.datahub.rawdata.Query>} */ (
+    jspb.Message.getRepeatedWrapperField(this, alameda_api_v1alpha1_datahub_rawdata_types_pb.Query, 2));
 };
 
 
 /**
- * @param {!Array<!proto.containersai.common.Query>} value
+ * @param {!Array<!proto.containersai.alameda.v1alpha1.datahub.rawdata.Query>} value
  * @return {!proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataRequest} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataRequest.prototype.setQueriesList = function(value) {
@@ -254,12 +258,12 @@ proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataRequest.prototype
 
 
 /**
- * @param {!proto.containersai.common.Query=} opt_value
+ * @param {!proto.containersai.alameda.v1alpha1.datahub.rawdata.Query=} opt_value
  * @param {number=} opt_index
- * @return {!proto.containersai.common.Query}
+ * @return {!proto.containersai.alameda.v1alpha1.datahub.rawdata.Query}
  */
 proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataRequest.prototype.addQueries = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.containersai.common.Query, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.containersai.alameda.v1alpha1.datahub.rawdata.Query, opt_index);
 };
 
 
@@ -313,7 +317,7 @@ proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataResponse.toObject
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     rawdataList: jspb.Message.toObjectList(msg.getRawdataList(),
-    common_common_pb.ReadRawdata.toObject, includeInstance)
+    alameda_api_v1alpha1_datahub_rawdata_rawdata_pb.ReadRawdata.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -356,8 +360,8 @@ proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataResponse.deserial
       msg.setStatus(value);
       break;
     case 2:
-      var value = new common_common_pb.ReadRawdata;
-      reader.readMessage(value,common_common_pb.ReadRawdata.deserializeBinaryFromReader);
+      var value = new alameda_api_v1alpha1_datahub_rawdata_rawdata_pb.ReadRawdata;
+      reader.readMessage(value,alameda_api_v1alpha1_datahub_rawdata_rawdata_pb.ReadRawdata.deserializeBinaryFromReader);
       msg.addRawdata(value);
       break;
     default:
@@ -402,7 +406,7 @@ proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataResponse.serializ
     writer.writeRepeatedMessage(
       2,
       f,
-      common_common_pb.ReadRawdata.serializeBinaryToWriter
+      alameda_api_v1alpha1_datahub_rawdata_rawdata_pb.ReadRawdata.serializeBinaryToWriter
     );
   }
 };
@@ -446,17 +450,17 @@ proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataResponse.prototyp
 
 
 /**
- * repeated containersai.common.ReadRawdata rawdata = 2;
- * @return {!Array<!proto.containersai.common.ReadRawdata>}
+ * repeated ReadRawdata rawdata = 2;
+ * @return {!Array<!proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdata>}
  */
 proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataResponse.prototype.getRawdataList = function() {
-  return /** @type{!Array<!proto.containersai.common.ReadRawdata>} */ (
-    jspb.Message.getRepeatedWrapperField(this, common_common_pb.ReadRawdata, 2));
+  return /** @type{!Array<!proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdata>} */ (
+    jspb.Message.getRepeatedWrapperField(this, alameda_api_v1alpha1_datahub_rawdata_rawdata_pb.ReadRawdata, 2));
 };
 
 
 /**
- * @param {!Array<!proto.containersai.common.ReadRawdata>} value
+ * @param {!Array<!proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdata>} value
  * @return {!proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataResponse} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataResponse.prototype.setRawdataList = function(value) {
@@ -465,12 +469,12 @@ proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataResponse.prototyp
 
 
 /**
- * @param {!proto.containersai.common.ReadRawdata=} opt_value
+ * @param {!proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdata=} opt_value
  * @param {number=} opt_index
- * @return {!proto.containersai.common.ReadRawdata}
+ * @return {!proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdata}
  */
 proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdataResponse.prototype.addRawdata = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.containersai.common.ReadRawdata, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.containersai.alameda.v1alpha1.datahub.rawdata.ReadRawdata, opt_index);
 };
 
 
@@ -524,7 +528,7 @@ proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdataRequest.toObject
   var f, obj = {
     databaseType: jspb.Message.getFieldWithDefault(msg, 1, 0),
     rawdataList: jspb.Message.toObjectList(msg.getRawdataList(),
-    common_common_pb.WriteRawdata.toObject, includeInstance)
+    alameda_api_v1alpha1_datahub_rawdata_rawdata_pb.WriteRawdata.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -562,12 +566,12 @@ proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdataRequest.deserial
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {!proto.containersai.common.DatabaseType} */ (reader.readEnum());
+      var value = /** @type {!proto.containersai.alameda.v1alpha1.datahub.common.DatabaseType} */ (reader.readEnum());
       msg.setDatabaseType(value);
       break;
     case 2:
-      var value = new common_common_pb.WriteRawdata;
-      reader.readMessage(value,common_common_pb.WriteRawdata.deserializeBinaryFromReader);
+      var value = new alameda_api_v1alpha1_datahub_rawdata_rawdata_pb.WriteRawdata;
+      reader.readMessage(value,alameda_api_v1alpha1_datahub_rawdata_rawdata_pb.WriteRawdata.deserializeBinaryFromReader);
       msg.addRawdata(value);
       break;
     default:
@@ -611,23 +615,23 @@ proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdataRequest.serializ
     writer.writeRepeatedMessage(
       2,
       f,
-      common_common_pb.WriteRawdata.serializeBinaryToWriter
+      alameda_api_v1alpha1_datahub_rawdata_rawdata_pb.WriteRawdata.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * optional containersai.common.DatabaseType database_type = 1;
- * @return {!proto.containersai.common.DatabaseType}
+ * optional containersai.alameda.v1alpha1.datahub.common.DatabaseType database_type = 1;
+ * @return {!proto.containersai.alameda.v1alpha1.datahub.common.DatabaseType}
  */
 proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdataRequest.prototype.getDatabaseType = function() {
-  return /** @type {!proto.containersai.common.DatabaseType} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {!proto.containersai.alameda.v1alpha1.datahub.common.DatabaseType} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /**
- * @param {!proto.containersai.common.DatabaseType} value
+ * @param {!proto.containersai.alameda.v1alpha1.datahub.common.DatabaseType} value
  * @return {!proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdataRequest} returns this
  */
 proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdataRequest.prototype.setDatabaseType = function(value) {
@@ -636,17 +640,17 @@ proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdataRequest.prototyp
 
 
 /**
- * repeated containersai.common.WriteRawdata rawdata = 2;
- * @return {!Array<!proto.containersai.common.WriteRawdata>}
+ * repeated WriteRawdata rawdata = 2;
+ * @return {!Array<!proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdata>}
  */
 proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdataRequest.prototype.getRawdataList = function() {
-  return /** @type{!Array<!proto.containersai.common.WriteRawdata>} */ (
-    jspb.Message.getRepeatedWrapperField(this, common_common_pb.WriteRawdata, 2));
+  return /** @type{!Array<!proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdata>} */ (
+    jspb.Message.getRepeatedWrapperField(this, alameda_api_v1alpha1_datahub_rawdata_rawdata_pb.WriteRawdata, 2));
 };
 
 
 /**
- * @param {!Array<!proto.containersai.common.WriteRawdata>} value
+ * @param {!Array<!proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdata>} value
  * @return {!proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdataRequest} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdataRequest.prototype.setRawdataList = function(value) {
@@ -655,12 +659,12 @@ proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdataRequest.prototyp
 
 
 /**
- * @param {!proto.containersai.common.WriteRawdata=} opt_value
+ * @param {!proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdata=} opt_value
  * @param {number=} opt_index
- * @return {!proto.containersai.common.WriteRawdata}
+ * @return {!proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdata}
  */
 proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdataRequest.prototype.addRawdata = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.containersai.common.WriteRawdata, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.containersai.alameda.v1alpha1.datahub.rawdata.WriteRawdata, opt_index);
 };
 
 

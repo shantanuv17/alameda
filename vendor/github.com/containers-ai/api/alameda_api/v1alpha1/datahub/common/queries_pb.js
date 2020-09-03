@@ -164,8 +164,9 @@ proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.toObject = function
   var f, obj = {
     startTime: (f = msg.getStartTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     endTime: (f = msg.getEndTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    timeout: (f = msg.getTimeout()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     step: (f = msg.getStep()) && google_protobuf_duration_pb.Duration.toObject(includeInstance, f),
-    aggregatefunction: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    aggregatefunction: jspb.Message.getFieldWithDefault(msg, 5, 0),
     applyTime: (f = msg.getApplyTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
@@ -214,15 +215,20 @@ proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.deserializeBinaryFr
       msg.setEndTime(value);
       break;
     case 3:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setTimeout(value);
+      break;
+    case 4:
       var value = new google_protobuf_duration_pb.Duration;
       reader.readMessage(value,google_protobuf_duration_pb.Duration.deserializeBinaryFromReader);
       msg.setStep(value);
       break;
-    case 4:
+    case 5:
       var value = /** @type {!proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.AggregateFunction} */ (reader.readEnum());
       msg.setAggregatefunction(value);
       break;
-    case 5:
+    case 6:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setApplyTime(value);
@@ -272,10 +278,18 @@ proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.serializeBinaryToWr
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
-  f = message.getStep();
+  f = message.getTimeout();
   if (f != null) {
     writer.writeMessage(
       3,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getStep();
+  if (f != null) {
+    writer.writeMessage(
+      4,
       f,
       google_protobuf_duration_pb.Duration.serializeBinaryToWriter
     );
@@ -283,14 +297,14 @@ proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.serializeBinaryToWr
   f = message.getAggregatefunction();
   if (f !== 0.0) {
     writer.writeEnum(
-      4,
+      5,
       f
     );
   }
   f = message.getApplyTime();
   if (f != null) {
     writer.writeMessage(
-      5,
+      6,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
@@ -382,12 +396,49 @@ proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.hasEndTim
 
 
 /**
- * optional google.protobuf.Duration step = 3;
+ * optional google.protobuf.Timestamp timeout = 3;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.getTimeout = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 3));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.containersai.alameda.v1alpha1.datahub.common.TimeRange} returns this
+*/
+proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.setTimeout = function(value) {
+  return jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.containersai.alameda.v1alpha1.datahub.common.TimeRange} returns this
+ */
+proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.clearTimeout = function() {
+  return this.setTimeout(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.hasTimeout = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional google.protobuf.Duration step = 4;
  * @return {?proto.google.protobuf.Duration}
  */
 proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.getStep = function() {
   return /** @type{?proto.google.protobuf.Duration} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_duration_pb.Duration, 3));
+    jspb.Message.getWrapperField(this, google_protobuf_duration_pb.Duration, 4));
 };
 
 
@@ -396,7 +447,7 @@ proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.getStep =
  * @return {!proto.containersai.alameda.v1alpha1.datahub.common.TimeRange} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.setStep = function(value) {
-  return jspb.Message.setWrapperField(this, 3, value);
+  return jspb.Message.setWrapperField(this, 4, value);
 };
 
 
@@ -414,16 +465,16 @@ proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.clearStep
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.hasStep = function() {
-  return jspb.Message.getField(this, 3) != null;
+  return jspb.Message.getField(this, 4) != null;
 };
 
 
 /**
- * optional AggregateFunction aggregateFunction = 4;
+ * optional AggregateFunction aggregateFunction = 5;
  * @return {!proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.AggregateFunction}
  */
 proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.getAggregatefunction = function() {
-  return /** @type {!proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.AggregateFunction} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+  return /** @type {!proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.AggregateFunction} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
 };
 
 
@@ -432,17 +483,17 @@ proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.getAggreg
  * @return {!proto.containersai.alameda.v1alpha1.datahub.common.TimeRange} returns this
  */
 proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.setAggregatefunction = function(value) {
-  return jspb.Message.setProto3EnumField(this, 4, value);
+  return jspb.Message.setProto3EnumField(this, 5, value);
 };
 
 
 /**
- * optional google.protobuf.Timestamp apply_time = 5;
+ * optional google.protobuf.Timestamp apply_time = 6;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.getApplyTime = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 6));
 };
 
 
@@ -451,7 +502,7 @@ proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.getApplyT
  * @return {!proto.containersai.alameda.v1alpha1.datahub.common.TimeRange} returns this
 */
 proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.setApplyTime = function(value) {
-  return jspb.Message.setWrapperField(this, 5, value);
+  return jspb.Message.setWrapperField(this, 6, value);
 };
 
 
@@ -469,7 +520,7 @@ proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.clearAppl
  * @return {boolean}
  */
 proto.containersai.alameda.v1alpha1.datahub.common.TimeRange.prototype.hasApplyTime = function() {
-  return jspb.Message.getField(this, 5) != null;
+  return jspb.Message.getField(this, 6) != null;
 };
 
 

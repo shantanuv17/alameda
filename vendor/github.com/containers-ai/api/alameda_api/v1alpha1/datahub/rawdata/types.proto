@@ -1,0 +1,19 @@
+// This file has messages related to read & write rawdata
+
+syntax = "proto3";
+
+package containersai.alameda.v1alpha1.datahub.rawdata;
+
+import "alameda_api/v1alpha1/datahub/common/queries.proto";
+
+option go_package = "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/rawdata";
+
+/**
+ * Represents a general datahub query request.
+ */
+message Query {
+    string                database   = 1;
+    string                table      = 2;
+    string                expression = 3;
+    common.QueryCondition condition  = 4;
+}
