@@ -1,7 +1,7 @@
 package common
 
 import (
-	Common "github.com/containers-ai/api/common"
+	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"time"
 )
 
@@ -94,10 +94,10 @@ var (
 		AvgOverTime: "avg_over_time",
 	}
 
-	TimeRange2AggregationOverTime = map[Common.TimeRange_AggregateFunction]AggregateFunction{
-		Common.TimeRange_NONE: None,
-		Common.TimeRange_MAX:  MaxOverTime,
-		Common.TimeRange_AVG:  AvgOverTime,
+	TimeRange2AggregationOverTime = map[common.TimeRange_AggregateFunction]AggregateFunction{
+		common.TimeRange_NONE: None,
+		common.TimeRange_MAX:  MaxOverTime,
+		common.TimeRange_AVG:  AvgOverTime,
 	}
 	FunctionTypeMap = map[AggregateFunction]FunctionType{
 		None:        NoneFunction,

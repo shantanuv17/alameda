@@ -4,15 +4,16 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	Common "github.com/containers-ai/api/common"
+	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
+	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/rawdata"
 	Client "github.com/influxdata/influxdb/client/v2"
 	"strconv"
 	"time"
 )
 
-func ReadRawdata(config *Config, queries []*Common.Query) ([]*Common.ReadRawdata, error) {
+func ReadRawdata(config *Config, queries []*rawdata.Query) ([]*rawdata.ReadRawdata, error) {
 	influxClient := NewClient(config)
-	rawdata := make([]*Common.ReadRawdata, 0)
+	data := make([]*rawdata.ReadRawdata, 0)
 
 	for _, query := range queries {
 		statement := NewStatement(query)
@@ -24,18 +25,18 @@ func ReadRawdata(config *Config, queries []*Common.Query) ([]*Common.ReadRawdata
 		results, err := influxClient.QueryDB(cmd, query.Database)
 		if err != nil {
 			scope.Errorf("failed to read rawdata from InfluxDB: %v", err)
-			return make([]*Common.ReadRawdata, 0), err
+			return make([]*rawdata.ReadRawdata, 0), err
 		} else {
 			readRawdata := InfluxResultToReadRawdata(results, query)
-			rawdata = append(rawdata, readRawdata)
+			data = append(data, readRawdata)
 			// RepoInfluxDB.CompareRawdataWithInfluxResults(readRawdata, results) // For debug purpose
 		}
 	}
 
-	return rawdata, nil
+	return data, nil
 }
 
-func WriteRawdata(config *Config, writeRawdata []*Common.WriteRawdata) error {
+func WriteRawdata(config *Config, writeRawdata []*rawdata.WriteRawdata) error {
 	var influxClient = NewClient(config)
 	var err error
 
@@ -49,9 +50,9 @@ func WriteRawdata(config *Config, writeRawdata []*Common.WriteRawdata) error {
 
 			for _, value := range row.GetValues() {
 				switch rawdata.GetColumnTypes()[index] {
-				case Common.ColumnType_COLUMNTYPE_TAG:
+				case common.ColumnType_COLUMNTYPE_TAG:
 					tags[rawdata.GetColumns()[index]] = value
-				case Common.ColumnType_COLUMNTYPE_FIELD:
+				case common.ColumnType_COLUMNTYPE_FIELD:
 					fields[rawdata.GetColumns()[index]] = changeFormat(value, rawdata.GetDataTypes()[index])
 				default:
 					fmt.Println("not support")
@@ -87,8 +88,8 @@ func WriteRawdata(config *Config, writeRawdata []*Common.WriteRawdata) error {
 	return err
 }
 
-func InfluxResultToReadRawdata(results []Client.Result, query *Common.Query) *Common.ReadRawdata {
-	readRawdata := Common.ReadRawdata{Query: query}
+func InfluxResultToReadRawdata(results []Client.Result, query *rawdata.Query) *rawdata.ReadRawdata {
+	readRawdata := rawdata.ReadRawdata{Query: query}
 
 	if len(results[0].Series) == 0 {
 		return &readRawdata
@@ -110,11 +111,11 @@ func InfluxResultToReadRawdata(results []Client.Result, query *Common.Query) *Co
 
 		// One series is one group
 		for _, row := range result.Series {
-			group := Common.Group{}
+			group := common.Group{}
 
 			// Build values
 			for _, value := range row.Values {
-				r := Common.Row{}
+				r := common.Row{}
 
 				// Tags
 				for k, v := range readRawdata.Columns {
@@ -149,7 +150,7 @@ func InfluxResultToReadRawdata(results []Client.Result, query *Common.Query) *Co
 	return &readRawdata
 }
 
-func ReadRawdataToInfluxDBRow(readRawdata *Common.ReadRawdata) []*InfluxRow {
+func ReadRawdataToInfluxDBRow(readRawdata *rawdata.ReadRawdata) []*InfluxRow {
 	influxDBRows := make([]*InfluxRow, 0)
 
 	tagIndex := make([]int, 0)
@@ -191,7 +192,7 @@ func ReadRawdataToInfluxDBRow(readRawdata *Common.ReadRawdata) []*InfluxRow {
 	return influxDBRows
 }
 
-func CompareRawdataWithInfluxResults(readRawdata *Common.ReadRawdata, results []Client.Result) error {
+func CompareRawdataWithInfluxResults(readRawdata *rawdata.ReadRawdata, results []Client.Result) error {
 	before := PackMap(results)
 	after := ReadRawdataToInfluxDBRow(readRawdata)
 	message := ""
@@ -233,48 +234,48 @@ func CompareRawdataWithInfluxResults(readRawdata *Common.ReadRawdata, results []
 	return nil
 }
 
-func changeFormat(value string, dataType Common.DataType) interface{} {
+func changeFormat(value string, dataType common.DataType) interface{} {
 	switch dataType {
-	case Common.DataType_DATATYPE_BOOL:
+	case common.DataType_DATATYPE_BOOL:
 		valueBool, _ := strconv.ParseBool(value)
 		return valueBool
-	case Common.DataType_DATATYPE_INT:
+	case common.DataType_DATATYPE_INT:
 		valueInt, _ := strconv.ParseInt(value, 10, 32)
 		return valueInt
-	case Common.DataType_DATATYPE_INT8:
+	case common.DataType_DATATYPE_INT8:
 		valueInt, _ := strconv.ParseInt(value, 10, 32)
 		return valueInt
-	case Common.DataType_DATATYPE_INT16:
+	case common.DataType_DATATYPE_INT16:
 		valueInt, _ := strconv.ParseInt(value, 10, 32)
 		return valueInt
-	case Common.DataType_DATATYPE_INT32:
+	case common.DataType_DATATYPE_INT32:
 		valueInt, _ := strconv.ParseInt(value, 10, 32)
 		return valueInt
-	case Common.DataType_DATATYPE_INT64:
+	case common.DataType_DATATYPE_INT64:
 		valueInt, _ := strconv.ParseInt(value, 10, 64)
 		return valueInt
-	case Common.DataType_DATATYPE_UINT:
+	case common.DataType_DATATYPE_UINT:
 		valueUint, _ := strconv.ParseUint(value, 10, 32)
 		return valueUint
-	case Common.DataType_DATATYPE_UINT8:
+	case common.DataType_DATATYPE_UINT8:
 		valueUint, _ := strconv.ParseUint(value, 10, 32)
 		return valueUint
-	case Common.DataType_DATATYPE_UINT16:
+	case common.DataType_DATATYPE_UINT16:
 		valueUint, _ := strconv.ParseUint(value, 10, 32)
 		return valueUint
-	case Common.DataType_DATATYPE_UINT32:
+	case common.DataType_DATATYPE_UINT32:
 		valueUint, _ := strconv.ParseUint(value, 10, 32)
 		return valueUint
-	case Common.DataType_DATATYPE_UTIN64:
+	case common.DataType_DATATYPE_UTIN64:
 		valueUint, _ := strconv.ParseUint(value, 10, 64)
 		return valueUint
-	case Common.DataType_DATATYPE_FLOAT32:
+	case common.DataType_DATATYPE_FLOAT32:
 		valueFloat, _ := strconv.ParseFloat(value, 32)
 		return valueFloat
-	case Common.DataType_DATATYPE_FLOAT64:
+	case common.DataType_DATATYPE_FLOAT64:
 		valueFloat, _ := strconv.ParseFloat(value, 64)
 		return valueFloat
-	case Common.DataType_DATATYPE_STRING:
+	case common.DataType_DATATYPE_STRING:
 		return value
 	default:
 		fmt.Println("not support")

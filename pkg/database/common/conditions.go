@@ -1,8 +1,7 @@
 package common
 
 import (
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
-	Common "github.com/containers-ai/api/common"
+	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/golang/protobuf/ptypes"
 	"time"
 )
@@ -68,7 +67,7 @@ func NewQueryCondition(days, hours, seconds, steps int) *QueryCondition {
 	return queryCondition
 }
 
-func BuildQueryCondition(condition *Common.QueryCondition) QueryCondition {
+func BuildQueryCondition(condition *common.QueryCondition) QueryCondition {
 	var (
 		queryStartTime      *time.Time
 		queryEndTime        *time.Time
@@ -108,9 +107,9 @@ func BuildQueryCondition(condition *Common.QueryCondition) QueryCondition {
 		}
 
 		switch condition.GetOrder() {
-		case Common.QueryCondition_ASC:
+		case common.QueryCondition_ASC:
 			queryTimestampOrder = Asc
-		case Common.QueryCondition_DESC:
+		case common.QueryCondition_DESC:
 			queryTimestampOrder = Desc
 		default:
 			queryTimestampOrder = Asc
@@ -122,7 +121,7 @@ func BuildQueryCondition(condition *Common.QueryCondition) QueryCondition {
 	queryTimestampOrder = int(condition.GetOrder())
 	queryLimit = int(condition.GetLimit())
 
-	if aggFunc, exist := TimeRange2AggregationOverTime[Common.TimeRange_AggregateFunction(condition.GetTimeRange().GetAggregateFunction())]; exist {
+	if aggFunc, exist := TimeRange2AggregationOverTime[common.TimeRange_AggregateFunction(condition.GetTimeRange().GetAggregateFunction())]; exist {
 		aggregateFunc = aggFunc
 	}
 
@@ -139,7 +138,7 @@ func BuildQueryCondition(condition *Common.QueryCondition) QueryCondition {
 	return queryCondition
 }
 
-func BuildQueryConditionV1(condition *ApiCommon.QueryCondition) *QueryCondition {
+func BuildQueryConditionV1(condition *common.QueryCondition) *QueryCondition {
 	startTime, _ := ptypes.Timestamp(condition.GetTimeRange().GetStartTime())
 	endTime, _ := ptypes.Timestamp(condition.GetTimeRange().GetEndTime())
 	stepTime, _ := ptypes.Duration(condition.GetTimeRange().GetStep())

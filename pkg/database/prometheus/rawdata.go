@@ -7,18 +7,19 @@ import (
 	"fmt"
 	"time"
 
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	Common "github.com/containers-ai/api/common"
+	Common "github.com/containers-ai/alameda/pkg/database/common"
+	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
+	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/rawdata"
 	"github.com/golang/protobuf/ptypes/timestamp"
 )
 
-func ReadRawdata(config *Config, queries []*Common.Query) ([]*Common.ReadRawdata, error) {
-	rawdata := make([]*Common.ReadRawdata, 0)
+func ReadRawdata(config *Config, queries []*rawdata.Query) ([]*rawdata.ReadRawdata, error) {
+	data := make([]*rawdata.ReadRawdata, 0)
 
 	prometheusClient, err := NewClient(config)
 	if err != nil {
 		scope.Errorf("failed to read rawdata from Prometheus: %v", err)
-		return make([]*Common.ReadRawdata, 0), errors.New("failed to instance prometheus client")
+		return make([]*rawdata.ReadRawdata, 0), errors.New("failed to instance prometheus client")
 	}
 
 	for _, query := range queries {
@@ -26,17 +27,17 @@ func ReadRawdata(config *Config, queries []*Common.Query) ([]*Common.ReadRawdata
 		err := errors.New("")
 
 		queryExpression := ""
-		queryCondition := DBCommon.BuildQueryCondition(query.GetCondition())
+		queryCondition := Common.BuildQueryCondition(query.GetCondition())
 
-		options := []DBCommon.Option{
-			DBCommon.StartTime(queryCondition.StartTime),
-			DBCommon.EndTime(queryCondition.EndTime),
-			DBCommon.Timeout(queryCondition.Timeout),
-			DBCommon.StepTime(queryCondition.StepTime),
-			DBCommon.AggregateOverTimeFunc(queryCondition.AggregateOverTimeFunction),
+		options := []Common.Option{
+			Common.StartTime(queryCondition.StartTime),
+			Common.EndTime(queryCondition.EndTime),
+			Common.Timeout(queryCondition.Timeout),
+			Common.StepTime(queryCondition.StepTime),
+			Common.AggregateOverTimeFunc(queryCondition.AggregateOverTimeFunction),
 		}
 
-		opt := DBCommon.NewDefaultOptions()
+		opt := Common.NewDefaultOptions()
 		for _, option := range options {
 			option(&opt)
 		}
@@ -51,7 +52,7 @@ func ReadRawdata(config *Config, queries []*Common.Query) ([]*Common.ReadRawdata
 			stepTimeInSeconds := int64(opt.StepTime.Nanoseconds() / int64(time.Second))
 			queryExpression, err = WrapQueryExpression(queryExpression, opt.AggregateOverTimeFunc, stepTimeInSeconds)
 			if err != nil {
-				return make([]*Common.ReadRawdata, 0), errors.New(err.Error())
+				return make([]*rawdata.ReadRawdata, 0), errors.New(err.Error())
 			}
 		}
 
@@ -65,23 +66,23 @@ func ReadRawdata(config *Config, queries []*Common.Query) ([]*Common.ReadRawdata
 		}
 
 		if err != nil {
-			return make([]*Common.ReadRawdata, 0), errors.New(err.Error())
+			return make([]*rawdata.ReadRawdata, 0), errors.New(err.Error())
 		} else if response.Status != StatusSuccess {
 			scope.Errorf("receive error response from prometheus: %s", response.Error)
-			return make([]*Common.ReadRawdata, 0), errors.New(response.Error)
+			return make([]*rawdata.ReadRawdata, 0), errors.New(response.Error)
 		} else {
 			readRawdata, _ := ResponseToReadRawdata(&response, query)
-			rawdata = append(rawdata, readRawdata)
+			data = append(data, readRawdata)
 		}
 	}
 
-	return rawdata, nil
+	return data, nil
 }
 
-func ResponseToReadRawdata(response *Response, query *Common.Query) (*Common.ReadRawdata, error) {
+func ResponseToReadRawdata(response *Response, query *rawdata.Query) (*rawdata.ReadRawdata, error) {
 	var (
 		err         error
-		readRawdata = Common.ReadRawdata{Query: query}
+		readRawdata = rawdata.ReadRawdata{Query: query}
 	)
 
 	if len(response.Data.Result) == 0 {
@@ -102,10 +103,10 @@ func ResponseToReadRawdata(response *Response, query *Common.Query) (*Common.Rea
 
 	// Build groups
 	for _, entity := range entities {
-		group := Common.Group{}
+		group := common.Group{}
 		for _, value := range entity.Values {
 			// Build rows of group
-			row := Common.Row{}
+			row := common.Row{}
 			for i := 0; i < len(readRawdata.Columns)-1; i++ {
 				row.Values = append(row.Values, entity.Labels[readRawdata.Columns[i]])
 			}

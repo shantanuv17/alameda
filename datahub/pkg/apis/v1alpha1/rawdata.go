@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/containers-ai/alameda/pkg/database/influxdb"
 	"github.com/containers-ai/alameda/pkg/database/prometheus"
+	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/rawdata"
-	"github.com/containers-ai/api/common"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
@@ -18,7 +18,7 @@ func (s *ServiceV1alpha1) ReadRawdata(ctx context.Context, in *rawdata.ReadRawda
 
 	var (
 		err   error
-		rData = make([]*common.ReadRawdata, 0)
+		rData = make([]*rawdata.ReadRawdata, 0)
 	)
 
 	switch in.GetDatabaseType() {

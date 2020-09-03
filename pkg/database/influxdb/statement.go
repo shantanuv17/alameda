@@ -2,8 +2,8 @@ package influxdb
 
 import (
 	"fmt"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	Common "github.com/containers-ai/api/common"
+	"github.com/containers-ai/alameda/pkg/database/common"
+	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/rawdata"
 	"strings"
 	"time"
 )
@@ -17,7 +17,7 @@ const (
 )
 
 type Statement struct {
-	QueryCondition *DBCommon.QueryCondition
+	QueryCondition *common.QueryCondition
 	Database       Database
 	Measurement    Measurement
 	SelectedFields []string
@@ -35,12 +35,12 @@ type Function struct {
 	Target   string
 }
 
-func NewStatement(query *Common.Query) *Statement {
+func NewStatement(query *rawdata.Query) *Statement {
 	if query == nil {
 		return &Statement{}
 	}
 
-	queryCondition := DBCommon.BuildQueryCondition(query.GetCondition())
+	queryCondition := common.BuildQueryCondition(query.GetCondition())
 
 	statement := Statement{
 		QueryCondition: &queryCondition,
@@ -135,9 +135,9 @@ func (s *Statement) SetFunction(funcType FunctionType, funcName, target string) 
 
 func (s *Statement) SetOrderClauseFromQueryCondition() {
 	switch s.QueryCondition.TimestampOrder {
-	case DBCommon.Asc:
+	case common.Asc:
 		s.OrderClause = "ORDER BY time ASC"
-	case DBCommon.Desc:
+	case common.Desc:
 		s.OrderClause = "ORDER BY time DESC"
 	default:
 		s.OrderClause = "ORDER BY time ASC"
