@@ -3,31 +3,22 @@ package controller
 import (
 	"context"
 
-	"github.com/pkg/errors"
-	"google.golang.org/grpc"
-
 	"github.com/containers-ai/alameda/operator/datahub/client"
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	appsapi_v1 "github.com/openshift/api/apps/v1"
-
+	"github.com/pkg/errors"
 	appsv1 "k8s.io/api/apps/v1"
 )
 
 type ControllerRepository struct {
-	conn          *grpc.ClientConn
-	datahubClient datahub_v1alpha1.DatahubServiceClient
-
-	clusterUID string
+	datahubClient *datahubpkg.Client
+	clusterUID    string
 }
 
 // NewControllerRepository return ControllerRepository instance
-func NewControllerRepository(conn *grpc.ClientConn, clusterUID string) *ControllerRepository {
-
-	datahubClient := datahub_v1alpha1.NewDatahubServiceClient(conn)
-
+func NewControllerRepository(datahubClient *datahubpkg.Client, clusterUID string) *ControllerRepository {
 	return &ControllerRepository{
-		conn:          conn,
 		datahubClient: datahubClient,
 
 		clusterUID: clusterUID,
@@ -43,7 +34,7 @@ func (repo *ControllerRepository) ListControllers() ([]*datahub_resources.Contro
 		},
 	}
 
-	resp, err := repo.datahubClient.ListControllers(context.Background(), &req)
+	resp, err := repo.datahubClient.ListControllers(&req)
 	if err != nil {
 		return nil, errors.Wrap(err, "list controllers from datahub failed")
 	} else if resp == nil {
@@ -64,7 +55,7 @@ func (repo *ControllerRepository) ListControllersByApplication(ctx context.Conte
 		},
 	}
 
-	resp, err := repo.datahubClient.ListControllers(ctx, &req)
+	resp, err := repo.datahubClient.ListControllers(&req)
 	if err != nil {
 		return nil, errors.Wrap(err, "list controllers from datahub failed")
 	} else if resp == nil {
@@ -137,7 +128,7 @@ func (repo *ControllerRepository) DeleteControllers(ctx context.Context, arg int
 		Kind:       kind,
 	}
 
-	resp, err := repo.datahubClient.DeleteControllers(ctx, &req)
+	resp, err := repo.datahubClient.DeleteControllers(&req)
 	if err != nil {
 		return errors.Wrap(err, "delete controllers from Datahub failed")
 	} else if _, err := client.IsResponseStatusOK(resp); err != nil {
@@ -146,11 +137,8 @@ func (repo *ControllerRepository) DeleteControllers(ctx context.Context, arg int
 	return nil
 }
 
-func (repo *ControllerRepository) Close() {
-	repo.conn.Close()
-}
-
 func (repo *ControllerRepository) isControllerHasApplicationInfo(controller *datahub_resources.Controller, appNamespace, appName string) bool {
+
 	// TODO: Might compare namespace if Datahub return non empty controller.AlamedaControllerSpec.AlamedaScaler.Namespace
 	// if controller.AlamedaControllerSpec != nil && controller.AlamedaControllerSpec.AlamedaScaler != nil &&
 	// 	controller.AlamedaControllerSpec.AlamedaScaler.Namespace == appNamespace && controller.AlamedaControllerSpec.AlamedaScaler.Name == appName {

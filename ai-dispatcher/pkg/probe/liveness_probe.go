@@ -10,7 +10,8 @@ import (
 )
 
 type LivenessProbeConfig struct {
-	QueueURL string
+	DatahubAddr string
+	QueueURL    string
 }
 
 func checkRabbitmqNotBlock(url string) error {

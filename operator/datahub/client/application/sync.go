@@ -4,101 +4,48 @@ import (
 	"context"
 	"time"
 
-	"fmt"
-
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
+	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/api/v1alpha2"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	"github.com/pkg/errors"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-
-	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 )
 
-func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) error {
+func RemoveOutOfDate(client client.Client, datahubClient *datahubpkg.Client) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	applicationList := autoscalingv1alpha1.AlamedaScalerList{}
-	if err := client.List(ctx, &applicationList); err != nil {
+	scalersList := autoscalingv1alpha2.AlamedaScalerList{}
+	if err := client.List(ctx, &scalersList); err != nil {
 		return errors.Errorf(
 			"Sync applications with datahub failed due to list applications from cluster failed: %s", err.Error())
 	}
 
-	clusterUID, err := k8sutils.GetClusterUID(client)
-	if err != nil {
-		return errors.Wrap(err, "get cluster uid failed")
+	resourceApps := []entities.ResourceClusterStatusApplication{}
+	if err := datahubClient.List(&resourceApps); err != nil {
+		return err
 	}
 
-	if len(applicationList.Items) > 0 {
-		apps := []entities.ResourceClusterStatusApplication{}
-		for idx := range applicationList.Items {
-			entity := entities.ResourceClusterStatusApplication{
-				ClusterName: clusterUID,
-				Namespace:   applicationList.Items[idx].Namespace,
-				Name:        applicationList.Items[idx].Name,
+	oodApp := []entities.ResourceClusterStatusApplication{}
+	for _, resourceApp := range resourceApps {
+		isOOD := true
+		for _, scaler := range scalersList.Items {
+			if scaler.Spec.ClusterName == resourceApp.ClusterName &&
+				scaler.GetNamespace() == resourceApp.Namespace &&
+				scaler.GetName() == resourceApp.Name {
+				isOOD = false
+				break
 			}
-			apps = append(apps, entity)
 		}
-		if err := datahubClient.Create(&apps); err != nil {
-			return fmt.Errorf(
-				"Sync applications with datahub failed due to register application failed: %s", err.Error())
+		if isOOD {
+			oodApp = append(oodApp, resourceApp)
 		}
 	}
 
-	// Clean up unexisting applications from Datahub
-	existingApplicationMap := make(map[string]bool)
-	for _, application := range applicationList.Items {
-		existingApplicationMap[fmt.Sprintf("%s/%s",
-			application.GetNamespace(), application.GetName())] = true
-	}
-
-	existingApps := []entities.ResourceClusterStatusApplication{}
-	err = datahubClient.List(&existingApps)
-	if err != nil {
-		return fmt.Errorf(
-			"Sync applications with datahub failed due to list applications from datahub failed: %s",
-			err.Error())
-	}
-	applicationsNeedDeleting := []entities.ResourceClusterStatusApplication{}
-	for _, n := range existingApps {
-		if _, exist := existingApplicationMap[fmt.Sprintf("%s/%s",
-			n.Namespace, n.Name)]; exist {
-			continue
-		}
-		applicationsNeedDeleting = append(applicationsNeedDeleting, n)
-	}
-	if len(applicationsNeedDeleting) > 0 {
-		err = datahubClient.Delete(*&applicationsNeedDeleting)
-		if err != nil {
-			return errors.Wrap(err, "delete applications from Datahub failed")
+	if len(oodApp) > 0 {
+		if err := datahubClient.Delete(&oodApp); err != nil {
+			return err
 		}
 	}
 
 	return nil
-}
-
-func GetAlamedaScalerDatahubScalingType(alamedaScaler autoscalingv1alpha1.AlamedaScaler) datahub_resources.ScalingTool {
-	scalingType := datahub_resources.ScalingTool_SCALING_TOOL_UNDEFINED
-	switch alamedaScaler.Spec.ScalingTool.Type {
-	case autoscalingv1alpha1.ScalingToolTypeHPA:
-		scalingType = datahub_resources.ScalingTool_HPA
-	case autoscalingv1alpha1.ScalingToolTypeDefault:
-		scalingType = datahub_resources.ScalingTool_NONE
-	}
-	return scalingType
-}
-
-func GetAlamedaScalerDatahubScalingTypeStr(
-	alamedaScaler autoscalingv1alpha1.AlamedaScaler) string {
-	scalingType := datahub_resources.ScalingTool_name[int32(datahub_resources.ScalingTool_SCALING_TOOL_UNDEFINED)]
-	switch alamedaScaler.Spec.ScalingTool.Type {
-	case autoscalingv1alpha1.ScalingToolTypeHPA:
-		scalingType = datahub_resources.ScalingTool_name[int32(datahub_resources.ScalingTool_HPA)]
-	case autoscalingv1alpha1.ScalingToolTypeCA:
-		scalingType = datahub_resources.ScalingTool_name[int32(datahub_resources.ScalingTool_CA)]
-	case autoscalingv1alpha1.ScalingToolTypeDefault:
-		scalingType = datahub_resources.ScalingTool_name[int32(datahub_resources.ScalingTool_NONE)]
-	}
-	return scalingType
 }

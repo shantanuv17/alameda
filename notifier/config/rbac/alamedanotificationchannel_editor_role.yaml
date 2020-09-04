@@ -1,0 +1,24 @@
+# permissions for end users to edit alamedanotificationchannels.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: alamedanotificationchannel-editor-role
+rules:
+- apiGroups:
+  - notifying.containers.ai
+  resources:
+  - alamedanotificationchannels
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - notifying.containers.ai
+  resources:
+  - alamedanotificationchannels/status
+  verbs:
+  - get

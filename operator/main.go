@@ -28,31 +28,25 @@ import (
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
 	kafkaclient "github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/client"
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
+	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/api/v1alpha2"
 	"github.com/containers-ai/alameda/operator/controllers"
 	datahub_client_application "github.com/containers-ai/alameda/operator/datahub/client/application"
 	datahub_client_cluster "github.com/containers-ai/alameda/operator/datahub/client/cluster"
-	datahub_client_controller "github.com/containers-ai/alameda/operator/datahub/client/controller"
-	datahub_client_kafka "github.com/containers-ai/alameda/operator/datahub/client/kafka"
 	datahub_client_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
-	datahub_client_nginx "github.com/containers-ai/alameda/operator/datahub/client/nginx"
 	datahub_client_node "github.com/containers-ai/alameda/operator/datahub/client/node"
-	datahub_client_pod "github.com/containers-ai/alameda/operator/datahub/client/pod"
 	"github.com/containers-ai/alameda/operator/pkg/probe"
 	"github.com/containers-ai/alameda/operator/pkg/utils"
-	"github.com/containers-ai/alameda/pkg/database/prometheus"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/containers-ai/alameda/pkg/provider"
 	alamedaUtils "github.com/containers-ai/alameda/pkg/utils"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	osappsapi "github.com/openshift/api/apps/v1"
 	routeapi_v1 "github.com/openshift/api/route/v1"
 	openshift_machineapi_v1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 	"golang.org/x/sync/errgroup"
-	"google.golang.org/grpc"
 	"k8s.io/apimachinery/pkg/runtime"
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
@@ -106,11 +100,9 @@ var (
 	clusterUID string
 
 	// Third party clients
-	k8sClient        client.Client
-	datahubConn      *grpc.ClientConn
-	datahubClient    *datahubpkg.Client
-	kafkaClient      kafka.Client
-	prometheusClient prometheus.Prometheus
+	k8sClient     client.Client
+	datahubClient *datahubpkg.Client
+	kafkaClient   kafka.Client
 )
 
 func init() {
@@ -201,10 +193,6 @@ func initThirdPartyClient() error {
 	}
 	k8sClient = cli
 
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
-	datahubConn, err = grpc.DialContext(ctx, operatorConf.Datahub.Address, grpc.WithBlock(), grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(3)))))
 	if err != nil {
 		return errors.Wrap(err, "new connection to datahub failed")
 	}
@@ -214,12 +202,6 @@ func initThirdPartyClient() error {
 		return errors.Wrap(err, "new Kafka client failed")
 	} else {
 		kafkaClient = cli
-	}
-
-	if cli, err := prometheus.NewClient(&operatorConf.Prometheus.Config); err != nil {
-		return errors.Wrap(err, "new Prometheus client failed")
-	} else {
-		prometheusClient = *cli
 	}
 
 	return nil
@@ -260,31 +242,26 @@ func addNecessaryAPIToScheme(scheme *runtime.Scheme) error {
 		}
 	}
 	_ = autoscalingv1alpha1.AddToScheme(scheme)
+	_ = autoscalingv1alpha2.AddToScheme(scheme)
 	// +kubebuilder:scaffold:scheme
 	return nil
 }
 
-func addControllersToManager(mgr manager.Manager) error {
-	datahubControllerRepo := datahub_client_controller.NewControllerRepository(
-		datahubConn, clusterUID)
-	datahubPodRepo := datahub_client_pod.NewPodRepository(datahubConn, clusterUID)
+func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 	var err error
 
 	if err = (&controllers.AlamedaScalerReconciler{
-		Client:                 mgr.GetClient(),
-		Scheme:                 mgr.GetScheme(),
-		ClusterUID:             clusterUID,
-		DatahubControllerRepo:  datahubControllerRepo,
-		DatahubPodRepo:         datahubPodRepo,
-		DatahubClient:          datahubClient,
-		ReconcileTimeout:       3 * time.Second,
-		ForceReconcileInterval: 1 * time.Minute,
+		Client:        mgr.GetClient(),
+		Scheme:        mgr.GetScheme(),
+		EnabledDA:     enabledDA,
+		DatahubClient: datahubClient,
+		IsOpenshift:   hasOpenShiftAPIAppsv1,
+		KafkaClient:   kafkaClient,
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}
 
 	if hasOpenShiftAPIAppsv1 {
-
 		if err = (&controllers.MachineSetReconciler{
 			Client:           mgr.GetClient(),
 			Scheme:           mgr.GetScheme(),
@@ -348,11 +325,10 @@ func addControllersToManager(mgr manager.Manager) error {
 		DatahubClient:    datahubClient,
 		ReconcileTimeout: 3 * time.Second,
 	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err,
-			"unable to create controller", "controller", "AlamedaMachineGroupScaler")
-		os.Exit(1)
+		return err
 	}
 	// +kubebuilder:scaffold:builder
+
 	return nil
 }
 
@@ -412,7 +388,8 @@ func main() {
 	}
 
 	scope.Info("Adding controllers to manager...")
-	if err := addControllersToManager(mgr); err != nil {
+	enabledDA := viper.GetBool("dataAdapter.enabled")
+	if err := addControllersToManager(mgr, enabledDA); err != nil {
 		panic(errors.Wrap(err, "add necessary controllers to manager failed"))
 	}
 
@@ -432,7 +409,7 @@ func main() {
 				scope.Error("Wait for cache synchronization failed")
 			} else {
 				go syncResourcesWithDatahub(mgr.GetClient(),
-					datahubConn)
+					datahubClient, enabledDA)
 			}
 			return nil
 		})
@@ -447,7 +424,9 @@ func printSoftwareInfo() {
 	scope.Infof(fmt.Sprintf("Alameda GO Version: %s", GO_VERSION))
 }
 
-func syncResourcesWithDatahub(client client.Client, datahubConn *grpc.ClientConn) {
+func syncResourcesWithDatahub(
+	client client.Client,
+	datahubClient *datahubpkg.Client, enabledDA bool) {
 	for {
 		clusterUID, err := k8sutils.GetClusterUID(client)
 		if err == nil {
@@ -462,54 +441,32 @@ func syncResourcesWithDatahub(client client.Client, datahubConn *grpc.ClientConn
 	}
 
 	go func() {
-		if err := datahub_client_namespace.SyncWithDatahub(
-			client, datahubClient); err != nil {
-			scope.Errorf("sync namespace failed at start due to %s", err.Error())
+		if err := datahub_client_application.RemoveOutOfDate(client,
+			datahubClient); err != nil {
+			scope.Errorf("remove out-of-date application failed at start due to %s", err.Error())
 		}
 	}()
-	go func() {
-		if err := datahub_client_node.SyncWithDatahub(client, datahubClient); err != nil {
-			scope.Errorf("sync node failed at start due to %s", err.Error())
-		}
-	}()
-
-	go func() {
-		if err := datahub_client_application.SyncWithDatahub(
-			client, datahubClient); err != nil {
-			scope.Errorf("sync application failed at start due to %s", err.Error())
-		}
-	}()
-
-	go func() {
-		if err := datahub_client_cluster.SyncWithDatahub(client,
-			datahubConn); err != nil {
-			scope.Errorf("sync cluster failed at start due to %s", err.Error())
-		}
-	}()
-	go func() {
-		if err := datahub_client_controller.SyncWithDatahub(client,
-			datahubConn); err != nil {
-			scope.Errorf("sync controller failed at start due to %s", err.Error())
-		}
-	}()
-	go func() {
-		if err := datahub_client_pod.SyncWithDatahub(client,
-			datahubConn); err != nil {
-			scope.Errorf("sync pod failed at start due to %s", err.Error())
-		}
-	}()
-	go func() {
-		if err := datahub_client_kafka.SyncWithDatahub(client, datahubClient); err != nil {
-			scope.Errorf("sync kafka failed at start due to %s", err.Error())
-		}
-	}()
-	go func() {
-		if err := datahub_client_nginx.SyncWithDatahub(client, datahubClient); err != nil {
-			scope.Errorf("sync nginx failed at start due to %s", err.Error())
-		}
-	}()
-
+	if !enabledDA {
+		go func() {
+			if err := datahub_client_namespace.SyncWithDatahub(client,
+				datahubClient); err != nil {
+				scope.Errorf("sync namespace failed at start due to %s", err.Error())
+			}
+		}()
+		go func() {
+			if err := datahub_client_node.SyncWithDatahub(client,
+				datahubClient); err != nil {
+				scope.Errorf("sync node failed at start due to %s", err.Error())
+			}
+		}()
+		go func() {
+			if err := datahub_client_cluster.SyncWithDatahub(client, datahubClient); err != nil {
+				scope.Errorf("sync cluster failed at start due to %s", err.Error())
+			}
+		}()
+	}
 }
+
 func livenessProbe(cfg *probe.LivenessProbeConfig) {
 	// probe.LivenessProbe(cfg)
 	os.Exit(0)

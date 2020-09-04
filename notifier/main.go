@@ -16,21 +16,18 @@ limitations under the License.
 package main
 
 import (
-	"context"
 	"flag"
 	"os"
 	"strings"
-	"time"
 
 	notifyingv1alpha1 "github.com/containers-ai/alameda/notifier/api/v1alpha1"
 	"github.com/containers-ai/alameda/notifier/controllers"
 	"github.com/containers-ai/alameda/notifier/probe"
 	"github.com/containers-ai/alameda/notifier/queue"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/containers-ai/alameda/pkg/utils/log"
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
-	"google.golang.org/grpc"
 	"k8s.io/apimachinery/pkg/runtime"
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
@@ -130,14 +127,8 @@ func main() {
 	}
 
 	datahubAddr := viper.GetString("datahub.address")
-	datahubConnRetry := viper.GetInt("datahub.connRetry")
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
-
-	conn, err := grpc.DialContext(ctx, datahubAddr, grpc.WithBlock(), grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(datahubConnRetry)))))
 	// +kubebuilder:scaffold:builder
-	go launchQueueConsumer(mgr, conn)
+	go launchQueueConsumer(mgr, datahubpkg.NewClient(datahubAddr))
 
 	scope.Info("starting manager")
 	if err := mgr.Start(ctrl.SetupSignalHandler()); err != nil {
@@ -197,8 +188,8 @@ func setLoggerScopesWithConfig() {
 	}
 }
 
-func launchQueueConsumer(mgr manager.Manager, conn *grpc.ClientConn) {
+func launchQueueConsumer(mgr manager.Manager, datahubClient *datahubpkg.Client) {
 	queueURL := viper.GetString("rabbitmq.url")
-	qc := queue.NewRabbitMQClient(mgr, queueURL, conn)
+	qc := queue.NewRabbitMQClient(mgr, queueURL, datahubClient)
 	qc.Start()
 }

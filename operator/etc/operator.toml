@@ -12,8 +12,9 @@ filePath = "/var/log/alameda/alameda-operator.log"
 
 [datahub]
 address = "datahub.alameda.svc.cluster.local:50050"
-  [datahub.retryInterval]
-  default = 3 # second
+  [datahub.retry]
+  interval = 3 # second
+  timeout = 30 # second
 
 [kafka]
 brokerAddresses = ["my-kafka.kafka:9092"]
@@ -29,12 +30,8 @@ version = "2.4.0"
 [ca]
 deltaUpTimeMax = 3600
 
-[prometheus]
-requiredMetrics = ["kafka_topic_partition_current_offset", "kafka_consumergroup_current_offset"]
-url = "https://prometheus-k8s.openshift-monitoring:9091"
-bearerTokenFile = "/var/run/secrets/kubernetes.io/serviceaccount/token"
-  [prometheus.tlsConfig]
-  insecureSkipVerify = true
+[dataAdapter]
+enabled = true
 
 # [k8sWebhookServer]
 # port = 50443

@@ -2,8 +2,9 @@
 # Image URL to use all building/pushing image targets
 IMG ?= operator:latest
 # Produce CRDs that work back to Kubernetes 1.16 (no version conversion)
-CRD_OPTIONS ?= "crd:trivialVersions=true"
-
+#CRD_OPTIONS ?= "crd:trivialVersions=true"
+#https://book.kubebuilder.io/reference/generating-crd.html#multiple-versions
+CRD_OPTIONS ?= "crd"
 # Get the currently used golang install path (in GOPATH/bin, unless GOBIN is set)
 ifeq (,$(shell go env GOBIN))
 GOBIN=$(shell go env GOPATH)/bin
@@ -86,7 +87,7 @@ ifeq (, $(shell which controller-gen))
 	CONTROLLER_GEN_TMP_DIR=$$(mktemp -d) ;\
 	cd $$CONTROLLER_GEN_TMP_DIR ;\
 	go mod init tmp ;\
-	go get sigs.k8s.io/controller-tools/cmd/controller-gen@v0.3.0 ;\
+	go get sigs.k8s.io/controller-tools/cmd/controller-gen@v0.4.0 ;\
 	rm -rf $$CONTROLLER_GEN_TMP_DIR ;\
 	}
 CONTROLLER_GEN=$(GOBIN)/controller-gen

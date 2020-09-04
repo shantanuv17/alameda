@@ -6,14 +6,12 @@ import (
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/pkg/errors"
-	"google.golang.org/grpc"
 )
 
 // providerID: aws:///us-west-2a/i-0769ec8570198bf4b --> <provider_raw>//<region>//<instance_id>
 
 // AlamedaNodeRepository creates predicted node to datahub
 type AlamedaNodeRepository struct {
-	conn          *grpc.ClientConn
 	datahubClient *datahubpkg.Client
 	clusterUID    string
 }

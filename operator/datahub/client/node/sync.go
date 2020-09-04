@@ -6,12 +6,10 @@ import (
 	"time"
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	"github.com/pkg/errors"
-
 	nodeinfo "github.com/containers-ai/alameda/operator/pkg/nodeinfo"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
-
+	"github.com/pkg/errors"
 	corev1 "k8s.io/api/core/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )

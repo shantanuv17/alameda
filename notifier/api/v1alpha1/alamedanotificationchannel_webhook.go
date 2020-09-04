@@ -47,7 +47,7 @@ func (r *AlamedaNotificationChannel) SetupWebhookWithManager(mgr ctrl.Manager) e
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 
-// +kubebuilder:webhook:path=/mutate-notifying-containers-ai-v1alpha1-alamedanotificationchannel,mutating=true,failurePolicy=fail,groups=notifying.containers.ai,resources=alamedanotificationchannels,verbs=create;update,versions=v1alpha1,name=malamedanotificationchannel.containers.ai
+// +kubebuilder:webhook:path=/mutate-notifying-containers-ai-v1alpha1-alamedanotificationchannel,mutating=true,failurePolicy=fail,groups=notifying.containers.ai,resources=alamedanotificationchannels,verbs=create;update,versions=v1alpha1,name=malamedanotificationchannel.containers.ai,sideEffects=None
 
 var _ webhook.Defaulter = &AlamedaNotificationChannel{}
 
@@ -93,7 +93,7 @@ func (r *AlamedaNotificationChannel) Default() {
 	}
 }
 
-// +kubebuilder:webhook:path=/validate-notifying-containers-ai-v1alpha1-alamedanotificationchannel,mutating=false,failurePolicy=fail,groups=notifying.containers.ai,resources=alamedanotificationchannels,verbs=create;update,versions=v1alpha1,name=valamedanotificationchannel.containers.ai
+// +kubebuilder:webhook:path=/validate-notifying-containers-ai-v1alpha1-alamedanotificationchannel,mutating=false,failurePolicy=fail,groups=notifying.containers.ai,resources=alamedanotificationchannels,verbs=create;update,versions=v1alpha1,name=valamedanotificationchannel.containers.ai,sideEffects=None
 
 var _ webhook.Validator = &AlamedaNotificationChannel{}
 

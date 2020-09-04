@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
+	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/api/v1alpha2"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	k8SUtils "github.com/containers-ai/alameda/pkg/utils"
 	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
@@ -26,7 +26,7 @@ func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) err
 		return errors.Wrap(err, "get cluster uid failed")
 	}
 
-	alamedaScalerList := autoscalingv1alpha1.AlamedaScalerList{}
+	alamedaScalerList := autoscalingv1alpha2.AlamedaScalerList{}
 	err = client.List(ctx, &alamedaScalerList)
 	if err != nil {
 		return errors.Wrap(err, "list alamedascaler for namespace sync error")
@@ -86,7 +86,7 @@ func SyncWithDatahub(client client.Client, datahubClient *datahubpkg.Client) err
 	return nil
 }
 
-func IsNSExcluded(ns string, allScalerIns []autoscalingv1alpha1.AlamedaScaler) bool {
+func IsNSExcluded(ns string, allScalerIns []autoscalingv1alpha2.AlamedaScaler) bool {
 
 	for _, app := range allScalerIns {
 		if app.GetNamespace() == ns {

@@ -1,14 +1,9 @@
 package probe
 
 import (
-	"context"
-	"time"
-
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
-	grpc_retry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	"github.com/streadway/amqp"
-	"google.golang.org/grpc"
 )
 
 type ReadinessProbeConfig struct {
@@ -17,21 +12,8 @@ type ReadinessProbeConfig struct {
 }
 
 func queryDatahub(datahubAddr string) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
-
-	conn, err := grpc.DialContext(ctx, datahubAddr, grpc.WithBlock(), grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(3)))))
-	if conn != nil {
-		defer conn.Close()
-	}
-
-	if err != nil {
-		return err
-	}
-
-	datahubServiceClnt := datahub_v1alpha1.NewDatahubServiceClient(conn)
-	_, err = datahubServiceClnt.ListNodes(context.Background(), &datahub_resources.ListNodesRequest{})
+	datahubServiceClnt := datahubpkg.NewClient(datahubAddr)
+	_, err := datahubServiceClnt.ListNodes(&datahub_resources.ListNodesRequest{})
 	if err != nil {
 		return err
 	}

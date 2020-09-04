@@ -4,6 +4,7 @@ import (
 	"fmt"
 	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	OpenshiftApiApps "github.com/openshift/api/apps"
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/client-go/kubernetes"
 	"os"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
@@ -80,4 +81,25 @@ func serverHasAPIGroup(apiGroupName string) (bool, error) {
 		}
 	}
 	return false, nil
+}
+
+func GetTotalResourceFromContainers(containers []corev1.Container) corev1.ResourceRequirements {
+	total := corev1.ResourceRequirements{
+		Limits:   corev1.ResourceList{},
+		Requests: corev1.ResourceList{},
+	}
+	for _, c := range containers {
+		for resourceName, quantity := range c.Resources.Limits {
+			q := total.Limits[resourceName]
+			q.Add(quantity)
+			total.Limits[resourceName] = q
+		}
+		for resourceName, quantity := range c.Resources.Requests {
+			q := total.Requests[resourceName]
+			q.Add(quantity)
+			total.Requests[resourceName] = q
+		}
+	}
+
+	return total
 }

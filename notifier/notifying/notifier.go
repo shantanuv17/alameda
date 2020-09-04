@@ -10,13 +10,11 @@ import (
 	"github.com/containers-ai/alameda/notifier/channel"
 	"github.com/containers-ai/alameda/notifier/event"
 	notifier_utils "github.com/containers-ai/alameda/notifier/utils"
-
+	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/containers-ai/alameda/pkg/utils"
 	"github.com/containers-ai/alameda/pkg/utils/log"
-	datahub_v1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	datahub_events "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"github.com/spf13/viper"
-
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 )
@@ -25,11 +23,11 @@ var scope = log.RegisterScope("notifier", "notifier", 0)
 
 type notifier struct {
 	k8sClient     client.Client
-	datahubClient datahub_v1alpha1.DatahubServiceClient
+	datahubClient *datahubpkg.Client
 	clusterInfo   *notifier_utils.ClusterInfo
 }
 
-func NewNotifier(mgr manager.Manager, datahubClient datahub_v1alpha1.DatahubServiceClient,
+func NewNotifier(mgr manager.Manager, datahubClient *datahubpkg.Client,
 	clusterInfo *notifier_utils.ClusterInfo) *notifier {
 	return &notifier{
 		k8sClient:     mgr.GetClient(),

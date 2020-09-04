@@ -20,7 +20,7 @@ import (
 	"time"
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
+	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/api/v1alpha2"
 	datahub_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"golang.org/x/net/context"
@@ -62,7 +62,7 @@ func (r *NamespaceReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 				req.NamespacedName.Name, err.Error())
 		}
 	} else if err == nil {
-		alamedaScalerList := autoscalingv1alpha1.AlamedaScalerList{}
+		alamedaScalerList := autoscalingv1alpha2.AlamedaScalerList{}
 		err = r.List(context.Background(), &alamedaScalerList)
 		if err != nil {
 			scope.Errorf("list alamedascaler for namespace reconcile failed: %s", err.Error())
