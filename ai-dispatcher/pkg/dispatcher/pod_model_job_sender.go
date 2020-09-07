@@ -315,6 +315,17 @@ func (sender *podModelJobSender) sendJobByMetrics(pod *datahub_resources.Pod, qu
 					continue
 				}
 
+				mID := lastPredictionMetric.GetData()[0].ModelId
+				modelMaxUsedTimes := viper.GetInt64(fmt.Sprintf(
+					"granularities.%s.modelMaxUsedTimes", utils.GetGranularityStr(granularity)))
+				if mID != "" && utils.IsModelExpired(
+					mID, granularity, modelMaxUsedTimes) {
+					scope.Infof("[POD][%s][%s/%s/%s] Send model job due to the model (id: %s, model max used times: %d, now: %d) of metric %s is expired",
+						dataGranularity, podNS, podName, lastPredictionContainer.GetName(), mID, modelMaxUsedTimes, time.Now().Unix(), lastPredictionMetric.GetMetricType().String())
+					sender.sendJob(pod, queueSender, pdUnit, granularity, lastPredictionContainer.GetName(), lastPredictionMetric.GetMetricType())
+					continue
+				}
+
 				queryStartTime := time.Now().Unix() - predictionStep*granularity
 				firstPDTime := sender.getQueryMetricStartTime(lastPredictionMetric)
 				if firstPDTime > 0 && firstPDTime <= time.Now().Unix() {

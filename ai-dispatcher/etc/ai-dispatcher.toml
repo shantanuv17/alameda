@@ -44,6 +44,7 @@ predictUnits = ["POD", "GPU", "NAMESPACE",
   predictionSteps = 30
   predictionJobSendIntervalSec = 86400
   modelJobSendIntervalSec = 86400
+  modelMaxUsedTimes = 11
 
   [granularities.6h]
   dataGranularity = "6h"
@@ -51,6 +52,7 @@ predictUnits = ["POD", "GPU", "NAMESPACE",
   predictionSteps = 30
   predictionJobSendIntervalSec = 21600
   modelJobSendIntervalSec = 21600
+  modelMaxUsedTimes = 11
 
   [granularities.1h]
   dataGranularity = "1h"
@@ -58,6 +60,7 @@ predictUnits = ["POD", "GPU", "NAMESPACE",
   predictionSteps = 30
   predictionJobSendIntervalSec = 3600
   modelJobSendIntervalSec = 3600
+  modelMaxUsedTimes = 11
 
   [granularities.1m]
   dataGranularity = "1m"
@@ -65,6 +68,7 @@ predictUnits = ["POD", "GPU", "NAMESPACE",
   predictionSteps = 60
   predictionJobSendIntervalSec = 60
   modelJobSendIntervalSec = 60
+  modelMaxUsedTimes = 29
 
   [granularities.30s]
   dataGranularity = "30s"
@@ -72,6 +76,7 @@ predictUnits = ["POD", "GPU", "NAMESPACE",
   predictionSteps = 30
   predictionJobSendIntervalSec = 30
   modelJobSendIntervalSec = 30
+  modelMaxUsedTimes = 29
 
 [predictUnits]
 
@@ -118,6 +123,7 @@ timeout = 180
     dutyCycle = 0.2
 
 # api proto metric type
+# alameda_api/v1alpha1/datahub/common/metrics.proto
 [metricType]
 undefined = 0
 cpu_seconds_total = 1
@@ -153,16 +159,20 @@ latency = 30
 number = 31
 
 # api proto table
+# alameda_api/v1alpha1/datahub/schemas/types.proto
 [scope]
 undefined = 0
 application = 1
-metric = 2
-planning = 3
-prediction = 4
-recommendation = 5
-resource = 6
+fedemeter = 2
+metric = 3
+planning = 4
+prediction = 5
+recommendation = 6
+resource = 7
+target = 8
 
 # api proto aggregation function
+# common/common.proto
 [aggregation]
 none = 0
 max = 1
