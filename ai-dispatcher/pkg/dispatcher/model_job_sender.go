@@ -214,6 +214,21 @@ func (dispatcher *modelJobSender) SendModelJobs(rawData []*datahub_data.Rawdata,
 								scope.Errorf("[%s] Get model ID from last predict point failed", jobID)
 								continue
 							}
+
+							modelMaxUsedTimes := viper.GetInt64(fmt.Sprintf(
+								"granularities.%s.modelMaxUsedTimes", utils.GetGranularityStr(granularity)))
+							if modelID != "" && utils.IsModelExpired(
+								modelID, granularity, modelMaxUsedTimes) {
+								scope.Errorf("[%s] Send model job due to the model (id: %s, model max used times: %d, now: %d) is expired",
+									jobID, modelID, modelMaxUsedTimes, time.Now().Unix())
+								err := dispatcher.tryToJobSending(modelQueueName, unit, rawDatumColumns, row.GetValues(),
+									lastPredictPointRawData.GetMetricType(), granularity, queueSender, jobID)
+								if err != nil {
+									scope.Errorf("[%s] Send model job failed due to %s.", jobID, err.Error())
+								}
+								continue
+							}
+
 							scope.Infof("[%s] Use model ID %s to query prediction series to measure dirft", jobID, modelID)
 							dispatcher.driftEval(modelID, lastPredictPointRawData.GetMetricType(), rawData, queueSender, unit, granularity)
 						}
