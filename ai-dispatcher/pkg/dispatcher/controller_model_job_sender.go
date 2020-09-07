@@ -250,6 +250,17 @@ func (sender *controllerModelJobSender) sendJobByMetrics(controller *datahub_res
 				continue
 			}
 
+			mID := lastPredictionMetric.GetData()[0].ModelId
+			modelMaxUsedTimes := viper.GetInt64(fmt.Sprintf(
+				"granularities.%s.modelMaxUsedTimes", utils.GetGranularityStr(granularity)))
+			if mID != "" && utils.IsModelExpired(
+				mID, granularity, modelMaxUsedTimes) {
+				scope.Infof("[CONTROLLER][%s][%s][%s/%s] Send model job due to the model (id: %s, model max used times: %d, now: %d) of metric %s is expired",
+					controller.GetKind().String(), dataGranularity, controllerNS, controllerName, mID, modelMaxUsedTimes, time.Now().Unix(), lastPredictionMetric.GetMetricType())
+				sender.sendJob(controller, queueSender, pdUnit, granularity, lastPredictionMetric.GetMetricType())
+				continue
+			}
+
 			queryStartTime := time.Now().Unix() - predictionStep*granularity
 			firstPDTime := sender.getQueryMetricStartTime(lastPredictionMetric)
 			if firstPDTime > 0 && firstPDTime <= time.Now().Unix() {
