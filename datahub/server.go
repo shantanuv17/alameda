@@ -156,6 +156,7 @@ func (s *Server) createInfluxdbDatabase() {
 	databaseList := []string{
 		"alameda_application",
 		"alameda_cluster_status",
+		"alameda_config",
 		"alameda_event",
 		"alameda_fedemeter",
 		"alameda_gpu",

@@ -2,6 +2,7 @@ package schemas
 
 var MeasurementNameMap = map[Scope]string{
 	Application:    "application",
+	Config:         "config",
 	Fedemeter:      "fedemeter",
 	Metric:         "metric",
 	Planning:       "planning",
@@ -13,6 +14,7 @@ var MeasurementNameMap = map[Scope]string{
 
 var MeasurementSchemaNameMap = map[Scope]string{
 	Application:    "application_schema",
+	Config:         "config_schema",
 	Fedemeter:      "fedemeter_schema",
 	Metric:         "metric_schema",
 	Planning:       "planning_schema",
@@ -24,6 +26,7 @@ var MeasurementSchemaNameMap = map[Scope]string{
 
 var DatabaseNameMap = map[Scope]string{
 	Application:    "alameda_application",
+	Config:         "alameda_config",
 	Fedemeter:      "alameda_fedemeter",
 	Metric:         "alameda_metric",
 	Planning:       "alameda_planning",
