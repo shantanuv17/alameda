@@ -8,6 +8,7 @@ import (
 var ScopeValue = map[string]schemas.Scope{
 	"undefined":      schemas.Scope_SCOPE_UNDEFINED,
 	"application":    schemas.Scope_SCOPE_APPLICATION,
+	"config":         schemas.Scope_SCOPE_CONFIG,
 	"execution":      schemas.Scope_SCOPE_EXECUTION,
 	"fedemeter":      schemas.Scope_SCOPE_FEDEMETER,
 	"metric":         schemas.Scope_SCOPE_METRIC,

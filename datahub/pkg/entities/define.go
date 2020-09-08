@@ -71,3 +71,24 @@ const (
 	Completed         PodPhase = "COMPLETED"
 	CrashLoopBackOff  PodPhase = "CRASHLOOPBACKOFF"
 )
+
+type DataSource string
+
+const (
+	DataDog    DataSource = "datadog"
+	Prometheus DataSource = "prometheus"
+)
+
+type DataStoredMode string
+
+const (
+	UploadResult DataStoredMode = "uploadResult"
+	LocalOnly    DataStoredMode = "localOnly"
+)
+
+type LogicOperator string
+
+const (
+	Include LogicOperator = "include"
+	Exclude LogicOperator = "exclude"
+)

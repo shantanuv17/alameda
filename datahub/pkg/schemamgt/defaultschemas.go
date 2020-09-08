@@ -7,6 +7,7 @@ import (
 
 var DefaultSchemas = map[string][]interface{}{
 	"application":    defaults.DefaultSchemaApplication(),
+	"config":         defaults.DefaultSchemaConfig(),
 	"execution":      defaults.DefaultSchemaExecution(),
 	"fedemeter":      defaults.DefaultSchemaFedemeter(),
 	"metric":         defaults.DefaultSchemaMetric(),
