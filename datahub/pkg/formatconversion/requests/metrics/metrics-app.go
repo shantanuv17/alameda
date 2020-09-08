@@ -1,6 +1,7 @@
 package metrics
 
 import (
+	"github.com/containers-ai/alameda/datahub/pkg/apis"
 	DaoMetricTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics/types"
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/common"
@@ -65,10 +66,14 @@ func (r *ListAppMetricsRequestExtended) Validate() error {
 	return nil
 }
 
-func (r *ListAppMetricsRequestExtended) SetDefaultWithMetricsDBType(dbType MetricsDBType) {
-	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(r.Request.QueryCondition, dbType)
-	q.TimeRange.AggregateFunction = ApiCommon.TimeRange_AVG
+func (r *ListAppMetricsRequestExtended) SetDefaultWithMetricsDBType(metricsConfig *apis.MetricsConfig) {
+	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(r.Request.QueryCondition, metricsConfig.Source)
+	q.TimeRange.AggregateFunction = ApiCommon.TimeRange_NONE
 	r.Request.QueryCondition = q
+}
+
+func (r *ListAppMetricsRequestExtended) SetRollupFunction(metricsConfig *apis.MetricsConfig) {
+	r.Request.QueryCondition.Function = newFunction(metricsConfig)
 }
 
 func (r *ListAppMetricsRequestExtended) ProduceRequest() DaoMetricTypes.ListAppMetricsRequest {

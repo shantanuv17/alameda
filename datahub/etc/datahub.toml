@@ -20,6 +20,9 @@ retentionShardDuration = "1d"
   [apis.metrics]
   source = "influxdb"
   target = "influxdb"
+    [apis.metrics.rollupFunction]
+    function = "percentile" # average, max, percentile
+    number = 95 # If function is percentile, number means perenctage. Otherwise, set number to ZERO.
 
 [log]
 setLogcallers = true

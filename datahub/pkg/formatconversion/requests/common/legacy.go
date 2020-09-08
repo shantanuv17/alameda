@@ -17,6 +17,7 @@ func (d QueryConditionExtend) QueryCondition() DBCommon.QueryCondition {
 		queryStartTime      *time.Time
 		queryEndTime        *time.Time
 		queryStepTime       *time.Duration
+		queryFunction       *DBCommon.Function
 		queryTimestampOrder int
 		queryLimit          int
 		queryCondition      = DBCommon.QueryCondition{}
@@ -56,6 +57,11 @@ func (d QueryConditionExtend) QueryCondition() DBCommon.QueryCondition {
 	queryTimestampOrder = int(d.Condition.GetOrder())
 	queryLimit = int(d.Condition.GetLimit())
 
+	queryFunction = nil
+	if d.Condition.GetFunction() != nil {
+		queryFunction = NewFunction(d.Condition.GetFunction())
+	}
+
 	if aggFunc, exist := enumconv.AggregateFunctionNameMap[ApiCommon.TimeRange_AggregateFunction(d.Condition.TimeRange.AggregateFunction)]; exist {
 		aggregateFunc = aggFunc
 	}
@@ -64,6 +70,7 @@ func (d QueryConditionExtend) QueryCondition() DBCommon.QueryCondition {
 		StartTime:                 queryStartTime,
 		EndTime:                   queryEndTime,
 		StepTime:                  queryStepTime,
+		Function:                  queryFunction,
 		TimestampOrder:            queryTimestampOrder,
 		Limit:                     queryLimit,
 		AggregateOverTimeFunction: aggregateFunc,
