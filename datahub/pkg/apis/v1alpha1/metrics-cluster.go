@@ -49,7 +49,8 @@ func (s *ServiceV1alpha1) ListClusterMetrics(ctx context.Context, in *ApiMetrics
 			},
 		}, nil
 	}
-	requestExtended.SetDefaultWithMetricsDBType(s.Config.Apis.Metrics.Source)
+	requestExtended.SetDefaultWithMetricsDBType(s.Config.Apis.Metrics)
+	requestExtended.SetRollupFunction(s.Config.Apis.Metrics)
 
 	metricsDao := DaoMetrics.NewClusterMetricsReaderDAO(*s.Config)
 	metricMap, err := metricsDao.ListMetrics(ctx, requestExtended.ProduceRequest())

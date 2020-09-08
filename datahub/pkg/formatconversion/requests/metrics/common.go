@@ -1,7 +1,9 @@
 package metrics
 
 import (
+	"github.com/containers-ai/alameda/datahub/pkg/apis"
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
+	FormatCommon "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/common"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/golang/protobuf/ptypes"
@@ -87,4 +89,11 @@ func normalizeListMetricsRequestTimeRangeByMetricsDBType(t ApiCommon.TimeRange, 
 		}
 	}
 	return t
+}
+
+func newFunction(config *apis.MetricsConfig) *ApiCommon.Function {
+	f := ApiCommon.Function{}
+	f.Type = FormatCommon.FunctionValueMap[config.RollupFunction.Function]
+	f.Number = config.RollupFunction.Number
+	return &f
 }

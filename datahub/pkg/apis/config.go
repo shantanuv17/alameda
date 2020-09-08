@@ -7,8 +7,14 @@ type Config struct {
 
 // Configuration of metrics related APIs
 type MetricsConfig struct {
-	Source string `mapstructure:"source"`
-	Target string `mapstructure:"target"`
+	Source         string          `mapstructure:"source"`
+	Target         string          `mapstructure:"target"`
+	RollupFunction *RollupFunction `mapstructure:"rollupFunction"`
+}
+
+type RollupFunction struct {
+	Function string `mapstructure:"function"`
+	Number   int64  `mapstructure:"number"`
 }
 
 // Provide default configuration for APIs
@@ -17,6 +23,10 @@ func NewDefaultConfig() *Config {
 		Metrics: &MetricsConfig{
 			Source: "prometheus",
 			Target: "influxdb",
+			RollupFunction: &RollupFunction{
+				Function: "percentile",
+				Number:   95,
+			},
 		},
 	}
 	return &config
