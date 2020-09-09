@@ -14,14 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package controllers
+package autoscaling
 
 import (
 	"context"
 	"time"
 
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
-	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/api/v1alpha2"
+	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha2"
 	datahubscaler "github.com/containers-ai/alameda/operator/datahub/api/scaler"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	logUtil "github.com/containers-ai/alameda/pkg/utils/log"

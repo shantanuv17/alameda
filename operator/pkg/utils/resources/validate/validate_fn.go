@@ -3,8 +3,8 @@ package validate
 import (
 	"fmt"
 
-	autoscalingapi "github.com/containers-ai/alameda/operator/api"
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
+	autoscalingapi "github.com/containers-ai/alameda/operator/apis/autoscaling"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha1"
 	"github.com/containers-ai/alameda/operator/pkg/utils/resources"
 	"github.com/containers-ai/alameda/pkg/utils"
 	"github.com/containers-ai/alameda/pkg/utils/kubernetes"

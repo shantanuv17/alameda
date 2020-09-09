@@ -14,13 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package controllers
+package autoscaling
 
 import (
 	"time"
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/api/v1alpha2"
+	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha2"
 	datahub_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"golang.org/x/net/context"

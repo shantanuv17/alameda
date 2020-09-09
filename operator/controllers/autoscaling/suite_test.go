@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package controllers
+package autoscaling
 
 import (
 	"path/filepath"
@@ -30,7 +30,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/api/v1alpha2"
+	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha2"
 	// +kubebuilder:scaffold:imports
 )
 

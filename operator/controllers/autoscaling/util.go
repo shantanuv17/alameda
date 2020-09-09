@@ -1,4 +1,4 @@
-package controllers
+package autoscaling
 
 import (
 	operatorutils "github.com/containers-ai/alameda/operator/pkg/utils"

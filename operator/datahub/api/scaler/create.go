@@ -10,7 +10,7 @@ import (
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
-	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/api/v1alpha2"
+	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha2"
 	operatorutils "github.com/containers-ai/alameda/operator/pkg/utils"
 	alamedaconsts "github.com/containers-ai/alameda/pkg/consts"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"

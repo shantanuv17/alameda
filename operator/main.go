@@ -27,9 +27,9 @@ import (
 
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
 	kafkaclient "github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/client"
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
-	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/api/v1alpha2"
-	"github.com/containers-ai/alameda/operator/controllers"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha1"
+	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha2"
+	autoscaling_controller "github.com/containers-ai/alameda/operator/controllers/autoscaling"
 	datahub_client_application "github.com/containers-ai/alameda/operator/datahub/client/application"
 	datahub_client_cluster "github.com/containers-ai/alameda/operator/datahub/client/cluster"
 	datahub_client_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
@@ -49,6 +49,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
+	// +kubebuilder:scaffold:imports
 )
 
 const (
@@ -227,13 +228,14 @@ func addNecessaryAPIToScheme(scheme *runtime.Scheme) error {
 			return err
 		}
 	}
+	// +kubebuilder:scaffold:scheme
 	return nil
 }
 
 func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 	var err error
 
-	if err = (&controllers.AlamedaScalerReconciler{
+	if err = (&autoscaling_controller.AlamedaScalerReconciler{
 		Client:        mgr.GetClient(),
 		Scheme:        mgr.GetScheme(),
 		EnabledDA:     enabledDA,
@@ -244,7 +246,7 @@ func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 		return err
 	}
 
-	if err = (&controllers.NamespaceReconciler{
+	if err = (&autoscaling_controller.NamespaceReconciler{
 		Client:        mgr.GetClient(),
 		Scheme:        mgr.GetScheme(),
 		EnabledDA:     enabledDA,
@@ -265,7 +267,7 @@ func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 	case provider.AWS:
 		regionName = provider.AWSRegionMap[provider.GetEC2Region()]
 	}
-	if err = (&controllers.NodeReconciler{
+	if err = (&autoscaling_controller.NodeReconciler{
 		Client:        mgr.GetClient(),
 		Scheme:        mgr.GetScheme(),
 		EnabledDA:     enabledDA,
@@ -278,7 +280,7 @@ func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 	}).SetupWithManager(mgr); err != nil {
 		return err
 	}
-
+	// +kubebuilder:scaffold:builder
 	return nil
 }
 

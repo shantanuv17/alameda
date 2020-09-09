@@ -1,6 +1,6 @@
 package v1alpha1
 
-// autoscalingapi "github.com/containers-ai/alameda/operator/api"
+// autoscalingapi "github.com/containers-ai/alameda/operator/apis/autoscaling"
 // runtime "k8s.io/apimachinery/pkg/runtime"
 // ctrl "sigs.k8s.io/controller-runtime"
 // "sigs.k8s.io/controller-runtime/pkg/webhook"
