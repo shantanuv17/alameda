@@ -208,7 +208,8 @@ type AlamedaScalerStatus struct {
 }
 
 // +kubebuilder:object:root=true
-
+// +kubebuilder:unservedversion
+// +kubebuilder:skipversion
 // AlamedaScaler is the Schema for the alamedascalers API
 type AlamedaScaler struct {
 	// Mgr      ctrl.Manager                      `json:"-"`
