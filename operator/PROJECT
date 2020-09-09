@@ -8,4 +8,7 @@ resources:
 - group: autoscaling
   kind: AlamedaScaler
   version: v1alpha2
+- group: tenant
+  kind: AlamedaOrganization
+  version: v1alpha1
 version: "2"

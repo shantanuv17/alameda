@@ -29,7 +29,9 @@ import (
 	kafkaclient "github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/client"
 	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha1"
 	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha2"
+	tenantv1alpha1 "github.com/containers-ai/alameda/operator/apis/tenant/v1alpha1"
 	autoscaling_controller "github.com/containers-ai/alameda/operator/controllers/autoscaling"
+	tenantcontroller "github.com/containers-ai/alameda/operator/controllers/tenant"
 	datahub_client_application "github.com/containers-ai/alameda/operator/datahub/client/application"
 	datahub_client_cluster "github.com/containers-ai/alameda/operator/datahub/client/cluster"
 	datahub_client_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
@@ -44,7 +46,10 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 	"golang.org/x/sync/errgroup"
+	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/types"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -93,6 +98,9 @@ var (
 	k8sClient     client.Client
 	datahubClient *datahubpkg.Client
 	kafkaClient   kafka.Client
+
+	// prevent from generating code failed
+	setupLog = ctrl.Log.WithName("setup")
 )
 
 func init() {
@@ -230,6 +238,7 @@ func addNecessaryAPIToScheme(scheme *runtime.Scheme) error {
 			return err
 		}
 	}
+	_ = tenantv1alpha1.AddToScheme(scheme)
 	// +kubebuilder:scaffold:scheme
 	return nil
 }
@@ -281,6 +290,14 @@ func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 			datahubClient, clusterUID),
 	}).SetupWithManager(mgr); err != nil {
 		return err
+	}
+	if err = (&tenantcontroller.AlamedaOrganizationReconciler{
+		Client:        mgr.GetClient(),
+		Scheme:        mgr.GetScheme(),
+		DatahubClient: datahubClient,
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "AlamedaOrganization")
+		os.Exit(1)
 	}
 	// +kubebuilder:scaffold:builder
 	return nil
@@ -395,9 +412,10 @@ func syncResourcesWithDatahub(
 
 	go func() {
 		if err := datahub_client_application.RemoveOutOfDate(client,
-			datahubClient); err != nil {
+			datahubClient, enabledDA); err != nil {
 			scope.Errorf("remove out-of-date application failed at start due to %s", err.Error())
 		}
+		createDefaultOrg(client)
 	}()
 	if !enabledDA {
 		go func() {
@@ -428,4 +446,35 @@ func livenessProbe(cfg *probe.LivenessProbeConfig) {
 func readinessProbe(cfg *probe.ReadinessProbeConfig) {
 	// probe.ReadinessProbe(cfg)
 	os.Exit(0)
+}
+
+func createDefaultOrg(client client.Client) {
+	orgName := "default"
+	for {
+		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		defer cancel()
+		instance := &tenantv1alpha1.AlamedaOrganization{}
+		err := client.Get(ctx, types.NamespacedName{
+			Name: orgName,
+		}, instance)
+		if err == nil {
+			break
+		}
+		if err != nil && k8sErrors.IsNotFound(err) {
+			if createErr := client.Create(ctx, &tenantv1alpha1.AlamedaOrganization{
+				ObjectMeta: metav1.ObjectMeta{
+					Name: orgName,
+				},
+				Spec: tenantv1alpha1.AlamedaOrganizationSpec{
+					Tenant: "default",
+				},
+			}); createErr == nil {
+				break
+			}
+		} else if err != nil {
+			scope.Errorf("Get AlamedaOrganization %s failed: %s",
+				orgName, err.Error())
+		}
+		time.Sleep(time.Duration(5) * time.Second)
+	}
 }

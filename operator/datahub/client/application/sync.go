@@ -6,14 +6,18 @@ import (
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha2"
+	tenantv1alpha1 "github.com/containers-ai/alameda/operator/apis/tenant/v1alpha1"
+	datahubscaler "github.com/containers-ai/alameda/operator/datahub/api/scaler"
+	datahubtenant "github.com/containers-ai/alameda/operator/datahub/api/tenant"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/pkg/errors"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func RemoveOutOfDate(client client.Client, datahubClient *datahubpkg.Client) error {
+func RemoveOutOfDate(client client.Client, datahubClient *datahubpkg.Client, enabledDA bool) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
+	// sync alamedascaler
 	scalersList := autoscalingv1alpha2.AlamedaScalerList{}
 	if err := client.List(ctx, &scalersList); err != nil {
 		return errors.Errorf(
@@ -25,7 +29,7 @@ func RemoveOutOfDate(client client.Client, datahubClient *datahubpkg.Client) err
 		return err
 	}
 
-	oodApp := []entities.ResourceClusterStatusApplication{}
+	oodAppList := []entities.ResourceClusterStatusApplication{}
 	for _, resourceApp := range resourceApps {
 		isOOD := true
 		for _, scaler := range scalersList.Items {
@@ -37,15 +41,49 @@ func RemoveOutOfDate(client client.Client, datahubClient *datahubpkg.Client) err
 			}
 		}
 		if isOOD {
-			oodApp = append(oodApp, resourceApp)
+			oodAppList = append(oodAppList, resourceApp)
 		}
 	}
 
-	if len(oodApp) > 0 {
-		if err := datahubClient.Delete(&oodApp); err != nil {
-			return err
+	if len(oodAppList) > 0 {
+		for _, oodApp := range oodAppList {
+			if delErr := datahubscaler.DeleteV1Alpha2Scaler(datahubClient, client,
+				oodApp.Namespace, oodApp.Name, enabledDA); delErr != nil {
+				return delErr
+			}
 		}
 	}
 
+	// sync alamedaorganization
+	orgList := tenantv1alpha1.AlamedaOrganizationList{}
+	if err := client.List(ctx, &orgList); err != nil {
+		return errors.Errorf(
+			"Sync AlamedaOrganization with datahub failed due to list organization from cluster failed: %s", err.Error())
+	}
+	tenantOrgs := []entities.ConfigTenancyOrganization{}
+	if err := datahubClient.List(&tenantOrgs); err != nil {
+		return err
+	}
+	oodTenantOrgList := []entities.ConfigTenancyOrganization{}
+	for _, tenantOrg := range tenantOrgs {
+		isOOD := true
+		for _, org := range orgList.Items {
+			if org.GetName() == tenantOrg.Name {
+				isOOD = false
+				break
+			}
+		}
+		if isOOD {
+			oodTenantOrgList = append(oodTenantOrgList, tenantOrg)
+		}
+	}
+	if len(oodTenantOrgList) > 0 {
+		for _, oodTenantOrg := range oodTenantOrgList {
+			if delErr := datahubtenant.DeleteOrganization(
+				datahubClient, oodTenantOrg.Name); delErr != nil {
+				return delErr
+			}
+		}
+	}
 	return nil
 }

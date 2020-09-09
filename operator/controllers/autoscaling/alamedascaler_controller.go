@@ -1,5 +1,5 @@
 /*
-Copyright 2019 The Alameda Authors.
+Copyright 2020 The Alameda Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -43,12 +43,9 @@ type AlamedaScalerReconciler struct {
 }
 
 var (
-	scope        = logUtil.RegisterScope("operator_controllers", "operator controllers", 0)
+	scope        = logUtil.RegisterScope("alamedascaler_controllers", "alamedascaler controllers", 0)
 	requeueAfter = 3 * time.Second
 )
-
-// +kubebuilder:rbac:groups=autoscaling.containers.ai,resources=alamedascalers,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:groups=autoscaling.containers.ai,resources=alamedascalers/status,verbs=get;update;patch
 
 func (r *AlamedaScalerReconciler) updateDatahubByScaler(
 	scaler *autoscalingv1alpha2.AlamedaScaler) error {
@@ -64,6 +61,9 @@ func (r *AlamedaScalerReconciler) updateDatahubByScaler(
 	return nil
 }
 
+// +kubebuilder:rbac:groups=autoscaling.containers.ai,resources=alamedascalers,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=autoscaling.containers.ai,resources=alamedascalers/status,verbs=get;update;patch
+
 func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 
 	ctx := context.TODO()
@@ -74,7 +74,7 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 	if err != nil && k8sErrors.IsNotFound(err) {
 		if err := datahubscaler.DeleteV1Alpha2Scaler(r.DatahubClient, r.Client,
 			req.Namespace, req.Name, r.EnabledDA); err != nil {
-			scope.Errorf("Delete AlamedaScaler(%s/%s) failed: %s",
+			scope.Errorf("Remove AlamedaScaler(%s/%s) from datahub failed: %s",
 				req.Namespace, req.Name, err.Error())
 			return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
 		}
@@ -86,7 +86,7 @@ func (r *AlamedaScalerReconciler) Reconcile(req ctrl.Request) (ctrl.Result, erro
 	}
 
 	if err := r.updateDatahubByScaler(instance); err != nil {
-		scope.Errorf("Update AlamedaScaler(%s/%s) failed: %s",
+		scope.Errorf("Update datahub for AlamedaScaler(%s/%s) failed: %s",
 			req.Namespace, req.Name, err.Error())
 		return ctrl.Result{Requeue: true, RequeueAfter: 1 * time.Second}, nil
 	}

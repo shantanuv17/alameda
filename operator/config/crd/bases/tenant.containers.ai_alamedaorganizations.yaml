@@ -1,0 +1,148 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.3.0
+  creationTimestamp: null
+  name: alamedaorganizations.tenant.containers.ai
+spec:
+  group: tenant.containers.ai
+  names:
+    kind: AlamedaOrganization
+    listKind: AlamedaOrganizationList
+    plural: alamedaorganizations
+    singular: alamedaorganization
+  scope: Cluster
+  validation:
+    openAPIV3Schema:
+      description: AlamedaOrganization is the Schema for the alamedaorganizations
+        API
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: AlamedaOrganizationSpec defines the desired state of AlamedaOrganization
+          properties:
+            clusters:
+              items:
+                properties:
+                  dataSource:
+                    properties:
+                      account:
+                        type: string
+                      address:
+                        type: string
+                      keys:
+                        items:
+                          properties:
+                            key:
+                              type: string
+                          required:
+                          - key
+                          type: object
+                        type: array
+                      type:
+                        enum:
+                        - datadog
+                        - prometheus
+                        type: string
+                    required:
+                    - account
+                    - address
+                    - type
+                    type: object
+                  features:
+                    items:
+                      properties:
+                        costAnalysis:
+                          properties:
+                            enabled:
+                              enum:
+                              - true
+                              - false
+                              type: boolean
+                            mode:
+                              enum:
+                              - uploadResult
+                              - localOnly
+                              type: string
+                          required:
+                          - enabled
+                          - mode
+                          type: object
+                        resourcePlanning:
+                          properties:
+                            enabled:
+                              enum:
+                              - true
+                              - false
+                              type: boolean
+                            mode:
+                              enum:
+                              - uploadResult
+                              - localOnly
+                              type: string
+                          required:
+                          - enabled
+                          - mode
+                          type: object
+                        type:
+                          enum:
+                          - resourcePlanning
+                          - costAnalysis
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    type: string
+                  watchedNamespace:
+                    properties:
+                      names:
+                        items:
+                          type: string
+                        type: array
+                      operator:
+                        enum:
+                        - include
+                        - exclude
+                        type: string
+                    required:
+                    - operator
+                    type: object
+                required:
+                - dataSource
+                - name
+                type: object
+              type: array
+            tenant:
+              type: string
+          required:
+          - tenant
+          type: object
+        status:
+          description: AlamedaOrganizationStatus defines the observed state of AlamedaOrganization
+          type: object
+      type: object
+  version: v1alpha1
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

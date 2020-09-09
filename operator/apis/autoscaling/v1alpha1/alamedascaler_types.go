@@ -1,5 +1,5 @@
 /*
-Copyright 2019 The Alameda Authors.
+Copyright 2020 The Alameda Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,9 +25,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	// ctrl "sigs.k8s.io/controller-runtime"
 )
-
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
 // +kubebuilder:validation:Enum=true;false
 type enableExecution bool
@@ -167,7 +164,6 @@ type KubernetesResourceSpec struct {
 }
 
 // AlamedaScalerSpec defines the desired state of AlamedaScaler
-// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 type AlamedaScalerSpec struct {
 	Selector              *metav1.LabelSelector `json:"selector,omitempty" protobuf:"bytes,1,name=selector"`
 	EnableExecution       *enableExecution      `json:"enableExecution,omitempty" protobuf:"bytes,2,name=enable_execution"`
