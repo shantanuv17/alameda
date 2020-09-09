@@ -7,8 +7,11 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/apis/keycodes"
 	"github.com/containers-ai/alameda/datahub/pkg/apis/v1alpha1"
 	DatahubConfig "github.com/containers-ai/alameda/datahub/pkg/config"
+	"github.com/containers-ai/alameda/datahub/pkg/schemamgt"
 	OperatorAPIs "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha1"
+	"github.com/containers-ai/alameda/pkg/database/common"
 	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
 	K8SUtils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	Log "github.com/containers-ai/alameda/pkg/utils/log"
 	DatahubV1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
@@ -122,8 +125,9 @@ func (s *Server) Err() <-chan error {
 
 func (s *Server) InitInfluxdbDatabase() {
 	scope.Info("Initialize database")
-	s.createInfluxdbDatabase()
-	s.modifyInfluxdbRetentionPolicy()
+	s.influxDatabaseCreation()
+	s.influxDatabaseRetentionPolicy()
+	s.influxDatabaseDefaults()
 }
 
 func (s *Server) newGRPCServer() (*grpc.Server, error) {
@@ -144,7 +148,7 @@ func (s *Server) register(server *grpc.Server) {
 	DatahubKeycodes.RegisterKeycodesServiceServer(server, keycodesSrv)
 }
 
-func (s *Server) createInfluxdbDatabase() {
+func (s *Server) influxDatabaseCreation() {
 	influxdbClient := InfluxDB.NewClient(&InfluxDB.Config{
 		Address:                s.Config.InfluxDB.Address,
 		Username:               s.Config.InfluxDB.Username,
@@ -177,7 +181,7 @@ func (s *Server) createInfluxdbDatabase() {
 	}
 }
 
-func (s *Server) modifyInfluxdbRetentionPolicy() {
+func (s *Server) influxDatabaseRetentionPolicy() {
 	influxdbClient := InfluxDB.NewClient(&InfluxDB.Config{
 		Address:                s.Config.InfluxDB.Address,
 		Username:               s.Config.InfluxDB.Username,
@@ -203,5 +207,18 @@ func (s *Server) modifyInfluxdbRetentionPolicy() {
 		if err != nil {
 			scope.Error(err.Error())
 		}
+	}
+}
+
+func (s *Server) influxDatabaseDefaults() {
+	schemaMgt := schemamgt.NewSchemaManagement()
+
+	// Tenancy tenant
+	schema := schemaMgt.GetSchemas(schemas.Config, "tenancy", "tenant")[0]
+	tenant := schema.GetMeasurement("tenancy_tenant", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
+	measurement := InfluxDB.NewMeasurement(schemas.DatabaseNameMap[schema.SchemaMeta.Scope], tenant, *s.Config.InfluxDB)
+	err := measurement.Write([]string{"name", "dummy"}, []*common.Row{{Time:nil, Values:[]string{"default", ""}}})
+	if err != nil {
+		scope.Error(err.Error())
 	}
 }
