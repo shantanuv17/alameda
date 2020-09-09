@@ -76,6 +76,10 @@ var rootCmd = &cobra.Command{
 			return
 		}
 		datahubClient := datahubpkg.NewClient(datahubAddr)
+		if datahubClient == nil {
+			scope.Errorf("New datahub client failed.")
+			return
+		}
 		queueURL := viper.GetString("queue.url")
 		if queueURL == "" {
 			scope.Errorf("No configuration of queue url.")

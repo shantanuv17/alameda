@@ -185,7 +185,9 @@ func initThirdPartyClient() error {
 		return errors.Wrap(err, "new connection to datahub failed")
 	}
 	datahubClient = datahubpkg.NewClient(operatorConf.Datahub.Address)
-
+	if datahubClient == nil {
+		return fmt.Errorf("New datahub client failed")
+	}
 	if cli, err := kafkaclient.NewClient(*operatorConf.Kafka); err != nil {
 		return errors.Wrap(err, "new Kafka client failed")
 	} else {
