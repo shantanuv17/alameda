@@ -34,7 +34,7 @@
   revision = "2972be24d48e78746da79ba8e24e8b488c9880de"
 
 [[projects]]
-  branch = "4.3-husky"
+  branch = "4.3-husky-post"
   digest = "1:35b7d850aad24f5a45b44c4319989549f02fd132425beffcd656b929c02df7ee"
   name = "github.com/containers-ai/api"
   packages = [
