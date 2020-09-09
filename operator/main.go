@@ -27,9 +27,9 @@ import (
 
 	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
 	kafkaclient "github.com/containers-ai/alameda/internal/pkg/message-queue/kafka/client"
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
-	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/api/v1alpha2"
-	"github.com/containers-ai/alameda/operator/controllers"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha1"
+	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha2"
+	autoscaling_controller "github.com/containers-ai/alameda/operator/controllers/autoscaling"
 	datahub_client_application "github.com/containers-ai/alameda/operator/datahub/client/application"
 	datahub_client_cluster "github.com/containers-ai/alameda/operator/datahub/client/cluster"
 	datahub_client_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
@@ -57,7 +57,8 @@ import (
 )
 
 var (
-	scheme   = runtime.NewScheme()
+	scheme = runtime.NewScheme()
+	// prevent from generating code failed
 	setupLog = ctrl.Log.WithName("setup")
 )
 
@@ -250,7 +251,7 @@ func addNecessaryAPIToScheme(scheme *runtime.Scheme) error {
 func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 	var err error
 
-	if err = (&controllers.AlamedaScalerReconciler{
+	if err = (&autoscaling_controller.AlamedaScalerReconciler{
 		Client:        mgr.GetClient(),
 		Scheme:        mgr.GetScheme(),
 		EnabledDA:     enabledDA,
@@ -262,7 +263,7 @@ func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 	}
 
 	if hasOpenShiftAPIAppsv1 {
-		if err = (&controllers.MachineSetReconciler{
+		if err = (&autoscaling_controller.MachineSetReconciler{
 			Client:           mgr.GetClient(),
 			Scheme:           mgr.GetScheme(),
 			ClusterUID:       clusterUID,
@@ -272,7 +273,7 @@ func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 			return err
 		}
 
-		if err = (&controllers.MachineReconciler{
+		if err = (&autoscaling_controller.MachineReconciler{
 			Client:           mgr.GetClient(),
 			Scheme:           mgr.GetScheme(),
 			ClusterUID:       clusterUID,
@@ -283,7 +284,7 @@ func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 		}
 	}
 
-	if err = (&controllers.NamespaceReconciler{
+	if err = (&autoscaling_controller.NamespaceReconciler{
 		Client:        mgr.GetClient(),
 		Scheme:        mgr.GetScheme(),
 		DatahubClient: datahubClient,
@@ -303,7 +304,7 @@ func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 	case provider.AWS:
 		regionName = provider.AWSRegionMap[provider.GetEC2Region()]
 	}
-	if err = (&controllers.NodeReconciler{
+	if err = (&autoscaling_controller.NodeReconciler{
 		Client:        mgr.GetClient(),
 		Scheme:        mgr.GetScheme(),
 		ClusterUID:    clusterUID,
@@ -316,7 +317,7 @@ func addControllersToManager(mgr manager.Manager, enabledDA bool) error {
 		return err
 	}
 
-	if err = (&controllers.AlamedaMachineGroupScalerReconciler{
+	if err = (&autoscaling_controller.AlamedaMachineGroupScalerReconciler{
 		ClusterUID: clusterUID,
 		Client:     mgr.GetClient(),
 		Log: ctrl.Log.WithName("controllers").WithName(

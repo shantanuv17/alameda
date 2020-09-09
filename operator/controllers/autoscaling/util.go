@@ -1,11 +1,11 @@
-package controllers
+package autoscaling
 
 import (
 	"context"
 	"fmt"
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/api/v1alpha1"
+	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha1"
 	operatorutils "github.com/containers-ai/alameda/operator/pkg/utils"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	mahcinev1beta1 "github.com/openshift/machine-api-operator/pkg/apis/machine/v1beta1"

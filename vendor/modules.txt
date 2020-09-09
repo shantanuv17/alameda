@@ -15,7 +15,7 @@ github.com/cespare/xxhash/v2
 github.com/chzyer/readline
 # github.com/chzyer/test v0.0.0-20180213035817-a1ea475d72b1
 ## explicit
-# github.com/containers-ai/api v4.2.790-0.20200903064211-92db4535d26b+incompatible
+# github.com/containers-ai/api v4.2.790-0.20200908095321-14ae06d071d4+incompatible
 ## explicit
 github.com/containers-ai/api/alameda_api/v1alpha1/datahub
 github.com/containers-ai/api/alameda_api/v1alpha1/datahub/applications

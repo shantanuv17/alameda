@@ -1,4 +1,4 @@
-package api
+package autoscaling
 
 type ValidatingObject struct {
 	Namespace           string

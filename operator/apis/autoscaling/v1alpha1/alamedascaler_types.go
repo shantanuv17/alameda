@@ -19,7 +19,7 @@ package v1alpha1
 import (
 	"fmt"
 
-	// apivalidate "github.com/containers-ai/alameda/operator/api/validate"
+	// apivalidate "github.com/containers-ai/alameda/operator/apis/autoscaling/validate"
 
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

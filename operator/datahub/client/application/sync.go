@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/api/v1alpha2"
+	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha2"
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/pkg/errors"
 	"sigs.k8s.io/controller-runtime/pkg/client"

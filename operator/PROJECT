@@ -1,4 +1,5 @@
 domain: containers.ai
+multigroup: true
 repo: github.com/containers-ai/alameda/operator
 resources:
 - group: autoscaling
