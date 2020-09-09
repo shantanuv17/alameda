@@ -1,6 +1,7 @@
 package probe
 
 import (
+	"fmt"
 	"os/exec"
 
 	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
@@ -14,6 +15,9 @@ type ReadinessProbeConfig struct {
 
 func queryDatahub(datahubAddr string) error {
 	datahubClient := datahubpkg.NewClient(datahubAddr)
+	if datahubClient == nil {
+		return fmt.Errorf("New datahub client failed")
+	}
 	_, err := datahubClient.ListNodes(&datahub_resources.ListNodesRequest{})
 	if err != nil {
 		return err

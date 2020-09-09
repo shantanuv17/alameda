@@ -127,8 +127,13 @@ func main() {
 	}
 
 	datahubAddr := viper.GetString("datahub.address")
+	datahubClient := datahubpkg.NewClient(datahubAddr)
+	if datahubClient == nil {
+		scope.Errorf("failed to create datahub client")
+		os.Exit(1)
+	}
 	// +kubebuilder:scaffold:builder
-	go launchQueueConsumer(mgr, datahubpkg.NewClient(datahubAddr))
+	go launchQueueConsumer(mgr, datahubClient)
 
 	scope.Info("starting manager")
 	if err := mgr.Start(ctrl.SetupSignalHandler()); err != nil {
