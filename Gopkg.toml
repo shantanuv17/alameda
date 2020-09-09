@@ -72,4 +72,4 @@ version="v1.4.7"
 
 [[constraint]]
   name = "github.com/containers-ai/api"
-  branch = "4.3-husky"
+  branch = "4.3-husky-post"
