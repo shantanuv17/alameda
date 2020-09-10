@@ -75,6 +75,7 @@ type FedemeterRecommendationJERI struct {
 	WorkerSpotNum     int32        `json:"worker_spot_num"     required:"false" column:"field"`
 	MasterOndemandNum int32        `json:"master_ondemand_num" required:"false" column:"field"`
 	WorkerOndemandNum int32        `json:"worker_ondemand_num" required:"false" column:"field"`
+	Reason            string       `json:"reason"              required:"false" column:"field"`
 	Cost              float64      `json:"cost"                required:"false" column:"field"`
 	TotalCost         float64      `json:"total_cost"          required:"false" column:"field"`
 }
