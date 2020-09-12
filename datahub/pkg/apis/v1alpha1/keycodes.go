@@ -31,8 +31,7 @@ func (s *ServiceV1alpha1) AddKeycode(ctx context.Context, in *Keycodes.AddKeycod
 	}
 
 	// Add keycode
-	err := keycodeMgt.AddKeycode(in.GetKeycode())
-	if err != nil {
+	if err := keycodeMgt.AddKeycode(in.GetKeycode()); err != nil {
 		scope.Error(err.Error())
 		return &Keycodes.AddKeycodeResponse{
 			Status: &status.Status{
@@ -42,9 +41,13 @@ func (s *ServiceV1alpha1) AddKeycode(ctx context.Context, in *Keycodes.AddKeycod
 		}, nil
 	}
 
-	scope.Infof("Successfully to add keycode(%s)", in.GetKeycode())
+	scope.Infof("successfully to add keycode(%s)", in.GetKeycode())
 
-	keycode, err := keycodeMgt.GetKeycode(in.GetKeycode())
+	if err := keycodeMgt.PostEvent(); err != nil {
+		scope.Errorf("failed to post add-keycode event: %s", err.Error())
+	}
+
+	keycode, _ := keycodeMgt.GetKeycode(in.GetKeycode())
 	return &Keycodes.AddKeycodeResponse{
 		Status: &status.Status{
 			Code: int32(code.Code_OK),
@@ -109,8 +112,7 @@ func (s *ServiceV1alpha1) DeleteKeycode(ctx context.Context, in *Keycodes.Delete
 	}
 
 	// Delete keycode
-	err := keycodeMgt.DeleteKeycode(in.GetKeycode())
-	if err != nil {
+	if err := keycodeMgt.DeleteKeycode(in.GetKeycode()); err != nil {
 		scope.Error(err.Error())
 		return &status.Status{
 			Code:    CategorizeKeycodeErrorId(err.(*IError).ErrorID),
@@ -118,7 +120,11 @@ func (s *ServiceV1alpha1) DeleteKeycode(ctx context.Context, in *Keycodes.Delete
 		}, nil
 	}
 
-	scope.Infof("Successfully to delete keycode(%s)", in.GetKeycode())
+	scope.Infof("successfully to delete keycode(%s)", in.GetKeycode())
+
+	if err := keycodeMgt.PostEvent(); err != nil {
+		scope.Errorf("failed to post delete-keycode event: %s", err.Error())
+	}
 
 	return &status.Status{Code: int32(code.Code_OK)}, nil
 }
@@ -172,8 +178,7 @@ func (s *ServiceV1alpha1) ActivateRegistrationData(ctx context.Context, in *Keyc
 	}
 
 	// Write registration file
-	err := AlamedaUtils.WriteFile(filePath, []string{in.GetData()})
-	if err != nil {
+	if err := AlamedaUtils.WriteFile(filePath, []string{in.GetData()}); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INTERNAL),
 			Message: "failed to write registration file",
@@ -181,8 +186,7 @@ func (s *ServiceV1alpha1) ActivateRegistrationData(ctx context.Context, in *Keyc
 	}
 
 	// Activation
-	err = keycodeMgt.PutSignatureDataFile(filePath)
-	if err != nil {
+	if err := keycodeMgt.PutSignatureDataFile(filePath); err != nil {
 		AlamedaUtils.DeleteFile(filePath)
 		scope.Error(err.Error())
 		return &status.Status{
@@ -197,6 +201,10 @@ func (s *ServiceV1alpha1) ActivateRegistrationData(ctx context.Context, in *Keyc
 	}
 
 	scope.Info("Successfully to activate keycode")
+
+	if err := keycodeMgt.PostEvent(); err != nil {
+		scope.Errorf("failed to post activate-keycode event: %s", err.Error())
+	}
 
 	return &status.Status{Code: int32(code.Code_OK)}, nil
 }

@@ -10,5 +10,6 @@ func NewCapacity(capacity KeycodeMgt.Capacity) *ApiKeycode.Capacity {
 	c.Users = int32(capacity.Users)
 	c.Hosts = int32(capacity.Hosts)
 	c.Disks = int32(capacity.Disks)
+	c.Cpus = int32(capacity.CPUs)
 	return &c
 }

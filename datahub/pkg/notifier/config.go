@@ -4,18 +4,19 @@ import (
 	Metrics "github.com/containers-ai/alameda/datahub/pkg/notifier/metrics"
 )
 
+const (
+	DefaultNotifierEnabled = true
+)
+
 type Config struct {
-	Keycode *Metrics.Notifier `mapstructure:"keycode"`
+	Enabled bool
+	Keycode *Metrics.KeycodeConfig `mapstructure:"keycode"`
 }
 
 func NewDefaultConfig() *Config {
 	var config = Config{
-		Keycode: &Metrics.Notifier{
-			Enabled:       Metrics.DefaultKeycodeEnabled,
-			Specs:         Metrics.DefaultKeycodeSpecs,
-			EventInterval: Metrics.DefaultKeycodeEventInterval,
-			EventLevel:    Metrics.DefaultKeycodeEventLevel,
-		},
+		Enabled: DefaultNotifierEnabled,
+		Keycode: Metrics.NewDefaultKeycodeConfig(),
 	}
 	return &config
 }

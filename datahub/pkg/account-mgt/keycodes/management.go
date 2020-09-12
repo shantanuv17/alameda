@@ -7,7 +7,6 @@ import (
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
 	RepoClusterStatus "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
 	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"math"
 	"time"
@@ -18,7 +17,6 @@ type KeycodeMgt struct {
 	Status        *KeycodeStatusObject
 	KeycodeStatus int
 	InfluxCfg     *InfluxDB.Config
-	InvalidReason string
 }
 
 func NewKeycodeMgt(config *InfluxDB.Config) *KeycodeMgt {
@@ -38,41 +36,31 @@ func (c *KeycodeMgt) AddKeycode(keycode string) error {
 	KeycodeMutex.Lock()
 	defer KeycodeMutex.Unlock()
 
-	err := c.Executor.AddKeycode(keycode)
-
-	if err != nil {
+	if err := c.Executor.AddKeycode(keycode); err != nil {
 		scope.Errorf("failed to add keycode(%s)", keycode)
 		return err
 	}
 
-	c.refresh(true)
-
-	return nil
+	return c.refresh(true)
 }
 
 func (c *KeycodeMgt) DeleteKeycode(keycode string) error {
 	KeycodeMutex.Lock()
 	defer KeycodeMutex.Unlock()
 
-	err := c.Executor.DeleteKeycode(keycode)
-
-	if err != nil {
+	if err := c.Executor.DeleteKeycode(keycode); err != nil {
 		scope.Errorf("failed to delete keycode(%s)", keycode)
 		return err
 	}
 
-	c.refresh(true)
-
-	return nil
+	return c.refresh(true)
 }
 
 func (c *KeycodeMgt) GetKeycode(keycode string) (*Keycode, error) {
 	KeycodeMutex.Lock()
 	defer KeycodeMutex.Unlock()
 
-	err := c.refresh(false)
-
-	if err != nil {
+	if err := c.refresh(false); err != nil {
 		scope.Errorf("failed to get keycode(%s)", keycode)
 		return nil, err
 	}
@@ -90,9 +78,7 @@ func (c *KeycodeMgt) GetKeycodeSummary() (*Keycode, error) {
 	KeycodeMutex.Lock()
 	defer KeycodeMutex.Unlock()
 
-	err := c.refresh(false)
-
-	if err != nil {
+	if err := c.refresh(false); err != nil {
 		scope.Error("failed to get keycode summary")
 		return nil, err
 	}
@@ -104,15 +90,12 @@ func (c *KeycodeMgt) GetKeycodes(keycodes []string) ([]*Keycode, *Keycode, error
 	KeycodeMutex.Lock()
 	defer KeycodeMutex.Unlock()
 
-	err := c.refresh(false)
-
-	keycodeList := make([]*Keycode, 0)
-
-	if err != nil {
+	if err := c.refresh(false); err != nil {
 		scope.Error("failed to get keycodes")
 		return nil, nil, err
 	}
 
+	keycodeList := make([]*Keycode, 0)
 	for _, keycode := range keycodes {
 		for _, keycodeObj := range KeycodeList {
 			if keycodeObj.Keycode == keycode {
@@ -128,9 +111,7 @@ func (c *KeycodeMgt) GetAllKeycodes() ([]*Keycode, *Keycode, error) {
 	KeycodeMutex.Lock()
 	defer KeycodeMutex.Unlock()
 
-	err := c.refresh(false)
-
-	if err != nil {
+	if err := c.refresh(false); err != nil {
 		scope.Error("failed to get all keycodes")
 		return make([]*Keycode, 0), nil, err
 	}
@@ -152,34 +133,40 @@ func (c *KeycodeMgt) GetRegistrationData() (string, error) {
 	return registrationData, nil
 }
 
+func (c *KeycodeMgt) GetCPUCoresOccupied() (int, error) {
+	KeycodeMutex.Lock()
+	defer KeycodeMutex.Unlock()
+
+	if err := c.refresh(false); err != nil {
+		scope.Error("failed to get cpu cores occupied")
+		return 0, err
+	}
+
+	return CPUCoresOccupied, nil
+}
+
 func (c *KeycodeMgt) PutSignatureData(signatureData string) error {
 	KeycodeMutex.Lock()
 	defer KeycodeMutex.Unlock()
 
-	err := c.Executor.PutSignatureData(signatureData)
-
-	if err != nil {
+	if err := c.Executor.PutSignatureData(signatureData); err != nil {
+		scope.Error("failed to put signature data")
 		return err
 	}
 
-	c.refresh(true)
-
-	return nil
+	return c.refresh(true)
 }
 
 func (c *KeycodeMgt) PutSignatureDataFile(filePath string) error {
 	KeycodeMutex.Lock()
 	defer KeycodeMutex.Unlock()
 
-	err := c.Executor.PutSignatureDataFile(filePath)
-
-	if err != nil {
+	if err := c.Executor.PutSignatureDataFile(filePath); err != nil {
+		scope.Error("failed to put signature data file")
 		return err
 	}
 
-	c.refresh(true)
-
-	return nil
+	return c.refresh(true)
 }
 
 func (c *KeycodeMgt) Refresh(force bool) error {
@@ -193,14 +180,14 @@ func (c *KeycodeMgt) IsValid() bool {
 	KeycodeMutex.Lock()
 	defer KeycodeMutex.Unlock()
 
-	err := c.refresh(false)
-
-	if err != nil {
+	if err := c.refresh(false); err != nil {
 		scope.Errorf("failed to check if keycode is valid: %s", err.Error())
 		return false
 	}
 
 	switch c.GetStatus() {
+	case KeycodeStatusUnknown:
+		return false
 	case KeycodeStatusNoKeycode:
 		return false
 	case KeycodeStatusInvalid:
@@ -211,38 +198,25 @@ func (c *KeycodeMgt) IsValid() bool {
 		return true
 	case KeycodeStatusValid:
 		return true
-	case KeycodeStatusUnknown:
+	case KeycodeStatusCapacityCPUCoresExceeded:
 		return false
 	default:
 		return false
 	}
 }
 
-func (c *KeycodeMgt) IsExpired() bool {
-	KeycodeMutex.Lock()
-	defer KeycodeMutex.Unlock()
-
-	summary, err := c.GetKeycodeSummary()
-
-	if err != nil {
-		scope.Error("failed to check if keycode is expired")
-		return false
-	}
-
-	if summary.LicenseState == "Valid" {
-		return false
-	}
-
-	return true
-}
-
 // NOTE: DO Refresh() before GetStatus() if necessary
 func (c *KeycodeMgt) GetStatus() int {
 	status := c.Status.GetStatus()
-	if status != KeycodeStatusValid && c.Status.reason != "" {
-		c.InvalidReason = c.Status.GetReason()
-	}
 	return status
+}
+
+func (c *KeycodeMgt) PostEvent() error {
+	if err := PostEvent(KeycodeEventLevelMap[KeycodeStatus], KeycodeStatusMessage[KeycodeStatus]); err != nil {
+		scope.Errorf("failed to post keycode event: %s", err.Error())
+		return err
+	}
+	return nil
 }
 
 // NOTE: DO GET KeycodeMutex lock before using this function
@@ -253,23 +227,22 @@ func (c *KeycodeMgt) refresh(force bool) error {
 	keycode := "N/A"
 
 	if (force == true) || (int64(math.Abs(float64(tmUnix-KeycodeTimestamp))) >= KeycodeDuration) {
-		c.InvalidReason = ""
 		keycodeList, keycodeSummary, err := c.Executor.GetAllKeycodes()
 		if err != nil {
 			scope.Error("failed to refresh keycodes information")
 			return err
 		}
-		// get cluster CPU info from influxdb
-		scope.Infof("Licensed CPU cores capacity: %d", keycodeSummary.Capacity.CPUs)
+
+		// Get CPU cores occupied from influxdb
 		cores, err := GetAlamedaClusterCPUs(c.InfluxCfg)
 		if err != nil {
-			scope.Errorf("Failed to refresh keycode CPU info, unable to get CPU info: %s", err.Error())
-			ClusterCPUCores = 0
-		} else {
-			ClusterCPUCores = cores
+			scope.Errorf("failed to refresh keycode CPU info, unable to get CPU info: %s", err.Error())
+			return err
 		}
+		scope.Infof("Licensed CPU cores capacity: %d, Cluster CPU cores occupied: %d", keycodeSummary.Capacity.CPUs, cores)
 
 		// If everything goes right, refresh the global variables
+		CPUCoresOccupied = cores
 		KeycodeTimestamp = tmUnix
 		KeycodeList = keycodeList
 		KeycodeSummary = keycodeSummary
@@ -291,38 +264,42 @@ func (c *KeycodeMgt) refresh(force bool) error {
 		scope.Infof("keycode cache data refreshed for CUD OP, keycode: %s", keycode)
 	}
 
+	// If keycode status or length of keycodes are different from previous, we need to update influxdb data
 	if c.KeycodeStatus != c.GetStatus() || KeycodeCount != len(KeycodeList) {
 		KeycodeStatus = c.GetStatus()
 		KeycodeCount = len(KeycodeList)
 		c.KeycodeStatus = c.GetStatus()
 
-		c.deleteInfluxEntries()
-
-		// Update InfluxDB and post event
-		switch KeycodeStatus {
-		case KeycodeStatusNoKeycode:
-			c.updateInfluxEntries("N/A", KeycodeStatusName[KeycodeStatusNoKeycode])
-			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_ERROR, KeycodeStatusMessage[KeycodeStatusNoKeycode])
-		case KeycodeStatusInvalid:
-			msg := KeycodeStatusMessage[KeycodeStatusInvalid]
-			if c.InvalidReason != "" {
-				msg = c.InvalidReason
-			}
-			c.updateInfluxEntries("Summary", KeycodeStatusName[KeycodeStatusInvalid])
-			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_ERROR, msg)
-		case KeycodeStatusExpired:
-			c.updateInfluxEntries("Summary", KeycodeStatusName[KeycodeStatusExpired])
-			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_ERROR, KeycodeStatusMessage[KeycodeStatusExpired])
-		case KeycodeStatusNotActivated:
-			c.updateInfluxEntries("Summary", KeycodeStatusName[KeycodeStatusNotActivated])
-			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_WARNING, KeycodeStatusMessage[KeycodeStatusNotActivated])
-		case KeycodeStatusValid:
-			c.updateInfluxEntries("Summary", KeycodeStatusName[KeycodeStatusValid])
-			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_INFO, KeycodeStatusMessage[KeycodeStatusValid])
-		default:
-			c.updateInfluxEntries("Summary", KeycodeStatusName[KeycodeStatusUnknown])
-			PostEvent(ApiEvents.EventLevel_EVENT_LEVEL_ERROR, KeycodeStatusMessage[KeycodeStatusUnknown])
+		if err := c.updateInflux(); err != nil {
+			scope.Errorf("failed to update influx entries: %s", err.Error())
+			return err
 		}
+	}
+
+	return nil
+}
+
+func (c *KeycodeMgt) updateInflux() error {
+	if err := c.deleteInfluxEntries(); err != nil {
+		scope.Errorf("failed to delete keycode entries: %s", err.Error())
+		return err
+	}
+	if err := c.updateInfluxEntries(KeycodeInfluxTargetMap[KeycodeStatus], KeycodeStatusName[KeycodeStatus]); err != nil {
+		scope.Errorf("failed to update keycode entries: %s", err.Error())
+		return err
+	}
+	return nil
+}
+
+func (c *KeycodeMgt) deleteInfluxEntries() error {
+	client := InfluxDB.NewClient(InfluxConfig)
+
+	cmd := fmt.Sprintf("DROP SERIES FROM \"%s\"", RepoClusterStatus.Keycode)
+
+	_, err := client.QueryDB(cmd, string(RepoInflux.ClusterStatus))
+	if err != nil {
+		scope.Errorf(err.Error())
+		return err
 	}
 
 	return nil
@@ -381,20 +358,6 @@ func (c *KeycodeMgt) updateInfluxEntries(keycode, status string) error {
 
 	if err != nil {
 		scope.Error(err.Error())
-		return err
-	}
-
-	return nil
-}
-
-func (c *KeycodeMgt) deleteInfluxEntries() error {
-	client := InfluxDB.NewClient(InfluxConfig)
-
-	cmd := fmt.Sprintf("DROP SERIES FROM \"%s\"", RepoClusterStatus.Keycode)
-
-	_, err := client.QueryDB(cmd, string(RepoInflux.ClusterStatus))
-	if err != nil {
-		scope.Errorf(err.Error())
 		return err
 	}
 

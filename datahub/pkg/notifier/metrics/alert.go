@@ -1,12 +1,14 @@
 package metrics
 
 import (
+	"github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes"
+	"github.com/containers-ai/alameda/pkg/database/influxdb"
 	"github.com/containers-ai/alameda/pkg/utils/log"
 )
 
 var (
-	scope     = log.RegisterScope("notifier", "notifier-alerts", 0)
-	Notifiers = make([]AlertInterface, 0)
+	scope      = log.RegisterScope("notifier", "notifier-alerts", 0)
+	KeycodeMgt *keycodes.KeycodeMgt
 )
 
 type Notifier struct {
@@ -18,20 +20,29 @@ type Notifier struct {
 
 type AlertInterface interface {
 	GetName() string
+	GetCategory() string
 	GetSpecs() string
 	GetEnabled() bool
 	Validate()
 	GenerateCriteria()
 	MeetCriteria() bool
 }
-
 type AlertMetrics struct {
 	name     string
+	category string
 	notifier *Notifier
+}
+
+func Init(influxCfg *influxdb.Config) {
+	KeycodeMgt = keycodes.NewKeycodeMgt(influxCfg)
 }
 
 func (c *AlertMetrics) GetName() string {
 	return c.name
+}
+
+func (c *AlertMetrics) GetCategory() string {
+	return c.category
 }
 
 func (c *AlertMetrics) GetSpecs() string {
