@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='containersai.datahub.keycodes',
   syntax='proto3',
   serialized_options=b'Z-github.com/containers-ai/api/datahub/keycodes',
-  serialized_pb=b'\n\x1f\x64\x61tahub/keycodes/keycodes.proto\x12\x1d\x63ontainersai.datahub.keycodes\x1a\x1fgoogle/protobuf/timestamp.proto\"\xde\x03\n\x07Keycode\x12\x0f\n\x07keycode\x18\x01 \x01(\t\x12\x14\n\x0ckeycode_type\x18\x02 \x01(\t\x12\x17\n\x0fkeycode_version\x18\x03 \x01(\x05\x12.\n\napply_time\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12/\n\x0b\x65xpire_time\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x15\n\rlicense_state\x18\x06 \x01(\t\x12\x12\n\nregistered\x18\x07 \x01(\x08\x12\x39\n\x08\x63\x61pacity\x18\x08 \x01(\x0b\x32\'.containersai.datahub.keycodes.Capacity\x12\x43\n\rfunctionality\x18\t \x01(\x0b\x32,.containersai.datahub.keycodes.Functionality\x12;\n\tretention\x18\n \x01(\x0b\x32(.containersai.datahub.keycodes.Retention\x12J\n\x11service_agreement\x18\x0b \x01(\x0b\x32/.containersai.datahub.keycodes.ServiceAgreement\"7\n\x08\x43\x61pacity\x12\r\n\x05users\x18\x01 \x01(\x05\x12\r\n\x05hosts\x18\x02 \x01(\x05\x12\r\n\x05\x64isks\x18\x03 \x01(\x05\"7\n\rFunctionality\x12\x14\n\x0c\x64isk_prophet\x18\x01 \x01(\x08\x12\x10\n\x08workload\x18\x02 \x01(\x08\"/\n\tRetention\x12\x13\n\x0bvalid_month\x18\x01 \x01(\x05\x12\r\n\x05years\x18\x02 \x01(\x05\"\x12\n\x10ServiceAgreementB/Z-github.com/containers-ai/api/datahub/keycodesb\x06proto3'
+  serialized_pb=b'\n\x1f\x64\x61tahub/keycodes/keycodes.proto\x12\x1d\x63ontainersai.datahub.keycodes\x1a\x1fgoogle/protobuf/timestamp.proto\"\xde\x03\n\x07Keycode\x12\x0f\n\x07keycode\x18\x01 \x01(\t\x12\x14\n\x0ckeycode_type\x18\x02 \x01(\t\x12\x17\n\x0fkeycode_version\x18\x03 \x01(\x05\x12.\n\napply_time\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12/\n\x0b\x65xpire_time\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x15\n\rlicense_state\x18\x06 \x01(\t\x12\x12\n\nregistered\x18\x07 \x01(\x08\x12\x39\n\x08\x63\x61pacity\x18\x08 \x01(\x0b\x32\'.containersai.datahub.keycodes.Capacity\x12\x43\n\rfunctionality\x18\t \x01(\x0b\x32,.containersai.datahub.keycodes.Functionality\x12;\n\tretention\x18\n \x01(\x0b\x32(.containersai.datahub.keycodes.Retention\x12J\n\x11service_agreement\x18\x0b \x01(\x0b\x32/.containersai.datahub.keycodes.ServiceAgreement\"E\n\x08\x43\x61pacity\x12\r\n\x05users\x18\x01 \x01(\x05\x12\r\n\x05hosts\x18\x02 \x01(\x05\x12\r\n\x05\x64isks\x18\x03 \x01(\x05\x12\x0c\n\x04\x63pus\x18\x04 \x01(\x05\"7\n\rFunctionality\x12\x14\n\x0c\x64isk_prophet\x18\x01 \x01(\x08\x12\x10\n\x08workload\x18\x02 \x01(\x08\"/\n\tRetention\x12\x13\n\x0bvalid_month\x18\x01 \x01(\x05\x12\r\n\x05years\x18\x02 \x01(\x05\"\x12\n\x10ServiceAgreementB/Z-github.com/containers-ai/api/datahub/keycodesb\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -155,6 +155,13 @@ _CAPACITY = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='cpus', full_name='containersai.datahub.keycodes.Capacity.cpus', index=3,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -168,7 +175,7 @@ _CAPACITY = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=580,
-  serialized_end=635,
+  serialized_end=649,
 )
 
 
@@ -205,8 +212,8 @@ _FUNCTIONALITY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=637,
-  serialized_end=692,
+  serialized_start=651,
+  serialized_end=706,
 )
 
 
@@ -243,8 +250,8 @@ _RETENTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=694,
-  serialized_end=741,
+  serialized_start=708,
+  serialized_end=755,
 )
 
 
@@ -267,8 +274,8 @@ _SERVICEAGREEMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=743,
-  serialized_end=761,
+  serialized_start=757,
+  serialized_end=775,
 )
 
 _KEYCODE.fields_by_name['apply_time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP

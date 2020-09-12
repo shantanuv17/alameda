@@ -26,6 +26,7 @@ message Capacity {
     int32 users = 1; // example:"-1"`
     int32 hosts = 2; // example:"20"`
     int32 disks = 3; // example:"200"`
+    int32 cpus  = 4; // example:"64"
 }
 
 message Functionality {
