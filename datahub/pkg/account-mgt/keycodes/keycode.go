@@ -13,6 +13,7 @@ import (
 
 var (
 	scope                       = log.RegisterScope("account-mgt", "keycode", 0)
+	CPUCoresOccupied            = 0
 	KeycodeCliPath              = defaultCliPath
 	KeycodeDuration  int64      = defaultRefreshInterval
 	KeycodeStatus               = KeycodeStatusUnknown
@@ -26,7 +27,6 @@ var (
 	InfluxConfig     *influxdb.Config
 	LdapConfig       *ldap.Config
 	K8SClient        client.Client
-	ClusterCPUCores  = 0
 )
 
 type Keycode struct {
@@ -48,7 +48,7 @@ type Capacity struct {
 	Users int `json:"users" example:"-1"`
 	Hosts int `json:"hosts" example:"20"`
 	Disks int `json:"disks" example:"200"`
-	CPUs  int `json:"cpus" examples:"2"`
+	CPUs  int `json:"cpus"  examples:"2"`
 }
 
 type Functionality struct {

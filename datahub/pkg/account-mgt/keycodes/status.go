@@ -1,41 +1,6 @@
 package keycodes
 
-import (
-	"fmt"
-	"strconv"
-)
-
-const (
-	KeycodeStatusUnknown      = 0
-	KeycodeStatusNoKeycode    = 1
-	KeycodeStatusInvalid      = 2
-	KeycodeStatusExpired      = 3
-	KeycodeStatusNotActivated = 4
-	KeycodeStatusValid        = 5
-
-	MessageCPUCoreExceed = "Cluster CPU cores (%s) exceed the licensed number of CPU cores (%s)"
-)
-
-var KeycodeStatusName = map[int]string{
-	0: "Unknown",
-	1: "No Keycode",
-	2: "Invalid",
-	3: "Expired",
-	4: "Not Activated",
-	5: "Valid",
-}
-
-var KeycodeStatusMessage = map[int]string{
-	0: "Unknown keycode is detected",
-	1: "No keycode is applied",
-	2: "Invalid keycode is detected",
-	3: "Keycode is expired",
-	4: "Keycode is not activated",
-	5: "A valid keycode is applied",
-}
-
 type KeycodeStatusObject struct {
-	reason string
 }
 
 func NewKeycodeStatusObject() *KeycodeStatusObject {
@@ -44,7 +9,6 @@ func NewKeycodeStatusObject() *KeycodeStatusObject {
 }
 
 func (c *KeycodeStatusObject) GetStatus() int {
-	c.reason = ""
 	if c.isNoKeycode() {
 		return KeycodeStatusNoKeycode
 	}
@@ -54,8 +18,8 @@ func (c *KeycodeStatusObject) GetStatus() int {
 	if c.isExpired() {
 		return KeycodeStatusExpired
 	}
-	if c.isCapacityCPUCoreExceed() {
-		return KeycodeStatusInvalid
+	if c.isCapacityCPUCoresExceeded() {
+		return KeycodeStatusCapacityCPUCoresExceeded
 	}
 	if c.isNotActivated() {
 		return KeycodeStatusNotActivated
@@ -64,10 +28,6 @@ func (c *KeycodeStatusObject) GetStatus() int {
 		return KeycodeStatusValid
 	}
 	return KeycodeStatusUnknown
-}
-
-func (c *KeycodeStatusObject) GetReason() string {
-	return c.reason
 }
 
 func (c *KeycodeStatusObject) isNoKeycode() bool {
@@ -115,12 +75,10 @@ func (c *KeycodeStatusObject) isValid() bool {
 	return false
 }
 
-func (c *KeycodeStatusObject) isCapacityCPUCoreExceed() bool {
+func (c *KeycodeStatusObject) isCapacityCPUCoresExceeded() bool {
+	// If CPUs is -1 which means no limitation
 	if KeycodeSummary.Capacity.CPUs >= 0 {
-		if KeycodeSummary.Capacity.CPUs < ClusterCPUCores {
-			c.reason = fmt.Sprintf(MessageCPUCoreExceed, strconv.Itoa(ClusterCPUCores),
-				strconv.Itoa(KeycodeSummary.Capacity.CPUs))
-			scope.Error(c.reason)
+		if CPUCoresOccupied > KeycodeSummary.Capacity.CPUs {
 			return true
 		}
 	}

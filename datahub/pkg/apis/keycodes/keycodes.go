@@ -46,6 +46,7 @@ func TransformKeycode(keycode *KeycodeMgt.Keycode) *Keycodes.Keycode {
 	keycodeInfo.Capacity.Users = int32(keycode.Capacity.Users)
 	keycodeInfo.Capacity.Hosts = int32(keycode.Capacity.Hosts)
 	keycodeInfo.Capacity.Disks = int32(keycode.Capacity.Disks)
+	keycodeInfo.Capacity.Cpus = int32(keycode.Capacity.CPUs)
 	keycodeInfo.Functionality.DiskProphet = keycode.Functionality.Diskprophet
 	keycodeInfo.Functionality.Workload = keycode.Functionality.Workload
 	keycodeInfo.Retention.ValidMonth = int32(keycode.Retention.ValidMonth)

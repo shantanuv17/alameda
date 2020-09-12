@@ -35,8 +35,7 @@ func (c *ServiceKeycodes) ActivateRegistrationData(ctx context.Context, in *Keyc
 	}
 
 	// Write registration file
-	err := AlamedaUtils.WriteFile(filePath, []string{in.GetData()})
-	if err != nil {
+	if err := AlamedaUtils.WriteFile(filePath, []string{in.GetData()}); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INTERNAL),
 			Message: "failed to write registration file",
@@ -44,8 +43,7 @@ func (c *ServiceKeycodes) ActivateRegistrationData(ctx context.Context, in *Keyc
 	}
 
 	// Activation
-	err = keycodeMgt.PutSignatureDataFile(filePath)
-	if err != nil {
+	if err := keycodeMgt.PutSignatureDataFile(filePath); err != nil {
 		AlamedaUtils.DeleteFile(filePath)
 		scope.Error(err.Error())
 		return &status.Status{
@@ -60,6 +58,10 @@ func (c *ServiceKeycodes) ActivateRegistrationData(ctx context.Context, in *Keyc
 	}
 
 	scope.Info("Successfully to activate keycode")
+
+	if err := keycodeMgt.PostEvent(); err != nil {
+		scope.Errorf("failed to post activate-keycode event: %s", err.Error())
+	}
 
 	return &status.Status{Code: int32(code.Code_OK)}, nil
 }

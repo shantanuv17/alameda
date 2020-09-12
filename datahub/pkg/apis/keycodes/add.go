@@ -26,8 +26,7 @@ func (c *ServiceKeycodes) AddKeycode(ctx context.Context, in *Keycodes.AddKeycod
 	}
 
 	// Add keycode
-	err := keycodeMgt.AddKeycode(in.GetKeycode())
-	if err != nil {
+	if err := keycodeMgt.AddKeycode(in.GetKeycode()); err != nil {
 		scope.Error(err.Error())
 		return &Keycodes.AddKeycodeResponse{
 			Status: &status.Status{
@@ -37,9 +36,13 @@ func (c *ServiceKeycodes) AddKeycode(ctx context.Context, in *Keycodes.AddKeycod
 		}, nil
 	}
 
-	scope.Infof("Successfully to add keycode(%s)", in.GetKeycode())
+	scope.Infof("successfully to add keycode(%s)", in.GetKeycode())
 
-	keycode, err := keycodeMgt.GetKeycode(in.GetKeycode())
+	if err := keycodeMgt.PostEvent(); err != nil {
+		scope.Errorf("failed to post add-keycode event: %s", err.Error())
+	}
+
+	keycode, _ := keycodeMgt.GetKeycode(in.GetKeycode())
 	return &Keycodes.AddKeycodeResponse{
 		Status: &status.Status{
 			Code: int32(code.Code_OK),

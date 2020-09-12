@@ -24,8 +24,7 @@ func (c *ServiceKeycodes) DeleteKeycode(ctx context.Context, in *Keycodes.Delete
 	}
 
 	// Delete keycode
-	err := keycodeMgt.DeleteKeycode(in.GetKeycode())
-	if err != nil {
+	if err := keycodeMgt.DeleteKeycode(in.GetKeycode()); err != nil {
 		scope.Error(err.Error())
 		return &status.Status{
 			Code:    CategorizeKeycodeErrorId(err.(*IError).ErrorID),
@@ -33,7 +32,11 @@ func (c *ServiceKeycodes) DeleteKeycode(ctx context.Context, in *Keycodes.Delete
 		}, nil
 	}
 
-	scope.Infof("Successfully to delete keycode(%s)", in.GetKeycode())
+	scope.Infof("successfully to delete keycode(%s)", in.GetKeycode())
+
+	if err := keycodeMgt.PostEvent(); err != nil {
+		scope.Errorf("failed to post delete-keycode event: %s", err.Error())
+	}
 
 	return &status.Status{Code: int32(code.Code_OK)}, nil
 }
