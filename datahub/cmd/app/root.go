@@ -115,6 +115,6 @@ func initSchema() {
 func initNotifier() {
 	scope.Info("Initialize notifier")
 
-	Notifier.NotifierInit(config.Notifier, config.InfluxDB)
+	Notifier.Init(config.Notifier, config.InfluxDB)
 	go Notifier.Run()
 }
