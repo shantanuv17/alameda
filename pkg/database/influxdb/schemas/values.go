@@ -6,6 +6,7 @@ var ScopeValue = map[string]Scope{
 	"config":         Config,
 	"execution":      Execution,
 	"fedemeter":      Fedemeter,
+	"metering":       Metering,
 	"metric":         Metric,
 	"planning":       Planning,
 	"prediction":     Prediction,

@@ -9,6 +9,7 @@ const (
 	Config
 	Execution
 	Fedemeter
+	Metering
 	Metric
 	Planning
 	Prediction
