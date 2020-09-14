@@ -8,23 +8,23 @@ import (
 )
 
 var (
-	scope             = log.RegisterScope("notifier", "notifier-mgt", 0)
-	MetricsManagement *Management
+	scope           = log.RegisterScope("notifier", "notifier-mgt", 0)
+	MetricsRegistry *Registry
 )
 
-func NotifierInit(config *Config, influxCfg *influxdb.Config) {
+func Init(config *Config, influxCfg *influxdb.Config) {
 	metrics.Init(influxCfg)
 
-	MetricsManagement = NewManagement()
+	MetricsRegistry = NewRegistry()
 	if config.Enabled {
-		MetricsManagement.AddMetrics(metrics.NewKeycodeMetrics(config.Keycode, influxCfg))
+		MetricsRegistry.Register(metrics.NewKeycodeMetrics(config.Keycode, influxCfg))
 	}
 }
 
 func Run() {
 	c := cron.New()
 
-	for _, alertMetrics := range MetricsManagement.GetAllMetrics() {
+	for _, alertMetrics := range MetricsRegistry.GetAll() {
 		if alertMetrics.GetEnabled() == true {
 			err := c.AddFunc(alertMetrics.GetSpecs(), alertMetrics.Validate)
 			if err != nil {
