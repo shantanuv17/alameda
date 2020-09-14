@@ -9,6 +9,7 @@ var DefaultSchemas = map[string][]interface{}{
 	"application":    defaults.DefaultSchemaApplication(),
 	"config":         defaults.DefaultSchemaConfig(),
 	"fedemeter":      defaults.DefaultSchemaFedemeter(),
+	"metering":       defaults.DefaultSchemaMetering(),
 	"metric":         defaults.DefaultSchemaMetric(),
 	"planning":       defaults.DefaultSchemaPlanning(),
 	"prediction":     defaults.DefaultSchemaPrediction(),

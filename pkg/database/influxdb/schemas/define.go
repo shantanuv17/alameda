@@ -8,6 +8,7 @@ const (
 	Application
 	Config
 	Fedemeter
+	Metering
 	Metric
 	Planning
 	Prediction

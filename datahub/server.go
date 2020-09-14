@@ -165,6 +165,7 @@ func (s *Server) influxDatabaseCreation() {
 		"alameda_fedemeter",
 		"alameda_gpu",
 		"alameda_gpu_prediction",
+		"alameda_metering",
 		"alameda_metric",
 		"alameda_planning",
 		"alameda_prediction",
@@ -195,6 +196,7 @@ func (s *Server) influxDatabaseRetentionPolicy() {
 		"alameda_fedemeter",
 		"alameda_gpu",
 		"alameda_gpu_prediction",
+		"alameda_metering",
 		"alameda_metric",
 		"alameda_planning",
 		"alameda_prediction",
@@ -212,6 +214,10 @@ func (s *Server) influxDatabaseRetentionPolicy() {
 
 func (s *Server) influxDatabaseDefaults() {
 	schemaMgt := schemamgt.NewSchemaManagement()
+
+	// Get schema read lock
+	schemamgt.RWLock.RLock()
+	defer schemamgt.RWLock.RUnlock()
 
 	// Tenancy tenant
 	schema := schemaMgt.GetSchemas(schemas.Config, "tenancy", "tenant")[0]
