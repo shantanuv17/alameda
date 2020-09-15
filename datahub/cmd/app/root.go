@@ -106,7 +106,7 @@ func initKeycode() {
 func initSchema() {
 	scope.Info("Initialize schema management")
 
-	SchemaMgt.SchemaInit(&config)
+	SchemaMgt.SchemaInit(config.InfluxDB)
 	SchemaMgt.DefaultSchemasInit()
 	schemaMgt := SchemaMgt.NewSchemaManagement()
 	schemaMgt.Refresh()
