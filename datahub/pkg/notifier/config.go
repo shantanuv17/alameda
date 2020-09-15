@@ -1,7 +1,7 @@
 package notifier
 
 import (
-	Metrics "github.com/containers-ai/alameda/datahub/pkg/notifier/metrics"
+	"github.com/containers-ai/alameda/datahub/pkg/notifier/metrics"
 )
 
 const (
@@ -9,14 +9,16 @@ const (
 )
 
 type Config struct {
-	Enabled bool
-	Keycode *Metrics.KeycodeConfig `mapstructure:"keycode"`
+	Enabled  bool
+	Keycode  *metrics.KeycodeConfig  `mapstructure:"keycode"`
+	Metering *metrics.MeteringConfig `mapstructure:"metering"`
 }
 
 func NewDefaultConfig() *Config {
 	var config = Config{
-		Enabled: DefaultNotifierEnabled,
-		Keycode: Metrics.NewDefaultKeycodeConfig(),
+		Enabled:  DefaultNotifierEnabled,
+		Keycode:  metrics.NewDefaultKeycodeConfig(),
+		Metering: metrics.NewDefaultMeteringConfig(),
 	}
 	return &config
 }

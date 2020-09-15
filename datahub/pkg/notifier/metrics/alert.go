@@ -2,6 +2,7 @@ package metrics
 
 import (
 	"github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes"
+	"github.com/containers-ai/alameda/datahub/pkg/schemamgt"
 	"github.com/containers-ai/alameda/pkg/database/influxdb"
 	"github.com/containers-ai/alameda/pkg/utils/log"
 )
@@ -9,6 +10,7 @@ import (
 var (
 	scope      = log.RegisterScope("notifier", "notifier-alerts", 0)
 	KeycodeMgt *keycodes.KeycodeMgt
+	SchemaMgt  *schemamgt.SchemaManagement
 )
 
 type Notifier struct {
@@ -35,6 +37,7 @@ type AlertMetrics struct {
 
 func Init(influxCfg *influxdb.Config) {
 	KeycodeMgt = keycodes.NewKeycodeMgt(influxCfg)
+	SchemaMgt = schemamgt.NewSchemaManagement()
 }
 
 func (c *AlertMetrics) GetName() string {

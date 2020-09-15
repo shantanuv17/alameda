@@ -29,8 +29,8 @@ type KeycodeCapacityCPU struct {
 	percentageLevel []int
 	percentage      int
 	percentageMeet  int
-	coreOccupied    int
-	coreCapacity    int
+	coreOccupied    int64
+	coreCapacity    int64
 	influxCfg       *influxdb.Config
 }
 
@@ -100,7 +100,6 @@ func (c *KeycodeCapacityCPU) MeetCriteria() bool {
 
 	// Get cluster CPU occupied from influxdb
 	cores, err := KeycodeMgt.GetCPUCoresOccupied()
-	// cores, err := GetAlamedaClusterCPUs(c.influxCfg)
 	if err != nil {
 		scope.Errorf("Failed to refresh keycode CPU info, unable to get CPU info: %s", err.Error())
 		return false
