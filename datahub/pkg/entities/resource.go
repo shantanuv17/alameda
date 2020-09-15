@@ -80,7 +80,7 @@ type ResourceClusterStatusContainer struct {
 	AlamedaScalerName                         string       `json:"alameda_scaler_name"                            required:"true"  column:"tag"`
 	AlamedaScalerNamespace                    string       `json:"alameda_scaler_namespace"                       required:"true"  column:"tag"`
 	AlamedaScalerScalingTool                  ScalingTool  `json:"alameda_scaler_scaling_tool"                    required:"true"  column:"tag"`
-	ResourceRequestCPU                        string       `json:"resource_request_cpu"                           required:"false" column:"field"`
+	ResourceRequestCPU                        string       `json:"resource_request_cpu"                           required:"true"  column:"field"`
 	ResourceRequestMemory                     string       `json:"resource_request_memory"                        required:"false" column:"field"`
 	ResourceLimitCpu                          string       `json:"resource_limit_cpu"                             required:"false" column:"field"`
 	ResourceLimitMemory                       string       `json:"resource_limit_memory"                          required:"false" column:"field"`
@@ -115,7 +115,7 @@ type ResourceClusterStatusController struct {
 	AlamedaScalerName        string       `json:"alameda_scaler_name"         required:"true"  column:"tag"`
 	AlamedaScalerNamespace   string       `json:"alameda_scaler_namespace"    required:"true"  column:"tag"`
 	AlamedaScalerScalingTool ScalingTool  `json:"alameda_scaler_scaling_tool" required:"true"  column:"tag"`
-	Replicas                 int32        `json:"replicas"                    required:"false" column:"field"`
+	Replicas                 int32        `json:"replicas"                    required:"true" column:"field"`
 	SpecReplicas             int32        `json:"spec_replicas"               required:"false" column:"field"`
 	ResourceK8sMinReplicas   int32        `json:"resource_k8s_min_replicas"   required:"false" column:"field"`
 	ResourceK8sMaxReplicas   int32        `json:"resource_k8s_max_replicas"   required:"false" column:"field"`
@@ -145,8 +145,8 @@ type ResourceClusterStatusNode struct {
 	RoleMaster                  bool         `json:"role_master"                   required:"false" column:"field"`
 	RoleWorker                  bool         `json:"role_worker"                   required:"false" column:"field"`
 	RoleInfra                   bool         `json:"role_infra"                    required:"false" column:"field"`
-	CreateTime                  int64        `json:"create_time"                   required:"false" column:"field"`
 	MachineCreateTime           int64        `json:"machine_create_time"           required:"false" column:"field"`
+	CreateTime                  int64        `json:"create_time"                   required:"true"  column:"field"`
 	NodeCPUCores                int64        `json:"node_cpu_cores"                required:"false" column:"field"` // NodeCPUCores is the amount of cores in node
 	NodeMemoryBytes             int64        `json:"node_memory_bytes"             required:"false" column:"field"` // NodeMemoryBytes is the amount of memory bytes in node
 	NodeNetworkMbps             int64        `json:"node_network_mbps"             required:"false" column:"field"` // NodeNetworkMbps is mega bits per second
@@ -181,7 +181,7 @@ type ResourceClusterStatusPod struct {
 	AlamedaScalerScalingTool           ScalingTool  `json:"alameda_scaler_scaling_tool"            required:"true"  column:"tag"`
 	AppName                            string       `json:"app_name"                               required:"true"  column:"tag"`
 	AppPartOf                          string       `json:"app_part_of"                            required:"true"  column:"tag"`
-	PodCreateTime                      int64        `json:"pod_create_time"                        required:"false" column:"field"`
+	PodCreateTime                      int64        `json:"pod_create_time"                        required:"true"  column:"field"`
 	ResourceLink                       string       `json:"resource_link"                          required:"false" column:"field"`
 	TopControllerReplicas              int32        `json:"top_controller_replicas"                required:"false" column:"field"`
 	PodPhase                           PodPhase     `json:"pod_phase"                              required:"false" column:"field"`
