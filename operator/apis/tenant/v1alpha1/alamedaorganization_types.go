@@ -78,8 +78,9 @@ type AlamedaWatchedNamespace struct {
 }
 
 type AlamedaCluster struct {
-	Name       string            `json:"name"`
-	DataSource AlamedaDataSource `json:"dataSource"`
+	Name string `json:"name"`
+	// +optional
+	DataSource AlamedaDataSource `json:"dataSource,omitempty"`
 	// +optional
 	Features []AlamedaFeature `json:"features,omitempty"`
 	// +optional

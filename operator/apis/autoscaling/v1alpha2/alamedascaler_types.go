@@ -21,9 +21,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // +kubebuilder:validation:Enum=generic;kafka
 type TargetType string
 
@@ -155,12 +152,9 @@ type AlamedaScalerSpec struct {
 
 // AlamedaScalerStatus defines the observed state of AlamedaScaler
 type AlamedaScalerStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
 }
 
 // +kubebuilder:object:root=true
-// +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 // AlamedaScaler is the Schema for the alamedascalers API
 type AlamedaScaler struct {
