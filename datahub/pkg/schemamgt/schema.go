@@ -1,7 +1,6 @@
 package schemamgt
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/config"
 	"github.com/containers-ai/alameda/pkg/database/influxdb"
 	"github.com/containers-ai/alameda/pkg/utils/log"
 	"sync"
@@ -18,8 +17,8 @@ var (
 	Schemas2Write *SchemaMap
 )
 
-func SchemaInit(config *config.Config) error {
-	InfluxConfig = config.InfluxDB
+func SchemaInit(config *influxdb.Config) error {
+	InfluxConfig = config
 	RWLock = new(sync.RWMutex)
 	Schemas = NewSchemaMap()
 	Schemas2Write = NewSchemaMap()
