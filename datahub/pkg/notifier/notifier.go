@@ -19,6 +19,9 @@ func Init(config *Config, influxCfg *influxdb.Config) {
 	if config.Enabled {
 		MetricsRegistry.Register(metrics.NewKeycodeMetrics(config.Keycode, influxCfg))
 	}
+
+	// NOTE: Metering is always enabled for temporary, move to metering package in advance
+	MetricsRegistry.Register(metrics.NewMeteringMetrics(config.Metering, influxCfg))
 }
 
 func Run() {

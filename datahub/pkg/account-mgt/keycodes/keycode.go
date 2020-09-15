@@ -12,21 +12,22 @@ import (
 )
 
 var (
-	scope                       = log.RegisterScope("account-mgt", "keycode", 0)
-	CPUCoresOccupied            = 0
-	KeycodeCliPath              = defaultCliPath
-	KeycodeDuration  int64      = defaultRefreshInterval
-	KeycodeStatus               = KeycodeStatusUnknown
-	KeycodeAesKey               = []byte("")
-	KeycodeTimestamp int64      = 0
-	KeycodeCount                = 0
-	KeycodeList      []*Keycode = nil
-	KeycodeSummary   *Keycode   = nil
-	KeycodeTM        time.Time
-	KeycodeMutex     sync.Mutex
-	InfluxConfig     *influxdb.Config
-	LdapConfig       *ldap.Config
-	K8SClient        client.Client
+	scope                          = log.RegisterScope("account-mgt", "keycode", 0)
+	CPUCoresOccupied    int64      = 0
+	MemoryBytesOccupied int64      = 0
+	KeycodeCliPath                 = defaultCliPath
+	KeycodeDuration     int64      = defaultRefreshInterval
+	KeycodeStatus                  = KeycodeStatusUnknown
+	KeycodeAesKey                  = []byte("")
+	KeycodeTimestamp    int64      = 0
+	KeycodeCount                   = 0
+	KeycodeList         []*Keycode = nil
+	KeycodeSummary      *Keycode   = nil
+	KeycodeTM           time.Time
+	KeycodeMutex        sync.Mutex
+	InfluxConfig        *influxdb.Config
+	LdapConfig          *ldap.Config
+	K8SClient           client.Client
 )
 
 type Keycode struct {
@@ -45,10 +46,10 @@ type Keycode struct {
 }
 
 type Capacity struct {
-	Users int `json:"users" example:"-1"`
-	Hosts int `json:"hosts" example:"20"`
-	Disks int `json:"disks" example:"200"`
-	CPUs  int `json:"cpus"  examples:"2"`
+	Users int   `json:"users"  example:"-1"`
+	Hosts int   `json:"hosts"  example:"20"`
+	Disks int   `json:"disks"  example:"200"`
+	CPUs  int64 `json:"cpus"   examples:"2"`
 }
 
 type Functionality struct {

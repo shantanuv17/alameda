@@ -133,7 +133,7 @@ func (c *KeycodeMgt) GetRegistrationData() (string, error) {
 	return registrationData, nil
 }
 
-func (c *KeycodeMgt) GetCPUCoresOccupied() (int, error) {
+func (c *KeycodeMgt) GetCPUCoresOccupied() (int64, error) {
 	KeycodeMutex.Lock()
 	defer KeycodeMutex.Unlock()
 
@@ -143,6 +143,18 @@ func (c *KeycodeMgt) GetCPUCoresOccupied() (int, error) {
 	}
 
 	return CPUCoresOccupied, nil
+}
+
+func (c *KeycodeMgt) GetMemoryBytesOccupied() (int64, error) {
+	KeycodeMutex.Lock()
+	defer KeycodeMutex.Unlock()
+
+	if err := c.refresh(false); err != nil {
+		scope.Error("failed to get memory bytes occupied")
+		return 0, err
+	}
+
+	return MemoryBytesOccupied, nil
 }
 
 func (c *KeycodeMgt) PutSignatureData(signatureData string) error {
@@ -233,16 +245,17 @@ func (c *KeycodeMgt) refresh(force bool) error {
 			return err
 		}
 
-		// Get CPU cores occupied from influxdb
-		cores, err := GetAlamedaClusterCPUs(c.InfluxCfg)
+		// Get federatorai capacity occupied from influxdb
+		occupied, err := GetFederatoraiCapacityOccupied(c.InfluxCfg)
 		if err != nil {
-			scope.Errorf("failed to refresh keycode CPU info, unable to get CPU info: %s", err.Error())
+			scope.Errorf("failed to get federatorai capacity occupied: %s", err.Error())
 			return err
 		}
-		scope.Infof("Licensed CPU cores capacity: %d, Cluster CPU cores occupied: %d", keycodeSummary.Capacity.CPUs, cores)
+		scope.Infof("licensed CPU cores capacity: %d, CPU cores occupied: %d", keycodeSummary.Capacity.CPUs, occupied.CPUCores)
 
 		// If everything goes right, refresh the global variables
-		CPUCoresOccupied = cores
+		CPUCoresOccupied = occupied.CPUCores
+		MemoryBytesOccupied = occupied.MemoryBytes
 		KeycodeTimestamp = tmUnix
 		KeycodeList = keycodeList
 		KeycodeSummary = keycodeSummary
