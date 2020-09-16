@@ -43,7 +43,7 @@ func (p *Schema) AddMeasurement(name string, metricType MetricType, boundary Res
 func (p *Schema) GetMeasurement(name string, metricType MetricType, boundary ResourceBoundary, quota ResourceQuota) *Measurement {
 	if name != "" {
 		for _, m := range p.Measurements {
-			if m.Name == name {
+			if m.Name == name && m.MetricType == metricType && m.Boundary == boundary && m.Quota == quota {
 				return m
 			}
 		}
