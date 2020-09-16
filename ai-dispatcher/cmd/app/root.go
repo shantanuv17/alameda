@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -72,18 +73,15 @@ var rootCmd = &cobra.Command{
 		}
 		datahubAddr := viper.GetString("datahub.address")
 		if datahubAddr == "" {
-			scope.Errorf("No configuration of datahub address.")
-			return
+			panic(fmt.Errorf("no configuration of datahub address"))
 		}
 		datahubClient := datahubpkg.NewClient(datahubAddr)
 		if datahubClient == nil {
-			scope.Errorf("New datahub client failed.")
-			return
+			panic(fmt.Errorf("new datahub client failed"))
 		}
 		queueURL := viper.GetString("queue.url")
 		if queueURL == "" {
-			scope.Errorf("No configuration of queue url.")
-			return
+			panic(fmt.Errorf("no configuration of queue url"))
 		}
 
 		for {
