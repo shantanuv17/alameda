@@ -28,6 +28,10 @@ func GetFederatoraiCapacityOccupied(influxCfg *influxdb.Config) (*CapacityOccupi
 		return &CapacityOccupied{}, err
 	}
 
+	if len(groups) == 0 {
+		return &CapacityOccupied{}, nil
+	}
+
 	// Find indices of specific columns
 	for index, column := range groups[0].Columns {
 		if column == "name" {
