@@ -4,25 +4,19 @@ metadata:
   name: default
 spec:
   tenant: default
+  costAnalysis:
+    enabled: true
+    mode: uploadResult
   clusters:
     - name: cluster1
-      dataSource:
-        type: datadog
-        address: datadog.addr
-        account: datadog
-        keys:
-         - key: key
       features:
-        - type: resourcePlanning
-          resourcePlanning:
-            enabled: true
-            mode: uploadResult
         - type: costAnalysis
           costAnalysis:
-            enabled: true
+            enabled: false
             mode: localOnly
       watchedNamespace:
         names:
           - n1
           - n2
-        operator: exclude    
+        operator: exclude
+    - name: cluster2

@@ -125,6 +125,41 @@ spec:
                 - name
                 type: object
               type: array
+              x-kubernetes-list-map-keys:
+              - name
+              x-kubernetes-list-type: map
+            costAnalysis:
+              properties:
+                enabled:
+                  enum:
+                  - true
+                  - false
+                  type: boolean
+                mode:
+                  enum:
+                  - uploadResult
+                  - localOnly
+                  type: string
+              required:
+              - enabled
+              - mode
+              type: object
+            resourcePlanning:
+              properties:
+                enabled:
+                  enum:
+                  - true
+                  - false
+                  type: boolean
+                mode:
+                  enum:
+                  - uploadResult
+                  - localOnly
+                  type: string
+              required:
+              - enabled
+              - mode
+              type: object
             tenant:
               type: string
           required:

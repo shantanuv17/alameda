@@ -29,6 +29,11 @@ type DataSourceType string
 // +kubebuilder:validation:Enum=resourcePlanning;costAnalysis
 type FeatureType string
 
+const (
+	ResourcePlanningFeatureType FeatureType = "resourcePlanning"
+	CostAnalysisFeatureType     FeatureType = "costAnalysis"
+)
+
 // +kubebuilder:validation:Enum=true;false
 type FeatureEnabled bool
 
@@ -36,8 +41,8 @@ type FeatureEnabled bool
 type FeatureMode string
 
 const (
-	ResourcePlanningFeatureType = "resourcePlanning"
-	CostAnalysisFeatureType     = "costAnalysis"
+	UploadResultFeatureMode FeatureMode = "uploadResult"
+	LocalOnlyFeatureMode    FeatureMode = "localOnly"
 )
 
 type FeatureMeta struct {
@@ -66,9 +71,9 @@ type AlamedaDataSource struct {
 type AlamedaFeature struct {
 	Type FeatureType `json:"type,omitempty"`
 	// +optional
-	ResourcePlanning ResourcePlanningFeature `json:"resourcePlanning,omitempty"`
+	ResourcePlanning *ResourcePlanningFeature `json:"resourcePlanning,omitempty"`
 	// +optional
-	CostAnalysis CostAnalysisFeature `json:"costAnalysis,omitempty"`
+	CostAnalysis *CostAnalysisFeature `json:"costAnalysis,omitempty"`
 }
 
 type AlamedaWatchedNamespace struct {
@@ -91,6 +96,12 @@ type AlamedaCluster struct {
 type AlamedaOrganizationSpec struct {
 	Tenant string `json:"tenant"`
 	// +optional
+	ResourcePlanning *ResourcePlanningFeature `json:"resourcePlanning,omitempty"`
+	// +optional
+	CostAnalysis *CostAnalysisFeature `json:"costAnalysis,omitempty"`
+	// +optional
+	// +listType=map
+	// +listMapKey=name
 	Clusters []AlamedaCluster `json:"clusters,omitempty"`
 }
 
