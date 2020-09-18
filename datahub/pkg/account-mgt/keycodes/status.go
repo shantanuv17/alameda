@@ -1,5 +1,9 @@
 package keycodes
 
+import (
+	"time"
+)
+
 type KeycodeStatusObject struct {
 }
 
@@ -20,6 +24,9 @@ func (c *KeycodeStatusObject) GetStatus() int {
 	}
 	if c.isCapacityCPUCoresExceeded() {
 		return KeycodeStatusCapacityCPUCoresExceeded
+	}
+	if c.isCapacityCPUCoresGracePeriod() {
+		return KeycodeStatusCapacityCPUCoresGracePeriod
 	}
 	if c.isNotActivated() {
 		return KeycodeStatusNotActivated
@@ -75,11 +82,35 @@ func (c *KeycodeStatusObject) isValid() bool {
 	return false
 }
 
+func (c *KeycodeStatusObject) isCapacityCPUCoresGracePeriod() bool {
+	// If CPUs is -1 which means no limitation
+	if KeycodeSummary.Capacity.CPUs >= 0 {
+		if KeycodeCapacityOccupied != nil {
+			if KeycodeCapacityOccupied.CPUCores > KeycodeSummary.Capacity.CPUs {
+				if KeycodeGracePeriod == 0 {
+					return true
+				}
+				if KeycodeGracePeriod >= time.Now().Unix() {
+					return true
+				}
+			}
+		}
+	}
+	return false
+}
+
 func (c *KeycodeStatusObject) isCapacityCPUCoresExceeded() bool {
 	// If CPUs is -1 which means no limitation
 	if KeycodeSummary.Capacity.CPUs >= 0 {
-		if CPUCoresOccupied > KeycodeSummary.Capacity.CPUs {
-			return true
+		if KeycodeCapacityOccupied != nil {
+			if KeycodeCapacityOccupied.CPUCores > KeycodeSummary.Capacity.CPUs {
+				if KeycodeGracePeriod == 0 {
+					return false
+				}
+				if time.Now().Unix() > KeycodeGracePeriod {
+					return true
+				}
+			}
 		}
 	}
 	return false

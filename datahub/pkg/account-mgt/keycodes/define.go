@@ -5,13 +5,14 @@ import (
 )
 
 const (
-	KeycodeStatusUnknown                  = 0
-	KeycodeStatusNoKeycode                = 1
-	KeycodeStatusInvalid                  = 2
-	KeycodeStatusExpired                  = 3
-	KeycodeStatusNotActivated             = 4
-	KeycodeStatusValid                    = 5
-	KeycodeStatusCapacityCPUCoresExceeded = 6
+	KeycodeStatusUnknown                     = 0
+	KeycodeStatusNoKeycode                   = 1
+	KeycodeStatusInvalid                     = 2
+	KeycodeStatusExpired                     = 3
+	KeycodeStatusNotActivated                = 4
+	KeycodeStatusValid                       = 5
+	KeycodeStatusCapacityCPUCoresGracePeriod = 6
+	KeycodeStatusCapacityCPUCoresExceeded    = 7
 )
 
 var KeycodeStatusName = map[int]string{
@@ -21,7 +22,8 @@ var KeycodeStatusName = map[int]string{
 	3: "Expired",
 	4: "Not Activated",
 	5: "Valid",
-	6: "Capacity CPU Cores Exceeded",
+	6: "Grace Period",
+	7: "Exceed Licensed Capacity",
 }
 
 var KeycodeStatusMessage = map[int]string{
@@ -31,25 +33,28 @@ var KeycodeStatusMessage = map[int]string{
 	3: "Keycode is expired",
 	4: "Keycode is not activated",
 	5: "A valid keycode is applied",
-	6: "CPU cores capacity exceed the licensed number of CPU cores",
+	6: "Number of CPU cores exceed the licensed number of CPU cores, will expire in grace period",
+	7: "Number of CPU cores exceed the licensed number of CPU cores",
 }
 
 var KeycodeEventLevelMap = map[int]events.EventLevel{
-	KeycodeStatusUnknown:                  events.EventLevel_EVENT_LEVEL_ERROR,
-	KeycodeStatusNoKeycode:                events.EventLevel_EVENT_LEVEL_ERROR,
-	KeycodeStatusInvalid:                  events.EventLevel_EVENT_LEVEL_ERROR,
-	KeycodeStatusExpired:                  events.EventLevel_EVENT_LEVEL_ERROR,
-	KeycodeStatusNotActivated:             events.EventLevel_EVENT_LEVEL_WARNING,
-	KeycodeStatusValid:                    events.EventLevel_EVENT_LEVEL_INFO,
-	KeycodeStatusCapacityCPUCoresExceeded: events.EventLevel_EVENT_LEVEL_ERROR,
+	KeycodeStatusUnknown:                     events.EventLevel_EVENT_LEVEL_ERROR,
+	KeycodeStatusNoKeycode:                   events.EventLevel_EVENT_LEVEL_ERROR,
+	KeycodeStatusInvalid:                     events.EventLevel_EVENT_LEVEL_ERROR,
+	KeycodeStatusExpired:                     events.EventLevel_EVENT_LEVEL_ERROR,
+	KeycodeStatusNotActivated:                events.EventLevel_EVENT_LEVEL_WARNING,
+	KeycodeStatusValid:                       events.EventLevel_EVENT_LEVEL_INFO,
+	KeycodeStatusCapacityCPUCoresGracePeriod: events.EventLevel_EVENT_LEVEL_WARNING,
+	KeycodeStatusCapacityCPUCoresExceeded:    events.EventLevel_EVENT_LEVEL_ERROR,
 }
 
 var KeycodeInfluxTargetMap = map[int]string{
-	KeycodeStatusUnknown:                  "Summary",
-	KeycodeStatusNoKeycode:                "N/A",
-	KeycodeStatusInvalid:                  "Summary",
-	KeycodeStatusExpired:                  "Summary",
-	KeycodeStatusNotActivated:             "Summary",
-	KeycodeStatusValid:                    "Summary",
-	KeycodeStatusCapacityCPUCoresExceeded: "Summary",
+	KeycodeStatusUnknown:                     "Summary",
+	KeycodeStatusNoKeycode:                   "N/A",
+	KeycodeStatusInvalid:                     "Summary",
+	KeycodeStatusExpired:                     "Summary",
+	KeycodeStatusNotActivated:                "Summary",
+	KeycodeStatusValid:                       "Summary",
+	KeycodeStatusCapacityCPUCoresGracePeriod: "Summary",
+	KeycodeStatusCapacityCPUCoresExceeded:    "Summary",
 }

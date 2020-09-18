@@ -36,7 +36,7 @@ type KeycodeExecutor struct {
 
 func NewKeycodeExecutor() *KeycodeExecutor {
 	keycodeCli := KeycodeExecutor{}
-	keycodeCli.Cli = KeycodeCliPath
+	keycodeCli.Cli = CliPath
 	keycodeCli.LdapArgs = make([]string, 0)
 
 	if LdapConfig != nil {
@@ -45,7 +45,7 @@ func NewKeycodeExecutor() *KeycodeExecutor {
 			"--ldap-base-dn", LdapConfig.BaseDN,
 			"--ldap-user", LdapConfig.AdminID,
 			"--ldap-password", LdapConfig.AdminPW,
-			"--encode-key", base64.StdEncoding.EncodeToString(KeycodeAesKey),
+			"--encode-key", base64.StdEncoding.EncodeToString(AesKey),
 		)
 	}
 

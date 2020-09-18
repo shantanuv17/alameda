@@ -20,9 +20,9 @@ func (c *Registry) Register(metrics []metrics.AlertInterface) {
 	}
 }
 
-func (c *Registry) Get(name, category string) metrics.AlertInterface {
+func (c *Registry) Get(name, alertType, category string) metrics.AlertInterface {
 	for _, m := range c.notifiers {
-		if m.GetName() == name && m.GetCategory() == category {
+		if m.GetName() == name && m.GetType() == alertType && m.GetCategory() == category {
 			return m
 		}
 	}

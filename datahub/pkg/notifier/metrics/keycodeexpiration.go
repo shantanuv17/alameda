@@ -4,15 +4,11 @@ import (
 	"fmt"
 	Keycodes "github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes"
 	"github.com/containers-ai/alameda/pkg/database/influxdb"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"math"
-	"strconv"
-	"strings"
 	"time"
 )
 
 const (
-	DefaultKeycodeExpirationEnabled       = true
 	DefaultKeycodeExpirationSpecs         = "0 0 * * * *"
 	DefaultKeycodeExpirationEventInterval = "90,60,30,15,7,6,5,4,3,2,1,0,-1,-2,-3,-4,-5,-6,-7"
 	DefaultKeycodeExpirationEventLevel    = "90:Info,15:Warn,0:Error"
@@ -21,58 +17,30 @@ const (
 type KeycodeExpiration struct {
 	AlertMetrics
 
-	eventLevel  map[int]events.EventLevel
-	eventPosted map[int]bool
-	days        int
-	expired     bool
+	days    int
+	expired bool
 }
 
 func NewKeycodeExpiration(notifier *Notifier, influxCfg *influxdb.Config) *KeycodeExpiration {
-	keycode := KeycodeExpiration{}
-	keycode.name = "expiration"
-	keycode.category = "keycode"
-	keycode.notifier = notifier
-	keycode.eventLevel = make(map[int]events.EventLevel, 0)
-	keycode.eventPosted = make(map[int]bool, 0)
-	keycode.days = 0
-	keycode.expired = false
-	keycode.GenerateCriteria()
-	return &keycode
+	alert := KeycodeExpiration{}
+	alert.notifier = notifier
+	alert.name = "expiration"
+	alert.alertType = "expiration"
+	alert.category = "keycode"
+	alert.criteriaType = CriteriaTypeContinuous
+	alert.days = 0
+	alert.expired = false
+	alert.GenerateCriteria()
+	return &alert
 }
 
 func (c *KeycodeExpiration) Validate() {
+	scope.Info("check if keycode is expired")
 	if c.MeetCriteria() == true {
 		if c.eventPosted[c.days] == false {
 			c.eventPosted[c.days] = true
 			c.PostEvent()
 		}
-	}
-}
-
-func (c *KeycodeExpiration) GenerateCriteria() {
-	eventMap := map[int]events.EventLevel{}
-	for _, level := range strings.Split(c.notifier.EventLevel, ",") {
-		day, _ := strconv.Atoi(strings.Split(level, ":")[0])
-		value := strings.Split(level, ":")[1]
-
-		switch value {
-		case "Info":
-			eventMap[day] = events.EventLevel_EVENT_LEVEL_INFO
-		case "Warn":
-			eventMap[day] = events.EventLevel_EVENT_LEVEL_WARNING
-		case "Error":
-			eventMap[day] = events.EventLevel_EVENT_LEVEL_ERROR
-		}
-	}
-
-	nowDay := 0
-	for _, dayStr := range strings.Split(c.notifier.EventInterval, ",") {
-		day, _ := strconv.Atoi(dayStr)
-		if _, ok := eventMap[day]; ok {
-			nowDay = day
-		}
-		c.eventLevel[day] = eventMap[nowDay]
-		c.eventPosted[day] = false
 	}
 }
 
@@ -92,7 +60,7 @@ func (c *KeycodeExpiration) MeetCriteria() bool {
 	if len(keycodes) == 0 {
 		c.days = 0
 		c.expired = false
-		c.clearEventPosted()
+		c.ClearEventPosted()
 		return false
 	}
 
@@ -106,7 +74,7 @@ func (c *KeycodeExpiration) MeetCriteria() bool {
 	if c.expired != isExpired {
 		c.expired = isExpired
 		if isExpired == false {
-			c.clearEventPosted()
+			c.ClearEventPosted()
 		}
 	}
 
@@ -143,10 +111,4 @@ func (c *KeycodeExpiration) PostEvent() error {
 	}
 
 	return nil
-}
-
-func (c *KeycodeExpiration) clearEventPosted() {
-	for k := range c.eventPosted {
-		c.eventPosted[k] = false
-	}
 }

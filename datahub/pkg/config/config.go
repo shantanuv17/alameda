@@ -3,6 +3,7 @@ package config
 import (
 	"errors"
 	Keycodes "github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes"
+	Licenses "github.com/containers-ai/alameda/datahub/pkg/account-mgt/licenses"
 	Apis "github.com/containers-ai/alameda/datahub/pkg/apis"
 	Notifier "github.com/containers-ai/alameda/datahub/pkg/notifier"
 	InternalRabbitMQ "github.com/containers-ai/alameda/internal/pkg/message-queue/rabbitmq"
@@ -25,6 +26,7 @@ type Config struct {
 	Apis        *Apis.Config               `mapstructure:"apis"`
 	Ldap        *LDAP.Config               `mapstructure:"ldap"`
 	Keycode     *Keycodes.Config           `mapstructure:"keycode"`
+	License     *Licenses.Config           `mapstructure:"license"`
 	Notifier    *Notifier.Config           `mapstructure:"notifier"`
 	WeaveScope  *InternalWeaveScope.Config `mapstructure:"weavescope"`
 	RabbitMQ    *InternalRabbitMQ.Config   `mapstructure:"rabbitmq"`
@@ -39,6 +41,7 @@ func NewDefaultConfig() Config {
 		defaultApisConfig       = Apis.NewDefaultConfig()
 		defaultLdapConfig       = LDAP.NewDefaultConfig()
 		defaultKeycodeConfig    = Keycodes.NewDefaultConfig()
+		defaultLicenseConfig    = Licenses.NewDefaultConfig()
 		defaultNotifierConfig   = Notifier.NewDefaultConfig()
 		defaultWeaveScopeConfig = InternalWeaveScope.NewDefaultConfig()
 		defaultRabbitMQConfig   = InternalRabbitMQ.NewDefaultConfig()
@@ -49,6 +52,7 @@ func NewDefaultConfig() Config {
 			Apis:        defaultApisConfig,
 			Ldap:        defaultLdapConfig,
 			Keycode:     defaultKeycodeConfig,
+			License:     defaultLicenseConfig,
 			Notifier:    defaultNotifierConfig,
 			WeaveScope:  defaultWeaveScopeConfig,
 			RabbitMQ:    defaultRabbitMQConfig,

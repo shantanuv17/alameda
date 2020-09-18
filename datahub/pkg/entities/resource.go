@@ -149,3 +149,12 @@ type ResourceClusterStatusPod struct {
 	AlamedaScalerResourceRequestCPU    string       `json:"alameda_scaler_resource_request_cpu"    required:"false" column:"field"`
 	AlamedaScalerResourceRequestMemory string       `json:"alameda_scaler_resource_request_memory" required:"false" column:"field"`
 }
+
+type ResourceClusterStatusRunTime struct {
+	DatahubEntity `scope:"resource" category:"cluster_status" type:"run_time"`
+	Measurement   *Measurement `name:"run_time" metric:"undefined" boundary:"undefined" quota:"undefined" ts:"false"`
+	Time          *time.Time   `json:"time"  required:"false" column:"tag"`
+	Name          string       `json:"name"  required:"true"  column:"tag"`
+	Type          RunTimeType  `json:"type"  required:"true"  column:"tag"`
+	Value         string       `json:"value" required:"true"  column:"field"`
+}
