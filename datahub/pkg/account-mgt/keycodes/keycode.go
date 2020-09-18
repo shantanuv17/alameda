@@ -11,23 +11,27 @@ import (
 	"time"
 )
 
+// Configuration
 var (
-	scope                          = log.RegisterScope("account-mgt", "keycode", 0)
-	CPUCoresOccupied    int64      = 0
-	MemoryBytesOccupied int64      = 0
-	KeycodeCliPath                 = defaultCliPath
-	KeycodeDuration     int64      = defaultRefreshInterval
-	KeycodeStatus                  = KeycodeStatusUnknown
-	KeycodeAesKey                  = []byte("")
-	KeycodeTimestamp    int64      = 0
-	KeycodeCount                   = 0
-	KeycodeList         []*Keycode = nil
-	KeycodeSummary      *Keycode   = nil
-	KeycodeTM           time.Time
-	KeycodeMutex        sync.Mutex
-	InfluxConfig        *influxdb.Config
-	LdapConfig          *ldap.Config
-	K8SClient           client.Client
+	CliPath            = defaultCliPath
+	AesKey             = []byte("")
+	Duration     int64 = defaultRefreshInterval
+	InfluxConfig *influxdb.Config
+	LdapConfig   *ldap.Config
+	K8SClient    client.Client
+)
+
+// Global variable
+var (
+	scope                                     = log.RegisterScope("account-mgt", "keycode", 0)
+	KeycodeStatus                             = KeycodeStatusUnknown
+	KeycodeTimestamp        int64             = 0
+	KeycodeGracePeriod      int64             = 0
+	KeycodeList             []*Keycode        = nil
+	KeycodeSummary          *Keycode          = nil
+	KeycodeCapacityOccupied *CapacityOccupied = nil
+	KeycodeTM               time.Time
+	KeycodeMutex            sync.Mutex
 )
 
 type Keycode struct {
@@ -78,9 +82,9 @@ func NewKeycode(keycode string) *Keycode {
 }
 
 func KeycodeInit(config *Config) error {
-	KeycodeCliPath = config.CliPath
-	KeycodeDuration = config.RefreshInterval
-	KeycodeAesKey = config.AesKey
+	CliPath = config.CliPath
+	Duration = config.RefreshInterval
+	AesKey = config.AesKey
 	InfluxConfig = config.InfluxDB
 	LdapConfig = config.Ldap
 

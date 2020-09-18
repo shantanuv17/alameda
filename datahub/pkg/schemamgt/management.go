@@ -81,6 +81,31 @@ func (p *SchemaManagement) AddSchemas(schemas []*InfluxSchemas.Schema) {
 	}
 }
 
+func (p *SchemaManagement) GetSchema(schemaScope InfluxSchemas.Scope, schemaCategory, schemaType string) *InfluxSchemas.Schema {
+	if schemaScope == InfluxSchemas.ScopeUndefined {
+		scope.Error("schema scope is not given")
+		return nil
+	}
+	if schemaCategory == "" {
+		scope.Error("schema category is not given")
+		return nil
+	}
+	if schemaType == "" {
+		scope.Error("schema type is not given")
+		return nil
+	}
+	for _, schemas := range Schemas.Schemas {
+		for _, schema := range schemas {
+			schemaMeta := schema.SchemaMeta
+			if schemaMeta.Scope == schemaScope && schemaMeta.Category == schemaCategory && schemaMeta.Type == schemaType {
+				return schema
+			}
+		}
+	}
+	scope.Errorf("schema(%d:%s:%s) is not found", schemaScope, schemaCategory, schemaType)
+	return nil
+}
+
 func (p *SchemaManagement) GetSchemas(scope InfluxSchemas.Scope, category, schemaType string) []*InfluxSchemas.Schema {
 	// TODO: check if need to get READ LOCK
 	// Filter table

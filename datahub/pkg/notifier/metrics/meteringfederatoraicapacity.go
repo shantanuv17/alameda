@@ -25,17 +25,21 @@ type MeteringFederatorai struct {
 }
 
 func NewMeteringFederatorai(notifier *Notifier, influxCfg *influxdb.Config) *MeteringFederatorai {
-	federatorai := MeteringFederatorai{}
-	federatorai.name = "federatorai_capacity"
-	federatorai.category = "metering"
-	federatorai.notifier = notifier
-	federatorai.eventLevel = make(map[int]events.EventLevel, 0)
-	federatorai.eventPosted = make(map[int]bool, 0)
-	federatorai.influxCfg = influxCfg
-	return &federatorai
+	alert := MeteringFederatorai{}
+	alert.notifier = notifier
+	alert.name = "capacity"
+	alert.alertType = "federator"
+	alert.category = "metering"
+	alert.criteriaType = CriteriaTypeUndefined
+	alert.eventLevel = make(map[int]events.EventLevel, 0)
+	alert.eventPosted = make(map[int]bool, 0)
+	alert.influxCfg = influxCfg
+	return &alert
 }
 
 func (c *MeteringFederatorai) Validate() {
+	scope.Info("log metering data")
+
 	tsNow := time.Now()
 	remainder := tsNow.Unix() % 86400
 	ts := time.Unix(tsNow.Unix()-remainder, 0)

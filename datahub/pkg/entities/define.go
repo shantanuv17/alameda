@@ -92,3 +92,10 @@ const (
 	Include LogicOperator = "include"
 	Exclude LogicOperator = "exclude"
 )
+
+type RunTimeType string
+
+const (
+	RunTimeUndefined          RunTimeType = "undefined"
+	RunTimeKeycodeGracePeriod RunTimeType = "1"
+)

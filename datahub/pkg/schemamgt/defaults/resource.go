@@ -34,5 +34,8 @@ func DefaultSchemaResource() []interface{} {
 	// Cluster-status pod
 	schemas = append(schemas, &entities.ResourceClusterStatusPod{})
 
+	// Cluster-status run time
+	schemas = append(schemas, &entities.ResourceClusterStatusRunTime{})
+
 	return schemas
 }

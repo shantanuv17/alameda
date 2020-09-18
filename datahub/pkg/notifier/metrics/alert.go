@@ -5,6 +5,9 @@ import (
 	"github.com/containers-ai/alameda/datahub/pkg/schemamgt"
 	"github.com/containers-ai/alameda/pkg/database/influxdb"
 	"github.com/containers-ai/alameda/pkg/utils/log"
+	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
+	"strconv"
+	"strings"
 )
 
 var (
@@ -22,17 +25,24 @@ type Notifier struct {
 
 type AlertInterface interface {
 	GetName() string
+	GetType() string
 	GetCategory() string
 	GetSpecs() string
 	GetEnabled() bool
+	MeetCriteria() bool
 	Validate()
 	GenerateCriteria()
-	MeetCriteria() bool
+	ClearEventPosted()
 }
 type AlertMetrics struct {
-	name     string
-	category string
-	notifier *Notifier
+	notifier     *Notifier
+	name         string
+	alertType    string
+	category     string
+	criteriaType CriteriaType
+	eventList    []int
+	eventLevel   map[int]events.EventLevel
+	eventPosted  map[int]bool
 }
 
 func Init(influxCfg *influxdb.Config) {
@@ -42,6 +52,10 @@ func Init(influxCfg *influxdb.Config) {
 
 func (c *AlertMetrics) GetName() string {
 	return c.name
+}
+
+func (c *AlertMetrics) GetType() string {
+	return c.alertType
 }
 
 func (c *AlertMetrics) GetCategory() string {
@@ -60,9 +74,69 @@ func (c *AlertMetrics) Validate() {
 }
 
 func (c *AlertMetrics) GenerateCriteria() {
+	c.eventLevel = make(map[int]events.EventLevel, 0)
+	c.eventPosted = make(map[int]bool, 0)
+	c.eventList = make([]int, 0)
 
+	switch c.criteriaType {
+	case CriteriaTypeGauge:
+		c.parseCriteriaGauge()
+	case CriteriaTypeContinuous:
+		c.parseCriteriaContinuous()
+	}
+}
+
+func (c *AlertMetrics) ClearEventPosted() {
+	for k := range c.eventPosted {
+		c.eventPosted[k] = false
+	}
 }
 
 func (c *AlertMetrics) MeetCriteria() bool {
 	return false
+}
+
+func (c *AlertMetrics) parseCriteriaGauge() {
+	eventInterval := strings.Split(c.notifier.EventInterval, ",")
+
+	for index, level := range strings.Split(c.notifier.EventLevel, ",") {
+		interval, _ := strconv.Atoi(eventInterval[index])
+		c.eventList = append(c.eventList, interval)
+		switch level {
+		case "Info":
+			c.eventLevel[interval] = events.EventLevel_EVENT_LEVEL_INFO
+		case "Warn":
+			c.eventLevel[interval] = events.EventLevel_EVENT_LEVEL_WARNING
+		case "Error":
+			c.eventLevel[interval] = events.EventLevel_EVENT_LEVEL_ERROR
+		}
+		c.eventPosted[interval] = false
+	}
+}
+
+func (c *AlertMetrics) parseCriteriaContinuous() {
+	eventMap := map[int]events.EventLevel{}
+	for _, level := range strings.Split(c.notifier.EventLevel, ",") {
+		day, _ := strconv.Atoi(strings.Split(level, ":")[0])
+		value := strings.Split(level, ":")[1]
+
+		switch value {
+		case "Info":
+			eventMap[day] = events.EventLevel_EVENT_LEVEL_INFO
+		case "Warn":
+			eventMap[day] = events.EventLevel_EVENT_LEVEL_WARNING
+		case "Error":
+			eventMap[day] = events.EventLevel_EVENT_LEVEL_ERROR
+		}
+	}
+
+	nowDay := 0
+	for _, dayStr := range strings.Split(c.notifier.EventInterval, ",") {
+		day, _ := strconv.Atoi(dayStr)
+		if _, ok := eventMap[day]; ok {
+			nowDay = day
+		}
+		c.eventLevel[day] = eventMap[nowDay]
+		c.eventPosted[day] = false
+	}
 }

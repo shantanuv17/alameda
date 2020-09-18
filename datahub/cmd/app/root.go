@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/containers-ai/alameda/cmd/app"
 	Keycodes "github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes"
+	Licenses "github.com/containers-ai/alameda/datahub/pkg/account-mgt/licenses"
 	DatahubConfig "github.com/containers-ai/alameda/datahub/pkg/config"
 	Notifier "github.com/containers-ai/alameda/datahub/pkg/notifier"
 	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schemamgt"
@@ -91,21 +92,23 @@ func initLogger() {
 
 func initEventMgt() {
 	scope.Info("Initialize event management")
-
 	EventMgt.InitEventMgt(config.InfluxDB, config.RabbitMQ)
 }
 
 func initKeycode() {
 	scope.Info("Initialize keycode management")
-
 	Keycodes.KeycodeInit(config.Keycode)
 	keycodeMgt := Keycodes.NewKeycodeMgt(config.InfluxDB)
 	keycodeMgt.Refresh(true)
 }
 
+func initLicense() {
+	scope.Info("Initialize license management")
+	Licenses.LicenseInit(config.License)
+}
+
 func initSchema() {
 	scope.Info("Initialize schema management")
-
 	SchemaMgt.SchemaInit(config.InfluxDB)
 	SchemaMgt.DefaultSchemasInit()
 	schemaMgt := SchemaMgt.NewSchemaManagement()
@@ -114,7 +117,6 @@ func initSchema() {
 
 func initNotifier() {
 	scope.Info("Initialize notifier")
-
 	Notifier.Init(config.Notifier, config.InfluxDB)
 	go Notifier.Run()
 }

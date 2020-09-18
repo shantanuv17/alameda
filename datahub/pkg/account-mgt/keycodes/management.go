@@ -3,6 +3,7 @@ package keycodes
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/containers-ai/alameda/datahub/pkg/account-mgt/licenses"
 	ClusterStatusEntity "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
 	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
 	RepoClusterStatus "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
@@ -13,10 +14,9 @@ import (
 )
 
 type KeycodeMgt struct {
-	Executor      *KeycodeExecutor
-	Status        *KeycodeStatusObject
-	KeycodeStatus int
-	InfluxCfg     *InfluxDB.Config
+	Executor  *KeycodeExecutor
+	Status    *KeycodeStatusObject
+	InfluxCfg *InfluxDB.Config
 }
 
 func NewKeycodeMgt(config *InfluxDB.Config) *KeycodeMgt {
@@ -25,9 +25,6 @@ func NewKeycodeMgt(config *InfluxDB.Config) *KeycodeMgt {
 	keycodeMgt.Status = NewKeycodeStatusObject()
 	if keycodeMgt.InfluxCfg == nil {
 		keycodeMgt.InfluxCfg = config
-	}
-	if KeycodeSummary != nil {
-		keycodeMgt.KeycodeStatus = keycodeMgt.GetStatus()
 	}
 	return &keycodeMgt
 }
@@ -142,7 +139,11 @@ func (c *KeycodeMgt) GetCPUCoresOccupied() (int64, error) {
 		return 0, err
 	}
 
-	return CPUCoresOccupied, nil
+	if KeycodeCapacityOccupied == nil {
+		return 0, nil
+	}
+
+	return KeycodeCapacityOccupied.CPUCores, nil
 }
 
 func (c *KeycodeMgt) GetMemoryBytesOccupied() (int64, error) {
@@ -154,7 +155,23 @@ func (c *KeycodeMgt) GetMemoryBytesOccupied() (int64, error) {
 		return 0, err
 	}
 
-	return MemoryBytesOccupied, nil
+	if KeycodeCapacityOccupied == nil {
+		return 0, nil
+	}
+
+	return KeycodeCapacityOccupied.MemoryBytes, nil
+}
+
+func (c *KeycodeMgt) GetKeycodeGracePeriod() (int64, error) {
+	KeycodeMutex.Lock()
+	defer KeycodeMutex.Unlock()
+
+	if err := c.refresh(false); err != nil {
+		scope.Error("failed to get keycode grace period")
+		return 0, err
+	}
+
+	return KeycodeGracePeriod, nil
 }
 
 func (c *KeycodeMgt) PutSignatureData(signatureData string) error {
@@ -197,7 +214,7 @@ func (c *KeycodeMgt) IsValid() bool {
 		return false
 	}
 
-	switch c.GetStatus() {
+	switch KeycodeStatus {
 	case KeycodeStatusUnknown:
 		return false
 	case KeycodeStatusNoKeycode:
@@ -210,6 +227,8 @@ func (c *KeycodeMgt) IsValid() bool {
 		return true
 	case KeycodeStatusValid:
 		return true
+	case KeycodeStatusCapacityCPUCoresGracePeriod:
+		return true
 	case KeycodeStatusCapacityCPUCoresExceeded:
 		return false
 	default:
@@ -219,8 +238,15 @@ func (c *KeycodeMgt) IsValid() bool {
 
 // NOTE: DO Refresh() before GetStatus() if necessary
 func (c *KeycodeMgt) GetStatus() int {
-	status := c.Status.GetStatus()
-	return status
+	KeycodeMutex.Lock()
+	defer KeycodeMutex.Unlock()
+
+	if err := c.refresh(false); err != nil {
+		scope.Errorf("failed to get keycode status: %s", err.Error())
+		return KeycodeStatusUnknown
+	}
+
+	return KeycodeStatus
 }
 
 func (c *KeycodeMgt) PostEvent() error {
@@ -235,10 +261,8 @@ func (c *KeycodeMgt) PostEvent() error {
 func (c *KeycodeMgt) refresh(force bool) error {
 	tm := time.Now()
 	tmUnix := tm.Unix()
-	refreshed := false
-	keycode := "N/A"
 
-	if (force == true) || (int64(math.Abs(float64(tmUnix-KeycodeTimestamp))) >= KeycodeDuration) {
+	if (force == true) || (int64(math.Abs(float64(tmUnix-KeycodeTimestamp))) >= Duration) {
 		keycodeList, keycodeSummary, err := c.Executor.GetAllKeycodes()
 		if err != nil {
 			scope.Error("failed to refresh keycodes information")
@@ -246,65 +270,57 @@ func (c *KeycodeMgt) refresh(force bool) error {
 		}
 
 		// Get federatorai capacity occupied from influxdb
-		occupied, err := GetFederatoraiCapacityOccupied(c.InfluxCfg)
+		capacityOccupied, err := GetFederatoraiCapacityOccupied(c.InfluxCfg)
 		if err != nil {
 			scope.Errorf("failed to get federatorai capacity occupied: %s", err.Error())
 			return err
 		}
-		scope.Infof("licensed CPU cores capacity: %d, CPU cores occupied: %d", keycodeSummary.Capacity.CPUs, occupied.CPUCores)
+		scope.Infof("licensed CPU cores capacity: %d, CPU cores occupied: %d", keycodeSummary.Capacity.CPUs, capacityOccupied.CPUCores)
+
+		gracePeriod, err := GetKeycodeGracePeriod(c.InfluxCfg)
+		if err != nil {
+			scope.Errorf("failed to get grace period: %s", err.Error())
+			return err
+		}
 
 		// If everything goes right, refresh the global variables
-		CPUCoresOccupied = occupied.CPUCores
-		MemoryBytesOccupied = occupied.MemoryBytes
-		KeycodeTimestamp = tmUnix
 		KeycodeList = keycodeList
 		KeycodeSummary = keycodeSummary
+		KeycodeCapacityOccupied = capacityOccupied
+		KeycodeGracePeriod = gracePeriod
+		KeycodeTimestamp = tmUnix
 		KeycodeTM = tm
-		refreshed = true
-	}
+		KeycodeStatus = c.Status.GetStatus()
 
-	if len(KeycodeList) > 0 {
-		// log the first keycode in KeycodeList
-		keycode = KeycodeList[0].Keycode
-	}
-	if force == false {
-		if refreshed == true {
-			scope.Infof("keycode cache data refreshed, keycode: %s", keycode)
-		} else {
-			scope.Debugf("cached keycode (@ %s): %s", KeycodeTM.Format(time.RFC3339), keycode)
-		}
-	} else {
-		scope.Infof("keycode cache data refreshed for CUD OP, keycode: %s", keycode)
-	}
-
-	// If keycode status or length of keycodes are different from previous, we need to update influxdb data
-	if c.KeycodeStatus != c.GetStatus() || KeycodeCount != len(KeycodeList) {
-		KeycodeStatus = c.GetStatus()
-		KeycodeCount = len(KeycodeList)
-		c.KeycodeStatus = c.GetStatus()
-
+		// Update influxdb data
 		if err := c.updateInflux(); err != nil {
 			scope.Errorf("failed to update influx entries: %s", err.Error())
 			return err
 		}
+
+		scope.Info("keycode cache data refreshed for CUD OP")
 	}
 
 	return nil
 }
 
 func (c *KeycodeMgt) updateInflux() error {
-	if err := c.deleteInfluxEntries(); err != nil {
+	if err := c.deleteKeycodeEntries(); err != nil {
 		scope.Errorf("failed to delete keycode entries: %s", err.Error())
 		return err
 	}
-	if err := c.updateInfluxEntries(KeycodeInfluxTargetMap[KeycodeStatus], KeycodeStatusName[KeycodeStatus]); err != nil {
+	if err := c.updateKeycodeEntries(KeycodeInfluxTargetMap[KeycodeStatus], KeycodeStatusName[KeycodeStatus]); err != nil {
 		scope.Errorf("failed to update keycode entries: %s", err.Error())
+		return err
+	}
+	if err := c.updateKeycodeGracePeriod(); err != nil {
+		scope.Errorf("failed to update keycode grace period: %s", err.Error())
 		return err
 	}
 	return nil
 }
 
-func (c *KeycodeMgt) deleteInfluxEntries() error {
+func (c *KeycodeMgt) deleteKeycodeEntries() error {
 	client := InfluxDB.NewClient(InfluxConfig)
 
 	cmd := fmt.Sprintf("DROP SERIES FROM \"%s\"", RepoClusterStatus.Keycode)
@@ -318,7 +334,7 @@ func (c *KeycodeMgt) deleteInfluxEntries() error {
 	return nil
 }
 
-func (c *KeycodeMgt) updateInfluxEntries(keycode, status string) error {
+func (c *KeycodeMgt) updateKeycodeEntries(keycode, status string) error {
 	points := make([]*InfluxClient.Point, 0)
 	client := InfluxDB.NewClient(InfluxConfig)
 
@@ -374,5 +390,27 @@ func (c *KeycodeMgt) updateInfluxEntries(keycode, status string) error {
 		return err
 	}
 
+	return nil
+}
+
+func (c *KeycodeMgt) updateKeycodeGracePeriod() error {
+	if KeycodeStatus == KeycodeStatusValid {
+		KeycodeGracePeriod = 0
+		if err := DeleteKeycodeGracePeriod(c.InfluxCfg); err != nil {
+			return err
+		}
+		return nil
+	}
+	if KeycodeStatus == KeycodeStatusCapacityCPUCoresGracePeriod {
+		if KeycodeGracePeriod == 0 {
+			tsNow := time.Now()
+			remainder := tsNow.Unix() % 3600
+			ts := time.Unix((tsNow.Unix()-remainder)+licenses.CPUCapacityGracePeriod, 0)
+			KeycodeGracePeriod = ts.Unix()
+			if err := WriteKeycodeGracePeriod(ts.Unix(), c.InfluxCfg); err != nil {
+				return err
+			}
+		}
+	}
 	return nil
 }
