@@ -403,9 +403,7 @@ func (c *KeycodeMgt) updateKeycodeGracePeriod() error {
 	}
 	if KeycodeStatus == KeycodeStatusCapacityCPUCoresGracePeriod {
 		if KeycodeGracePeriod == 0 {
-			tsNow := time.Now()
-			remainder := tsNow.Unix() % 3600
-			ts := time.Unix((tsNow.Unix()-remainder)+licenses.CPUCapacityGracePeriod, 0)
+			ts := time.Unix(time.Now().Unix()+licenses.CPUCapacityGracePeriod, 0)
 			KeycodeGracePeriod = ts.Unix()
 			if err := WriteKeycodeGracePeriod(ts.Unix(), c.InfluxCfg); err != nil {
 				return err
