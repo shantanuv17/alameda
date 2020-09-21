@@ -24,23 +24,43 @@ func CreateOrganization(datahubClient *datahubpkg.Client,
 		return err
 	}
 
+	defaultNamespaces := []string{}
+	if org.Spec.WatchedNamespace != nil {
+		for _, nsName := range org.Spec.WatchedNamespace.Names {
+			defaultNamespaces = append(defaultNamespaces, nsName)
+		}
+	}
+	defaultKeys := []string{}
+	if org.Spec.DataSource != nil {
+		for _, key := range org.Spec.DataSource.Keys {
+			defaultKeys = append(defaultKeys, key.Key)
+		}
+	}
+
 	tenantClusterEntities := []entities.ConfigTenancyCluster{}
 	for _, cluster := range org.Spec.Clusters {
 		namespaces := []string{}
-		for _, nsName := range cluster.WatchedNamespace.Names {
-			namespaces = append(namespaces, nsName)
+		if cluster.WatchedNamespace == nil && org.Spec.WatchedNamespace != nil {
+			namespaces = defaultNamespaces
+		} else if cluster.WatchedNamespace != nil {
+			for _, nsName := range cluster.WatchedNamespace.Names {
+				namespaces = append(namespaces, nsName)
+			}
 		}
+
 		keys := []string{}
-		for _, key := range cluster.DataSource.Keys {
-			keys = append(keys, key.Key)
+		if cluster.DataSource == nil && org.Spec.DataSource != nil {
+			keys = defaultKeys
+		} else if cluster.DataSource != nil {
+			for _, key := range cluster.DataSource.Keys {
+				keys = append(keys, key.Key)
+			}
 		}
+
 		tenantClusterEntity := entities.ConfigTenancyCluster{
 			Name:                 cluster.Name,
 			Organization:         org.GetName(),
 			Tenant:               org.Spec.Tenant,
-			DataSource:           entities.DataSource(cluster.DataSource.Type),
-			DataSourceAddress:    cluster.DataSource.Address,
-			DataSourceAccount:    cluster.DataSource.Account,
 			WatchedNamespaces:    strings.Join(namespaces, ","),
 			DataSourceKeys:       strings.Join(keys, ","),
 			ResourcePlanning:     true,                                                            // default to true
@@ -48,9 +68,25 @@ func CreateOrganization(datahubClient *datahubpkg.Client,
 			CostAnalysis:         true,                                                            // default to true
 			CostAnalysisMode:     entities.DataStoredMode(tenantv1alpha1.UploadResultFeatureMode), // default to upload
 		}
-		if cluster.WatchedNamespace.Operator != "" {
+
+		//handle datasource
+		if cluster.DataSource != nil {
+			tenantClusterEntity.DataSource = entities.DataSource(cluster.DataSource.Type)
+			tenantClusterEntity.DataSourceAddress = cluster.DataSource.Address
+			tenantClusterEntity.DataSourceAccount = cluster.DataSource.Account
+		} else if org.Spec.DataSource != nil {
+			tenantClusterEntity.DataSource = entities.DataSource(org.Spec.DataSource.Type)
+			tenantClusterEntity.DataSourceAddress = org.Spec.DataSource.Address
+			tenantClusterEntity.DataSourceAccount = org.Spec.DataSource.Account
+		}
+
+		// handle watched namespaces
+		if cluster.WatchedNamespace != nil && cluster.WatchedNamespace.Operator != "" {
 			tenantClusterEntity.WatchedNamespacesOperator =
 				entities.LogicOperator(cluster.WatchedNamespace.Operator)
+		} else if org.Spec.WatchedNamespace != nil && org.Spec.WatchedNamespace.Operator != "" {
+			tenantClusterEntity.WatchedNamespacesOperator =
+				entities.LogicOperator(org.Spec.WatchedNamespace.Operator)
 		}
 
 		if org.Spec.ResourcePlanning != nil {

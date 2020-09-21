@@ -68,12 +68,16 @@ type AlamedaDataSource struct {
 	Address string       `json:"address"`
 }
 
-type AlamedaFeature struct {
-	Type FeatureType `json:"type,omitempty"`
+type AlamedaFeatureSet struct {
 	// +optional
 	ResourcePlanning *ResourcePlanningFeature `json:"resourcePlanning,omitempty"`
 	// +optional
 	CostAnalysis *CostAnalysisFeature `json:"costAnalysis,omitempty"`
+}
+
+type AlamedaFeature struct {
+	AlamedaFeatureSet `json:",inline"`
+	Type              FeatureType `json:"type,omitempty"`
 }
 
 type AlamedaWatchedNamespace struct {
@@ -85,20 +89,21 @@ type AlamedaWatchedNamespace struct {
 type AlamedaCluster struct {
 	Name string `json:"name"`
 	// +optional
-	DataSource AlamedaDataSource `json:"dataSource,omitempty"`
+	DataSource *AlamedaDataSource `json:"dataSource,omitempty"`
+	// +optional
+	WatchedNamespace *AlamedaWatchedNamespace `json:"watchedNamespace,omitempty"`
 	// +optional
 	Features []AlamedaFeature `json:"features,omitempty"`
-	// +optional
-	WatchedNamespace AlamedaWatchedNamespace `json:"watchedNamespace,omitempty"`
 }
 
 // AlamedaOrganizationSpec defines the desired state of AlamedaOrganization
 type AlamedaOrganizationSpec struct {
-	Tenant string `json:"tenant"`
+	AlamedaFeatureSet `json:",inline"`
+	Tenant            string `json:"tenant"`
 	// +optional
-	ResourcePlanning *ResourcePlanningFeature `json:"resourcePlanning,omitempty"`
+	DataSource *AlamedaDataSource `json:"dataSource,omitempty"`
 	// +optional
-	CostAnalysis *CostAnalysisFeature `json:"costAnalysis,omitempty"`
+	WatchedNamespace *AlamedaWatchedNamespace `json:"watchedNamespace,omitempty"`
 	// +optional
 	// +listType=map
 	// +listMapKey=name

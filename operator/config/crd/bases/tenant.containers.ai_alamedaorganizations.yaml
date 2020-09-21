@@ -144,6 +144,31 @@ spec:
               - enabled
               - mode
               type: object
+            dataSource:
+              properties:
+                account:
+                  type: string
+                address:
+                  type: string
+                keys:
+                  items:
+                    properties:
+                      key:
+                        type: string
+                    required:
+                    - key
+                    type: object
+                  type: array
+                type:
+                  enum:
+                  - datadog
+                  - prometheus
+                  type: string
+              required:
+              - account
+              - address
+              - type
+              type: object
             resourcePlanning:
               properties:
                 enabled:
@@ -162,6 +187,20 @@ spec:
               type: object
             tenant:
               type: string
+            watchedNamespace:
+              properties:
+                names:
+                  items:
+                    type: string
+                  type: array
+                operator:
+                  enum:
+                  - include
+                  - exclude
+                  type: string
+              required:
+              - operator
+              type: object
           required:
           - tenant
           type: object
