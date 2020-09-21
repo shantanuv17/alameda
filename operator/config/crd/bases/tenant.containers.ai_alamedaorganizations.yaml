@@ -105,6 +105,9 @@ spec:
                           type: string
                       type: object
                     type: array
+                    x-kubernetes-list-map-keys:
+                    - type
+                    x-kubernetes-list-type: map
                   name:
                     type: string
                   watchedNamespace:
@@ -128,22 +131,6 @@ spec:
               x-kubernetes-list-map-keys:
               - name
               x-kubernetes-list-type: map
-            costAnalysis:
-              properties:
-                enabled:
-                  enum:
-                  - true
-                  - false
-                  type: boolean
-                mode:
-                  enum:
-                  - uploadResult
-                  - localOnly
-                  type: string
-              required:
-              - enabled
-              - mode
-              type: object
             dataSource:
               properties:
                 account:
@@ -169,22 +156,51 @@ spec:
               - address
               - type
               type: object
-            resourcePlanning:
-              properties:
-                enabled:
-                  enum:
-                  - true
-                  - false
-                  type: boolean
-                mode:
-                  enum:
-                  - uploadResult
-                  - localOnly
-                  type: string
-              required:
-              - enabled
-              - mode
-              type: object
+            features:
+              items:
+                properties:
+                  costAnalysis:
+                    properties:
+                      enabled:
+                        enum:
+                        - true
+                        - false
+                        type: boolean
+                      mode:
+                        enum:
+                        - uploadResult
+                        - localOnly
+                        type: string
+                    required:
+                    - enabled
+                    - mode
+                    type: object
+                  resourcePlanning:
+                    properties:
+                      enabled:
+                        enum:
+                        - true
+                        - false
+                        type: boolean
+                      mode:
+                        enum:
+                        - uploadResult
+                        - localOnly
+                        type: string
+                    required:
+                    - enabled
+                    - mode
+                    type: object
+                  type:
+                    enum:
+                    - resourcePlanning
+                    - costAnalysis
+                    type: string
+                type: object
+              type: array
+              x-kubernetes-list-map-keys:
+              - type
+              x-kubernetes-list-type: map
             tenant:
               type: string
             watchedNamespace:

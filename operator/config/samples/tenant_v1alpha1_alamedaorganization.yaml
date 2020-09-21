@@ -4,9 +4,16 @@ metadata:
   name: default
 spec:
   tenant: default
-  costAnalysis:
-    enabled: true
-    mode: uploadResult
+  features:
+    - type: costAnalysis
+      costAnalysis:
+        enabled: true
+        mode: uploadResult
+  watchedNamespace:
+    names:
+      - n-*
+      - n4
+    operator: include
   clusters:
     - name: cluster1
       features:

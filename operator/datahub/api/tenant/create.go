@@ -89,13 +89,15 @@ func CreateOrganization(datahubClient *datahubpkg.Client,
 				entities.LogicOperator(org.Spec.WatchedNamespace.Operator)
 		}
 
-		if org.Spec.ResourcePlanning != nil {
-			tenantClusterEntity.ResourcePlanning = bool(org.Spec.ResourcePlanning.Enabled)
-			tenantClusterEntity.ResourcePlanningMode = entities.DataStoredMode(org.Spec.ResourcePlanning.Mode)
-		}
-		if org.Spec.CostAnalysis != nil {
-			tenantClusterEntity.CostAnalysis = bool(org.Spec.CostAnalysis.Enabled)
-			tenantClusterEntity.CostAnalysisMode = entities.DataStoredMode(org.Spec.CostAnalysis.Mode)
+		// handle features
+		for _, feature := range org.Spec.Features {
+			if feature.Type == tenantv1alpha1.ResourcePlanningFeatureType && feature.ResourcePlanning != nil {
+				tenantClusterEntity.ResourcePlanning = bool(feature.ResourcePlanning.Enabled)
+				tenantClusterEntity.ResourcePlanningMode = entities.DataStoredMode(feature.ResourcePlanning.Mode)
+			} else if feature.Type == tenantv1alpha1.CostAnalysisFeatureType && feature.CostAnalysis != nil {
+				tenantClusterEntity.CostAnalysis = bool(feature.CostAnalysis.Enabled)
+				tenantClusterEntity.CostAnalysisMode = entities.DataStoredMode(feature.CostAnalysis.Mode)
+			}
 		}
 		for _, feature := range cluster.Features {
 			if feature.Type == tenantv1alpha1.ResourcePlanningFeatureType && feature.ResourcePlanning != nil {

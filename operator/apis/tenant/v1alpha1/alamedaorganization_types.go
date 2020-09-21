@@ -93,13 +93,18 @@ type AlamedaCluster struct {
 	// +optional
 	WatchedNamespace *AlamedaWatchedNamespace `json:"watchedNamespace,omitempty"`
 	// +optional
+	// +listType=map
+	// +listMapKey=type
 	Features []AlamedaFeature `json:"features,omitempty"`
 }
 
 // AlamedaOrganizationSpec defines the desired state of AlamedaOrganization
 type AlamedaOrganizationSpec struct {
-	AlamedaFeatureSet `json:",inline"`
-	Tenant            string `json:"tenant"`
+	Tenant string `json:"tenant"`
+	// +optional
+	// +listType=map
+	// +listMapKey=type
+	Features []AlamedaFeature `json:"features,omitempty"`
 	// +optional
 	DataSource *AlamedaDataSource `json:"dataSource,omitempty"`
 	// +optional
