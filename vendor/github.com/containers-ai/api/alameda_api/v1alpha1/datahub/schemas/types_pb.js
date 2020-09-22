@@ -809,14 +809,16 @@ proto.containersai.alameda.v1alpha1.datahub.schemas.Column.prototype.setDataType
 proto.containersai.alameda.v1alpha1.datahub.schemas.Scope = {
   SCOPE_UNDEFINED: 0,
   SCOPE_APPLICATION: 1,
-  SCOPE_EXECUTION: 2,
-  SCOPE_FEDEMETER: 3,
-  SCOPE_METRIC: 4,
-  SCOPE_PLANNING: 5,
-  SCOPE_PREDICTION: 6,
-  SCOPE_RECOMMENDATION: 7,
-  SCOPE_RESOURCE: 8,
-  SCOPE_TARGET: 9
+  SCOPE_CONFIG: 2,
+  SCOPE_EXECUTION: 3,
+  SCOPE_FEDEMETER: 4,
+  SCOPE_METERING: 5,
+  SCOPE_METRIC: 6,
+  SCOPE_PLANNING: 7,
+  SCOPE_PREDICTION: 8,
+  SCOPE_RECOMMENDATION: 9,
+  SCOPE_RESOURCE: 10,
+  SCOPE_TARGET: 11
 };
 
 goog.object.extend(exports, proto.containersai.alameda.v1alpha1.datahub.schemas);

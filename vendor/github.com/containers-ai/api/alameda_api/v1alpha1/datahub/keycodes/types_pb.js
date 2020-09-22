@@ -134,7 +134,8 @@ proto.containersai.alameda.v1alpha1.datahub.keycodes.Capacity.toObject = functio
   var f, obj = {
     users: jspb.Message.getFieldWithDefault(msg, 1, 0),
     hosts: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    disks: jspb.Message.getFieldWithDefault(msg, 3, 0)
+    disks: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    cpus: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
 
   if (includeInstance) {
@@ -183,6 +184,10 @@ proto.containersai.alameda.v1alpha1.datahub.keycodes.Capacity.deserializeBinaryF
       var value = /** @type {number} */ (reader.readInt32());
       msg.setDisks(value);
       break;
+    case 4:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setCpus(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -230,6 +235,13 @@ proto.containersai.alameda.v1alpha1.datahub.keycodes.Capacity.serializeBinaryToW
   if (f !== 0) {
     writer.writeInt32(
       3,
+      f
+    );
+  }
+  f = message.getCpus();
+  if (f !== 0) {
+    writer.writeInt32(
+      4,
       f
     );
   }
@@ -287,6 +299,24 @@ proto.containersai.alameda.v1alpha1.datahub.keycodes.Capacity.prototype.getDisks
  */
 proto.containersai.alameda.v1alpha1.datahub.keycodes.Capacity.prototype.setDisks = function(value) {
   return jspb.Message.setProto3IntField(this, 3, value);
+};
+
+
+/**
+ * optional int32 cpus = 4;
+ * @return {number}
+ */
+proto.containersai.alameda.v1alpha1.datahub.keycodes.Capacity.prototype.getCpus = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.containersai.alameda.v1alpha1.datahub.keycodes.Capacity} returns this
+ */
+proto.containersai.alameda.v1alpha1.datahub.keycodes.Capacity.prototype.setCpus = function(value) {
+  return jspb.Message.setProto3IntField(this, 4, value);
 };
 
 
