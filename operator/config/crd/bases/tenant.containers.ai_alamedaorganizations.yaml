@@ -103,6 +103,8 @@ spec:
                           - resourcePlanning
                           - costAnalysis
                           type: string
+                      required:
+                      - type
                       type: object
                     type: array
                     x-kubernetes-list-map-keys:
@@ -196,6 +198,8 @@ spec:
                     - resourcePlanning
                     - costAnalysis
                     type: string
+                required:
+                - type
                 type: object
               type: array
               x-kubernetes-list-map-keys:

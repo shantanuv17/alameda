@@ -77,7 +77,7 @@ type AlamedaFeatureSet struct {
 
 type AlamedaFeature struct {
 	AlamedaFeatureSet `json:",inline"`
-	Type              FeatureType `json:"type,omitempty"`
+	Type              FeatureType `json:"type"`
 }
 
 type AlamedaWatchedNamespace struct {
