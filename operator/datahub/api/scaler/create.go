@@ -74,13 +74,15 @@ func CreateV1Alpha2Scaler(
 				RawSpec:                  string(genericRawSpec),
 			}
 
-			if controller.Scaling == autoscalingv1alpha2.HPAScaling && controller.Generic.HpaParameters != nil {
-				if controller.Generic.HpaParameters.MinReplicas != nil {
+			if controller.Scaling == autoscalingv1alpha2.HPAScaling {
+				targetCtlEntity.MinReplicas = 1
+				targetCtlEntity.MaxReplicas = 1
+				if controller.Generic.HpaParameters != nil && controller.Generic.HpaParameters.MinReplicas != nil {
 					targetCtlEntity.MinReplicas = *controller.Generic.HpaParameters.MinReplicas
-				} else {
-					targetCtlEntity.MinReplicas = 1
 				}
-				targetCtlEntity.MaxReplicas = controller.Generic.HpaParameters.MaxReplicas
+				if controller.Generic.HpaParameters != nil {
+					targetCtlEntity.MaxReplicas = controller.Generic.HpaParameters.MaxReplicas
+				}
 			}
 			targetCtls = append(targetCtls, targetCtlEntity)
 		}
@@ -104,13 +106,15 @@ func CreateV1Alpha2Scaler(
 			if controller.Kafka.ConsumerGroup.GroupId != nil {
 				targetCgEntity.GroupId = *controller.Kafka.ConsumerGroup.GroupId
 			}
-			if controller.Scaling == autoscalingv1alpha2.HPAScaling && controller.Kafka.HpaParameters != nil {
-				if controller.Kafka.HpaParameters.MinReplicas != nil {
+			if controller.Scaling == autoscalingv1alpha2.HPAScaling {
+				targetCgEntity.ResourceK8sMinReplicas = 1
+				targetCgEntity.ResourceK8sMaxReplicas = 1
+				if controller.Kafka.HpaParameters != nil && controller.Kafka.HpaParameters.MinReplicas != nil {
 					targetCgEntity.ResourceK8sMinReplicas = *controller.Kafka.HpaParameters.MinReplicas
-				} else {
-					targetCgEntity.ResourceK8sMinReplicas = 1
 				}
-				targetCgEntity.ResourceK8sMaxReplicas = controller.Kafka.HpaParameters.MaxReplicas
+				if controller.Kafka.HpaParameters != nil {
+					targetCgEntity.ResourceK8sMaxReplicas = controller.Kafka.HpaParameters.MaxReplicas
+				}
 			}
 			targetKafkaCgs = append(targetKafkaCgs, targetCgEntity)
 			targetCtlEntity := entities.TargetClusterStatusController{
