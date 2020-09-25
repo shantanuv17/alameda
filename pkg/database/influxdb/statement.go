@@ -2,10 +2,11 @@ package influxdb
 
 import (
 	"fmt"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	Common "github.com/containers-ai/api/common"
 	"strings"
 	"time"
+
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	Rawdata "prophetstor.com/api/datahub/rawdata"
 )
 
 type FunctionType int
@@ -35,7 +36,7 @@ type Function struct {
 	Target   string
 }
 
-func NewStatement(query *Common.Query) *Statement {
+func NewStatement(query *Rawdata.Query) *Statement {
 	if query == nil {
 		return &Statement{}
 	}

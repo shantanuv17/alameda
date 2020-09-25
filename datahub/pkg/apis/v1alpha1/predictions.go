@@ -1,10 +1,10 @@
 package v1alpha1
 
 import (
-	ApiPredictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	ApiPredictions "prophetstor.com/api/datahub/predictions"
 )
 
 func (s *ServiceV1alpha1) CreatePredictions(ctx context.Context, in *ApiPredictions.CreatePredictionsRequest) (*status.Status, error) {

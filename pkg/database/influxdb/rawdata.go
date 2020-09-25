@@ -4,15 +4,17 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	Common "github.com/containers-ai/api/common"
-	Client "github.com/influxdata/influxdb/client/v2"
 	"strconv"
 	"time"
+
+	Client "github.com/influxdata/influxdb/client/v2"
+	Common "prophetstor.com/api/datahub/common"
+	Rawdata "prophetstor.com/api/datahub/rawdata"
 )
 
-func ReadRawdata(config *Config, queries []*Common.Query) ([]*Common.ReadRawdata, error) {
+func ReadRawdata(config *Config, queries []*Rawdata.Query) ([]*Rawdata.ReadRawdata, error) {
 	influxClient := NewClient(config)
-	rawdata := make([]*Common.ReadRawdata, 0)
+	rawdata := make([]*Rawdata.ReadRawdata, 0)
 
 	for _, query := range queries {
 		statement := NewStatement(query)
@@ -24,7 +26,7 @@ func ReadRawdata(config *Config, queries []*Common.Query) ([]*Common.ReadRawdata
 		results, err := influxClient.QueryDB(cmd, query.Database)
 		if err != nil {
 			scope.Errorf("failed to read rawdata from InfluxDB: %v", err)
-			return make([]*Common.ReadRawdata, 0), err
+			return make([]*Rawdata.ReadRawdata, 0), err
 		} else {
 			readRawdata := InfluxResultToReadRawdata(results, query)
 			rawdata = append(rawdata, readRawdata)
@@ -35,7 +37,7 @@ func ReadRawdata(config *Config, queries []*Common.Query) ([]*Common.ReadRawdata
 	return rawdata, nil
 }
 
-func WriteRawdata(config *Config, writeRawdata []*Common.WriteRawdata) error {
+func WriteRawdata(config *Config, writeRawdata []*Rawdata.WriteRawdata) error {
 	var influxClient = NewClient(config)
 	var err error
 
@@ -87,8 +89,8 @@ func WriteRawdata(config *Config, writeRawdata []*Common.WriteRawdata) error {
 	return err
 }
 
-func InfluxResultToReadRawdata(results []Client.Result, query *Common.Query) *Common.ReadRawdata {
-	readRawdata := Common.ReadRawdata{Query: query}
+func InfluxResultToReadRawdata(results []Client.Result, query *Rawdata.Query) *Rawdata.ReadRawdata {
+	readRawdata := Rawdata.ReadRawdata{Query: query}
 
 	if len(results[0].Series) == 0 {
 		return &readRawdata
@@ -149,7 +151,7 @@ func InfluxResultToReadRawdata(results []Client.Result, query *Common.Query) *Co
 	return &readRawdata
 }
 
-func ReadRawdataToInfluxDBRow(readRawdata *Common.ReadRawdata) []*InfluxRow {
+func ReadRawdataToInfluxDBRow(readRawdata *Rawdata.ReadRawdata) []*InfluxRow {
 	influxDBRows := make([]*InfluxRow, 0)
 
 	tagIndex := make([]int, 0)
@@ -191,7 +193,7 @@ func ReadRawdataToInfluxDBRow(readRawdata *Common.ReadRawdata) []*InfluxRow {
 	return influxDBRows
 }
 
-func CompareRawdataWithInfluxResults(readRawdata *Common.ReadRawdata, results []Client.Result) error {
+func CompareRawdataWithInfluxResults(readRawdata *Rawdata.ReadRawdata, results []Client.Result) error {
 	before := PackMap(results)
 	after := ReadRawdataToInfluxDBRow(readRawdata)
 	message := ""

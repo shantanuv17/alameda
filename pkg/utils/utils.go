@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"time"
 
-	Common "github.com/containers-ai/api/common"
+	Rawdata "prophetstor.com/api/datahub/rawdata"
 )
 
 // InterfaceToString encodes interface to string
@@ -35,11 +35,11 @@ func GetRunningPodName() string {
 	return os.Getenv("POD_NAME")
 }
 
-func RawdataRead2Write(readRawdata []*Common.ReadRawdata) []*Common.WriteRawdata {
-	writeRawdata := make([]*Common.WriteRawdata, 0)
+func RawdataRead2Write(readRawdata []*Rawdata.ReadRawdata) []*Rawdata.WriteRawdata {
+	writeRawdata := make([]*Rawdata.WriteRawdata, 0)
 
 	for _, rRawdata := range readRawdata {
-		wRawdata := Common.WriteRawdata{}
+		wRawdata := Rawdata.WriteRawdata{}
 
 		wRawdata.Database = rRawdata.GetQuery().GetDatabase()
 		wRawdata.Table = rRawdata.GetQuery().GetTable()

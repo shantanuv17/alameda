@@ -1,8 +1,8 @@
 package common
 
 import (
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	ApiCommon "prophetstor.com/api/datahub/common"
 )
 
 func NewGroup(group *DBCommon.Group) *ApiCommon.Group {

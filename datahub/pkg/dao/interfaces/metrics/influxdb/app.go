@@ -3,15 +3,15 @@ package influxdb
 import (
 	"context"
 
-	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/influxdb"
-	DaoClusterStatusTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
-	DaoMetricTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics/types"
-	RepoInfluxMetric "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/metrics"
-	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	"github.com/containers-ai/alameda/pkg/database/common"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	Utils "github.com/containers-ai/alameda/pkg/utils"
 	"github.com/pkg/errors"
+	"prophetstor.com/alameda/datahub/pkg/dao/interfaces/clusterstatus/influxdb"
+	DaoClusterStatusTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
+	DaoMetricTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/metrics/types"
+	RepoInfluxMetric "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb/metrics"
+	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	"prophetstor.com/alameda/pkg/database/common"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	Utils "prophetstor.com/alameda/pkg/utils"
 	"time"
 )
 

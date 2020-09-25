@@ -1,8 +1,8 @@
 package resources
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
+	"prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	"prophetstor.com/api/datahub/resources"
 )
 
 func NewObjectMeta(objectMeta *resources.ObjectMeta) metadata.ObjectMeta {

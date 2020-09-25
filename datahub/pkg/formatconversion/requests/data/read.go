@@ -2,15 +2,15 @@ package data
 
 import (
 	"errors"
-	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/data/types"
-	EnumConv "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/enumconv"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/metrics"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/schemas"
-	"github.com/containers-ai/alameda/datahub/pkg/schemamgt"
-	"github.com/containers-ai/alameda/pkg/database/common"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
-	Schemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
+	"prophetstor.com/alameda/datahub/pkg/dao/interfaces/data/types"
+	EnumConv "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/enumconv"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/metrics"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/schemas"
+	"prophetstor.com/alameda/datahub/pkg/schemamgt"
+	"prophetstor.com/alameda/pkg/database/common"
+	"prophetstor.com/api/datahub/data"
+	Schemas "prophetstor.com/api/datahub/schemas"
 )
 
 type ReadDataRequestRequestExtended struct {

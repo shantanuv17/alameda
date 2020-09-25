@@ -1,0 +1,40 @@
+// This file has messages related general definitions
+
+syntax = "proto3";
+
+package prophetstor.datahub.common;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "prophetstor.com/api/datahub/common";
+
+/**
+ * Represents a dataset which will be written to datahub.
+ */
+message WriteData {
+    repeated string columns = 1;
+    repeated Row    rows    = 2;
+}
+
+/**
+ * Represents a dataset whcih is read from datahub.
+ */
+message ReadData {
+    repeated Group groups = 1;
+}
+
+/**
+ * Represents a record of data.
+ */
+message Row {
+    google.protobuf.Timestamp time   = 1;
+    repeated string           values = 2;
+}
+
+/**
+ * Represents a dataset which are collected that have the same attributes.
+ */
+message Group {
+    repeated string columns = 1;
+    repeated Row    rows    = 2;
+}

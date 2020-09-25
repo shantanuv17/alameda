@@ -1,9 +1,9 @@
 package common
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/enumconv"
-	"github.com/containers-ai/alameda/pkg/database/common"
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/enumconv"
+	"prophetstor.com/alameda/pkg/database/common"
+	ApiCommon "prophetstor.com/api/datahub/common"
 )
 
 func NewFunction(function *ApiCommon.Function) *common.Function {

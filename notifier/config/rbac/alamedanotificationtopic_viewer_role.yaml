@@ -1,0 +1,20 @@
+# permissions for end users to view alamedanotificationtopics.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: alamedanotificationtopic-viewer-role
+rules:
+- apiGroups:
+  - notifying.containers.ai
+  resources:
+  - alamedanotificationtopics
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - notifying.containers.ai
+  resources:
+  - alamedanotificationtopics/status
+  verbs:
+  - get

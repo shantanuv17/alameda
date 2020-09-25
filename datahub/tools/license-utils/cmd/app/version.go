@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/containers-ai/alameda/cmd/app"
 	"github.com/spf13/cobra"
+	"prophetstor.com/alameda/cmd/app"
 )
 
 var (

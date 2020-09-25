@@ -6,14 +6,14 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/containers-ai/alameda/ai-dispatcher/pkg/config"
-	stats_errors "github.com/containers-ai/alameda/ai-dispatcher/pkg/stats/errors"
-	dispatcher_utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
-	"github.com/containers-ai/alameda/pkg/utils"
-	"github.com/containers-ai/alameda/pkg/utils/log"
-	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
-	datahub_predictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
 	"github.com/spf13/viper"
+	"prophetstor.com/alameda/ai-dispatcher/pkg/config"
+	stats_errors "prophetstor.com/alameda/ai-dispatcher/pkg/stats/errors"
+	dispatcher_utils "prophetstor.com/alameda/ai-dispatcher/pkg/utils"
+	"prophetstor.com/alameda/pkg/utils"
+	"prophetstor.com/alameda/pkg/utils/log"
+	datahub_common "prophetstor.com/api/datahub/common"
+	datahub_predictions "prophetstor.com/api/datahub/predictions"
 )
 
 type MeasurementData struct {

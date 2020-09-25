@@ -1,11 +1,11 @@
 package data
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/data/types"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/common"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/enumconv"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/schemas"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
+	"prophetstor.com/alameda/datahub/pkg/dao/interfaces/data/types"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/responses/common"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/responses/enumconv"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/responses/schemas"
+	"prophetstor.com/api/datahub/data"
 )
 
 func NewData(readData *types.Data) *data.Data {

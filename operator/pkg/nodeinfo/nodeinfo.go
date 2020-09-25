@@ -6,12 +6,12 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	operatorutils "github.com/containers-ai/alameda/operator/pkg/utils"
-	"github.com/containers-ai/alameda/pkg/provider"
 	"github.com/pkg/errors"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
+	"prophetstor.com/alameda/datahub/pkg/entities"
+	operatorutils "prophetstor.com/alameda/operator/pkg/utils"
+	"prophetstor.com/alameda/pkg/provider"
 )
 
 type role = string

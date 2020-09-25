@@ -5,15 +5,15 @@ import (
 	"fmt"
 	"golang.org/x/sync/errgroup"
 
-	DaoClusterStatusTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
-	DaoMetricTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics/types"
-	RepoPromthMetric "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/prometheus/metrics"
-	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	Prometheus "github.com/containers-ai/alameda/pkg/database/prometheus"
-	Utils "github.com/containers-ai/alameda/pkg/utils"
 	"github.com/pkg/errors"
+	DaoClusterStatusTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
+	DaoMetricTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/metrics/types"
+	RepoPromthMetric "prophetstor.com/alameda/datahub/pkg/dao/repositories/prometheus/metrics"
+	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	"prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	Prometheus "prophetstor.com/alameda/pkg/database/prometheus"
+	Utils "prophetstor.com/alameda/pkg/utils"
 )
 
 type PodMetrics struct {

@@ -5,16 +5,16 @@ import (
 	"fmt"
 	"strconv"
 
-	EntityInfluxMetric "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/metrics"
-	DaoMetricTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics/types"
-	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
+	EntityInfluxMetric "prophetstor.com/alameda/datahub/pkg/dao/entities/influxdb/metrics"
+	DaoMetricTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/metrics/types"
+	RepoInflux "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb"
+	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	FormatTypes "prophetstor.com/alameda/datahub/pkg/formatconversion/types"
+	DatahubUtils "prophetstor.com/alameda/datahub/pkg/utils"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	InfluxModels "prophetstor.com/alameda/pkg/database/influxdb/models"
 )
 
 type ControllerMemoryRepository struct {

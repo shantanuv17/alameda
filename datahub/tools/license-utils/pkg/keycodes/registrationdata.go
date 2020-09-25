@@ -4,20 +4,26 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	Keycodes "github.com/containers-ai/api/datahub/keycodes"
+	"time"
+
 	"github.com/golang/protobuf/ptypes/empty"
+	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/grpc"
+	"prophetstor.com/api/datahub"
 )
 
 func GenerateRegistrationData() error {
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
 	// Connect to datahub
-	conn, err := grpc.Dial(*datahubAddress, grpc.WithInsecure())
+	conn, err := grpc.DialContext(ctx, *datahubAddress, grpc.WithBlock(), grpc.WithInsecure(),
+		grpc.WithUnaryInterceptor(retry.UnaryClientInterceptor(retry.WithMax(uint(3)))))
 	defer conn.Close()
 	if err != nil {
 		panic(err)
 	}
-	client := Keycodes.NewKeycodesServiceClient(conn)
+	client := datahub.NewDatahubServiceClient(conn)
 
 	// Generate request
 	in := &empty.Empty{}

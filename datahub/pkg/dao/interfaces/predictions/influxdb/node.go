@@ -1,11 +1,11 @@
 package influxdb
 
 import (
-	DaoPredictionTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/predictions/types"
-	RepoInfluxPrediction "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/predictions"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	Log "github.com/containers-ai/alameda/pkg/utils/log"
-	ApiPredictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
+	DaoPredictionTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/predictions/types"
+	RepoInfluxPrediction "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb/predictions"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	Log "prophetstor.com/alameda/pkg/utils/log"
+	ApiPredictions "prophetstor.com/api/datahub/predictions"
 )
 
 var (

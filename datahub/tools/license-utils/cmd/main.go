@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/containers-ai/alameda/cmd/app"
-	LicenseUtils "github.com/containers-ai/alameda/datahub/tools/license-utils/cmd/app"
+	"prophetstor.com/alameda/cmd/app"
+	LicenseUtils "prophetstor.com/alameda/datahub/tools/license-utils/cmd/app"
 )
 
 var (

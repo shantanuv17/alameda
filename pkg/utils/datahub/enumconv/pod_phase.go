@@ -1,8 +1,8 @@
 package enumconv
 
 import (
-	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	CoreV1 "k8s.io/api/core/v1"
+	ApiResources "prophetstor.com/api/datahub/resources"
 )
 
 var PodPhaseEnumDatahubToK8S map[ApiResources.PodPhase]CoreV1.PodPhase = map[ApiResources.PodPhase]CoreV1.PodPhase{

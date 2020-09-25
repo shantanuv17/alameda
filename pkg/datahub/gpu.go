@@ -2,8 +2,8 @@ package datahub
 
 import (
 	"context"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	"prophetstor.com/api/datahub/gpu"
 )
 
 func (p *Client) ListGpus(request *gpu.ListGpusRequest) (*gpu.ListGpusResponse, error) {

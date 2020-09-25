@@ -1,0 +1,31 @@
+// This file has messages related to read & write data
+
+syntax = "proto3";
+
+package prophetstor.datahub.data;
+
+import "datahub/common/metrics.proto";
+import "datahub/common/rawdata.proto";
+import "datahub/common/types.proto";
+import "datahub/schemas/types.proto";
+
+option go_package = "prophetstor.com/api/datahub/data";
+
+/**
+ * Represents a dataset of rawdata which will be written to datahub.
+ */
+message Data {
+    schemas.SchemaMeta schema_meta = 1;
+    repeated Rawdata   rawdata     = 2;
+}
+
+/**
+ * Represents a private alameda specified rawdata.
+ */
+message Rawdata {
+    string                  measurement       = 1;
+    common.MetricType       metric_type       = 2;
+    common.ResourceBoundary resource_boundary = 3;
+    common.ResourceQuota    resource_quota    = 4;
+    repeated common.Group   groups            = 5;
+}

@@ -19,11 +19,11 @@ package controllers
 import (
 	"context"
 
-	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
+	logUtil "prophetstor.com/alameda/pkg/utils/log"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	notifyingv1alpha1 "github.com/containers-ai/alameda/notifier/api/v1alpha1"
+	notifyingv1alpha1 "prophetstor.com/alameda/notifier/api/v1alpha1"
 )
 
 var (

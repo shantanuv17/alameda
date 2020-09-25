@@ -1,27 +1,27 @@
 package v1alpha1
 
 import (
-	DaoMetric "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/metrics"
-	metrics2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/metrics"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/resources"
-	K8sMetadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
-	ApiMetrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
 	"os"
+	DaoMetric "prophetstor.com/alameda/datahub/pkg/dao/interfaces/metrics"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/metrics"
+	metrics2 "prophetstor.com/alameda/datahub/pkg/formatconversion/responses/metrics"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/responses/resources"
+	K8sMetadata "prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	DatahubUtils "prophetstor.com/alameda/datahub/pkg/utils"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiCommon "prophetstor.com/api/datahub/common"
+	ApiMetrics "prophetstor.com/api/datahub/metrics"
 )
 
 func (s *ServiceV1alpha1) CreatePodMetrics(ctx context.Context, in *ApiMetrics.CreatePodMetricsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreatePodMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := metrics.CreatePodMetricsRequestExtended{CreatePodMetricsRequest: *in}
+	requestExtended := metrics.CreatePodMetricsRequestExtended{CreatePodMetricsRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

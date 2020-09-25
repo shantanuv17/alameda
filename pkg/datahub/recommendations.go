@@ -2,8 +2,8 @@ package datahub
 
 import (
 	"context"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	"prophetstor.com/api/datahub/recommendations"
 )
 
 func (p *Client) CreateApplicationRecommendations(request *recommendations.CreateApplicationRecommendationsRequest) (*status.Status, error) {

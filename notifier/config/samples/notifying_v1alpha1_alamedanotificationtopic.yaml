@@ -1,0 +1,7 @@
+apiVersion: notifying.containers.ai/v1alpha1
+kind: AlamedaNotificationTopic
+metadata:
+  name: alamedanotificationtopic-sample
+spec:
+  # Add fields here
+  foo: bar

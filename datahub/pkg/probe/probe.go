@@ -1,8 +1,8 @@
 package probe
 
 import (
-	"github.com/containers-ai/alameda/pkg/utils/log"
 	"os"
+	"prophetstor.com/alameda/pkg/utils/log"
 )
 
 var scope = log.RegisterScope("probe", "datahub health probe", 0)

@@ -1,14 +1,14 @@
 package datahub
 
 import (
-	Entities "github.com/containers-ai/alameda/datahub/pkg/entities"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/enumconv"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	"github.com/containers-ai/alameda/pkg/utils"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	"github.com/golang/protobuf/ptypes/duration"
+	Entities "prophetstor.com/alameda/datahub/pkg/entities"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/responses/enumconv"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	"prophetstor.com/alameda/pkg/utils"
+	"prophetstor.com/api/datahub/common"
+	"prophetstor.com/api/datahub/data"
+	"prophetstor.com/api/datahub/schemas"
 	"reflect"
 	"strconv"
 	"time"
@@ -28,10 +28,10 @@ type TimeRange struct {
 }
 
 type Function struct {
-	Type              DBCommon.FunctionType
-	Target            string
-	Unit              string
-	Number            int64
+	Type   DBCommon.FunctionType
+	Target string
+	Unit   string
+	Number int64
 }
 
 func NewWriteData(entities interface{}, fields []string) *data.WriteData {

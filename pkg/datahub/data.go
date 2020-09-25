@@ -2,8 +2,8 @@ package datahub
 
 import (
 	"context"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	"prophetstor.com/api/datahub/data"
 )
 
 func (p *Client) ReadData(request *data.ReadDataRequest) (*data.ReadDataResponse, error) {

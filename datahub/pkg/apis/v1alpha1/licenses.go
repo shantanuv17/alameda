@@ -1,13 +1,13 @@
 package v1alpha1
 
 import (
-	KeycodeMgt "github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiLicenses "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/licenses"
 	"github.com/golang/protobuf/ptypes/empty"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	KeycodeMgt "prophetstor.com/alameda/datahub/pkg/account-mgt/keycodes"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiLicenses "prophetstor.com/api/datahub/licenses"
 )
 
 func (s *ServiceV1alpha1) GetLicense(ctx context.Context, in *empty.Empty) (*ApiLicenses.GetLicenseResponse, error) {

@@ -1,10 +1,10 @@
 package scores
 
 import (
-	DaoScoreTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/scores/types"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/common"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	ApiScores "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/scores"
+	DaoScoreTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/scores/types"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/common"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	ApiScores "prophetstor.com/api/datahub/scores"
 )
 
 type ListSimulatedSchedulingScoresRequestExtended struct {

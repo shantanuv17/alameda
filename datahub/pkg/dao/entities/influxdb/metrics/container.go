@@ -1,8 +1,8 @@
 package metrics
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/utils"
-	"github.com/containers-ai/alameda/pkg/database/influxdb"
+	"prophetstor.com/alameda/datahub/pkg/utils"
+	"prophetstor.com/alameda/pkg/database/influxdb"
 	"strconv"
 	"time"
 )

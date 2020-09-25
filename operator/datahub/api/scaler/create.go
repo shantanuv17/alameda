@@ -8,13 +8,6 @@ import (
 	"regexp"
 	"strconv"
 
-	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
-	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha2"
-	operatorutils "github.com/containers-ai/alameda/operator/pkg/utils"
-	alamedaconsts "github.com/containers-ai/alameda/pkg/consts"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	openshiftappsv1 "github.com/openshift/api/apps/v1"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -22,6 +15,13 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/types"
+	"prophetstor.com/alameda/datahub/pkg/entities"
+	"prophetstor.com/alameda/internal/pkg/message-queue/kafka"
+	autoscalingv1alpha2 "prophetstor.com/alameda/operator/apis/autoscaling/v1alpha2"
+	operatorutils "prophetstor.com/alameda/operator/pkg/utils"
+	alamedaconsts "prophetstor.com/alameda/pkg/consts"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	k8sutils "prophetstor.com/alameda/pkg/utils/kubernetes"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 

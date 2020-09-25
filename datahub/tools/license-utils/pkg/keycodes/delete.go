@@ -4,22 +4,29 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	Keycodes "github.com/containers-ai/api/datahub/keycodes"
+	"time"
+
+	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/grpc"
+	"prophetstor.com/api/datahub"
+	"prophetstor.com/api/datahub/keycodes"
 )
 
 func DeleteKeycode(keycode string) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
 	// Connect to datahub
-	conn, err := grpc.Dial(*datahubAddress, grpc.WithInsecure())
+	conn, err := grpc.DialContext(ctx, *datahubAddress, grpc.WithBlock(), grpc.WithInsecure(),
+		grpc.WithUnaryInterceptor(retry.UnaryClientInterceptor(retry.WithMax(uint(3)))))
 	defer conn.Close()
 	if err != nil {
 		panic(err)
 	}
-	client := Keycodes.NewKeycodesServiceClient(conn)
+	client := datahub.NewDatahubServiceClient(conn)
 
 	// Generate request
-	in := &Keycodes.DeleteKeycodeRequest{
+	in := &keycodes.DeleteKeycodeRequest{
 		Keycode: keycode,
 	}
 
@@ -32,7 +39,7 @@ func DeleteKeycode(keycode string) error {
 	}
 
 	// Check API result
-	retCode := int32(stat.GetCode())
+	retCode := stat.GetCode()
 	if retCode == int32(code.Code_OK) {
 		fmt.Println(fmt.Sprintf("[Result]: %s", code.Code_name[retCode]))
 	} else {

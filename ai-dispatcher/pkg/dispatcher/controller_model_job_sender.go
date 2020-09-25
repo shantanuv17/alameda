@@ -5,19 +5,19 @@ import (
 	"sync"
 	"time"
 
-	"github.com/containers-ai/alameda/ai-dispatcher/consts"
-	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
-	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
-	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
-	datahub_metrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
-	datahub_predictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
-	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/golang/protobuf/jsonpb"
 	"github.com/golang/protobuf/ptypes/duration"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/spf13/viper"
+	"prophetstor.com/alameda/ai-dispatcher/consts"
+	"prophetstor.com/alameda/ai-dispatcher/pkg/metrics"
+	"prophetstor.com/alameda/ai-dispatcher/pkg/queue"
+	utils "prophetstor.com/alameda/ai-dispatcher/pkg/utils"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	datahub_common "prophetstor.com/api/datahub/common"
+	datahub_metrics "prophetstor.com/api/datahub/metrics"
+	datahub_predictions "prophetstor.com/api/datahub/predictions"
+	datahub_resources "prophetstor.com/api/datahub/resources"
 )
 
 type controllerModelJobSender struct {

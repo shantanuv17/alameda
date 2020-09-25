@@ -1,7 +1,7 @@
 package influxdb
 
 import (
-	"github.com/containers-ai/alameda/pkg/utils/log"
+	"prophetstor.com/alameda/pkg/utils/log"
 	"time"
 )
 
@@ -12,11 +12,11 @@ var (
 	ZeroTime = time.Unix(0, 0)
 )
 
-type Database    string
+type Database string
 type Measurement string
 
-type Tag         string
-type Field       string
+type Tag string
+type Field string
 
 // InfluxDB client interacts with database
 type InfluxClient struct {

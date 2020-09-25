@@ -1,10 +1,10 @@
 package influxdb
 
 import (
-	RepoInfluxPlanning "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/plannings"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	Log "github.com/containers-ai/alameda/pkg/utils/log"
-	ApiPlannings "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/plannings"
+	RepoInfluxPlanning "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb/plannings"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	Log "prophetstor.com/alameda/pkg/utils/log"
+	ApiPlannings "prophetstor.com/api/datahub/plannings"
 )
 
 var (

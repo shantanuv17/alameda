@@ -1,13 +1,13 @@
 package nvidia
 
 import (
-	DaoGpu "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/gpu/influxdb"
-	RepoInfluxGpuMetric "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/gpu/nvidia/metrics"
-	RepoInfluxGpuPrediction "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/gpu/nvidia/predictions"
-	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	DaoGpu "prophetstor.com/alameda/datahub/pkg/dao/interfaces/gpu/influxdb"
+	RepoInfluxGpuMetric "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb/gpu/nvidia/metrics"
+	RepoInfluxGpuPrediction "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb/gpu/nvidia/predictions"
+	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	FormatTypes "prophetstor.com/alameda/datahub/pkg/formatconversion/types"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
 	"strconv"
 )
 

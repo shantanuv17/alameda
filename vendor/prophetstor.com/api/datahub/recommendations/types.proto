@@ -1,0 +1,60 @@
+// This file has messages related to recommendations of containers, pods, and nodes
+
+syntax = "proto3";
+
+package prophetstor.datahub.recommendations;
+
+import "datahub/common/metrics.proto";
+import "datahub/common/rawdata.proto";
+import "datahub/common/types.proto";
+import "datahub/schemas/types.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "prophetstor.com/api/datahub/recommendations";
+
+enum ControllerRecommendedType {
+    CRT_UNDEFINED = 0;
+    PRIMITIVE     = 1;
+    K8S           = 2;
+}
+
+/**
+ * Represents a private spec of a controller recommendation.
+ */
+message ControllerRecommendedSpec {
+    int32                     current_replicas     = 1;
+    int32                     desired_replicas     = 2;
+    google.protobuf.Timestamp time                 = 3;
+    google.protobuf.Timestamp create_time          = 4;
+    double                    current_cpu_requests = 5;
+    double                    current_mem_requests = 6;
+    double                    current_cpu_limits   = 7;
+    double                    current_mem_limits   = 8;
+    double                    desired_cpu_limits   = 9;
+    double                    desired_mem_limits   = 10;
+    double                    total_cost           = 11;
+}
+
+message ControllerRecommendedSpecK8s {
+    int32                     current_replicas = 1;
+    int32                     desired_replicas = 2;
+    google.protobuf.Timestamp time             = 3;
+    google.protobuf.Timestamp create_time      = 4;
+}
+
+/**
+ * Represents a set of container resource configuration recommendations of a pod.
+ */
+message Recommendation {
+    schemas.SchemaMeta          schema_meta         = 1;
+    repeated RecommendationData recommendation_data = 2;
+}
+
+/**
+ * Represents a piece of recommendation data.
+ */
+message RecommendationData {
+    common.MetricType    metric_type    = 1;
+    common.ResourceQuota resource_quota = 2;
+    common.ReadData      read_data      = 3;
+}

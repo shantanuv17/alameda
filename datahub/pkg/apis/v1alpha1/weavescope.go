@@ -1,12 +1,12 @@
 package v1alpha1
 
 import (
-	DaoWeaveScope "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/weavescope"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiWeavescope "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/weavescope"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	DaoWeaveScope "prophetstor.com/alameda/datahub/pkg/dao/interfaces/weavescope"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiWeavescope "prophetstor.com/api/datahub/weavescope"
 )
 
 func (s *ServiceV1alpha1) GetWeaveScopeHostDetails(ctx context.Context, in *ApiWeavescope.ListWeaveScopeHostsRequest) (*ApiWeavescope.WeaveScopeResponse, error) {

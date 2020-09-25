@@ -1,10 +1,10 @@
 package notifier
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/notifier/metrics"
-	"github.com/containers-ai/alameda/pkg/database/influxdb"
-	"github.com/containers-ai/alameda/pkg/utils/log"
 	"github.com/robfig/cron"
+	"prophetstor.com/alameda/datahub/pkg/notifier/metrics"
+	"prophetstor.com/alameda/pkg/database/influxdb"
+	"prophetstor.com/alameda/pkg/utils/log"
 )
 
 var (

@@ -3,11 +3,11 @@ package data
 import (
 	"errors"
 	"fmt"
-	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/data/types"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/enumconv"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/schemas"
-	"github.com/containers-ai/alameda/datahub/pkg/schemamgt"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
+	"prophetstor.com/alameda/datahub/pkg/dao/interfaces/data/types"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/enumconv"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/schemas"
+	"prophetstor.com/alameda/datahub/pkg/schemamgt"
+	"prophetstor.com/api/datahub/data"
 )
 
 type WriteMetaRequestRequestExtended struct {

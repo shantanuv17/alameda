@@ -7,18 +7,19 @@ import (
 	"fmt"
 	"time"
 
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	Common "github.com/containers-ai/api/common"
 	"github.com/golang/protobuf/ptypes/timestamp"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	Common "prophetstor.com/api/datahub/common"
+	Rawdata "prophetstor.com/api/datahub/rawdata"
 )
 
-func ReadRawdata(config *Config, queries []*Common.Query) ([]*Common.ReadRawdata, error) {
-	rawdata := make([]*Common.ReadRawdata, 0)
+func ReadRawdata(config *Config, queries []*Rawdata.Query) ([]*Rawdata.ReadRawdata, error) {
+	rawdata := make([]*Rawdata.ReadRawdata, 0)
 
 	prometheusClient, err := NewClient(config)
 	if err != nil {
 		scope.Errorf("failed to read rawdata from Prometheus: %v", err)
-		return make([]*Common.ReadRawdata, 0), errors.New("failed to instance prometheus client")
+		return make([]*Rawdata.ReadRawdata, 0), errors.New("failed to instance prometheus client")
 	}
 
 	for _, query := range queries {
@@ -51,7 +52,7 @@ func ReadRawdata(config *Config, queries []*Common.Query) ([]*Common.ReadRawdata
 			stepTimeInSeconds := int64(opt.StepTime.Nanoseconds() / int64(time.Second))
 			queryExpression, err = WrapQueryExpression(queryExpression, opt.AggregateOverTimeFunc, stepTimeInSeconds)
 			if err != nil {
-				return make([]*Common.ReadRawdata, 0), errors.New(err.Error())
+				return make([]*Rawdata.ReadRawdata, 0), errors.New(err.Error())
 			}
 		}
 
@@ -65,10 +66,10 @@ func ReadRawdata(config *Config, queries []*Common.Query) ([]*Common.ReadRawdata
 		}
 
 		if err != nil {
-			return make([]*Common.ReadRawdata, 0), errors.New(err.Error())
+			return make([]*Rawdata.ReadRawdata, 0), errors.New(err.Error())
 		} else if response.Status != StatusSuccess {
 			scope.Errorf("receive error response from prometheus: %s", response.Error)
-			return make([]*Common.ReadRawdata, 0), errors.New(response.Error)
+			return make([]*Rawdata.ReadRawdata, 0), errors.New(response.Error)
 		} else {
 			readRawdata, _ := ResponseToReadRawdata(&response, query)
 			rawdata = append(rawdata, readRawdata)
@@ -78,10 +79,10 @@ func ReadRawdata(config *Config, queries []*Common.Query) ([]*Common.ReadRawdata
 	return rawdata, nil
 }
 
-func ResponseToReadRawdata(response *Response, query *Common.Query) (*Common.ReadRawdata, error) {
+func ResponseToReadRawdata(response *Response, query *Rawdata.Query) (*Rawdata.ReadRawdata, error) {
 	var (
 		err         error
-		readRawdata = Common.ReadRawdata{Query: query}
+		readRawdata = Rawdata.ReadRawdata{Query: query}
 	)
 
 	if len(response.Data.Result) == 0 {

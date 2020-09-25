@@ -1,0 +1,89 @@
+// This file has messages related to predictions of containers, pods, and nodes
+
+syntax = "proto3";
+
+package prophetstor.datahub.predictions;
+
+import "datahub/common/metrics.proto";
+import "datahub/common/rawdata.proto";
+import "datahub/common/types.proto";
+import "datahub/predictions/types.proto";
+import "datahub/resources/metadata.proto";
+
+option go_package = "prophetstor.com/api/datahub/predictions";
+
+/**
+ * Represents a list of predicted metric data of a container.
+ */
+message ContainerPrediction {
+    string              name                      = 1;
+    repeated MetricData predicted_raw_data        = 2;
+    repeated MetricData predicted_upperbound_data = 3;
+    repeated MetricData predicted_lowerbound_data = 4;
+}
+
+/**
+ * Represents a list of predicted metrics data of a pod.
+ */
+message PodPrediction {
+    resources.ObjectMeta         object_meta           = 1;
+    repeated ContainerPrediction container_predictions = 2;
+}
+
+/**
+ * Represents a list of predicted metrics data of a controller.
+ */
+message ControllerPrediction  {
+    resources.ObjectMeta object_meta               = 1;
+    resources.Kind       kind                      = 2;
+    repeated MetricData  predicted_raw_data        = 3;
+    repeated MetricData  predicted_upperbound_data = 4;
+    repeated MetricData  predicted_lowerbound_data = 5;
+}
+
+/**
+ * Represents a list of predicted metrics data of a alameda scaler.
+ */
+message ApplicationPrediction  {
+    resources.ObjectMeta object_meta               = 1;
+    repeated MetricData  predicted_raw_data        = 2;
+    repeated MetricData  predicted_upperbound_data = 3;
+    repeated MetricData  predicted_lowerbound_data = 4;
+}
+
+/**
+ * Represents a list of predicted metrics data of a namespace.
+ */
+message NamespacePrediction  {
+    resources.ObjectMeta object_meta               = 1;
+    repeated MetricData  predicted_raw_data        = 2;
+    repeated MetricData  predicted_upperbound_data = 3;
+    repeated MetricData  predicted_lowerbound_data = 4;
+}
+
+/**
+ * Represents a list of predicted metric data of a node.
+ */
+message NodePrediction {
+    resources.ObjectMeta object_meta               = 1;
+    bool                 is_scheduled              = 2;
+    repeated MetricData  predicted_raw_data        = 3;
+    repeated MetricData  predicted_upperbound_data = 4;
+    repeated MetricData  predicted_lowerbound_data = 5;
+}
+
+/**
+ * Represents a list of predicted metric data of a cluster.
+ */
+message ClusterPrediction {
+    resources.ObjectMeta object_meta               = 1;
+    repeated MetricData  predicted_raw_data        = 2;
+    repeated MetricData  predicted_upperbound_data = 3;
+    repeated MetricData  predicted_lowerbound_data = 4;
+}
+
+message WritePrediction {
+    common.MetricType       metric_type       = 1;
+    common.ResourceBoundary resource_boundary = 2;
+    common.WriteData        write_data        = 3;
+}

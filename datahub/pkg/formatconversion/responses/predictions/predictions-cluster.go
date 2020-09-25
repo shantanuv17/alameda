@@ -1,11 +1,11 @@
 package predictions
 
 import (
-	DaoPredictionTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/predictions/types"
-	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/common"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/resources"
-	ApiPredictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
+	DaoPredictionTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/predictions/types"
+	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/responses/common"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/responses/resources"
+	ApiPredictions "prophetstor.com/api/datahub/predictions"
 )
 
 type ClusterPredictionExtended struct {
@@ -14,9 +14,9 @@ type ClusterPredictionExtended struct {
 
 func (d *ClusterPredictionExtended) ProducePredictions() *ApiPredictions.ClusterPrediction {
 	var (
-		rawDataChan        = make(chan ApiPredictions.MetricData)
-		upperBoundDataChan = make(chan ApiPredictions.MetricData)
-		lowerBoundDataChan = make(chan ApiPredictions.MetricData)
+		rawDataChan        = make(chan *ApiPredictions.MetricData)
+		upperBoundDataChan = make(chan *ApiPredictions.MetricData)
+		lowerBoundDataChan = make(chan *ApiPredictions.MetricData)
 		numOfGoroutine     = 0
 
 		datahubClusterPrediction ApiPredictions.ClusterPrediction
@@ -36,7 +36,7 @@ func (d *ClusterPredictionExtended) ProducePredictions() *ApiPredictions.Cluster
 	}
 	for i := 0; i < numOfGoroutine; i++ {
 		receivedPredictionData := <-rawDataChan
-		datahubClusterPrediction.PredictedRawData = append(datahubClusterPrediction.PredictedRawData, &receivedPredictionData)
+		datahubClusterPrediction.PredictedRawData = append(datahubClusterPrediction.PredictedRawData, receivedPredictionData)
 	}
 
 	// Handle prediction upper bound data
@@ -49,7 +49,7 @@ func (d *ClusterPredictionExtended) ProducePredictions() *ApiPredictions.Cluster
 	}
 	for i := 0; i < numOfGoroutine; i++ {
 		receivedPredictionData := <-upperBoundDataChan
-		datahubClusterPrediction.PredictedUpperboundData = append(datahubClusterPrediction.PredictedUpperboundData, &receivedPredictionData)
+		datahubClusterPrediction.PredictedUpperboundData = append(datahubClusterPrediction.PredictedUpperboundData, receivedPredictionData)
 	}
 
 	// Handle prediction lower bound data
@@ -62,7 +62,7 @@ func (d *ClusterPredictionExtended) ProducePredictions() *ApiPredictions.Cluster
 	}
 	for i := 0; i < numOfGoroutine; i++ {
 		receivedPredictionData := <-lowerBoundDataChan
-		datahubClusterPrediction.PredictedLowerboundData = append(datahubClusterPrediction.PredictedLowerboundData, &receivedPredictionData)
+		datahubClusterPrediction.PredictedLowerboundData = append(datahubClusterPrediction.PredictedLowerboundData, receivedPredictionData)
 	}
 
 	return &datahubClusterPrediction

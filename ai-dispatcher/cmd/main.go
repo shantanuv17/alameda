@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/containers-ai/alameda/ai-dispatcher/cmd/app"
+	"prophetstor.com/alameda/ai-dispatcher/cmd/app"
 )
 
 func main() {

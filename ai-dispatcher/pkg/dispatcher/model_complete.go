@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/containers-ai/alameda/ai-dispatcher/consts"
-	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
-	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
 	"github.com/spf13/viper"
+	"prophetstor.com/alameda/ai-dispatcher/consts"
+	"prophetstor.com/alameda/ai-dispatcher/pkg/metrics"
+	"prophetstor.com/alameda/ai-dispatcher/pkg/queue"
 )
 
 type modelCompleteMsg struct {

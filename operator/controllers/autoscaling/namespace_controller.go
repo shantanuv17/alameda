@@ -19,14 +19,14 @@ package autoscaling
 import (
 	"time"
 
-	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha2"
-	datahub_namespace "github.com/containers-ai/alameda/operator/datahub/client/namespace"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"golang.org/x/net/context"
 	corev1 "k8s.io/api/core/v1"
 	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
+	"prophetstor.com/alameda/datahub/pkg/entities"
+	autoscalingv1alpha2 "prophetstor.com/alameda/operator/apis/autoscaling/v1alpha2"
+	datahub_namespace "prophetstor.com/alameda/operator/datahub/client/namespace"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )

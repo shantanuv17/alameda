@@ -22,8 +22,8 @@ limitations under the License.
 package v1alpha1
 
 import (
-	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	logUtil "prophetstor.com/alameda/pkg/utils/log"
 	"sigs.k8s.io/controller-runtime/pkg/scheme"
 )
 

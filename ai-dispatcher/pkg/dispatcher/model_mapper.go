@@ -5,9 +5,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/containers-ai/alameda/ai-dispatcher/consts"
-	"github.com/containers-ai/alameda/pkg/utils"
 	"github.com/spf13/viper"
+	"prophetstor.com/alameda/ai-dispatcher/consts"
+	"prophetstor.com/alameda/pkg/utils"
 )
 
 type ModelMapper struct {

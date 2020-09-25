@@ -1,0 +1,30 @@
+// This file has messages related to system events
+
+syntax = "proto3";
+
+package prophetstor.datahub.events;
+
+import "datahub/common/queries.proto";
+import "datahub/events/events.proto";
+import "datahub/events/types.proto";
+import "google/rpc/status.proto";
+
+option go_package = "prophetstor.com/api/datahub/events";
+
+message ListEventsRequest {
+    common.QueryCondition query_condition = 1;
+    repeated string       id              = 2;
+    repeated string       cluster_id      = 3;
+    repeated EventType    type            = 4;
+    repeated EventVersion version         = 5;
+    repeated EventLevel   level           = 6;
+}
+
+message ListEventsResponse {
+    google.rpc.Status status = 1;
+    repeated Event    events = 2;
+}
+
+message CreateEventsRequest {
+    repeated Event events = 1;
+}

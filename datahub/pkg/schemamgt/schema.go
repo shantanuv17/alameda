@@ -1,8 +1,8 @@
 package schemamgt
 
 import (
-	"github.com/containers-ai/alameda/pkg/database/influxdb"
-	"github.com/containers-ai/alameda/pkg/utils/log"
+	"prophetstor.com/alameda/pkg/database/influxdb"
+	"prophetstor.com/alameda/pkg/utils/log"
 	"sync"
 )
 

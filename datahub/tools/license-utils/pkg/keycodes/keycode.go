@@ -2,9 +2,10 @@ package keycodes
 
 import (
 	"fmt"
-	Utils "github.com/containers-ai/alameda/datahub/tools/license-utils/pkg/utils"
-	Keycodes "github.com/containers-ai/api/datahub/keycodes"
+
 	"github.com/manifoldco/promptui"
+	"prophetstor.com/alameda/datahub/tools/license-utils/pkg/utils"
+	"prophetstor.com/api/datahub/keycodes"
 )
 
 var (
@@ -29,16 +30,16 @@ func Executor() (string, error) {
 
 	switch result {
 	case "Add":
-		keycode, _ := Utils.InputText("Keycode")
+		keycode, _ := utils.InputText("Keycode")
 		return "Add", AddKeycode(keycode)
 	case "Read":
-		keycode, _ := Utils.InputText("Keycode")
+		keycode, _ := utils.InputText("Keycode")
 		return "Read", ListKeycodes(keycode)
 	case "Delete":
-		keycode, _ := Utils.InputText("Keycode")
+		keycode, _ := utils.InputText("Keycode")
 		return "Delete", DeleteKeycode(keycode)
 	case "Activate":
-		filePath, _ := Utils.InputText("Registration File Path")
+		filePath, _ := utils.InputText("Registration File Path")
 		return "Activate", Activate(filePath)
 	case "Generate Registration Data":
 		return "Generate Registration Data", GenerateRegistrationData()
@@ -47,7 +48,7 @@ func Executor() (string, error) {
 	}
 }
 
-func PrintKeycode(keycode *Keycodes.Keycode) {
+func PrintKeycode(keycode *keycodes.Keycode) {
 	fmt.Println(fmt.Sprintf("Keycode: %s", keycode.Keycode))
 	fmt.Println(fmt.Sprintf("KeycodeType: %s", keycode.KeycodeType))
 	fmt.Println(fmt.Sprintf("KeycodeVersion: %d", keycode.KeycodeVersion))

@@ -2,17 +2,17 @@ package clusterstatus
 
 import (
 	"fmt"
-	EntityInfluxCluster "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
-	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
-	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	Metadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
-	Utils "github.com/containers-ai/alameda/pkg/utils"
-	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
+	EntityInfluxCluster "prophetstor.com/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
+	DaoClusterTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
+	RepoInflux "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb"
+	Metadata "prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	InfluxModels "prophetstor.com/alameda/pkg/database/influxdb/models"
+	Utils "prophetstor.com/alameda/pkg/utils"
+	ApiResources "prophetstor.com/api/datahub/resources"
 	"strings"
 )
 

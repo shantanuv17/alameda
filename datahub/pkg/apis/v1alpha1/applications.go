@@ -1,11 +1,11 @@
 package v1alpha1
 
 import (
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiApps "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/applications"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiApps "prophetstor.com/api/datahub/applications"
 )
 
 func (s *ServiceV1alpha1) CreateApps(ctx context.Context, in *ApiApps.CreateApplicationsRequest) (*status.Status, error) {

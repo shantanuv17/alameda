@@ -2,11 +2,11 @@ package influxdb
 
 import (
 	"encoding/json"
-	DaoEventTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/events/types"
-	RepoInfluxEvent "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/events"
-	InternalRabbitMQ "github.com/containers-ai/alameda/internal/pkg/message-queue/rabbitmq"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
+	DaoEventTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/events/types"
+	RepoInfluxEvent "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb/events"
+	InternalRabbitMQ "prophetstor.com/alameda/internal/pkg/message-queue/rabbitmq"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	ApiEvents "prophetstor.com/api/datahub/events"
 )
 
 type Event struct {

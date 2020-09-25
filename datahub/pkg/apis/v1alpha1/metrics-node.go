@@ -1,20 +1,20 @@
 package v1alpha1
 
 import (
-	DaoMetric "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/metrics"
-	metrics2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/metrics"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiMetrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	DaoMetric "prophetstor.com/alameda/datahub/pkg/dao/interfaces/metrics"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/metrics"
+	metrics2 "prophetstor.com/alameda/datahub/pkg/formatconversion/responses/metrics"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiMetrics "prophetstor.com/api/datahub/metrics"
 )
 
 func (s *ServiceV1alpha1) CreateNodeMetrics(ctx context.Context, in *ApiMetrics.CreateNodeMetricsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateNodeMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := metrics.CreateNodeMetricsRequestExtended{CreateNodeMetricsRequest: *in}
+	requestExtended := metrics.CreateNodeMetricsRequestExtended{CreateNodeMetricsRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

@@ -1,8 +1,8 @@
 package schemamgt
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/schemamgt/defaults"
-	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
+	"prophetstor.com/alameda/datahub/pkg/schemamgt/defaults"
+	"prophetstor.com/alameda/pkg/database/influxdb/schemas"
 )
 
 var DefaultSchemas = map[string][]interface{}{

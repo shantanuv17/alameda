@@ -1,10 +1,10 @@
 package app
 
 import (
-	AppKeycodes "github.com/containers-ai/alameda/datahub/tools/license-utils/cmd/app/keycodes"
-	Keycodes "github.com/containers-ai/alameda/datahub/tools/license-utils/pkg/keycodes"
-	Setup "github.com/containers-ai/alameda/datahub/tools/license-utils/pkg/setup"
 	"github.com/spf13/cobra"
+	AppKeycodes "prophetstor.com/alameda/datahub/tools/license-utils/cmd/app/keycodes"
+	Keycodes "prophetstor.com/alameda/datahub/tools/license-utils/pkg/keycodes"
+	Setup "prophetstor.com/alameda/datahub/tools/license-utils/pkg/setup"
 )
 
 const (

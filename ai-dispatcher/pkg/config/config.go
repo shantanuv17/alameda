@@ -1,8 +1,8 @@
 package config
 
 import (
-	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
-	datahub_schemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
+	datahub_common "prophetstor.com/api/datahub/common"
+	datahub_schemas "prophetstor.com/api/datahub/schemas"
 )
 
 type Config struct {

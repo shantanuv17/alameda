@@ -1,0 +1,36 @@
+// This file has messages related to read & write rawdata
+
+syntax = "proto3";
+
+package prophetstor.datahub.rawdata;
+
+import "datahub/common/types.proto";
+import "datahub/rawdata/rawdata.proto";
+import "datahub/rawdata/types.proto";
+import "google/rpc/status.proto";
+
+option go_package = "prophetstor.com/api/datahub/rawdata";
+
+/**
+ * Represents a request for reading rawdata from database.
+ */
+message ReadRawdataRequest {
+    common.DatabaseType database_type = 1;
+    repeated Query      queries       = 2;
+}
+
+/**
+ * Represents a response for listing rawdata from database.
+ */
+message ReadRawdataResponse {
+    google.rpc.Status    status  = 1;
+    repeated ReadRawdata rawdata = 2;
+}
+
+/**
+ * Represents a request for writing rawdata to database.
+ */
+message WriteRawdataRequest {
+    common.DatabaseType   database_type = 1;
+    repeated WriteRawdata rawdata       = 2;
+}

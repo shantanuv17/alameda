@@ -1,14 +1,14 @@
 package metrics
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/apis"
-	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	FormatCommon "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/common"
-	Log "github.com/containers-ai/alameda/pkg/utils/log"
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/duration"
 	"github.com/golang/protobuf/ptypes/timestamp"
+	"prophetstor.com/alameda/datahub/pkg/apis"
+	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	FormatCommon "prophetstor.com/alameda/datahub/pkg/formatconversion/requests/common"
+	Log "prophetstor.com/alameda/pkg/utils/log"
+	ApiCommon "prophetstor.com/api/datahub/common"
 )
 
 type MetricsDBType = string
@@ -30,19 +30,19 @@ var MetricTypeNameMap = map[ApiCommon.MetricType]FormatEnum.MetricType{
 	ApiCommon.MetricType_DUTY_CYCLE:           FormatEnum.MetricTypeDutyCycle,
 }
 
-func normalizeListMetricsRequestQueryConditionWthMetricsDBType(q ApiCommon.QueryCondition, dbType MetricsDBType) ApiCommon.QueryCondition {
+func normalizeListMetricsRequestQueryConditionWthMetricsDBType(q *ApiCommon.QueryCondition, dbType MetricsDBType) *ApiCommon.QueryCondition {
 
 	t := q.TimeRange
 	if t == nil {
 		t = &ApiCommon.TimeRange{}
 	}
-	normalizeT := normalizeListMetricsRequestTimeRangeByMetricsDBType(*t, dbType)
-	q.TimeRange = &normalizeT
+	normalizeT := normalizeListMetricsRequestTimeRangeByMetricsDBType(t, dbType)
+	q.TimeRange = normalizeT
 
 	return q
 }
 
-func normalizeListMetricsRequestTimeRange(t ApiCommon.TimeRange) ApiCommon.TimeRange {
+func normalizeListMetricsRequestTimeRange(t *ApiCommon.TimeRange) *ApiCommon.TimeRange {
 
 	defaultStartTime := timestamp.Timestamp{}
 	defaultEndTime := *ptypes.TimestampNow()
@@ -63,7 +63,7 @@ func normalizeListMetricsRequestTimeRange(t ApiCommon.TimeRange) ApiCommon.TimeR
 	return t
 }
 
-func normalizeListMetricsRequestTimeRangeByMetricsDBType(t ApiCommon.TimeRange, metricsDBType MetricsDBType) ApiCommon.TimeRange {
+func normalizeListMetricsRequestTimeRangeByMetricsDBType(t *ApiCommon.TimeRange, metricsDBType MetricsDBType) *ApiCommon.TimeRange {
 
 	t = normalizeListMetricsRequestTimeRange(t)
 

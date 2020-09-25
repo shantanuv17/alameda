@@ -1,10 +1,10 @@
 package influxdb
 
 import (
-	RepoInfluxRecommendation "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/recommendations"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	Log "github.com/containers-ai/alameda/pkg/utils/log"
-	ApiRecommendations "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations"
+	RepoInfluxRecommendation "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb/recommendations"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	Log "prophetstor.com/alameda/pkg/utils/log"
+	ApiRecommendations "prophetstor.com/api/datahub/recommendations"
 )
 
 var (

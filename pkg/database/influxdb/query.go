@@ -2,7 +2,7 @@ package influxdb
 
 import (
 	"fmt"
-	"github.com/containers-ai/alameda/pkg/database/common"
+	"prophetstor.com/alameda/pkg/database/common"
 	"strconv"
 	"strings"
 	"time"

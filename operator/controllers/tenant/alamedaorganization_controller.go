@@ -20,13 +20,13 @@ import (
 	"context"
 	"time"
 
-	tenantv1alpha1 "github.com/containers-ai/alameda/operator/apis/tenant/v1alpha1"
-	datahubtenant "github.com/containers-ai/alameda/operator/datahub/api/tenant"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
 	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
+	tenantv1alpha1 "prophetstor.com/alameda/operator/apis/tenant/v1alpha1"
+	datahubtenant "prophetstor.com/alameda/operator/datahub/api/tenant"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	logUtil "prophetstor.com/alameda/pkg/utils/log"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )

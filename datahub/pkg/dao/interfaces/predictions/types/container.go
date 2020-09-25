@@ -2,9 +2,9 @@ package types
 
 import (
 	"fmt"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/types"
+	"prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
 )
 
 type ContainerPredictionSample struct {

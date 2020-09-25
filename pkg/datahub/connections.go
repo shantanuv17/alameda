@@ -2,12 +2,12 @@ package datahub
 
 import (
 	"errors"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
-	"github.com/containers-ai/api/datahub/keycodes"
-	"github.com/grpc-ecosystem/go-grpc-middleware/retry"
+	"time"
+
+	grpcretry "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/connectivity"
-	"time"
+	"prophetstor.com/api/datahub"
 )
 
 func (p *Client) Connect(retry, timeout int) error {
@@ -30,9 +30,9 @@ func (p *Client) Connect(retry, timeout int) error {
 	// Create a client connection to datahub
 	conn, err := grpc.Dial(p.Address,
 		grpc.WithBlock(),
-		grpc.WithTimeout(time.Duration(timeout) * time.Second),
+		grpc.WithTimeout(time.Duration(timeout)*time.Second),
 		grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(grpc_retry.UnaryClientInterceptor(grpc_retry.WithMax(uint(retry)))),
+		grpc.WithUnaryInterceptor(grpcretry.UnaryClientInterceptor(grpcretry.WithMax(uint(retry)))),
 	)
 
 	if err != nil {
@@ -43,7 +43,6 @@ func (p *Client) Connect(retry, timeout int) error {
 	scope.Info("successfully dial to to datahub")
 	p.connection = conn
 	p.DatahubServiceClient = datahub.NewDatahubServiceClient(p.connection)
-	p.KeycodesServiceClient = keycodes.NewKeycodesServiceClient(p.connection)
 
 	return nil
 }
@@ -57,7 +56,6 @@ func (p *Client) Close() error {
 	}
 	p.connection = nil
 	p.DatahubServiceClient = nil
-	p.KeycodesServiceClient = nil
 	return nil
 }
 

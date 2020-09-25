@@ -1,10 +1,10 @@
 package schemamgt
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	"github.com/containers-ai/alameda/pkg/database/common"
-	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
-	"github.com/containers-ai/alameda/pkg/utils"
+	"prophetstor.com/alameda/datahub/pkg/entities"
+	"prophetstor.com/alameda/pkg/database/common"
+	"prophetstor.com/alameda/pkg/database/influxdb/schemas"
+	"prophetstor.com/alameda/pkg/utils"
 	"reflect"
 	"strconv"
 )

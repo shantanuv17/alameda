@@ -1,11 +1,11 @@
 # This Dockerfile is used for building alameda-datahub on https://connect.redhat.com
-FROM openshift/origin-release:golang-1.13 as builder
+FROM openshift/origin-release:golang-1.15 as builder
 #RUN yum update -y
 
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
-WORKDIR /go/src/github.com/containers-ai/alameda
+WORKDIR /go/src/prophetstor.com/alameda
 
 COPY . .
 RUN set -x \
@@ -17,10 +17,10 @@ RUN set -x \
     && echo "CODE_VERSION=${CODE_VERSION}" > version.txt
 
 # Build datahub executable binary
-RUN ["/bin/bash", "-c", "go build -ldflags \"-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'\" -a -o ./datahub/datahub github.com/containers-ai/alameda/datahub/cmd"]
+RUN ["/bin/bash", "-c", "go build -ldflags \"-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'\" -a -o ./datahub/datahub prophetstor.com/alameda/datahub/cmd"]
 
 # Build license-utils executable binary
-RUN ["/bin/bash", "-c", "go build -ldflags \"-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'\" -a -o ./datahub/license-utils github.com/containers-ai/alameda/datahub/tools/license-utils/cmd"]
+RUN ["/bin/bash", "-c", "go build -ldflags \"-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'\" -a -o ./datahub/license-utils prophetstor.com/alameda/datahub/tools/license-utils/cmd"]
 
 # Install and create package file
 RUN set -x \
@@ -28,18 +28,18 @@ RUN set -x \
            /install_root/opt/prophetstor/federatorai/{bin,lib,etc,var/tmp} \
            /install_root/usr/local/bin/ \
     # Copy datahub
-    && cp -fv /go/src/github.com/containers-ai/alameda/LICENSE /install_root/licenses/ \
-    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/etc/datahub.toml /install_root/etc/alameda/datahub/datahub.toml \
-    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/datahub /install_root/usr/local/bin/ \
+    && cp -fv /go/src/prophetstor.com/alameda/LICENSE /install_root/licenses/ \
+    && cp -fv /go/src/prophetstor.com/alameda/datahub/etc/datahub.toml /install_root/etc/alameda/datahub/datahub.toml \
+    && cp -fv /go/src/prophetstor.com/alameda/datahub/datahub /install_root/usr/local/bin/ \
     # Copy license-utils
-    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/license-utils /install_root/usr/local/bin/ \
+    && cp -fv /go/src/prophetstor.com/alameda/datahub/license-utils /install_root/usr/local/bin/ \
     # Copy keycode management tool
-    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/bin/license_main /install_root/opt/prophetstor/federatorai/bin/ \
-    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/lib/license_helper.so /install_root/opt/prophetstor/federatorai/lib/ \
-    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/lib/license_util.so /install_root/opt/prophetstor/federatorai/lib/ \
-    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/lib/util_crypto.so /install_root/opt/prophetstor/federatorai/lib/ \
-    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/lib/util_ldap.so /install_root/opt/prophetstor/federatorai/lib/ \
-    && cp -fv /go/src/github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes/lib/_utilModule.so /install_root/opt/prophetstor/federatorai/lib/ \
+    && cp -fv /go/src/prophetstor.com/alameda/datahub/pkg/account-mgt/keycodes/bin/license_main /install_root/opt/prophetstor/federatorai/bin/ \
+    && cp -fv /go/src/prophetstor.com/alameda/datahub/pkg/account-mgt/keycodes/lib/license_helper.so /install_root/opt/prophetstor/federatorai/lib/ \
+    && cp -fv /go/src/prophetstor.com/alameda/datahub/pkg/account-mgt/keycodes/lib/license_util.so /install_root/opt/prophetstor/federatorai/lib/ \
+    && cp -fv /go/src/prophetstor.com/alameda/datahub/pkg/account-mgt/keycodes/lib/util_crypto.so /install_root/opt/prophetstor/federatorai/lib/ \
+    && cp -fv /go/src/prophetstor.com/alameda/datahub/pkg/account-mgt/keycodes/lib/util_ldap.so /install_root/opt/prophetstor/federatorai/lib/ \
+    && cp -fv /go/src/prophetstor.com/alameda/datahub/pkg/account-mgt/keycodes/lib/_utilModule.so /install_root/opt/prophetstor/federatorai/lib/ \
     && chown -R 1001:0 /install_root/opt/prophetstor/federatorai \
     && cd /install_root; tar cvf /install_root.tar .
 
@@ -64,10 +64,10 @@ LABEL summary="$SUMMARY" \
       version="$VERSION" \
       vendor="ProphetStor Data Services, Inc."
 
-COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/xray.sh /xray.sh
-COPY --from=builder /go/src/github.com/containers-ai/alameda/version.txt ${AIHOME}/etc/
-COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/tini /sbin/tini
-COPY --from=builder /go/src/github.com/containers-ai/alameda/datahub/init.sh /init.sh
+COPY --from=builder /go/src/prophetstor.com/alameda/datahub/xray.sh /xray.sh
+COPY --from=builder /go/src/prophetstor.com/alameda/version.txt ${AIHOME}/etc/
+COPY --from=builder /go/src/prophetstor.com/alameda/datahub/tini /sbin/tini
+COPY --from=builder /go/src/prophetstor.com/alameda/datahub/init.sh /init.sh
 COPY --from=builder /install_root /
 
 RUN set -x \

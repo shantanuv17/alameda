@@ -1,10 +1,10 @@
 package influxdb
 
 import (
-	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
-	RepoInfluxCluster "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
-	Metadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	DaoClusterTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
+	RepoInfluxCluster "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
+	Metadata "prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
 )
 
 type Namespace struct {

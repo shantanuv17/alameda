@@ -5,11 +5,11 @@ import (
 	"testing"
 	"time"
 
-	notifyingv1alpha1 "github.com/containers-ai/alameda/notifier/api/v1alpha1"
-	"github.com/containers-ai/alameda/notifier/utils"
-	datahub_events "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/spf13/viper"
+	notifyingv1alpha1 "prophetstor.com/alameda/notifier/api/v1alpha1"
+	"prophetstor.com/alameda/notifier/utils"
+	datahub_events "prophetstor.com/api/datahub/events"
 )
 
 func Test_SendEmailBySMTP(t *testing.T) {

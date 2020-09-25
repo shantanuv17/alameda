@@ -1,12 +1,12 @@
 package resources
 
 import (
-	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
-	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
+	DaoClusterTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
+	ApiResources "prophetstor.com/api/datahub/resources"
 )
 
 type CreateClustersRequestExtended struct {
-	ApiResources.CreateClustersRequest
+	*ApiResources.CreateClustersRequest
 }
 
 type ListClustersRequestExtended struct {

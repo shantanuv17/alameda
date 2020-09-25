@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"time"
 
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	datahub_data "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
-	datahub_schemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	"github.com/spf13/viper"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	datahub_data "prophetstor.com/api/datahub/data"
+	datahub_schemas "prophetstor.com/api/datahub/schemas"
 )
 
 func GetRowValue(values, columns []string, field string) (string, error) {

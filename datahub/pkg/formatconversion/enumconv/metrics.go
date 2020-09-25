@@ -1,7 +1,7 @@
 package enumconv
 
 import (
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
+	ApiCommon "prophetstor.com/api/datahub/common"
 )
 
 // Metric Type/Kind alias

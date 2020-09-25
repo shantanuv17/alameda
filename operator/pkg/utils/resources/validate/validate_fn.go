@@ -3,13 +3,13 @@ package validate
 import (
 	"fmt"
 
-	autoscalingapi "github.com/containers-ai/alameda/operator/apis/autoscaling"
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha1"
-	"github.com/containers-ai/alameda/operator/pkg/utils/resources"
-	"github.com/containers-ai/alameda/pkg/utils"
-	"github.com/containers-ai/alameda/pkg/utils/kubernetes"
-	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
 	openshift_apps_v1 "github.com/openshift/api/apps/v1"
+	autoscalingapi "prophetstor.com/alameda/operator/apis/autoscaling"
+	autoscalingv1alpha1 "prophetstor.com/alameda/operator/apis/autoscaling/v1alpha1"
+	"prophetstor.com/alameda/operator/pkg/utils/resources"
+	"prophetstor.com/alameda/pkg/utils"
+	"prophetstor.com/alameda/pkg/utils/kubernetes"
+	logUtil "prophetstor.com/alameda/pkg/utils/log"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 

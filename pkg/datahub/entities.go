@@ -2,7 +2,7 @@ package datahub
 
 import (
 	"errors"
-	Entities "github.com/containers-ai/alameda/datahub/pkg/entities"
+	Entities "prophetstor.com/alameda/datahub/pkg/entities"
 	"reflect"
 )
 
@@ -79,7 +79,7 @@ func (p *Client) Delete(entities interface{}) error {
 		entity := values.Index(i).Interface()
 		datahubEntity := values.Index(i).Field(0).Interface().(Entities.DatahubEntity)
 		tags := datahubEntity.TagNames(entity)
-		opts = append(opts, Option{Entity: entity, Fields: tags,})
+		opts = append(opts, Option{Entity: entity, Fields: tags})
 	}
 
 	request := NewDeleteDataRequest(entities, opts...)
@@ -97,7 +97,6 @@ func (p *Client) Delete(entities interface{}) error {
 
 	return nil
 }
-
 
 // Entity is indicator, delete by options
 func (p *Client) DeleteByOpts(entity interface{}, opts ...Option) error {

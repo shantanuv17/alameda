@@ -1,7 +1,7 @@
 package defaults
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/entities"
+	"prophetstor.com/alameda/datahub/pkg/entities"
 )
 
 func DefaultSchemaResource() []interface{} {

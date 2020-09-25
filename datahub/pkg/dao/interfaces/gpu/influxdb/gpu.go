@@ -1,8 +1,8 @@
 package influxdb
 
 import (
-	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
 )
 
 var GpuMetricUsedMap = map[FormatEnum.GpuMetricType]bool{}

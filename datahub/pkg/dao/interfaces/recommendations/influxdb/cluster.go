@@ -1,9 +1,9 @@
 package influxdb
 
 import (
-	RepoInfluxRecommendation "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/recommendations"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	ApiRecommendations "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations"
+	RepoInfluxRecommendation "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb/recommendations"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	ApiRecommendations "prophetstor.com/api/datahub/recommendations"
 )
 
 type ClusterRecommendations struct {

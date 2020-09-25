@@ -1,7 +1,7 @@
 package predictions
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/utils"
+	"prophetstor.com/alameda/datahub/pkg/utils"
 	"strconv"
 	"time"
 )

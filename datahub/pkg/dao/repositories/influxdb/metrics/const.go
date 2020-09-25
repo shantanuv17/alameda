@@ -1,8 +1,8 @@
 package metrics
 
 import (
-	"github.com/containers-ai/alameda/pkg/consts"
-	"github.com/containers-ai/alameda/pkg/database/influxdb"
+	"prophetstor.com/alameda/pkg/consts"
+	"prophetstor.com/alameda/pkg/database/influxdb"
 )
 
 const (

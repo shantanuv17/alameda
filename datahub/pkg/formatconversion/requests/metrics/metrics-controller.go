@@ -1,21 +1,21 @@
 package metrics
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/apis"
-	DaoMetricTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics/types"
-	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/common"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/resources"
-	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
-	ApiMetrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/pkg/errors"
+	"prophetstor.com/alameda/datahub/pkg/apis"
+	DaoMetricTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/metrics/types"
+	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/common"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/resources"
+	FormatTypes "prophetstor.com/alameda/datahub/pkg/formatconversion/types"
+	"prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	ApiCommon "prophetstor.com/api/datahub/common"
+	ApiMetrics "prophetstor.com/api/datahub/metrics"
 )
 
 type CreateControllerMetricsRequestExtended struct {
-	ApiMetrics.CreateControllerMetricsRequest
+	*ApiMetrics.CreateControllerMetricsRequest
 }
 
 func (r *CreateControllerMetricsRequestExtended) Validate() error {
@@ -67,9 +67,9 @@ func (r *ListControllerMetricsRequestExtended) Validate() error {
 }
 
 func (r *ListControllerMetricsRequestExtended) SetDefaultWithMetricsDBType(metricsConfig *apis.MetricsConfig) {
-	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(*r.Request.QueryCondition, metricsConfig.Source)
+	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(r.Request.QueryCondition, metricsConfig.Source)
 	q.TimeRange.AggregateFunction = ApiCommon.TimeRange_NONE
-	r.Request.QueryCondition = &q
+	r.Request.QueryCondition = q
 }
 
 func (r *ListControllerMetricsRequestExtended) SetRollupFunction(metricsConfig *apis.MetricsConfig) {

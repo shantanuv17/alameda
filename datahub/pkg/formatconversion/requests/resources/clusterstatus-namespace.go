@@ -1,13 +1,13 @@
 package resources
 
 import (
-	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
-	Metadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
+	DaoClusterTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
+	Metadata "prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	ApiResources "prophetstor.com/api/datahub/resources"
 )
 
 type CreateNamespacesRequestExtended struct {
-	ApiResources.CreateNamespacesRequest
+	*ApiResources.CreateNamespacesRequest
 }
 
 type ListNamespacesRequestExtended struct {

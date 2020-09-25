@@ -1,13 +1,13 @@
 package predictions
 
 import (
-	EntityInfluxGpuPrediction "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/gpu/nvidia/predictions"
-	DaoGpu "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/gpu/influxdb"
-	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
+	EntityInfluxGpuPrediction "prophetstor.com/alameda/datahub/pkg/dao/entities/influxdb/gpu/nvidia/predictions"
+	DaoGpu "prophetstor.com/alameda/datahub/pkg/dao/interfaces/gpu/influxdb"
+	RepoInflux "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb"
+	DatahubUtils "prophetstor.com/alameda/datahub/pkg/utils"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
 	"strconv"
 )
 

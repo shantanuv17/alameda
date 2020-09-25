@@ -1,0 +1,24 @@
+// This file has messages related to gpu info, metrics and predictions
+
+syntax = "proto3";
+
+package prophetstor.datahub.gpu;
+
+option go_package = "prophetstor.com/api/datahub/gpu";
+
+/**
+ * Represents the metadata of a graphics processing unit.
+ */
+message GpuMetadata {
+    string host         = 1;
+    string instance     = 2;
+    string job          = 3;
+    string minor_number = 4;
+}
+
+/**
+ * Represents the spec of a graphics processing unit.
+ */
+message GpuSpec {
+    float memory_total = 1; // Total memory in bytes
+}

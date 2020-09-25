@@ -2,13 +2,13 @@ package metrics
 
 import (
 	"fmt"
-	EntityInfluxGpuMetric "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/gpu/nvidia/metrics"
-	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	Client "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
+	EntityInfluxGpuMetric "prophetstor.com/alameda/datahub/pkg/dao/entities/influxdb/gpu/nvidia/metrics"
+	RepoInflux "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	InfluxModels "prophetstor.com/alameda/pkg/database/influxdb/models"
 )
 
 type PowerUsageMilliWattsRepository struct {

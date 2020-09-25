@@ -1,14 +1,14 @@
 package v1alpha1
 
 import (
-	DaoCluster "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/resources"
-	resources2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/resources"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	DaoCluster "prophetstor.com/alameda/datahub/pkg/dao/interfaces/clusterstatus"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/resources"
+	resources2 "prophetstor.com/alameda/datahub/pkg/formatconversion/responses/resources"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiResources "prophetstor.com/api/datahub/resources"
 )
 
 // CreatePods add containers information of pods to database
@@ -19,7 +19,7 @@ func (s *ServiceV1alpha1) CreatePods(ctx context.Context, in *ApiResources.Creat
 		return &status.Status{Code: int32(code.Code_OK)}, nil
 	}
 
-	requestExtended := resources.CreatePodsRequestExtended{CreatePodsRequest: *in}
+	requestExtended := resources.CreatePodsRequestExtended{CreatePodsRequest: in}
 	if err := requestExtended.Validate(); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INVALID_ARGUMENT),

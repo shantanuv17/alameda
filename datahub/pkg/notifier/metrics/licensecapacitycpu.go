@@ -2,9 +2,9 @@ package metrics
 
 import (
 	"fmt"
-	Keycodes "github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes"
-	"github.com/containers-ai/alameda/pkg/database/influxdb"
 	"math"
+	Keycodes "prophetstor.com/alameda/datahub/pkg/account-mgt/keycodes"
+	"prophetstor.com/alameda/pkg/database/influxdb"
 	"time"
 )
 

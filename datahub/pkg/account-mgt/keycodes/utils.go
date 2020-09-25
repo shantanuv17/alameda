@@ -1,11 +1,11 @@
 package keycodes
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	"github.com/containers-ai/alameda/datahub/pkg/schemamgt"
-	"github.com/containers-ai/alameda/pkg/database/common"
-	"github.com/containers-ai/alameda/pkg/database/influxdb"
-	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
+	"prophetstor.com/alameda/datahub/pkg/entities"
+	"prophetstor.com/alameda/datahub/pkg/schemamgt"
+	"prophetstor.com/alameda/pkg/database/common"
+	"prophetstor.com/alameda/pkg/database/influxdb"
+	"prophetstor.com/alameda/pkg/database/influxdb/schemas"
 	"strconv"
 )
 

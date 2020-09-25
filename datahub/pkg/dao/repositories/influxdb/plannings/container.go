@@ -9,15 +9,15 @@ import (
 	"github.com/golang/protobuf/ptypes/timestamp"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 
-	EntityInfluxPlanning "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/plannings"
-	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	Log "github.com/containers-ai/alameda/pkg/utils/log"
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
-	ApiPlannings "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/plannings"
-	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
+	EntityInfluxPlanning "prophetstor.com/alameda/datahub/pkg/dao/entities/influxdb/plannings"
+	RepoInflux "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb"
+	DatahubUtils "prophetstor.com/alameda/datahub/pkg/utils"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	Log "prophetstor.com/alameda/pkg/utils/log"
+	ApiCommon "prophetstor.com/api/datahub/common"
+	ApiPlannings "prophetstor.com/api/datahub/plannings"
+	ApiResources "prophetstor.com/api/datahub/resources"
 )
 
 var (

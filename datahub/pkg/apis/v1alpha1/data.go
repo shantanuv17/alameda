@@ -1,14 +1,14 @@
 package v1alpha1
 
 import (
-	DaoData "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/data"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/data"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/data"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiData "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	DaoData "prophetstor.com/alameda/datahub/pkg/dao/interfaces/data"
+	FormatRequest "prophetstor.com/alameda/datahub/pkg/formatconversion/requests/data"
+	FormatResponse "prophetstor.com/alameda/datahub/pkg/formatconversion/responses/data"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiData "prophetstor.com/api/datahub/data"
 )
 
 func (s *ServiceV1alpha1) ReadData(ctx context.Context, in *ApiData.ReadDataRequest) (*ApiData.ReadDataResponse, error) {

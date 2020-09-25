@@ -1,12 +1,12 @@
 package gpu
 
 import (
-	DaoGpu "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/gpu/influxdb"
-	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/common"
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
-	ApiGpu "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"
-	ApiPredictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
+	DaoGpu "prophetstor.com/alameda/datahub/pkg/dao/interfaces/gpu/influxdb"
+	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/responses/common"
+	ApiCommon "prophetstor.com/api/datahub/common"
+	ApiGpu "prophetstor.com/api/datahub/gpu"
+	ApiPredictions "prophetstor.com/api/datahub/predictions"
 )
 
 type GpuMetricExtended struct {
@@ -15,7 +15,7 @@ type GpuMetricExtended struct {
 
 func (n *GpuMetricExtended) ProduceMetrics() *ApiGpu.GpuMetric {
 	var (
-		metricDataChan  = make(chan ApiCommon.MetricData)
+		metricDataChan  = make(chan *ApiCommon.MetricData)
 		numOfGoroutines = 0
 
 		datahubGpuMetadata ApiGpu.GpuMetadata
@@ -44,7 +44,7 @@ func (n *GpuMetricExtended) ProduceMetrics() *ApiGpu.GpuMetric {
 
 	for i := 0; i < numOfGoroutines; i++ {
 		receivedMetricData := <-metricDataChan
-		datahubGpuMetric.MetricData = append(datahubGpuMetric.MetricData, &receivedMetricData)
+		datahubGpuMetric.MetricData = append(datahubGpuMetric.MetricData, receivedMetricData)
 	}
 
 	return &datahubGpuMetric
@@ -56,7 +56,7 @@ type GpuPredictionExtended struct {
 
 func (n *GpuPredictionExtended) ProducePredictions(metricType FormatEnum.GpuMetricType) *ApiGpu.GpuPrediction {
 	var (
-		metricDataChan = make(chan ApiPredictions.MetricData)
+		metricDataChan = make(chan *ApiPredictions.MetricData)
 
 		datahubGpuMetadata   ApiGpu.GpuMetadata
 		datahubGpuPrediction ApiGpu.GpuPrediction
@@ -82,40 +82,40 @@ func (n *GpuPredictionExtended) ProducePredictions(metricType FormatEnum.GpuMetr
 	receivedMetricData := <-metricDataChan
 	switch metricType {
 	case FormatEnum.TypeGpuDutyCycle:
-		datahubGpuPrediction.PredictedRawData = append(datahubGpuPrediction.PredictedRawData, &receivedMetricData)
+		datahubGpuPrediction.PredictedRawData = append(datahubGpuPrediction.PredictedRawData, receivedMetricData)
 		break
 	case FormatEnum.TypeGpuDutyCycleLowerBound:
-		datahubGpuPrediction.PredictedLowerboundData = append(datahubGpuPrediction.PredictedLowerboundData, &receivedMetricData)
+		datahubGpuPrediction.PredictedLowerboundData = append(datahubGpuPrediction.PredictedLowerboundData, receivedMetricData)
 		break
 	case FormatEnum.TypeGpuDutyCycleUpperBound:
-		datahubGpuPrediction.PredictedUpperboundData = append(datahubGpuPrediction.PredictedUpperboundData, &receivedMetricData)
+		datahubGpuPrediction.PredictedUpperboundData = append(datahubGpuPrediction.PredictedUpperboundData, receivedMetricData)
 		break
 	case FormatEnum.TypeGpuMemoryUsedBytes:
-		datahubGpuPrediction.PredictedRawData = append(datahubGpuPrediction.PredictedRawData, &receivedMetricData)
+		datahubGpuPrediction.PredictedRawData = append(datahubGpuPrediction.PredictedRawData, receivedMetricData)
 		break
 	case FormatEnum.TypeGpuMemoryUsedBytesLowerBound:
-		datahubGpuPrediction.PredictedLowerboundData = append(datahubGpuPrediction.PredictedLowerboundData, &receivedMetricData)
+		datahubGpuPrediction.PredictedLowerboundData = append(datahubGpuPrediction.PredictedLowerboundData, receivedMetricData)
 		break
 	case FormatEnum.TypeGpuMemoryUsedBytesUpperBound:
-		datahubGpuPrediction.PredictedUpperboundData = append(datahubGpuPrediction.PredictedUpperboundData, &receivedMetricData)
+		datahubGpuPrediction.PredictedUpperboundData = append(datahubGpuPrediction.PredictedUpperboundData, receivedMetricData)
 		break
 	case FormatEnum.TypeGpuPowerUsageMilliWatts:
-		datahubGpuPrediction.PredictedRawData = append(datahubGpuPrediction.PredictedRawData, &receivedMetricData)
+		datahubGpuPrediction.PredictedRawData = append(datahubGpuPrediction.PredictedRawData, receivedMetricData)
 		break
 	case FormatEnum.TypeGpuPowerUsageMilliWattsLowerBound:
-		datahubGpuPrediction.PredictedLowerboundData = append(datahubGpuPrediction.PredictedLowerboundData, &receivedMetricData)
+		datahubGpuPrediction.PredictedLowerboundData = append(datahubGpuPrediction.PredictedLowerboundData, receivedMetricData)
 		break
 	case FormatEnum.TypeGpuPowerUsageMilliWattsUpperBound:
-		datahubGpuPrediction.PredictedUpperboundData = append(datahubGpuPrediction.PredictedUpperboundData, &receivedMetricData)
+		datahubGpuPrediction.PredictedUpperboundData = append(datahubGpuPrediction.PredictedUpperboundData, receivedMetricData)
 		break
 	case FormatEnum.TypeGpuTemperatureCelsius:
-		datahubGpuPrediction.PredictedRawData = append(datahubGpuPrediction.PredictedRawData, &receivedMetricData)
+		datahubGpuPrediction.PredictedRawData = append(datahubGpuPrediction.PredictedRawData, receivedMetricData)
 		break
 	case FormatEnum.TypeGpuTemperatureCelsiusLowerBound:
-		datahubGpuPrediction.PredictedLowerboundData = append(datahubGpuPrediction.PredictedLowerboundData, &receivedMetricData)
+		datahubGpuPrediction.PredictedLowerboundData = append(datahubGpuPrediction.PredictedLowerboundData, receivedMetricData)
 		break
 	case FormatEnum.TypeGpuTemperatureCelsiusUpperBound:
-		datahubGpuPrediction.PredictedUpperboundData = append(datahubGpuPrediction.PredictedUpperboundData, &receivedMetricData)
+		datahubGpuPrediction.PredictedUpperboundData = append(datahubGpuPrediction.PredictedUpperboundData, receivedMetricData)
 		break
 	}
 

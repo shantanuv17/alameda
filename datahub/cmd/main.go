@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/containers-ai/alameda/cmd/app"
-	DatahubApp "github.com/containers-ai/alameda/datahub/cmd/app"
+	"prophetstor.com/alameda/cmd/app"
+	DatahubApp "prophetstor.com/alameda/datahub/cmd/app"
 )
 
 var (

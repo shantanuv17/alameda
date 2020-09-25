@@ -1,14 +1,14 @@
 package v1alpha1
 
 import (
-	DaoCluster "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/resources"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/resources"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	DaoCluster "prophetstor.com/alameda/datahub/pkg/dao/interfaces/clusterstatus"
+	FormatRequest "prophetstor.com/alameda/datahub/pkg/formatconversion/requests/resources"
+	FormatResponse "prophetstor.com/alameda/datahub/pkg/formatconversion/responses/resources"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiResources "prophetstor.com/api/datahub/resources"
 )
 
 func (s *ServiceV1alpha1) CreateApplications(ctx context.Context, in *ApiResources.CreateApplicationsRequest) (*status.Status, error) {
@@ -18,7 +18,7 @@ func (s *ServiceV1alpha1) CreateApplications(ctx context.Context, in *ApiResourc
 		return &status.Status{Code: int32(code.Code_OK)}, nil
 	}
 
-	requestExtended := FormatRequest.CreateApplicationsRequestExtended{CreateApplicationsRequest: *in}
+	requestExtended := FormatRequest.CreateApplicationsRequestExtended{CreateApplicationsRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

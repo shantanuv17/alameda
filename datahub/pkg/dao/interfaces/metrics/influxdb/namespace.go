@@ -3,12 +3,12 @@ package influxdb
 import (
 	"context"
 
-	DaoMetricTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics/types"
-	RepoInfluxMetric "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/metrics"
-	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	Utils "github.com/containers-ai/alameda/pkg/utils"
 	"github.com/pkg/errors"
+	DaoMetricTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/metrics/types"
+	RepoInfluxMetric "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb/metrics"
+	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	Utils "prophetstor.com/alameda/pkg/utils"
 )
 
 type NamespaceMetrics struct {

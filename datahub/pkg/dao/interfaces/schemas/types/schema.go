@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
+	"prophetstor.com/alameda/pkg/database/influxdb/schemas"
 )
 
 type SchemaDAO interface {

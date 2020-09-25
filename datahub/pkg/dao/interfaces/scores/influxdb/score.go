@@ -1,11 +1,11 @@
 package influxdb
 
 import (
-	EntityInfluxScore "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/scores"
-	DaoScore "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/scores/types"
-	RepoInfluxScore "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/scores"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	"github.com/pkg/errors"
+	EntityInfluxScore "prophetstor.com/alameda/datahub/pkg/dao/entities/influxdb/scores"
+	DaoScore "prophetstor.com/alameda/datahub/pkg/dao/interfaces/scores/types"
+	RepoInfluxScore "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb/scores"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
 )
 
 type Score struct {

@@ -1,15 +1,15 @@
 package common
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
-	ApiPredictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
 	"github.com/golang/protobuf/ptypes"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	FormatTypes "prophetstor.com/alameda/datahub/pkg/formatconversion/types"
+	ApiCommon "prophetstor.com/api/datahub/common"
+	ApiPredictions "prophetstor.com/api/datahub/predictions"
 )
 
-func ProduceMetricDataFromSamples(metricType ApiCommon.MetricType, samples []FormatTypes.Sample, MetricDataChan chan<- ApiCommon.MetricData) {
-	datahubMetricData := ApiCommon.MetricData{
+func ProduceMetricDataFromSamples(metricType ApiCommon.MetricType, samples []FormatTypes.Sample, MetricDataChan chan<- *ApiCommon.MetricData) {
+	datahubMetricData := &ApiCommon.MetricData{
 		MetricType: metricType,
 	}
 
@@ -27,8 +27,8 @@ func ProduceMetricDataFromSamples(metricType ApiCommon.MetricType, samples []For
 	MetricDataChan <- datahubMetricData
 }
 
-func ProducePredictionMetricDataFromSamples(metricType ApiCommon.MetricType, granularity int64, samples []FormatTypes.PredictionSample, MetricDataChan chan<- ApiPredictions.MetricData) {
-	datahubMetricData := ApiPredictions.MetricData{
+func ProducePredictionMetricDataFromSamples(metricType ApiCommon.MetricType, granularity int64, samples []FormatTypes.PredictionSample, MetricDataChan chan<- *ApiPredictions.MetricData) {
+	datahubMetricData := &ApiPredictions.MetricData{
 		MetricType:  metricType,
 		Granularity: granularity,
 	}

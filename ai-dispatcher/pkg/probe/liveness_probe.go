@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
 	"github.com/spf13/viper"
 	"github.com/streadway/amqp"
+	utils "prophetstor.com/alameda/ai-dispatcher/pkg/utils"
 )
 
 type LivenessProbeConfig struct {

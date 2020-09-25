@@ -3,9 +3,9 @@ package app
 import (
 	"os"
 
-	"github.com/containers-ai/alameda/ai-dispatcher/pkg/probe"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"prophetstor.com/alameda/ai-dispatcher/pkg/probe"
 )
 
 const (

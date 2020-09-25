@@ -21,12 +21,12 @@ import (
 	"fmt"
 	"time"
 
-	notifyingv1alpha1 "github.com/containers-ai/alameda/notifier/api/v1alpha1"
-	"github.com/containers-ai/alameda/notifier/channel"
-	notifier_utils "github.com/containers-ai/alameda/notifier/utils"
-	k8s_utils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
-	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
 	k8sapierrors "k8s.io/apimachinery/pkg/api/errors"
+	notifyingv1alpha1 "prophetstor.com/alameda/notifier/api/v1alpha1"
+	"prophetstor.com/alameda/notifier/channel"
+	notifier_utils "prophetstor.com/alameda/notifier/utils"
+	k8s_utils "prophetstor.com/alameda/pkg/utils/kubernetes"
+	logUtil "prophetstor.com/alameda/pkg/utils/log"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )

@@ -3,8 +3,8 @@ package probe
 import (
 	"os"
 
-	"github.com/containers-ai/alameda/pkg/utils/log"
 	"github.com/spf13/viper"
+	"prophetstor.com/alameda/pkg/utils/log"
 )
 
 var scope = log.RegisterScope("probe", "ai dispatcher health probe", 0)

@@ -7,17 +7,17 @@ import (
 	"strings"
 	"time"
 
-	"github.com/containers-ai/alameda/ai-dispatcher/pkg/config"
-	"github.com/containers-ai/alameda/ai-dispatcher/pkg/dispatcher"
-	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
-	alameda_app "github.com/containers-ai/alameda/cmd/app"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	"github.com/containers-ai/alameda/pkg/utils/log"
-	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"github.com/streadway/amqp"
+	"prophetstor.com/alameda/ai-dispatcher/pkg/config"
+	"prophetstor.com/alameda/ai-dispatcher/pkg/dispatcher"
+	"prophetstor.com/alameda/ai-dispatcher/pkg/metrics"
+	alameda_app "prophetstor.com/alameda/cmd/app"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	"prophetstor.com/alameda/pkg/utils/log"
+	datahub_resources "prophetstor.com/api/datahub/resources"
 )
 
 var (

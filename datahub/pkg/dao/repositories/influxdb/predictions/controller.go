@@ -1,18 +1,18 @@
 package predictions
 
 import (
-	EntityInfluxPrediction "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/predictions"
-	DaoPredictionTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/predictions/types"
-	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	Metadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
-	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
+	EntityInfluxPrediction "prophetstor.com/alameda/datahub/pkg/dao/entities/influxdb/predictions"
+	DaoPredictionTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/predictions/types"
+	RepoInflux "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb"
+	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	FormatTypes "prophetstor.com/alameda/datahub/pkg/formatconversion/types"
+	Metadata "prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	DatahubUtils "prophetstor.com/alameda/datahub/pkg/utils"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	InfluxModels "prophetstor.com/alameda/pkg/database/influxdb/models"
+	ApiResources "prophetstor.com/api/datahub/resources"
 	"strconv"
 )
 

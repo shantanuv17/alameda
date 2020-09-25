@@ -1,0 +1,26 @@
+// This file has messages to describe alameda scaler structure
+
+syntax = "proto3";
+
+package prophetstor.datahub.applications;
+
+import "datahub/common/rawdata.proto";
+import "datahub/schemas/types.proto";
+
+option go_package = "prophetstor.com/api/datahub/applications";
+
+/**
+ * Represents a dataset of private alameda scalers.
+ */
+message Application {
+    schemas.SchemaMeta       schema_meta      = 1;
+    repeated ApplicationData application_data = 2;
+}
+
+/**
+ * Represents a private alameda scaler.
+ */
+message ApplicationData {
+    string          measurement = 1;
+    common.ReadData read_data   = 2;
+}

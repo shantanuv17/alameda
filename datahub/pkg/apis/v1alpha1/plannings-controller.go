@@ -1,12 +1,12 @@
 package v1alpha1
 
 import (
-	DaoPlanning "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/plannings"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiPlannings "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/plannings"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	DaoPlanning "prophetstor.com/alameda/datahub/pkg/dao/interfaces/plannings"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiPlannings "prophetstor.com/api/datahub/plannings"
 )
 
 // CreateControllerPlannings add controller plannings information to database

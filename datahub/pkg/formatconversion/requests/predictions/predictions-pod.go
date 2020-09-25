@@ -1,18 +1,18 @@
 package predictions
 
 import (
-	DaoPredictionTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/predictions/types"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/common"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/metrics"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/resources"
-	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	Metadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	ApiPredictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
 	"github.com/golang/protobuf/ptypes"
+	DaoPredictionTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/predictions/types"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/common"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/metrics"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/resources"
+	FormatTypes "prophetstor.com/alameda/datahub/pkg/formatconversion/types"
+	Metadata "prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	ApiPredictions "prophetstor.com/api/datahub/predictions"
 )
 
 type CreatePodPredictionsRequestExtended struct {
-	ApiPredictions.CreatePodPredictionsRequest
+	*ApiPredictions.CreatePodPredictionsRequest
 }
 
 func (r *CreatePodPredictionsRequestExtended) Validate() error {

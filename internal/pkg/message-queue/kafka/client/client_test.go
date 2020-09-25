@@ -5,7 +5,7 @@ package client
 import (
 	"testing"
 
-	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
+	"prophetstor.com/alameda/internal/pkg/message-queue/kafka"
 )
 
 func TestClose(t *testing.T) {

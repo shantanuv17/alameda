@@ -3,14 +3,14 @@ package probe
 import (
 	"context"
 	"fmt"
-	RepoPromthMetric "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/prometheus/metrics"
-	InternalRabbitMQ "github.com/containers-ai/alameda/internal/pkg/message-queue/rabbitmq"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	Prometheus "github.com/containers-ai/alameda/pkg/database/prometheus"
 	"github.com/pkg/errors"
 	"github.com/streadway/amqp"
 	"os/exec"
+	RepoPromthMetric "prophetstor.com/alameda/datahub/pkg/dao/repositories/prometheus/metrics"
+	InternalRabbitMQ "prophetstor.com/alameda/internal/pkg/message-queue/rabbitmq"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	Prometheus "prophetstor.com/alameda/pkg/database/prometheus"
 	"strings"
 )
 

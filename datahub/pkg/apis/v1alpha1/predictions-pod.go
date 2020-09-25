@@ -1,28 +1,28 @@
 package v1alpha1
 
 import (
-	DaoPrediction "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/predictions"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/predictions"
-	predictions2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/predictions"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/resources"
-	K8sMetadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	DatahubUtils "github.com/containers-ai/alameda/datahub/pkg/utils"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
-	ApiPredictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
 	"os"
+	DaoPrediction "prophetstor.com/alameda/datahub/pkg/dao/interfaces/predictions"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/predictions"
+	predictions2 "prophetstor.com/alameda/datahub/pkg/formatconversion/responses/predictions"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/responses/resources"
+	K8sMetadata "prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	DatahubUtils "prophetstor.com/alameda/datahub/pkg/utils"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiCommon "prophetstor.com/api/datahub/common"
+	ApiPredictions "prophetstor.com/api/datahub/predictions"
 )
 
 // CreatePodPredictions add pod predictions information to database
 func (s *ServiceV1alpha1) CreatePodPredictions(ctx context.Context, in *ApiPredictions.CreatePodPredictionsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreatePodPredictions grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := predictions.CreatePodPredictionsRequestExtended{CreatePodPredictionsRequest: *in}
+	requestExtended := predictions.CreatePodPredictionsRequestExtended{CreatePodPredictionsRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

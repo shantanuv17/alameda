@@ -4,10 +4,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
 	"github.com/stretchr/testify/assert"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/types"
+	"prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
 )
 
 func TestAPPMerge(t *testing.T) {

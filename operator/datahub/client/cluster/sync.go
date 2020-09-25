@@ -3,10 +3,10 @@ package cluster
 import (
 	"fmt"
 
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
-	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/pkg/errors"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	k8sutils "prophetstor.com/alameda/pkg/utils/kubernetes"
+	datahub_resources "prophetstor.com/api/datahub/resources"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 

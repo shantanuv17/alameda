@@ -1,9 +1,9 @@
 package entities
 
 import (
-	"github.com/containers-ai/alameda/pkg/utils"
-	"github.com/containers-ai/alameda/pkg/utils/log"
 	"github.com/golang/protobuf/ptypes/timestamp"
+	"prophetstor.com/alameda/pkg/utils"
+	"prophetstor.com/alameda/pkg/utils/log"
 	"reflect"
 	"strconv"
 	"time"

@@ -1,10 +1,10 @@
 package v1alpha1
 
 import (
-	ApiRec "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	ApiRec "prophetstor.com/api/datahub/recommendations"
 )
 
 func (s *ServiceV1alpha1) CreateRecommendations(ctx context.Context, in *ApiRec.CreateRecommendationsRequest) (*status.Status, error) {

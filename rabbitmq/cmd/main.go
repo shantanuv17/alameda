@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	rabbit_app "github.com/containers-ai/alameda/rabbitmq/cmd/app"
+	rabbit_app "prophetstor.com/alameda/rabbitmq/cmd/app"
 )
 
 func main() {

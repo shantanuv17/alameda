@@ -1,14 +1,14 @@
 package v1alpha1
 
 import (
-	DaoCluster "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/resources"
-	resources2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/resources"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	DaoCluster "prophetstor.com/alameda/datahub/pkg/dao/interfaces/clusterstatus"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/resources"
+	resources2 "prophetstor.com/alameda/datahub/pkg/formatconversion/responses/resources"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiResources "prophetstor.com/api/datahub/resources"
 )
 
 // CreateAlamedaNodes add node information to database
@@ -19,7 +19,7 @@ func (s *ServiceV1alpha1) CreateNodes(ctx context.Context, in *ApiResources.Crea
 		return &status.Status{Code: int32(code.Code_OK)}, nil
 	}
 
-	requestExtended := resources.CreateNodesRequestExtended{CreateNodesRequest: *in}
+	requestExtended := resources.CreateNodesRequestExtended{CreateNodesRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

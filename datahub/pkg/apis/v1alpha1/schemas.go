@@ -1,15 +1,15 @@
 package v1alpha1
 
 import (
-	DaoSchema "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/schemas"
-	FormatRequest "github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/schemas"
-	FormatResponse "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/schemas"
-	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schemamgt"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiSchemas "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	DaoSchema "prophetstor.com/alameda/datahub/pkg/dao/interfaces/schemas"
+	FormatRequest "prophetstor.com/alameda/datahub/pkg/formatconversion/requests/schemas"
+	FormatResponse "prophetstor.com/alameda/datahub/pkg/formatconversion/responses/schemas"
+	SchemaMgt "prophetstor.com/alameda/datahub/pkg/schemamgt"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiSchemas "prophetstor.com/api/datahub/schemas"
 )
 
 func (s *ServiceV1alpha1) CreateSchemas(ctx context.Context, in *ApiSchemas.CreateSchemasRequest) (*status.Status, error) {

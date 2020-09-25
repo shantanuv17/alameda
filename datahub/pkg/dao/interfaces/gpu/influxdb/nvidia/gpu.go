@@ -1,11 +1,11 @@
 package nvidia
 
 import (
-	DaoGpu "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/gpu/influxdb"
-	RepoInfluxGpuMetric "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/gpu/nvidia/metrics"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	Log "github.com/containers-ai/alameda/pkg/utils/log"
+	DaoGpu "prophetstor.com/alameda/datahub/pkg/dao/interfaces/gpu/influxdb"
+	RepoInfluxGpuMetric "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb/gpu/nvidia/metrics"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	Log "prophetstor.com/alameda/pkg/utils/log"
 )
 
 var (

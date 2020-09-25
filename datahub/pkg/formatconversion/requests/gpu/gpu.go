@@ -1,13 +1,13 @@
 package gpu
 
 import (
-	DaoGpu "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/gpu/influxdb"
-	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	Log "github.com/containers-ai/alameda/pkg/utils/log"
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
-	ApiGpu "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"
 	"github.com/golang/protobuf/ptypes"
+	DaoGpu "prophetstor.com/alameda/datahub/pkg/dao/interfaces/gpu/influxdb"
+	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	FormatTypes "prophetstor.com/alameda/datahub/pkg/formatconversion/types"
+	Log "prophetstor.com/alameda/pkg/utils/log"
+	ApiCommon "prophetstor.com/api/datahub/common"
+	ApiGpu "prophetstor.com/api/datahub/gpu"
 )
 
 var (
@@ -15,7 +15,7 @@ var (
 )
 
 type CreateGpuPredictionsRequestExtended struct {
-	ApiGpu.CreateGpuPredictionsRequest
+	*ApiGpu.CreateGpuPredictionsRequest
 }
 
 func (r *CreateGpuPredictionsRequestExtended) Validate() error {

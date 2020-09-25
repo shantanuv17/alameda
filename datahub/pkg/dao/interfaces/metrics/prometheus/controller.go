@@ -4,16 +4,16 @@ import (
 	"context"
 	"strings"
 
-	EntityPromthMetric "github.com/containers-ai/alameda/datahub/pkg/dao/entities/prometheus/metrics"
-	DaoClusterStatusTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
-	DaoMetricTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics/types"
-	RepoPromthMetric "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/prometheus/metrics"
-	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	Prometheus "github.com/containers-ai/alameda/pkg/database/prometheus"
-	Utils "github.com/containers-ai/alameda/pkg/utils"
 	"github.com/pkg/errors"
 	"golang.org/x/sync/errgroup"
+	EntityPromthMetric "prophetstor.com/alameda/datahub/pkg/dao/entities/prometheus/metrics"
+	DaoClusterStatusTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
+	DaoMetricTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/metrics/types"
+	RepoPromthMetric "prophetstor.com/alameda/datahub/pkg/dao/repositories/prometheus/metrics"
+	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	Prometheus "prophetstor.com/alameda/pkg/database/prometheus"
+	Utils "prophetstor.com/alameda/pkg/utils"
 )
 
 type ControllerMetrics struct {

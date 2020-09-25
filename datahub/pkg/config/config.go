@@ -2,16 +2,16 @@ package config
 
 import (
 	"errors"
-	Keycodes "github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes"
-	Licenses "github.com/containers-ai/alameda/datahub/pkg/account-mgt/licenses"
-	Apis "github.com/containers-ai/alameda/datahub/pkg/apis"
-	Notifier "github.com/containers-ai/alameda/datahub/pkg/notifier"
-	InternalRabbitMQ "github.com/containers-ai/alameda/internal/pkg/message-queue/rabbitmq"
-	InternalWeaveScope "github.com/containers-ai/alameda/internal/pkg/weavescope"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	LDAP "github.com/containers-ai/alameda/pkg/database/ldap"
-	Prometheus "github.com/containers-ai/alameda/pkg/database/prometheus"
-	"github.com/containers-ai/alameda/pkg/utils/log"
+	Keycodes "prophetstor.com/alameda/datahub/pkg/account-mgt/keycodes"
+	Licenses "prophetstor.com/alameda/datahub/pkg/account-mgt/licenses"
+	Apis "prophetstor.com/alameda/datahub/pkg/apis"
+	Notifier "prophetstor.com/alameda/datahub/pkg/notifier"
+	InternalRabbitMQ "prophetstor.com/alameda/internal/pkg/message-queue/rabbitmq"
+	InternalWeaveScope "prophetstor.com/alameda/internal/pkg/weavescope"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	LDAP "prophetstor.com/alameda/pkg/database/ldap"
+	Prometheus "prophetstor.com/alameda/pkg/database/prometheus"
+	"prophetstor.com/alameda/pkg/utils/log"
 )
 
 const (

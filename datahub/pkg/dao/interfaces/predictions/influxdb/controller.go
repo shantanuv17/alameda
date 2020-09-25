@@ -1,9 +1,9 @@
 package influxdb
 
 import (
-	DaoPredictionTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/predictions/types"
-	RepoInfluxPrediction "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/predictions"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
+	DaoPredictionTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/predictions/types"
+	RepoInfluxPrediction "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb/predictions"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
 )
 
 type ControllerPredictions struct {

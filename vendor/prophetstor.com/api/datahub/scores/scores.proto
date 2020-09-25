@@ -1,0 +1,19 @@
+// This file has messages and services related to Containers.ai
+
+syntax = "proto3";
+
+package prophetstor.datahub.scores;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "prophetstor.com/api/datahub/scores";
+
+/**
+ * Represents a system score before and after pod scheduled on node
+ *
+ */
+message SimulatedSchedulingScore {
+    google.protobuf.Timestamp time         = 1;
+    double                    score_before = 2;
+    double                    score_after  = 3;
+}

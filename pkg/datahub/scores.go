@@ -2,8 +2,8 @@ package datahub
 
 import (
 	"context"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/scores"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	"prophetstor.com/api/datahub/scores"
 )
 
 func (p *Client) CreateSimulatedSchedulingScores(request *scores.CreateSimulatedSchedulingScoresRequest) (*status.Status, error) {

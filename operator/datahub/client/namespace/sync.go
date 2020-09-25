@@ -6,14 +6,14 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha2"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	k8SUtils "github.com/containers-ai/alameda/pkg/utils"
-	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 	corev1 "k8s.io/api/core/v1"
+	"prophetstor.com/alameda/datahub/pkg/entities"
+	autoscalingv1alpha2 "prophetstor.com/alameda/operator/apis/autoscaling/v1alpha2"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	k8SUtils "prophetstor.com/alameda/pkg/utils"
+	k8sutils "prophetstor.com/alameda/pkg/utils/kubernetes"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 

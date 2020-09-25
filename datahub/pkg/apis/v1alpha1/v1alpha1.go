@@ -1,8 +1,8 @@
 package v1alpha1
 
 import (
-	DatahubConfig "github.com/containers-ai/alameda/datahub/pkg/config"
-	Log "github.com/containers-ai/alameda/pkg/utils/log"
+	DatahubConfig "prophetstor.com/alameda/datahub/pkg/config"
+	Log "prophetstor.com/alameda/pkg/utils/log"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 

@@ -1,6 +1,6 @@
 package v1alpha1
 
-// autoscalingapi "github.com/containers-ai/alameda/operator/apis/autoscaling"
+// autoscalingapi "prophetstor.com/alameda/operator/apis/autoscaling"
 // runtime "k8s.io/apimachinery/pkg/runtime"
 // ctrl "sigs.k8s.io/controller-runtime"
 // "sigs.k8s.io/controller-runtime/pkg/webhook"
@@ -11,8 +11,6 @@ package v1alpha1
 // 		For(r).
 // 		Complete()
 // }
-
-// // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 
 // // +kubebuilder:webhook:path=/mutate-autoscaling-containers-ai-v1alpha1-alamedascaler,mutating=true,failurePolicy=fail,groups=autoscaling.containers.ai,resources=alamedascalers,verbs=create;update,versions=v1alpha1,name=malamedascaler.containers.ai
 

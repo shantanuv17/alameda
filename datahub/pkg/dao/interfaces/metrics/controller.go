@@ -1,11 +1,11 @@
 package metrics
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/config"
-	DaoClusterStatus "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus"
-	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics/influxdb"
-	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics/prometheus"
-	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics/types"
+	"prophetstor.com/alameda/datahub/pkg/config"
+	DaoClusterStatus "prophetstor.com/alameda/datahub/pkg/dao/interfaces/clusterstatus"
+	"prophetstor.com/alameda/datahub/pkg/dao/interfaces/metrics/influxdb"
+	"prophetstor.com/alameda/datahub/pkg/dao/interfaces/metrics/prometheus"
+	"prophetstor.com/alameda/datahub/pkg/dao/interfaces/metrics/types"
 )
 
 func NewControllerMetricsReaderDAO(config config.Config) types.ControllerMetricsDAO {

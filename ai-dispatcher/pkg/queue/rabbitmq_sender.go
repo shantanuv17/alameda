@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/containers-ai/alameda/ai-dispatcher/pkg/config"
-	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
-	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/spf13/viper"
 	"github.com/streadway/amqp"
+	"prophetstor.com/alameda/ai-dispatcher/pkg/config"
+	utils "prophetstor.com/alameda/ai-dispatcher/pkg/utils"
+	datahub_common "prophetstor.com/api/datahub/common"
 )
 
 type retry struct {

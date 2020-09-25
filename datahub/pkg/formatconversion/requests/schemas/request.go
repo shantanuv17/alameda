@@ -1,8 +1,8 @@
 package schemas
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/schemas/types"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
+	"prophetstor.com/alameda/datahub/pkg/dao/interfaces/schemas/types"
+	"prophetstor.com/api/datahub/schemas"
 )
 
 type CreateSchemasRequestExtended struct {

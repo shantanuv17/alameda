@@ -2,9 +2,9 @@ package weavescope
 
 import (
 	"fmt"
-	ApiWeavescope "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/weavescope"
 	"io/ioutil"
 	"net/http"
+	ApiWeavescope "prophetstor.com/api/datahub/weavescope"
 )
 
 func (w *WeaveScopeClient) ListWeaveScopeHosts(in *ApiWeavescope.ListWeaveScopeHostsRequest) (string, error) {

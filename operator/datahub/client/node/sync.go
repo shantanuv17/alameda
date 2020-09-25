@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	nodeinfo "github.com/containers-ai/alameda/operator/pkg/nodeinfo"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	k8sutils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
-	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/pkg/errors"
 	corev1 "k8s.io/api/core/v1"
+	"prophetstor.com/alameda/datahub/pkg/entities"
+	nodeinfo "prophetstor.com/alameda/operator/pkg/nodeinfo"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	k8sutils "prophetstor.com/alameda/pkg/utils/kubernetes"
+	datahub_resources "prophetstor.com/api/datahub/resources"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 

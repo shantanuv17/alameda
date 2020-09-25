@@ -1,10 +1,10 @@
 package v1alpha1
 
 import (
-	ApiPlannings "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/plannings"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	ApiPlannings "prophetstor.com/api/datahub/plannings"
 )
 
 func (s *ServiceV1alpha1) CreatePlannings(ctx context.Context, in *ApiPlannings.CreatePlanningsRequest) (*status.Status, error) {

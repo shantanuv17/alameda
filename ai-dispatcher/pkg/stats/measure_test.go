@@ -3,7 +3,7 @@ package stats
 import (
 	"testing"
 
-	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
+	datahub_common "prophetstor.com/api/datahub/common"
 )
 
 func TestMAPE(t *testing.T) {

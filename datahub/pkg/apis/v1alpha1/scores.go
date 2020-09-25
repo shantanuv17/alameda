@@ -1,15 +1,15 @@
 package v1alpha1
 
 import (
-	DaoScore "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/scores"
-	DaoScoreTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/scores/types"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/scores"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiScores "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/scores"
 	"github.com/golang/protobuf/ptypes"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	DaoScore "prophetstor.com/alameda/datahub/pkg/dao/interfaces/scores"
+	DaoScoreTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/scores/types"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/scores"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiScores "prophetstor.com/api/datahub/scores"
 )
 
 // CreateSimulatedSchedulingScores add simulated scheduling scores to database

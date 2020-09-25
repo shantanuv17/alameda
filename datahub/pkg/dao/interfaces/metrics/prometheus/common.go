@@ -3,11 +3,11 @@ package prometheus
 import (
 	"fmt"
 
-	DaoMetricTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics/types"
-	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	"github.com/containers-ai/alameda/pkg/utils/log"
-	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/pkg/errors"
+	DaoMetricTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/metrics/types"
+	"prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	"prophetstor.com/alameda/pkg/utils/log"
+	ApiResources "prophetstor.com/api/datahub/resources"
 )
 
 var (

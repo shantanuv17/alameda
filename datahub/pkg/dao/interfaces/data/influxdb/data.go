@@ -2,12 +2,12 @@ package influxdb
 
 import (
 	"errors"
-	DaoDataTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/data/types"
-	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schemamgt"
-	"github.com/containers-ai/alameda/pkg/database/common"
-	"github.com/containers-ai/alameda/pkg/database/influxdb"
-	InfluxSchema "github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
-	Log "github.com/containers-ai/alameda/pkg/utils/log"
+	DaoDataTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/data/types"
+	SchemaMgt "prophetstor.com/alameda/datahub/pkg/schemamgt"
+	"prophetstor.com/alameda/pkg/database/common"
+	"prophetstor.com/alameda/pkg/database/influxdb"
+	InfluxSchema "prophetstor.com/alameda/pkg/database/influxdb/schemas"
+	Log "prophetstor.com/alameda/pkg/utils/log"
 )
 
 var (

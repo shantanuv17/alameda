@@ -3,8 +3,8 @@ package dispatcher
 import (
 	"fmt"
 
-	"github.com/containers-ai/alameda/ai-dispatcher/pkg/config"
-	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
+	"prophetstor.com/alameda/ai-dispatcher/pkg/config"
+	utils "prophetstor.com/alameda/ai-dispatcher/pkg/utils"
 )
 
 func GetUnitScalerNSName(unit *config.Unit, rowValues []string, columns []string) (string, string, error) {

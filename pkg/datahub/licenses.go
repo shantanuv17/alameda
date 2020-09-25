@@ -2,8 +2,8 @@ package datahub
 
 import (
 	"context"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/licenses"
 	"github.com/golang/protobuf/ptypes/empty"
+	"prophetstor.com/api/datahub/licenses"
 )
 
 func (p *Client) GetLicense(request *empty.Empty) (*licenses.GetLicenseResponse, error) {

@@ -1,6 +1,6 @@
 version: "2"
 domain: containers.ai
-repo: github.com/containers-ai/alameda
+repo: prophetstor.com/alameda/notifier
 resources:
 - group: notifying
   version: v1alpha1

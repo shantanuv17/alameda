@@ -23,12 +23,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/containers-ai/alameda/pkg/utils"
-	"github.com/containers-ai/alameda/pkg/utils/log"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/validation/field"
+	"prophetstor.com/alameda/pkg/utils"
+	"prophetstor.com/alameda/pkg/utils/log"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
@@ -44,8 +44,6 @@ func (r *AlamedaNotificationChannel) SetupWebhookWithManager(mgr ctrl.Manager) e
 		For(r).
 		Complete()
 }
-
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 
 // +kubebuilder:webhook:path=/mutate-notifying-containers-ai-v1alpha1-alamedanotificationchannel,mutating=true,failurePolicy=fail,groups=notifying.containers.ai,resources=alamedanotificationchannels,verbs=create;update,versions=v1alpha1,name=malamedanotificationchannel.containers.ai
 

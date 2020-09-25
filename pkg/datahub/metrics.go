@@ -2,8 +2,8 @@ package datahub
 
 import (
 	"context"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	"prophetstor.com/api/datahub/metrics"
 )
 
 func (p *Client) CreateApplicationMetrics(request *metrics.CreateApplicationMetricsRequest) (*status.Status, error) {

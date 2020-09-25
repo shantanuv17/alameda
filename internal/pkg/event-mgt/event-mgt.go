@@ -1,9 +1,9 @@
 package eventmgt
 
 import (
-	RabbitMQ "github.com/containers-ai/alameda/internal/pkg/message-queue/rabbitmq"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
+	RabbitMQ "prophetstor.com/alameda/internal/pkg/message-queue/rabbitmq"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	ApiEvents "prophetstor.com/api/datahub/events"
 )
 
 var (

@@ -1,13 +1,13 @@
 package metrics
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
-	"github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	"github.com/containers-ai/alameda/pkg/database/common"
-	"github.com/containers-ai/alameda/pkg/database/influxdb"
-	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
+	"prophetstor.com/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
+	"prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	"prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	"prophetstor.com/alameda/pkg/database/common"
+	"prophetstor.com/alameda/pkg/database/influxdb"
+	"prophetstor.com/alameda/pkg/database/influxdb/schemas"
 )
 
 var aggregateFuncToInfluxDBFunc = map[common.AggregateFunction]influxdb.Functions{

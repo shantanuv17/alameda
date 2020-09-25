@@ -1,0 +1,88 @@
+
+---
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: mutating-webhook-configuration
+webhooks:
+- clientConfig:
+    caBundle: Cg==
+    service:
+      name: webhook-service
+      namespace: system
+      path: /mutate-notifying-containers-ai-v1alpha1-alamedanotificationchannel
+  failurePolicy: Fail
+  name: malamedanotificationchannel.containers.ai
+  rules:
+  - apiGroups:
+    - notifying.containers.ai
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - alamedanotificationchannels
+- clientConfig:
+    caBundle: Cg==
+    service:
+      name: webhook-service
+      namespace: system
+      path: /mutate-notifying-containers-ai-v1alpha1-alamedanotificationtopic
+  failurePolicy: Fail
+  name: malamedanotificationtopic.containers.ai
+  rules:
+  - apiGroups:
+    - notifying.containers.ai
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - alamedanotificationtopics
+
+---
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: validating-webhook-configuration
+webhooks:
+- clientConfig:
+    caBundle: Cg==
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-notifying-containers-ai-v1alpha1-alamedanotificationchannel
+  failurePolicy: Fail
+  name: valamedanotificationchannel.containers.ai
+  rules:
+  - apiGroups:
+    - notifying.containers.ai
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - alamedanotificationchannels
+- clientConfig:
+    caBundle: Cg==
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-notifying-containers-ai-v1alpha1-alamedanotificationtopic
+  failurePolicy: Fail
+  name: valamedanotificationtopic.containers.ai
+  rules:
+  - apiGroups:
+    - notifying.containers.ai
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - alamedanotificationtopics

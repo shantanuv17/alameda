@@ -1,8 +1,8 @@
 package scaler
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
+	"prophetstor.com/alameda/datahub/pkg/entities"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 

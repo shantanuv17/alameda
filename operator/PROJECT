@@ -1,6 +1,6 @@
 domain: containers.ai
 multigroup: true
-repo: github.com/containers-ai/alameda/operator
+repo: prophetstor.com/alameda/operator
 resources:
 - group: autoscaling
   kind: AlamedaScaler

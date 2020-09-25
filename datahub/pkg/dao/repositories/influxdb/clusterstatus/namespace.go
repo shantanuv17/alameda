@@ -1,13 +1,13 @@
 package clusterstatus
 
 import (
-	EntityInfluxCluster "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
-	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
-	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	InfluxModels "github.com/containers-ai/alameda/pkg/database/influxdb/models"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
+	EntityInfluxCluster "prophetstor.com/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
+	DaoClusterTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
+	RepoInflux "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	InfluxModels "prophetstor.com/alameda/pkg/database/influxdb/models"
 )
 
 type NamespaceRepository struct {

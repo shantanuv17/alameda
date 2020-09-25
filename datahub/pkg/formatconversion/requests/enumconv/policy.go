@@ -1,7 +1,7 @@
 package enumconv
 
 import (
-	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
+	ApiResources "prophetstor.com/api/datahub/resources"
 )
 
 const (

@@ -2,11 +2,11 @@ package schemamgt
 
 import (
 	"errors"
-	"github.com/containers-ai/alameda/pkg/database/common"
-	"github.com/containers-ai/alameda/pkg/database/influxdb"
-	"github.com/containers-ai/alameda/pkg/database/influxdb/models"
-	InfluxSchemas "github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
+	"prophetstor.com/alameda/pkg/database/common"
+	"prophetstor.com/alameda/pkg/database/influxdb"
+	"prophetstor.com/alameda/pkg/database/influxdb/models"
+	InfluxSchemas "prophetstor.com/alameda/pkg/database/influxdb/schemas"
 	"strconv"
 )
 

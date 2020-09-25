@@ -1,12 +1,12 @@
 package v1alpha1
 
 import (
-	DaoRecommendation "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/recommendations"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiRecommendations "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/recommendations"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	DaoRecommendation "prophetstor.com/alameda/datahub/pkg/dao/interfaces/recommendations"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiRecommendations "prophetstor.com/api/datahub/recommendations"
 )
 
 func (s *ServiceV1alpha1) CreateNodeRecommendations(ctx context.Context, in *ApiRecommendations.CreateNodeRecommendationsRequest) (*status.Status, error) {

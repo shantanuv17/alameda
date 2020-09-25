@@ -4,22 +4,20 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/containers-ai/alameda/datahub/pkg/apis/keycodes"
-	"github.com/containers-ai/alameda/datahub/pkg/apis/v1alpha1"
-	DatahubConfig "github.com/containers-ai/alameda/datahub/pkg/config"
-	"github.com/containers-ai/alameda/datahub/pkg/schemamgt"
-	OperatorAPIs "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha1"
-	"github.com/containers-ai/alameda/pkg/database/common"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
-	K8SUtils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
-	Log "github.com/containers-ai/alameda/pkg/utils/log"
-	DatahubV1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
-	DatahubKeycodes "github.com/containers-ai/api/datahub/keycodes"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
+	"prophetstor.com/alameda/datahub/pkg/apis/v1alpha1"
+	DatahubConfig "prophetstor.com/alameda/datahub/pkg/config"
+	"prophetstor.com/alameda/datahub/pkg/schemamgt"
+	OperatorAPIs "prophetstor.com/alameda/operator/apis/autoscaling/v1alpha1"
+	"prophetstor.com/alameda/pkg/database/common"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	"prophetstor.com/alameda/pkg/database/influxdb/schemas"
+	K8SUtils "prophetstor.com/alameda/pkg/utils/kubernetes"
+	Log "prophetstor.com/alameda/pkg/utils/log"
+	DatahubV1alpha1 "prophetstor.com/api/datahub"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
@@ -143,9 +141,6 @@ func (s *Server) newGRPCServer() (*grpc.Server, error) {
 func (s *Server) register(server *grpc.Server) {
 	v1alpha1Srv := v1alpha1.NewService(&s.Config, s.K8SClient)
 	DatahubV1alpha1.RegisterDatahubServiceServer(server, v1alpha1Srv)
-
-	keycodesSrv := keycodes.NewService(&s.Config)
-	DatahubKeycodes.RegisterKeycodesServiceServer(server, keycodesSrv)
 }
 
 func (s *Server) influxDatabaseCreation() {
@@ -223,7 +218,7 @@ func (s *Server) influxDatabaseDefaults() {
 	schema := schemaMgt.GetSchemas(schemas.Config, "tenancy", "tenant")[0]
 	tenant := schema.GetMeasurement("tenancy_tenant", schemas.MetricTypeUndefined, schemas.ResourceBoundaryUndefined, schemas.ResourceQuotaUndefined)
 	measurement := InfluxDB.NewMeasurement(schemas.DatabaseNameMap[schema.SchemaMeta.Scope], tenant, *s.Config.InfluxDB)
-	err := measurement.Write([]string{"name", "dummy"}, []*common.Row{{Time:nil, Values:[]string{"default", ""}}})
+	err := measurement.Write([]string{"name", "dummy"}, []*common.Row{{Time: nil, Values: []string{"default", ""}}})
 	if err != nil {
 		scope.Error(err.Error())
 	}

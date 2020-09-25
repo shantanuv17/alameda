@@ -5,18 +5,18 @@ import (
 	"sync"
 	"time"
 
-	"github.com/containers-ai/alameda/ai-dispatcher/consts"
-	"github.com/containers-ai/alameda/ai-dispatcher/pkg/metrics"
-	"github.com/containers-ai/alameda/ai-dispatcher/pkg/queue"
-	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
-	datahub_gpu "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"
-	datahub_predictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
 	"github.com/golang/protobuf/jsonpb"
 	"github.com/golang/protobuf/ptypes/duration"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/spf13/viper"
+	"prophetstor.com/alameda/ai-dispatcher/consts"
+	"prophetstor.com/alameda/ai-dispatcher/pkg/metrics"
+	"prophetstor.com/alameda/ai-dispatcher/pkg/queue"
+	utils "prophetstor.com/alameda/ai-dispatcher/pkg/utils"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	datahub_common "prophetstor.com/api/datahub/common"
+	datahub_gpu "prophetstor.com/api/datahub/gpu"
+	datahub_predictions "prophetstor.com/api/datahub/predictions"
 )
 
 type gpuModelJobSender struct {

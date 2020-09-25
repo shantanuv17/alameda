@@ -17,8 +17,8 @@ limitations under the License.
 package v1alpha2
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/entities"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"prophetstor.com/alameda/datahub/pkg/entities"
 )
 
 // +kubebuilder:validation:Enum=generic;kafka
@@ -165,9 +165,8 @@ type AlamedaScaler struct {
 	Status AlamedaScalerStatus `json:"status,omitempty"`
 }
 
-// +kubebuilder:object:root=true
-
 // AlamedaScalerList contains a list of AlamedaScaler
+// +kubebuilder:object:root=true
 type AlamedaScalerList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`

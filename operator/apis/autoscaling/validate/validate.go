@@ -1,7 +1,7 @@
 package validate
 
 import (
-	autoscalingapi "github.com/containers-ai/alameda/operator/apis/autoscaling"
+	autoscalingapi "prophetstor.com/alameda/operator/apis/autoscaling"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 

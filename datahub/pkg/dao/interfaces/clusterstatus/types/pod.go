@@ -1,12 +1,12 @@
 package types
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
-	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	"github.com/containers-ai/alameda/pkg/database/common"
-	"github.com/containers-ai/alameda/pkg/database/influxdb"
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/golang/protobuf/ptypes/timestamp"
+	"prophetstor.com/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
+	"prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	"prophetstor.com/alameda/pkg/database/common"
+	"prophetstor.com/alameda/pkg/database/influxdb"
+	ApiCommon "prophetstor.com/api/datahub/common"
 	"strings"
 )
 

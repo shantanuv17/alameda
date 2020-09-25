@@ -1,7 +1,7 @@
 package notifier
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/notifier/metrics"
+	"prophetstor.com/alameda/datahub/pkg/notifier/metrics"
 )
 
 type Registry struct {

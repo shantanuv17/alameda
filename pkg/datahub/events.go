@@ -2,8 +2,8 @@ package datahub
 
 import (
 	"context"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	"prophetstor.com/api/datahub/events"
 )
 
 func (p *Client) CreateEvents(request *events.CreateEventsRequest) (*status.Status, error) {

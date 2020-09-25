@@ -3,13 +3,13 @@ package keycodes
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/containers-ai/alameda/datahub/pkg/account-mgt/licenses"
-	ClusterStatusEntity "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
-	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	RepoClusterStatus "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"math"
+	"prophetstor.com/alameda/datahub/pkg/account-mgt/licenses"
+	ClusterStatusEntity "prophetstor.com/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
+	RepoInflux "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb"
+	RepoClusterStatus "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb/clusterstatus"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
 	"time"
 )
 

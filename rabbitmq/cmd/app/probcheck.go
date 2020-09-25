@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	config "github.com/containers-ai/alameda/rabbitmq"
+	config "prophetstor.com/alameda/rabbitmq"
 
 	"github.com/spf13/cobra"
 

@@ -2,10 +2,10 @@ package prometheus
 
 import (
 	"crypto/tls"
-	"github.com/containers-ai/alameda/pkg/utils/log"
 	"github.com/pkg/errors"
 	"io/ioutil"
 	"net/http"
+	"prophetstor.com/alameda/pkg/utils/log"
 	"time"
 )
 

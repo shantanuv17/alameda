@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/containers-ai/alameda/ai-dispatcher/pkg/config"
-	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
+	"prophetstor.com/alameda/ai-dispatcher/pkg/config"
+	datahub_common "prophetstor.com/api/datahub/common"
 )
 
 func GetJobID(unit *config.Unit, rowVals []string, columns []string,

@@ -1,7 +1,7 @@
 package requests
 
 import (
-	Log "github.com/containers-ai/alameda/pkg/utils/log"
+	Log "prophetstor.com/alameda/pkg/utils/log"
 )
 
 var (

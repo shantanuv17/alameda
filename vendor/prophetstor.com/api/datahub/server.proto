@@ -1,0 +1,429 @@
+// This file has messages and services related to Federator.ai
+
+syntax = "proto3";
+
+package prophetstor.datahub;
+
+import "datahub/applications/services.proto";
+import "datahub/data/services.proto";
+import "datahub/events/services.proto";
+import "datahub/gpu/services.proto";
+import "datahub/keycodes/services.proto";
+import "datahub/licenses/services.proto";
+import "datahub/metrics/services.proto";
+import "datahub/plannings/services.proto";
+import "datahub/predictions/services.proto";
+import "datahub/rawdata/services.proto";
+import "datahub/recommendations/services.proto";
+import "datahub/resources/services.proto";
+import "datahub/schemas/services.proto";
+import "datahub/scores/services.proto";
+import "datahub/weavescope/services.proto";
+import "google/protobuf/empty.proto";
+import "google/rpc/status.proto";
+
+option go_package = "prophetstor.com/api/datahub";
+
+// Service for providing data stored in the backend
+service DatahubService {
+    rpc CreateApps(applications.CreateApplicationsRequest)
+        returns (google.rpc.Status){}
+
+    rpc ListApps(applications.ListApplicationsRequest)
+        returns (applications.ListApplicationsResponse){}
+
+    rpc DeleteApps(applications.DeleteApplicationsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to read data based on alameda specific schemas
+    rpc ReadData(data.ReadDataRequest)
+        returns (data.ReadDataResponse){}
+
+    // Used to write data based on alameda specific schemas
+    rpc WriteData(data.WriteDataRequest)
+        returns (google.rpc.Status){}
+
+    // Used to delete data based on alameda specific schemas
+    rpc DeleteData(data.DeleteDataRequest)
+        returns (google.rpc.Status){}
+
+    // Used to write metadata based on alameda specific schemas
+    rpc WriteMeta(data.WriteMetaRequest)
+        returns (google.rpc.Status){}
+
+    // Used to create alameda specific events
+    rpc CreateEvents(events.CreateEventsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to list alameda specific events
+    rpc ListEvents(events.ListEventsRequest)
+        returns (events.ListEventsResponse){}
+
+    // Used to create GPU predictions
+    rpc CreateGpuPredictions(gpu.CreateGpuPredictionsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to list GPU need to be predicted
+    rpc ListGpus(gpu.ListGpusRequest)
+        returns (gpu.ListGpusResponse){}
+
+    // Used to list GPU metrics data
+    rpc ListGpuMetrics(gpu.ListGpuMetricsRequest)
+        returns (gpu.ListGpuMetricsResponse){}
+
+    // Used to list GPU predictions
+    rpc ListGpuPredictions(gpu.ListGpuPredictionsRequest)
+        returns (gpu.ListGpuPredictionsResponse){}
+
+    // Used to add a keycode
+    rpc AddKeycode(keycodes.AddKeycodeRequest)
+        returns (keycodes.AddKeycodeResponse){}
+
+    // Used to retrieve keycodes detailed information
+    rpc ListKeycodes(keycodes.ListKeycodesRequest)
+        returns (keycodes.ListKeycodesResponse){}
+
+    // Used to delete a keycode
+    rpc DeleteKeycode(keycodes.DeleteKeycodeRequest)
+        returns (google.rpc.Status){}
+
+    // Used to generate license registration data
+    rpc GenerateRegistrationData(google.protobuf.Empty)
+        returns (keycodes.GenerateRegistrationDataResponse){}
+
+    // Used to activate license signature data
+    rpc ActivateRegistrationData(keycodes.ActivateRegistrationDataRequest)
+        returns (google.rpc.Status){}
+
+    // Used to get datahub license information
+    rpc GetLicense(google.protobuf.Empty)
+        returns (licenses.GetLicenseResponse){}
+
+    rpc CreateMetrics(metrics.CreateMetricsRequest)
+        returns (google.rpc.Status){}
+
+    rpc CreatePodMetrics(metrics.CreatePodMetricsRequest)
+        returns (google.rpc.Status){}
+
+    rpc CreateControllerMetrics(metrics.CreateControllerMetricsRequest)
+        returns (google.rpc.Status){}
+
+    rpc CreateApplicationMetrics(metrics.CreateApplicationMetricsRequest)
+        returns (google.rpc.Status){}
+
+    rpc CreateNamespaceMetrics(metrics.CreateNamespaceMetricsRequest)
+        returns (google.rpc.Status){}
+
+    rpc CreateNodeMetrics(metrics.CreateNodeMetricsRequest)
+        returns (google.rpc.Status){}
+
+    rpc CreateClusterMetrics(metrics.CreateClusterMetricsRequest)
+        returns (google.rpc.Status){}
+
+    rpc ListMetrics(metrics.ListMetricsRequest)
+        returns (metrics.ListMetricsResponse){}
+
+    // Used to list pod metric data
+    rpc ListPodMetrics(metrics.ListPodMetricsRequest)
+        returns (metrics.ListPodMetricsResponse){}
+
+    // Used to list controller metric data
+    rpc ListControllerMetrics(metrics.ListControllerMetricsRequest)
+        returns (metrics.ListControllerMetricsResponse){}
+
+    // Used to list alameda scaler metric data
+    rpc ListApplicationMetrics(metrics.ListApplicationMetricsRequest)
+        returns (metrics.ListApplicationMetricsResponse){}
+
+    // Used to list namespace metric data
+    rpc ListNamespaceMetrics(metrics.ListNamespaceMetricsRequest)
+        returns (metrics.ListNamespaceMetricsResponse){}
+
+    // Used to list node metric data
+    rpc ListNodeMetrics(metrics.ListNodeMetricsRequest)
+        returns (metrics.ListNodeMetricsResponse){}
+
+    // Used to list cluster metric data
+    rpc ListClusterMetrics(metrics.ListClusterMetricsRequest)
+        returns (metrics.ListClusterMetricsResponse){}
+
+    // Used to check if datahub is still alive
+    rpc Ping(google.protobuf.Empty)
+        returns (google.rpc.Status){}
+
+    rpc CreatePlannings(plannings.CreatePlanningsRequest)
+        returns (google.rpc.Status){}
+
+    rpc CreatePodPlannings(plannings.CreatePodPlanningsRequest)
+        returns (google.rpc.Status){}
+
+    rpc CreateControllerPlannings(plannings.CreateControllerPlanningsRequest)
+        returns (google.rpc.Status){}
+
+    rpc CreateApplicationPlannings(plannings.CreateApplicationPlanningsRequest)
+        returns (google.rpc.Status){}
+
+    rpc CreateNamespacePlannings(plannings.CreateNamespacePlanningsRequest)
+        returns (google.rpc.Status){}
+
+    rpc CreateNodePlannings(plannings.CreateNodePlanningsRequest)
+        returns (google.rpc.Status){}
+
+    rpc CreateClusterPlannings(plannings.CreateClusterPlanningsRequest)
+        returns (google.rpc.Status){}
+
+    rpc ListPlannings(plannings.ListPlanningsRequest)
+        returns (plannings.ListPlanningsResponse){}
+
+    rpc ListPodPlannings(plannings.ListPodPlanningsRequest)
+        returns (plannings.ListPodPlanningsResponse){}
+
+    rpc ListControllerPlannings(plannings.ListControllerPlanningsRequest)
+        returns (plannings.ListControllerPlanningsResponse){}
+
+    rpc ListApplicationPlannings(plannings.ListApplicationPlanningsRequest)
+        returns (plannings.ListApplicationPlanningsResponse){}
+
+    rpc ListNamespacePlannings(plannings.ListNamespacePlanningsRequest)
+        returns (plannings.ListNamespacePlanningsResponse){}
+
+    rpc ListNodePlannings(plannings.ListNodePlanningsRequest)
+        returns (plannings.ListNodePlanningsResponse){}
+
+    rpc ListClusterPlannings(plannings.ListClusterPlanningsRequest)
+        returns (plannings.ListClusterPlanningsResponse){}
+
+    rpc CreatePredictions(predictions.CreatePredictionsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to create predictions of pods
+    rpc CreatePodPredictions(predictions.CreatePodPredictionsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to create predictions of controllers
+    rpc CreateControllerPredictions(predictions.CreateControllerPredictionsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to create predictions of alameda scalers
+    rpc CreateApplicationPredictions(predictions.CreateApplicationPredictionsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to create predictions of namespaces
+    rpc CreateNamespacePredictions(predictions.CreateNamespacePredictionsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to create predictions of nodes
+    rpc CreateNodePredictions(predictions.CreateNodePredictionsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to create predictions of clusters
+    rpc CreateClusterPredictions(predictions.CreateClusterPredictionsRequest)
+        returns (google.rpc.Status){}
+
+    rpc ListPredictions(predictions.ListPredictionsRequest)
+        returns (predictions.ListPredictionsResponse){}
+
+    // Used to list pod predictions
+    rpc ListPodPredictions(predictions.ListPodPredictionsRequest)
+        returns (predictions.ListPodPredictionsResponse){}
+
+    // Used to list controller predictions
+    rpc ListControllerPredictions(predictions.ListControllerPredictionsRequest)
+        returns (predictions.ListControllerPredictionsResponse){}
+
+    // Used to list alameda scaler predictions
+    rpc ListApplicationPredictions(predictions.ListApplicationPredictionsRequest)
+        returns (predictions.ListApplicationPredictionsResponse){}
+
+    // Used to list namespace predictions
+    rpc ListNamespacePredictions(predictions.ListNamespacePredictionsRequest)
+        returns (predictions.ListNamespacePredictionsResponse){}
+
+    // Used to list node predictions
+    rpc ListNodePredictions(predictions.ListNodePredictionsRequest)
+        returns (predictions.ListNodePredictionsResponse){}
+
+    // Used to list cluster predictions
+    rpc ListClusterPredictions(predictions.ListClusterPredictionsRequest)
+        returns (predictions.ListClusterPredictionsResponse){}
+
+    // Rawdata --------------------------------------------------
+    rpc ReadRawdata(rawdata.ReadRawdataRequest)
+        returns (rawdata.ReadRawdataResponse){}
+
+    rpc WriteRawdata(rawdata.WriteRawdataRequest)
+        returns (google.rpc.Status){}
+
+    rpc CreateRecommendations(recommendations.CreateRecommendationsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to create recommendations of pods
+    rpc CreatePodRecommendations(recommendations.CreatePodRecommendationsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to create recommendations of controllers
+    rpc CreateControllerRecommendations(recommendations.CreateControllerRecommendationsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to create recommendations of alameda scalers
+    rpc CreateApplicationRecommendations(recommendations.CreateApplicationRecommendationsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to create recommendations of namespaces
+    rpc CreateNamespaceRecommendations(recommendations.CreateNamespaceRecommendationsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to create recommendations of nodes
+    rpc CreateNodeRecommendations(recommendations.CreateNodeRecommendationsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to create recommendations of clusters
+    rpc CreateClusterRecommendations(recommendations.CreateClusterRecommendationsRequest)
+        returns (google.rpc.Status){}
+
+    rpc ListRecommendations(recommendations.ListRecommendationsRequest)
+        returns (recommendations.ListRecommendationsResponse){}
+
+    // Used to list pod recommenations
+    rpc ListPodRecommendations(recommendations.ListPodRecommendationsRequest)
+        returns (recommendations.ListPodRecommendationsResponse){}
+
+    // Used to list available pod recommenations
+    rpc ListAvailablePodRecommendations(recommendations.ListPodRecommendationsRequest)
+        returns (recommendations.ListPodRecommendationsResponse){}
+
+    // Used to list controller recommenations
+    rpc ListControllerRecommendations(recommendations.ListControllerRecommendationsRequest)
+        returns (recommendations.ListControllerRecommendationsResponse){}
+
+    // Used to list alameda scaler recommenations
+    rpc ListApplicationRecommendations(recommendations.ListApplicationRecommendationsRequest)
+        returns (recommendations.ListApplicationRecommendationsResponse){}
+
+    // Used to list namespace recommenations
+    rpc ListNamespaceRecommendations(recommendations.ListNamespaceRecommendationsRequest)
+        returns (recommendations.ListNamespaceRecommendationsResponse){}
+
+    // Used to list node recommenations
+    rpc ListNodeRecommendations(recommendations.ListNodeRecommendationsRequest)
+        returns (recommendations.ListNodeRecommendationsResponse){}
+
+    // Used to list cluster recommenations
+    rpc ListClusterRecommendations(recommendations.ListClusterRecommendationsRequest)
+        returns (recommendations.ListClusterRecommendationsResponse){}
+
+    // Used to add pods that need to be predicted
+    rpc CreatePods(resources.CreatePodsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to add controllers that need to be predicted
+    rpc CreateControllers(resources.CreateControllersRequest)
+        returns (google.rpc.Status){}
+
+    // Used to add alameda scalers that need to be predicted
+    rpc CreateApplications(resources.CreateApplicationsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to add namespaces that need to be predicted
+    rpc CreateNamespaces(resources.CreateNamespacesRequest)
+        returns (google.rpc.Status){}
+
+    // Used to add nodes that need to be predicted
+    rpc CreateNodes(resources.CreateNodesRequest)
+        returns (google.rpc.Status){}
+
+    // Used to add clusters that need to be predicted
+    rpc CreateClusters(resources.CreateClustersRequest)
+        returns (google.rpc.Status){}
+
+    // Used to list pods need to be predicted
+    rpc ListPods(resources.ListPodsRequest)
+        returns (resources.ListPodsResponse){}
+
+    // Used to list contollers need to be predicted
+    rpc ListControllers(resources.ListControllersRequest)
+        returns (resources.ListControllersResponse){}
+
+    // Used to list alameda scalers need to be predicted
+    rpc ListApplications(resources.ListApplicationsRequest)
+        returns (resources.ListApplicationsResponse){}
+
+    // Used to list namespaces need to be predicted
+    rpc ListNamespaces(resources.ListNamespacesRequest)
+        returns (resources.ListNamespacesResponse){}
+
+    // Used to list nodes' information
+    rpc ListNodes(resources.ListNodesRequest)
+        returns (resources.ListNodesResponse){}
+
+    // Used to list clusters' information
+    rpc ListClusters(resources.ListClustersRequest)
+        returns (resources.ListClustersResponse){}
+
+    // Used to stop generating predictions for the pods
+    rpc DeletePods(resources.DeletePodsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to stop generating predictions for the controllers
+    rpc DeleteControllers(resources.DeleteControllersRequest)
+        returns (google.rpc.Status){}
+
+    // Used to stop generating predictions for the applications
+    rpc DeleteApplications(resources.DeleteApplicationsRequest)
+        returns (google.rpc.Status){}
+
+    // Used to stop generating predictions for the namespaces
+    rpc DeleteNamespaces(resources.DeleteNamespacesRequest)
+        returns (google.rpc.Status){}
+
+    // Used to stop generating predictions for the nodes
+    rpc DeleteNodes(resources.DeleteNodesRequest)
+        returns (google.rpc.Status){}
+
+    // Used to stop generating predictions for the clusters
+    rpc DeleteClusters(resources.DeleteClustersRequest)
+        returns (google.rpc.Status){}
+
+    // Schemas --------------------------------------------------
+    rpc CreateSchemas(schemas.CreateSchemasRequest)
+        returns (google.rpc.Status){}
+
+    rpc ListSchemas(schemas.ListSchemasRequest)
+        returns (schemas.ListSchemasResponse){}
+
+    rpc DeleteSchemas(schemas.DeleteSchemasRequest)
+        returns (google.rpc.Status){}
+
+    // Scores --------------------------------------------------
+    rpc CreateSimulatedSchedulingScores(scores.CreateSimulatedSchedulingScoresRequest)
+        returns (google.rpc.Status){}
+
+    // Used to list system scores
+    rpc ListSimulatedSchedulingScores(scores.ListSimulatedSchedulingScoresRequest)
+        returns (scores.ListSimulatedSchedulingScoresResponse){}
+
+    // weave scope --------------------------------------------------
+    rpc ListWeaveScopeHosts(weavescope.ListWeaveScopeHostsRequest)
+        returns (weavescope.WeaveScopeResponse){}
+
+    rpc GetWeaveScopeHostDetails(weavescope.ListWeaveScopeHostsRequest)
+        returns (weavescope.WeaveScopeResponse){}
+
+    rpc ListWeaveScopePods(weavescope.ListWeaveScopePodsRequest)
+        returns (weavescope.WeaveScopeResponse){}
+
+    rpc GetWeaveScopePodDetails(weavescope.ListWeaveScopePodsRequest)
+        returns (weavescope.WeaveScopeResponse){}
+
+    rpc ListWeaveScopeContainers(weavescope.ListWeaveScopeContainersRequest)
+        returns (weavescope.WeaveScopeResponse){}
+
+    rpc ListWeaveScopeContainersByHostname(weavescope.ListWeaveScopeContainersRequest)
+        returns (weavescope.WeaveScopeResponse){}
+
+    rpc ListWeaveScopeContainersByImage(weavescope.ListWeaveScopeContainersRequest)
+        returns (weavescope.WeaveScopeResponse){}
+
+    rpc GetWeaveScopeContainerDetails(weavescope.ListWeaveScopeContainersRequest)
+        returns (weavescope.WeaveScopeResponse){}
+}

@@ -1,7 +1,7 @@
 package common
 
 import (
-	Common "github.com/containers-ai/api/common"
+	Common "prophetstor.com/api/datahub/common"
 	"time"
 )
 
@@ -79,8 +79,8 @@ const (
 )
 
 type Row struct {
-    Time   *time.Time
-    Values []string
+	Time   *time.Time
+	Values []string
 }
 
 type Group struct {

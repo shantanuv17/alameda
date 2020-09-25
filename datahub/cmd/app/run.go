@@ -3,9 +3,9 @@ package app
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/containers-ai/alameda/cmd/app"
-	"github.com/containers-ai/alameda/datahub"
 	"github.com/spf13/cobra"
+	"prophetstor.com/alameda/cmd/app"
+	"prophetstor.com/alameda/datahub"
 )
 
 const (

@@ -1,6 +1,7 @@
 package metadata
 
 import (
+	"context"
 	"fmt"
 	"sync"
 
@@ -184,13 +185,13 @@ func (ort *OwnerReferenceTracer) GetDeploymentOrDeploymentConfigOwningPod(pod co
 				ownerName := ownerRef.Name
 				switch ownerRef.Kind {
 				case "Deployment":
-					dep, err := ort.k8sClient.AppsV1().Deployments(searchingNamespace).Get(ownerName, meta_v1.GetOptions{})
+					dep, err := ort.k8sClient.AppsV1().Deployments(searchingNamespace).Get(context.TODO(), ownerName, meta_v1.GetOptions{})
 					if err != nil {
 						return nil, nil, errors.Errorf("get deployment owning pod %s/%s failed, %s", pod.Namespace, pod.Name, err.Error())
 					}
 					return dep, nil, nil
 				case "DeploymentConfig":
-					depConfig, err := ort.openshiftClientset.AppsV1().DeploymentConfigs(searchingNamespace).Get(ownerName, meta_v1.GetOptions{})
+					depConfig, err := ort.openshiftClientset.AppsV1().DeploymentConfigs(searchingNamespace).Get(context.TODO(), ownerName, meta_v1.GetOptions{})
 					if err != nil {
 						return nil, nil, errors.Errorf("get deployment owning pod %s/%s failed, %s", pod.Namespace, pod.Name, err.Error())
 					}
@@ -268,7 +269,7 @@ func (ort *OwnerReferenceTracer) getOwnerRefsOfResource(namespace, name string, 
 		Version:  gvk.Version,
 		Resource: fmt.Sprintf("namespaces/%s/%s", namespace, restMapping.Resource.Resource),
 	}
-	us, err := ort.k8sDynamicClient.Resource(gvr).Get(name, meta_v1.GetOptions{})
+	us, err := ort.k8sDynamicClient.Resource(gvr).Get(context.TODO(), name, meta_v1.GetOptions{})
 	if err != nil {
 		return ownerRefs, errors.Errorf("get owner references of resource %s in namespace %s failed: %s", gvr.String(), namespace, err.Error())
 	}

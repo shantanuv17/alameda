@@ -1,0 +1,33 @@
+// This file has messages related to read & write rawdata
+
+syntax = "proto3";
+
+package prophetstor.datahub.rawdata;
+
+import "datahub/common/rawdata.proto";
+import "datahub/common/types.proto";
+import "datahub/rawdata/types.proto";
+
+option go_package = "prophetstor.com/api/datahub/rawdata";
+
+/**
+ * Represents a rawdata whcih is read from datahub.
+ */
+message ReadRawdata {
+    Query                 query   = 1;
+    repeated string       columns = 2;
+    repeated common.Group groups  = 3;
+    string                rawdata = 4;
+}
+
+/**
+ * Represents a rawdata which will be written to datahub.
+ */
+message WriteRawdata {
+    string                     database     = 1;
+    string                     table        = 2;
+    repeated string            columns      = 3;
+    repeated common.Row        rows         = 4;
+    repeated common.ColumnType column_types = 5;
+    repeated common.DataType   data_types   = 6;
+}

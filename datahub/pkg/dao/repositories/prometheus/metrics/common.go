@@ -1,7 +1,7 @@
 package metrics
 
 import (
-	"github.com/containers-ai/alameda/pkg/utils/log"
+	"prophetstor.com/alameda/pkg/utils/log"
 )
 
 var (

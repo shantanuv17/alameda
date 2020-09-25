@@ -1,20 +1,20 @@
 package common
 
 import (
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
-	Common "github.com/containers-ai/api/common"
 	"github.com/golang/protobuf/ptypes"
+	ApiCommon "prophetstor.com/api/datahub/common"
+	Common "prophetstor.com/api/datahub/common"
 	"time"
 )
 
 type Function struct {
-    Type              FunctionType
-    Fields            []string
-    Tags              []string
-    Target            string
-    RegularExpression string
-    Unit              string
-    Number            int64
+	Type              FunctionType
+	Fields            []string
+	Tags              []string
+	Target            string
+	RegularExpression string
+	Unit              string
+	Number            int64
 }
 
 type Into struct {
@@ -52,9 +52,9 @@ type QueryCondition struct {
 
 func NewQueryCondition(days, hours, seconds, steps int) *QueryCondition {
 	totalSeconds := (days * 24 * 60 * 60) + (hours * 60) + seconds
-	endTime      := time.Now()
-	startTime    := endTime.Add(time.Duration(-totalSeconds) * time.Second)
-	duration     := time.Duration(steps) * time.Second
+	endTime := time.Now()
+	startTime := endTime.Add(time.Duration(-totalSeconds) * time.Second)
+	duration := time.Duration(steps) * time.Second
 
 	queryCondition := &QueryCondition{
 		StartTime:                 &startTime,
@@ -127,12 +127,12 @@ func BuildQueryCondition(condition *Common.QueryCondition) QueryCondition {
 	}
 
 	queryCondition = QueryCondition{
-		StartTime:      queryStartTime,
-		EndTime:        queryEndTime,
-		Timeout:        queryTimeout,
-		StepTime:       queryStepTime,
-		TimestampOrder: queryTimestampOrder,
-		Limit:          queryLimit,
+		StartTime:                 queryStartTime,
+		EndTime:                   queryEndTime,
+		Timeout:                   queryTimeout,
+		StepTime:                  queryStepTime,
+		TimestampOrder:            queryTimestampOrder,
+		Limit:                     queryLimit,
 		AggregateOverTimeFunction: aggregateFunc,
 	}
 

@@ -4,7 +4,7 @@ import (
 	"errors"
 	"net/url"
 
-	datahubutils "github.com/containers-ai/alameda/operator/pkg/utils/datahub"
+	datahubutils "prophetstor.com/alameda/operator/pkg/utils/datahub"
 )
 
 type retry struct {

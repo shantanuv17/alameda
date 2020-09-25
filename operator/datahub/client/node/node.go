@@ -1,11 +1,11 @@
 package node
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	"github.com/containers-ai/alameda/operator/datahub/client"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/pkg/errors"
+	"prophetstor.com/alameda/datahub/pkg/entities"
+	"prophetstor.com/alameda/operator/datahub/client"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	datahub_resources "prophetstor.com/api/datahub/resources"
 )
 
 // providerID: aws:///us-west-2a/i-0769ec8570198bf4b --> <provider_raw>//<region>//<instance_id>
@@ -35,8 +35,7 @@ func (repo *AlamedaNodeRepository) DeleteNodes(arg interface{}) error {
 	objMeta := []*datahub_resources.ObjectMeta{}
 	if nodes, ok := arg.([]*datahub_resources.Node); ok {
 		for _, node := range nodes {
-			copyNode := *node
-			objMeta = append(objMeta, copyNode.ObjectMeta)
+			objMeta = append(objMeta, (*node).ObjectMeta)
 		}
 	}
 	if meta, ok := arg.([]*datahub_resources.ObjectMeta); ok {

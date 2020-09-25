@@ -1,10 +1,10 @@
 package types
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
-	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	"github.com/containers-ai/alameda/pkg/database/common"
-	"github.com/containers-ai/alameda/pkg/database/influxdb"
+	"prophetstor.com/alameda/datahub/pkg/dao/entities/influxdb/clusterstatus"
+	"prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	"prophetstor.com/alameda/pkg/database/common"
+	"prophetstor.com/alameda/pkg/database/influxdb"
 )
 
 type ClusterDAO interface {

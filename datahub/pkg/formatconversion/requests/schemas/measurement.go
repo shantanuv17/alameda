@@ -1,8 +1,8 @@
 package schemas
 
 import (
-	InfluxSchema "github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
-	ApiSchema "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
+	InfluxSchema "prophetstor.com/alameda/pkg/database/influxdb/schemas"
+	ApiSchema "prophetstor.com/api/datahub/schemas"
 )
 
 func NewMeasurement(measurement *ApiSchema.Measurement) *InfluxSchema.Measurement {

@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	DatahubV1alpha1 "github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/pkg/errors"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/grpc"
+	DatahubV1alpha1 "prophetstor.com/api/datahub"
 )
 
 type LivenessProbeConfig struct {

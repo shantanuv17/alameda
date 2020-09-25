@@ -2,8 +2,8 @@ package datahub
 
 import (
 	"context"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/plannings"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	"prophetstor.com/api/datahub/plannings"
 )
 
 func (p *Client) CreateApplicationPlannings(request *plannings.CreateApplicationPlanningsRequest) (*status.Status, error) {

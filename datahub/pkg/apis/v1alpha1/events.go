@@ -1,11 +1,11 @@
 package v1alpha1
 
 import (
-	EventMgt "github.com/containers-ai/alameda/internal/pkg/event-mgt"
-	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	EventMgt "prophetstor.com/alameda/internal/pkg/event-mgt"
+	ApiEvents "prophetstor.com/api/datahub/events"
 )
 
 func (s *ServiceV1alpha1) CreateEvents(ctx context.Context, in *ApiEvents.CreateEventsRequest) (*status.Status, error) {

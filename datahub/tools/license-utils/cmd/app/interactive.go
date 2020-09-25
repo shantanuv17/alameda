@@ -2,12 +2,12 @@ package app
 
 import (
 	"fmt"
-	Keycodes "github.com/containers-ai/alameda/datahub/tools/license-utils/pkg/keycodes"
-	Setup "github.com/containers-ai/alameda/datahub/tools/license-utils/pkg/setup"
-	Utils "github.com/containers-ai/alameda/datahub/tools/license-utils/pkg/utils"
 	"github.com/manifoldco/promptui"
 	"github.com/spf13/cobra"
 	"os"
+	Keycodes "prophetstor.com/alameda/datahub/tools/license-utils/pkg/keycodes"
+	Setup "prophetstor.com/alameda/datahub/tools/license-utils/pkg/setup"
+	Utils "prophetstor.com/alameda/datahub/tools/license-utils/pkg/utils"
 )
 
 var (

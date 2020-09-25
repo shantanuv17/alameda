@@ -1,7 +1,7 @@
 package datahub
 
 import (
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
+	"prophetstor.com/api/datahub/data"
 	"reflect"
 )
 

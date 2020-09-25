@@ -1,14 +1,14 @@
 package events
 
 import (
-	EntityInfluxEvent "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/events"
-	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	Log "github.com/containers-ai/alameda/pkg/utils/log"
-	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"github.com/golang/protobuf/ptypes"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
+	EntityInfluxEvent "prophetstor.com/alameda/datahub/pkg/dao/entities/influxdb/events"
+	RepoInflux "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	Log "prophetstor.com/alameda/pkg/utils/log"
+	ApiEvents "prophetstor.com/api/datahub/events"
 	"time"
 )
 

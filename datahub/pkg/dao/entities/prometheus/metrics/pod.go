@@ -1,7 +1,7 @@
 package metrics
 
 import (
-	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
+	FormatTypes "prophetstor.com/alameda/datahub/pkg/formatconversion/types"
 )
 
 type PodCPUUsageMillicoresEntity struct {

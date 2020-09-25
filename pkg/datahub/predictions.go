@@ -2,8 +2,8 @@ package datahub
 
 import (
 	"context"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	"prophetstor.com/api/datahub/predictions"
 )
 
 func (p *Client) CreateApplicationPredictions(request *predictions.CreateApplicationPredictionsRequest) (*status.Status, error) {

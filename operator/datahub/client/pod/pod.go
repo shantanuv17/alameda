@@ -3,11 +3,11 @@ package pod
 import (
 	"context"
 
-	"github.com/containers-ai/alameda/operator/datahub/client"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
-	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/pkg/errors"
+	"prophetstor.com/alameda/operator/datahub/client"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	logUtil "prophetstor.com/alameda/pkg/utils/log"
+	datahub_resources "prophetstor.com/api/datahub/resources"
 )
 
 var (

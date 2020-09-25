@@ -1,0 +1,44 @@
+// This file has messages related to the request of creating, listing deleting alameda scaler
+
+syntax = "proto3";
+
+package prophetstor.datahub.applications;
+
+import "datahub/applications/applications.proto";
+import "datahub/applications/types.proto";
+import "datahub/schemas/types.proto";
+import "google/rpc/status.proto";
+
+option go_package = "prophetstor.com/api/datahub/applications";
+
+/**
+ * Represents a request for adding alameda scalers that need to be predicted.
+ */
+message CreateApplicationsRequest {
+    schemas.SchemaMeta        schema_meta  = 1;
+    repeated WriteApplication applications = 2;
+}
+
+/**
+ * Represents a request for listing alameda scalers that need to be predicted.
+ */
+message ListApplicationsRequest {
+    schemas.SchemaMeta       schema_meta  = 1;
+    repeated ReadApplication applications = 2;
+}
+
+/**
+ * Represents a response for a listing alameda scalers request.
+ */
+message ListApplicationsResponse {
+    google.rpc.Status status       = 1;
+    Application       applications = 2;
+}
+
+/**
+ * Represents a request for stopping predicting alameda sclaers.
+ */
+message DeleteApplicationsRequest {
+    schemas.SchemaMeta         schema_meta  = 1;
+    repeated DeleteApplication applications = 2;
+}

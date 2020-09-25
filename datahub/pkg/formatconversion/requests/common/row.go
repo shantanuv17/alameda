@@ -1,9 +1,9 @@
 package common
 
 import (
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/golang/protobuf/ptypes"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	"prophetstor.com/api/datahub/common"
 )
 
 func NewRows(rows []*common.Row) []*DBCommon.Row {

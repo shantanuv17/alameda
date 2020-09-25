@@ -1,12 +1,12 @@
 package metrics
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes"
-	"github.com/containers-ai/alameda/datahub/pkg/schemamgt"
-	"github.com/containers-ai/alameda/pkg/database/common"
-	"github.com/containers-ai/alameda/pkg/database/influxdb"
-	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
+	"prophetstor.com/alameda/datahub/pkg/account-mgt/keycodes"
+	"prophetstor.com/alameda/datahub/pkg/schemamgt"
+	"prophetstor.com/alameda/pkg/database/common"
+	"prophetstor.com/alameda/pkg/database/influxdb"
+	"prophetstor.com/alameda/pkg/database/influxdb/schemas"
+	"prophetstor.com/api/datahub/events"
 	"strconv"
 	"time"
 )

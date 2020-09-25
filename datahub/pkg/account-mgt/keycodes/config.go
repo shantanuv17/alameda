@@ -1,8 +1,8 @@
 package keycodes
 
 import (
-	"github.com/containers-ai/alameda/pkg/database/influxdb"
-	"github.com/containers-ai/alameda/pkg/database/ldap"
+	"prophetstor.com/alameda/pkg/database/influxdb"
+	"prophetstor.com/alameda/pkg/database/ldap"
 )
 
 const (

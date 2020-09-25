@@ -2,11 +2,11 @@ package utils
 
 import (
 	"encoding/csv"
-	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	Log "github.com/containers-ai/alameda/pkg/utils/log"
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"os"
+	RepoInflux "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb"
+	Log "prophetstor.com/alameda/pkg/utils/log"
+	ApiCommon "prophetstor.com/api/datahub/common"
 	"strconv"
 	"time"
 )

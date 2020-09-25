@@ -1,20 +1,20 @@
 package v1alpha1
 
 import (
-	DaoMetrics "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/metrics"
-	metrics2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/metrics"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiMetrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	DaoMetrics "prophetstor.com/alameda/datahub/pkg/dao/interfaces/metrics"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/metrics"
+	metrics2 "prophetstor.com/alameda/datahub/pkg/formatconversion/responses/metrics"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiMetrics "prophetstor.com/api/datahub/metrics"
 )
 
 func (s *ServiceV1alpha1) CreateControllerMetrics(ctx context.Context, in *ApiMetrics.CreateControllerMetricsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateControllerMetrics grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := metrics.CreateControllerMetricsRequestExtended{CreateControllerMetricsRequest: *in}
+	requestExtended := metrics.CreateControllerMetricsRequestExtended{CreateControllerMetricsRequest: in}
 	if err := requestExtended.Validate(); err != nil {
 		return &status.Status{
 			Code:    int32(code.Code_INVALID_ARGUMENT),
@@ -66,7 +66,7 @@ func (s *ServiceV1alpha1) ListControllerMetrics(ctx context.Context, in *ApiMetr
 	datahubControllerMetrics := make([]*ApiMetrics.ControllerMetric, len(metricMap.MetricMap))
 	for _, metric := range metricMap.MetricMap {
 		m := metrics2.ControllerMetricExtended{ControllerMetric: *metric}.ProduceMetrics()
-		datahubControllerMetrics[i] = &m
+		datahubControllerMetrics[i] = m
 		i++
 	}
 

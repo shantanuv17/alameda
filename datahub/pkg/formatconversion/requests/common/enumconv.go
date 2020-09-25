@@ -1,7 +1,7 @@
 package common
 
 import (
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
+	"prophetstor.com/api/datahub/common"
 )
 
 var FunctionValueMap = map[string]common.FunctionType{

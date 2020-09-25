@@ -2,8 +2,8 @@ package datahub
 
 import (
 	"context"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	"prophetstor.com/api/datahub/schemas"
 )
 
 func (p *Client) CreateSchemas(request *schemas.CreateSchemasRequest) (*status.Status, error) {

@@ -1,10 +1,10 @@
 package metrics
 
 import (
-	DaoMetricTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics/types"
-	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
+	DaoMetricTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/metrics/types"
+	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	FormatTypes "prophetstor.com/alameda/datahub/pkg/formatconversion/types"
+	"prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
 )
 
 // ControllerCPUUsageMillicoresEntity Encapsulate controller cpu usage millicores entity

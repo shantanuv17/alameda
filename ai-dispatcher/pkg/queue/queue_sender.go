@@ -1,9 +1,9 @@
 package queue
 
 import (
-	"github.com/containers-ai/alameda/ai-dispatcher/pkg/config"
-	"github.com/containers-ai/alameda/pkg/utils/log"
-	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
+	"prophetstor.com/alameda/ai-dispatcher/pkg/config"
+	"prophetstor.com/alameda/pkg/utils/log"
+	datahub_common "prophetstor.com/api/datahub/common"
 )
 
 type QueueSender interface {

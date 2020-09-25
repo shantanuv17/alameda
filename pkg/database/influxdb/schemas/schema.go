@@ -1,7 +1,7 @@
 package schemas
 
 import (
-	"github.com/containers-ai/alameda/pkg/utils/log"
+	"prophetstor.com/alameda/pkg/utils/log"
 	"strings"
 )
 
@@ -10,8 +10,8 @@ var (
 )
 
 type Schema struct {
-    SchemaMeta   *SchemaMeta
-    Measurements []*Measurement
+	SchemaMeta   *SchemaMeta
+	Measurements []*Measurement
 }
 
 func NewSchema(scope Scope, category, schemaType string) *Schema {

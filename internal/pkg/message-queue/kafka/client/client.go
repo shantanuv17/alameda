@@ -11,7 +11,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/containers-ai/alameda/internal/pkg/message-queue/kafka"
+	"prophetstor.com/alameda/internal/pkg/message-queue/kafka"
 
 	"github.com/Shopify/sarama"
 )

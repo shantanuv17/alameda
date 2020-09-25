@@ -3,8 +3,8 @@ package keycodes
 import (
 	"encoding/base64"
 	"encoding/json"
-	Errors "github.com/containers-ai/alameda/internal/pkg/errors"
 	"os/exec"
+	Errors "prophetstor.com/alameda/internal/pkg/errors"
 	"strings"
 )
 

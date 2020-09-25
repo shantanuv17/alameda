@@ -20,8 +20,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 type AlamedaSubject struct {
 	Kind       string `json:"kind,omitempty"`
 	Namespace  string `json:"namespace,omitempty"`
@@ -53,8 +51,6 @@ type AlamedaEmailChannel struct {
 
 // AlamedaNotificationTopicSpec defines the desired state of AlamedaNotificationTopic
 type AlamedaNotificationTopicSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
 	Disabled bool            `json:"disabled,omitempty"`
 	Topics   []*AlamedaTopic `json:"topics,"`
 	Channel  *AlamedaChannel `json:"channel,"`
@@ -70,8 +66,6 @@ type AlamedaChannelCondition struct {
 
 // AlamedaNotificationTopicStatus defines the observed state of AlamedaNotificationTopic
 type AlamedaNotificationTopicStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
 	ChannelCondictions []*AlamedaChannelCondition `json:"channelConditions,"`
 }
 

@@ -1,21 +1,21 @@
 package v1alpha1
 
 import (
-	DaoPrediction "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/predictions"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/predictions"
-	predictions2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/predictions"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiPredictions "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/predictions"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	DaoPrediction "prophetstor.com/alameda/datahub/pkg/dao/interfaces/predictions"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/predictions"
+	predictions2 "prophetstor.com/alameda/datahub/pkg/formatconversion/responses/predictions"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiPredictions "prophetstor.com/api/datahub/predictions"
 )
 
 // CreateNodePredictions add node predictions information to database
 func (s *ServiceV1alpha1) CreateNodePredictions(ctx context.Context, in *ApiPredictions.CreateNodePredictionsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateNodePredictions grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := predictions.CreateNodePredictionsRequestExtended{CreateNodePredictionsRequest: *in}
+	requestExtended := predictions.CreateNodePredictionsRequestExtended{CreateNodePredictionsRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

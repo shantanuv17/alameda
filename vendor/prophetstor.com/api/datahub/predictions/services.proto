@@ -1,0 +1,195 @@
+// This file has messages related to predictions of containers, pods, and nodes
+
+syntax = "proto3";
+
+package prophetstor.datahub.predictions;
+
+import "datahub/common/metrics.proto";
+import "datahub/common/queries.proto";
+import "datahub/predictions/predictions.proto";
+import "datahub/predictions/types.proto";
+import "datahub/resources/metadata.proto";
+import "datahub/schemas/types.proto";
+import "google/rpc/status.proto";
+
+option go_package = "prophetstor.com/api/datahub/predictions";
+
+/**
+ * Represents a request for creating predictions of containers' metric data belonging to a pod.
+ */
+message CreatePodPredictionsRequest {
+    repeated PodPrediction pod_predictions = 1;
+}
+
+/**
+ * Represents a request for creating predictions of controllers' metric data.
+ */
+message CreateControllerPredictionsRequest {
+    repeated ControllerPrediction controller_predictions = 1;
+}
+
+/**
+ * Represents a request for creating predictions of alameda scalers' metric data.
+ */
+message CreateApplicationPredictionsRequest {
+    repeated ApplicationPrediction application_predictions = 1;
+}
+
+/**
+ * Represents a request for creating predictions of namespaces' metric data.
+ */
+message CreateNamespacePredictionsRequest {
+    repeated NamespacePrediction namespace_predictions = 1;
+}
+
+/**
+ * Represents a request for creating predictions nodes' metric data.
+ */
+message CreateNodePredictionsRequest {
+    repeated NodePrediction node_predictions = 1;
+}
+
+/**
+ * Represents a request for creating predictions clusters' metric data.
+ */
+message CreateClusterPredictionsRequest {
+    repeated ClusterPrediction cluster_predictions = 1;
+}
+
+/**
+ * Represents a request for listing predictions of pods.
+ */
+message ListPodPredictionsRequest {
+    common.QueryCondition         query_condition = 1;
+    repeated resources.ObjectMeta object_meta     = 2;
+    repeated common.MetricType    metric_types    = 3;
+    int64                         granularity     = 4;
+    int64                         fill_days       = 5;
+    string                        model_id        = 6;
+    string                        prediction_id   = 7;
+}
+
+/**
+ * Represents a response for a listing predictions of pods request.
+ */
+message ListPodPredictionsResponse {
+    google.rpc.Status      status          = 1;
+    repeated PodPrediction pod_predictions = 2;
+}
+
+/**
+ * Represents a request for listing predictions of controllers.
+ */
+message ListControllerPredictionsRequest {
+    common.QueryCondition         query_condition = 1;
+    repeated resources.ObjectMeta object_meta     = 2;
+    repeated common.MetricType    metric_types    = 3;
+    resources.Kind                kind            = 4;
+    int64                         granularity     = 5;
+    string                        model_id        = 6;
+    string                        prediction_id   = 7;
+}
+
+/**
+ * Represents a response for a listing predictions of controllers request.
+ */
+message ListControllerPredictionsResponse {
+    google.rpc.Status             status                 = 1;
+    repeated ControllerPrediction controller_predictions = 2;
+}
+
+/**
+ * Represents a request for listing predictions of alameda scalers.
+ */
+message ListApplicationPredictionsRequest {
+    common.QueryCondition         query_condition = 1;
+    repeated resources.ObjectMeta object_meta     = 2;
+    repeated common.MetricType    metric_types    = 3;
+    int64                         granularity     = 4;
+    string                        model_id        = 5;
+    string                        prediction_id   = 6;
+}
+
+/**
+ * Represents a response for a listing predictions of alameda scalers request.
+ */
+message ListApplicationPredictionsResponse {
+    google.rpc.Status              status                  = 1;
+    repeated ApplicationPrediction application_predictions = 2;
+}
+
+/**
+ * Represents a request for listing predictions of namespaces.
+ */
+message ListNamespacePredictionsRequest {
+    common.QueryCondition         query_condition = 1;
+    repeated resources.ObjectMeta object_meta     = 2;
+    repeated common.MetricType    metric_types    = 3;
+    int64                         granularity     = 4;
+    string                        model_id        = 5;
+    string                        prediction_id   = 6;
+}
+
+/**
+ * Represents a response for a listing predictions of namespaces request.
+ */
+message ListNamespacePredictionsResponse {
+    google.rpc.Status            status                = 1;
+    repeated NamespacePrediction namespace_predictions = 2;
+}
+
+/**
+ * Represents a request for listing predictions of nodes
+ */
+message ListNodePredictionsRequest {
+    common.QueryCondition         query_condition = 1;
+    repeated resources.ObjectMeta object_meta     = 2;
+    repeated common.MetricType    metric_types    = 3;
+    int64                         granularity     = 4;
+    string                        model_id        = 5;
+    string                        prediction_id   = 6;
+}
+
+/**
+ * Represents a response for a listing predictions of nodes request.
+ */
+message ListNodePredictionsResponse {
+    google.rpc.Status       status           = 1;
+    repeated NodePrediction node_predictions = 2;
+}
+
+/**
+ * Represents a request for listing predictions of clusters.
+ */
+message ListClusterPredictionsRequest {
+    common.QueryCondition         query_condition = 1;
+    repeated resources.ObjectMeta object_meta     = 2;
+    repeated common.MetricType    metric_types    = 3;
+    int64                         granularity     = 4;
+    string                        model_id        = 5;
+    string                        prediction_id   = 6;
+}
+
+/**
+ * Represents a response for a listing predictions of clusters request.
+ */
+message ListClusterPredictionsResponse {
+    google.rpc.Status          status              = 1;
+    repeated ClusterPrediction cluster_predictions = 2;
+}
+
+message CreatePredictionsRequest {
+    schemas.SchemaMeta       schema_meta = 1;
+    repeated WritePrediction predictions = 2;
+}
+
+message ListPredictionsRequest {
+    common.QueryCondition      query_condition = 1;
+    schemas.SchemaMeta         schema_meta     = 2;
+    repeated common.MetricType metric_types    = 3;
+}
+
+message ListPredictionsResponse {
+    google.rpc.Status status      = 1;
+    Prediction        predictions = 2;
+}

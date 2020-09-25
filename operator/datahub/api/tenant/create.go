@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	tenantv1alpha1 "github.com/containers-ai/alameda/operator/apis/tenant/v1alpha1"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
+	"prophetstor.com/alameda/datahub/pkg/entities"
+	tenantv1alpha1 "prophetstor.com/alameda/operator/apis/tenant/v1alpha1"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
 )
 
 func CreateOrganization(datahubClient *datahubpkg.Client,

@@ -1,7 +1,7 @@
 package keycodes
 
 import (
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
+	"prophetstor.com/api/datahub/events"
 )
 
 const (

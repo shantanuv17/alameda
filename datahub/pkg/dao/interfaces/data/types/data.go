@@ -1,8 +1,8 @@
 package types
 
 import (
-	"github.com/containers-ai/alameda/pkg/database/common"
-	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
+	"prophetstor.com/alameda/pkg/database/common"
+	"prophetstor.com/alameda/pkg/database/influxdb/schemas"
 )
 
 type DataDAO interface {

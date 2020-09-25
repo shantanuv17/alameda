@@ -1,0 +1,34 @@
+// This file has messages related to create alameda scaler
+
+syntax = "proto3";
+
+package prophetstor.datahub.applications;
+
+import "datahub/common/queries.proto";
+import "datahub/common/rawdata.proto";
+
+option go_package = "prophetstor.com/api/datahub/applications";
+
+/**
+ * Represents the data of alameda scaler which is to be created.
+ */
+message WriteApplication {
+    string           measurement = 1;
+    common.WriteData write_data  = 2;
+}
+
+/**
+ * Represents the condition of reading alameda scalers.
+ */
+message ReadApplication {
+    string                    measurement     = 1;
+    repeated common.Condition where_condition = 2;
+}
+
+/**
+ * Represents the condition of deleting alameda scalers.
+ */
+message DeleteApplication {
+    string                    measurement     = 1;
+    repeated common.Condition where_condition = 2;
+}

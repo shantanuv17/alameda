@@ -2,11 +2,11 @@ package data
 
 import (
 	"errors"
-	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/data/types"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/common"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/enumconv"
-	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/data"
+	"prophetstor.com/alameda/datahub/pkg/dao/interfaces/data/types"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/common"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/enumconv"
+	"prophetstor.com/alameda/pkg/database/influxdb/schemas"
+	"prophetstor.com/api/datahub/data"
 )
 
 func NewWriteData(writeData *data.WriteData) *types.WriteData {

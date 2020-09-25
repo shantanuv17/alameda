@@ -2,16 +2,16 @@ package app
 
 import (
 	"errors"
-	"github.com/containers-ai/alameda/cmd/app"
-	Keycodes "github.com/containers-ai/alameda/datahub/pkg/account-mgt/keycodes"
-	Licenses "github.com/containers-ai/alameda/datahub/pkg/account-mgt/licenses"
-	DatahubConfig "github.com/containers-ai/alameda/datahub/pkg/config"
-	Notifier "github.com/containers-ai/alameda/datahub/pkg/notifier"
-	SchemaMgt "github.com/containers-ai/alameda/datahub/pkg/schemamgt"
-	EventMgt "github.com/containers-ai/alameda/internal/pkg/event-mgt"
-	"github.com/containers-ai/alameda/pkg/utils/log"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"prophetstor.com/alameda/cmd/app"
+	Keycodes "prophetstor.com/alameda/datahub/pkg/account-mgt/keycodes"
+	Licenses "prophetstor.com/alameda/datahub/pkg/account-mgt/licenses"
+	DatahubConfig "prophetstor.com/alameda/datahub/pkg/config"
+	Notifier "prophetstor.com/alameda/datahub/pkg/notifier"
+	SchemaMgt "prophetstor.com/alameda/datahub/pkg/schemamgt"
+	EventMgt "prophetstor.com/alameda/internal/pkg/event-mgt"
+	"prophetstor.com/alameda/pkg/utils/log"
 	"strings"
 )
 

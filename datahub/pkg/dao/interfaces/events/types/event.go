@@ -1,7 +1,7 @@
 package types
 
 import (
-	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
+	ApiEvents "prophetstor.com/api/datahub/events"
 )
 
 type EventDAO interface {

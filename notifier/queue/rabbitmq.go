@@ -5,14 +5,14 @@ import (
 	"os"
 	"time"
 
-	"github.com/containers-ai/alameda/notifier/notifying"
-	notifier_utils "github.com/containers-ai/alameda/notifier/utils"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	k8s_utils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
-	"github.com/containers-ai/alameda/pkg/utils/log"
-	datahub_events "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"github.com/spf13/viper"
 	"github.com/streadway/amqp"
+	"prophetstor.com/alameda/notifier/notifying"
+	notifier_utils "prophetstor.com/alameda/notifier/utils"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	k8s_utils "prophetstor.com/alameda/pkg/utils/kubernetes"
+	"prophetstor.com/alameda/pkg/utils/log"
+	datahub_events "prophetstor.com/api/datahub/events"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 )
 

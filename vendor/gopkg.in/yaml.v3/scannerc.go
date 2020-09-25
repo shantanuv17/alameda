@@ -657,32 +657,21 @@ func trace(args ...interface{}) func() {
 func yaml_parser_fetch_more_tokens(parser *yaml_parser_t) bool {
 	// While we need more tokens to fetch, do it.
 	for {
-		// Check if we really need to fetch more tokens.
-		need_more_tokens := false
-
 		// [Go] The comment parsing logic requires a lookahead of two tokens
 		// so that foot comments may be parsed in time of associating them
 		// with the tokens that are parsed before them, and also for line
 		// comments to be transformed into head comments in some edge cases.
-		if parser.tokens_head >= len(parser.tokens)-2 {
-			need_more_tokens = true
-		} else {
-			// Check if any potential simple key may occupy the head position.
-			for i := len(parser.simple_keys) - 1; i >= 0; i-- {
-				simple_key := &parser.simple_keys[i]
-				if simple_key.token_number < parser.tokens_parsed {
-					break
-				}
-				if yaml_simple_key_is_valid(parser, simple_key) && simple_key.token_number == parser.tokens_parsed {
-					need_more_tokens = true
-					break
-				}
+		if parser.tokens_head < len(parser.tokens)-2 {
+			// If a potential simple key is at the head position, we need to fetch
+			// the next token to disambiguate it.
+			head_tok_idx, ok := parser.simple_keys_by_tok[parser.tokens_parsed]
+			if !ok {
+				break
+			} else if valid, ok := yaml_simple_key_is_valid(parser, &parser.simple_keys[head_tok_idx]); !ok {
+				return false
+			} else if !valid {
+				break
 			}
-		}
-
-		// We are finished.
-		if !need_more_tokens {
-			break
 		}
 		// Fetch the next token.
 		if !yaml_parser_fetch_next_token(parser) {
@@ -758,6 +747,11 @@ func yaml_parser_fetch_next_token(parser *yaml_parser_t) (ok bool) {
 	}
 	defer func() {
 		if !ok {
+			return
+		}
+		if len(parser.tokens) > 0 && parser.tokens[len(parser.tokens)-1].typ == yaml_BLOCK_ENTRY_TOKEN {
+			// Sequence indicators alone have no line comments. It becomes
+			// a head comment for whatever follows.
 			return
 		}
 		if !yaml_parser_scan_line_comment(parser, comment_mark) {
@@ -886,9 +880,9 @@ func yaml_parser_fetch_next_token(parser *yaml_parser_t) (ok bool) {
 		"found character that cannot start any token")
 }
 
-func yaml_simple_key_is_valid(parser *yaml_parser_t, simple_key *yaml_simple_key_t) bool {
+func yaml_simple_key_is_valid(parser *yaml_parser_t, simple_key *yaml_simple_key_t) (valid, ok bool) {
 	if !simple_key.possible {
-		return false
+		return false, true
 	}
 
 	// The 1.2 specification says:
@@ -902,14 +896,14 @@ func yaml_simple_key_is_valid(parser *yaml_parser_t, simple_key *yaml_simple_key
 	if simple_key.mark.line < parser.mark.line || simple_key.mark.index+1024 < parser.mark.index {
 		// Check if the potential simple key to be removed is required.
 		if simple_key.required {
-			return yaml_parser_set_scanner_error(parser,
+			return false, yaml_parser_set_scanner_error(parser,
 				"while scanning a simple key", simple_key.mark,
 				"could not find expected ':'")
 		}
 		simple_key.possible = false
-		return false
+		return false, true
 	}
-	return true
+	return true, true
 }
 
 // Check if a simple key may start at the current position and add it if
@@ -936,6 +930,7 @@ func yaml_parser_save_simple_key(parser *yaml_parser_t) bool {
 			return false
 		}
 		parser.simple_keys[len(parser.simple_keys)-1] = simple_key
+		parser.simple_keys_by_tok[simple_key.token_number] = len(parser.simple_keys) - 1
 	}
 	return true
 }
@@ -950,9 +945,10 @@ func yaml_parser_remove_simple_key(parser *yaml_parser_t) bool {
 				"while scanning a simple key", parser.simple_keys[i].mark,
 				"could not find expected ':'")
 		}
+		// Remove the key from the stack.
+		parser.simple_keys[i].possible = false
+		delete(parser.simple_keys_by_tok, parser.simple_keys[i].token_number)
 	}
-	// Remove the key from the stack.
-	parser.simple_keys[i].possible = false
 	return true
 }
 
@@ -983,7 +979,9 @@ func yaml_parser_increase_flow_level(parser *yaml_parser_t) bool {
 func yaml_parser_decrease_flow_level(parser *yaml_parser_t) bool {
 	if parser.flow_level > 0 {
 		parser.flow_level--
-		parser.simple_keys = parser.simple_keys[:len(parser.simple_keys)-1]
+		last := len(parser.simple_keys) - 1
+		delete(parser.simple_keys_by_tok, parser.simple_keys[last].token_number)
+		parser.simple_keys = parser.simple_keys[:last]
 	}
 	return true
 }
@@ -1089,6 +1087,8 @@ func yaml_parser_fetch_stream_start(parser *yaml_parser_t) bool {
 
 	// Initialize the simple key stack.
 	parser.simple_keys = append(parser.simple_keys, yaml_simple_key_t{})
+
+	parser.simple_keys_by_tok = make(map[int]int)
 
 	// A simple key is allowed at the beginning of the stream.
 	parser.simple_key_allowed = true
@@ -1372,7 +1372,10 @@ func yaml_parser_fetch_value(parser *yaml_parser_t) bool {
 	simple_key := &parser.simple_keys[len(parser.simple_keys)-1]
 
 	// Have we found a simple key?
-	if yaml_simple_key_is_valid(parser, simple_key) {
+	if valid, ok := yaml_simple_key_is_valid(parser, simple_key); !ok {
+		return false
+
+	} else if valid {
 
 		// Create the KEY token and insert it into the queue.
 		token := yaml_token_t{
@@ -1391,6 +1394,7 @@ func yaml_parser_fetch_value(parser *yaml_parser_t) bool {
 
 		// Remove the simple key.
 		simple_key.possible = false
+		delete(parser.simple_keys_by_tok, simple_key.token_number)
 
 		// A simple key cannot follow another simple key.
 		parser.simple_key_allowed = false
@@ -1565,10 +1569,11 @@ func yaml_parser_scan_to_next_token(parser *yaml_parser_t) bool {
 		//   - Some data
 		//
 		// If so, transform the line comment to a head comment and reposition.
-		if len(parser.comments) > 0 && len(parser.tokens) > 0 {
-			token := parser.tokens[len(parser.tokens)-1]
+		if len(parser.comments) > 0 && len(parser.tokens) > 1 {
+			tokenA := parser.tokens[len(parser.tokens)-2]
+			tokenB := parser.tokens[len(parser.tokens)-1]
 			comment := &parser.comments[len(parser.comments)-1]
-			if token.typ == yaml_BLOCK_ENTRY_TOKEN && len(comment.line) > 0 && !is_break(parser.buffer, parser.buffer_pos) {
+			if tokenA.typ == yaml_BLOCK_SEQUENCE_START_TOKEN && tokenB.typ == yaml_BLOCK_ENTRY_TOKEN && len(comment.line) > 0 && !is_break(parser.buffer, parser.buffer_pos) {
 				// If it was in the prior line, reposition so it becomes a
 				// header of the follow up token. Otherwise, keep it in place
 				// so it becomes a header of the former.
@@ -2856,13 +2861,12 @@ func yaml_parser_scan_line_comment(parser *yaml_parser_t, token_mark yaml_mark_t
 						return false
 					}
 					skip_line(parser)
-				} else {
-					if parser.mark.index >= seen {
-						if len(text) == 0 {
-							start_mark = parser.mark
-						}
-						text = append(text, parser.buffer[parser.buffer_pos])
+				} else if parser.mark.index >= seen {
+					if len(text) == 0 {
+						start_mark = parser.mark
 					}
+					text = read(parser, text)
+				} else {
 					skip(parser)
 				}
 			}
@@ -2999,10 +3003,9 @@ func yaml_parser_scan_comments(parser *yaml_parser_t, scan_mark yaml_mark_t) boo
 					return false
 				}
 				skip_line(parser)
+			} else if parser.mark.index >= seen {
+				text = read(parser, text)
 			} else {
-				if parser.mark.index >= seen {
-					text = append(text, parser.buffer[parser.buffer_pos])
-				}
 				skip(parser)
 			}
 		}

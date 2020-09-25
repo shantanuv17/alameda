@@ -2,8 +2,8 @@ package prometheus
 
 import (
 	"fmt"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
 	"github.com/pkg/errors"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
 )
 
 func WrapQueryExpression(queryExpression string, aggregateFunc DBCommon.AggregateFunction, aggregateOverSeconds int64) (string, error) {

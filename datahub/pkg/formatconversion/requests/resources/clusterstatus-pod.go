@@ -1,14 +1,14 @@
 package resources
 
 import (
-	DaoClusterTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/common"
-	Metadata "github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
-	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
+	DaoClusterTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/common"
+	Metadata "prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	ApiResources "prophetstor.com/api/datahub/resources"
 )
 
 type CreatePodsRequestExtended struct {
-	ApiResources.CreatePodsRequest
+	*ApiResources.CreatePodsRequest
 }
 
 type ListPodsRequestExtended struct {

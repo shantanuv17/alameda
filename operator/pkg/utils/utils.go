@@ -5,10 +5,10 @@ import (
 	"os"
 	"strings"
 
-	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	OpenshiftApiApps "github.com/openshift/api/apps"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/client-go/kubernetes"
+	ApiResources "prophetstor.com/api/datahub/resources"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
 )
 

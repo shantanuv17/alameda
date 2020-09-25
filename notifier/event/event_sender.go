@@ -1,10 +1,10 @@
 package event
 
 import (
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	datahub_events "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"github.com/pkg/errors"
 	"google.golang.org/genproto/googleapis/rpc/code"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	datahub_events "prophetstor.com/api/datahub/events"
 )
 
 type eventSender struct {

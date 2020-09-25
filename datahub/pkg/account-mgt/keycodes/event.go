@@ -2,11 +2,11 @@ package keycodes
 
 import (
 	"fmt"
-	EventMgt "github.com/containers-ai/alameda/internal/pkg/event-mgt"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	K8SUtils "github.com/containers-ai/alameda/pkg/utils/kubernetes"
-	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"github.com/golang/protobuf/ptypes/timestamp"
+	EventMgt "prophetstor.com/alameda/internal/pkg/event-mgt"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	K8SUtils "prophetstor.com/alameda/pkg/utils/kubernetes"
+	ApiEvents "prophetstor.com/api/datahub/events"
 	"time"
 )
 

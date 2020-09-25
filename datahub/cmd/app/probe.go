@@ -1,9 +1,9 @@
 package app
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/probe"
 	"github.com/spf13/cobra"
 	"os"
+	"prophetstor.com/alameda/datahub/pkg/probe"
 )
 
 const (

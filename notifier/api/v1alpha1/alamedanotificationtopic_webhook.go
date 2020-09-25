@@ -20,13 +20,13 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/containers-ai/alameda/notifier/event"
-	"github.com/containers-ai/alameda/pkg/utils"
-	"github.com/containers-ai/alameda/pkg/utils/log"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/validation/field"
+	"prophetstor.com/alameda/notifier/event"
+	"prophetstor.com/alameda/pkg/utils"
+	"prophetstor.com/alameda/pkg/utils/log"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 )
@@ -38,8 +38,6 @@ func (r *AlamedaNotificationTopic) SetupWebhookWithManager(mgr ctrl.Manager) err
 		For(r).
 		Complete()
 }
-
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 
 // +kubebuilder:webhook:path=/mutate-notifying-containers-ai-v1alpha1-alamedanotificationtopic,mutating=true,failurePolicy=fail,groups=notifying.containers.ai,resources=alamedanotificationtopics,verbs=create;update,versions=v1alpha1,name=malamedanotificationtopic.containers.ai
 

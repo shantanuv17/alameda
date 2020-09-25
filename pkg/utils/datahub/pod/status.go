@@ -1,12 +1,12 @@
 package pod
 
 import (
-	AlamedaUtils "github.com/containers-ai/alameda/operator/pkg/utils/resources"
-	AlamedaConsts "github.com/containers-ai/alameda/pkg/consts"
-	AlamedaEnum "github.com/containers-ai/alameda/pkg/utils/datahub/enumconv"
-	AlamedaLog "github.com/containers-ai/alameda/pkg/utils/log"
-	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	CoreV1 "k8s.io/api/core/v1"
+	AlamedaUtils "prophetstor.com/alameda/operator/pkg/utils/resources"
+	AlamedaConsts "prophetstor.com/alameda/pkg/consts"
+	AlamedaEnum "prophetstor.com/alameda/pkg/utils/datahub/enumconv"
+	AlamedaLog "prophetstor.com/alameda/pkg/utils/log"
+	ApiResources "prophetstor.com/api/datahub/resources"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 

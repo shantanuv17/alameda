@@ -1,8 +1,8 @@
 package plannings
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/config"
-	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/plannings/influxdb"
+	"prophetstor.com/alameda/datahub/pkg/config"
+	"prophetstor.com/alameda/datahub/pkg/dao/interfaces/plannings/influxdb"
 )
 
 func NewContainerPlanningsDAO(config config.Config) *influxdb.ContainerPlannings {

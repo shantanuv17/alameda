@@ -4,13 +4,13 @@ import (
 	"context"
 	"time"
 
-	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	autoscalingv1alpha2 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha2"
-	tenantv1alpha1 "github.com/containers-ai/alameda/operator/apis/tenant/v1alpha1"
-	datahubscaler "github.com/containers-ai/alameda/operator/datahub/api/scaler"
-	datahubtenant "github.com/containers-ai/alameda/operator/datahub/api/tenant"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
 	"github.com/pkg/errors"
+	"prophetstor.com/alameda/datahub/pkg/entities"
+	autoscalingv1alpha2 "prophetstor.com/alameda/operator/apis/autoscaling/v1alpha2"
+	tenantv1alpha1 "prophetstor.com/alameda/operator/apis/tenant/v1alpha1"
+	datahubscaler "prophetstor.com/alameda/operator/datahub/api/scaler"
+	datahubtenant "prophetstor.com/alameda/operator/datahub/api/tenant"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 

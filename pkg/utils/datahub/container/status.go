@@ -1,9 +1,9 @@
 package container
 
 import (
-	ApiResources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	corev1 "k8s.io/api/core/v1"
+	ApiResources "prophetstor.com/api/datahub/resources"
 )
 
 func NewStatus(containerStatus *corev1.ContainerStatus) *ApiResources.ContainerStatus {

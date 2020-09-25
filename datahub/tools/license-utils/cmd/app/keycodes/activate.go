@@ -1,8 +1,8 @@
 package keycodes
 
 import (
-	"github.com/containers-ai/alameda/datahub/tools/license-utils/pkg/keycodes"
 	"github.com/spf13/cobra"
+	"prophetstor.com/alameda/datahub/tools/license-utils/pkg/keycodes"
 )
 
 var ActivateCmd = &cobra.Command{

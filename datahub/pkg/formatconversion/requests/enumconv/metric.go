@@ -1,8 +1,8 @@
 package enumconv
 
 import (
-	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
+	"prophetstor.com/alameda/pkg/database/influxdb/schemas"
+	ApiCommon "prophetstor.com/api/datahub/common"
 )
 
 var MetricTypeNameMap = map[ApiCommon.MetricType]schemas.MetricType{

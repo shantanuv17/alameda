@@ -2,16 +2,16 @@ package eventmgt
 
 import (
 	"encoding/json"
-	EntityEvent "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/events"
-	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	RepoEvent "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb/events"
-	Rabbitmq "github.com/containers-ai/alameda/internal/pkg/message-queue/rabbitmq"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
-	DatahubLog "github.com/containers-ai/alameda/pkg/utils/log"
-	ApiEvents "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"github.com/golang/protobuf/ptypes"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
+	EntityEvent "prophetstor.com/alameda/datahub/pkg/dao/entities/influxdb/events"
+	RepoInflux "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb"
+	RepoEvent "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb/events"
+	Rabbitmq "prophetstor.com/alameda/internal/pkg/message-queue/rabbitmq"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
+	DatahubLog "prophetstor.com/alameda/pkg/utils/log"
+	ApiEvents "prophetstor.com/api/datahub/events"
 	"time"
 )
 

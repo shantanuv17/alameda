@@ -3,11 +3,11 @@ package webhook
 import (
 	"fmt"
 
-	autoscalingv1alpha1 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha1"
-	"github.com/containers-ai/alameda/operator/pkg/utils/resources"
-	"github.com/containers-ai/alameda/pkg/utils"
-	"github.com/containers-ai/alameda/pkg/utils/kubernetes"
 	openshift_apps_v1 "github.com/openshift/api/apps/v1"
+	autoscalingv1alpha1 "prophetstor.com/alameda/operator/apis/autoscaling/v1alpha1"
+	"prophetstor.com/alameda/operator/pkg/utils/resources"
+	"prophetstor.com/alameda/pkg/utils"
+	"prophetstor.com/alameda/pkg/utils/kubernetes"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 

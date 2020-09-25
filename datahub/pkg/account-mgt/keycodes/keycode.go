@@ -2,10 +2,10 @@ package keycodes
 
 import (
 	"encoding/json"
-	"github.com/containers-ai/alameda/pkg/database/influxdb"
-	"github.com/containers-ai/alameda/pkg/database/ldap"
-	"github.com/containers-ai/alameda/pkg/utils/kubernetes"
-	"github.com/containers-ai/alameda/pkg/utils/log"
+	"prophetstor.com/alameda/pkg/database/influxdb"
+	"prophetstor.com/alameda/pkg/database/ldap"
+	"prophetstor.com/alameda/pkg/utils/kubernetes"
+	"prophetstor.com/alameda/pkg/utils/log"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sync"
 	"time"

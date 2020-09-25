@@ -1,8 +1,8 @@
 package tenant
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/entities"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
+	"prophetstor.com/alameda/datahub/pkg/entities"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
 )
 
 func DeleteOrganization(

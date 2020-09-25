@@ -1,11 +1,11 @@
 package datahub
 
 import (
-	"github.com/containers-ai/alameda/pkg/utils/log"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub"
-	"github.com/containers-ai/api/datahub/keycodes"
-	"google.golang.org/grpc"
 	"sync"
+
+	"google.golang.org/grpc"
+	"prophetstor.com/alameda/pkg/utils/log"
+	"prophetstor.com/api/datahub"
 )
 
 var (
@@ -14,10 +14,9 @@ var (
 
 type Client struct {
 	datahub.DatahubServiceClient
-	keycodes.KeycodesServiceClient
 
-	RWLock     *sync.RWMutex
-	Address    string
+	RWLock  *sync.RWMutex
+	Address string
 
 	connection *grpc.ClientConn
 }

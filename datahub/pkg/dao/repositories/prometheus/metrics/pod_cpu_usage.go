@@ -6,11 +6,11 @@ import (
 	"strings"
 	"time"
 
-	EntityPromthMetric "github.com/containers-ai/alameda/datahub/pkg/dao/entities/prometheus/metrics"
-	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	Prometheus "github.com/containers-ai/alameda/pkg/database/prometheus"
 	"github.com/pkg/errors"
+	EntityPromthMetric "prophetstor.com/alameda/datahub/pkg/dao/entities/prometheus/metrics"
+	FormatTypes "prophetstor.com/alameda/datahub/pkg/formatconversion/types"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	Prometheus "prophetstor.com/alameda/pkg/database/prometheus"
 )
 
 // PodCPUUsageRepository Repository to access metric namespace_pod_name_container_name:container_cpu_usage_seconds_total:sum_rate from prometheus

@@ -1,9 +1,9 @@
 package influxdb
 
 import (
-	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
+	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	FormatTypes "prophetstor.com/alameda/datahub/pkg/formatconversion/types"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
 )
 
 type GpuMetricMap map[string]*GpuMetric

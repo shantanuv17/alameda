@@ -9,12 +9,12 @@ import (
 	"net/smtp"
 	"strings"
 
-	notifyingv1alpha1 "github.com/containers-ai/alameda/notifier/api/v1alpha1"
-	notifier_utils "github.com/containers-ai/alameda/notifier/utils"
-	"github.com/containers-ai/alameda/pkg/utils/log"
-	datahub_events "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"github.com/pkg/errors"
 	"gopkg.in/mail.v2"
+	notifyingv1alpha1 "prophetstor.com/alameda/notifier/api/v1alpha1"
+	notifier_utils "prophetstor.com/alameda/notifier/utils"
+	"prophetstor.com/alameda/pkg/utils/log"
+	datahub_events "prophetstor.com/api/datahub/events"
 )
 
 var scope = log.RegisterScope("email", "email", 0)

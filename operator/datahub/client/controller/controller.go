@@ -3,12 +3,12 @@ package controller
 import (
 	"context"
 
-	"github.com/containers-ai/alameda/operator/datahub/client"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	appsapi_v1 "github.com/openshift/api/apps/v1"
 	"github.com/pkg/errors"
 	appsv1 "k8s.io/api/apps/v1"
+	"prophetstor.com/alameda/operator/datahub/client"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	datahub_resources "prophetstor.com/api/datahub/resources"
 )
 
 type ControllerRepository struct {
@@ -65,9 +65,8 @@ func (repo *ControllerRepository) ListControllersByApplication(ctx context.Conte
 	}
 	controllers := make([]*datahub_resources.Controller, 0)
 	for _, controller := range resp.Controllers {
-		copyController := *controller
-		if controller != nil && repo.isControllerHasApplicationInfo(*controller, namespace, name) {
-			controllers = append(controllers, &copyController)
+		if controller != nil && repo.isControllerHasApplicationInfo(controller, namespace, name) {
+			controllers = append(controllers, controller)
 		}
 	}
 	return controllers, nil
@@ -138,7 +137,7 @@ func (repo *ControllerRepository) DeleteControllers(ctx context.Context, arg int
 	return nil
 }
 
-func (repo *ControllerRepository) isControllerHasApplicationInfo(controller datahub_resources.Controller, appNamespace, appName string) bool {
+func (repo *ControllerRepository) isControllerHasApplicationInfo(controller *datahub_resources.Controller, appNamespace, appName string) bool {
 	// TODO: Might compare namespace if Datahub return non empty controller.AlamedaControllerSpec.AlamedaScaler.Namespace
 	// if controller.AlamedaControllerSpec != nil && controller.AlamedaControllerSpec.AlamedaScaler != nil &&
 	// 	controller.AlamedaControllerSpec.AlamedaScaler.Namespace == appNamespace && controller.AlamedaControllerSpec.AlamedaScaler.Name == appName {

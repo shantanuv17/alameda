@@ -3,9 +3,9 @@ package event
 import (
 	"time"
 
-	"github.com/containers-ai/alameda/pkg/utils"
-	datahub_events "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"github.com/golang/protobuf/ptypes/timestamp"
+	"prophetstor.com/alameda/pkg/utils"
+	datahub_events "prophetstor.com/api/datahub/events"
 )
 
 func GetEmailNotificationEvent(msg, podName, clusterId string) *datahub_events.Event {

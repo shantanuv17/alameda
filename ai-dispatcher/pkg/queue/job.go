@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/containers-ai/alameda/ai-dispatcher/consts"
-	utils "github.com/containers-ai/alameda/ai-dispatcher/pkg/utils"
-	datahub_common "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	"github.com/streadway/amqp"
+	"prophetstor.com/alameda/ai-dispatcher/consts"
+	utils "prophetstor.com/alameda/ai-dispatcher/pkg/utils"
+	datahub_common "prophetstor.com/api/datahub/common"
 )
 
 type job struct {

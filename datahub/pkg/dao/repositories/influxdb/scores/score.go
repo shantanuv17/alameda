@@ -1,13 +1,13 @@
 package scores
 
 import (
-	EntityInfluxScore "github.com/containers-ai/alameda/datahub/pkg/dao/entities/influxdb/scores"
-	DaoScoreTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/scores/types"
-	RepoInflux "github.com/containers-ai/alameda/datahub/pkg/dao/repositories/influxdb"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	InfluxDB "github.com/containers-ai/alameda/pkg/database/influxdb"
 	InfluxClient "github.com/influxdata/influxdb/client/v2"
 	"github.com/pkg/errors"
+	EntityInfluxScore "prophetstor.com/alameda/datahub/pkg/dao/entities/influxdb/scores"
+	DaoScoreTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/scores/types"
+	RepoInflux "prophetstor.com/alameda/datahub/pkg/dao/repositories/influxdb"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	InfluxDB "prophetstor.com/alameda/pkg/database/influxdb"
 )
 
 // SimulatedSchedulingScoreRepository Repository of simulated_scheduling_score data

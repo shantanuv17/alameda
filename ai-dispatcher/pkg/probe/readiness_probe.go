@@ -3,9 +3,9 @@ package probe
 import (
 	"fmt"
 
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/streadway/amqp"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	datahub_resources "prophetstor.com/api/datahub/resources"
 )
 
 type ReadinessProbeConfig struct {

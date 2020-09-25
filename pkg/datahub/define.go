@@ -1,8 +1,8 @@
 package datahub
 
 import (
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/schemas"
+	"prophetstor.com/api/datahub/common"
+	"prophetstor.com/api/datahub/schemas"
 )
 
 var ScopeValue = map[string]schemas.Scope{

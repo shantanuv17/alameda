@@ -1,11 +1,11 @@
 package v1alpha1
 
 import (
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiMetrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiMetrics "prophetstor.com/api/datahub/metrics"
 )
 
 func (s *ServiceV1alpha1) CreateMetrics(ctx context.Context, in *ApiMetrics.CreateMetricsRequest) (*status.Status, error) {

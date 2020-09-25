@@ -4,22 +4,26 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	Keycodes "github.com/containers-ai/api/datahub/keycodes"
+	"time"
+
+	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/retry"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/grpc"
+	"prophetstor.com/alameda/pkg/utils"
+	"prophetstor.com/api/datahub"
+	"prophetstor.com/api/datahub/keycodes"
 )
 
 func Activate(filePath string) error {
 	// Check if registration file is found
-	if !AlamedaUtils.FileExists(filePath) {
+	if !utils.FileExists(filePath) {
 		reason := fmt.Sprintf("registration file(%s) is not found", filePath)
 		fmt.Println(fmt.Sprintf("[Error]: %s", reason))
 		return errors.New(reason)
 	}
 
 	// Read registration file
-	registrationFile, err := AlamedaUtils.ReadFile(filePath)
+	registrationFile, err := utils.ReadFile(filePath)
 	if err != nil {
 		reason := fmt.Sprintf("failed to read registration file(%s)", filePath)
 		fmt.Println(fmt.Sprintf("[Error]: %s", reason))
@@ -32,17 +36,19 @@ func Activate(filePath string) error {
 		fmt.Println(fmt.Sprintf("[Error]: %s", reason))
 		return errors.New(reason)
 	}
-
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
 	// Connect to datahub
-	conn, err := grpc.Dial(*datahubAddress, grpc.WithInsecure())
+	conn, err := grpc.DialContext(ctx, *datahubAddress, grpc.WithBlock(), grpc.WithInsecure(),
+		grpc.WithUnaryInterceptor(retry.UnaryClientInterceptor(retry.WithMax(uint(3)))))
 	defer conn.Close()
 	if err != nil {
 		panic(err)
 	}
-	client := Keycodes.NewKeycodesServiceClient(conn)
+	client := datahub.NewDatahubServiceClient(conn)
 
 	// Generate request
-	in := &Keycodes.ActivateRegistrationDataRequest{
+	in := &keycodes.ActivateRegistrationDataRequest{
 		Data: registrationFile[0],
 	}
 
@@ -55,7 +61,7 @@ func Activate(filePath string) error {
 	}
 
 	// Check API result
-	retCode := int32(stat.GetCode())
+	retCode := stat.GetCode()
 	if retCode == int32(code.Code_OK) {
 		fmt.Println(fmt.Sprintf("[Result]: %s", code.Code_name[retCode]))
 	} else {

@@ -1,19 +1,19 @@
 package v1alpha1
 
 import (
-	DaoGpuInflux "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/gpu/influxdb"
-	DaoGpu "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/gpu/influxdb/nvidia"
-	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/gpu"
-	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/metrics"
-	gpu2 "github.com/containers-ai/alameda/datahub/pkg/formatconversion/responses/gpu"
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	AlamedaUtils "github.com/containers-ai/alameda/pkg/utils"
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
-	ApiGpu "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/gpu"
 	"golang.org/x/net/context"
 	"google.golang.org/genproto/googleapis/rpc/code"
 	"google.golang.org/genproto/googleapis/rpc/status"
+	DaoGpuInflux "prophetstor.com/alameda/datahub/pkg/dao/interfaces/gpu/influxdb"
+	DaoGpu "prophetstor.com/alameda/datahub/pkg/dao/interfaces/gpu/influxdb/nvidia"
+	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/gpu"
+	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/metrics"
+	gpu2 "prophetstor.com/alameda/datahub/pkg/formatconversion/responses/gpu"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	AlamedaUtils "prophetstor.com/alameda/pkg/utils"
+	ApiCommon "prophetstor.com/api/datahub/common"
+	ApiGpu "prophetstor.com/api/datahub/gpu"
 	"strconv"
 )
 
@@ -195,7 +195,7 @@ func (s *ServiceV1alpha1) ListGpuPredictions(ctx context.Context, in *ApiGpu.Lis
 func (s *ServiceV1alpha1) CreateGpuPredictions(ctx context.Context, in *ApiGpu.CreateGpuPredictionsRequest) (*status.Status, error) {
 	scope.Debug("Request received from CreateGpuPredictions grpc function: " + AlamedaUtils.InterfaceToString(in))
 
-	requestExtended := gpu.CreateGpuPredictionsRequestExtended{CreateGpuPredictionsRequest: *in}
+	requestExtended := gpu.CreateGpuPredictionsRequestExtended{CreateGpuPredictionsRequest: in}
 	if requestExtended.Validate() != nil {
 		return &status.Status{
 			Code: int32(code.Code_INVALID_ARGUMENT),

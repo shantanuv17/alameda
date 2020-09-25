@@ -1,8 +1,8 @@
 package resources
 
 import (
-	"github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
-	"github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
+	"prophetstor.com/alameda/datahub/pkg/dao/interfaces/clusterstatus/types"
+	"prophetstor.com/api/datahub/resources"
 )
 
 func NewContainerStatus(containerStatus *resources.ContainerStatus) *types.ContainerStatus {

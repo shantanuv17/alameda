@@ -4,9 +4,9 @@ import (
 	"testing"
 	"time"
 
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	datahub_events "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/events"
 	"github.com/golang/protobuf/ptypes/timestamp"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	datahub_events "prophetstor.com/api/datahub/events"
 )
 
 func Test_eventSender_SendEvents(t *testing.T) {

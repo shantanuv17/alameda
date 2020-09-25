@@ -3,10 +3,10 @@ package influxdb
 import (
 	"errors"
 	"fmt"
-	"github.com/containers-ai/alameda/pkg/database/common"
-	"github.com/containers-ai/alameda/pkg/database/influxdb/models"
-	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
 	InfluxDB "github.com/influxdata/influxdb/client/v2"
+	"prophetstor.com/alameda/pkg/database/common"
+	"prophetstor.com/alameda/pkg/database/influxdb/models"
+	"prophetstor.com/alameda/pkg/database/influxdb/schemas"
 	"strconv"
 	"time"
 )
@@ -119,7 +119,7 @@ func (p *InfluxMeasurement) genDataType(query *InfluxQuery) {
 	}
 }
 
-func (p *InfluxMeasurement) buildPoints(columnTypes []schemas.ColumnType, dataTypes []common.DataType, columns []string, rows []*common.Row) ([]*InfluxDB.Point, error)  {
+func (p *InfluxMeasurement) buildPoints(columnTypes []schemas.ColumnType, dataTypes []common.DataType, columns []string, rows []*common.Row) ([]*InfluxDB.Point, error) {
 	points := make([]*InfluxDB.Point, 0)
 
 	for _, row := range rows {
@@ -180,7 +180,7 @@ func (p *InfluxMeasurement) regularData(results []*models.InfluxResultExtend) []
 		for i := 0; i < result.GetGroupNum(); i++ {
 			g := result.GetGroup(i)
 			group := common.Group{}
-			for name:= range g.Tags {
+			for name := range g.Tags {
 				group.Columns = append(group.Columns, name)
 			}
 			for _, name := range g.Columns {
@@ -216,7 +216,7 @@ func (p *InfluxMeasurement) aggregationData(results []*models.InfluxResultExtend
 		for i := 0; i < result.GetGroupNum(); i++ {
 			g := result.GetGroup(i)
 			group := common.Group{}
-			for name:= range g.Tags {
+			for name := range g.Tags {
 				group.Columns = append(group.Columns, name)
 			}
 			for _, name := range g.Columns {

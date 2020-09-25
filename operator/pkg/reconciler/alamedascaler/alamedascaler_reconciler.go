@@ -5,13 +5,13 @@ import (
 
 	"github.com/pkg/errors"
 
-	autoscaling_v1alpha1 "github.com/containers-ai/alameda/operator/apis/autoscaling/v1alpha1"
-	utils "github.com/containers-ai/alameda/operator/pkg/utils"
-	utilsresource "github.com/containers-ai/alameda/operator/pkg/utils/resources"
-	logUtil "github.com/containers-ai/alameda/pkg/utils/log"
 	appsapi_v1 "github.com/openshift/api/apps/v1"
 	appsv1 "k8s.io/api/apps/v1"
 	core_v1 "k8s.io/api/core/v1"
+	autoscaling_v1alpha1 "prophetstor.com/alameda/operator/apis/autoscaling/v1alpha1"
+	utils "prophetstor.com/alameda/operator/pkg/utils"
+	utilsresource "prophetstor.com/alameda/operator/pkg/utils/resources"
+	logUtil "prophetstor.com/alameda/pkg/utils/log"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 

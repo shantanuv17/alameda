@@ -1,0 +1,18 @@
+// This file has messages related to license managements
+
+syntax = "proto3";
+
+package prophetstor.datahub.licenses;
+
+import "datahub/licenses/licenses.proto";
+import "google/rpc/status.proto";
+
+option go_package = "prophetstor.com/api/datahub/licenses";
+
+/**
+ * Represents a response for reading a license information request.
+ */
+message GetLicenseResponse {
+    google.rpc.Status status  = 1;
+    License           license = 2;
+}

@@ -1,10 +1,10 @@
 package cluster
 
 import (
-	"github.com/containers-ai/alameda/operator/datahub/client"
-	datahubpkg "github.com/containers-ai/alameda/pkg/datahub"
-	datahub_resources "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/resources"
 	"github.com/pkg/errors"
+	"prophetstor.com/alameda/operator/datahub/client"
+	datahubpkg "prophetstor.com/alameda/pkg/datahub"
+	datahub_resources "prophetstor.com/api/datahub/resources"
 )
 
 type ClusterRepository struct {

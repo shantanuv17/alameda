@@ -1,9 +1,9 @@
 package enumconv
 
 import (
-	DBCommon "github.com/containers-ai/alameda/pkg/database/common"
-	"github.com/containers-ai/alameda/pkg/database/influxdb/schemas"
-	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
+	DBCommon "prophetstor.com/alameda/pkg/database/common"
+	"prophetstor.com/alameda/pkg/database/influxdb/schemas"
+	ApiCommon "prophetstor.com/api/datahub/common"
 )
 
 var AggregateFunctionNameMap = map[ApiCommon.TimeRange_AggregateFunction]DBCommon.AggregateFunction{

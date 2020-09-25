@@ -4,8 +4,9 @@ import (
 	"bufio"
 	"context"
 	"fmt"
-	Consts "github.com/containers-ai/alameda/pkg/consts"
-	Log "github.com/containers-ai/alameda/pkg/utils/log"
+	"os"
+	"strings"
+
 	"github.com/pkg/errors"
 	Corev1 "k8s.io/api/core/v1"
 	K8SErrors "k8s.io/apimachinery/pkg/api/errors"
@@ -13,10 +14,10 @@ import (
 	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
-	"os"
+	Consts "prophetstor.com/alameda/pkg/consts"
+	Log "prophetstor.com/alameda/pkg/utils/log"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
-	"strings"
 )
 
 var scope = Log.RegisterScope("kubernetes_utils", "Kubernetes utils.", 0)
@@ -187,7 +188,7 @@ func GetPodByNamespaceNameWithConfig(namespace, name string, config rest.Config)
 		return pod, errors.Errorf("get pod by namespace and name failed, create k8s api client failed: %s", err.Error())
 	}
 
-	p, err := k8sClient.CoreV1().Pods(namespace).Get(name, Metav1.GetOptions{})
+	p, err := k8sClient.CoreV1().Pods(namespace).Get(context.TODO(), name, Metav1.GetOptions{})
 	if err != nil {
 		return pod, errors.Errorf("get pod by namespace and name failed, %s", err.Error())
 	}
