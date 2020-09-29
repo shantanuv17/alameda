@@ -21,7 +21,7 @@ test: fmt vet manifests
 # Build notifier binary
 #notifier: generate fmt vet
 notifier: fmt vet
-	go build -ldflags "-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'" -o bin/notifier github.com/containers-ai/alameda/notifier
+	go build -ldflags "-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'" -o bin/notifier prophetstor.com/alameda/notifier
 
 # Run against the configured Kubernetes cluster in ~/.kube/config
 #run: generate fmt vet

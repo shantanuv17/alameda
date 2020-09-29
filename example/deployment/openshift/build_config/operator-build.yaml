@@ -15,7 +15,7 @@ spec:
   runPolicy: Serial
   source:
     git:
-      uri: https://github.com/containers-ai/alameda.git
+      uri: https://gitlab.prophetservice.com/ProphetStor/alameda.git
     type: Git
   strategy:
     dockerStrategy: {

@@ -5,7 +5,7 @@ FROM openshift/origin-release:golang-1.15 as builder
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
-WORKDIR /go/src/github.com/containers-ai/alameda
+WORKDIR /go/src/prophetstor.com/alameda
 
 COPY . .
 RUN set -x \
@@ -17,7 +17,7 @@ RUN set -x \
     && echo "CODE_VERSION=${CODE_VERSION}" > version.txt
 
 # Build
-RUN ["/bin/bash", "-c", "CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags \"-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'\" -a -o ./rabbitmq/rabbitmqcmd github.com/containers-ai/alameda/rabbitmq/cmd"]
+RUN ["/bin/bash", "-c", "CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags \"-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'\" -a -o ./rabbitmq/rabbitmqcmd prophetstor.com/alameda/rabbitmq/cmd"]
 
 
 FROM registry.access.redhat.com/ubi8/ubi
@@ -59,9 +59,9 @@ ENV RBMQ_RPM="rabbitmq-server-${RBMQ_VER}-1.el8.noarch.rpm" \
 
 COPY rabbitmq/init.sh /init.sh
 COPY rabbitmq/prob.sh /prob.sh
-COPY --from=builder /go/src/github.com/containers-ai/alameda/rabbitmq/xray.sh /xray.sh
-COPY --from=builder /go/src/github.com/containers-ai/alameda/version.txt ${APPHOME}/etc/
-COPY --from=builder /go/src/github.com/containers-ai/alameda/rabbitmq/rabbitmqcmd /usr/local/bin/
+COPY --from=builder /go/src/prophetstor.com/alameda/rabbitmq/xray.sh /xray.sh
+COPY --from=builder /go/src/prophetstor.com/alameda/version.txt ${APPHOME}/etc/
+COPY --from=builder /go/src/prophetstor.com/alameda/rabbitmq/rabbitmqcmd /usr/local/bin/
 
 RUN set -x && yum update -y \
     && yum install -y tar procps-ng psmisc findutils vim-minimal \

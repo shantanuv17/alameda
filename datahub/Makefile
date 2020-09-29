@@ -16,7 +16,7 @@ license-utils:
 
 # Build datahub binary
 datahub: generate fmt vet
-	go build -ldflags "-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'" -o bin/datahub github.com/containers-ai/alameda/datahub/cmd
+	go build -ldflags "-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'" -o bin/datahub prophetstor.com/alameda/datahub/cmd
 
 .PHONY: run
 

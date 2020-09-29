@@ -7,7 +7,7 @@ test: generate fmt vet
 
 # Build license-utils executable binary
 license-utils: generate fmt vet
-	go build -ldflags "-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'" -o bin/license-utils github.com/containers-ai/alameda/datahub/tools/license-utils/cmd
+	go build -ldflags "-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'" -o bin/license-utils prophetstor.com/alameda/datahub/tools/license-utils/cmd
 
 .PHONY: run
 

@@ -121,13 +121,13 @@ oc apply -f deployconfig
 
 Clone code and build docker image for operator and dashboard
 ```
-git clone https://github.com/containers-ai/alameda.git
+git clone https://gitlab.prophetservice.com/ProphetStor/alameda.git
 cd alameda/operator
 docker build -t operator .
 ```
 Clone code and build docker image for alameda-ai
 ```
-git clone https://github.com/containers-ai/alameda-ai.git
+git clone https://gitlab.prophetservice.com/ProphetStor/alameda-ai.git
 cd alameda-ai
 docker build -t alameda-ai .
 ```

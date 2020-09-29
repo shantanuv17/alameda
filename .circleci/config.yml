@@ -2,54 +2,54 @@ version: 2
 jobs:
   build_operator:
     docker:
-      - image: circleci/golang:1.13
-    working_directory: /go/src/github.com/containers-ai/alameda
+      - image: circleci/golang:1.15
+    working_directory: /go/src/prophetstor.com/alameda
     steps:
       - checkout
-      - run: cd /go/src/github.com/containers-ai/alameda/operator; make manager
+      - run: cd /go/src/prophetstor.com/alameda/operator; make manager
   build_datahub:
     docker:
-      - image: circleci/golang:1.13
-    working_directory: /go/src/github.com/containers-ai/alameda
+      - image: circleci/golang:1.15
+    working_directory: /go/src/prophetstor.com/alameda
     steps:
       - checkout
-      - run: cd /go/src/github.com/containers-ai/alameda/datahub; make datahub
+      - run: cd /go/src/prophetstor.com/alameda/datahub; make datahub
   build_evictioner:
     docker:
-      - image: circleci/golang:1.13
-    working_directory: /go/src/github.com/containers-ai/alameda
+      - image: circleci/golang:1.15
+    working_directory: /go/src/prophetstor.com/alameda
     steps:
       - checkout
-      - run: cd /go/src/github.com/containers-ai/alameda/evictioner; make evictioner
+      - run: cd /go/src/prophetstor.com/alameda/evictioner; make evictioner
   build_admission_controller:
     docker:
-      - image: circleci/golang:1.13
-    working_directory: /go/src/github.com/containers-ai/alameda
+      - image: circleci/golang:1.15
+    working_directory: /go/src/prophetstor.com/alameda
     steps:
       - checkout
-      - run: cd /go/src/github.com/containers-ai/alameda/admission-controller; make admission-controller
+      - run: cd /go/src/prophetstor.com/alameda/admission-controller; make admission-controller
   build_ai_dispatcher:
     docker:
-      - image: circleci/golang:1.13
-    working_directory: /go/src/github.com/containers-ai/alameda
+      - image: circleci/golang:1.15
+    working_directory: /go/src/prophetstor.com/alameda
     steps:
       - checkout
-      - run: cd /go/src/github.com/containers-ai/alameda/ai-dispatcher; make ai-dispatcher
+      - run: cd /go/src/prophetstor.com/alameda/ai-dispatcher; make ai-dispatcher
   build_notifier:
     docker:
-      - image: circleci/golang:1.13
-    working_directory: /go/src/github.com/containers-ai/alameda
+      - image: circleci/golang:1.15
+    working_directory: /go/src/prophetstor.com/alameda
     steps:
       - checkout
-      - run: cd /go/src/github.com/containers-ai/alameda/notifier; make notifier
+      - run: cd /go/src/prophetstor.com/alameda/notifier; make notifier
   test_datahub:
     docker:
-      - image: circleci/golang:1.13
+      - image: circleci/golang:1.15
         user: root
-    working_directory: /go/src/github.com/containers-ai/alameda
+    working_directory: /go/src/prophetstor.com/alameda
     steps:
       - checkout 
-      - run: cd /go/src/github.com/containers-ai/alameda/datahub;make test      
+      - run: cd /go/src/prophetstor.com/alameda/datahub;make test
       - run:
           command: |
             bash <(curl -s https://codecov.io/bash)

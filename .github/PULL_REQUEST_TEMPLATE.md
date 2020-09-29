@@ -1,4 +1,4 @@
-<!-- Please take a look at our [Contributing](https://github.com/containers-ai/alameda/blob/master/CONTRIBUTING.md)
+<!-- Please take a look at our [Contributing](https://gitlab.prophetservice.com/ProphetStor/alameda/blob/master/CONTRIBUTING.md)
 documentation before submitting a Pull Request!
 Thank you for contributing to Alameda! -->
 

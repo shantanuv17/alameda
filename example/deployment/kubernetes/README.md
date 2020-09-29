@@ -33,7 +33,7 @@ Alameda leverages [Prometheus](https://kubernetes.io/docs/tasks/debug-applicatio
 For those clusters without a running Prometheus, please refer to https://github.com/coreos/prometheus-operator for the installation. For users to quickstart it, please refer to our [deploy guide by helm chart](../../../helm/README.md) to install a Prometheus.
 
 
-As showed in the [Alameda architecture design](https://github.com/containers-ai/alameda/blob/master/design/architecture.md), Alameda includes several components. The following shows how to deploy them with the provided example K8s manifests.
+As showed in the [Alameda architecture design](https://gitlab.prophetservice.com/ProphetStor/alameda/blob/master/design/architecture.md), Alameda includes several components. The following shows how to deploy them with the provided example K8s manifests.
 
 ## Deploy Alameda Components
 

@@ -83,6 +83,6 @@ and gpu as **_host/minor number/granularity_**.
 
 # Metrics Export
 
-We export some metrics to prometheus server to evaluate drift performance. [Metrics exported](https://github.com/containers-ai/alameda/blob/master/ai-dispatcher/docs/alameda-ai-dispatcher-metrics.md#list-of-metrics-exported-by-alameda-ai-dispatcher) are model time, total model time,
+We export some metrics to prometheus server to evaluate drift performance. [Metrics exported](https://gitlab.prophetservice.com/ProphetStor/alameda/blob/master/ai-dispatcher/docs/alameda-ai-dispatcher-metrics.md#list-of-metrics-exported-by-alameda-ai-dispatcher) are model time, total model time,
 MAPE, RMSE, and total drift time. Ensure service monitoring is applied as the
-[tutorial](https://github.com/containers-ai/federatorai-operator/blob/master/docs/setmetrics.md#apply-ai-dispatcher-service-monitoring).
+[tutorial](https://gitlab.prophetservice.com/ProphetStor/federatorai-operator/blob/master/docs/setmetrics.md#apply-ai-dispatcher-service-monitoring).

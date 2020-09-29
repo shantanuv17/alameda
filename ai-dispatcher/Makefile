@@ -12,7 +12,7 @@ test: generate fmt vet
 
 # Build ai-dispatcher binary
 ai-dispatcher: generate fmt vet
-	go build -ldflags "-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'" -o bin/ai-dispatcher github.com/containers-ai/alameda/ai-dispatcher/cmd
+	go build -ldflags "-X main.VERSION=`git rev-parse --abbrev-ref HEAD`-`git rev-parse --short HEAD``git diff --quiet || echo '-dirty'` -X 'main.BUILD_TIME=`date`' -X 'main.GO_VERSION=`go version`'" -o bin/ai-dispatcher prophetstor.com/alameda/ai-dispatcher/cmd
 
 .PHONY: run
 

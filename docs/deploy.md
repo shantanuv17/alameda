@@ -2,7 +2,7 @@
 
 Currently the following deployment guides are provided. Please find an applicable one to your environment or start with the closest one.
 
-> **NOTE:** For who are interested in using Alameda in daily operations, they may refer to [FederatorAI-Operator](https://github.com/containers-ai/federatorai-operator) that manages Alameda components in deployment, upgrade, storage, and application lifecycle aspects
+> **NOTE:** For who are interested in using Alameda in daily operations, they may refer to [FederatorAI-Operator](https://gitlab.prophetservice.com/ProphetStor/federatorai-operator) that manages Alameda components in deployment, upgrade, storage, and application lifecycle aspects
 
 - for Openshift
   - [one-click template guide](./Alameda_Installation_Guide_for_Red_Hat_OpenShift_Container_Platform.md)

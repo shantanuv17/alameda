@@ -3,7 +3,7 @@ module prophetstor.com/alameda
 go 1.15
 
 require (
-	cloud.google.com/go v0.38.0
+	cloud.google.com/go v0.46.3
 	github.com/Shopify/sarama v1.27.0
 	github.com/golang/mock v1.4.0
 	github.com/golang/protobuf v1.4.2
@@ -11,10 +11,10 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.2
 	github.com/influxdata/influxdb v1.7.9
 	github.com/lunixbochs/vtclean v1.0.0 // indirect
-	github.com/manifoldco/promptui v0.7.0
+	github.com/manifoldco/promptui v0.8.0
 	github.com/mattn/go-colorable v0.1.2 // indirect
 	github.com/mattn/go-isatty v0.0.9 // indirect
-	github.com/onsi/ginkgo v1.12.1
+	github.com/onsi/ginkgo v1.14.1
 	github.com/onsi/gomega v1.10.1
 	github.com/openshift/api v0.0.0-20200720083901-0c4b3ae5f5df
 	github.com/openshift/client-go v0.0.0-20200623090625-83993cebb5ae
@@ -23,9 +23,9 @@ require (
 	github.com/robfig/cron v1.2.0
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/pflag v1.0.5
-	github.com/spf13/viper v1.4.0
+	github.com/spf13/viper v1.7.1
 	github.com/streadway/amqp v1.0.0
-	github.com/stretchr/testify v1.6.0
+	github.com/stretchr/testify v1.6.1
 	go.uber.org/zap v1.16.0
 	golang.org/x/mod v0.3.0 // indirect
 	golang.org/x/net v0.0.0-20200904194848-62affa334b73
