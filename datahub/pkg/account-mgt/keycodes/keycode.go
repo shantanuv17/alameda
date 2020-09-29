@@ -47,6 +47,7 @@ type Keycode struct {
 	Retention        Retention        `json:"retention"        example:"retention"`
 	ServiceAgreement ServiceAgreement `json:"serviceAgreement" example:"service agreement"`
 	Description      string           `json:"description"      example:"your-description"`
+	Message          string           `json:"message"          example:"your-message"`
 }
 
 type Capacity struct {
