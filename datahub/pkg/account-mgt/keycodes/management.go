@@ -283,6 +283,11 @@ func (c *KeycodeMgt) refresh(force bool) error {
 			return err
 		}
 
+		// If grace period is not ZERO, we have to writ it to summary
+		if gracePeriod != 0 {
+			keycodeSummary.ExpireTimestamp = gracePeriod
+		}
+
 		// If everything goes right, refresh the global variables
 		KeycodeList = keycodeList
 		KeycodeSummary = keycodeSummary
@@ -338,12 +343,11 @@ func (c *KeycodeMgt) updateKeycodeEntries(keycode, status string) error {
 	points := make([]*InfluxClient.Point, 0)
 	client := InfluxDB.NewClient(InfluxConfig)
 
+	// Generate keycode summary influxdb point
+	jsonStr, _ := json.Marshal(KeycodeSummary)
 	tags := map[string]string{
 		string(ClusterStatusEntity.Keycode): keycode,
 	}
-
-	// Generate keycode summary influxdb point
-	jsonStr, _ := json.Marshal(KeycodeSummary)
 	fields := map[string]interface{}{
 		string(ClusterStatusEntity.KeycodeStatus):          status,
 		string(ClusterStatusEntity.KeycodeType):            KeycodeSummary.KeycodeType,
@@ -352,7 +356,6 @@ func (c *KeycodeMgt) updateKeycodeEntries(keycode, status string) error {
 		string(ClusterStatusEntity.KeycodeExpireTimestamp): KeycodeSummary.ExpireTimestamp,
 		string(ClusterStatusEntity.KeycodeRawdata):         string(jsonStr[:]),
 	}
-
 	pt, err := InfluxClient.NewPoint(string(RepoClusterStatus.Keycode), tags, fields, time.Unix(0, 0))
 	if err != nil {
 		scope.Error(err.Error())
@@ -362,7 +365,11 @@ func (c *KeycodeMgt) updateKeycodeEntries(keycode, status string) error {
 	// Generate keycode influxdb points
 	if KeycodeList != nil {
 		for _, keyInfo := range KeycodeList {
-			fields = map[string]interface{}{
+			jsonStr, _ := json.Marshal(keyInfo)
+			tags := map[string]string{
+				string(ClusterStatusEntity.Keycode): keyInfo.Keycode,
+			}
+			fields := map[string]interface{}{
 				string(ClusterStatusEntity.KeycodeStatus):          keyInfo.LicenseState,
 				string(ClusterStatusEntity.KeycodeType):            keyInfo.KeycodeType,
 				string(ClusterStatusEntity.KeycodeState):           keyInfo.LicenseState,
@@ -370,10 +377,7 @@ func (c *KeycodeMgt) updateKeycodeEntries(keycode, status string) error {
 				string(ClusterStatusEntity.KeycodeExpireTimestamp): keyInfo.ExpireTimestamp,
 				string(ClusterStatusEntity.KeycodeRawdata):         string(jsonStr[:]),
 			}
-			tags = map[string]string{
-				string(ClusterStatusEntity.Keycode): keyInfo.Keycode,
-			}
-			pt, err = InfluxClient.NewPoint(string(RepoClusterStatus.Keycode), tags, fields, time.Unix(0, 0))
+			pt, err := InfluxClient.NewPoint(string(RepoClusterStatus.Keycode), tags, fields, time.Unix(0, 0))
 			if err != nil {
 				scope.Error(err.Error())
 			}
