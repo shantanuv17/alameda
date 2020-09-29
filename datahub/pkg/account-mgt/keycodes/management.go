@@ -283,11 +283,6 @@ func (c *KeycodeMgt) refresh(force bool) error {
 			return err
 		}
 
-		// If grace period is not ZERO, we have to writ it to summary
-		if gracePeriod != 0 {
-			keycodeSummary.ExpireTimestamp = gracePeriod
-		}
-
 		// If everything goes right, refresh the global variables
 		KeycodeList = keycodeList
 		KeycodeSummary = keycodeSummary
@@ -296,6 +291,8 @@ func (c *KeycodeMgt) refresh(force bool) error {
 		KeycodeTimestamp = tmUnix
 		KeycodeTM = tm
 		KeycodeStatus = c.Status.GetStatus()
+		KeycodeSummary.LicenseState = c.licenseState()
+		KeycodeSummary.Message = KeycodeStatusMessage[KeycodeStatus]
 
 		// Update influxdb data
 		if err := c.updateInflux(); err != nil {
@@ -309,17 +306,24 @@ func (c *KeycodeMgt) refresh(force bool) error {
 	return nil
 }
 
+func (c *KeycodeMgt) licenseState() string {
+	if KeycodeStatus == KeycodeStatusCapacityCPUCoresExceeded {
+		return "Invalid"
+	}
+	return KeycodeSummary.LicenseState
+}
+
 func (c *KeycodeMgt) updateInflux() error {
+	if err := c.updateKeycodeGracePeriod(); err != nil {
+		scope.Errorf("failed to update keycode grace period: %s", err.Error())
+		return err
+	}
 	if err := c.deleteKeycodeEntries(); err != nil {
 		scope.Errorf("failed to delete keycode entries: %s", err.Error())
 		return err
 	}
 	if err := c.updateKeycodeEntries(KeycodeInfluxTargetMap[KeycodeStatus], KeycodeStatusName[KeycodeStatus]); err != nil {
 		scope.Errorf("failed to update keycode entries: %s", err.Error())
-		return err
-	}
-	if err := c.updateKeycodeGracePeriod(); err != nil {
-		scope.Errorf("failed to update keycode grace period: %s", err.Error())
 		return err
 	}
 	return nil
@@ -405,13 +409,17 @@ func (c *KeycodeMgt) updateKeycodeGracePeriod() error {
 		}
 		return nil
 	}
-	if KeycodeStatus == KeycodeStatusCapacityCPUCoresGracePeriod {
+	if KeycodeStatus == KeycodeStatusCapacityCPUCoresGracePeriod || KeycodeStatus == KeycodeStatusCapacityCPUCoresExceeded {
 		if KeycodeGracePeriod == 0 {
 			ts := time.Unix(time.Now().Unix()+licenses.CPUCapacityGracePeriod, 0)
 			KeycodeGracePeriod = ts.Unix()
 			if err := WriteKeycodeGracePeriod(ts.Unix(), c.InfluxCfg); err != nil {
 				return err
 			}
+		}
+		// If grace period is greater than ZERO and less than expire timestamp of summary, we have to writ it to summary
+		if KeycodeGracePeriod > 0 && KeycodeGracePeriod < KeycodeSummary.ExpireTimestamp {
+			KeycodeSummary.ExpireTimestamp = KeycodeGracePeriod
 		}
 	}
 	return nil

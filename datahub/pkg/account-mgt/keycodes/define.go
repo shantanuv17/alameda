@@ -33,8 +33,8 @@ var KeycodeStatusMessage = map[int]string{
 	3: "Keycode is expired",
 	4: "Keycode is not activated",
 	5: "A valid keycode is applied",
-	6: "Number of CPU cores exceeds the licensed number of CPU cores, will expire in grace period",
-	7: "Number of CPU cores exceeds the licensed number of CPU cores",
+	6: "Exceeded the licensed number of CPU cores",
+	7: "Exceeded the licensed number of CPU cores",
 }
 
 var KeycodeEventLevelMap = map[int]events.EventLevel{
