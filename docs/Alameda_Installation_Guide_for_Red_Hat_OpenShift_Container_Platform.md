@@ -34,10 +34,6 @@
 	  1. Access Mode: ReadWriteOnce
 	  2. Capacity: Meets requirement for PVC capacity inputed during deployment (at least 10GiB)
 	  3. Label: Set up PV label "**storage-name: alameda-ai**"
-   * **Grafana PV**:
-	  1. Access Mode: ReadWriteOnce
-	  2. Capacity: Meets requirement for PVC capacity inputed during deployment (at least 2GiB)
-	  3. Label: Set up PV label "**storage-name: alameda-grafana**"
 
    Note: Check **Alameda Installation step 7** for details about specifying PVCs capacity to meet the PVs created here.
 # Alameda Installation
@@ -78,11 +74,7 @@
 	
 	![](./img/openshift_guide/8.png)
 	
-10. After deployment has finished, switch to the **openshift-monitoring** project (a default project in OCP). Go to **Resources > Secrets > grafana-datasources** and click **Reveal Secret**.
-	
-	![](./img/openshift_guide/9.png)
-	
-11. Write down the following three values from prometheus.yaml.
+10. Write down the following three values from prometheus.yaml.
 
 	| Name | Value (example)|
 	| --- | --- |
@@ -92,23 +84,11 @@
 	
 	![](./img/openshift_guide/10.png)
 	
-12. Go back to the alameda project to locate the URL of the alameda-grafana pod. Open that address in a browser. (default username/password is admin/admin).
-	
-	![](./img/openshift_guide/11.png)
-	
-	![](./img/openshift_guide/12.png)
-	
-13. Go to **Configuration > Data Sources** and click on the **Add data source** button. Select Promethues and fill in the previously recorded url, select **Basic Auth** and fill in AuthUser and AuthPassword. Also, remember to check **Skip TLS verify**. Click the **Save & Test** button.
+11. Go to **Configuration > Data Sources** and click on the **Add data source** button. Select Promethues and fill in the previously recorded url, select **Basic Auth** and fill in AuthUser and AuthPassword. Also, remember to check **Skip TLS verify**. Click the **Save & Test** button.
 	
 	![](./img/openshift_guide/13.png)
 	
 	![](./img/openshift_guide/14.png)
-	
-14. Go to the plus button to import the 3 grafana JSON files located here [helm/grafana/dashboards](../helm/grafana/dashboards/). Then on the same import page select the correct InfluxDB and Prometheus data sources.
-
-	![](./img/openshift_guide/15.png)
-
-	![](./img/openshift_guide/15-1.png)
 
 # Alameda Configuration
 

@@ -44,8 +44,7 @@ As the following figure shows, Alameda works with several components:
 6. _InfluxDB_: This time-series DB is used as a storage backend of whole Alameda system. It stores data such as predicted metrics and recommendations.
 7. _datahub_: datahub plays an API and data gateway betwen Alameda components. All data access such as Prometheus and InfluxDB is through this component. The component itself is designed to be stateless and can be scaled out when loading is heavy.
 8. execution: The execution part is optional in Alameda. Users may leverage Alameda's predictions and recommendations and implement their owned execution.
-9. _grafana_: Alameda leverages the open-source Grafana to visualize predictions and recommendations. This component is optional and Alameda dashboards are installed by default when it is deployed.
-10. _notifier_: This component provides nofitications such as email to notifiy users for events.
+9. _notifier_: This component provides nofitications such as email to notifiy users for events.
 
 The following message sequence chart demonstrates how Alameda normally works.
 
