@@ -23,7 +23,7 @@ var KeycodeStatusName = map[int]string{
 	4: "Not Activated",
 	5: "Valid",
 	6: "Grace Period",
-	7: "Exceed Licensed Capacity",
+	7: "Exceeded Licensed Capacity",
 }
 
 var KeycodeStatusMessage = map[int]string{
