@@ -58,7 +58,6 @@ type AlamedaNotificationChannel struct {
 }
 
 // +kubebuilder:object:root=true
-
 // AlamedaNotificationChannelList contains a list of AlamedaNotificationChannel
 type AlamedaNotificationChannelList struct {
 	metav1.TypeMeta `json:",inline"`
