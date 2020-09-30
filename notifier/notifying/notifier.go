@@ -173,13 +173,19 @@ func (notifier *notifier) sendEvtBaseOnTopic(evt *datahub_events.Event,
 
 func (notifier *notifier) sendEvtByEmails(evt *datahub_events.Event,
 	emailChannel *notifyingv1alpha1.AlamedaEmailChannel) error {
-	alamedaNotificationChannel := &notifyingv1alpha1.AlamedaNotificationChannel{}
-	err := notifier.k8sClient.Get(context.TODO(), client.ObjectKey{
-		Name: emailChannel.Name,
-	}, alamedaNotificationChannel)
 
-	if err != nil {
+	alamedaNotificationChannel := &notifyingv1alpha1.AlamedaNotificationChannel{}
+	if err := notifier.k8sClient.Get(context.TODO(), client.ObjectKey{
+		Name: emailChannel.Name,
+	}, alamedaNotificationChannel); err != nil {
 		return err
+	}
+
+	if alamedaNotificationChannel.Spec.Email.Server == "" {
+		return fmt.Errorf("server is not set in alamedaNotificationChannel %s", alamedaNotificationChannel.GetName())
+	}
+	if alamedaNotificationChannel.Spec.Email.Port == 0 {
+		return fmt.Errorf("port is not set in alamedaNotificationChannel %s", alamedaNotificationChannel.GetName())
 	}
 	emailNotificationChannel, err := channel.NewEmailClient(
 		alamedaNotificationChannel, emailChannel, notifier.clusterInfo)
