@@ -2,12 +2,14 @@ package metrics
 
 import (
 	"github.com/golang/protobuf/ptypes"
+	"prophetstor.com/alameda/datahub/pkg/apis"
 	DaoMetricTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/metrics/types"
 	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
 	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/common"
 	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/resources"
 	FormatTypes "prophetstor.com/alameda/datahub/pkg/formatconversion/types"
 	"prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	Database "prophetstor.com/alameda/pkg/database/common"
 	ApiCommon "prophetstor.com/api/datahub/common"
 	ApiMetrics "prophetstor.com/api/datahub/metrics"
 )
@@ -62,6 +64,10 @@ func (r *ListNodeMetricsRequestExtended) SetDefaultWithMetricsDBType(dbType Metr
 	r.Request.QueryCondition = q
 }
 
+func (r *ListNodeMetricsRequestExtended) SetRollupFunction(metricsConfig *apis.MetricsConfig) {
+	r.Request.QueryCondition.Function = newFunction(metricsConfig)
+}
+
 func (r *ListNodeMetricsRequestExtended) ProduceRequest() DaoMetricTypes.ListNodeMetricsRequest {
 	request := DaoMetricTypes.NewListNodeMetricsRequest()
 	request.QueryCondition = common.QueryConditionExtend{Condition: r.Request.GetQueryCondition()}.QueryCondition()
@@ -85,5 +91,17 @@ func (r *ListNodeMetricsRequestExtended) ProduceRequest() DaoMetricTypes.ListNod
 		metricTypes = append(metricTypes, MetricTypeNameMap[ApiCommon.MetricType_MEMORY_BYTES_USAGE])
 	}
 	request.MetricTypes = metricTypes
+	if r.Request.QueryCondition.Function != nil {
+		switch r.Request.QueryCondition.Function.Type {
+		case ApiCommon.FunctionType_FUNCTIONTYPE_MEAN:
+			request.AggregateOverTimeFunction = Database.AvgOverTime
+		case ApiCommon.FunctionType_FUNCTIONTYPE_MAX:
+			request.AggregateOverTimeFunction = Database.MaxOverTime
+		case ApiCommon.FunctionType_FUNCTIONTYPE_PERCENTILE:
+			request.AggregateOverTimeFunction = Database.PercentileOverTime
+		default:
+			request.AggregateOverTimeFunction = Database.None
+		}
+	}
 	return request
 }

@@ -2,12 +2,14 @@ package metrics
 
 import (
 	"github.com/golang/protobuf/ptypes"
+	"prophetstor.com/alameda/datahub/pkg/apis"
 	DaoMetricTypes "prophetstor.com/alameda/datahub/pkg/dao/interfaces/metrics/types"
 	FormatEnum "prophetstor.com/alameda/datahub/pkg/formatconversion/enumconv"
 	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/common"
 	"prophetstor.com/alameda/datahub/pkg/formatconversion/requests/resources"
 	FormatTypes "prophetstor.com/alameda/datahub/pkg/formatconversion/types"
 	"prophetstor.com/alameda/datahub/pkg/kubernetes/metadata"
+	Database "prophetstor.com/alameda/pkg/database/common"
 	ApiCommon "prophetstor.com/api/datahub/common"
 	ApiMetrics "prophetstor.com/api/datahub/metrics"
 )
@@ -74,13 +76,12 @@ func (r *ListPodMetricsRequestExtended) Validate() error {
 
 func (r *ListPodMetricsRequestExtended) SetDefaultWithMetricsDBType(dbType MetricsDBType) {
 	q := normalizeListMetricsRequestQueryConditionWthMetricsDBType(r.Request.QueryCondition, dbType)
-	switch q.TimeRange.Step.Seconds {
-	case 30:
-		q.TimeRange.AggregateFunction = ApiCommon.TimeRange_MAX
-	default:
-		q.TimeRange.AggregateFunction = ApiCommon.TimeRange_MAX
-	}
+	q.TimeRange.AggregateFunction = ApiCommon.TimeRange_MAX
 	r.Request.QueryCondition = q
+}
+
+func (r *ListPodMetricsRequestExtended) SetRollupFunction(metricsConfig *apis.MetricsConfig) {
+	r.Request.QueryCondition.Function = newFunction(metricsConfig)
 }
 
 func (r *ListPodMetricsRequestExtended) ProduceRequest() DaoMetricTypes.ListPodMetricsRequest {
@@ -110,5 +111,17 @@ func (r *ListPodMetricsRequestExtended) ProduceRequest() DaoMetricTypes.ListPodM
 		metricTypes = append(metricTypes, MetricTypeNameMap[ApiCommon.MetricType_MEMORY_BYTES_USAGE])
 	}
 	request.MetricTypes = metricTypes
+	if r.Request.QueryCondition.Function != nil {
+		switch r.Request.QueryCondition.Function.Type {
+		case ApiCommon.FunctionType_FUNCTIONTYPE_MEAN:
+			request.AggregateOverTimeFunction = Database.AvgOverTime
+		case ApiCommon.FunctionType_FUNCTIONTYPE_MAX:
+			request.AggregateOverTimeFunction = Database.MaxOverTime
+		case ApiCommon.FunctionType_FUNCTIONTYPE_PERCENTILE:
+			request.AggregateOverTimeFunction = Database.PercentileOverTime
+		default:
+			request.AggregateOverTimeFunction = Database.None
+		}
+	}
 	return request
 }

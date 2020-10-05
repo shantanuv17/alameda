@@ -8,15 +8,17 @@ type Functions = string
 
 // Influxdb function definition
 const (
-	Last Functions = "LAST"
-	Mean Functions = "MEAN"
-	Max  Functions = "MAX"
+	Last       Functions = "LAST"
+	Mean       Functions = "MEAN"
+	Max        Functions = "MAX"
+	Percentile Functions = "PERCENTILE"
 )
 
 var AggregateFuncMap = map[common.AggregateFunction]Functions{
-	common.None:        Last,
-	common.MaxOverTime: Max,
-	common.AvgOverTime: Mean,
+	common.None:               Last,
+	common.MaxOverTime:        Max,
+	common.AvgOverTime:        Mean,
+	common.PercentileOverTime: Percentile,
 }
 
 var FunctionNameMap = map[common.FunctionType]string{

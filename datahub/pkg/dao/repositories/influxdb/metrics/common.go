@@ -11,9 +11,10 @@ import (
 )
 
 var aggregateFuncToInfluxDBFunc = map[common.AggregateFunction]influxdb.Functions{
-	common.None:        influxdb.Last,
-	common.MaxOverTime: influxdb.Max,
-	common.AvgOverTime: influxdb.Mean,
+	common.None:               influxdb.Last,
+	common.MaxOverTime:        influxdb.Max,
+	common.AvgOverTime:        influxdb.Mean,
+	common.PercentileOverTime: influxdb.Percentile,
 }
 
 var metricTypeMapTable = map[enumconv.MetricType]schemas.MetricType{
