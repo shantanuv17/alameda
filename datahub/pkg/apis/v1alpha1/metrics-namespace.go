@@ -50,6 +50,7 @@ func (s *ServiceV1alpha1) ListNamespaceMetrics(ctx context.Context, in *ApiMetri
 		}, nil
 	}
 	requestExtended.SetDefaultWithMetricsDBType(s.Config.Apis.Metrics.Source)
+	requestExtended.SetRollupFunction(s.Config.Apis.Metrics)
 
 	metricsDao := DaoMetrics.NewNamespaceMetricsReaderDAO(*s.Config)
 	metricMap, err := metricsDao.ListMetrics(ctx, requestExtended.ProduceRequest())

@@ -61,6 +61,7 @@ func (s *ServiceV1alpha1) ListPodMetrics(ctx context.Context, in *ApiMetrics.Lis
 		}, nil
 	}
 	requestExt.SetDefaultWithMetricsDBType(s.Config.Apis.Metrics.Source)
+	requestExt.SetRollupFunction(s.Config.Apis.Metrics)
 
 	metricDAO := DaoMetric.NewPodMetricsReaderDAO(*s.Config)
 	podMetricMap, err := metricDAO.ListMetrics(ctx, requestExt.ProduceRequest())

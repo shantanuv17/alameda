@@ -1,12 +1,14 @@
 package metrics
 
 import (
+	"github.com/containers-ai/alameda/datahub/pkg/apis"
 	DaoMetricTypes "github.com/containers-ai/alameda/datahub/pkg/dao/interfaces/metrics/types"
 	FormatEnum "github.com/containers-ai/alameda/datahub/pkg/formatconversion/enumconv"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/common"
 	"github.com/containers-ai/alameda/datahub/pkg/formatconversion/requests/resources"
 	FormatTypes "github.com/containers-ai/alameda/datahub/pkg/formatconversion/types"
 	"github.com/containers-ai/alameda/datahub/pkg/kubernetes/metadata"
+	Database "github.com/containers-ai/alameda/pkg/database/common"
 	ApiCommon "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/common"
 	ApiMetrics "github.com/containers-ai/api/alameda_api/v1alpha1/datahub/metrics"
 	"github.com/golang/protobuf/ptypes"
@@ -71,6 +73,10 @@ func (r *ListNamespaceMetricsRequestExtended) SetDefaultWithMetricsDBType(dbType
 	r.Request.QueryCondition = &q
 }
 
+func (r *ListNamespaceMetricsRequestExtended) SetRollupFunction(metricsConfig *apis.MetricsConfig) {
+	r.Request.QueryCondition.Function = newFunction(metricsConfig)
+}
+
 func (r *ListNamespaceMetricsRequestExtended) ProduceRequest() DaoMetricTypes.ListNamespaceMetricsRequest {
 	request := DaoMetricTypes.ListNamespaceMetricsRequest{}
 	request.QueryCondition = common.QueryConditionExtend{Condition: r.Request.GetQueryCondition()}.QueryCondition()
@@ -94,5 +100,17 @@ func (r *ListNamespaceMetricsRequestExtended) ProduceRequest() DaoMetricTypes.Li
 		metricTypes = append(metricTypes, MetricTypeNameMap[ApiCommon.MetricType_MEMORY_BYTES_USAGE])
 	}
 	request.MetricTypes = metricTypes
+	if r.Request.QueryCondition.Function != nil {
+		switch r.Request.QueryCondition.Function.Type {
+		case ApiCommon.FunctionType_FUNCTIONTYPE_MEAN:
+			request.AggregateOverTimeFunction = Database.AvgOverTime
+		case ApiCommon.FunctionType_FUNCTIONTYPE_MAX:
+			request.AggregateOverTimeFunction = Database.MaxOverTime
+		case ApiCommon.FunctionType_FUNCTIONTYPE_PERCENTILE:
+			request.AggregateOverTimeFunction = Database.PercentileOverTime
+		default:
+			request.AggregateOverTimeFunction = Database.None
+		}
+	}
 	return request
 }

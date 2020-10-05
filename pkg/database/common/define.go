@@ -26,9 +26,10 @@ const (
 
 // Aggregation function definition
 const (
-	None        AggregateFunction = 0
-	MaxOverTime AggregateFunction = 1
-	AvgOverTime AggregateFunction = 2
+	None               AggregateFunction = 0
+	MaxOverTime        AggregateFunction = 1
+	AvgOverTime        AggregateFunction = 2
+	PercentileOverTime AggregateFunction = 3
 )
 
 const (

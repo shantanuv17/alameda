@@ -33,6 +33,7 @@ type Function struct {
 	FuncType FunctionType
 	FuncName string
 	Target   string
+	Number   int64
 }
 
 func NewStatement(query *Common.Query) *Statement {
@@ -131,6 +132,9 @@ func (s *Statement) SetFunction(funcType FunctionType, funcName, target string) 
 	s.Function.FuncType = funcType
 	s.Function.FuncName = funcName
 	s.Function.Target = target
+	if s.QueryCondition.Function != nil {
+		s.Function.Number = s.QueryCondition.Function.Number
+	}
 }
 
 func (s *Statement) SetOrderClauseFromQueryCondition() {
@@ -197,9 +201,17 @@ func (s *Statement) BuildQueryCmd() string {
 	if s.Function != nil {
 		switch s.Function.FuncType {
 		case Aggregate:
-			fieldsStr = fmt.Sprintf("%s(%s)", s.Function.FuncName, fieldsStr)
+			if s.Function.FuncName == Percentile {
+				fieldsStr = fmt.Sprintf("%s(%s, %d)", s.Function.FuncName, fieldsStr, s.Function.Number)
+			} else {
+				fieldsStr = fmt.Sprintf("%s(%s)", s.Function.FuncName, fieldsStr)
+			}
 		case Select:
-			fieldsStr = fmt.Sprintf("%s(%s)", s.Function.FuncName, fieldsStr)
+			if s.Function.FuncName == Percentile {
+				fieldsStr = fmt.Sprintf("%s(%s, %d)", s.Function.FuncName, fieldsStr, s.Function.Number)
+			} else {
+				fieldsStr = fmt.Sprintf("%s(%s)", s.Function.FuncName, fieldsStr)
+			}
 		}
 		if s.Function.Target != "" {
 			fieldsStr = fmt.Sprintf("%s as %s", fieldsStr, s.Function.Target)
