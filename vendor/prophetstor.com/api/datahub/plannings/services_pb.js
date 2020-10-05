@@ -1,4 +1,4 @@
-// source: datahub/plannings/services.proto
+// source: prophetstor/api/datahub/plannings/services.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -12,41 +12,41 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var datahub_common_metrics_pb = require('../../datahub/common/metrics_pb.js');
-goog.object.extend(proto, datahub_common_metrics_pb);
-var datahub_common_queries_pb = require('../../datahub/common/queries_pb.js');
-goog.object.extend(proto, datahub_common_queries_pb);
-var datahub_plannings_plannings_pb = require('../../datahub/plannings/plannings_pb.js');
-goog.object.extend(proto, datahub_plannings_plannings_pb);
-var datahub_plannings_types_pb = require('../../datahub/plannings/types_pb.js');
-goog.object.extend(proto, datahub_plannings_types_pb);
-var datahub_resources_metadata_pb = require('../../datahub/resources/metadata_pb.js');
-goog.object.extend(proto, datahub_resources_metadata_pb);
-var datahub_schemas_types_pb = require('../../datahub/schemas/types_pb.js');
-goog.object.extend(proto, datahub_schemas_types_pb);
-var google_rpc_status_pb = require('../../google/rpc/status_pb.js');
+var prophetstor_api_datahub_common_metrics_pb = require('../../../../prophetstor/api/datahub/common/metrics_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_common_metrics_pb);
+var prophetstor_api_datahub_common_queries_pb = require('../../../../prophetstor/api/datahub/common/queries_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_common_queries_pb);
+var prophetstor_api_datahub_plannings_plannings_pb = require('../../../../prophetstor/api/datahub/plannings/plannings_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_plannings_plannings_pb);
+var prophetstor_api_datahub_plannings_types_pb = require('../../../../prophetstor/api/datahub/plannings/types_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_plannings_types_pb);
+var prophetstor_api_datahub_resources_metadata_pb = require('../../../../prophetstor/api/datahub/resources/metadata_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_resources_metadata_pb);
+var prophetstor_api_datahub_schemas_types_pb = require('../../../../prophetstor/api/datahub/schemas/types_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_schemas_types_pb);
+var google_rpc_status_pb = require('../../../../google/rpc/status_pb.js');
 goog.object.extend(proto, google_rpc_status_pb);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.CreatePlanningsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.ListNodePlanningsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.ListNodePlanningsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.ListPlanningsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.ListPlanningsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.ListPodPlanningsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.plannings.ListPodPlanningsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.ListPlanningsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.ListPlanningsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse', null, global);
 /**
  * Generated by JsPbCodeGenerator.
  * @param {Array=} opt_data Optional initial data array, typically from a
@@ -57,16 +57,16 @@ goog.exportSymbol('proto.prophetstor.datahub.plannings.ListPodPlanningsResponse'
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.displayName = 'proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest';
+  proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.displayName = 'proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -78,16 +78,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.displayName = 'proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest';
+  proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.displayName = 'proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -99,16 +99,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.displayName = 'proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest';
+  proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.displayName = 'proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -120,16 +120,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.displayName = 'proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest';
+  proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.displayName = 'proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -141,16 +141,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.displayName = 'proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest';
+  proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.displayName = 'proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -162,16 +162,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.displayName = 'proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest';
+  proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.displayName = 'proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -183,16 +183,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.ListPodPlanningsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.displayName = 'proto.prophetstor.datahub.plannings.ListPodPlanningsRequest';
+  proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.displayName = 'proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -204,16 +204,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.ListPodPlanningsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.displayName = 'proto.prophetstor.datahub.plannings.ListPodPlanningsResponse';
+  proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.displayName = 'proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -225,16 +225,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.displayName = 'proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest';
+  proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.displayName = 'proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -246,16 +246,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.displayName = 'proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse';
+  proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.displayName = 'proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -267,16 +267,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.displayName = 'proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest';
+  proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.displayName = 'proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -288,16 +288,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.displayName = 'proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse';
+  proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.displayName = 'proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -309,16 +309,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.displayName = 'proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest';
+  proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.displayName = 'proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -330,16 +330,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.displayName = 'proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse';
+  proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.displayName = 'proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -351,16 +351,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.ListNodePlanningsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.displayName = 'proto.prophetstor.datahub.plannings.ListNodePlanningsRequest';
+  proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.displayName = 'proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -372,16 +372,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.ListNodePlanningsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.displayName = 'proto.prophetstor.datahub.plannings.ListNodePlanningsResponse';
+  proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.displayName = 'proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -393,16 +393,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.displayName = 'proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest';
+  proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.displayName = 'proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -414,16 +414,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.displayName = 'proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse';
+  proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.displayName = 'proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -435,16 +435,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.CreatePlanningsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.plannings.CreatePlanningsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.CreatePlanningsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.CreatePlanningsRequest.displayName = 'proto.prophetstor.datahub.plannings.CreatePlanningsRequest';
+  proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.displayName = 'proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -456,16 +456,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.ListPlanningsRequest = function(opt_data) {
+proto.prophetstor.api.datahub.plannings.ListPlanningsRequest = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.ListPlanningsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.ListPlanningsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.ListPlanningsRequest.displayName = 'proto.prophetstor.datahub.plannings.ListPlanningsRequest';
+  proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.displayName = 'proto.prophetstor.api.datahub.plannings.ListPlanningsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -477,16 +477,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.plannings.ListPlanningsResponse = function(opt_data) {
+proto.prophetstor.api.datahub.plannings.ListPlanningsResponse = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.prophetstor.datahub.plannings.ListPlanningsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.plannings.ListPlanningsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.plannings.ListPlanningsResponse.displayName = 'proto.prophetstor.datahub.plannings.ListPlanningsResponse';
+  proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.displayName = 'proto.prophetstor.api.datahub.plannings.ListPlanningsResponse';
 }
 
 /**
@@ -494,7 +494,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.repeatedFields_ = [1];
 
 
 
@@ -511,8 +511,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -521,14 +521,14 @@ proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.prototype.toObject
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     podPlanningsList: jspb.Message.toObjectList(msg.getPodPlanningsList(),
-    datahub_plannings_plannings_pb.PodPlanning.toObject, includeInstance),
+    prophetstor_api_datahub_plannings_plannings_pb.PodPlanning.toObject, includeInstance),
     granularity: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
@@ -543,23 +543,23 @@ proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.toObject = functio
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest;
-  return proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest;
+  return proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -567,8 +567,8 @@ proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.deserializeBinaryF
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_plannings_plannings_pb.PodPlanning;
-      reader.readMessage(value,datahub_plannings_plannings_pb.PodPlanning.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_plannings_plannings_pb.PodPlanning;
+      reader.readMessage(value,prophetstor_api_datahub_plannings_plannings_pb.PodPlanning.deserializeBinaryFromReader);
       msg.addPodPlannings(value);
       break;
     case 2:
@@ -588,9 +588,9 @@ proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.deserializeBinaryF
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -598,18 +598,18 @@ proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.prototype.serializ
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest} message
+ * @param {!proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getPodPlanningsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_plannings_plannings_pb.PodPlanning.serializeBinaryToWriter
+      prophetstor_api_datahub_plannings_plannings_pb.PodPlanning.serializeBinaryToWriter
     );
   }
   f = message.getGranularity();
@@ -624,38 +624,38 @@ proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.serializeBinaryToW
 
 /**
  * repeated PodPlanning pod_plannings = 1;
- * @return {!Array<!proto.prophetstor.datahub.plannings.PodPlanning>}
+ * @return {!Array<!proto.prophetstor.api.datahub.plannings.PodPlanning>}
  */
-proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.prototype.getPodPlanningsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.plannings.PodPlanning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_plannings_plannings_pb.PodPlanning, 1));
+proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.prototype.getPodPlanningsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.plannings.PodPlanning>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_plannings_plannings_pb.PodPlanning, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.plannings.PodPlanning>} value
- * @return {!proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.plannings.PodPlanning>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.prototype.setPodPlanningsList = function(value) {
+proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.prototype.setPodPlanningsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.PodPlanning=} opt_value
+ * @param {!proto.prophetstor.api.datahub.plannings.PodPlanning=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.plannings.PodPlanning}
+ * @return {!proto.prophetstor.api.datahub.plannings.PodPlanning}
  */
-proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.prototype.addPodPlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.plannings.PodPlanning, opt_index);
+proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.prototype.addPodPlannings = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.plannings.PodPlanning, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.prototype.clearPodPlanningsList = function() {
+proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.prototype.clearPodPlanningsList = function() {
   return this.setPodPlanningsList([]);
 };
 
@@ -664,16 +664,16 @@ proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.prototype.clearPod
  * optional int64 granularity = 2;
  * @return {number}
  */
-proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.plannings.CreatePodPlanningsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 2, value);
 };
 
@@ -684,7 +684,7 @@ proto.prophetstor.datahub.plannings.CreatePodPlanningsRequest.prototype.setGranu
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.repeatedFields_ = [1];
 
 
 
@@ -701,8 +701,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -711,14 +711,14 @@ proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.prototype.t
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     controllerPlanningsList: jspb.Message.toObjectList(msg.getControllerPlanningsList(),
-    datahub_plannings_plannings_pb.ControllerPlanning.toObject, includeInstance),
+    prophetstor_api_datahub_plannings_plannings_pb.ControllerPlanning.toObject, includeInstance),
     granularity: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
@@ -733,23 +733,23 @@ proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.toObject = 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest;
-  return proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest;
+  return proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -757,8 +757,8 @@ proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.deserialize
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_plannings_plannings_pb.ControllerPlanning;
-      reader.readMessage(value,datahub_plannings_plannings_pb.ControllerPlanning.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_plannings_plannings_pb.ControllerPlanning;
+      reader.readMessage(value,prophetstor_api_datahub_plannings_plannings_pb.ControllerPlanning.deserializeBinaryFromReader);
       msg.addControllerPlannings(value);
       break;
     case 2:
@@ -778,9 +778,9 @@ proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.deserialize
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -788,18 +788,18 @@ proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.prototype.s
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest} message
+ * @param {!proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getControllerPlanningsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_plannings_plannings_pb.ControllerPlanning.serializeBinaryToWriter
+      prophetstor_api_datahub_plannings_plannings_pb.ControllerPlanning.serializeBinaryToWriter
     );
   }
   f = message.getGranularity();
@@ -814,38 +814,38 @@ proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.serializeBi
 
 /**
  * repeated ControllerPlanning controller_plannings = 1;
- * @return {!Array<!proto.prophetstor.datahub.plannings.ControllerPlanning>}
+ * @return {!Array<!proto.prophetstor.api.datahub.plannings.ControllerPlanning>}
  */
-proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.prototype.getControllerPlanningsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.plannings.ControllerPlanning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_plannings_plannings_pb.ControllerPlanning, 1));
+proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.prototype.getControllerPlanningsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.plannings.ControllerPlanning>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_plannings_plannings_pb.ControllerPlanning, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.plannings.ControllerPlanning>} value
- * @return {!proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.plannings.ControllerPlanning>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.prototype.setControllerPlanningsList = function(value) {
+proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.prototype.setControllerPlanningsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.ControllerPlanning=} opt_value
+ * @param {!proto.prophetstor.api.datahub.plannings.ControllerPlanning=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.plannings.ControllerPlanning}
+ * @return {!proto.prophetstor.api.datahub.plannings.ControllerPlanning}
  */
-proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.prototype.addControllerPlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.plannings.ControllerPlanning, opt_index);
+proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.prototype.addControllerPlannings = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.plannings.ControllerPlanning, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.prototype.clearControllerPlanningsList = function() {
+proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.prototype.clearControllerPlanningsList = function() {
   return this.setControllerPlanningsList([]);
 };
 
@@ -854,16 +854,16 @@ proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.prototype.c
  * optional int64 granularity = 2;
  * @return {number}
  */
-proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.plannings.CreateControllerPlanningsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 2, value);
 };
 
@@ -874,7 +874,7 @@ proto.prophetstor.datahub.plannings.CreateControllerPlanningsRequest.prototype.s
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.repeatedFields_ = [1];
 
 
 
@@ -891,8 +891,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -901,14 +901,14 @@ proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.prototype.
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     applicationPlanningsList: jspb.Message.toObjectList(msg.getApplicationPlanningsList(),
-    datahub_plannings_plannings_pb.ApplicationPlanning.toObject, includeInstance),
+    prophetstor_api_datahub_plannings_plannings_pb.ApplicationPlanning.toObject, includeInstance),
     granularity: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
@@ -923,23 +923,23 @@ proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.toObject =
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest;
-  return proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest;
+  return proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -947,8 +947,8 @@ proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.deserializ
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_plannings_plannings_pb.ApplicationPlanning;
-      reader.readMessage(value,datahub_plannings_plannings_pb.ApplicationPlanning.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_plannings_plannings_pb.ApplicationPlanning;
+      reader.readMessage(value,prophetstor_api_datahub_plannings_plannings_pb.ApplicationPlanning.deserializeBinaryFromReader);
       msg.addApplicationPlannings(value);
       break;
     case 2:
@@ -968,9 +968,9 @@ proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.deserializ
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -978,18 +978,18 @@ proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.prototype.
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest} message
+ * @param {!proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getApplicationPlanningsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_plannings_plannings_pb.ApplicationPlanning.serializeBinaryToWriter
+      prophetstor_api_datahub_plannings_plannings_pb.ApplicationPlanning.serializeBinaryToWriter
     );
   }
   f = message.getGranularity();
@@ -1004,38 +1004,38 @@ proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.serializeB
 
 /**
  * repeated ApplicationPlanning application_plannings = 1;
- * @return {!Array<!proto.prophetstor.datahub.plannings.ApplicationPlanning>}
+ * @return {!Array<!proto.prophetstor.api.datahub.plannings.ApplicationPlanning>}
  */
-proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.prototype.getApplicationPlanningsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.plannings.ApplicationPlanning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_plannings_plannings_pb.ApplicationPlanning, 1));
+proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.prototype.getApplicationPlanningsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.plannings.ApplicationPlanning>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_plannings_plannings_pb.ApplicationPlanning, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.plannings.ApplicationPlanning>} value
- * @return {!proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.plannings.ApplicationPlanning>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.prototype.setApplicationPlanningsList = function(value) {
+proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.prototype.setApplicationPlanningsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.ApplicationPlanning=} opt_value
+ * @param {!proto.prophetstor.api.datahub.plannings.ApplicationPlanning=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.plannings.ApplicationPlanning}
+ * @return {!proto.prophetstor.api.datahub.plannings.ApplicationPlanning}
  */
-proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.prototype.addApplicationPlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.plannings.ApplicationPlanning, opt_index);
+proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.prototype.addApplicationPlannings = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.plannings.ApplicationPlanning, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.prototype.clearApplicationPlanningsList = function() {
+proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.prototype.clearApplicationPlanningsList = function() {
   return this.setApplicationPlanningsList([]);
 };
 
@@ -1044,16 +1044,16 @@ proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.prototype.
  * optional int64 granularity = 2;
  * @return {number}
  */
-proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 2, value);
 };
 
@@ -1064,7 +1064,7 @@ proto.prophetstor.datahub.plannings.CreateApplicationPlanningsRequest.prototype.
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.repeatedFields_ = [1];
 
 
 
@@ -1081,8 +1081,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1091,14 +1091,14 @@ proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.prototype.to
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     namespacePlanningsList: jspb.Message.toObjectList(msg.getNamespacePlanningsList(),
-    datahub_plannings_plannings_pb.NamespacePlanning.toObject, includeInstance),
+    prophetstor_api_datahub_plannings_plannings_pb.NamespacePlanning.toObject, includeInstance),
     granularity: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
@@ -1113,23 +1113,23 @@ proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.toObject = f
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest;
-  return proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest;
+  return proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1137,8 +1137,8 @@ proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.deserializeB
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_plannings_plannings_pb.NamespacePlanning;
-      reader.readMessage(value,datahub_plannings_plannings_pb.NamespacePlanning.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_plannings_plannings_pb.NamespacePlanning;
+      reader.readMessage(value,prophetstor_api_datahub_plannings_plannings_pb.NamespacePlanning.deserializeBinaryFromReader);
       msg.addNamespacePlannings(value);
       break;
     case 2:
@@ -1158,9 +1158,9 @@ proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.deserializeB
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1168,18 +1168,18 @@ proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.prototype.se
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest} message
+ * @param {!proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getNamespacePlanningsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_plannings_plannings_pb.NamespacePlanning.serializeBinaryToWriter
+      prophetstor_api_datahub_plannings_plannings_pb.NamespacePlanning.serializeBinaryToWriter
     );
   }
   f = message.getGranularity();
@@ -1194,38 +1194,38 @@ proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.serializeBin
 
 /**
  * repeated NamespacePlanning namespace_plannings = 1;
- * @return {!Array<!proto.prophetstor.datahub.plannings.NamespacePlanning>}
+ * @return {!Array<!proto.prophetstor.api.datahub.plannings.NamespacePlanning>}
  */
-proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.prototype.getNamespacePlanningsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.plannings.NamespacePlanning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_plannings_plannings_pb.NamespacePlanning, 1));
+proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.prototype.getNamespacePlanningsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.plannings.NamespacePlanning>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_plannings_plannings_pb.NamespacePlanning, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.plannings.NamespacePlanning>} value
- * @return {!proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.plannings.NamespacePlanning>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.prototype.setNamespacePlanningsList = function(value) {
+proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.prototype.setNamespacePlanningsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.NamespacePlanning=} opt_value
+ * @param {!proto.prophetstor.api.datahub.plannings.NamespacePlanning=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.plannings.NamespacePlanning}
+ * @return {!proto.prophetstor.api.datahub.plannings.NamespacePlanning}
  */
-proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.prototype.addNamespacePlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.plannings.NamespacePlanning, opt_index);
+proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.prototype.addNamespacePlannings = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.plannings.NamespacePlanning, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.prototype.clearNamespacePlanningsList = function() {
+proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.prototype.clearNamespacePlanningsList = function() {
   return this.setNamespacePlanningsList([]);
 };
 
@@ -1234,16 +1234,16 @@ proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.prototype.cl
  * optional int64 granularity = 2;
  * @return {number}
  */
-proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.plannings.CreateNamespacePlanningsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 2, value);
 };
 
@@ -1254,7 +1254,7 @@ proto.prophetstor.datahub.plannings.CreateNamespacePlanningsRequest.prototype.se
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.repeatedFields_ = [1];
 
 
 
@@ -1271,8 +1271,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1281,14 +1281,14 @@ proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.prototype.toObjec
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     nodePlanningsList: jspb.Message.toObjectList(msg.getNodePlanningsList(),
-    datahub_plannings_plannings_pb.NodePlanning.toObject, includeInstance),
+    prophetstor_api_datahub_plannings_plannings_pb.NodePlanning.toObject, includeInstance),
     granularity: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
@@ -1303,23 +1303,23 @@ proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.toObject = functi
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest;
-  return proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest;
+  return proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1327,8 +1327,8 @@ proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.deserializeBinary
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_plannings_plannings_pb.NodePlanning;
-      reader.readMessage(value,datahub_plannings_plannings_pb.NodePlanning.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_plannings_plannings_pb.NodePlanning;
+      reader.readMessage(value,prophetstor_api_datahub_plannings_plannings_pb.NodePlanning.deserializeBinaryFromReader);
       msg.addNodePlannings(value);
       break;
     case 2:
@@ -1348,9 +1348,9 @@ proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.deserializeBinary
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1358,18 +1358,18 @@ proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.prototype.seriali
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest} message
+ * @param {!proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getNodePlanningsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_plannings_plannings_pb.NodePlanning.serializeBinaryToWriter
+      prophetstor_api_datahub_plannings_plannings_pb.NodePlanning.serializeBinaryToWriter
     );
   }
   f = message.getGranularity();
@@ -1384,38 +1384,38 @@ proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.serializeBinaryTo
 
 /**
  * repeated NodePlanning node_plannings = 1;
- * @return {!Array<!proto.prophetstor.datahub.plannings.NodePlanning>}
+ * @return {!Array<!proto.prophetstor.api.datahub.plannings.NodePlanning>}
  */
-proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.prototype.getNodePlanningsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.plannings.NodePlanning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_plannings_plannings_pb.NodePlanning, 1));
+proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.prototype.getNodePlanningsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.plannings.NodePlanning>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_plannings_plannings_pb.NodePlanning, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.plannings.NodePlanning>} value
- * @return {!proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.plannings.NodePlanning>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.prototype.setNodePlanningsList = function(value) {
+proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.prototype.setNodePlanningsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.NodePlanning=} opt_value
+ * @param {!proto.prophetstor.api.datahub.plannings.NodePlanning=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.plannings.NodePlanning}
+ * @return {!proto.prophetstor.api.datahub.plannings.NodePlanning}
  */
-proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.prototype.addNodePlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.plannings.NodePlanning, opt_index);
+proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.prototype.addNodePlannings = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.plannings.NodePlanning, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.prototype.clearNodePlanningsList = function() {
+proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.prototype.clearNodePlanningsList = function() {
   return this.setNodePlanningsList([]);
 };
 
@@ -1424,16 +1424,16 @@ proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.prototype.clearNo
  * optional int64 granularity = 2;
  * @return {number}
  */
-proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.plannings.CreateNodePlanningsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 2, value);
 };
 
@@ -1444,7 +1444,7 @@ proto.prophetstor.datahub.plannings.CreateNodePlanningsRequest.prototype.setGran
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.repeatedFields_ = [1];
 
 
 
@@ -1461,8 +1461,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1471,14 +1471,14 @@ proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.prototype.toOb
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     clusterPlanningsList: jspb.Message.toObjectList(msg.getClusterPlanningsList(),
-    datahub_plannings_plannings_pb.ClusterPlanning.toObject, includeInstance),
+    prophetstor_api_datahub_plannings_plannings_pb.ClusterPlanning.toObject, includeInstance),
     granularity: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
@@ -1493,23 +1493,23 @@ proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.toObject = fun
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest;
-  return proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest;
+  return proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1517,8 +1517,8 @@ proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.deserializeBin
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_plannings_plannings_pb.ClusterPlanning;
-      reader.readMessage(value,datahub_plannings_plannings_pb.ClusterPlanning.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_plannings_plannings_pb.ClusterPlanning;
+      reader.readMessage(value,prophetstor_api_datahub_plannings_plannings_pb.ClusterPlanning.deserializeBinaryFromReader);
       msg.addClusterPlannings(value);
       break;
     case 2:
@@ -1538,9 +1538,9 @@ proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.deserializeBin
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1548,18 +1548,18 @@ proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.prototype.seri
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest} message
+ * @param {!proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getClusterPlanningsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_plannings_plannings_pb.ClusterPlanning.serializeBinaryToWriter
+      prophetstor_api_datahub_plannings_plannings_pb.ClusterPlanning.serializeBinaryToWriter
     );
   }
   f = message.getGranularity();
@@ -1574,38 +1574,38 @@ proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.serializeBinar
 
 /**
  * repeated ClusterPlanning cluster_plannings = 1;
- * @return {!Array<!proto.prophetstor.datahub.plannings.ClusterPlanning>}
+ * @return {!Array<!proto.prophetstor.api.datahub.plannings.ClusterPlanning>}
  */
-proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.prototype.getClusterPlanningsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.plannings.ClusterPlanning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_plannings_plannings_pb.ClusterPlanning, 1));
+proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.prototype.getClusterPlanningsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.plannings.ClusterPlanning>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_plannings_plannings_pb.ClusterPlanning, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.plannings.ClusterPlanning>} value
- * @return {!proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.plannings.ClusterPlanning>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.prototype.setClusterPlanningsList = function(value) {
+proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.prototype.setClusterPlanningsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.ClusterPlanning=} opt_value
+ * @param {!proto.prophetstor.api.datahub.plannings.ClusterPlanning=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.plannings.ClusterPlanning}
+ * @return {!proto.prophetstor.api.datahub.plannings.ClusterPlanning}
  */
-proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.prototype.addClusterPlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.plannings.ClusterPlanning, opt_index);
+proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.prototype.addClusterPlannings = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.plannings.ClusterPlanning, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.prototype.clearClusterPlanningsList = function() {
+proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.prototype.clearClusterPlanningsList = function() {
   return this.setClusterPlanningsList([]);
 };
 
@@ -1614,16 +1614,16 @@ proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.prototype.clea
  * optional int64 granularity = 2;
  * @return {number}
  */
-proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 2, value);
 };
 
@@ -1634,7 +1634,7 @@ proto.prophetstor.datahub.plannings.CreateClusterPlanningsRequest.prototype.setG
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.repeatedFields_ = [2];
 
 
 
@@ -1651,8 +1651,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1661,15 +1661,15 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.toObject =
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.ListPodPlanningsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     granularity: jspb.Message.getFieldWithDefault(msg, 3, 0),
     planningType: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
@@ -1685,23 +1685,23 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.toObject = function(
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.ListPodPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.ListPodPlanningsRequest;
-  return proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest;
+  return proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.ListPodPlanningsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.ListPodPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1709,13 +1709,13 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.deserializeBinaryFro
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
@@ -1723,7 +1723,7 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.deserializeBinaryFro
       msg.setGranularity(value);
       break;
     case 4:
-      var value = /** @type {!proto.prophetstor.datahub.plannings.PlanningType} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.plannings.PlanningType} */ (reader.readEnum());
       msg.setPlanningType(value);
       break;
     default:
@@ -1739,9 +1739,9 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.deserializeBinaryFro
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1749,18 +1749,18 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.serializeB
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.ListPodPlanningsRequest} message
+ * @param {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -1768,7 +1768,7 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.serializeBinaryToWri
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getGranularity();
@@ -1789,29 +1789,29 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.serializeBinaryToWri
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.ListPodPlanningsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.ListPodPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -1820,45 +1820,45 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.clearQuery
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.plannings.ListPodPlanningsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.ListPodPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
@@ -1867,34 +1867,34 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.clearObjec
  * optional int64 granularity = 3;
  * @return {number}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.plannings.ListPodPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
 /**
  * optional PlanningType planning_type = 4;
- * @return {!proto.prophetstor.datahub.plannings.PlanningType}
+ * @return {!proto.prophetstor.api.datahub.plannings.PlanningType}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.getPlanningType = function() {
-  return /** @type {!proto.prophetstor.datahub.plannings.PlanningType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.prototype.getPlanningType = function() {
+  return /** @type {!proto.prophetstor.api.datahub.plannings.PlanningType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.PlanningType} value
- * @return {!proto.prophetstor.datahub.plannings.ListPodPlanningsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.plannings.PlanningType} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.setPlanningType = function(value) {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsRequest.prototype.setPlanningType = function(value) {
   return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
@@ -1905,7 +1905,7 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsRequest.prototype.setPlannin
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.repeatedFields_ = [2];
 
 
 
@@ -1922,8 +1922,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -1932,15 +1932,15 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.prototype.toObject 
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.ListPodPlanningsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     podPlanningsList: jspb.Message.toObjectList(msg.getPodPlanningsList(),
-    datahub_plannings_plannings_pb.PodPlanning.toObject, includeInstance)
+    prophetstor_api_datahub_plannings_plannings_pb.PodPlanning.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1954,23 +1954,23 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.toObject = function
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.ListPodPlanningsResponse}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.ListPodPlanningsResponse;
-  return proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse;
+  return proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.ListPodPlanningsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.ListPodPlanningsResponse}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1983,8 +1983,8 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.deserializeBinaryFr
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_plannings_plannings_pb.PodPlanning;
-      reader.readMessage(value,datahub_plannings_plannings_pb.PodPlanning.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_plannings_plannings_pb.PodPlanning;
+      reader.readMessage(value,prophetstor_api_datahub_plannings_plannings_pb.PodPlanning.deserializeBinaryFromReader);
       msg.addPodPlannings(value);
       break;
     default:
@@ -2000,9 +2000,9 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.deserializeBinaryFr
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2010,11 +2010,11 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.prototype.serialize
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.ListPodPlanningsResponse} message
+ * @param {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -2029,7 +2029,7 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.serializeBinaryToWr
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_plannings_plannings_pb.PodPlanning.serializeBinaryToWriter
+      prophetstor_api_datahub_plannings_plannings_pb.PodPlanning.serializeBinaryToWriter
     );
   }
 };
@@ -2039,7 +2039,7 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.serializeBinaryToWr
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -2047,18 +2047,18 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.prototype.getStatus
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.ListPodPlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse} returns this
 */
-proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.ListPodPlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse} returns this
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -2067,45 +2067,45 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.prototype.clearStat
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated PodPlanning pod_plannings = 2;
- * @return {!Array<!proto.prophetstor.datahub.plannings.PodPlanning>}
+ * @return {!Array<!proto.prophetstor.api.datahub.plannings.PodPlanning>}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.prototype.getPodPlanningsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.plannings.PodPlanning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_plannings_plannings_pb.PodPlanning, 2));
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.prototype.getPodPlanningsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.plannings.PodPlanning>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_plannings_plannings_pb.PodPlanning, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.plannings.PodPlanning>} value
- * @return {!proto.prophetstor.datahub.plannings.ListPodPlanningsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.plannings.PodPlanning>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse} returns this
 */
-proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.prototype.setPodPlanningsList = function(value) {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.prototype.setPodPlanningsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.PodPlanning=} opt_value
+ * @param {!proto.prophetstor.api.datahub.plannings.PodPlanning=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.plannings.PodPlanning}
+ * @return {!proto.prophetstor.api.datahub.plannings.PodPlanning}
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.prototype.addPodPlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.plannings.PodPlanning, opt_index);
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.prototype.addPodPlannings = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.plannings.PodPlanning, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.ListPodPlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse} returns this
  */
-proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.prototype.clearPodPlanningsList = function() {
+proto.prophetstor.api.datahub.plannings.ListPodPlanningsResponse.prototype.clearPodPlanningsList = function() {
   return this.setPodPlanningsList([]);
 };
 
@@ -2116,7 +2116,7 @@ proto.prophetstor.datahub.plannings.ListPodPlanningsResponse.prototype.clearPodP
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.repeatedFields_ = [2];
 
 
 
@@ -2133,8 +2133,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -2143,15 +2143,15 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.toO
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     kind: jspb.Message.getFieldWithDefault(msg, 3, 0),
     granularity: jspb.Message.getFieldWithDefault(msg, 4, 0),
     planningType: jspb.Message.getFieldWithDefault(msg, 5, 0)
@@ -2168,23 +2168,23 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.toObject = fu
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest;
-  return proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest;
+  return proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2192,17 +2192,17 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.deserializeBi
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!proto.prophetstor.datahub.resources.Kind} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (reader.readEnum());
       msg.setKind(value);
       break;
     case 4:
@@ -2210,7 +2210,7 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.deserializeBi
       msg.setGranularity(value);
       break;
     case 5:
-      var value = /** @type {!proto.prophetstor.datahub.plannings.PlanningType} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.plannings.PlanningType} */ (reader.readEnum());
       msg.setPlanningType(value);
       break;
     default:
@@ -2226,9 +2226,9 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.deserializeBi
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2236,18 +2236,18 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.ser
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest} message
+ * @param {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -2255,7 +2255,7 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.serializeBina
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getKind();
@@ -2283,29 +2283,29 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.serializeBina
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -2314,63 +2314,63 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.cle
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * optional prophetstor.datahub.resources.Kind kind = 3;
- * @return {!proto.prophetstor.datahub.resources.Kind}
+ * optional prophetstor.api.datahub.resources.Kind kind = 3;
+ * @return {!proto.prophetstor.api.datahub.resources.Kind}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.getKind = function() {
-  return /** @type {!proto.prophetstor.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.prototype.getKind = function() {
+  return /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.Kind} value
- * @return {!proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.resources.Kind} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.setKind = function(value) {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.prototype.setKind = function(value) {
   return jspb.Message.setProto3EnumField(this, 3, value);
 };
 
@@ -2379,34 +2379,34 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.set
  * optional int64 granularity = 4;
  * @return {number}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 4, value);
 };
 
 
 /**
  * optional PlanningType planning_type = 5;
- * @return {!proto.prophetstor.datahub.plannings.PlanningType}
+ * @return {!proto.prophetstor.api.datahub.plannings.PlanningType}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.getPlanningType = function() {
-  return /** @type {!proto.prophetstor.datahub.plannings.PlanningType} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.prototype.getPlanningType = function() {
+  return /** @type {!proto.prophetstor.api.datahub.plannings.PlanningType} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.PlanningType} value
- * @return {!proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.plannings.PlanningType} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.setPlanningType = function(value) {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsRequest.prototype.setPlanningType = function(value) {
   return jspb.Message.setProto3EnumField(this, 5, value);
 };
 
@@ -2417,7 +2417,7 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsRequest.prototype.set
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.repeatedFields_ = [2];
 
 
 
@@ -2434,8 +2434,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -2444,15 +2444,15 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.prototype.to
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     controllerPlanningsList: jspb.Message.toObjectList(msg.getControllerPlanningsList(),
-    datahub_plannings_plannings_pb.ControllerPlanning.toObject, includeInstance)
+    prophetstor_api_datahub_plannings_plannings_pb.ControllerPlanning.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -2466,23 +2466,23 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.toObject = f
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse;
-  return proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse;
+  return proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2495,8 +2495,8 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.deserializeB
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_plannings_plannings_pb.ControllerPlanning;
-      reader.readMessage(value,datahub_plannings_plannings_pb.ControllerPlanning.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_plannings_plannings_pb.ControllerPlanning;
+      reader.readMessage(value,prophetstor_api_datahub_plannings_plannings_pb.ControllerPlanning.deserializeBinaryFromReader);
       msg.addControllerPlannings(value);
       break;
     default:
@@ -2512,9 +2512,9 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.deserializeB
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2522,11 +2522,11 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.prototype.se
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse} message
+ * @param {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -2541,7 +2541,7 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.serializeBin
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_plannings_plannings_pb.ControllerPlanning.serializeBinaryToWriter
+      prophetstor_api_datahub_plannings_plannings_pb.ControllerPlanning.serializeBinaryToWriter
     );
   }
 };
@@ -2551,7 +2551,7 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.serializeBin
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -2559,18 +2559,18 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.prototype.ge
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse} returns this
 */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse} returns this
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -2579,45 +2579,45 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.prototype.cl
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated ControllerPlanning controller_plannings = 2;
- * @return {!Array<!proto.prophetstor.datahub.plannings.ControllerPlanning>}
+ * @return {!Array<!proto.prophetstor.api.datahub.plannings.ControllerPlanning>}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.prototype.getControllerPlanningsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.plannings.ControllerPlanning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_plannings_plannings_pb.ControllerPlanning, 2));
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.prototype.getControllerPlanningsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.plannings.ControllerPlanning>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_plannings_plannings_pb.ControllerPlanning, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.plannings.ControllerPlanning>} value
- * @return {!proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.plannings.ControllerPlanning>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse} returns this
 */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.prototype.setControllerPlanningsList = function(value) {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.prototype.setControllerPlanningsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.ControllerPlanning=} opt_value
+ * @param {!proto.prophetstor.api.datahub.plannings.ControllerPlanning=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.plannings.ControllerPlanning}
+ * @return {!proto.prophetstor.api.datahub.plannings.ControllerPlanning}
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.prototype.addControllerPlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.plannings.ControllerPlanning, opt_index);
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.prototype.addControllerPlannings = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.plannings.ControllerPlanning, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse} returns this
  */
-proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.prototype.clearControllerPlanningsList = function() {
+proto.prophetstor.api.datahub.plannings.ListControllerPlanningsResponse.prototype.clearControllerPlanningsList = function() {
   return this.setControllerPlanningsList([]);
 };
 
@@ -2628,7 +2628,7 @@ proto.prophetstor.datahub.plannings.ListControllerPlanningsResponse.prototype.cl
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.repeatedFields_ = [2];
 
 
 
@@ -2645,8 +2645,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -2655,15 +2655,15 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.to
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     granularity: jspb.Message.getFieldWithDefault(msg, 3, 0),
     planningType: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
@@ -2679,23 +2679,23 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.toObject = f
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest;
-  return proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest;
+  return proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2703,13 +2703,13 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.deserializeB
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
@@ -2717,7 +2717,7 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.deserializeB
       msg.setGranularity(value);
       break;
     case 4:
-      var value = /** @type {!proto.prophetstor.datahub.plannings.PlanningType} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.plannings.PlanningType} */ (reader.readEnum());
       msg.setPlanningType(value);
       break;
     default:
@@ -2733,9 +2733,9 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.deserializeB
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2743,18 +2743,18 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.se
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest} message
+ * @param {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -2762,7 +2762,7 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.serializeBin
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getGranularity();
@@ -2783,29 +2783,29 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.serializeBin
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -2814,45 +2814,45 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.cl
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
@@ -2861,34 +2861,34 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.cl
  * optional int64 granularity = 3;
  * @return {number}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
 /**
  * optional PlanningType planning_type = 4;
- * @return {!proto.prophetstor.datahub.plannings.PlanningType}
+ * @return {!proto.prophetstor.api.datahub.plannings.PlanningType}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.getPlanningType = function() {
-  return /** @type {!proto.prophetstor.datahub.plannings.PlanningType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.prototype.getPlanningType = function() {
+  return /** @type {!proto.prophetstor.api.datahub.plannings.PlanningType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.PlanningType} value
- * @return {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.plannings.PlanningType} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.setPlanningType = function(value) {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsRequest.prototype.setPlanningType = function(value) {
   return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
@@ -2899,7 +2899,7 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsRequest.prototype.se
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.repeatedFields_ = [2];
 
 
 
@@ -2916,8 +2916,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -2926,15 +2926,15 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.prototype.t
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     applicationPlanningsList: jspb.Message.toObjectList(msg.getApplicationPlanningsList(),
-    datahub_plannings_plannings_pb.ApplicationPlanning.toObject, includeInstance)
+    prophetstor_api_datahub_plannings_plannings_pb.ApplicationPlanning.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -2948,23 +2948,23 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.toObject = 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse;
-  return proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse;
+  return proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2977,8 +2977,8 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.deserialize
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_plannings_plannings_pb.ApplicationPlanning;
-      reader.readMessage(value,datahub_plannings_plannings_pb.ApplicationPlanning.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_plannings_plannings_pb.ApplicationPlanning;
+      reader.readMessage(value,prophetstor_api_datahub_plannings_plannings_pb.ApplicationPlanning.deserializeBinaryFromReader);
       msg.addApplicationPlannings(value);
       break;
     default:
@@ -2994,9 +2994,9 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.deserialize
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3004,11 +3004,11 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.prototype.s
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse} message
+ * @param {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -3023,7 +3023,7 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.serializeBi
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_plannings_plannings_pb.ApplicationPlanning.serializeBinaryToWriter
+      prophetstor_api_datahub_plannings_plannings_pb.ApplicationPlanning.serializeBinaryToWriter
     );
   }
 };
@@ -3033,7 +3033,7 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.serializeBi
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -3041,18 +3041,18 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.prototype.g
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse} returns this
 */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse} returns this
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -3061,45 +3061,45 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.prototype.c
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated ApplicationPlanning application_plannings = 2;
- * @return {!Array<!proto.prophetstor.datahub.plannings.ApplicationPlanning>}
+ * @return {!Array<!proto.prophetstor.api.datahub.plannings.ApplicationPlanning>}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.prototype.getApplicationPlanningsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.plannings.ApplicationPlanning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_plannings_plannings_pb.ApplicationPlanning, 2));
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.prototype.getApplicationPlanningsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.plannings.ApplicationPlanning>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_plannings_plannings_pb.ApplicationPlanning, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.plannings.ApplicationPlanning>} value
- * @return {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.plannings.ApplicationPlanning>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse} returns this
 */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.prototype.setApplicationPlanningsList = function(value) {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.prototype.setApplicationPlanningsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.ApplicationPlanning=} opt_value
+ * @param {!proto.prophetstor.api.datahub.plannings.ApplicationPlanning=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.plannings.ApplicationPlanning}
+ * @return {!proto.prophetstor.api.datahub.plannings.ApplicationPlanning}
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.prototype.addApplicationPlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.plannings.ApplicationPlanning, opt_index);
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.prototype.addApplicationPlannings = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.plannings.ApplicationPlanning, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse} returns this
  */
-proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.prototype.clearApplicationPlanningsList = function() {
+proto.prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse.prototype.clearApplicationPlanningsList = function() {
   return this.setApplicationPlanningsList([]);
 };
 
@@ -3110,7 +3110,7 @@ proto.prophetstor.datahub.plannings.ListApplicationPlanningsResponse.prototype.c
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.repeatedFields_ = [2];
 
 
 
@@ -3127,8 +3127,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -3137,15 +3137,15 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.toOb
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     granularity: jspb.Message.getFieldWithDefault(msg, 3, 0),
     planningType: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
@@ -3161,23 +3161,23 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.toObject = fun
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest;
-  return proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest;
+  return proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3185,13 +3185,13 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.deserializeBin
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
@@ -3199,7 +3199,7 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.deserializeBin
       msg.setGranularity(value);
       break;
     case 4:
-      var value = /** @type {!proto.prophetstor.datahub.plannings.PlanningType} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.plannings.PlanningType} */ (reader.readEnum());
       msg.setPlanningType(value);
       break;
     default:
@@ -3215,9 +3215,9 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.deserializeBin
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3225,18 +3225,18 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.seri
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest} message
+ * @param {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -3244,7 +3244,7 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.serializeBinar
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getGranularity();
@@ -3265,29 +3265,29 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.serializeBinar
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -3296,45 +3296,45 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.clea
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
@@ -3343,34 +3343,34 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.clea
  * optional int64 granularity = 3;
  * @return {number}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
 /**
  * optional PlanningType planning_type = 4;
- * @return {!proto.prophetstor.datahub.plannings.PlanningType}
+ * @return {!proto.prophetstor.api.datahub.plannings.PlanningType}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.getPlanningType = function() {
-  return /** @type {!proto.prophetstor.datahub.plannings.PlanningType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.prototype.getPlanningType = function() {
+  return /** @type {!proto.prophetstor.api.datahub.plannings.PlanningType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.PlanningType} value
- * @return {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.plannings.PlanningType} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.setPlanningType = function(value) {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsRequest.prototype.setPlanningType = function(value) {
   return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
@@ -3381,7 +3381,7 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsRequest.prototype.setP
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.repeatedFields_ = [2];
 
 
 
@@ -3398,8 +3398,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -3408,15 +3408,15 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.prototype.toO
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     namespacePlanningsList: jspb.Message.toObjectList(msg.getNamespacePlanningsList(),
-    datahub_plannings_plannings_pb.NamespacePlanning.toObject, includeInstance)
+    prophetstor_api_datahub_plannings_plannings_pb.NamespacePlanning.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -3430,23 +3430,23 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.toObject = fu
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse;
-  return proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse;
+  return proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3459,8 +3459,8 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.deserializeBi
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_plannings_plannings_pb.NamespacePlanning;
-      reader.readMessage(value,datahub_plannings_plannings_pb.NamespacePlanning.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_plannings_plannings_pb.NamespacePlanning;
+      reader.readMessage(value,prophetstor_api_datahub_plannings_plannings_pb.NamespacePlanning.deserializeBinaryFromReader);
       msg.addNamespacePlannings(value);
       break;
     default:
@@ -3476,9 +3476,9 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.deserializeBi
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3486,11 +3486,11 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.prototype.ser
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse} message
+ * @param {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -3505,7 +3505,7 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.serializeBina
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_plannings_plannings_pb.NamespacePlanning.serializeBinaryToWriter
+      prophetstor_api_datahub_plannings_plannings_pb.NamespacePlanning.serializeBinaryToWriter
     );
   }
 };
@@ -3515,7 +3515,7 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.serializeBina
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -3523,18 +3523,18 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.prototype.get
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse} returns this
 */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse} returns this
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -3543,45 +3543,45 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.prototype.cle
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated NamespacePlanning namespace_plannings = 2;
- * @return {!Array<!proto.prophetstor.datahub.plannings.NamespacePlanning>}
+ * @return {!Array<!proto.prophetstor.api.datahub.plannings.NamespacePlanning>}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.prototype.getNamespacePlanningsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.plannings.NamespacePlanning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_plannings_plannings_pb.NamespacePlanning, 2));
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.prototype.getNamespacePlanningsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.plannings.NamespacePlanning>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_plannings_plannings_pb.NamespacePlanning, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.plannings.NamespacePlanning>} value
- * @return {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.plannings.NamespacePlanning>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse} returns this
 */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.prototype.setNamespacePlanningsList = function(value) {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.prototype.setNamespacePlanningsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.NamespacePlanning=} opt_value
+ * @param {!proto.prophetstor.api.datahub.plannings.NamespacePlanning=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.plannings.NamespacePlanning}
+ * @return {!proto.prophetstor.api.datahub.plannings.NamespacePlanning}
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.prototype.addNamespacePlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.plannings.NamespacePlanning, opt_index);
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.prototype.addNamespacePlannings = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.plannings.NamespacePlanning, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse} returns this
  */
-proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.prototype.clearNamespacePlanningsList = function() {
+proto.prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse.prototype.clearNamespacePlanningsList = function() {
   return this.setNamespacePlanningsList([]);
 };
 
@@ -3592,7 +3592,7 @@ proto.prophetstor.datahub.plannings.ListNamespacePlanningsResponse.prototype.cle
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.repeatedFields_ = [2];
 
 
 
@@ -3609,8 +3609,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -3619,15 +3619,15 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.toObject 
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.ListNodePlanningsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     granularity: jspb.Message.getFieldWithDefault(msg, 3, 0),
     planningType: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
@@ -3643,23 +3643,23 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.toObject = function
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.ListNodePlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.ListNodePlanningsRequest;
-  return proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest;
+  return proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.ListNodePlanningsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.ListNodePlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3667,13 +3667,13 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.deserializeBinaryFr
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
@@ -3681,7 +3681,7 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.deserializeBinaryFr
       msg.setGranularity(value);
       break;
     case 4:
-      var value = /** @type {!proto.prophetstor.datahub.plannings.PlanningType} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.plannings.PlanningType} */ (reader.readEnum());
       msg.setPlanningType(value);
       break;
     default:
@@ -3697,9 +3697,9 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.deserializeBinaryFr
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3707,18 +3707,18 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.serialize
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.ListNodePlanningsRequest} message
+ * @param {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -3726,7 +3726,7 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.serializeBinaryToWr
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getGranularity();
@@ -3747,29 +3747,29 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.serializeBinaryToWr
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.ListNodePlanningsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.ListNodePlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -3778,45 +3778,45 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.clearQuer
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.plannings.ListNodePlanningsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.ListNodePlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
@@ -3825,34 +3825,34 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.clearObje
  * optional int64 granularity = 3;
  * @return {number}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.plannings.ListNodePlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
 /**
  * optional PlanningType planning_type = 4;
- * @return {!proto.prophetstor.datahub.plannings.PlanningType}
+ * @return {!proto.prophetstor.api.datahub.plannings.PlanningType}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.getPlanningType = function() {
-  return /** @type {!proto.prophetstor.datahub.plannings.PlanningType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.prototype.getPlanningType = function() {
+  return /** @type {!proto.prophetstor.api.datahub.plannings.PlanningType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.PlanningType} value
- * @return {!proto.prophetstor.datahub.plannings.ListNodePlanningsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.plannings.PlanningType} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.setPlanningType = function(value) {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsRequest.prototype.setPlanningType = function(value) {
   return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
@@ -3863,7 +3863,7 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsRequest.prototype.setPlanni
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.repeatedFields_ = [2];
 
 
 
@@ -3880,8 +3880,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -3890,15 +3890,15 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.prototype.toObject
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.ListNodePlanningsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     nodePlanningsList: jspb.Message.toObjectList(msg.getNodePlanningsList(),
-    datahub_plannings_plannings_pb.NodePlanning.toObject, includeInstance)
+    prophetstor_api_datahub_plannings_plannings_pb.NodePlanning.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -3912,23 +3912,23 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.toObject = functio
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.ListNodePlanningsResponse}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.ListNodePlanningsResponse;
-  return proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse;
+  return proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.ListNodePlanningsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.ListNodePlanningsResponse}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3941,8 +3941,8 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.deserializeBinaryF
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_plannings_plannings_pb.NodePlanning;
-      reader.readMessage(value,datahub_plannings_plannings_pb.NodePlanning.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_plannings_plannings_pb.NodePlanning;
+      reader.readMessage(value,prophetstor_api_datahub_plannings_plannings_pb.NodePlanning.deserializeBinaryFromReader);
       msg.addNodePlannings(value);
       break;
     default:
@@ -3958,9 +3958,9 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.deserializeBinaryF
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3968,11 +3968,11 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.prototype.serializ
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.ListNodePlanningsResponse} message
+ * @param {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -3987,7 +3987,7 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.serializeBinaryToW
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_plannings_plannings_pb.NodePlanning.serializeBinaryToWriter
+      prophetstor_api_datahub_plannings_plannings_pb.NodePlanning.serializeBinaryToWriter
     );
   }
 };
@@ -3997,7 +3997,7 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.serializeBinaryToW
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -4005,18 +4005,18 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.prototype.getStatu
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.ListNodePlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse} returns this
 */
-proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.ListNodePlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse} returns this
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -4025,45 +4025,45 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.prototype.clearSta
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated NodePlanning node_plannings = 2;
- * @return {!Array<!proto.prophetstor.datahub.plannings.NodePlanning>}
+ * @return {!Array<!proto.prophetstor.api.datahub.plannings.NodePlanning>}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.prototype.getNodePlanningsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.plannings.NodePlanning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_plannings_plannings_pb.NodePlanning, 2));
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.prototype.getNodePlanningsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.plannings.NodePlanning>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_plannings_plannings_pb.NodePlanning, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.plannings.NodePlanning>} value
- * @return {!proto.prophetstor.datahub.plannings.ListNodePlanningsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.plannings.NodePlanning>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse} returns this
 */
-proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.prototype.setNodePlanningsList = function(value) {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.prototype.setNodePlanningsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.NodePlanning=} opt_value
+ * @param {!proto.prophetstor.api.datahub.plannings.NodePlanning=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.plannings.NodePlanning}
+ * @return {!proto.prophetstor.api.datahub.plannings.NodePlanning}
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.prototype.addNodePlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.plannings.NodePlanning, opt_index);
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.prototype.addNodePlannings = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.plannings.NodePlanning, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.ListNodePlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse} returns this
  */
-proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.prototype.clearNodePlanningsList = function() {
+proto.prophetstor.api.datahub.plannings.ListNodePlanningsResponse.prototype.clearNodePlanningsList = function() {
   return this.setNodePlanningsList([]);
 };
 
@@ -4074,7 +4074,7 @@ proto.prophetstor.datahub.plannings.ListNodePlanningsResponse.prototype.clearNod
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.repeatedFields_ = [2];
 
 
 
@@ -4091,8 +4091,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -4101,15 +4101,15 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.toObje
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     granularity: jspb.Message.getFieldWithDefault(msg, 3, 0),
     planningType: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
@@ -4125,23 +4125,23 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.toObject = funct
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest;
-  return proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest;
+  return proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4149,13 +4149,13 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.deserializeBinar
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
@@ -4163,7 +4163,7 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.deserializeBinar
       msg.setGranularity(value);
       break;
     case 4:
-      var value = /** @type {!proto.prophetstor.datahub.plannings.PlanningType} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.plannings.PlanningType} */ (reader.readEnum());
       msg.setPlanningType(value);
       break;
     default:
@@ -4179,9 +4179,9 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.deserializeBinar
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4189,18 +4189,18 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.serial
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest} message
+ * @param {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -4208,7 +4208,7 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.serializeBinaryT
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getGranularity();
@@ -4229,29 +4229,29 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.serializeBinaryT
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -4260,45 +4260,45 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.clearQ
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
@@ -4307,34 +4307,34 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.clearO
  * optional int64 granularity = 3;
  * @return {number}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
 /**
  * optional PlanningType planning_type = 4;
- * @return {!proto.prophetstor.datahub.plannings.PlanningType}
+ * @return {!proto.prophetstor.api.datahub.plannings.PlanningType}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.getPlanningType = function() {
-  return /** @type {!proto.prophetstor.datahub.plannings.PlanningType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.prototype.getPlanningType = function() {
+  return /** @type {!proto.prophetstor.api.datahub.plannings.PlanningType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.PlanningType} value
- * @return {!proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.plannings.PlanningType} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.setPlanningType = function(value) {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsRequest.prototype.setPlanningType = function(value) {
   return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
@@ -4345,7 +4345,7 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsRequest.prototype.setPla
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.repeatedFields_ = [2];
 
 
 
@@ -4362,8 +4362,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -4372,15 +4372,15 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.prototype.toObj
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     clusterPlanningsList: jspb.Message.toObjectList(msg.getClusterPlanningsList(),
-    datahub_plannings_plannings_pb.ClusterPlanning.toObject, includeInstance)
+    prophetstor_api_datahub_plannings_plannings_pb.ClusterPlanning.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -4394,23 +4394,23 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.toObject = func
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse;
-  return proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse;
+  return proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4423,8 +4423,8 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.deserializeBina
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_plannings_plannings_pb.ClusterPlanning;
-      reader.readMessage(value,datahub_plannings_plannings_pb.ClusterPlanning.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_plannings_plannings_pb.ClusterPlanning;
+      reader.readMessage(value,prophetstor_api_datahub_plannings_plannings_pb.ClusterPlanning.deserializeBinaryFromReader);
       msg.addClusterPlannings(value);
       break;
     default:
@@ -4440,9 +4440,9 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.deserializeBina
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4450,11 +4450,11 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.prototype.seria
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse} message
+ * @param {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -4469,7 +4469,7 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.serializeBinary
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_plannings_plannings_pb.ClusterPlanning.serializeBinaryToWriter
+      prophetstor_api_datahub_plannings_plannings_pb.ClusterPlanning.serializeBinaryToWriter
     );
   }
 };
@@ -4479,7 +4479,7 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.serializeBinary
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -4487,18 +4487,18 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.prototype.getSt
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse} returns this
 */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse} returns this
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -4507,45 +4507,45 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.prototype.clear
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated ClusterPlanning cluster_plannings = 2;
- * @return {!Array<!proto.prophetstor.datahub.plannings.ClusterPlanning>}
+ * @return {!Array<!proto.prophetstor.api.datahub.plannings.ClusterPlanning>}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.prototype.getClusterPlanningsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.plannings.ClusterPlanning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_plannings_plannings_pb.ClusterPlanning, 2));
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.prototype.getClusterPlanningsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.plannings.ClusterPlanning>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_plannings_plannings_pb.ClusterPlanning, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.plannings.ClusterPlanning>} value
- * @return {!proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.plannings.ClusterPlanning>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse} returns this
 */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.prototype.setClusterPlanningsList = function(value) {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.prototype.setClusterPlanningsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.ClusterPlanning=} opt_value
+ * @param {!proto.prophetstor.api.datahub.plannings.ClusterPlanning=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.plannings.ClusterPlanning}
+ * @return {!proto.prophetstor.api.datahub.plannings.ClusterPlanning}
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.prototype.addClusterPlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.plannings.ClusterPlanning, opt_index);
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.prototype.addClusterPlannings = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.plannings.ClusterPlanning, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse} returns this
  */
-proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.prototype.clearClusterPlanningsList = function() {
+proto.prophetstor.api.datahub.plannings.ListClusterPlanningsResponse.prototype.clearClusterPlanningsList = function() {
   return this.setClusterPlanningsList([]);
 };
 
@@ -4556,7 +4556,7 @@ proto.prophetstor.datahub.plannings.ListClusterPlanningsResponse.prototype.clear
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.plannings.CreatePlanningsRequest.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.repeatedFields_ = [2];
 
 
 
@@ -4573,8 +4573,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.CreatePlanningsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.CreatePlanningsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -4583,15 +4583,15 @@ proto.prophetstor.datahub.plannings.CreatePlanningsRequest.prototype.toObject = 
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.CreatePlanningsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.CreatePlanningsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    schemaMeta: (f = msg.getSchemaMeta()) && datahub_schemas_types_pb.SchemaMeta.toObject(includeInstance, f),
+    schemaMeta: (f = msg.getSchemaMeta()) && prophetstor_api_datahub_schemas_types_pb.SchemaMeta.toObject(includeInstance, f),
     planningsList: jspb.Message.toObjectList(msg.getPlanningsList(),
-    datahub_plannings_plannings_pb.WritePlanning.toObject, includeInstance)
+    prophetstor_api_datahub_plannings_plannings_pb.WritePlanning.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -4605,23 +4605,23 @@ proto.prophetstor.datahub.plannings.CreatePlanningsRequest.toObject = function(i
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.CreatePlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.CreatePlanningsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.CreatePlanningsRequest;
-  return proto.prophetstor.datahub.plannings.CreatePlanningsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest;
+  return proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.CreatePlanningsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.CreatePlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.CreatePlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4629,13 +4629,13 @@ proto.prophetstor.datahub.plannings.CreatePlanningsRequest.deserializeBinaryFrom
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_schemas_types_pb.SchemaMeta;
-      reader.readMessage(value,datahub_schemas_types_pb.SchemaMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_schemas_types_pb.SchemaMeta;
+      reader.readMessage(value,prophetstor_api_datahub_schemas_types_pb.SchemaMeta.deserializeBinaryFromReader);
       msg.setSchemaMeta(value);
       break;
     case 2:
-      var value = new datahub_plannings_plannings_pb.WritePlanning;
-      reader.readMessage(value,datahub_plannings_plannings_pb.WritePlanning.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_plannings_plannings_pb.WritePlanning;
+      reader.readMessage(value,prophetstor_api_datahub_plannings_plannings_pb.WritePlanning.deserializeBinaryFromReader);
       msg.addPlannings(value);
       break;
     default:
@@ -4651,9 +4651,9 @@ proto.prophetstor.datahub.plannings.CreatePlanningsRequest.deserializeBinaryFrom
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.CreatePlanningsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.CreatePlanningsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4661,18 +4661,18 @@ proto.prophetstor.datahub.plannings.CreatePlanningsRequest.prototype.serializeBi
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.CreatePlanningsRequest} message
+ * @param {!proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.CreatePlanningsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getSchemaMeta();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_schemas_types_pb.SchemaMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_schemas_types_pb.SchemaMeta.serializeBinaryToWriter
     );
   }
   f = message.getPlanningsList();
@@ -4680,36 +4680,36 @@ proto.prophetstor.datahub.plannings.CreatePlanningsRequest.serializeBinaryToWrit
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_plannings_plannings_pb.WritePlanning.serializeBinaryToWriter
+      prophetstor_api_datahub_plannings_plannings_pb.WritePlanning.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * optional prophetstor.datahub.schemas.SchemaMeta schema_meta = 1;
- * @return {?proto.prophetstor.datahub.schemas.SchemaMeta}
+ * optional prophetstor.api.datahub.schemas.SchemaMeta schema_meta = 1;
+ * @return {?proto.prophetstor.api.datahub.schemas.SchemaMeta}
  */
-proto.prophetstor.datahub.plannings.CreatePlanningsRequest.prototype.getSchemaMeta = function() {
-  return /** @type{?proto.prophetstor.datahub.schemas.SchemaMeta} */ (
-    jspb.Message.getWrapperField(this, datahub_schemas_types_pb.SchemaMeta, 1));
+proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.prototype.getSchemaMeta = function() {
+  return /** @type{?proto.prophetstor.api.datahub.schemas.SchemaMeta} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_schemas_types_pb.SchemaMeta, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.schemas.SchemaMeta|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.CreatePlanningsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.schemas.SchemaMeta|undefined} value
+ * @return {!proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.CreatePlanningsRequest.prototype.setSchemaMeta = function(value) {
+proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.prototype.setSchemaMeta = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.CreatePlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.CreatePlanningsRequest.prototype.clearSchemaMeta = function() {
+proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.prototype.clearSchemaMeta = function() {
   return this.setSchemaMeta(undefined);
 };
 
@@ -4718,45 +4718,45 @@ proto.prophetstor.datahub.plannings.CreatePlanningsRequest.prototype.clearSchema
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.CreatePlanningsRequest.prototype.hasSchemaMeta = function() {
+proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.prototype.hasSchemaMeta = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated WritePlanning plannings = 2;
- * @return {!Array<!proto.prophetstor.datahub.plannings.WritePlanning>}
+ * @return {!Array<!proto.prophetstor.api.datahub.plannings.WritePlanning>}
  */
-proto.prophetstor.datahub.plannings.CreatePlanningsRequest.prototype.getPlanningsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.plannings.WritePlanning>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_plannings_plannings_pb.WritePlanning, 2));
+proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.prototype.getPlanningsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.plannings.WritePlanning>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_plannings_plannings_pb.WritePlanning, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.plannings.WritePlanning>} value
- * @return {!proto.prophetstor.datahub.plannings.CreatePlanningsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.plannings.WritePlanning>} value
+ * @return {!proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.CreatePlanningsRequest.prototype.setPlanningsList = function(value) {
+proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.prototype.setPlanningsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.plannings.WritePlanning=} opt_value
+ * @param {!proto.prophetstor.api.datahub.plannings.WritePlanning=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.plannings.WritePlanning}
+ * @return {!proto.prophetstor.api.datahub.plannings.WritePlanning}
  */
-proto.prophetstor.datahub.plannings.CreatePlanningsRequest.prototype.addPlannings = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.plannings.WritePlanning, opt_index);
+proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.prototype.addPlannings = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.plannings.WritePlanning, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.plannings.CreatePlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.CreatePlanningsRequest.prototype.clearPlanningsList = function() {
+proto.prophetstor.api.datahub.plannings.CreatePlanningsRequest.prototype.clearPlanningsList = function() {
   return this.setPlanningsList([]);
 };
 
@@ -4777,8 +4777,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.ListPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.ListPlanningsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -4787,14 +4787,14 @@ proto.prophetstor.datahub.plannings.ListPlanningsRequest.prototype.toObject = fu
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.ListPlanningsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListPlanningsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListPlanningsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
-    schemaMeta: (f = msg.getSchemaMeta()) && datahub_schemas_types_pb.SchemaMeta.toObject(includeInstance, f)
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    schemaMeta: (f = msg.getSchemaMeta()) && prophetstor_api_datahub_schemas_types_pb.SchemaMeta.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -4808,23 +4808,23 @@ proto.prophetstor.datahub.plannings.ListPlanningsRequest.toObject = function(inc
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.ListPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.ListPlanningsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.ListPlanningsRequest;
-  return proto.prophetstor.datahub.plannings.ListPlanningsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.ListPlanningsRequest;
+  return proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.ListPlanningsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListPlanningsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.ListPlanningsRequest}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPlanningsRequest}
  */
-proto.prophetstor.datahub.plannings.ListPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4832,13 +4832,13 @@ proto.prophetstor.datahub.plannings.ListPlanningsRequest.deserializeBinaryFromRe
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_schemas_types_pb.SchemaMeta;
-      reader.readMessage(value,datahub_schemas_types_pb.SchemaMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_schemas_types_pb.SchemaMeta;
+      reader.readMessage(value,prophetstor_api_datahub_schemas_types_pb.SchemaMeta.deserializeBinaryFromReader);
       msg.setSchemaMeta(value);
       break;
     default:
@@ -4854,9 +4854,9 @@ proto.prophetstor.datahub.plannings.ListPlanningsRequest.deserializeBinaryFromRe
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.ListPlanningsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.ListPlanningsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4864,18 +4864,18 @@ proto.prophetstor.datahub.plannings.ListPlanningsRequest.prototype.serializeBina
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.ListPlanningsRequest} message
+ * @param {!proto.prophetstor.api.datahub.plannings.ListPlanningsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getSchemaMeta();
@@ -4883,36 +4883,36 @@ proto.prophetstor.datahub.plannings.ListPlanningsRequest.serializeBinaryToWriter
     writer.writeMessage(
       2,
       f,
-      datahub_schemas_types_pb.SchemaMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_schemas_types_pb.SchemaMeta.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.plannings.ListPlanningsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.ListPlanningsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.ListPlanningsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.ListPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListPlanningsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -4921,35 +4921,35 @@ proto.prophetstor.datahub.plannings.ListPlanningsRequest.prototype.clearQueryCon
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.ListPlanningsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * optional prophetstor.datahub.schemas.SchemaMeta schema_meta = 2;
- * @return {?proto.prophetstor.datahub.schemas.SchemaMeta}
+ * optional prophetstor.api.datahub.schemas.SchemaMeta schema_meta = 2;
+ * @return {?proto.prophetstor.api.datahub.schemas.SchemaMeta}
  */
-proto.prophetstor.datahub.plannings.ListPlanningsRequest.prototype.getSchemaMeta = function() {
-  return /** @type{?proto.prophetstor.datahub.schemas.SchemaMeta} */ (
-    jspb.Message.getWrapperField(this, datahub_schemas_types_pb.SchemaMeta, 2));
+proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.prototype.getSchemaMeta = function() {
+  return /** @type{?proto.prophetstor.api.datahub.schemas.SchemaMeta} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_schemas_types_pb.SchemaMeta, 2));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.schemas.SchemaMeta|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.ListPlanningsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.schemas.SchemaMeta|undefined} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPlanningsRequest} returns this
 */
-proto.prophetstor.datahub.plannings.ListPlanningsRequest.prototype.setSchemaMeta = function(value) {
+proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.prototype.setSchemaMeta = function(value) {
   return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.ListPlanningsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPlanningsRequest} returns this
  */
-proto.prophetstor.datahub.plannings.ListPlanningsRequest.prototype.clearSchemaMeta = function() {
+proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.prototype.clearSchemaMeta = function() {
   return this.setSchemaMeta(undefined);
 };
 
@@ -4958,7 +4958,7 @@ proto.prophetstor.datahub.plannings.ListPlanningsRequest.prototype.clearSchemaMe
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.ListPlanningsRequest.prototype.hasSchemaMeta = function() {
+proto.prophetstor.api.datahub.plannings.ListPlanningsRequest.prototype.hasSchemaMeta = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 
@@ -4979,8 +4979,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.plannings.ListPlanningsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.plannings.ListPlanningsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -4989,14 +4989,14 @@ proto.prophetstor.datahub.plannings.ListPlanningsResponse.prototype.toObject = f
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.plannings.ListPlanningsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListPlanningsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListPlanningsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
-    plannings: (f = msg.getPlannings()) && datahub_plannings_types_pb.RawPlanning.toObject(includeInstance, f)
+    plannings: (f = msg.getPlannings()) && prophetstor_api_datahub_plannings_types_pb.RawPlanning.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -5010,23 +5010,23 @@ proto.prophetstor.datahub.plannings.ListPlanningsResponse.toObject = function(in
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.plannings.ListPlanningsResponse}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPlanningsResponse}
  */
-proto.prophetstor.datahub.plannings.ListPlanningsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.plannings.ListPlanningsResponse;
-  return proto.prophetstor.datahub.plannings.ListPlanningsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.plannings.ListPlanningsResponse;
+  return proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.plannings.ListPlanningsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.plannings.ListPlanningsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.plannings.ListPlanningsResponse}
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPlanningsResponse}
  */
-proto.prophetstor.datahub.plannings.ListPlanningsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -5039,8 +5039,8 @@ proto.prophetstor.datahub.plannings.ListPlanningsResponse.deserializeBinaryFromR
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_plannings_types_pb.RawPlanning;
-      reader.readMessage(value,datahub_plannings_types_pb.RawPlanning.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_plannings_types_pb.RawPlanning;
+      reader.readMessage(value,prophetstor_api_datahub_plannings_types_pb.RawPlanning.deserializeBinaryFromReader);
       msg.setPlannings(value);
       break;
     default:
@@ -5056,9 +5056,9 @@ proto.prophetstor.datahub.plannings.ListPlanningsResponse.deserializeBinaryFromR
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.plannings.ListPlanningsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.plannings.ListPlanningsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -5066,11 +5066,11 @@ proto.prophetstor.datahub.plannings.ListPlanningsResponse.prototype.serializeBin
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.plannings.ListPlanningsResponse} message
+ * @param {!proto.prophetstor.api.datahub.plannings.ListPlanningsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.plannings.ListPlanningsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -5085,7 +5085,7 @@ proto.prophetstor.datahub.plannings.ListPlanningsResponse.serializeBinaryToWrite
     writer.writeMessage(
       2,
       f,
-      datahub_plannings_types_pb.RawPlanning.serializeBinaryToWriter
+      prophetstor_api_datahub_plannings_types_pb.RawPlanning.serializeBinaryToWriter
     );
   }
 };
@@ -5095,7 +5095,7 @@ proto.prophetstor.datahub.plannings.ListPlanningsResponse.serializeBinaryToWrite
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.plannings.ListPlanningsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -5103,18 +5103,18 @@ proto.prophetstor.datahub.plannings.ListPlanningsResponse.prototype.getStatus = 
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.ListPlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPlanningsResponse} returns this
 */
-proto.prophetstor.datahub.plannings.ListPlanningsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.ListPlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPlanningsResponse} returns this
  */
-proto.prophetstor.datahub.plannings.ListPlanningsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -5123,35 +5123,35 @@ proto.prophetstor.datahub.plannings.ListPlanningsResponse.prototype.clearStatus 
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.ListPlanningsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * optional RawPlanning plannings = 2;
- * @return {?proto.prophetstor.datahub.plannings.RawPlanning}
+ * @return {?proto.prophetstor.api.datahub.plannings.RawPlanning}
  */
-proto.prophetstor.datahub.plannings.ListPlanningsResponse.prototype.getPlannings = function() {
-  return /** @type{?proto.prophetstor.datahub.plannings.RawPlanning} */ (
-    jspb.Message.getWrapperField(this, datahub_plannings_types_pb.RawPlanning, 2));
+proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.prototype.getPlannings = function() {
+  return /** @type{?proto.prophetstor.api.datahub.plannings.RawPlanning} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_plannings_types_pb.RawPlanning, 2));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.plannings.RawPlanning|undefined} value
- * @return {!proto.prophetstor.datahub.plannings.ListPlanningsResponse} returns this
+ * @param {?proto.prophetstor.api.datahub.plannings.RawPlanning|undefined} value
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPlanningsResponse} returns this
 */
-proto.prophetstor.datahub.plannings.ListPlanningsResponse.prototype.setPlannings = function(value) {
+proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.prototype.setPlannings = function(value) {
   return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.plannings.ListPlanningsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.plannings.ListPlanningsResponse} returns this
  */
-proto.prophetstor.datahub.plannings.ListPlanningsResponse.prototype.clearPlannings = function() {
+proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.prototype.clearPlannings = function() {
   return this.setPlannings(undefined);
 };
 
@@ -5160,9 +5160,9 @@ proto.prophetstor.datahub.plannings.ListPlanningsResponse.prototype.clearPlannin
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.plannings.ListPlanningsResponse.prototype.hasPlannings = function() {
+proto.prophetstor.api.datahub.plannings.ListPlanningsResponse.prototype.hasPlannings = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 
 
-goog.object.extend(exports, proto.prophetstor.datahub.plannings);
+goog.object.extend(exports, proto.prophetstor.api.datahub.plannings);

@@ -2,10 +2,10 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.scores;
+package prophetstor.api.datahub.scores;
 
-import "datahub/common/queries.proto";
-import "datahub/scores/scores.proto";
+import "prophetstor/api/datahub/common/queries.proto";
+import "prophetstor/api/datahub/scores/scores.proto";
 import "google/rpc/status.proto";
 
 option go_package = "prophetstor.com/api/datahub/scores";

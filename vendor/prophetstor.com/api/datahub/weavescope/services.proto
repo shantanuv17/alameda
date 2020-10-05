@@ -2,7 +2,7 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.weavescope;
+package prophetstor.api.datahub.weavescope;
 
 import "google/rpc/status.proto";
 

@@ -2,7 +2,7 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.gpu;
+package prophetstor.api.datahub.gpu;
 
 option go_package = "prophetstor.com/api/datahub/gpu";
 

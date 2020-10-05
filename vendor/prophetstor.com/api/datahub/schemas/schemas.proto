@@ -2,9 +2,9 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.schemas;
+package prophetstor.api.datahub.schemas;
 
-import "datahub/schemas/types.proto";
+import "prophetstor/api/datahub/schemas/types.proto";
 
 option go_package = "prophetstor.com/api/datahub/schemas";
 

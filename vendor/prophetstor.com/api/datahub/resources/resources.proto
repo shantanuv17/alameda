@@ -2,11 +2,11 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.resources;
+package prophetstor.api.datahub.resources;
 
-import "datahub/resources/metadata.proto";
-import "datahub/resources/status.proto";
-import "datahub/resources/types.proto";
+import "prophetstor/api/datahub/resources/metadata.proto";
+import "prophetstor/api/datahub/resources/status.proto";
+import "prophetstor/api/datahub/resources/types.proto";
 import "google/protobuf/timestamp.proto";
 
 option go_package = "prophetstor.com/api/datahub/resources";

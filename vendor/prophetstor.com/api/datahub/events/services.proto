@@ -2,11 +2,11 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.events;
+package prophetstor.api.datahub.events;
 
-import "datahub/common/queries.proto";
-import "datahub/events/events.proto";
-import "datahub/events/types.proto";
+import "prophetstor/api/datahub/common/queries.proto";
+import "prophetstor/api/datahub/events/events.proto";
+import "prophetstor/api/datahub/events/types.proto";
 import "google/rpc/status.proto";
 
 option go_package = "prophetstor.com/api/datahub/events";

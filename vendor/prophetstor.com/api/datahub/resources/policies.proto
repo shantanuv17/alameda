@@ -2,7 +2,7 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.resources;
+package prophetstor.api.datahub.resources;
 
 import "google/protobuf/timestamp.proto";
 

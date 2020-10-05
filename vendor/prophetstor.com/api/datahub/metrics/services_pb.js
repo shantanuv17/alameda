@@ -1,4 +1,4 @@
-// source: datahub/metrics/services.proto
+// source: prophetstor/api/datahub/metrics/services.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -12,41 +12,41 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var datahub_common_metrics_pb = require('../../datahub/common/metrics_pb.js');
-goog.object.extend(proto, datahub_common_metrics_pb);
-var datahub_common_queries_pb = require('../../datahub/common/queries_pb.js');
-goog.object.extend(proto, datahub_common_queries_pb);
-var datahub_metrics_metrics_pb = require('../../datahub/metrics/metrics_pb.js');
-goog.object.extend(proto, datahub_metrics_metrics_pb);
-var datahub_metrics_types_pb = require('../../datahub/metrics/types_pb.js');
-goog.object.extend(proto, datahub_metrics_types_pb);
-var datahub_resources_metadata_pb = require('../../datahub/resources/metadata_pb.js');
-goog.object.extend(proto, datahub_resources_metadata_pb);
-var datahub_schemas_types_pb = require('../../datahub/schemas/types_pb.js');
-goog.object.extend(proto, datahub_schemas_types_pb);
-var google_rpc_status_pb = require('../../google/rpc/status_pb.js');
+var prophetstor_api_datahub_common_metrics_pb = require('../../../../prophetstor/api/datahub/common/metrics_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_common_metrics_pb);
+var prophetstor_api_datahub_common_queries_pb = require('../../../../prophetstor/api/datahub/common/queries_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_common_queries_pb);
+var prophetstor_api_datahub_metrics_metrics_pb = require('../../../../prophetstor/api/datahub/metrics/metrics_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_metrics_metrics_pb);
+var prophetstor_api_datahub_metrics_types_pb = require('../../../../prophetstor/api/datahub/metrics/types_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_metrics_types_pb);
+var prophetstor_api_datahub_resources_metadata_pb = require('../../../../prophetstor/api/datahub/resources/metadata_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_resources_metadata_pb);
+var prophetstor_api_datahub_schemas_types_pb = require('../../../../prophetstor/api/datahub/schemas/types_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_schemas_types_pb);
+var google_rpc_status_pb = require('../../../../google/rpc/status_pb.js');
 goog.object.extend(proto, google_rpc_status_pb);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.CreateMetricsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.CreatePodMetricsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.ListClusterMetricsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.ListClusterMetricsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.ListControllerMetricsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.ListControllerMetricsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.ListMetricsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.ListMetricsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.ListNodeMetricsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.ListNodeMetricsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.ListPodMetricsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.metrics.ListPodMetricsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.CreateMetricsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.ListMetricsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.ListMetricsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse', null, global);
 /**
  * Generated by JsPbCodeGenerator.
  * @param {Array=} opt_data Optional initial data array, typically from a
@@ -57,16 +57,16 @@ goog.exportSymbol('proto.prophetstor.datahub.metrics.ListPodMetricsResponse', nu
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.CreatePodMetricsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.CreatePodMetricsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.displayName = 'proto.prophetstor.datahub.metrics.CreatePodMetricsRequest';
+  proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.displayName = 'proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -78,16 +78,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.displayName = 'proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest';
+  proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest.displayName = 'proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -99,16 +99,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.displayName = 'proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest';
+  proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest.displayName = 'proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -120,16 +120,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.displayName = 'proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest';
+  proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest.displayName = 'proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -141,16 +141,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.displayName = 'proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest';
+  proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest.displayName = 'proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -162,16 +162,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.displayName = 'proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest';
+  proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest.displayName = 'proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -183,16 +183,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.ListPodMetricsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.ListPodMetricsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.ListPodMetricsRequest.displayName = 'proto.prophetstor.datahub.metrics.ListPodMetricsRequest';
+  proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.displayName = 'proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -204,16 +204,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.ListPodMetricsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.ListPodMetricsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.ListPodMetricsResponse.displayName = 'proto.prophetstor.datahub.metrics.ListPodMetricsResponse';
+  proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.displayName = 'proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -225,16 +225,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.ListControllerMetricsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.displayName = 'proto.prophetstor.datahub.metrics.ListControllerMetricsRequest';
+  proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.displayName = 'proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -246,16 +246,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.ListControllerMetricsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.displayName = 'proto.prophetstor.datahub.metrics.ListControllerMetricsResponse';
+  proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.displayName = 'proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -267,16 +267,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.displayName = 'proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest';
+  proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.displayName = 'proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -288,16 +288,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.displayName = 'proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse';
+  proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.displayName = 'proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -309,16 +309,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.displayName = 'proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest';
+  proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.displayName = 'proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -330,16 +330,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.displayName = 'proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse';
+  proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.displayName = 'proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -351,16 +351,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.ListNodeMetricsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.displayName = 'proto.prophetstor.datahub.metrics.ListNodeMetricsRequest';
+  proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.displayName = 'proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -372,16 +372,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.ListNodeMetricsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.displayName = 'proto.prophetstor.datahub.metrics.ListNodeMetricsResponse';
+  proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.displayName = 'proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -393,16 +393,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.ListClusterMetricsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.displayName = 'proto.prophetstor.datahub.metrics.ListClusterMetricsRequest';
+  proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.displayName = 'proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -414,16 +414,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.ListClusterMetricsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.displayName = 'proto.prophetstor.datahub.metrics.ListClusterMetricsResponse';
+  proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.displayName = 'proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -435,16 +435,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.CreateMetricsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.CreateMetricsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.CreateMetricsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.CreateMetricsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.CreateMetricsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.CreateMetricsRequest.displayName = 'proto.prophetstor.datahub.metrics.CreateMetricsRequest';
+  proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.displayName = 'proto.prophetstor.api.datahub.metrics.CreateMetricsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -456,16 +456,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.metrics.ListMetricsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.metrics.ListMetricsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.ListMetricsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.ListMetricsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.ListMetricsRequest.displayName = 'proto.prophetstor.datahub.metrics.ListMetricsRequest';
+  proto.prophetstor.api.datahub.metrics.ListMetricsRequest.displayName = 'proto.prophetstor.api.datahub.metrics.ListMetricsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -477,16 +477,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.metrics.ListMetricsResponse = function(opt_data) {
+proto.prophetstor.api.datahub.metrics.ListMetricsResponse = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.prophetstor.datahub.metrics.ListMetricsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.metrics.ListMetricsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.metrics.ListMetricsResponse.displayName = 'proto.prophetstor.datahub.metrics.ListMetricsResponse';
+  proto.prophetstor.api.datahub.metrics.ListMetricsResponse.displayName = 'proto.prophetstor.api.datahub.metrics.ListMetricsResponse';
 }
 
 /**
@@ -494,7 +494,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.repeatedFields_ = [1];
 
 
 
@@ -511,8 +511,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -521,14 +521,14 @@ proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.prototype.toObject = f
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.CreatePodMetricsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     podMetricsList: jspb.Message.toObjectList(msg.getPodMetricsList(),
-    datahub_metrics_metrics_pb.PodMetric.toObject, includeInstance),
+    prophetstor_api_datahub_metrics_metrics_pb.PodMetric.toObject, includeInstance),
     rateRange: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
@@ -543,23 +543,23 @@ proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.toObject = function(in
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.CreatePodMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.CreatePodMetricsRequest;
-  return proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest;
+  return proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.CreatePodMetricsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.CreatePodMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -567,8 +567,8 @@ proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.deserializeBinaryFromR
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_metrics_metrics_pb.PodMetric;
-      reader.readMessage(value,datahub_metrics_metrics_pb.PodMetric.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_metrics_metrics_pb.PodMetric;
+      reader.readMessage(value,prophetstor_api_datahub_metrics_metrics_pb.PodMetric.deserializeBinaryFromReader);
       msg.addPodMetrics(value);
       break;
     case 2:
@@ -588,9 +588,9 @@ proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.deserializeBinaryFromR
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -598,18 +598,18 @@ proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.prototype.serializeBin
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.CreatePodMetricsRequest} message
+ * @param {!proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getPodMetricsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_metrics_metrics_pb.PodMetric.serializeBinaryToWriter
+      prophetstor_api_datahub_metrics_metrics_pb.PodMetric.serializeBinaryToWriter
     );
   }
   f = message.getRateRange();
@@ -624,38 +624,38 @@ proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.serializeBinaryToWrite
 
 /**
  * repeated PodMetric pod_metrics = 1;
- * @return {!Array<!proto.prophetstor.datahub.metrics.PodMetric>}
+ * @return {!Array<!proto.prophetstor.api.datahub.metrics.PodMetric>}
  */
-proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.prototype.getPodMetricsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.metrics.PodMetric>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_metrics_metrics_pb.PodMetric, 1));
+proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.prototype.getPodMetricsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.metrics.PodMetric>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_metrics_metrics_pb.PodMetric, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.metrics.PodMetric>} value
- * @return {!proto.prophetstor.datahub.metrics.CreatePodMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.metrics.PodMetric>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.prototype.setPodMetricsList = function(value) {
+proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.prototype.setPodMetricsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.metrics.PodMetric=} opt_value
+ * @param {!proto.prophetstor.api.datahub.metrics.PodMetric=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.PodMetric}
+ * @return {!proto.prophetstor.api.datahub.metrics.PodMetric}
  */
-proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.prototype.addPodMetrics = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.metrics.PodMetric, opt_index);
+proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.prototype.addPodMetrics = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.metrics.PodMetric, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.CreatePodMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.prototype.clearPodMetricsList = function() {
+proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.prototype.clearPodMetricsList = function() {
   return this.setPodMetricsList([]);
 };
 
@@ -664,16 +664,16 @@ proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.prototype.clearPodMetr
  * optional uint64 rate_range = 2;
  * @return {number}
  */
-proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.prototype.getRateRange = function() {
+proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.prototype.getRateRange = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.metrics.CreatePodMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.prototype.setRateRange = function(value) {
+proto.prophetstor.api.datahub.metrics.CreatePodMetricsRequest.prototype.setRateRange = function(value) {
   return jspb.Message.setProto3IntField(this, 2, value);
 };
 
@@ -684,7 +684,7 @@ proto.prophetstor.datahub.metrics.CreatePodMetricsRequest.prototype.setRateRange
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest.repeatedFields_ = [1];
 
 
 
@@ -701,8 +701,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -711,14 +711,14 @@ proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.prototype.toObj
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     controllerMetricsList: jspb.Message.toObjectList(msg.getControllerMetricsList(),
-    datahub_metrics_metrics_pb.ControllerMetric.toObject, includeInstance)
+    prophetstor_api_datahub_metrics_metrics_pb.ControllerMetric.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -732,23 +732,23 @@ proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.toObject = func
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest;
-  return proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest;
+  return proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -756,8 +756,8 @@ proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.deserializeBina
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_metrics_metrics_pb.ControllerMetric;
-      reader.readMessage(value,datahub_metrics_metrics_pb.ControllerMetric.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_metrics_metrics_pb.ControllerMetric;
+      reader.readMessage(value,prophetstor_api_datahub_metrics_metrics_pb.ControllerMetric.deserializeBinaryFromReader);
       msg.addControllerMetrics(value);
       break;
     default:
@@ -773,9 +773,9 @@ proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.deserializeBina
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -783,18 +783,18 @@ proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.prototype.seria
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest} message
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getControllerMetricsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_metrics_metrics_pb.ControllerMetric.serializeBinaryToWriter
+      prophetstor_api_datahub_metrics_metrics_pb.ControllerMetric.serializeBinaryToWriter
     );
   }
 };
@@ -802,38 +802,38 @@ proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.serializeBinary
 
 /**
  * repeated ControllerMetric controller_metrics = 1;
- * @return {!Array<!proto.prophetstor.datahub.metrics.ControllerMetric>}
+ * @return {!Array<!proto.prophetstor.api.datahub.metrics.ControllerMetric>}
  */
-proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.prototype.getControllerMetricsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.metrics.ControllerMetric>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_metrics_metrics_pb.ControllerMetric, 1));
+proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest.prototype.getControllerMetricsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.metrics.ControllerMetric>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_metrics_metrics_pb.ControllerMetric, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.metrics.ControllerMetric>} value
- * @return {!proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.metrics.ControllerMetric>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.prototype.setControllerMetricsList = function(value) {
+proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest.prototype.setControllerMetricsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.metrics.ControllerMetric=} opt_value
+ * @param {!proto.prophetstor.api.datahub.metrics.ControllerMetric=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.ControllerMetric}
+ * @return {!proto.prophetstor.api.datahub.metrics.ControllerMetric}
  */
-proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.prototype.addControllerMetrics = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.metrics.ControllerMetric, opt_index);
+proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest.prototype.addControllerMetrics = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.metrics.ControllerMetric, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.prototype.clearControllerMetricsList = function() {
+proto.prophetstor.api.datahub.metrics.CreateControllerMetricsRequest.prototype.clearControllerMetricsList = function() {
   return this.setControllerMetricsList([]);
 };
 
@@ -844,7 +844,7 @@ proto.prophetstor.datahub.metrics.CreateControllerMetricsRequest.prototype.clear
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest.repeatedFields_ = [1];
 
 
 
@@ -861,8 +861,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -871,14 +871,14 @@ proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.prototype.toOb
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     applicationMetricsList: jspb.Message.toObjectList(msg.getApplicationMetricsList(),
-    datahub_metrics_metrics_pb.ApplicationMetric.toObject, includeInstance)
+    prophetstor_api_datahub_metrics_metrics_pb.ApplicationMetric.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -892,23 +892,23 @@ proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.toObject = fun
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest;
-  return proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest;
+  return proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -916,8 +916,8 @@ proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.deserializeBin
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_metrics_metrics_pb.ApplicationMetric;
-      reader.readMessage(value,datahub_metrics_metrics_pb.ApplicationMetric.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_metrics_metrics_pb.ApplicationMetric;
+      reader.readMessage(value,prophetstor_api_datahub_metrics_metrics_pb.ApplicationMetric.deserializeBinaryFromReader);
       msg.addApplicationMetrics(value);
       break;
     default:
@@ -933,9 +933,9 @@ proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.deserializeBin
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -943,18 +943,18 @@ proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.prototype.seri
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest} message
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getApplicationMetricsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_metrics_metrics_pb.ApplicationMetric.serializeBinaryToWriter
+      prophetstor_api_datahub_metrics_metrics_pb.ApplicationMetric.serializeBinaryToWriter
     );
   }
 };
@@ -962,38 +962,38 @@ proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.serializeBinar
 
 /**
  * repeated ApplicationMetric application_metrics = 1;
- * @return {!Array<!proto.prophetstor.datahub.metrics.ApplicationMetric>}
+ * @return {!Array<!proto.prophetstor.api.datahub.metrics.ApplicationMetric>}
  */
-proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.prototype.getApplicationMetricsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.metrics.ApplicationMetric>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_metrics_metrics_pb.ApplicationMetric, 1));
+proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest.prototype.getApplicationMetricsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.metrics.ApplicationMetric>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_metrics_metrics_pb.ApplicationMetric, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.metrics.ApplicationMetric>} value
- * @return {!proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.metrics.ApplicationMetric>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.prototype.setApplicationMetricsList = function(value) {
+proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest.prototype.setApplicationMetricsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.metrics.ApplicationMetric=} opt_value
+ * @param {!proto.prophetstor.api.datahub.metrics.ApplicationMetric=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.ApplicationMetric}
+ * @return {!proto.prophetstor.api.datahub.metrics.ApplicationMetric}
  */
-proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.prototype.addApplicationMetrics = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.metrics.ApplicationMetric, opt_index);
+proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest.prototype.addApplicationMetrics = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.metrics.ApplicationMetric, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.prototype.clearApplicationMetricsList = function() {
+proto.prophetstor.api.datahub.metrics.CreateApplicationMetricsRequest.prototype.clearApplicationMetricsList = function() {
   return this.setApplicationMetricsList([]);
 };
 
@@ -1004,7 +1004,7 @@ proto.prophetstor.datahub.metrics.CreateApplicationMetricsRequest.prototype.clea
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest.repeatedFields_ = [1];
 
 
 
@@ -1021,8 +1021,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1031,14 +1031,14 @@ proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.prototype.toObje
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     namespaceMetricsList: jspb.Message.toObjectList(msg.getNamespaceMetricsList(),
-    datahub_metrics_metrics_pb.NamespaceMetric.toObject, includeInstance)
+    prophetstor_api_datahub_metrics_metrics_pb.NamespaceMetric.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1052,23 +1052,23 @@ proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.toObject = funct
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest;
-  return proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest;
+  return proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1076,8 +1076,8 @@ proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.deserializeBinar
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_metrics_metrics_pb.NamespaceMetric;
-      reader.readMessage(value,datahub_metrics_metrics_pb.NamespaceMetric.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_metrics_metrics_pb.NamespaceMetric;
+      reader.readMessage(value,prophetstor_api_datahub_metrics_metrics_pb.NamespaceMetric.deserializeBinaryFromReader);
       msg.addNamespaceMetrics(value);
       break;
     default:
@@ -1093,9 +1093,9 @@ proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.deserializeBinar
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1103,18 +1103,18 @@ proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.prototype.serial
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest} message
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getNamespaceMetricsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_metrics_metrics_pb.NamespaceMetric.serializeBinaryToWriter
+      prophetstor_api_datahub_metrics_metrics_pb.NamespaceMetric.serializeBinaryToWriter
     );
   }
 };
@@ -1122,38 +1122,38 @@ proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.serializeBinaryT
 
 /**
  * repeated NamespaceMetric namespace_metrics = 1;
- * @return {!Array<!proto.prophetstor.datahub.metrics.NamespaceMetric>}
+ * @return {!Array<!proto.prophetstor.api.datahub.metrics.NamespaceMetric>}
  */
-proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.prototype.getNamespaceMetricsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.metrics.NamespaceMetric>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_metrics_metrics_pb.NamespaceMetric, 1));
+proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest.prototype.getNamespaceMetricsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.metrics.NamespaceMetric>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_metrics_metrics_pb.NamespaceMetric, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.metrics.NamespaceMetric>} value
- * @return {!proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.metrics.NamespaceMetric>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.prototype.setNamespaceMetricsList = function(value) {
+proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest.prototype.setNamespaceMetricsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.metrics.NamespaceMetric=} opt_value
+ * @param {!proto.prophetstor.api.datahub.metrics.NamespaceMetric=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.NamespaceMetric}
+ * @return {!proto.prophetstor.api.datahub.metrics.NamespaceMetric}
  */
-proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.prototype.addNamespaceMetrics = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.metrics.NamespaceMetric, opt_index);
+proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest.prototype.addNamespaceMetrics = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.metrics.NamespaceMetric, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.prototype.clearNamespaceMetricsList = function() {
+proto.prophetstor.api.datahub.metrics.CreateNamespaceMetricsRequest.prototype.clearNamespaceMetricsList = function() {
   return this.setNamespaceMetricsList([]);
 };
 
@@ -1164,7 +1164,7 @@ proto.prophetstor.datahub.metrics.CreateNamespaceMetricsRequest.prototype.clearN
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest.repeatedFields_ = [1];
 
 
 
@@ -1181,8 +1181,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1191,14 +1191,14 @@ proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.prototype.toObject = 
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     nodeMetricsList: jspb.Message.toObjectList(msg.getNodeMetricsList(),
-    datahub_metrics_metrics_pb.NodeMetric.toObject, includeInstance)
+    prophetstor_api_datahub_metrics_metrics_pb.NodeMetric.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1212,23 +1212,23 @@ proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.toObject = function(i
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest;
-  return proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest;
+  return proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1236,8 +1236,8 @@ proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.deserializeBinaryFrom
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_metrics_metrics_pb.NodeMetric;
-      reader.readMessage(value,datahub_metrics_metrics_pb.NodeMetric.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_metrics_metrics_pb.NodeMetric;
+      reader.readMessage(value,prophetstor_api_datahub_metrics_metrics_pb.NodeMetric.deserializeBinaryFromReader);
       msg.addNodeMetrics(value);
       break;
     default:
@@ -1253,9 +1253,9 @@ proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.deserializeBinaryFrom
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1263,18 +1263,18 @@ proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.prototype.serializeBi
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest} message
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getNodeMetricsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_metrics_metrics_pb.NodeMetric.serializeBinaryToWriter
+      prophetstor_api_datahub_metrics_metrics_pb.NodeMetric.serializeBinaryToWriter
     );
   }
 };
@@ -1282,38 +1282,38 @@ proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.serializeBinaryToWrit
 
 /**
  * repeated NodeMetric node_metrics = 1;
- * @return {!Array<!proto.prophetstor.datahub.metrics.NodeMetric>}
+ * @return {!Array<!proto.prophetstor.api.datahub.metrics.NodeMetric>}
  */
-proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.prototype.getNodeMetricsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.metrics.NodeMetric>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_metrics_metrics_pb.NodeMetric, 1));
+proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest.prototype.getNodeMetricsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.metrics.NodeMetric>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_metrics_metrics_pb.NodeMetric, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.metrics.NodeMetric>} value
- * @return {!proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.metrics.NodeMetric>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.prototype.setNodeMetricsList = function(value) {
+proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest.prototype.setNodeMetricsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.metrics.NodeMetric=} opt_value
+ * @param {!proto.prophetstor.api.datahub.metrics.NodeMetric=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.NodeMetric}
+ * @return {!proto.prophetstor.api.datahub.metrics.NodeMetric}
  */
-proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.prototype.addNodeMetrics = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.metrics.NodeMetric, opt_index);
+proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest.prototype.addNodeMetrics = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.metrics.NodeMetric, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.prototype.clearNodeMetricsList = function() {
+proto.prophetstor.api.datahub.metrics.CreateNodeMetricsRequest.prototype.clearNodeMetricsList = function() {
   return this.setNodeMetricsList([]);
 };
 
@@ -1324,7 +1324,7 @@ proto.prophetstor.datahub.metrics.CreateNodeMetricsRequest.prototype.clearNodeMe
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest.repeatedFields_ = [1];
 
 
 
@@ -1341,8 +1341,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1351,14 +1351,14 @@ proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.prototype.toObject
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     clusterMetricsList: jspb.Message.toObjectList(msg.getClusterMetricsList(),
-    datahub_metrics_metrics_pb.ClusterMetric.toObject, includeInstance)
+    prophetstor_api_datahub_metrics_metrics_pb.ClusterMetric.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1372,23 +1372,23 @@ proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.toObject = functio
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest;
-  return proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest;
+  return proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1396,8 +1396,8 @@ proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.deserializeBinaryF
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_metrics_metrics_pb.ClusterMetric;
-      reader.readMessage(value,datahub_metrics_metrics_pb.ClusterMetric.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_metrics_metrics_pb.ClusterMetric;
+      reader.readMessage(value,prophetstor_api_datahub_metrics_metrics_pb.ClusterMetric.deserializeBinaryFromReader);
       msg.addClusterMetrics(value);
       break;
     default:
@@ -1413,9 +1413,9 @@ proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.deserializeBinaryF
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1423,18 +1423,18 @@ proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.prototype.serializ
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest} message
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getClusterMetricsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_metrics_metrics_pb.ClusterMetric.serializeBinaryToWriter
+      prophetstor_api_datahub_metrics_metrics_pb.ClusterMetric.serializeBinaryToWriter
     );
   }
 };
@@ -1442,38 +1442,38 @@ proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.serializeBinaryToW
 
 /**
  * repeated ClusterMetric cluster_metrics = 1;
- * @return {!Array<!proto.prophetstor.datahub.metrics.ClusterMetric>}
+ * @return {!Array<!proto.prophetstor.api.datahub.metrics.ClusterMetric>}
  */
-proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.prototype.getClusterMetricsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.metrics.ClusterMetric>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_metrics_metrics_pb.ClusterMetric, 1));
+proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest.prototype.getClusterMetricsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.metrics.ClusterMetric>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_metrics_metrics_pb.ClusterMetric, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.metrics.ClusterMetric>} value
- * @return {!proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.metrics.ClusterMetric>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.prototype.setClusterMetricsList = function(value) {
+proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest.prototype.setClusterMetricsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.metrics.ClusterMetric=} opt_value
+ * @param {!proto.prophetstor.api.datahub.metrics.ClusterMetric=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.ClusterMetric}
+ * @return {!proto.prophetstor.api.datahub.metrics.ClusterMetric}
  */
-proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.prototype.addClusterMetrics = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.metrics.ClusterMetric, opt_index);
+proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest.prototype.addClusterMetrics = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.metrics.ClusterMetric, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.prototype.clearClusterMetricsList = function() {
+proto.prophetstor.api.datahub.metrics.CreateClusterMetricsRequest.prototype.clearClusterMetricsList = function() {
   return this.setClusterMetricsList([]);
 };
 
@@ -1484,7 +1484,7 @@ proto.prophetstor.datahub.metrics.CreateClusterMetricsRequest.prototype.clearClu
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.repeatedFields_ = [2,3];
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.repeatedFields_ = [2,3];
 
 
 
@@ -1501,8 +1501,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.ListPodMetricsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1511,15 +1511,15 @@ proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.toObject = fun
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.ListPodMetricsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     metricTypesList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f,
     rateRange: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
@@ -1535,23 +1535,23 @@ proto.prophetstor.datahub.metrics.ListPodMetricsRequest.toObject = function(incl
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.ListPodMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.ListPodMetricsRequest;
-  return proto.prophetstor.datahub.metrics.ListPodMetricsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest;
+  return proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.ListPodMetricsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.ListPodMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1559,17 +1559,17 @@ proto.prophetstor.datahub.metrics.ListPodMetricsRequest.deserializeBinaryFromRea
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (reader.readPackedEnum());
+      var value = /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (reader.readPackedEnum());
       msg.setMetricTypesList(value);
       break;
     case 4:
@@ -1589,9 +1589,9 @@ proto.prophetstor.datahub.metrics.ListPodMetricsRequest.deserializeBinaryFromRea
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.ListPodMetricsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1599,18 +1599,18 @@ proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.serializeBinar
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.ListPodMetricsRequest} message
+ * @param {!proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -1618,7 +1618,7 @@ proto.prophetstor.datahub.metrics.ListPodMetricsRequest.serializeBinaryToWriter 
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getMetricTypesList();
@@ -1639,29 +1639,29 @@ proto.prophetstor.datahub.metrics.ListPodMetricsRequest.serializeBinaryToWriter 
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.ListPodMetricsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.ListPodMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -1670,82 +1670,82 @@ proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.clearQueryCond
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.metrics.ListPodMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListPodMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * repeated prophetstor.datahub.common.MetricType metric_types = 3;
- * @return {!Array<!proto.prophetstor.datahub.common.MetricType>}
+ * repeated prophetstor.api.datahub.common.MetricType metric_types = 3;
+ * @return {!Array<!proto.prophetstor.api.datahub.common.MetricType>}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.getMetricTypesList = function() {
-  return /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.prototype.getMetricTypesList = function() {
+  return /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.common.MetricType>} value
- * @return {!proto.prophetstor.datahub.metrics.ListPodMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.common.MetricType>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.setMetricTypesList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.prototype.setMetricTypesList = function(value) {
   return jspb.Message.setField(this, 3, value || []);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.common.MetricType} value
+ * @param {!proto.prophetstor.api.datahub.common.MetricType} value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.ListPodMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.addMetricTypes = function(value, opt_index) {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.prototype.addMetricTypes = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListPodMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.clearMetricTypesList = function() {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.prototype.clearMetricTypesList = function() {
   return this.setMetricTypesList([]);
 };
 
@@ -1754,16 +1754,16 @@ proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.clearMetricTyp
  * optional uint64 rate_range = 4;
  * @return {number}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.getRateRange = function() {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.prototype.getRateRange = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.metrics.ListPodMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.setRateRange = function(value) {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsRequest.prototype.setRateRange = function(value) {
   return jspb.Message.setProto3IntField(this, 4, value);
 };
 
@@ -1774,7 +1774,7 @@ proto.prophetstor.datahub.metrics.ListPodMetricsRequest.prototype.setRateRange =
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.repeatedFields_ = [2];
 
 
 
@@ -1791,8 +1791,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.ListPodMetricsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -1801,15 +1801,15 @@ proto.prophetstor.datahub.metrics.ListPodMetricsResponse.prototype.toObject = fu
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.ListPodMetricsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     podMetricsList: jspb.Message.toObjectList(msg.getPodMetricsList(),
-    datahub_metrics_metrics_pb.PodMetric.toObject, includeInstance)
+    prophetstor_api_datahub_metrics_metrics_pb.PodMetric.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1823,23 +1823,23 @@ proto.prophetstor.datahub.metrics.ListPodMetricsResponse.toObject = function(inc
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.ListPodMetricsResponse}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.ListPodMetricsResponse;
-  return proto.prophetstor.datahub.metrics.ListPodMetricsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse;
+  return proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.ListPodMetricsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.ListPodMetricsResponse}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1852,8 +1852,8 @@ proto.prophetstor.datahub.metrics.ListPodMetricsResponse.deserializeBinaryFromRe
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_metrics_metrics_pb.PodMetric;
-      reader.readMessage(value,datahub_metrics_metrics_pb.PodMetric.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_metrics_metrics_pb.PodMetric;
+      reader.readMessage(value,prophetstor_api_datahub_metrics_metrics_pb.PodMetric.deserializeBinaryFromReader);
       msg.addPodMetrics(value);
       break;
     default:
@@ -1869,9 +1869,9 @@ proto.prophetstor.datahub.metrics.ListPodMetricsResponse.deserializeBinaryFromRe
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.ListPodMetricsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1879,11 +1879,11 @@ proto.prophetstor.datahub.metrics.ListPodMetricsResponse.prototype.serializeBina
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.ListPodMetricsResponse} message
+ * @param {!proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -1898,7 +1898,7 @@ proto.prophetstor.datahub.metrics.ListPodMetricsResponse.serializeBinaryToWriter
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_metrics_metrics_pb.PodMetric.serializeBinaryToWriter
+      prophetstor_api_datahub_metrics_metrics_pb.PodMetric.serializeBinaryToWriter
     );
   }
 };
@@ -1908,7 +1908,7 @@ proto.prophetstor.datahub.metrics.ListPodMetricsResponse.serializeBinaryToWriter
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -1916,18 +1916,18 @@ proto.prophetstor.datahub.metrics.ListPodMetricsResponse.prototype.getStatus = f
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.ListPodMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse} returns this
 */
-proto.prophetstor.datahub.metrics.ListPodMetricsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.ListPodMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse} returns this
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -1936,45 +1936,45 @@ proto.prophetstor.datahub.metrics.ListPodMetricsResponse.prototype.clearStatus =
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated PodMetric pod_metrics = 2;
- * @return {!Array<!proto.prophetstor.datahub.metrics.PodMetric>}
+ * @return {!Array<!proto.prophetstor.api.datahub.metrics.PodMetric>}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsResponse.prototype.getPodMetricsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.metrics.PodMetric>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_metrics_metrics_pb.PodMetric, 2));
+proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.prototype.getPodMetricsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.metrics.PodMetric>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_metrics_metrics_pb.PodMetric, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.metrics.PodMetric>} value
- * @return {!proto.prophetstor.datahub.metrics.ListPodMetricsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.metrics.PodMetric>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse} returns this
 */
-proto.prophetstor.datahub.metrics.ListPodMetricsResponse.prototype.setPodMetricsList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.prototype.setPodMetricsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.metrics.PodMetric=} opt_value
+ * @param {!proto.prophetstor.api.datahub.metrics.PodMetric=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.PodMetric}
+ * @return {!proto.prophetstor.api.datahub.metrics.PodMetric}
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsResponse.prototype.addPodMetrics = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.metrics.PodMetric, opt_index);
+proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.prototype.addPodMetrics = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.metrics.PodMetric, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListPodMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse} returns this
  */
-proto.prophetstor.datahub.metrics.ListPodMetricsResponse.prototype.clearPodMetricsList = function() {
+proto.prophetstor.api.datahub.metrics.ListPodMetricsResponse.prototype.clearPodMetricsList = function() {
   return this.setPodMetricsList([]);
 };
 
@@ -1985,7 +1985,7 @@ proto.prophetstor.datahub.metrics.ListPodMetricsResponse.prototype.clearPodMetri
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.repeatedFields_ = [2,3];
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.repeatedFields_ = [2,3];
 
 
 
@@ -2002,8 +2002,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -2012,15 +2012,15 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.toObjec
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.ListControllerMetricsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     metricTypesList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f,
     kind: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
@@ -2036,23 +2036,23 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.toObject = functi
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.ListControllerMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.ListControllerMetricsRequest;
-  return proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest;
+  return proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.ListControllerMetricsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.ListControllerMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2060,21 +2060,21 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.deserializeBinary
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (reader.readPackedEnum());
+      var value = /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (reader.readPackedEnum());
       msg.setMetricTypesList(value);
       break;
     case 4:
-      var value = /** @type {!proto.prophetstor.datahub.resources.Kind} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (reader.readEnum());
       msg.setKind(value);
       break;
     default:
@@ -2090,9 +2090,9 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.deserializeBinary
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2100,18 +2100,18 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.seriali
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.ListControllerMetricsRequest} message
+ * @param {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -2119,7 +2119,7 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.serializeBinaryTo
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getMetricTypesList();
@@ -2140,29 +2140,29 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.serializeBinaryTo
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.ListControllerMetricsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.ListControllerMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -2171,100 +2171,100 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.clearQu
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.metrics.ListControllerMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListControllerMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * repeated prophetstor.datahub.common.MetricType metric_types = 3;
- * @return {!Array<!proto.prophetstor.datahub.common.MetricType>}
+ * repeated prophetstor.api.datahub.common.MetricType metric_types = 3;
+ * @return {!Array<!proto.prophetstor.api.datahub.common.MetricType>}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.getMetricTypesList = function() {
-  return /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.prototype.getMetricTypesList = function() {
+  return /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.common.MetricType>} value
- * @return {!proto.prophetstor.datahub.metrics.ListControllerMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.common.MetricType>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.setMetricTypesList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.prototype.setMetricTypesList = function(value) {
   return jspb.Message.setField(this, 3, value || []);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.common.MetricType} value
+ * @param {!proto.prophetstor.api.datahub.common.MetricType} value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.ListControllerMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.addMetricTypes = function(value, opt_index) {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.prototype.addMetricTypes = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListControllerMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.clearMetricTypesList = function() {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.prototype.clearMetricTypesList = function() {
   return this.setMetricTypesList([]);
 };
 
 
 /**
- * optional prophetstor.datahub.resources.Kind kind = 4;
- * @return {!proto.prophetstor.datahub.resources.Kind}
+ * optional prophetstor.api.datahub.resources.Kind kind = 4;
+ * @return {!proto.prophetstor.api.datahub.resources.Kind}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.getKind = function() {
-  return /** @type {!proto.prophetstor.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.prototype.getKind = function() {
+  return /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.Kind} value
- * @return {!proto.prophetstor.datahub.metrics.ListControllerMetricsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.resources.Kind} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.setKind = function(value) {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsRequest.prototype.setKind = function(value) {
   return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
@@ -2275,7 +2275,7 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsRequest.prototype.setKind
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.repeatedFields_ = [2];
 
 
 
@@ -2292,8 +2292,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -2302,15 +2302,15 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.prototype.toObje
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.ListControllerMetricsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     controllerMetricsList: jspb.Message.toObjectList(msg.getControllerMetricsList(),
-    datahub_metrics_metrics_pb.ControllerMetric.toObject, includeInstance)
+    prophetstor_api_datahub_metrics_metrics_pb.ControllerMetric.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -2324,23 +2324,23 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.toObject = funct
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.ListControllerMetricsResponse}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.ListControllerMetricsResponse;
-  return proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse;
+  return proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.ListControllerMetricsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.ListControllerMetricsResponse}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2353,8 +2353,8 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.deserializeBinar
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_metrics_metrics_pb.ControllerMetric;
-      reader.readMessage(value,datahub_metrics_metrics_pb.ControllerMetric.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_metrics_metrics_pb.ControllerMetric;
+      reader.readMessage(value,prophetstor_api_datahub_metrics_metrics_pb.ControllerMetric.deserializeBinaryFromReader);
       msg.addControllerMetrics(value);
       break;
     default:
@@ -2370,9 +2370,9 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.deserializeBinar
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2380,11 +2380,11 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.prototype.serial
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.ListControllerMetricsResponse} message
+ * @param {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -2399,7 +2399,7 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.serializeBinaryT
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_metrics_metrics_pb.ControllerMetric.serializeBinaryToWriter
+      prophetstor_api_datahub_metrics_metrics_pb.ControllerMetric.serializeBinaryToWriter
     );
   }
 };
@@ -2409,7 +2409,7 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.serializeBinaryT
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -2417,18 +2417,18 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.prototype.getSta
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.ListControllerMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse} returns this
 */
-proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.ListControllerMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse} returns this
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -2437,45 +2437,45 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.prototype.clearS
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated ControllerMetric controller_metrics = 2;
- * @return {!Array<!proto.prophetstor.datahub.metrics.ControllerMetric>}
+ * @return {!Array<!proto.prophetstor.api.datahub.metrics.ControllerMetric>}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.prototype.getControllerMetricsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.metrics.ControllerMetric>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_metrics_metrics_pb.ControllerMetric, 2));
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.prototype.getControllerMetricsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.metrics.ControllerMetric>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_metrics_metrics_pb.ControllerMetric, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.metrics.ControllerMetric>} value
- * @return {!proto.prophetstor.datahub.metrics.ListControllerMetricsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.metrics.ControllerMetric>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse} returns this
 */
-proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.prototype.setControllerMetricsList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.prototype.setControllerMetricsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.metrics.ControllerMetric=} opt_value
+ * @param {!proto.prophetstor.api.datahub.metrics.ControllerMetric=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.ControllerMetric}
+ * @return {!proto.prophetstor.api.datahub.metrics.ControllerMetric}
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.prototype.addControllerMetrics = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.metrics.ControllerMetric, opt_index);
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.prototype.addControllerMetrics = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.metrics.ControllerMetric, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListControllerMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse} returns this
  */
-proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.prototype.clearControllerMetricsList = function() {
+proto.prophetstor.api.datahub.metrics.ListControllerMetricsResponse.prototype.clearControllerMetricsList = function() {
   return this.setControllerMetricsList([]);
 };
 
@@ -2486,7 +2486,7 @@ proto.prophetstor.datahub.metrics.ListControllerMetricsResponse.prototype.clearC
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.repeatedFields_ = [2,3];
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.repeatedFields_ = [2,3];
 
 
 
@@ -2503,8 +2503,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -2513,15 +2513,15 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.toObje
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     metricTypesList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f
   };
 
@@ -2536,23 +2536,23 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.toObject = funct
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest;
-  return proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest;
+  return proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2560,17 +2560,17 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.deserializeBinar
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (reader.readPackedEnum());
+      var value = /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (reader.readPackedEnum());
       msg.setMetricTypesList(value);
       break;
     default:
@@ -2586,9 +2586,9 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.deserializeBinar
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2596,18 +2596,18 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.serial
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest} message
+ * @param {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -2615,7 +2615,7 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.serializeBinaryT
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getMetricTypesList();
@@ -2629,29 +2629,29 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.serializeBinaryT
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -2660,82 +2660,82 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.clearQ
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * repeated prophetstor.datahub.common.MetricType metric_types = 3;
- * @return {!Array<!proto.prophetstor.datahub.common.MetricType>}
+ * repeated prophetstor.api.datahub.common.MetricType metric_types = 3;
+ * @return {!Array<!proto.prophetstor.api.datahub.common.MetricType>}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.getMetricTypesList = function() {
-  return /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.prototype.getMetricTypesList = function() {
+  return /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.common.MetricType>} value
- * @return {!proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.common.MetricType>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.setMetricTypesList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.prototype.setMetricTypesList = function(value) {
   return jspb.Message.setField(this, 3, value || []);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.common.MetricType} value
+ * @param {!proto.prophetstor.api.datahub.common.MetricType} value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.addMetricTypes = function(value, opt_index) {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.prototype.addMetricTypes = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.clearMetricTypesList = function() {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsRequest.prototype.clearMetricTypesList = function() {
   return this.setMetricTypesList([]);
 };
 
@@ -2746,7 +2746,7 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsRequest.prototype.clearM
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.repeatedFields_ = [2];
 
 
 
@@ -2763,8 +2763,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -2773,15 +2773,15 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.prototype.toObj
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     applicationMetricsList: jspb.Message.toObjectList(msg.getApplicationMetricsList(),
-    datahub_metrics_metrics_pb.ApplicationMetric.toObject, includeInstance)
+    prophetstor_api_datahub_metrics_metrics_pb.ApplicationMetric.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -2795,23 +2795,23 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.toObject = func
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse;
-  return proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse;
+  return proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2824,8 +2824,8 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.deserializeBina
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_metrics_metrics_pb.ApplicationMetric;
-      reader.readMessage(value,datahub_metrics_metrics_pb.ApplicationMetric.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_metrics_metrics_pb.ApplicationMetric;
+      reader.readMessage(value,prophetstor_api_datahub_metrics_metrics_pb.ApplicationMetric.deserializeBinaryFromReader);
       msg.addApplicationMetrics(value);
       break;
     default:
@@ -2841,9 +2841,9 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.deserializeBina
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2851,11 +2851,11 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.prototype.seria
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse} message
+ * @param {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -2870,7 +2870,7 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.serializeBinary
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_metrics_metrics_pb.ApplicationMetric.serializeBinaryToWriter
+      prophetstor_api_datahub_metrics_metrics_pb.ApplicationMetric.serializeBinaryToWriter
     );
   }
 };
@@ -2880,7 +2880,7 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.serializeBinary
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -2888,18 +2888,18 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.prototype.getSt
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse} returns this
 */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse} returns this
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -2908,45 +2908,45 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.prototype.clear
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated ApplicationMetric application_metrics = 2;
- * @return {!Array<!proto.prophetstor.datahub.metrics.ApplicationMetric>}
+ * @return {!Array<!proto.prophetstor.api.datahub.metrics.ApplicationMetric>}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.prototype.getApplicationMetricsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.metrics.ApplicationMetric>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_metrics_metrics_pb.ApplicationMetric, 2));
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.prototype.getApplicationMetricsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.metrics.ApplicationMetric>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_metrics_metrics_pb.ApplicationMetric, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.metrics.ApplicationMetric>} value
- * @return {!proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.metrics.ApplicationMetric>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse} returns this
 */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.prototype.setApplicationMetricsList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.prototype.setApplicationMetricsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.metrics.ApplicationMetric=} opt_value
+ * @param {!proto.prophetstor.api.datahub.metrics.ApplicationMetric=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.ApplicationMetric}
+ * @return {!proto.prophetstor.api.datahub.metrics.ApplicationMetric}
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.prototype.addApplicationMetrics = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.metrics.ApplicationMetric, opt_index);
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.prototype.addApplicationMetrics = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.metrics.ApplicationMetric, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse} returns this
  */
-proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.prototype.clearApplicationMetricsList = function() {
+proto.prophetstor.api.datahub.metrics.ListApplicationMetricsResponse.prototype.clearApplicationMetricsList = function() {
   return this.setApplicationMetricsList([]);
 };
 
@@ -2957,7 +2957,7 @@ proto.prophetstor.datahub.metrics.ListApplicationMetricsResponse.prototype.clear
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.repeatedFields_ = [2,3];
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.repeatedFields_ = [2,3];
 
 
 
@@ -2974,8 +2974,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -2984,15 +2984,15 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.toObject
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     metricTypesList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f
   };
 
@@ -3007,23 +3007,23 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.toObject = functio
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest;
-  return proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest;
+  return proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3031,17 +3031,17 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.deserializeBinaryF
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (reader.readPackedEnum());
+      var value = /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (reader.readPackedEnum());
       msg.setMetricTypesList(value);
       break;
     default:
@@ -3057,9 +3057,9 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.deserializeBinaryF
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3067,18 +3067,18 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.serializ
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest} message
+ * @param {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -3086,7 +3086,7 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.serializeBinaryToW
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getMetricTypesList();
@@ -3100,29 +3100,29 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.serializeBinaryToW
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -3131,82 +3131,82 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.clearQue
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * repeated prophetstor.datahub.common.MetricType metric_types = 3;
- * @return {!Array<!proto.prophetstor.datahub.common.MetricType>}
+ * repeated prophetstor.api.datahub.common.MetricType metric_types = 3;
+ * @return {!Array<!proto.prophetstor.api.datahub.common.MetricType>}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.getMetricTypesList = function() {
-  return /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.prototype.getMetricTypesList = function() {
+  return /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.common.MetricType>} value
- * @return {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.common.MetricType>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.setMetricTypesList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.prototype.setMetricTypesList = function(value) {
   return jspb.Message.setField(this, 3, value || []);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.common.MetricType} value
+ * @param {!proto.prophetstor.api.datahub.common.MetricType} value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.addMetricTypes = function(value, opt_index) {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.prototype.addMetricTypes = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.clearMetricTypesList = function() {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsRequest.prototype.clearMetricTypesList = function() {
   return this.setMetricTypesList([]);
 };
 
@@ -3217,7 +3217,7 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsRequest.prototype.clearMet
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.repeatedFields_ = [2];
 
 
 
@@ -3234,8 +3234,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -3244,15 +3244,15 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.prototype.toObjec
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     namespaceMetricsList: jspb.Message.toObjectList(msg.getNamespaceMetricsList(),
-    datahub_metrics_metrics_pb.NamespaceMetric.toObject, includeInstance)
+    prophetstor_api_datahub_metrics_metrics_pb.NamespaceMetric.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -3266,23 +3266,23 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.toObject = functi
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse;
-  return proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse;
+  return proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3295,8 +3295,8 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.deserializeBinary
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_metrics_metrics_pb.NamespaceMetric;
-      reader.readMessage(value,datahub_metrics_metrics_pb.NamespaceMetric.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_metrics_metrics_pb.NamespaceMetric;
+      reader.readMessage(value,prophetstor_api_datahub_metrics_metrics_pb.NamespaceMetric.deserializeBinaryFromReader);
       msg.addNamespaceMetrics(value);
       break;
     default:
@@ -3312,9 +3312,9 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.deserializeBinary
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3322,11 +3322,11 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.prototype.seriali
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse} message
+ * @param {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -3341,7 +3341,7 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.serializeBinaryTo
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_metrics_metrics_pb.NamespaceMetric.serializeBinaryToWriter
+      prophetstor_api_datahub_metrics_metrics_pb.NamespaceMetric.serializeBinaryToWriter
     );
   }
 };
@@ -3351,7 +3351,7 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.serializeBinaryTo
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -3359,18 +3359,18 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.prototype.getStat
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse} returns this
 */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse} returns this
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -3379,45 +3379,45 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.prototype.clearSt
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated NamespaceMetric namespace_metrics = 2;
- * @return {!Array<!proto.prophetstor.datahub.metrics.NamespaceMetric>}
+ * @return {!Array<!proto.prophetstor.api.datahub.metrics.NamespaceMetric>}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.prototype.getNamespaceMetricsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.metrics.NamespaceMetric>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_metrics_metrics_pb.NamespaceMetric, 2));
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.prototype.getNamespaceMetricsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.metrics.NamespaceMetric>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_metrics_metrics_pb.NamespaceMetric, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.metrics.NamespaceMetric>} value
- * @return {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.metrics.NamespaceMetric>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse} returns this
 */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.prototype.setNamespaceMetricsList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.prototype.setNamespaceMetricsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.metrics.NamespaceMetric=} opt_value
+ * @param {!proto.prophetstor.api.datahub.metrics.NamespaceMetric=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.NamespaceMetric}
+ * @return {!proto.prophetstor.api.datahub.metrics.NamespaceMetric}
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.prototype.addNamespaceMetrics = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.metrics.NamespaceMetric, opt_index);
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.prototype.addNamespaceMetrics = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.metrics.NamespaceMetric, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse} returns this
  */
-proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.prototype.clearNamespaceMetricsList = function() {
+proto.prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse.prototype.clearNamespaceMetricsList = function() {
   return this.setNamespaceMetricsList([]);
 };
 
@@ -3428,7 +3428,7 @@ proto.prophetstor.datahub.metrics.ListNamespaceMetricsResponse.prototype.clearNa
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.repeatedFields_ = [2,3];
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.repeatedFields_ = [2,3];
 
 
 
@@ -3445,8 +3445,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -3455,15 +3455,15 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.toObject = fu
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.ListNodeMetricsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     metricTypesList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f
   };
 
@@ -3478,23 +3478,23 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.toObject = function(inc
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.ListNodeMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.ListNodeMetricsRequest;
-  return proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest;
+  return proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.ListNodeMetricsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.ListNodeMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3502,17 +3502,17 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.deserializeBinaryFromRe
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (reader.readPackedEnum());
+      var value = /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (reader.readPackedEnum());
       msg.setMetricTypesList(value);
       break;
     default:
@@ -3528,9 +3528,9 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.deserializeBinaryFromRe
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3538,18 +3538,18 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.serializeBina
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.ListNodeMetricsRequest} message
+ * @param {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -3557,7 +3557,7 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.serializeBinaryToWriter
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getMetricTypesList();
@@ -3571,29 +3571,29 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.serializeBinaryToWriter
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.ListNodeMetricsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.ListNodeMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -3602,82 +3602,82 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.clearQueryCon
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.metrics.ListNodeMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListNodeMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * repeated prophetstor.datahub.common.MetricType metric_types = 3;
- * @return {!Array<!proto.prophetstor.datahub.common.MetricType>}
+ * repeated prophetstor.api.datahub.common.MetricType metric_types = 3;
+ * @return {!Array<!proto.prophetstor.api.datahub.common.MetricType>}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.getMetricTypesList = function() {
-  return /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.prototype.getMetricTypesList = function() {
+  return /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.common.MetricType>} value
- * @return {!proto.prophetstor.datahub.metrics.ListNodeMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.common.MetricType>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.setMetricTypesList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.prototype.setMetricTypesList = function(value) {
   return jspb.Message.setField(this, 3, value || []);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.common.MetricType} value
+ * @param {!proto.prophetstor.api.datahub.common.MetricType} value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.ListNodeMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.addMetricTypes = function(value, opt_index) {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.prototype.addMetricTypes = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListNodeMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.clearMetricTypesList = function() {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsRequest.prototype.clearMetricTypesList = function() {
   return this.setMetricTypesList([]);
 };
 
@@ -3688,7 +3688,7 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsRequest.prototype.clearMetricTy
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.repeatedFields_ = [2];
 
 
 
@@ -3705,8 +3705,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -3715,15 +3715,15 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.prototype.toObject = f
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.ListNodeMetricsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     nodeMetricsList: jspb.Message.toObjectList(msg.getNodeMetricsList(),
-    datahub_metrics_metrics_pb.NodeMetric.toObject, includeInstance)
+    prophetstor_api_datahub_metrics_metrics_pb.NodeMetric.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -3737,23 +3737,23 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.toObject = function(in
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.ListNodeMetricsResponse}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.ListNodeMetricsResponse;
-  return proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse;
+  return proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.ListNodeMetricsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.ListNodeMetricsResponse}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3766,8 +3766,8 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.deserializeBinaryFromR
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_metrics_metrics_pb.NodeMetric;
-      reader.readMessage(value,datahub_metrics_metrics_pb.NodeMetric.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_metrics_metrics_pb.NodeMetric;
+      reader.readMessage(value,prophetstor_api_datahub_metrics_metrics_pb.NodeMetric.deserializeBinaryFromReader);
       msg.addNodeMetrics(value);
       break;
     default:
@@ -3783,9 +3783,9 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.deserializeBinaryFromR
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3793,11 +3793,11 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.prototype.serializeBin
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.ListNodeMetricsResponse} message
+ * @param {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -3812,7 +3812,7 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.serializeBinaryToWrite
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_metrics_metrics_pb.NodeMetric.serializeBinaryToWriter
+      prophetstor_api_datahub_metrics_metrics_pb.NodeMetric.serializeBinaryToWriter
     );
   }
 };
@@ -3822,7 +3822,7 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.serializeBinaryToWrite
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -3830,18 +3830,18 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.prototype.getStatus = 
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.ListNodeMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse} returns this
 */
-proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.ListNodeMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse} returns this
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -3850,45 +3850,45 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.prototype.clearStatus 
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated NodeMetric node_metrics = 2;
- * @return {!Array<!proto.prophetstor.datahub.metrics.NodeMetric>}
+ * @return {!Array<!proto.prophetstor.api.datahub.metrics.NodeMetric>}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.prototype.getNodeMetricsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.metrics.NodeMetric>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_metrics_metrics_pb.NodeMetric, 2));
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.prototype.getNodeMetricsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.metrics.NodeMetric>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_metrics_metrics_pb.NodeMetric, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.metrics.NodeMetric>} value
- * @return {!proto.prophetstor.datahub.metrics.ListNodeMetricsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.metrics.NodeMetric>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse} returns this
 */
-proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.prototype.setNodeMetricsList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.prototype.setNodeMetricsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.metrics.NodeMetric=} opt_value
+ * @param {!proto.prophetstor.api.datahub.metrics.NodeMetric=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.NodeMetric}
+ * @return {!proto.prophetstor.api.datahub.metrics.NodeMetric}
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.prototype.addNodeMetrics = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.metrics.NodeMetric, opt_index);
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.prototype.addNodeMetrics = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.metrics.NodeMetric, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListNodeMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse} returns this
  */
-proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.prototype.clearNodeMetricsList = function() {
+proto.prophetstor.api.datahub.metrics.ListNodeMetricsResponse.prototype.clearNodeMetricsList = function() {
   return this.setNodeMetricsList([]);
 };
 
@@ -3899,7 +3899,7 @@ proto.prophetstor.datahub.metrics.ListNodeMetricsResponse.prototype.clearNodeMet
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.repeatedFields_ = [2,3];
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.repeatedFields_ = [2,3];
 
 
 
@@ -3916,8 +3916,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -3926,15 +3926,15 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.toObject =
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.ListClusterMetricsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     metricTypesList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f
   };
 
@@ -3949,23 +3949,23 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.toObject = function(
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.ListClusterMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.ListClusterMetricsRequest;
-  return proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest;
+  return proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.ListClusterMetricsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.ListClusterMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3973,17 +3973,17 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.deserializeBinaryFro
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (reader.readPackedEnum());
+      var value = /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (reader.readPackedEnum());
       msg.setMetricTypesList(value);
       break;
     default:
@@ -3999,9 +3999,9 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.deserializeBinaryFro
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4009,18 +4009,18 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.serializeB
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.ListClusterMetricsRequest} message
+ * @param {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -4028,7 +4028,7 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.serializeBinaryToWri
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getMetricTypesList();
@@ -4042,29 +4042,29 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.serializeBinaryToWri
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.ListClusterMetricsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.ListClusterMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -4073,82 +4073,82 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.clearQuery
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.metrics.ListClusterMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListClusterMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * repeated prophetstor.datahub.common.MetricType metric_types = 3;
- * @return {!Array<!proto.prophetstor.datahub.common.MetricType>}
+ * repeated prophetstor.api.datahub.common.MetricType metric_types = 3;
+ * @return {!Array<!proto.prophetstor.api.datahub.common.MetricType>}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.getMetricTypesList = function() {
-  return /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.prototype.getMetricTypesList = function() {
+  return /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.common.MetricType>} value
- * @return {!proto.prophetstor.datahub.metrics.ListClusterMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.common.MetricType>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.setMetricTypesList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.prototype.setMetricTypesList = function(value) {
   return jspb.Message.setField(this, 3, value || []);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.common.MetricType} value
+ * @param {!proto.prophetstor.api.datahub.common.MetricType} value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.ListClusterMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.addMetricTypes = function(value, opt_index) {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.prototype.addMetricTypes = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListClusterMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.clearMetricTypesList = function() {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsRequest.prototype.clearMetricTypesList = function() {
   return this.setMetricTypesList([]);
 };
 
@@ -4159,7 +4159,7 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsRequest.prototype.clearMetri
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.repeatedFields_ = [2];
 
 
 
@@ -4176,8 +4176,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -4186,15 +4186,15 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.prototype.toObject 
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.ListClusterMetricsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     clusterMetricsList: jspb.Message.toObjectList(msg.getClusterMetricsList(),
-    datahub_metrics_metrics_pb.ClusterMetric.toObject, includeInstance)
+    prophetstor_api_datahub_metrics_metrics_pb.ClusterMetric.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -4208,23 +4208,23 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.toObject = function
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.ListClusterMetricsResponse}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.ListClusterMetricsResponse;
-  return proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse;
+  return proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.ListClusterMetricsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.ListClusterMetricsResponse}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4237,8 +4237,8 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.deserializeBinaryFr
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_metrics_metrics_pb.ClusterMetric;
-      reader.readMessage(value,datahub_metrics_metrics_pb.ClusterMetric.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_metrics_metrics_pb.ClusterMetric;
+      reader.readMessage(value,prophetstor_api_datahub_metrics_metrics_pb.ClusterMetric.deserializeBinaryFromReader);
       msg.addClusterMetrics(value);
       break;
     default:
@@ -4254,9 +4254,9 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.deserializeBinaryFr
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4264,11 +4264,11 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.prototype.serialize
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.ListClusterMetricsResponse} message
+ * @param {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -4283,7 +4283,7 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.serializeBinaryToWr
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_metrics_metrics_pb.ClusterMetric.serializeBinaryToWriter
+      prophetstor_api_datahub_metrics_metrics_pb.ClusterMetric.serializeBinaryToWriter
     );
   }
 };
@@ -4293,7 +4293,7 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.serializeBinaryToWr
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -4301,18 +4301,18 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.prototype.getStatus
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.ListClusterMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse} returns this
 */
-proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.ListClusterMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse} returns this
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -4321,45 +4321,45 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.prototype.clearStat
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated ClusterMetric cluster_metrics = 2;
- * @return {!Array<!proto.prophetstor.datahub.metrics.ClusterMetric>}
+ * @return {!Array<!proto.prophetstor.api.datahub.metrics.ClusterMetric>}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.prototype.getClusterMetricsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.metrics.ClusterMetric>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_metrics_metrics_pb.ClusterMetric, 2));
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.prototype.getClusterMetricsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.metrics.ClusterMetric>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_metrics_metrics_pb.ClusterMetric, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.metrics.ClusterMetric>} value
- * @return {!proto.prophetstor.datahub.metrics.ListClusterMetricsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.metrics.ClusterMetric>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse} returns this
 */
-proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.prototype.setClusterMetricsList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.prototype.setClusterMetricsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.metrics.ClusterMetric=} opt_value
+ * @param {!proto.prophetstor.api.datahub.metrics.ClusterMetric=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.ClusterMetric}
+ * @return {!proto.prophetstor.api.datahub.metrics.ClusterMetric}
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.prototype.addClusterMetrics = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.metrics.ClusterMetric, opt_index);
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.prototype.addClusterMetrics = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.metrics.ClusterMetric, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListClusterMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse} returns this
  */
-proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.prototype.clearClusterMetricsList = function() {
+proto.prophetstor.api.datahub.metrics.ListClusterMetricsResponse.prototype.clearClusterMetricsList = function() {
   return this.setClusterMetricsList([]);
 };
 
@@ -4370,7 +4370,7 @@ proto.prophetstor.datahub.metrics.ListClusterMetricsResponse.prototype.clearClus
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.CreateMetricsRequest.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.repeatedFields_ = [2];
 
 
 
@@ -4387,8 +4387,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.CreateMetricsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.CreateMetricsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -4397,15 +4397,15 @@ proto.prophetstor.datahub.metrics.CreateMetricsRequest.prototype.toObject = func
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.CreateMetricsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateMetricsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.CreateMetricsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    schemaMeta: (f = msg.getSchemaMeta()) && datahub_schemas_types_pb.SchemaMeta.toObject(includeInstance, f),
+    schemaMeta: (f = msg.getSchemaMeta()) && prophetstor_api_datahub_schemas_types_pb.SchemaMeta.toObject(includeInstance, f),
     metricsList: jspb.Message.toObjectList(msg.getMetricsList(),
-    datahub_metrics_metrics_pb.WriteMetric.toObject, includeInstance)
+    prophetstor_api_datahub_metrics_metrics_pb.WriteMetric.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -4419,23 +4419,23 @@ proto.prophetstor.datahub.metrics.CreateMetricsRequest.toObject = function(inclu
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.CreateMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.CreateMetricsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.CreateMetricsRequest;
-  return proto.prophetstor.datahub.metrics.CreateMetricsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.CreateMetricsRequest;
+  return proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.CreateMetricsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateMetricsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.CreateMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.CreateMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4443,13 +4443,13 @@ proto.prophetstor.datahub.metrics.CreateMetricsRequest.deserializeBinaryFromRead
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_schemas_types_pb.SchemaMeta;
-      reader.readMessage(value,datahub_schemas_types_pb.SchemaMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_schemas_types_pb.SchemaMeta;
+      reader.readMessage(value,prophetstor_api_datahub_schemas_types_pb.SchemaMeta.deserializeBinaryFromReader);
       msg.setSchemaMeta(value);
       break;
     case 2:
-      var value = new datahub_metrics_metrics_pb.WriteMetric;
-      reader.readMessage(value,datahub_metrics_metrics_pb.WriteMetric.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_metrics_metrics_pb.WriteMetric;
+      reader.readMessage(value,prophetstor_api_datahub_metrics_metrics_pb.WriteMetric.deserializeBinaryFromReader);
       msg.addMetrics(value);
       break;
     default:
@@ -4465,9 +4465,9 @@ proto.prophetstor.datahub.metrics.CreateMetricsRequest.deserializeBinaryFromRead
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.CreateMetricsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.CreateMetricsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4475,18 +4475,18 @@ proto.prophetstor.datahub.metrics.CreateMetricsRequest.prototype.serializeBinary
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.CreateMetricsRequest} message
+ * @param {!proto.prophetstor.api.datahub.metrics.CreateMetricsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.CreateMetricsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getSchemaMeta();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_schemas_types_pb.SchemaMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_schemas_types_pb.SchemaMeta.serializeBinaryToWriter
     );
   }
   f = message.getMetricsList();
@@ -4494,36 +4494,36 @@ proto.prophetstor.datahub.metrics.CreateMetricsRequest.serializeBinaryToWriter =
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_metrics_metrics_pb.WriteMetric.serializeBinaryToWriter
+      prophetstor_api_datahub_metrics_metrics_pb.WriteMetric.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * optional prophetstor.datahub.schemas.SchemaMeta schema_meta = 1;
- * @return {?proto.prophetstor.datahub.schemas.SchemaMeta}
+ * optional prophetstor.api.datahub.schemas.SchemaMeta schema_meta = 1;
+ * @return {?proto.prophetstor.api.datahub.schemas.SchemaMeta}
  */
-proto.prophetstor.datahub.metrics.CreateMetricsRequest.prototype.getSchemaMeta = function() {
-  return /** @type{?proto.prophetstor.datahub.schemas.SchemaMeta} */ (
-    jspb.Message.getWrapperField(this, datahub_schemas_types_pb.SchemaMeta, 1));
+proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.prototype.getSchemaMeta = function() {
+  return /** @type{?proto.prophetstor.api.datahub.schemas.SchemaMeta} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_schemas_types_pb.SchemaMeta, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.schemas.SchemaMeta|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.CreateMetricsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.schemas.SchemaMeta|undefined} value
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.CreateMetricsRequest.prototype.setSchemaMeta = function(value) {
+proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.prototype.setSchemaMeta = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.CreateMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.CreateMetricsRequest.prototype.clearSchemaMeta = function() {
+proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.prototype.clearSchemaMeta = function() {
   return this.setSchemaMeta(undefined);
 };
 
@@ -4532,45 +4532,45 @@ proto.prophetstor.datahub.metrics.CreateMetricsRequest.prototype.clearSchemaMeta
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.CreateMetricsRequest.prototype.hasSchemaMeta = function() {
+proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.prototype.hasSchemaMeta = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated WriteMetric metrics = 2;
- * @return {!Array<!proto.prophetstor.datahub.metrics.WriteMetric>}
+ * @return {!Array<!proto.prophetstor.api.datahub.metrics.WriteMetric>}
  */
-proto.prophetstor.datahub.metrics.CreateMetricsRequest.prototype.getMetricsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.metrics.WriteMetric>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_metrics_metrics_pb.WriteMetric, 2));
+proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.prototype.getMetricsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.metrics.WriteMetric>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_metrics_metrics_pb.WriteMetric, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.metrics.WriteMetric>} value
- * @return {!proto.prophetstor.datahub.metrics.CreateMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.metrics.WriteMetric>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.CreateMetricsRequest.prototype.setMetricsList = function(value) {
+proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.prototype.setMetricsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.metrics.WriteMetric=} opt_value
+ * @param {!proto.prophetstor.api.datahub.metrics.WriteMetric=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.WriteMetric}
+ * @return {!proto.prophetstor.api.datahub.metrics.WriteMetric}
  */
-proto.prophetstor.datahub.metrics.CreateMetricsRequest.prototype.addMetrics = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.metrics.WriteMetric, opt_index);
+proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.prototype.addMetrics = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.metrics.WriteMetric, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.CreateMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.CreateMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.CreateMetricsRequest.prototype.clearMetricsList = function() {
+proto.prophetstor.api.datahub.metrics.CreateMetricsRequest.prototype.clearMetricsList = function() {
   return this.setMetricsList([]);
 };
 
@@ -4581,7 +4581,7 @@ proto.prophetstor.datahub.metrics.CreateMetricsRequest.prototype.clearMetricsLis
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.repeatedFields_ = [3];
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.repeatedFields_ = [3];
 
 
 
@@ -4598,8 +4598,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.ListMetricsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.ListMetricsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -4608,14 +4608,14 @@ proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.toObject = functi
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.ListMetricsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListMetricsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
-    schemaMeta: (f = msg.getSchemaMeta()) && datahub_schemas_types_pb.SchemaMeta.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    schemaMeta: (f = msg.getSchemaMeta()) && prophetstor_api_datahub_schemas_types_pb.SchemaMeta.toObject(includeInstance, f),
     metricTypesList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f
   };
 
@@ -4630,23 +4630,23 @@ proto.prophetstor.datahub.metrics.ListMetricsRequest.toObject = function(include
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.ListMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.ListMetricsRequest;
-  return proto.prophetstor.datahub.metrics.ListMetricsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.ListMetricsRequest;
+  return proto.prophetstor.api.datahub.metrics.ListMetricsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.ListMetricsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListMetricsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.ListMetricsRequest}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListMetricsRequest}
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4654,17 +4654,17 @@ proto.prophetstor.datahub.metrics.ListMetricsRequest.deserializeBinaryFromReader
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_schemas_types_pb.SchemaMeta;
-      reader.readMessage(value,datahub_schemas_types_pb.SchemaMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_schemas_types_pb.SchemaMeta;
+      reader.readMessage(value,prophetstor_api_datahub_schemas_types_pb.SchemaMeta.deserializeBinaryFromReader);
       msg.setSchemaMeta(value);
       break;
     case 3:
-      var value = /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (reader.readPackedEnum());
+      var value = /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (reader.readPackedEnum());
       msg.setMetricTypesList(value);
       break;
     default:
@@ -4680,9 +4680,9 @@ proto.prophetstor.datahub.metrics.ListMetricsRequest.deserializeBinaryFromReader
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.ListMetricsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.ListMetricsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4690,18 +4690,18 @@ proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.serializeBinary =
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.ListMetricsRequest} message
+ * @param {!proto.prophetstor.api.datahub.metrics.ListMetricsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getSchemaMeta();
@@ -4709,7 +4709,7 @@ proto.prophetstor.datahub.metrics.ListMetricsRequest.serializeBinaryToWriter = f
     writer.writeMessage(
       2,
       f,
-      datahub_schemas_types_pb.SchemaMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_schemas_types_pb.SchemaMeta.serializeBinaryToWriter
     );
   }
   f = message.getMetricTypesList();
@@ -4723,29 +4723,29 @@ proto.prophetstor.datahub.metrics.ListMetricsRequest.serializeBinaryToWriter = f
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.ListMetricsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.ListMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -4754,35 +4754,35 @@ proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.clearQueryConditi
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * optional prophetstor.datahub.schemas.SchemaMeta schema_meta = 2;
- * @return {?proto.prophetstor.datahub.schemas.SchemaMeta}
+ * optional prophetstor.api.datahub.schemas.SchemaMeta schema_meta = 2;
+ * @return {?proto.prophetstor.api.datahub.schemas.SchemaMeta}
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.getSchemaMeta = function() {
-  return /** @type{?proto.prophetstor.datahub.schemas.SchemaMeta} */ (
-    jspb.Message.getWrapperField(this, datahub_schemas_types_pb.SchemaMeta, 2));
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.prototype.getSchemaMeta = function() {
+  return /** @type{?proto.prophetstor.api.datahub.schemas.SchemaMeta} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_schemas_types_pb.SchemaMeta, 2));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.schemas.SchemaMeta|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.ListMetricsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.schemas.SchemaMeta|undefined} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListMetricsRequest} returns this
 */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.setSchemaMeta = function(value) {
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.prototype.setSchemaMeta = function(value) {
   return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.ListMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.clearSchemaMeta = function() {
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.prototype.clearSchemaMeta = function() {
   return this.setSchemaMeta(undefined);
 };
 
@@ -4791,44 +4791,44 @@ proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.clearSchemaMeta =
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.hasSchemaMeta = function() {
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.prototype.hasSchemaMeta = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.common.MetricType metric_types = 3;
- * @return {!Array<!proto.prophetstor.datahub.common.MetricType>}
+ * repeated prophetstor.api.datahub.common.MetricType metric_types = 3;
+ * @return {!Array<!proto.prophetstor.api.datahub.common.MetricType>}
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.getMetricTypesList = function() {
-  return /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.prototype.getMetricTypesList = function() {
+  return /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.common.MetricType>} value
- * @return {!proto.prophetstor.datahub.metrics.ListMetricsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.common.MetricType>} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.setMetricTypesList = function(value) {
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.prototype.setMetricTypesList = function(value) {
   return jspb.Message.setField(this, 3, value || []);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.common.MetricType} value
+ * @param {!proto.prophetstor.api.datahub.common.MetricType} value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.metrics.ListMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.addMetricTypes = function(value, opt_index) {
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.prototype.addMetricTypes = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.metrics.ListMetricsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListMetricsRequest} returns this
  */
-proto.prophetstor.datahub.metrics.ListMetricsRequest.prototype.clearMetricTypesList = function() {
+proto.prophetstor.api.datahub.metrics.ListMetricsRequest.prototype.clearMetricTypesList = function() {
   return this.setMetricTypesList([]);
 };
 
@@ -4849,8 +4849,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.metrics.ListMetricsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.metrics.ListMetricsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.metrics.ListMetricsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.metrics.ListMetricsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -4859,14 +4859,14 @@ proto.prophetstor.datahub.metrics.ListMetricsResponse.prototype.toObject = funct
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.metrics.ListMetricsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListMetricsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListMetricsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.metrics.ListMetricsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
-    metrics: (f = msg.getMetrics()) && datahub_metrics_types_pb.Metric.toObject(includeInstance, f)
+    metrics: (f = msg.getMetrics()) && prophetstor_api_datahub_metrics_types_pb.Metric.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -4880,23 +4880,23 @@ proto.prophetstor.datahub.metrics.ListMetricsResponse.toObject = function(includ
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.metrics.ListMetricsResponse}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListMetricsResponse}
  */
-proto.prophetstor.datahub.metrics.ListMetricsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.metrics.ListMetricsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.metrics.ListMetricsResponse;
-  return proto.prophetstor.datahub.metrics.ListMetricsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.metrics.ListMetricsResponse;
+  return proto.prophetstor.api.datahub.metrics.ListMetricsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.metrics.ListMetricsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.metrics.ListMetricsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.metrics.ListMetricsResponse}
+ * @return {!proto.prophetstor.api.datahub.metrics.ListMetricsResponse}
  */
-proto.prophetstor.datahub.metrics.ListMetricsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.metrics.ListMetricsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4909,8 +4909,8 @@ proto.prophetstor.datahub.metrics.ListMetricsResponse.deserializeBinaryFromReade
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_metrics_types_pb.Metric;
-      reader.readMessage(value,datahub_metrics_types_pb.Metric.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_metrics_types_pb.Metric;
+      reader.readMessage(value,prophetstor_api_datahub_metrics_types_pb.Metric.deserializeBinaryFromReader);
       msg.setMetrics(value);
       break;
     default:
@@ -4926,9 +4926,9 @@ proto.prophetstor.datahub.metrics.ListMetricsResponse.deserializeBinaryFromReade
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.metrics.ListMetricsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.metrics.ListMetricsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.metrics.ListMetricsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.metrics.ListMetricsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4936,11 +4936,11 @@ proto.prophetstor.datahub.metrics.ListMetricsResponse.prototype.serializeBinary 
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.metrics.ListMetricsResponse} message
+ * @param {!proto.prophetstor.api.datahub.metrics.ListMetricsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.metrics.ListMetricsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.metrics.ListMetricsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -4955,7 +4955,7 @@ proto.prophetstor.datahub.metrics.ListMetricsResponse.serializeBinaryToWriter = 
     writer.writeMessage(
       2,
       f,
-      datahub_metrics_types_pb.Metric.serializeBinaryToWriter
+      prophetstor_api_datahub_metrics_types_pb.Metric.serializeBinaryToWriter
     );
   }
 };
@@ -4965,7 +4965,7 @@ proto.prophetstor.datahub.metrics.ListMetricsResponse.serializeBinaryToWriter = 
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.metrics.ListMetricsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListMetricsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -4973,18 +4973,18 @@ proto.prophetstor.datahub.metrics.ListMetricsResponse.prototype.getStatus = func
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.ListMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListMetricsResponse} returns this
 */
-proto.prophetstor.datahub.metrics.ListMetricsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.metrics.ListMetricsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.ListMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListMetricsResponse} returns this
  */
-proto.prophetstor.datahub.metrics.ListMetricsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListMetricsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -4993,35 +4993,35 @@ proto.prophetstor.datahub.metrics.ListMetricsResponse.prototype.clearStatus = fu
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.ListMetricsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.metrics.ListMetricsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * optional Metric metrics = 2;
- * @return {?proto.prophetstor.datahub.metrics.Metric}
+ * @return {?proto.prophetstor.api.datahub.metrics.Metric}
  */
-proto.prophetstor.datahub.metrics.ListMetricsResponse.prototype.getMetrics = function() {
-  return /** @type{?proto.prophetstor.datahub.metrics.Metric} */ (
-    jspb.Message.getWrapperField(this, datahub_metrics_types_pb.Metric, 2));
+proto.prophetstor.api.datahub.metrics.ListMetricsResponse.prototype.getMetrics = function() {
+  return /** @type{?proto.prophetstor.api.datahub.metrics.Metric} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_metrics_types_pb.Metric, 2));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.metrics.Metric|undefined} value
- * @return {!proto.prophetstor.datahub.metrics.ListMetricsResponse} returns this
+ * @param {?proto.prophetstor.api.datahub.metrics.Metric|undefined} value
+ * @return {!proto.prophetstor.api.datahub.metrics.ListMetricsResponse} returns this
 */
-proto.prophetstor.datahub.metrics.ListMetricsResponse.prototype.setMetrics = function(value) {
+proto.prophetstor.api.datahub.metrics.ListMetricsResponse.prototype.setMetrics = function(value) {
   return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.metrics.ListMetricsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.metrics.ListMetricsResponse} returns this
  */
-proto.prophetstor.datahub.metrics.ListMetricsResponse.prototype.clearMetrics = function() {
+proto.prophetstor.api.datahub.metrics.ListMetricsResponse.prototype.clearMetrics = function() {
   return this.setMetrics(undefined);
 };
 
@@ -5030,9 +5030,9 @@ proto.prophetstor.datahub.metrics.ListMetricsResponse.prototype.clearMetrics = f
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.metrics.ListMetricsResponse.prototype.hasMetrics = function() {
+proto.prophetstor.api.datahub.metrics.ListMetricsResponse.prototype.hasMetrics = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 
 
-goog.object.extend(exports, proto.prophetstor.datahub.metrics);
+goog.object.extend(exports, proto.prophetstor.api.datahub.metrics);

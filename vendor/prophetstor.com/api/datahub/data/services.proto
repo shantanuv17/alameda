@@ -2,11 +2,11 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.data;
+package prophetstor.api.datahub.data;
 
-import "datahub/data/data.proto";
-import "datahub/data/types.proto";
-import "datahub/schemas/types.proto";
+import "prophetstor/api/datahub/data/data.proto";
+import "prophetstor/api/datahub/data/types.proto";
+import "prophetstor/api/datahub/schemas/types.proto";
 import "google/rpc/status.proto";
 
 option go_package = "prophetstor.com/api/datahub/data";

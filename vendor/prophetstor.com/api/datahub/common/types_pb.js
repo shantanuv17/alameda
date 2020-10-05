@@ -1,4 +1,4 @@
-// source: datahub/common/types.proto
+// source: prophetstor/api/datahub/common/types.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -12,16 +12,16 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-goog.exportSymbol('proto.prophetstor.datahub.common.ColumnType', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.common.DataType', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.common.DatabaseType', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.common.FunctionType', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.common.ResourceBoundary', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.common.ResourceQuota', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.common.ColumnType', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.common.DataType', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.common.DatabaseType', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.common.FunctionType', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.common.ResourceBoundary', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.common.ResourceQuota', null, global);
 /**
  * @enum {number}
  */
-proto.prophetstor.datahub.common.ResourceBoundary = {
+proto.prophetstor.api.datahub.common.ResourceBoundary = {
   RESOURCE_BOUNDARY_UNDEFINED: 0,
   RESOURCE_RAW: 1,
   RESOURCE_UPPER_BOUND: 2,
@@ -31,7 +31,7 @@ proto.prophetstor.datahub.common.ResourceBoundary = {
 /**
  * @enum {number}
  */
-proto.prophetstor.datahub.common.ResourceQuota = {
+proto.prophetstor.api.datahub.common.ResourceQuota = {
   RESOURCE_QUOTA_UNDEFINED: 0,
   RESOURCE_LIMIT: 1,
   RESOURCE_REQUEST: 2,
@@ -42,7 +42,7 @@ proto.prophetstor.datahub.common.ResourceQuota = {
 /**
  * @enum {number}
  */
-proto.prophetstor.datahub.common.DatabaseType = {
+proto.prophetstor.api.datahub.common.DatabaseType = {
   UNDEFINED: 0,
   INFLUXDB: 1,
   PROMETHEUS: 2
@@ -51,7 +51,7 @@ proto.prophetstor.datahub.common.DatabaseType = {
 /**
  * @enum {number}
  */
-proto.prophetstor.datahub.common.DataType = {
+proto.prophetstor.api.datahub.common.DataType = {
   DATATYPE_UNDEFINED: 0,
   DATATYPE_BOOL: 1,
   DATATYPE_INT: 2,
@@ -72,7 +72,7 @@ proto.prophetstor.datahub.common.DataType = {
 /**
  * @enum {number}
  */
-proto.prophetstor.datahub.common.ColumnType = {
+proto.prophetstor.api.datahub.common.ColumnType = {
   COLUMNTYPE_UDEFINED: 0,
   COLUMNTYPE_TAG: 1,
   COLUMNTYPE_FIELD: 2
@@ -81,7 +81,7 @@ proto.prophetstor.datahub.common.ColumnType = {
 /**
  * @enum {number}
  */
-proto.prophetstor.datahub.common.FunctionType = {
+proto.prophetstor.api.datahub.common.FunctionType = {
   FUNCTIONTYPE_UNDEFINED: 0,
   FUNCTIONTYPE_COUNT: 1,
   FUNCTIONTYPE_DISTINCT: 2,
@@ -103,4 +103,4 @@ proto.prophetstor.datahub.common.FunctionType = {
   FUNCTIONTYPE_DERIVATIVE: 18
 };
 
-goog.object.extend(exports, proto.prophetstor.datahub.common);
+goog.object.extend(exports, proto.prophetstor.api.datahub.common);

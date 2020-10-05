@@ -2,10 +2,10 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.resources;
+package prophetstor.api.datahub.resources;
 
-import "datahub/resources/metadata.proto";
-import "datahub/resources/policies.proto";
+import "prophetstor/api/datahub/resources/metadata.proto";
+import "prophetstor/api/datahub/resources/policies.proto";
 
 option go_package = "prophetstor.com/api/datahub/resources";
 

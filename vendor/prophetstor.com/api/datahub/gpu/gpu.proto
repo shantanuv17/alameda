@@ -2,11 +2,11 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.gpu;
+package prophetstor.api.datahub.gpu;
 
-import "datahub/common/metrics.proto";
-import "datahub/gpu/types.proto";
-import "datahub/predictions/types.proto";
+import "prophetstor/api/datahub/common/metrics.proto";
+import "prophetstor/api/datahub/gpu/types.proto";
+import "prophetstor/api/datahub/predictions/types.proto";
 
 option go_package = "prophetstor.com/api/datahub/gpu";
 

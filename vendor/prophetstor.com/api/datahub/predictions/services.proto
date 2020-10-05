@@ -2,14 +2,14 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.predictions;
+package prophetstor.api.datahub.predictions;
 
-import "datahub/common/metrics.proto";
-import "datahub/common/queries.proto";
-import "datahub/predictions/predictions.proto";
-import "datahub/predictions/types.proto";
-import "datahub/resources/metadata.proto";
-import "datahub/schemas/types.proto";
+import "prophetstor/api/datahub/common/metrics.proto";
+import "prophetstor/api/datahub/common/queries.proto";
+import "prophetstor/api/datahub/predictions/predictions.proto";
+import "prophetstor/api/datahub/predictions/types.proto";
+import "prophetstor/api/datahub/resources/metadata.proto";
+import "prophetstor/api/datahub/schemas/types.proto";
 import "google/rpc/status.proto";
 
 option go_package = "prophetstor.com/api/datahub/predictions";

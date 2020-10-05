@@ -2,13 +2,13 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.recommendations;
+package prophetstor.api.datahub.recommendations;
 
-import "datahub/common/queries.proto";
-import "datahub/recommendations/recommendations.proto";
-import "datahub/recommendations/types.proto";
-import "datahub/resources/metadata.proto";
-import "datahub/schemas/types.proto";
+import "prophetstor/api/datahub/common/queries.proto";
+import "prophetstor/api/datahub/recommendations/recommendations.proto";
+import "prophetstor/api/datahub/recommendations/types.proto";
+import "prophetstor/api/datahub/resources/metadata.proto";
+import "prophetstor/api/datahub/schemas/types.proto";
 import "google/rpc/status.proto";
 
 option go_package = "prophetstor.com/api/datahub/recommendations";

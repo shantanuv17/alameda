@@ -1,4 +1,4 @@
-// source: datahub/predictions/services.proto
+// source: prophetstor/api/datahub/predictions/services.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -12,41 +12,41 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var datahub_common_metrics_pb = require('../../datahub/common/metrics_pb.js');
-goog.object.extend(proto, datahub_common_metrics_pb);
-var datahub_common_queries_pb = require('../../datahub/common/queries_pb.js');
-goog.object.extend(proto, datahub_common_queries_pb);
-var datahub_predictions_predictions_pb = require('../../datahub/predictions/predictions_pb.js');
-goog.object.extend(proto, datahub_predictions_predictions_pb);
-var datahub_predictions_types_pb = require('../../datahub/predictions/types_pb.js');
-goog.object.extend(proto, datahub_predictions_types_pb);
-var datahub_resources_metadata_pb = require('../../datahub/resources/metadata_pb.js');
-goog.object.extend(proto, datahub_resources_metadata_pb);
-var datahub_schemas_types_pb = require('../../datahub/schemas/types_pb.js');
-goog.object.extend(proto, datahub_schemas_types_pb);
-var google_rpc_status_pb = require('../../google/rpc/status_pb.js');
+var prophetstor_api_datahub_common_metrics_pb = require('../../../../prophetstor/api/datahub/common/metrics_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_common_metrics_pb);
+var prophetstor_api_datahub_common_queries_pb = require('../../../../prophetstor/api/datahub/common/queries_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_common_queries_pb);
+var prophetstor_api_datahub_predictions_predictions_pb = require('../../../../prophetstor/api/datahub/predictions/predictions_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_predictions_predictions_pb);
+var prophetstor_api_datahub_predictions_types_pb = require('../../../../prophetstor/api/datahub/predictions/types_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_predictions_types_pb);
+var prophetstor_api_datahub_resources_metadata_pb = require('../../../../prophetstor/api/datahub/resources/metadata_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_resources_metadata_pb);
+var prophetstor_api_datahub_schemas_types_pb = require('../../../../prophetstor/api/datahub/schemas/types_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_schemas_types_pb);
+var google_rpc_status_pb = require('../../../../google/rpc/status_pb.js');
 goog.object.extend(proto, google_rpc_status_pb);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.CreatePredictionsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.ListNodePredictionsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.ListNodePredictionsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.ListPodPredictionsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.ListPodPredictionsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.ListPredictionsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.predictions.ListPredictionsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.ListPredictionsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.predictions.ListPredictionsResponse', null, global);
 /**
  * Generated by JsPbCodeGenerator.
  * @param {Array=} opt_data Optional initial data array, typically from a
@@ -57,16 +57,16 @@ goog.exportSymbol('proto.prophetstor.datahub.predictions.ListPredictionsResponse
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.displayName = 'proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest';
+  proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest.displayName = 'proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -78,16 +78,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.displayName = 'proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest';
+  proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest.displayName = 'proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -99,16 +99,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.displayName = 'proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest';
+  proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest.displayName = 'proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -120,16 +120,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.displayName = 'proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest';
+  proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest.displayName = 'proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -141,16 +141,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.displayName = 'proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest';
+  proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest.displayName = 'proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -162,16 +162,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.displayName = 'proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest';
+  proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest.displayName = 'proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -183,16 +183,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.ListPodPredictionsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.displayName = 'proto.prophetstor.datahub.predictions.ListPodPredictionsRequest';
+  proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.displayName = 'proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -204,16 +204,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.ListPodPredictionsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.displayName = 'proto.prophetstor.datahub.predictions.ListPodPredictionsResponse';
+  proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.displayName = 'proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -225,16 +225,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.displayName = 'proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest';
+  proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.displayName = 'proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -246,16 +246,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.displayName = 'proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse';
+  proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.displayName = 'proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -267,16 +267,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.displayName = 'proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest';
+  proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.displayName = 'proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -288,16 +288,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.displayName = 'proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse';
+  proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.displayName = 'proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -309,16 +309,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.displayName = 'proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest';
+  proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.displayName = 'proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -330,16 +330,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.displayName = 'proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse';
+  proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.displayName = 'proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -351,16 +351,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.ListNodePredictionsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.displayName = 'proto.prophetstor.datahub.predictions.ListNodePredictionsRequest';
+  proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.displayName = 'proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -372,16 +372,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.ListNodePredictionsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.displayName = 'proto.prophetstor.datahub.predictions.ListNodePredictionsResponse';
+  proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.displayName = 'proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -393,16 +393,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.displayName = 'proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest';
+  proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.displayName = 'proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -414,16 +414,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.displayName = 'proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse';
+  proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.displayName = 'proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -435,16 +435,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.CreatePredictionsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.CreatePredictionsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.CreatePredictionsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.CreatePredictionsRequest.displayName = 'proto.prophetstor.datahub.predictions.CreatePredictionsRequest';
+  proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.displayName = 'proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -456,16 +456,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.predictions.ListPredictionsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.ListPredictionsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.ListPredictionsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.ListPredictionsRequest.displayName = 'proto.prophetstor.datahub.predictions.ListPredictionsRequest';
+  proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.displayName = 'proto.prophetstor.api.datahub.predictions.ListPredictionsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -477,16 +477,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.predictions.ListPredictionsResponse = function(opt_data) {
+proto.prophetstor.api.datahub.predictions.ListPredictionsResponse = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.prophetstor.datahub.predictions.ListPredictionsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.predictions.ListPredictionsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.predictions.ListPredictionsResponse.displayName = 'proto.prophetstor.datahub.predictions.ListPredictionsResponse';
+  proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.displayName = 'proto.prophetstor.api.datahub.predictions.ListPredictionsResponse';
 }
 
 /**
@@ -494,7 +494,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest.repeatedFields_ = [1];
 
 
 
@@ -511,8 +511,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -521,14 +521,14 @@ proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.prototype.toOb
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     podPredictionsList: jspb.Message.toObjectList(msg.getPodPredictionsList(),
-    datahub_predictions_predictions_pb.PodPrediction.toObject, includeInstance)
+    prophetstor_api_datahub_predictions_predictions_pb.PodPrediction.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -542,23 +542,23 @@ proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.toObject = fun
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest;
-  return proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest;
+  return proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -566,8 +566,8 @@ proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.deserializeBin
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_predictions_predictions_pb.PodPrediction;
-      reader.readMessage(value,datahub_predictions_predictions_pb.PodPrediction.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_predictions_predictions_pb.PodPrediction;
+      reader.readMessage(value,prophetstor_api_datahub_predictions_predictions_pb.PodPrediction.deserializeBinaryFromReader);
       msg.addPodPredictions(value);
       break;
     default:
@@ -583,9 +583,9 @@ proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.deserializeBin
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -593,18 +593,18 @@ proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.prototype.seri
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest} message
+ * @param {!proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getPodPredictionsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_predictions_predictions_pb.PodPrediction.serializeBinaryToWriter
+      prophetstor_api_datahub_predictions_predictions_pb.PodPrediction.serializeBinaryToWriter
     );
   }
 };
@@ -612,38 +612,38 @@ proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.serializeBinar
 
 /**
  * repeated PodPrediction pod_predictions = 1;
- * @return {!Array<!proto.prophetstor.datahub.predictions.PodPrediction>}
+ * @return {!Array<!proto.prophetstor.api.datahub.predictions.PodPrediction>}
  */
-proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.prototype.getPodPredictionsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.predictions.PodPrediction>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_predictions_predictions_pb.PodPrediction, 1));
+proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest.prototype.getPodPredictionsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.predictions.PodPrediction>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_predictions_predictions_pb.PodPrediction, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.predictions.PodPrediction>} value
- * @return {!proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.predictions.PodPrediction>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.prototype.setPodPredictionsList = function(value) {
+proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest.prototype.setPodPredictionsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.predictions.PodPrediction=} opt_value
+ * @param {!proto.prophetstor.api.datahub.predictions.PodPrediction=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.PodPrediction}
+ * @return {!proto.prophetstor.api.datahub.predictions.PodPrediction}
  */
-proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.prototype.addPodPredictions = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.predictions.PodPrediction, opt_index);
+proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest.prototype.addPodPredictions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.predictions.PodPrediction, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.prototype.clearPodPredictionsList = function() {
+proto.prophetstor.api.datahub.predictions.CreatePodPredictionsRequest.prototype.clearPodPredictionsList = function() {
   return this.setPodPredictionsList([]);
 };
 
@@ -654,7 +654,7 @@ proto.prophetstor.datahub.predictions.CreatePodPredictionsRequest.prototype.clea
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest.repeatedFields_ = [1];
 
 
 
@@ -671,8 +671,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -681,14 +681,14 @@ proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.prototy
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     controllerPredictionsList: jspb.Message.toObjectList(msg.getControllerPredictionsList(),
-    datahub_predictions_predictions_pb.ControllerPrediction.toObject, includeInstance)
+    prophetstor_api_datahub_predictions_predictions_pb.ControllerPrediction.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -702,23 +702,23 @@ proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.toObjec
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest;
-  return proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest;
+  return proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -726,8 +726,8 @@ proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.deseria
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_predictions_predictions_pb.ControllerPrediction;
-      reader.readMessage(value,datahub_predictions_predictions_pb.ControllerPrediction.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_predictions_predictions_pb.ControllerPrediction;
+      reader.readMessage(value,prophetstor_api_datahub_predictions_predictions_pb.ControllerPrediction.deserializeBinaryFromReader);
       msg.addControllerPredictions(value);
       break;
     default:
@@ -743,9 +743,9 @@ proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.deseria
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -753,18 +753,18 @@ proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.prototy
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest} message
+ * @param {!proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getControllerPredictionsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_predictions_predictions_pb.ControllerPrediction.serializeBinaryToWriter
+      prophetstor_api_datahub_predictions_predictions_pb.ControllerPrediction.serializeBinaryToWriter
     );
   }
 };
@@ -772,38 +772,38 @@ proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.seriali
 
 /**
  * repeated ControllerPrediction controller_predictions = 1;
- * @return {!Array<!proto.prophetstor.datahub.predictions.ControllerPrediction>}
+ * @return {!Array<!proto.prophetstor.api.datahub.predictions.ControllerPrediction>}
  */
-proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.prototype.getControllerPredictionsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.predictions.ControllerPrediction>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_predictions_predictions_pb.ControllerPrediction, 1));
+proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest.prototype.getControllerPredictionsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.predictions.ControllerPrediction>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_predictions_predictions_pb.ControllerPrediction, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.predictions.ControllerPrediction>} value
- * @return {!proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.predictions.ControllerPrediction>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.prototype.setControllerPredictionsList = function(value) {
+proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest.prototype.setControllerPredictionsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.predictions.ControllerPrediction=} opt_value
+ * @param {!proto.prophetstor.api.datahub.predictions.ControllerPrediction=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.ControllerPrediction}
+ * @return {!proto.prophetstor.api.datahub.predictions.ControllerPrediction}
  */
-proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.prototype.addControllerPredictions = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.predictions.ControllerPrediction, opt_index);
+proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest.prototype.addControllerPredictions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.predictions.ControllerPrediction, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.prototype.clearControllerPredictionsList = function() {
+proto.prophetstor.api.datahub.predictions.CreateControllerPredictionsRequest.prototype.clearControllerPredictionsList = function() {
   return this.setControllerPredictionsList([]);
 };
 
@@ -814,7 +814,7 @@ proto.prophetstor.datahub.predictions.CreateControllerPredictionsRequest.prototy
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest.repeatedFields_ = [1];
 
 
 
@@ -831,8 +831,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -841,14 +841,14 @@ proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.protot
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     applicationPredictionsList: jspb.Message.toObjectList(msg.getApplicationPredictionsList(),
-    datahub_predictions_predictions_pb.ApplicationPrediction.toObject, includeInstance)
+    prophetstor_api_datahub_predictions_predictions_pb.ApplicationPrediction.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -862,23 +862,23 @@ proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.toObje
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest;
-  return proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest;
+  return proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -886,8 +886,8 @@ proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.deseri
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_predictions_predictions_pb.ApplicationPrediction;
-      reader.readMessage(value,datahub_predictions_predictions_pb.ApplicationPrediction.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_predictions_predictions_pb.ApplicationPrediction;
+      reader.readMessage(value,prophetstor_api_datahub_predictions_predictions_pb.ApplicationPrediction.deserializeBinaryFromReader);
       msg.addApplicationPredictions(value);
       break;
     default:
@@ -903,9 +903,9 @@ proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.deseri
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -913,18 +913,18 @@ proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.protot
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest} message
+ * @param {!proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getApplicationPredictionsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_predictions_predictions_pb.ApplicationPrediction.serializeBinaryToWriter
+      prophetstor_api_datahub_predictions_predictions_pb.ApplicationPrediction.serializeBinaryToWriter
     );
   }
 };
@@ -932,38 +932,38 @@ proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.serial
 
 /**
  * repeated ApplicationPrediction application_predictions = 1;
- * @return {!Array<!proto.prophetstor.datahub.predictions.ApplicationPrediction>}
+ * @return {!Array<!proto.prophetstor.api.datahub.predictions.ApplicationPrediction>}
  */
-proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.prototype.getApplicationPredictionsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.predictions.ApplicationPrediction>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_predictions_predictions_pb.ApplicationPrediction, 1));
+proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest.prototype.getApplicationPredictionsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.predictions.ApplicationPrediction>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_predictions_predictions_pb.ApplicationPrediction, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.predictions.ApplicationPrediction>} value
- * @return {!proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.predictions.ApplicationPrediction>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.prototype.setApplicationPredictionsList = function(value) {
+proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest.prototype.setApplicationPredictionsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.predictions.ApplicationPrediction=} opt_value
+ * @param {!proto.prophetstor.api.datahub.predictions.ApplicationPrediction=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.ApplicationPrediction}
+ * @return {!proto.prophetstor.api.datahub.predictions.ApplicationPrediction}
  */
-proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.prototype.addApplicationPredictions = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.predictions.ApplicationPrediction, opt_index);
+proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest.prototype.addApplicationPredictions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.predictions.ApplicationPrediction, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.prototype.clearApplicationPredictionsList = function() {
+proto.prophetstor.api.datahub.predictions.CreateApplicationPredictionsRequest.prototype.clearApplicationPredictionsList = function() {
   return this.setApplicationPredictionsList([]);
 };
 
@@ -974,7 +974,7 @@ proto.prophetstor.datahub.predictions.CreateApplicationPredictionsRequest.protot
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest.repeatedFields_ = [1];
 
 
 
@@ -991,8 +991,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1001,14 +1001,14 @@ proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.prototyp
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     namespacePredictionsList: jspb.Message.toObjectList(msg.getNamespacePredictionsList(),
-    datahub_predictions_predictions_pb.NamespacePrediction.toObject, includeInstance)
+    prophetstor_api_datahub_predictions_predictions_pb.NamespacePrediction.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1022,23 +1022,23 @@ proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.toObject
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest;
-  return proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest;
+  return proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1046,8 +1046,8 @@ proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.deserial
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_predictions_predictions_pb.NamespacePrediction;
-      reader.readMessage(value,datahub_predictions_predictions_pb.NamespacePrediction.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_predictions_predictions_pb.NamespacePrediction;
+      reader.readMessage(value,prophetstor_api_datahub_predictions_predictions_pb.NamespacePrediction.deserializeBinaryFromReader);
       msg.addNamespacePredictions(value);
       break;
     default:
@@ -1063,9 +1063,9 @@ proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.deserial
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1073,18 +1073,18 @@ proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.prototyp
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest} message
+ * @param {!proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getNamespacePredictionsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_predictions_predictions_pb.NamespacePrediction.serializeBinaryToWriter
+      prophetstor_api_datahub_predictions_predictions_pb.NamespacePrediction.serializeBinaryToWriter
     );
   }
 };
@@ -1092,38 +1092,38 @@ proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.serializ
 
 /**
  * repeated NamespacePrediction namespace_predictions = 1;
- * @return {!Array<!proto.prophetstor.datahub.predictions.NamespacePrediction>}
+ * @return {!Array<!proto.prophetstor.api.datahub.predictions.NamespacePrediction>}
  */
-proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.prototype.getNamespacePredictionsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.predictions.NamespacePrediction>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_predictions_predictions_pb.NamespacePrediction, 1));
+proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest.prototype.getNamespacePredictionsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.predictions.NamespacePrediction>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_predictions_predictions_pb.NamespacePrediction, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.predictions.NamespacePrediction>} value
- * @return {!proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.predictions.NamespacePrediction>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.prototype.setNamespacePredictionsList = function(value) {
+proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest.prototype.setNamespacePredictionsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.predictions.NamespacePrediction=} opt_value
+ * @param {!proto.prophetstor.api.datahub.predictions.NamespacePrediction=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.NamespacePrediction}
+ * @return {!proto.prophetstor.api.datahub.predictions.NamespacePrediction}
  */
-proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.prototype.addNamespacePredictions = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.predictions.NamespacePrediction, opt_index);
+proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest.prototype.addNamespacePredictions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.predictions.NamespacePrediction, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.prototype.clearNamespacePredictionsList = function() {
+proto.prophetstor.api.datahub.predictions.CreateNamespacePredictionsRequest.prototype.clearNamespacePredictionsList = function() {
   return this.setNamespacePredictionsList([]);
 };
 
@@ -1134,7 +1134,7 @@ proto.prophetstor.datahub.predictions.CreateNamespacePredictionsRequest.prototyp
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest.repeatedFields_ = [1];
 
 
 
@@ -1151,8 +1151,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1161,14 +1161,14 @@ proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.prototype.toO
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     nodePredictionsList: jspb.Message.toObjectList(msg.getNodePredictionsList(),
-    datahub_predictions_predictions_pb.NodePrediction.toObject, includeInstance)
+    prophetstor_api_datahub_predictions_predictions_pb.NodePrediction.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1182,23 +1182,23 @@ proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.toObject = fu
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest;
-  return proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest;
+  return proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1206,8 +1206,8 @@ proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.deserializeBi
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_predictions_predictions_pb.NodePrediction;
-      reader.readMessage(value,datahub_predictions_predictions_pb.NodePrediction.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_predictions_predictions_pb.NodePrediction;
+      reader.readMessage(value,prophetstor_api_datahub_predictions_predictions_pb.NodePrediction.deserializeBinaryFromReader);
       msg.addNodePredictions(value);
       break;
     default:
@@ -1223,9 +1223,9 @@ proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.deserializeBi
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1233,18 +1233,18 @@ proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.prototype.ser
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest} message
+ * @param {!proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getNodePredictionsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_predictions_predictions_pb.NodePrediction.serializeBinaryToWriter
+      prophetstor_api_datahub_predictions_predictions_pb.NodePrediction.serializeBinaryToWriter
     );
   }
 };
@@ -1252,38 +1252,38 @@ proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.serializeBina
 
 /**
  * repeated NodePrediction node_predictions = 1;
- * @return {!Array<!proto.prophetstor.datahub.predictions.NodePrediction>}
+ * @return {!Array<!proto.prophetstor.api.datahub.predictions.NodePrediction>}
  */
-proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.prototype.getNodePredictionsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.predictions.NodePrediction>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_predictions_predictions_pb.NodePrediction, 1));
+proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest.prototype.getNodePredictionsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.predictions.NodePrediction>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_predictions_predictions_pb.NodePrediction, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.predictions.NodePrediction>} value
- * @return {!proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.predictions.NodePrediction>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.prototype.setNodePredictionsList = function(value) {
+proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest.prototype.setNodePredictionsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.predictions.NodePrediction=} opt_value
+ * @param {!proto.prophetstor.api.datahub.predictions.NodePrediction=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.NodePrediction}
+ * @return {!proto.prophetstor.api.datahub.predictions.NodePrediction}
  */
-proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.prototype.addNodePredictions = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.predictions.NodePrediction, opt_index);
+proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest.prototype.addNodePredictions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.predictions.NodePrediction, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.prototype.clearNodePredictionsList = function() {
+proto.prophetstor.api.datahub.predictions.CreateNodePredictionsRequest.prototype.clearNodePredictionsList = function() {
   return this.setNodePredictionsList([]);
 };
 
@@ -1294,7 +1294,7 @@ proto.prophetstor.datahub.predictions.CreateNodePredictionsRequest.prototype.cle
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest.repeatedFields_ = [1];
 
 
 
@@ -1311,8 +1311,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1321,14 +1321,14 @@ proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.prototype.
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     clusterPredictionsList: jspb.Message.toObjectList(msg.getClusterPredictionsList(),
-    datahub_predictions_predictions_pb.ClusterPrediction.toObject, includeInstance)
+    prophetstor_api_datahub_predictions_predictions_pb.ClusterPrediction.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1342,23 +1342,23 @@ proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.toObject =
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest;
-  return proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest;
+  return proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1366,8 +1366,8 @@ proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.deserializ
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_predictions_predictions_pb.ClusterPrediction;
-      reader.readMessage(value,datahub_predictions_predictions_pb.ClusterPrediction.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_predictions_predictions_pb.ClusterPrediction;
+      reader.readMessage(value,prophetstor_api_datahub_predictions_predictions_pb.ClusterPrediction.deserializeBinaryFromReader);
       msg.addClusterPredictions(value);
       break;
     default:
@@ -1383,9 +1383,9 @@ proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.deserializ
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1393,18 +1393,18 @@ proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.prototype.
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest} message
+ * @param {!proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getClusterPredictionsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_predictions_predictions_pb.ClusterPrediction.serializeBinaryToWriter
+      prophetstor_api_datahub_predictions_predictions_pb.ClusterPrediction.serializeBinaryToWriter
     );
   }
 };
@@ -1412,38 +1412,38 @@ proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.serializeB
 
 /**
  * repeated ClusterPrediction cluster_predictions = 1;
- * @return {!Array<!proto.prophetstor.datahub.predictions.ClusterPrediction>}
+ * @return {!Array<!proto.prophetstor.api.datahub.predictions.ClusterPrediction>}
  */
-proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.prototype.getClusterPredictionsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.predictions.ClusterPrediction>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_predictions_predictions_pb.ClusterPrediction, 1));
+proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest.prototype.getClusterPredictionsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.predictions.ClusterPrediction>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_predictions_predictions_pb.ClusterPrediction, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.predictions.ClusterPrediction>} value
- * @return {!proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.predictions.ClusterPrediction>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.prototype.setClusterPredictionsList = function(value) {
+proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest.prototype.setClusterPredictionsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.predictions.ClusterPrediction=} opt_value
+ * @param {!proto.prophetstor.api.datahub.predictions.ClusterPrediction=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.ClusterPrediction}
+ * @return {!proto.prophetstor.api.datahub.predictions.ClusterPrediction}
  */
-proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.prototype.addClusterPredictions = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.predictions.ClusterPrediction, opt_index);
+proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest.prototype.addClusterPredictions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.predictions.ClusterPrediction, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.prototype.clearClusterPredictionsList = function() {
+proto.prophetstor.api.datahub.predictions.CreateClusterPredictionsRequest.prototype.clearClusterPredictionsList = function() {
   return this.setClusterPredictionsList([]);
 };
 
@@ -1454,7 +1454,7 @@ proto.prophetstor.datahub.predictions.CreateClusterPredictionsRequest.prototype.
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.repeatedFields_ = [2,3];
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.repeatedFields_ = [2,3];
 
 
 
@@ -1471,8 +1471,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1481,15 +1481,15 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.toObje
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.ListPodPredictionsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     metricTypesList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f,
     granularity: jspb.Message.getFieldWithDefault(msg, 4, 0),
     fillDays: jspb.Message.getFieldWithDefault(msg, 5, 0),
@@ -1508,23 +1508,23 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.toObject = funct
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.ListPodPredictionsRequest;
-  return proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest;
+  return proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.ListPodPredictionsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1532,17 +1532,17 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.deserializeBinar
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (reader.readPackedEnum());
+      var value = /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (reader.readPackedEnum());
       msg.setMetricTypesList(value);
       break;
     case 4:
@@ -1574,9 +1574,9 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.deserializeBinar
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1584,18 +1584,18 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.serial
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.ListPodPredictionsRequest} message
+ * @param {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -1603,7 +1603,7 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.serializeBinaryT
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getMetricTypesList();
@@ -1645,29 +1645,29 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.serializeBinaryT
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -1676,82 +1676,82 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.clearQ
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * repeated prophetstor.datahub.common.MetricType metric_types = 3;
- * @return {!Array<!proto.prophetstor.datahub.common.MetricType>}
+ * repeated prophetstor.api.datahub.common.MetricType metric_types = 3;
+ * @return {!Array<!proto.prophetstor.api.datahub.common.MetricType>}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.getMetricTypesList = function() {
-  return /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.getMetricTypesList = function() {
+  return /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.common.MetricType>} value
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.common.MetricType>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.setMetricTypesList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.setMetricTypesList = function(value) {
   return jspb.Message.setField(this, 3, value || []);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.common.MetricType} value
+ * @param {!proto.prophetstor.api.datahub.common.MetricType} value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.addMetricTypes = function(value, opt_index) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.addMetricTypes = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.clearMetricTypesList = function() {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.clearMetricTypesList = function() {
   return this.setMetricTypesList([]);
 };
 
@@ -1760,16 +1760,16 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.clearM
  * optional int64 granularity = 4;
  * @return {number}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 4, value);
 };
 
@@ -1778,16 +1778,16 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.setGra
  * optional int64 fill_days = 5;
  * @return {number}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.getFillDays = function() {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.getFillDays = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.setFillDays = function(value) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.setFillDays = function(value) {
   return jspb.Message.setProto3IntField(this, 5, value);
 };
 
@@ -1796,16 +1796,16 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.setFil
  * optional string model_id = 6;
  * @return {string}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.getModelId = function() {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.getModelId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.setModelId = function(value) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.setModelId = function(value) {
   return jspb.Message.setProto3StringField(this, 6, value);
 };
 
@@ -1814,16 +1814,16 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.setMod
  * optional string prediction_id = 7;
  * @return {string}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.getPredictionId = function() {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.getPredictionId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.setPredictionId = function(value) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsRequest.prototype.setPredictionId = function(value) {
   return jspb.Message.setProto3StringField(this, 7, value);
 };
 
@@ -1834,7 +1834,7 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsRequest.prototype.setPre
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.repeatedFields_ = [2];
 
 
 
@@ -1851,8 +1851,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -1861,15 +1861,15 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.prototype.toObj
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.ListPodPredictionsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     podPredictionsList: jspb.Message.toObjectList(msg.getPodPredictionsList(),
-    datahub_predictions_predictions_pb.PodPrediction.toObject, includeInstance)
+    prophetstor_api_datahub_predictions_predictions_pb.PodPrediction.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1883,23 +1883,23 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.toObject = func
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsResponse}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.ListPodPredictionsResponse;
-  return proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse;
+  return proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.ListPodPredictionsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsResponse}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1912,8 +1912,8 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.deserializeBina
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_predictions_predictions_pb.PodPrediction;
-      reader.readMessage(value,datahub_predictions_predictions_pb.PodPrediction.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_predictions_predictions_pb.PodPrediction;
+      reader.readMessage(value,prophetstor_api_datahub_predictions_predictions_pb.PodPrediction.deserializeBinaryFromReader);
       msg.addPodPredictions(value);
       break;
     default:
@@ -1929,9 +1929,9 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.deserializeBina
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1939,11 +1939,11 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.prototype.seria
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.ListPodPredictionsResponse} message
+ * @param {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -1958,7 +1958,7 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.serializeBinary
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_predictions_predictions_pb.PodPrediction.serializeBinaryToWriter
+      prophetstor_api_datahub_predictions_predictions_pb.PodPrediction.serializeBinaryToWriter
     );
   }
 };
@@ -1968,7 +1968,7 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.serializeBinary
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -1976,18 +1976,18 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.prototype.getSt
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse} returns this
 */
-proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse} returns this
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -1996,45 +1996,45 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.prototype.clear
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated PodPrediction pod_predictions = 2;
- * @return {!Array<!proto.prophetstor.datahub.predictions.PodPrediction>}
+ * @return {!Array<!proto.prophetstor.api.datahub.predictions.PodPrediction>}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.prototype.getPodPredictionsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.predictions.PodPrediction>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_predictions_predictions_pb.PodPrediction, 2));
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.prototype.getPodPredictionsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.predictions.PodPrediction>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_predictions_predictions_pb.PodPrediction, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.predictions.PodPrediction>} value
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.predictions.PodPrediction>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse} returns this
 */
-proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.prototype.setPodPredictionsList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.prototype.setPodPredictionsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.predictions.PodPrediction=} opt_value
+ * @param {!proto.prophetstor.api.datahub.predictions.PodPrediction=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.PodPrediction}
+ * @return {!proto.prophetstor.api.datahub.predictions.PodPrediction}
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.prototype.addPodPredictions = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.predictions.PodPrediction, opt_index);
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.prototype.addPodPredictions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.predictions.PodPrediction, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListPodPredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse} returns this
  */
-proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.prototype.clearPodPredictionsList = function() {
+proto.prophetstor.api.datahub.predictions.ListPodPredictionsResponse.prototype.clearPodPredictionsList = function() {
   return this.setPodPredictionsList([]);
 };
 
@@ -2045,7 +2045,7 @@ proto.prophetstor.datahub.predictions.ListPodPredictionsResponse.prototype.clear
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.repeatedFields_ = [2,3];
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.repeatedFields_ = [2,3];
 
 
 
@@ -2062,8 +2062,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -2072,15 +2072,15 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     metricTypesList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f,
     kind: jspb.Message.getFieldWithDefault(msg, 4, 0),
     granularity: jspb.Message.getFieldWithDefault(msg, 5, 0),
@@ -2099,23 +2099,23 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.toObject 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest;
-  return proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest;
+  return proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2123,21 +2123,21 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.deseriali
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (reader.readPackedEnum());
+      var value = /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (reader.readPackedEnum());
       msg.setMetricTypesList(value);
       break;
     case 4:
-      var value = /** @type {!proto.prophetstor.datahub.resources.Kind} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (reader.readEnum());
       msg.setKind(value);
       break;
     case 5:
@@ -2165,9 +2165,9 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.deseriali
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2175,18 +2175,18 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest} message
+ * @param {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -2194,7 +2194,7 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.serialize
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getMetricTypesList();
@@ -2236,29 +2236,29 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.serialize
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -2267,100 +2267,100 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * repeated prophetstor.datahub.common.MetricType metric_types = 3;
- * @return {!Array<!proto.prophetstor.datahub.common.MetricType>}
+ * repeated prophetstor.api.datahub.common.MetricType metric_types = 3;
+ * @return {!Array<!proto.prophetstor.api.datahub.common.MetricType>}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.getMetricTypesList = function() {
-  return /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.getMetricTypesList = function() {
+  return /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.common.MetricType>} value
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.common.MetricType>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.setMetricTypesList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.setMetricTypesList = function(value) {
   return jspb.Message.setField(this, 3, value || []);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.common.MetricType} value
+ * @param {!proto.prophetstor.api.datahub.common.MetricType} value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.addMetricTypes = function(value, opt_index) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.addMetricTypes = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.clearMetricTypesList = function() {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.clearMetricTypesList = function() {
   return this.setMetricTypesList([]);
 };
 
 
 /**
- * optional prophetstor.datahub.resources.Kind kind = 4;
- * @return {!proto.prophetstor.datahub.resources.Kind}
+ * optional prophetstor.api.datahub.resources.Kind kind = 4;
+ * @return {!proto.prophetstor.api.datahub.resources.Kind}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.getKind = function() {
-  return /** @type {!proto.prophetstor.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.getKind = function() {
+  return /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.Kind} value
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.resources.Kind} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.setKind = function(value) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.setKind = function(value) {
   return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
@@ -2369,16 +2369,16 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype
  * optional int64 granularity = 5;
  * @return {number}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 5, value);
 };
 
@@ -2387,16 +2387,16 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype
  * optional string model_id = 6;
  * @return {string}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.getModelId = function() {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.getModelId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.setModelId = function(value) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.setModelId = function(value) {
   return jspb.Message.setProto3StringField(this, 6, value);
 };
 
@@ -2405,16 +2405,16 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype
  * optional string prediction_id = 7;
  * @return {string}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.getPredictionId = function() {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.getPredictionId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype.setPredictionId = function(value) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsRequest.prototype.setPredictionId = function(value) {
   return jspb.Message.setProto3StringField(this, 7, value);
 };
 
@@ -2425,7 +2425,7 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsRequest.prototype
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.repeatedFields_ = [2];
 
 
 
@@ -2442,8 +2442,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -2452,15 +2452,15 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.prototyp
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     controllerPredictionsList: jspb.Message.toObjectList(msg.getControllerPredictionsList(),
-    datahub_predictions_predictions_pb.ControllerPrediction.toObject, includeInstance)
+    prophetstor_api_datahub_predictions_predictions_pb.ControllerPrediction.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -2474,23 +2474,23 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.toObject
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse;
-  return proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse;
+  return proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2503,8 +2503,8 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.deserial
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_predictions_predictions_pb.ControllerPrediction;
-      reader.readMessage(value,datahub_predictions_predictions_pb.ControllerPrediction.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_predictions_predictions_pb.ControllerPrediction;
+      reader.readMessage(value,prophetstor_api_datahub_predictions_predictions_pb.ControllerPrediction.deserializeBinaryFromReader);
       msg.addControllerPredictions(value);
       break;
     default:
@@ -2520,9 +2520,9 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.deserial
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2530,11 +2530,11 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.prototyp
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse} message
+ * @param {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -2549,7 +2549,7 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.serializ
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_predictions_predictions_pb.ControllerPrediction.serializeBinaryToWriter
+      prophetstor_api_datahub_predictions_predictions_pb.ControllerPrediction.serializeBinaryToWriter
     );
   }
 };
@@ -2559,7 +2559,7 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.serializ
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -2567,18 +2567,18 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.prototyp
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse} returns this
 */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse} returns this
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -2587,45 +2587,45 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.prototyp
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated ControllerPrediction controller_predictions = 2;
- * @return {!Array<!proto.prophetstor.datahub.predictions.ControllerPrediction>}
+ * @return {!Array<!proto.prophetstor.api.datahub.predictions.ControllerPrediction>}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.prototype.getControllerPredictionsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.predictions.ControllerPrediction>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_predictions_predictions_pb.ControllerPrediction, 2));
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.prototype.getControllerPredictionsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.predictions.ControllerPrediction>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_predictions_predictions_pb.ControllerPrediction, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.predictions.ControllerPrediction>} value
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.predictions.ControllerPrediction>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse} returns this
 */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.prototype.setControllerPredictionsList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.prototype.setControllerPredictionsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.predictions.ControllerPrediction=} opt_value
+ * @param {!proto.prophetstor.api.datahub.predictions.ControllerPrediction=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.ControllerPrediction}
+ * @return {!proto.prophetstor.api.datahub.predictions.ControllerPrediction}
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.prototype.addControllerPredictions = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.predictions.ControllerPrediction, opt_index);
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.prototype.addControllerPredictions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.predictions.ControllerPrediction, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse} returns this
  */
-proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.prototype.clearControllerPredictionsList = function() {
+proto.prophetstor.api.datahub.predictions.ListControllerPredictionsResponse.prototype.clearControllerPredictionsList = function() {
   return this.setControllerPredictionsList([]);
 };
 
@@ -2636,7 +2636,7 @@ proto.prophetstor.datahub.predictions.ListControllerPredictionsResponse.prototyp
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.repeatedFields_ = [2,3];
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.repeatedFields_ = [2,3];
 
 
 
@@ -2653,8 +2653,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -2663,15 +2663,15 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototyp
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     metricTypesList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f,
     granularity: jspb.Message.getFieldWithDefault(msg, 4, 0),
     modelId: jspb.Message.getFieldWithDefault(msg, 5, ""),
@@ -2689,23 +2689,23 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.toObject
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest;
-  return proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest;
+  return proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2713,17 +2713,17 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.deserial
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (reader.readPackedEnum());
+      var value = /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (reader.readPackedEnum());
       msg.setMetricTypesList(value);
       break;
     case 4:
@@ -2751,9 +2751,9 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.deserial
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2761,18 +2761,18 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototyp
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest} message
+ * @param {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -2780,7 +2780,7 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.serializ
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getMetricTypesList();
@@ -2815,29 +2815,29 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.serializ
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -2846,82 +2846,82 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototyp
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * repeated prophetstor.datahub.common.MetricType metric_types = 3;
- * @return {!Array<!proto.prophetstor.datahub.common.MetricType>}
+ * repeated prophetstor.api.datahub.common.MetricType metric_types = 3;
+ * @return {!Array<!proto.prophetstor.api.datahub.common.MetricType>}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.getMetricTypesList = function() {
-  return /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.getMetricTypesList = function() {
+  return /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.common.MetricType>} value
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.common.MetricType>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.setMetricTypesList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.setMetricTypesList = function(value) {
   return jspb.Message.setField(this, 3, value || []);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.common.MetricType} value
+ * @param {!proto.prophetstor.api.datahub.common.MetricType} value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.addMetricTypes = function(value, opt_index) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.addMetricTypes = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.clearMetricTypesList = function() {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.clearMetricTypesList = function() {
   return this.setMetricTypesList([]);
 };
 
@@ -2930,16 +2930,16 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototyp
  * optional int64 granularity = 4;
  * @return {number}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 4, value);
 };
 
@@ -2948,16 +2948,16 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototyp
  * optional string model_id = 5;
  * @return {string}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.getModelId = function() {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.getModelId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.setModelId = function(value) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.setModelId = function(value) {
   return jspb.Message.setProto3StringField(this, 5, value);
 };
 
@@ -2966,16 +2966,16 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototyp
  * optional string prediction_id = 6;
  * @return {string}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.getPredictionId = function() {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.getPredictionId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototype.setPredictionId = function(value) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsRequest.prototype.setPredictionId = function(value) {
   return jspb.Message.setProto3StringField(this, 6, value);
 };
 
@@ -2986,7 +2986,7 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsRequest.prototyp
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.repeatedFields_ = [2];
 
 
 
@@ -3003,8 +3003,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -3013,15 +3013,15 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.prototy
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     applicationPredictionsList: jspb.Message.toObjectList(msg.getApplicationPredictionsList(),
-    datahub_predictions_predictions_pb.ApplicationPrediction.toObject, includeInstance)
+    prophetstor_api_datahub_predictions_predictions_pb.ApplicationPrediction.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -3035,23 +3035,23 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.toObjec
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse;
-  return proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse;
+  return proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3064,8 +3064,8 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.deseria
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_predictions_predictions_pb.ApplicationPrediction;
-      reader.readMessage(value,datahub_predictions_predictions_pb.ApplicationPrediction.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_predictions_predictions_pb.ApplicationPrediction;
+      reader.readMessage(value,prophetstor_api_datahub_predictions_predictions_pb.ApplicationPrediction.deserializeBinaryFromReader);
       msg.addApplicationPredictions(value);
       break;
     default:
@@ -3081,9 +3081,9 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.deseria
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3091,11 +3091,11 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.prototy
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse} message
+ * @param {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -3110,7 +3110,7 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.seriali
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_predictions_predictions_pb.ApplicationPrediction.serializeBinaryToWriter
+      prophetstor_api_datahub_predictions_predictions_pb.ApplicationPrediction.serializeBinaryToWriter
     );
   }
 };
@@ -3120,7 +3120,7 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.seriali
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -3128,18 +3128,18 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.prototy
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse} returns this
 */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse} returns this
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -3148,45 +3148,45 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.prototy
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated ApplicationPrediction application_predictions = 2;
- * @return {!Array<!proto.prophetstor.datahub.predictions.ApplicationPrediction>}
+ * @return {!Array<!proto.prophetstor.api.datahub.predictions.ApplicationPrediction>}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.prototype.getApplicationPredictionsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.predictions.ApplicationPrediction>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_predictions_predictions_pb.ApplicationPrediction, 2));
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.prototype.getApplicationPredictionsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.predictions.ApplicationPrediction>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_predictions_predictions_pb.ApplicationPrediction, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.predictions.ApplicationPrediction>} value
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.predictions.ApplicationPrediction>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse} returns this
 */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.prototype.setApplicationPredictionsList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.prototype.setApplicationPredictionsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.predictions.ApplicationPrediction=} opt_value
+ * @param {!proto.prophetstor.api.datahub.predictions.ApplicationPrediction=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.ApplicationPrediction}
+ * @return {!proto.prophetstor.api.datahub.predictions.ApplicationPrediction}
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.prototype.addApplicationPredictions = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.predictions.ApplicationPrediction, opt_index);
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.prototype.addApplicationPredictions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.predictions.ApplicationPrediction, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse} returns this
  */
-proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.prototype.clearApplicationPredictionsList = function() {
+proto.prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse.prototype.clearApplicationPredictionsList = function() {
   return this.setApplicationPredictionsList([]);
 };
 
@@ -3197,7 +3197,7 @@ proto.prophetstor.datahub.predictions.ListApplicationPredictionsResponse.prototy
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.repeatedFields_ = [2,3];
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.repeatedFields_ = [2,3];
 
 
 
@@ -3214,8 +3214,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -3224,15 +3224,15 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     metricTypesList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f,
     granularity: jspb.Message.getFieldWithDefault(msg, 4, 0),
     modelId: jspb.Message.getFieldWithDefault(msg, 5, ""),
@@ -3250,23 +3250,23 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.toObject =
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest;
-  return proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest;
+  return proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3274,17 +3274,17 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.deserializ
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (reader.readPackedEnum());
+      var value = /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (reader.readPackedEnum());
       msg.setMetricTypesList(value);
       break;
     case 4:
@@ -3312,9 +3312,9 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.deserializ
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3322,18 +3322,18 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest} message
+ * @param {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -3341,7 +3341,7 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.serializeB
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getMetricTypesList();
@@ -3376,29 +3376,29 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.serializeB
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -3407,82 +3407,82 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * repeated prophetstor.datahub.common.MetricType metric_types = 3;
- * @return {!Array<!proto.prophetstor.datahub.common.MetricType>}
+ * repeated prophetstor.api.datahub.common.MetricType metric_types = 3;
+ * @return {!Array<!proto.prophetstor.api.datahub.common.MetricType>}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.getMetricTypesList = function() {
-  return /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.getMetricTypesList = function() {
+  return /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.common.MetricType>} value
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.common.MetricType>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.setMetricTypesList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.setMetricTypesList = function(value) {
   return jspb.Message.setField(this, 3, value || []);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.common.MetricType} value
+ * @param {!proto.prophetstor.api.datahub.common.MetricType} value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.addMetricTypes = function(value, opt_index) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.addMetricTypes = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.clearMetricTypesList = function() {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.clearMetricTypesList = function() {
   return this.setMetricTypesList([]);
 };
 
@@ -3491,16 +3491,16 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.
  * optional int64 granularity = 4;
  * @return {number}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 4, value);
 };
 
@@ -3509,16 +3509,16 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.
  * optional string model_id = 5;
  * @return {string}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.getModelId = function() {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.getModelId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.setModelId = function(value) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.setModelId = function(value) {
   return jspb.Message.setProto3StringField(this, 5, value);
 };
 
@@ -3527,16 +3527,16 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.
  * optional string prediction_id = 6;
  * @return {string}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.getPredictionId = function() {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.getPredictionId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.setPredictionId = function(value) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsRequest.prototype.setPredictionId = function(value) {
   return jspb.Message.setProto3StringField(this, 6, value);
 };
 
@@ -3547,7 +3547,7 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsRequest.prototype.
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.repeatedFields_ = [2];
 
 
 
@@ -3564,8 +3564,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -3574,15 +3574,15 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.prototype
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     namespacePredictionsList: jspb.Message.toObjectList(msg.getNamespacePredictionsList(),
-    datahub_predictions_predictions_pb.NamespacePrediction.toObject, includeInstance)
+    prophetstor_api_datahub_predictions_predictions_pb.NamespacePrediction.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -3596,23 +3596,23 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.toObject 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse;
-  return proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse;
+  return proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3625,8 +3625,8 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.deseriali
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_predictions_predictions_pb.NamespacePrediction;
-      reader.readMessage(value,datahub_predictions_predictions_pb.NamespacePrediction.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_predictions_predictions_pb.NamespacePrediction;
+      reader.readMessage(value,prophetstor_api_datahub_predictions_predictions_pb.NamespacePrediction.deserializeBinaryFromReader);
       msg.addNamespacePredictions(value);
       break;
     default:
@@ -3642,9 +3642,9 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.deseriali
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3652,11 +3652,11 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.prototype
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse} message
+ * @param {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -3671,7 +3671,7 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.serialize
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_predictions_predictions_pb.NamespacePrediction.serializeBinaryToWriter
+      prophetstor_api_datahub_predictions_predictions_pb.NamespacePrediction.serializeBinaryToWriter
     );
   }
 };
@@ -3681,7 +3681,7 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.serialize
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -3689,18 +3689,18 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.prototype
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse} returns this
 */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse} returns this
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -3709,45 +3709,45 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.prototype
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated NamespacePrediction namespace_predictions = 2;
- * @return {!Array<!proto.prophetstor.datahub.predictions.NamespacePrediction>}
+ * @return {!Array<!proto.prophetstor.api.datahub.predictions.NamespacePrediction>}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.prototype.getNamespacePredictionsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.predictions.NamespacePrediction>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_predictions_predictions_pb.NamespacePrediction, 2));
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.prototype.getNamespacePredictionsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.predictions.NamespacePrediction>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_predictions_predictions_pb.NamespacePrediction, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.predictions.NamespacePrediction>} value
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.predictions.NamespacePrediction>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse} returns this
 */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.prototype.setNamespacePredictionsList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.prototype.setNamespacePredictionsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.predictions.NamespacePrediction=} opt_value
+ * @param {!proto.prophetstor.api.datahub.predictions.NamespacePrediction=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.NamespacePrediction}
+ * @return {!proto.prophetstor.api.datahub.predictions.NamespacePrediction}
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.prototype.addNamespacePredictions = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.predictions.NamespacePrediction, opt_index);
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.prototype.addNamespacePredictions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.predictions.NamespacePrediction, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse} returns this
  */
-proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.prototype.clearNamespacePredictionsList = function() {
+proto.prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse.prototype.clearNamespacePredictionsList = function() {
   return this.setNamespacePredictionsList([]);
 };
 
@@ -3758,7 +3758,7 @@ proto.prophetstor.datahub.predictions.ListNamespacePredictionsResponse.prototype
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.repeatedFields_ = [2,3];
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.repeatedFields_ = [2,3];
 
 
 
@@ -3775,8 +3775,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -3785,15 +3785,15 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.toObj
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.ListNodePredictionsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     metricTypesList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f,
     granularity: jspb.Message.getFieldWithDefault(msg, 4, 0),
     modelId: jspb.Message.getFieldWithDefault(msg, 5, ""),
@@ -3811,23 +3811,23 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.toObject = func
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.ListNodePredictionsRequest;
-  return proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest;
+  return proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.ListNodePredictionsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3835,17 +3835,17 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.deserializeBina
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (reader.readPackedEnum());
+      var value = /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (reader.readPackedEnum());
       msg.setMetricTypesList(value);
       break;
     case 4:
@@ -3873,9 +3873,9 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.deserializeBina
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3883,18 +3883,18 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.seria
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.ListNodePredictionsRequest} message
+ * @param {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -3902,7 +3902,7 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.serializeBinary
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getMetricTypesList();
@@ -3937,29 +3937,29 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.serializeBinary
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -3968,82 +3968,82 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.clear
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * repeated prophetstor.datahub.common.MetricType metric_types = 3;
- * @return {!Array<!proto.prophetstor.datahub.common.MetricType>}
+ * repeated prophetstor.api.datahub.common.MetricType metric_types = 3;
+ * @return {!Array<!proto.prophetstor.api.datahub.common.MetricType>}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.getMetricTypesList = function() {
-  return /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.getMetricTypesList = function() {
+  return /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.common.MetricType>} value
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.common.MetricType>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.setMetricTypesList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.setMetricTypesList = function(value) {
   return jspb.Message.setField(this, 3, value || []);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.common.MetricType} value
+ * @param {!proto.prophetstor.api.datahub.common.MetricType} value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.addMetricTypes = function(value, opt_index) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.addMetricTypes = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.clearMetricTypesList = function() {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.clearMetricTypesList = function() {
   return this.setMetricTypesList([]);
 };
 
@@ -4052,16 +4052,16 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.clear
  * optional int64 granularity = 4;
  * @return {number}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 4, value);
 };
 
@@ -4070,16 +4070,16 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.setGr
  * optional string model_id = 5;
  * @return {string}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.getModelId = function() {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.getModelId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.setModelId = function(value) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.setModelId = function(value) {
   return jspb.Message.setProto3StringField(this, 5, value);
 };
 
@@ -4088,16 +4088,16 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.setMo
  * optional string prediction_id = 6;
  * @return {string}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.getPredictionId = function() {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.getPredictionId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.setPredictionId = function(value) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsRequest.prototype.setPredictionId = function(value) {
   return jspb.Message.setProto3StringField(this, 6, value);
 };
 
@@ -4108,7 +4108,7 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsRequest.prototype.setPr
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.repeatedFields_ = [2];
 
 
 
@@ -4125,8 +4125,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -4135,15 +4135,15 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.prototype.toOb
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.ListNodePredictionsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     nodePredictionsList: jspb.Message.toObjectList(msg.getNodePredictionsList(),
-    datahub_predictions_predictions_pb.NodePrediction.toObject, includeInstance)
+    prophetstor_api_datahub_predictions_predictions_pb.NodePrediction.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -4157,23 +4157,23 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.toObject = fun
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsResponse}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.ListNodePredictionsResponse;
-  return proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse;
+  return proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.ListNodePredictionsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsResponse}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4186,8 +4186,8 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.deserializeBin
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_predictions_predictions_pb.NodePrediction;
-      reader.readMessage(value,datahub_predictions_predictions_pb.NodePrediction.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_predictions_predictions_pb.NodePrediction;
+      reader.readMessage(value,prophetstor_api_datahub_predictions_predictions_pb.NodePrediction.deserializeBinaryFromReader);
       msg.addNodePredictions(value);
       break;
     default:
@@ -4203,9 +4203,9 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.deserializeBin
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4213,11 +4213,11 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.prototype.seri
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.ListNodePredictionsResponse} message
+ * @param {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -4232,7 +4232,7 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.serializeBinar
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_predictions_predictions_pb.NodePrediction.serializeBinaryToWriter
+      prophetstor_api_datahub_predictions_predictions_pb.NodePrediction.serializeBinaryToWriter
     );
   }
 };
@@ -4242,7 +4242,7 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.serializeBinar
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -4250,18 +4250,18 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.prototype.getS
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse} returns this
 */
-proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse} returns this
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -4270,45 +4270,45 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.prototype.clea
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated NodePrediction node_predictions = 2;
- * @return {!Array<!proto.prophetstor.datahub.predictions.NodePrediction>}
+ * @return {!Array<!proto.prophetstor.api.datahub.predictions.NodePrediction>}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.prototype.getNodePredictionsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.predictions.NodePrediction>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_predictions_predictions_pb.NodePrediction, 2));
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.prototype.getNodePredictionsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.predictions.NodePrediction>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_predictions_predictions_pb.NodePrediction, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.predictions.NodePrediction>} value
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.predictions.NodePrediction>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse} returns this
 */
-proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.prototype.setNodePredictionsList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.prototype.setNodePredictionsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.predictions.NodePrediction=} opt_value
+ * @param {!proto.prophetstor.api.datahub.predictions.NodePrediction=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.NodePrediction}
+ * @return {!proto.prophetstor.api.datahub.predictions.NodePrediction}
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.prototype.addNodePredictions = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.predictions.NodePrediction, opt_index);
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.prototype.addNodePredictions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.predictions.NodePrediction, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListNodePredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse} returns this
  */
-proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.prototype.clearNodePredictionsList = function() {
+proto.prophetstor.api.datahub.predictions.ListNodePredictionsResponse.prototype.clearNodePredictionsList = function() {
   return this.setNodePredictionsList([]);
 };
 
@@ -4319,7 +4319,7 @@ proto.prophetstor.datahub.predictions.ListNodePredictionsResponse.prototype.clea
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.repeatedFields_ = [2,3];
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.repeatedFields_ = [2,3];
 
 
 
@@ -4336,8 +4336,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -4346,15 +4346,15 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.to
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     metricTypesList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f,
     granularity: jspb.Message.getFieldWithDefault(msg, 4, 0),
     modelId: jspb.Message.getFieldWithDefault(msg, 5, ""),
@@ -4372,23 +4372,23 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.toObject = f
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest;
-  return proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest;
+  return proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4396,17 +4396,17 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.deserializeB
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (reader.readPackedEnum());
+      var value = /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (reader.readPackedEnum());
       msg.setMetricTypesList(value);
       break;
     case 4:
@@ -4434,9 +4434,9 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.deserializeB
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4444,18 +4444,18 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.se
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest} message
+ * @param {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -4463,7 +4463,7 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.serializeBin
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getMetricTypesList();
@@ -4498,29 +4498,29 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.serializeBin
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -4529,82 +4529,82 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.cl
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * repeated prophetstor.datahub.common.MetricType metric_types = 3;
- * @return {!Array<!proto.prophetstor.datahub.common.MetricType>}
+ * repeated prophetstor.api.datahub.common.MetricType metric_types = 3;
+ * @return {!Array<!proto.prophetstor.api.datahub.common.MetricType>}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.getMetricTypesList = function() {
-  return /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.getMetricTypesList = function() {
+  return /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.common.MetricType>} value
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.common.MetricType>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.setMetricTypesList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.setMetricTypesList = function(value) {
   return jspb.Message.setField(this, 3, value || []);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.common.MetricType} value
+ * @param {!proto.prophetstor.api.datahub.common.MetricType} value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.addMetricTypes = function(value, opt_index) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.addMetricTypes = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.clearMetricTypesList = function() {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.clearMetricTypesList = function() {
   return this.setMetricTypesList([]);
 };
 
@@ -4613,16 +4613,16 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.cl
  * optional int64 granularity = 4;
  * @return {number}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 4, value);
 };
 
@@ -4631,16 +4631,16 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.se
  * optional string model_id = 5;
  * @return {string}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.getModelId = function() {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.getModelId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.setModelId = function(value) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.setModelId = function(value) {
   return jspb.Message.setProto3StringField(this, 5, value);
 };
 
@@ -4649,16 +4649,16 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.se
  * optional string prediction_id = 6;
  * @return {string}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.getPredictionId = function() {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.getPredictionId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.setPredictionId = function(value) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsRequest.prototype.setPredictionId = function(value) {
   return jspb.Message.setProto3StringField(this, 6, value);
 };
 
@@ -4669,7 +4669,7 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsRequest.prototype.se
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.repeatedFields_ = [2];
 
 
 
@@ -4686,8 +4686,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -4696,15 +4696,15 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.prototype.t
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     clusterPredictionsList: jspb.Message.toObjectList(msg.getClusterPredictionsList(),
-    datahub_predictions_predictions_pb.ClusterPrediction.toObject, includeInstance)
+    prophetstor_api_datahub_predictions_predictions_pb.ClusterPrediction.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -4718,23 +4718,23 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.toObject = 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse;
-  return proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse;
+  return proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4747,8 +4747,8 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.deserialize
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_predictions_predictions_pb.ClusterPrediction;
-      reader.readMessage(value,datahub_predictions_predictions_pb.ClusterPrediction.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_predictions_predictions_pb.ClusterPrediction;
+      reader.readMessage(value,prophetstor_api_datahub_predictions_predictions_pb.ClusterPrediction.deserializeBinaryFromReader);
       msg.addClusterPredictions(value);
       break;
     default:
@@ -4764,9 +4764,9 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.deserialize
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4774,11 +4774,11 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.prototype.s
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse} message
+ * @param {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -4793,7 +4793,7 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.serializeBi
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_predictions_predictions_pb.ClusterPrediction.serializeBinaryToWriter
+      prophetstor_api_datahub_predictions_predictions_pb.ClusterPrediction.serializeBinaryToWriter
     );
   }
 };
@@ -4803,7 +4803,7 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.serializeBi
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -4811,18 +4811,18 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.prototype.g
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse} returns this
 */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse} returns this
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -4831,45 +4831,45 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.prototype.c
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated ClusterPrediction cluster_predictions = 2;
- * @return {!Array<!proto.prophetstor.datahub.predictions.ClusterPrediction>}
+ * @return {!Array<!proto.prophetstor.api.datahub.predictions.ClusterPrediction>}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.prototype.getClusterPredictionsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.predictions.ClusterPrediction>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_predictions_predictions_pb.ClusterPrediction, 2));
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.prototype.getClusterPredictionsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.predictions.ClusterPrediction>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_predictions_predictions_pb.ClusterPrediction, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.predictions.ClusterPrediction>} value
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.predictions.ClusterPrediction>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse} returns this
 */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.prototype.setClusterPredictionsList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.prototype.setClusterPredictionsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.predictions.ClusterPrediction=} opt_value
+ * @param {!proto.prophetstor.api.datahub.predictions.ClusterPrediction=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.ClusterPrediction}
+ * @return {!proto.prophetstor.api.datahub.predictions.ClusterPrediction}
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.prototype.addClusterPredictions = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.predictions.ClusterPrediction, opt_index);
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.prototype.addClusterPredictions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.predictions.ClusterPrediction, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse} returns this
  */
-proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.prototype.clearClusterPredictionsList = function() {
+proto.prophetstor.api.datahub.predictions.ListClusterPredictionsResponse.prototype.clearClusterPredictionsList = function() {
   return this.setClusterPredictionsList([]);
 };
 
@@ -4880,7 +4880,7 @@ proto.prophetstor.datahub.predictions.ListClusterPredictionsResponse.prototype.c
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.CreatePredictionsRequest.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.repeatedFields_ = [2];
 
 
 
@@ -4897,8 +4897,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.CreatePredictionsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.CreatePredictionsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -4907,15 +4907,15 @@ proto.prophetstor.datahub.predictions.CreatePredictionsRequest.prototype.toObjec
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.CreatePredictionsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.CreatePredictionsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    schemaMeta: (f = msg.getSchemaMeta()) && datahub_schemas_types_pb.SchemaMeta.toObject(includeInstance, f),
+    schemaMeta: (f = msg.getSchemaMeta()) && prophetstor_api_datahub_schemas_types_pb.SchemaMeta.toObject(includeInstance, f),
     predictionsList: jspb.Message.toObjectList(msg.getPredictionsList(),
-    datahub_predictions_predictions_pb.WritePrediction.toObject, includeInstance)
+    prophetstor_api_datahub_predictions_predictions_pb.WritePrediction.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -4929,23 +4929,23 @@ proto.prophetstor.datahub.predictions.CreatePredictionsRequest.toObject = functi
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.CreatePredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.CreatePredictionsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.CreatePredictionsRequest;
-  return proto.prophetstor.datahub.predictions.CreatePredictionsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest;
+  return proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.CreatePredictionsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.CreatePredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.CreatePredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4953,13 +4953,13 @@ proto.prophetstor.datahub.predictions.CreatePredictionsRequest.deserializeBinary
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_schemas_types_pb.SchemaMeta;
-      reader.readMessage(value,datahub_schemas_types_pb.SchemaMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_schemas_types_pb.SchemaMeta;
+      reader.readMessage(value,prophetstor_api_datahub_schemas_types_pb.SchemaMeta.deserializeBinaryFromReader);
       msg.setSchemaMeta(value);
       break;
     case 2:
-      var value = new datahub_predictions_predictions_pb.WritePrediction;
-      reader.readMessage(value,datahub_predictions_predictions_pb.WritePrediction.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_predictions_predictions_pb.WritePrediction;
+      reader.readMessage(value,prophetstor_api_datahub_predictions_predictions_pb.WritePrediction.deserializeBinaryFromReader);
       msg.addPredictions(value);
       break;
     default:
@@ -4975,9 +4975,9 @@ proto.prophetstor.datahub.predictions.CreatePredictionsRequest.deserializeBinary
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.CreatePredictionsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.CreatePredictionsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4985,18 +4985,18 @@ proto.prophetstor.datahub.predictions.CreatePredictionsRequest.prototype.seriali
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.CreatePredictionsRequest} message
+ * @param {!proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.CreatePredictionsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getSchemaMeta();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_schemas_types_pb.SchemaMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_schemas_types_pb.SchemaMeta.serializeBinaryToWriter
     );
   }
   f = message.getPredictionsList();
@@ -5004,36 +5004,36 @@ proto.prophetstor.datahub.predictions.CreatePredictionsRequest.serializeBinaryTo
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_predictions_predictions_pb.WritePrediction.serializeBinaryToWriter
+      prophetstor_api_datahub_predictions_predictions_pb.WritePrediction.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * optional prophetstor.datahub.schemas.SchemaMeta schema_meta = 1;
- * @return {?proto.prophetstor.datahub.schemas.SchemaMeta}
+ * optional prophetstor.api.datahub.schemas.SchemaMeta schema_meta = 1;
+ * @return {?proto.prophetstor.api.datahub.schemas.SchemaMeta}
  */
-proto.prophetstor.datahub.predictions.CreatePredictionsRequest.prototype.getSchemaMeta = function() {
-  return /** @type{?proto.prophetstor.datahub.schemas.SchemaMeta} */ (
-    jspb.Message.getWrapperField(this, datahub_schemas_types_pb.SchemaMeta, 1));
+proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.prototype.getSchemaMeta = function() {
+  return /** @type{?proto.prophetstor.api.datahub.schemas.SchemaMeta} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_schemas_types_pb.SchemaMeta, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.schemas.SchemaMeta|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.CreatePredictionsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.schemas.SchemaMeta|undefined} value
+ * @return {!proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.CreatePredictionsRequest.prototype.setSchemaMeta = function(value) {
+proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.prototype.setSchemaMeta = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.CreatePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.CreatePredictionsRequest.prototype.clearSchemaMeta = function() {
+proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.prototype.clearSchemaMeta = function() {
   return this.setSchemaMeta(undefined);
 };
 
@@ -5042,45 +5042,45 @@ proto.prophetstor.datahub.predictions.CreatePredictionsRequest.prototype.clearSc
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.CreatePredictionsRequest.prototype.hasSchemaMeta = function() {
+proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.prototype.hasSchemaMeta = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated WritePrediction predictions = 2;
- * @return {!Array<!proto.prophetstor.datahub.predictions.WritePrediction>}
+ * @return {!Array<!proto.prophetstor.api.datahub.predictions.WritePrediction>}
  */
-proto.prophetstor.datahub.predictions.CreatePredictionsRequest.prototype.getPredictionsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.predictions.WritePrediction>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_predictions_predictions_pb.WritePrediction, 2));
+proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.prototype.getPredictionsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.predictions.WritePrediction>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_predictions_predictions_pb.WritePrediction, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.predictions.WritePrediction>} value
- * @return {!proto.prophetstor.datahub.predictions.CreatePredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.predictions.WritePrediction>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.CreatePredictionsRequest.prototype.setPredictionsList = function(value) {
+proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.prototype.setPredictionsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.predictions.WritePrediction=} opt_value
+ * @param {!proto.prophetstor.api.datahub.predictions.WritePrediction=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.WritePrediction}
+ * @return {!proto.prophetstor.api.datahub.predictions.WritePrediction}
  */
-proto.prophetstor.datahub.predictions.CreatePredictionsRequest.prototype.addPredictions = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.predictions.WritePrediction, opt_index);
+proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.prototype.addPredictions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.predictions.WritePrediction, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.CreatePredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.CreatePredictionsRequest.prototype.clearPredictionsList = function() {
+proto.prophetstor.api.datahub.predictions.CreatePredictionsRequest.prototype.clearPredictionsList = function() {
   return this.setPredictionsList([]);
 };
 
@@ -5091,7 +5091,7 @@ proto.prophetstor.datahub.predictions.CreatePredictionsRequest.prototype.clearPr
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.repeatedFields_ = [3];
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.repeatedFields_ = [3];
 
 
 
@@ -5108,8 +5108,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.ListPredictionsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -5118,14 +5118,14 @@ proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.toObject 
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.ListPredictionsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListPredictionsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
-    schemaMeta: (f = msg.getSchemaMeta()) && datahub_schemas_types_pb.SchemaMeta.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    schemaMeta: (f = msg.getSchemaMeta()) && prophetstor_api_datahub_schemas_types_pb.SchemaMeta.toObject(includeInstance, f),
     metricTypesList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f
   };
 
@@ -5140,23 +5140,23 @@ proto.prophetstor.datahub.predictions.ListPredictionsRequest.toObject = function
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.ListPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.ListPredictionsRequest;
-  return proto.prophetstor.datahub.predictions.ListPredictionsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.ListPredictionsRequest;
+  return proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.ListPredictionsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListPredictionsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.ListPredictionsRequest}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPredictionsRequest}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -5164,17 +5164,17 @@ proto.prophetstor.datahub.predictions.ListPredictionsRequest.deserializeBinaryFr
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_schemas_types_pb.SchemaMeta;
-      reader.readMessage(value,datahub_schemas_types_pb.SchemaMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_schemas_types_pb.SchemaMeta;
+      reader.readMessage(value,prophetstor_api_datahub_schemas_types_pb.SchemaMeta.deserializeBinaryFromReader);
       msg.setSchemaMeta(value);
       break;
     case 3:
-      var value = /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (reader.readPackedEnum());
+      var value = /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (reader.readPackedEnum());
       msg.setMetricTypesList(value);
       break;
     default:
@@ -5190,9 +5190,9 @@ proto.prophetstor.datahub.predictions.ListPredictionsRequest.deserializeBinaryFr
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.ListPredictionsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -5200,18 +5200,18 @@ proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.serialize
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.ListPredictionsRequest} message
+ * @param {!proto.prophetstor.api.datahub.predictions.ListPredictionsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getSchemaMeta();
@@ -5219,7 +5219,7 @@ proto.prophetstor.datahub.predictions.ListPredictionsRequest.serializeBinaryToWr
     writer.writeMessage(
       2,
       f,
-      datahub_schemas_types_pb.SchemaMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_schemas_types_pb.SchemaMeta.serializeBinaryToWriter
     );
   }
   f = message.getMetricTypesList();
@@ -5233,29 +5233,29 @@ proto.prophetstor.datahub.predictions.ListPredictionsRequest.serializeBinaryToWr
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.ListPredictionsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.ListPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -5264,35 +5264,35 @@ proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.clearQuer
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * optional prophetstor.datahub.schemas.SchemaMeta schema_meta = 2;
- * @return {?proto.prophetstor.datahub.schemas.SchemaMeta}
+ * optional prophetstor.api.datahub.schemas.SchemaMeta schema_meta = 2;
+ * @return {?proto.prophetstor.api.datahub.schemas.SchemaMeta}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.getSchemaMeta = function() {
-  return /** @type{?proto.prophetstor.datahub.schemas.SchemaMeta} */ (
-    jspb.Message.getWrapperField(this, datahub_schemas_types_pb.SchemaMeta, 2));
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.prototype.getSchemaMeta = function() {
+  return /** @type{?proto.prophetstor.api.datahub.schemas.SchemaMeta} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_schemas_types_pb.SchemaMeta, 2));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.schemas.SchemaMeta|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.ListPredictionsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.schemas.SchemaMeta|undefined} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPredictionsRequest} returns this
 */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.setSchemaMeta = function(value) {
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.prototype.setSchemaMeta = function(value) {
   return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.ListPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.clearSchemaMeta = function() {
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.prototype.clearSchemaMeta = function() {
   return this.setSchemaMeta(undefined);
 };
 
@@ -5301,44 +5301,44 @@ proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.clearSche
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.hasSchemaMeta = function() {
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.prototype.hasSchemaMeta = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.common.MetricType metric_types = 3;
- * @return {!Array<!proto.prophetstor.datahub.common.MetricType>}
+ * repeated prophetstor.api.datahub.common.MetricType metric_types = 3;
+ * @return {!Array<!proto.prophetstor.api.datahub.common.MetricType>}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.getMetricTypesList = function() {
-  return /** @type {!Array<!proto.prophetstor.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.prototype.getMetricTypesList = function() {
+  return /** @type {!Array<!proto.prophetstor.api.datahub.common.MetricType>} */ (jspb.Message.getRepeatedField(this, 3));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.common.MetricType>} value
- * @return {!proto.prophetstor.datahub.predictions.ListPredictionsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.common.MetricType>} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.setMetricTypesList = function(value) {
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.prototype.setMetricTypesList = function(value) {
   return jspb.Message.setField(this, 3, value || []);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.common.MetricType} value
+ * @param {!proto.prophetstor.api.datahub.common.MetricType} value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.predictions.ListPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.addMetricTypes = function(value, opt_index) {
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.prototype.addMetricTypes = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.predictions.ListPredictionsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPredictionsRequest} returns this
  */
-proto.prophetstor.datahub.predictions.ListPredictionsRequest.prototype.clearMetricTypesList = function() {
+proto.prophetstor.api.datahub.predictions.ListPredictionsRequest.prototype.clearMetricTypesList = function() {
   return this.setMetricTypesList([]);
 };
 
@@ -5359,8 +5359,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.predictions.ListPredictionsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -5369,14 +5369,14 @@ proto.prophetstor.datahub.predictions.ListPredictionsResponse.prototype.toObject
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.predictions.ListPredictionsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListPredictionsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListPredictionsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
-    predictions: (f = msg.getPredictions()) && datahub_predictions_types_pb.Prediction.toObject(includeInstance, f)
+    predictions: (f = msg.getPredictions()) && prophetstor_api_datahub_predictions_types_pb.Prediction.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -5390,23 +5390,23 @@ proto.prophetstor.datahub.predictions.ListPredictionsResponse.toObject = functio
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.predictions.ListPredictionsResponse}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPredictionsResponse}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.predictions.ListPredictionsResponse;
-  return proto.prophetstor.datahub.predictions.ListPredictionsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.predictions.ListPredictionsResponse;
+  return proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.predictions.ListPredictionsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.predictions.ListPredictionsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.predictions.ListPredictionsResponse}
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPredictionsResponse}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -5419,8 +5419,8 @@ proto.prophetstor.datahub.predictions.ListPredictionsResponse.deserializeBinaryF
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_predictions_types_pb.Prediction;
-      reader.readMessage(value,datahub_predictions_types_pb.Prediction.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_predictions_types_pb.Prediction;
+      reader.readMessage(value,prophetstor_api_datahub_predictions_types_pb.Prediction.deserializeBinaryFromReader);
       msg.setPredictions(value);
       break;
     default:
@@ -5436,9 +5436,9 @@ proto.prophetstor.datahub.predictions.ListPredictionsResponse.deserializeBinaryF
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.predictions.ListPredictionsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -5446,11 +5446,11 @@ proto.prophetstor.datahub.predictions.ListPredictionsResponse.prototype.serializ
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.predictions.ListPredictionsResponse} message
+ * @param {!proto.prophetstor.api.datahub.predictions.ListPredictionsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.predictions.ListPredictionsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -5465,7 +5465,7 @@ proto.prophetstor.datahub.predictions.ListPredictionsResponse.serializeBinaryToW
     writer.writeMessage(
       2,
       f,
-      datahub_predictions_types_pb.Prediction.serializeBinaryToWriter
+      prophetstor_api_datahub_predictions_types_pb.Prediction.serializeBinaryToWriter
     );
   }
 };
@@ -5475,7 +5475,7 @@ proto.prophetstor.datahub.predictions.ListPredictionsResponse.serializeBinaryToW
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -5483,18 +5483,18 @@ proto.prophetstor.datahub.predictions.ListPredictionsResponse.prototype.getStatu
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.ListPredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPredictionsResponse} returns this
 */
-proto.prophetstor.datahub.predictions.ListPredictionsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.ListPredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPredictionsResponse} returns this
  */
-proto.prophetstor.datahub.predictions.ListPredictionsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -5503,35 +5503,35 @@ proto.prophetstor.datahub.predictions.ListPredictionsResponse.prototype.clearSta
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * optional Prediction predictions = 2;
- * @return {?proto.prophetstor.datahub.predictions.Prediction}
+ * @return {?proto.prophetstor.api.datahub.predictions.Prediction}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsResponse.prototype.getPredictions = function() {
-  return /** @type{?proto.prophetstor.datahub.predictions.Prediction} */ (
-    jspb.Message.getWrapperField(this, datahub_predictions_types_pb.Prediction, 2));
+proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.prototype.getPredictions = function() {
+  return /** @type{?proto.prophetstor.api.datahub.predictions.Prediction} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_predictions_types_pb.Prediction, 2));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.predictions.Prediction|undefined} value
- * @return {!proto.prophetstor.datahub.predictions.ListPredictionsResponse} returns this
+ * @param {?proto.prophetstor.api.datahub.predictions.Prediction|undefined} value
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPredictionsResponse} returns this
 */
-proto.prophetstor.datahub.predictions.ListPredictionsResponse.prototype.setPredictions = function(value) {
+proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.prototype.setPredictions = function(value) {
   return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.predictions.ListPredictionsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.predictions.ListPredictionsResponse} returns this
  */
-proto.prophetstor.datahub.predictions.ListPredictionsResponse.prototype.clearPredictions = function() {
+proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.prototype.clearPredictions = function() {
   return this.setPredictions(undefined);
 };
 
@@ -5540,9 +5540,9 @@ proto.prophetstor.datahub.predictions.ListPredictionsResponse.prototype.clearPre
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.predictions.ListPredictionsResponse.prototype.hasPredictions = function() {
+proto.prophetstor.api.datahub.predictions.ListPredictionsResponse.prototype.hasPredictions = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 
 
-goog.object.extend(exports, proto.prophetstor.datahub.predictions);
+goog.object.extend(exports, proto.prophetstor.api.datahub.predictions);

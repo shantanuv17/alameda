@@ -2,23 +2,23 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub;
+package prophetstor.api.datahub;
 
-import "datahub/applications/services.proto";
-import "datahub/data/services.proto";
-import "datahub/events/services.proto";
-import "datahub/gpu/services.proto";
-import "datahub/keycodes/services.proto";
-import "datahub/licenses/services.proto";
-import "datahub/metrics/services.proto";
-import "datahub/plannings/services.proto";
-import "datahub/predictions/services.proto";
-import "datahub/rawdata/services.proto";
-import "datahub/recommendations/services.proto";
-import "datahub/resources/services.proto";
-import "datahub/schemas/services.proto";
-import "datahub/scores/services.proto";
-import "datahub/weavescope/services.proto";
+import "prophetstor/api/datahub/applications/services.proto";
+import "prophetstor/api/datahub/data/services.proto";
+import "prophetstor/api/datahub/events/services.proto";
+import "prophetstor/api/datahub/gpu/services.proto";
+import "prophetstor/api/datahub/keycodes/services.proto";
+import "prophetstor/api/datahub/licenses/services.proto";
+import "prophetstor/api/datahub/metrics/services.proto";
+import "prophetstor/api/datahub/plannings/services.proto";
+import "prophetstor/api/datahub/predictions/services.proto";
+import "prophetstor/api/datahub/rawdata/services.proto";
+import "prophetstor/api/datahub/recommendations/services.proto";
+import "prophetstor/api/datahub/resources/services.proto";
+import "prophetstor/api/datahub/schemas/services.proto";
+import "prophetstor/api/datahub/scores/services.proto";
+import "prophetstor/api/datahub/weavescope/services.proto";
 import "google/protobuf/empty.proto";
 import "google/rpc/status.proto";
 

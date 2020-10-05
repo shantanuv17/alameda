@@ -2,7 +2,7 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.events;
+package prophetstor.api.datahub.events;
 
 option go_package = "prophetstor.com/api/datahub/events";
 

@@ -2,9 +2,9 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.licenses;
+package prophetstor.api.datahub.licenses;
 
-import "datahub/licenses/licenses.proto";
+import "prophetstor/api/datahub/licenses/licenses.proto";
 import "google/rpc/status.proto";
 
 option go_package = "prophetstor.com/api/datahub/licenses";

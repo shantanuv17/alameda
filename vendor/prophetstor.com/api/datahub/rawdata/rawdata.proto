@@ -2,11 +2,11 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.rawdata;
+package prophetstor.api.datahub.rawdata;
 
-import "datahub/common/rawdata.proto";
-import "datahub/common/types.proto";
-import "datahub/rawdata/types.proto";
+import "prophetstor/api/datahub/common/rawdata.proto";
+import "prophetstor/api/datahub/common/types.proto";
+import "prophetstor/api/datahub/rawdata/types.proto";
 
 option go_package = "prophetstor.com/api/datahub/rawdata";
 

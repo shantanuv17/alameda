@@ -2,11 +2,11 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.gpu;
+package prophetstor.api.datahub.gpu;
 
-import "datahub/common/metrics.proto";
-import "datahub/common/queries.proto";
-import "datahub/gpu/gpu.proto";
+import "prophetstor/api/datahub/common/metrics.proto";
+import "prophetstor/api/datahub/common/queries.proto";
+import "prophetstor/api/datahub/gpu/gpu.proto";
 import "google/rpc/status.proto";
 
 option go_package = "prophetstor.com/api/datahub/gpu";

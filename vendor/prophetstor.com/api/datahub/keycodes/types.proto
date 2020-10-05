@@ -2,7 +2,7 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.keycodes;
+package prophetstor.api.datahub.keycodes;
 
 option go_package = "prophetstor.com/api/datahub/keycodes";
 

@@ -2,10 +2,10 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.applications;
+package prophetstor.api.datahub.applications;
 
-import "datahub/common/queries.proto";
-import "datahub/common/rawdata.proto";
+import "prophetstor/api/datahub/common/queries.proto";
+import "prophetstor/api/datahub/common/rawdata.proto";
 
 option go_package = "prophetstor.com/api/datahub/applications";
 

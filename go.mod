@@ -5,7 +5,7 @@ go 1.15
 require (
 	cloud.google.com/go v0.46.3
 	github.com/Shopify/sarama v1.27.0
-	github.com/golang/mock v1.4.0
+	github.com/golang/mock v1.4.4
 	github.com/golang/protobuf v1.4.2
 	github.com/googleapis/gnostic v0.4.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.2
@@ -15,7 +15,7 @@ require (
 	github.com/mattn/go-colorable v0.1.2 // indirect
 	github.com/mattn/go-isatty v0.0.9 // indirect
 	github.com/onsi/ginkgo v1.14.1
-	github.com/onsi/gomega v1.10.1
+	github.com/onsi/gomega v1.10.2
 	github.com/openshift/api v0.0.0-20200720083901-0c4b3ae5f5df
 	github.com/openshift/client-go v0.0.0-20200623090625-83993cebb5ae
 	github.com/pkg/errors v0.9.1
@@ -27,11 +27,10 @@ require (
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.6.1
 	go.uber.org/zap v1.16.0
-	golang.org/x/mod v0.3.0 // indirect
-	golang.org/x/net v0.0.0-20200904194848-62affa334b73
-	golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208
-	golang.org/x/tools v0.0.0-20200616133436-c1934b75d054 // indirect
-	google.golang.org/genproto v0.0.0-20200923140941-5646d36feee1
+	golang.org/x/net v0.0.0-20201002202402-0a1ea396d57c
+	golang.org/x/sync v0.0.0-20200930132711-30421366ff76
+	golang.org/x/tools v0.0.0-20201002184944-ecd9fd270d5d // indirect
+	google.golang.org/genproto v0.0.0-20201002142447-3860012362da
 	google.golang.org/grpc v1.32.0
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/mail.v2 v2.3.1
@@ -50,5 +49,5 @@ replace (
 	k8s.io/api => k8s.io/api v0.18.9
 	k8s.io/apimachinery => k8s.io/apimachinery v0.18.9
 	k8s.io/client-go => k8s.io/client-go v0.18.9
-	prophetstor.com/api => gitlab.prophetservice.com/ProphetStor/api v0.0.0-20200925042446-63bb4a5defaf
+	prophetstor.com/api => gitlab.prophetservice.com/ProphetStor/api v0.0.0-20201004151024-213b33adac21
 )

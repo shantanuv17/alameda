@@ -1,4 +1,4 @@
-// source: datahub/recommendations/services.proto
+// source: prophetstor/api/datahub/recommendations/services.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -12,39 +12,39 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var datahub_common_queries_pb = require('../../datahub/common/queries_pb.js');
-goog.object.extend(proto, datahub_common_queries_pb);
-var datahub_recommendations_recommendations_pb = require('../../datahub/recommendations/recommendations_pb.js');
-goog.object.extend(proto, datahub_recommendations_recommendations_pb);
-var datahub_recommendations_types_pb = require('../../datahub/recommendations/types_pb.js');
-goog.object.extend(proto, datahub_recommendations_types_pb);
-var datahub_resources_metadata_pb = require('../../datahub/resources/metadata_pb.js');
-goog.object.extend(proto, datahub_resources_metadata_pb);
-var datahub_schemas_types_pb = require('../../datahub/schemas/types_pb.js');
-goog.object.extend(proto, datahub_schemas_types_pb);
-var google_rpc_status_pb = require('../../google/rpc/status_pb.js');
+var prophetstor_api_datahub_common_queries_pb = require('../../../../prophetstor/api/datahub/common/queries_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_common_queries_pb);
+var prophetstor_api_datahub_recommendations_recommendations_pb = require('../../../../prophetstor/api/datahub/recommendations/recommendations_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_recommendations_recommendations_pb);
+var prophetstor_api_datahub_recommendations_types_pb = require('../../../../prophetstor/api/datahub/recommendations/types_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_recommendations_types_pb);
+var prophetstor_api_datahub_resources_metadata_pb = require('../../../../prophetstor/api/datahub/resources/metadata_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_resources_metadata_pb);
+var prophetstor_api_datahub_schemas_types_pb = require('../../../../prophetstor/api/datahub/schemas/types_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_schemas_types_pb);
+var google_rpc_status_pb = require('../../../../google/rpc/status_pb.js');
 goog.object.extend(proto, google_rpc_status_pb);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.ListRecommendationsRequest', null, global);
-goog.exportSymbol('proto.prophetstor.datahub.recommendations.ListRecommendationsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest', null, global);
+goog.exportSymbol('proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse', null, global);
 /**
  * Generated by JsPbCodeGenerator.
  * @param {Array=} opt_data Optional initial data array, typically from a
@@ -55,16 +55,16 @@ goog.exportSymbol('proto.prophetstor.datahub.recommendations.ListRecommendations
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.displayName = 'proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest';
+  proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.displayName = 'proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -76,16 +76,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest.displayName = 'proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest';
+  proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest.displayName = 'proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -97,16 +97,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest.displayName = 'proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest';
+  proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest.displayName = 'proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -118,16 +118,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.displayName = 'proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest';
+  proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest.displayName = 'proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -139,16 +139,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.displayName = 'proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest';
+  proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest.displayName = 'proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -160,16 +160,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.displayName = 'proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest';
+  proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest.displayName = 'proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -181,16 +181,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.displayName = 'proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest';
+  proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.displayName = 'proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -202,16 +202,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.displayName = 'proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse';
+  proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.displayName = 'proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -223,16 +223,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.displayName = 'proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest';
+  proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.displayName = 'proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -244,16 +244,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.displayName = 'proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse';
+  proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.displayName = 'proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -265,16 +265,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.displayName = 'proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest';
+  proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.displayName = 'proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -286,16 +286,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.displayName = 'proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse';
+  proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.displayName = 'proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -307,16 +307,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.displayName = 'proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest';
+  proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.displayName = 'proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -328,16 +328,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.displayName = 'proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse';
+  proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.displayName = 'proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -349,16 +349,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.displayName = 'proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest';
+  proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.displayName = 'proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -370,16 +370,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.displayName = 'proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse';
+  proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.displayName = 'proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -391,16 +391,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.displayName = 'proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest';
+  proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.displayName = 'proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -412,16 +412,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.displayName = 'proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse';
+  proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.displayName = 'proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -433,16 +433,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.repeatedFields_, null);
+proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.repeatedFields_, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.displayName = 'proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest';
+  proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.displayName = 'proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -454,16 +454,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsRequest = function(opt_data) {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.ListRecommendationsRequest, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.displayName = 'proto.prophetstor.datahub.recommendations.ListRecommendationsRequest';
+  proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.displayName = 'proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -475,16 +475,16 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsResponse = function(opt_data) {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.prophetstor.datahub.recommendations.ListRecommendationsResponse, jspb.Message);
+goog.inherits(proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.displayName = 'proto.prophetstor.datahub.recommendations.ListRecommendationsResponse';
+  proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.displayName = 'proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse';
 }
 
 /**
@@ -492,7 +492,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.repeatedFields_ = [1];
 
 
 
@@ -509,8 +509,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -519,14 +519,14 @@ proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.protot
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     podRecommendationsList: jspb.Message.toObjectList(msg.getPodRecommendationsList(),
-    datahub_recommendations_recommendations_pb.PodRecommendation.toObject, includeInstance),
+    prophetstor_api_datahub_recommendations_recommendations_pb.PodRecommendation.toObject, includeInstance),
     granularity: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
@@ -541,23 +541,23 @@ proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.toObje
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest;
-  return proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest;
+  return proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -565,8 +565,8 @@ proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.deseri
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_recommendations_recommendations_pb.PodRecommendation;
-      reader.readMessage(value,datahub_recommendations_recommendations_pb.PodRecommendation.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_recommendations_recommendations_pb.PodRecommendation;
+      reader.readMessage(value,prophetstor_api_datahub_recommendations_recommendations_pb.PodRecommendation.deserializeBinaryFromReader);
       msg.addPodRecommendations(value);
       break;
     case 2:
@@ -586,9 +586,9 @@ proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.deseri
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -596,18 +596,18 @@ proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.protot
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getPodRecommendationsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_recommendations_recommendations_pb.PodRecommendation.serializeBinaryToWriter
+      prophetstor_api_datahub_recommendations_recommendations_pb.PodRecommendation.serializeBinaryToWriter
     );
   }
   f = message.getGranularity();
@@ -622,38 +622,38 @@ proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.serial
 
 /**
  * repeated PodRecommendation pod_recommendations = 1;
- * @return {!Array<!proto.prophetstor.datahub.recommendations.PodRecommendation>}
+ * @return {!Array<!proto.prophetstor.api.datahub.recommendations.PodRecommendation>}
  */
-proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.prototype.getPodRecommendationsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.recommendations.PodRecommendation>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_recommendations_recommendations_pb.PodRecommendation, 1));
+proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.prototype.getPodRecommendationsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.recommendations.PodRecommendation>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_recommendations_recommendations_pb.PodRecommendation, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.recommendations.PodRecommendation>} value
- * @return {!proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.recommendations.PodRecommendation>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.prototype.setPodRecommendationsList = function(value) {
+proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.prototype.setPodRecommendationsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.PodRecommendation=} opt_value
+ * @param {!proto.prophetstor.api.datahub.recommendations.PodRecommendation=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.recommendations.PodRecommendation}
+ * @return {!proto.prophetstor.api.datahub.recommendations.PodRecommendation}
  */
-proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.prototype.addPodRecommendations = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.recommendations.PodRecommendation, opt_index);
+proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.prototype.addPodRecommendations = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.recommendations.PodRecommendation, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.prototype.clearPodRecommendationsList = function() {
+proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.prototype.clearPodRecommendationsList = function() {
   return this.setPodRecommendationsList([]);
 };
 
@@ -662,16 +662,16 @@ proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.protot
  * optional int64 granularity = 2;
  * @return {number}
  */
-proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.recommendations.CreatePodRecommendationsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 2, value);
 };
 
@@ -682,7 +682,7 @@ proto.prophetstor.datahub.recommendations.CreatePodRecommendationsRequest.protot
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest.repeatedFields_ = [1];
 
 
 
@@ -699,8 +699,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -709,14 +709,14 @@ proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     controllerRecommendationsList: jspb.Message.toObjectList(msg.getControllerRecommendationsList(),
-    datahub_recommendations_recommendations_pb.ControllerRecommendation.toObject, includeInstance)
+    prophetstor_api_datahub_recommendations_recommendations_pb.ControllerRecommendation.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -730,23 +730,23 @@ proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest;
-  return proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest;
+  return proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -754,8 +754,8 @@ proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_recommendations_recommendations_pb.ControllerRecommendation;
-      reader.readMessage(value,datahub_recommendations_recommendations_pb.ControllerRecommendation.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_recommendations_recommendations_pb.ControllerRecommendation;
+      reader.readMessage(value,prophetstor_api_datahub_recommendations_recommendations_pb.ControllerRecommendation.deserializeBinaryFromReader);
       msg.addControllerRecommendations(value);
       break;
     default:
@@ -771,9 +771,9 @@ proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -781,18 +781,18 @@ proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getControllerRecommendationsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_recommendations_recommendations_pb.ControllerRecommendation.serializeBinaryToWriter
+      prophetstor_api_datahub_recommendations_recommendations_pb.ControllerRecommendation.serializeBinaryToWriter
     );
   }
 };
@@ -800,38 +800,38 @@ proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest
 
 /**
  * repeated ControllerRecommendation controller_recommendations = 1;
- * @return {!Array<!proto.prophetstor.datahub.recommendations.ControllerRecommendation>}
+ * @return {!Array<!proto.prophetstor.api.datahub.recommendations.ControllerRecommendation>}
  */
-proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest.prototype.getControllerRecommendationsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.recommendations.ControllerRecommendation>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_recommendations_recommendations_pb.ControllerRecommendation, 1));
+proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest.prototype.getControllerRecommendationsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.recommendations.ControllerRecommendation>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_recommendations_recommendations_pb.ControllerRecommendation, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.recommendations.ControllerRecommendation>} value
- * @return {!proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.recommendations.ControllerRecommendation>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest.prototype.setControllerRecommendationsList = function(value) {
+proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest.prototype.setControllerRecommendationsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.ControllerRecommendation=} opt_value
+ * @param {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendation=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.recommendations.ControllerRecommendation}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendation}
  */
-proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest.prototype.addControllerRecommendations = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.recommendations.ControllerRecommendation, opt_index);
+proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest.prototype.addControllerRecommendations = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.recommendations.ControllerRecommendation, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest.prototype.clearControllerRecommendationsList = function() {
+proto.prophetstor.api.datahub.recommendations.CreateControllerRecommendationsRequest.prototype.clearControllerRecommendationsList = function() {
   return this.setControllerRecommendationsList([]);
 };
 
@@ -842,7 +842,7 @@ proto.prophetstor.datahub.recommendations.CreateControllerRecommendationsRequest
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest.repeatedFields_ = [1];
 
 
 
@@ -859,8 +859,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -869,14 +869,14 @@ proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsReques
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     applicationRecommendationsList: jspb.Message.toObjectList(msg.getApplicationRecommendationsList(),
-    datahub_recommendations_recommendations_pb.ApplicationRecommendation.toObject, includeInstance)
+    prophetstor_api_datahub_recommendations_recommendations_pb.ApplicationRecommendation.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -890,23 +890,23 @@ proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsReques
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest;
-  return proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest;
+  return proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -914,8 +914,8 @@ proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsReques
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_recommendations_recommendations_pb.ApplicationRecommendation;
-      reader.readMessage(value,datahub_recommendations_recommendations_pb.ApplicationRecommendation.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_recommendations_recommendations_pb.ApplicationRecommendation;
+      reader.readMessage(value,prophetstor_api_datahub_recommendations_recommendations_pb.ApplicationRecommendation.deserializeBinaryFromReader);
       msg.addApplicationRecommendations(value);
       break;
     default:
@@ -931,9 +931,9 @@ proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsReques
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -941,18 +941,18 @@ proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsReques
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getApplicationRecommendationsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_recommendations_recommendations_pb.ApplicationRecommendation.serializeBinaryToWriter
+      prophetstor_api_datahub_recommendations_recommendations_pb.ApplicationRecommendation.serializeBinaryToWriter
     );
   }
 };
@@ -960,38 +960,38 @@ proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsReques
 
 /**
  * repeated ApplicationRecommendation application_recommendations = 1;
- * @return {!Array<!proto.prophetstor.datahub.recommendations.ApplicationRecommendation>}
+ * @return {!Array<!proto.prophetstor.api.datahub.recommendations.ApplicationRecommendation>}
  */
-proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest.prototype.getApplicationRecommendationsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.recommendations.ApplicationRecommendation>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_recommendations_recommendations_pb.ApplicationRecommendation, 1));
+proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest.prototype.getApplicationRecommendationsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.recommendations.ApplicationRecommendation>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_recommendations_recommendations_pb.ApplicationRecommendation, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.recommendations.ApplicationRecommendation>} value
- * @return {!proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.recommendations.ApplicationRecommendation>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest.prototype.setApplicationRecommendationsList = function(value) {
+proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest.prototype.setApplicationRecommendationsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.ApplicationRecommendation=} opt_value
+ * @param {!proto.prophetstor.api.datahub.recommendations.ApplicationRecommendation=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.recommendations.ApplicationRecommendation}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ApplicationRecommendation}
  */
-proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest.prototype.addApplicationRecommendations = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.recommendations.ApplicationRecommendation, opt_index);
+proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest.prototype.addApplicationRecommendations = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.recommendations.ApplicationRecommendation, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsRequest.prototype.clearApplicationRecommendationsList = function() {
+proto.prophetstor.api.datahub.recommendations.CreateApplicationRecommendationsRequest.prototype.clearApplicationRecommendationsList = function() {
   return this.setApplicationRecommendationsList([]);
 };
 
@@ -1002,7 +1002,7 @@ proto.prophetstor.datahub.recommendations.CreateApplicationRecommendationsReques
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest.repeatedFields_ = [1];
 
 
 
@@ -1019,8 +1019,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1029,14 +1029,14 @@ proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     namespaceRecommendationsList: jspb.Message.toObjectList(msg.getNamespaceRecommendationsList(),
-    datahub_recommendations_recommendations_pb.NamespaceRecommendation.toObject, includeInstance)
+    prophetstor_api_datahub_recommendations_recommendations_pb.NamespaceRecommendation.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1050,23 +1050,23 @@ proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest;
-  return proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest;
+  return proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1074,8 +1074,8 @@ proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_recommendations_recommendations_pb.NamespaceRecommendation;
-      reader.readMessage(value,datahub_recommendations_recommendations_pb.NamespaceRecommendation.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_recommendations_recommendations_pb.NamespaceRecommendation;
+      reader.readMessage(value,prophetstor_api_datahub_recommendations_recommendations_pb.NamespaceRecommendation.deserializeBinaryFromReader);
       msg.addNamespaceRecommendations(value);
       break;
     default:
@@ -1091,9 +1091,9 @@ proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1101,18 +1101,18 @@ proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getNamespaceRecommendationsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_recommendations_recommendations_pb.NamespaceRecommendation.serializeBinaryToWriter
+      prophetstor_api_datahub_recommendations_recommendations_pb.NamespaceRecommendation.serializeBinaryToWriter
     );
   }
 };
@@ -1120,38 +1120,38 @@ proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.
 
 /**
  * repeated NamespaceRecommendation namespace_recommendations = 1;
- * @return {!Array<!proto.prophetstor.datahub.recommendations.NamespaceRecommendation>}
+ * @return {!Array<!proto.prophetstor.api.datahub.recommendations.NamespaceRecommendation>}
  */
-proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.prototype.getNamespaceRecommendationsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.recommendations.NamespaceRecommendation>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_recommendations_recommendations_pb.NamespaceRecommendation, 1));
+proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest.prototype.getNamespaceRecommendationsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.recommendations.NamespaceRecommendation>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_recommendations_recommendations_pb.NamespaceRecommendation, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.recommendations.NamespaceRecommendation>} value
- * @return {!proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.recommendations.NamespaceRecommendation>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.prototype.setNamespaceRecommendationsList = function(value) {
+proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest.prototype.setNamespaceRecommendationsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.NamespaceRecommendation=} opt_value
+ * @param {!proto.prophetstor.api.datahub.recommendations.NamespaceRecommendation=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.recommendations.NamespaceRecommendation}
+ * @return {!proto.prophetstor.api.datahub.recommendations.NamespaceRecommendation}
  */
-proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.prototype.addNamespaceRecommendations = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.recommendations.NamespaceRecommendation, opt_index);
+proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest.prototype.addNamespaceRecommendations = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.recommendations.NamespaceRecommendation, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.prototype.clearNamespaceRecommendationsList = function() {
+proto.prophetstor.api.datahub.recommendations.CreateNamespaceRecommendationsRequest.prototype.clearNamespaceRecommendationsList = function() {
   return this.setNamespaceRecommendationsList([]);
 };
 
@@ -1162,7 +1162,7 @@ proto.prophetstor.datahub.recommendations.CreateNamespaceRecommendationsRequest.
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest.repeatedFields_ = [1];
 
 
 
@@ -1179,8 +1179,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1189,14 +1189,14 @@ proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.proto
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     nodeRecommendationsList: jspb.Message.toObjectList(msg.getNodeRecommendationsList(),
-    datahub_recommendations_recommendations_pb.NodeRecommendation.toObject, includeInstance)
+    prophetstor_api_datahub_recommendations_recommendations_pb.NodeRecommendation.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1210,23 +1210,23 @@ proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.toObj
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest;
-  return proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest;
+  return proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1234,8 +1234,8 @@ proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.deser
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_recommendations_recommendations_pb.NodeRecommendation;
-      reader.readMessage(value,datahub_recommendations_recommendations_pb.NodeRecommendation.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_recommendations_recommendations_pb.NodeRecommendation;
+      reader.readMessage(value,prophetstor_api_datahub_recommendations_recommendations_pb.NodeRecommendation.deserializeBinaryFromReader);
       msg.addNodeRecommendations(value);
       break;
     default:
@@ -1251,9 +1251,9 @@ proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.deser
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1261,18 +1261,18 @@ proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.proto
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getNodeRecommendationsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_recommendations_recommendations_pb.NodeRecommendation.serializeBinaryToWriter
+      prophetstor_api_datahub_recommendations_recommendations_pb.NodeRecommendation.serializeBinaryToWriter
     );
   }
 };
@@ -1280,38 +1280,38 @@ proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.seria
 
 /**
  * repeated NodeRecommendation node_recommendations = 1;
- * @return {!Array<!proto.prophetstor.datahub.recommendations.NodeRecommendation>}
+ * @return {!Array<!proto.prophetstor.api.datahub.recommendations.NodeRecommendation>}
  */
-proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.prototype.getNodeRecommendationsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.recommendations.NodeRecommendation>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_recommendations_recommendations_pb.NodeRecommendation, 1));
+proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest.prototype.getNodeRecommendationsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.recommendations.NodeRecommendation>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_recommendations_recommendations_pb.NodeRecommendation, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.recommendations.NodeRecommendation>} value
- * @return {!proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.recommendations.NodeRecommendation>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.prototype.setNodeRecommendationsList = function(value) {
+proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest.prototype.setNodeRecommendationsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.NodeRecommendation=} opt_value
+ * @param {!proto.prophetstor.api.datahub.recommendations.NodeRecommendation=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.recommendations.NodeRecommendation}
+ * @return {!proto.prophetstor.api.datahub.recommendations.NodeRecommendation}
  */
-proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.prototype.addNodeRecommendations = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.recommendations.NodeRecommendation, opt_index);
+proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest.prototype.addNodeRecommendations = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.recommendations.NodeRecommendation, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.prototype.clearNodeRecommendationsList = function() {
+proto.prophetstor.api.datahub.recommendations.CreateNodeRecommendationsRequest.prototype.clearNodeRecommendationsList = function() {
   return this.setNodeRecommendationsList([]);
 };
 
@@ -1322,7 +1322,7 @@ proto.prophetstor.datahub.recommendations.CreateNodeRecommendationsRequest.proto
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.repeatedFields_ = [1];
+proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest.repeatedFields_ = [1];
 
 
 
@@ -1339,8 +1339,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1349,14 +1349,14 @@ proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.pr
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     clusterRecommendationsList: jspb.Message.toObjectList(msg.getClusterRecommendationsList(),
-    datahub_recommendations_recommendations_pb.ClusterRecommendation.toObject, includeInstance)
+    prophetstor_api_datahub_recommendations_recommendations_pb.ClusterRecommendation.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1370,23 +1370,23 @@ proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.to
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest;
-  return proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest;
+  return proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1394,8 +1394,8 @@ proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.de
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_recommendations_recommendations_pb.ClusterRecommendation;
-      reader.readMessage(value,datahub_recommendations_recommendations_pb.ClusterRecommendation.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_recommendations_recommendations_pb.ClusterRecommendation;
+      reader.readMessage(value,prophetstor_api_datahub_recommendations_recommendations_pb.ClusterRecommendation.deserializeBinaryFromReader);
       msg.addClusterRecommendations(value);
       break;
     default:
@@ -1411,9 +1411,9 @@ proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.de
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1421,18 +1421,18 @@ proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.pr
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getClusterRecommendationsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
       f,
-      datahub_recommendations_recommendations_pb.ClusterRecommendation.serializeBinaryToWriter
+      prophetstor_api_datahub_recommendations_recommendations_pb.ClusterRecommendation.serializeBinaryToWriter
     );
   }
 };
@@ -1440,38 +1440,38 @@ proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.se
 
 /**
  * repeated ClusterRecommendation cluster_recommendations = 1;
- * @return {!Array<!proto.prophetstor.datahub.recommendations.ClusterRecommendation>}
+ * @return {!Array<!proto.prophetstor.api.datahub.recommendations.ClusterRecommendation>}
  */
-proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.prototype.getClusterRecommendationsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.recommendations.ClusterRecommendation>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_recommendations_recommendations_pb.ClusterRecommendation, 1));
+proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest.prototype.getClusterRecommendationsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.recommendations.ClusterRecommendation>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_recommendations_recommendations_pb.ClusterRecommendation, 1));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.recommendations.ClusterRecommendation>} value
- * @return {!proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.recommendations.ClusterRecommendation>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.prototype.setClusterRecommendationsList = function(value) {
+proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest.prototype.setClusterRecommendationsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.ClusterRecommendation=} opt_value
+ * @param {!proto.prophetstor.api.datahub.recommendations.ClusterRecommendation=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.recommendations.ClusterRecommendation}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ClusterRecommendation}
  */
-proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.prototype.addClusterRecommendations = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.datahub.recommendations.ClusterRecommendation, opt_index);
+proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest.prototype.addClusterRecommendations = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.prophetstor.api.datahub.recommendations.ClusterRecommendation, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.prototype.clearClusterRecommendationsList = function() {
+proto.prophetstor.api.datahub.recommendations.CreateClusterRecommendationsRequest.prototype.clearClusterRecommendationsList = function() {
   return this.setClusterRecommendationsList([]);
 };
 
@@ -1482,7 +1482,7 @@ proto.prophetstor.datahub.recommendations.CreateClusterRecommendationsRequest.pr
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.repeatedFields_ = [2];
 
 
 
@@ -1499,8 +1499,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1509,15 +1509,15 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototyp
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     kind: jspb.Message.getFieldWithDefault(msg, 3, 0),
     granularity: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
@@ -1533,23 +1533,23 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.toObject
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest;
-  return proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest;
+  return proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1557,17 +1557,17 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.deserial
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!proto.prophetstor.datahub.resources.Kind} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (reader.readEnum());
       msg.setKind(value);
       break;
     case 4:
@@ -1587,9 +1587,9 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.deserial
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1597,18 +1597,18 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototyp
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -1616,7 +1616,7 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.serializ
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getKind();
@@ -1637,29 +1637,29 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.serializ
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -1668,63 +1668,63 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototyp
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * optional prophetstor.datahub.resources.Kind kind = 3;
- * @return {!proto.prophetstor.datahub.resources.Kind}
+ * optional prophetstor.api.datahub.resources.Kind kind = 3;
+ * @return {!proto.prophetstor.api.datahub.resources.Kind}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototype.getKind = function() {
-  return /** @type {!proto.prophetstor.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.prototype.getKind = function() {
+  return /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.Kind} value
- * @return {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.resources.Kind} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototype.setKind = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.prototype.setKind = function(value) {
   return jspb.Message.setProto3EnumField(this, 3, value);
 };
 
@@ -1733,16 +1733,16 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototyp
  * optional int64 granularity = 4;
  * @return {number}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototype.getGranularity = function() {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.prototype.getGranularity = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
  * @param {number} value
- * @return {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototype.setGranularity = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsRequest.prototype.setGranularity = function(value) {
   return jspb.Message.setProto3IntField(this, 4, value);
 };
 
@@ -1753,7 +1753,7 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsRequest.prototyp
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.repeatedFields_ = [2];
 
 
 
@@ -1770,8 +1770,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -1780,15 +1780,15 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.prototy
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     podRecommendationsList: jspb.Message.toObjectList(msg.getPodRecommendationsList(),
-    datahub_recommendations_recommendations_pb.PodRecommendation.toObject, includeInstance)
+    prophetstor_api_datahub_recommendations_recommendations_pb.PodRecommendation.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1802,23 +1802,23 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.toObjec
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse;
-  return proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse;
+  return proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1831,8 +1831,8 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.deseria
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_recommendations_recommendations_pb.PodRecommendation;
-      reader.readMessage(value,datahub_recommendations_recommendations_pb.PodRecommendation.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_recommendations_recommendations_pb.PodRecommendation;
+      reader.readMessage(value,prophetstor_api_datahub_recommendations_recommendations_pb.PodRecommendation.deserializeBinaryFromReader);
       msg.addPodRecommendations(value);
       break;
     default:
@@ -1848,9 +1848,9 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.deseria
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -1858,11 +1858,11 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.prototy
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -1877,7 +1877,7 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.seriali
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_recommendations_recommendations_pb.PodRecommendation.serializeBinaryToWriter
+      prophetstor_api_datahub_recommendations_recommendations_pb.PodRecommendation.serializeBinaryToWriter
     );
   }
 };
@@ -1887,7 +1887,7 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.seriali
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -1895,18 +1895,18 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.prototy
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse} returns this
 */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse} returns this
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -1915,45 +1915,45 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.prototy
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated PodRecommendation pod_recommendations = 2;
- * @return {!Array<!proto.prophetstor.datahub.recommendations.PodRecommendation>}
+ * @return {!Array<!proto.prophetstor.api.datahub.recommendations.PodRecommendation>}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.prototype.getPodRecommendationsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.recommendations.PodRecommendation>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_recommendations_recommendations_pb.PodRecommendation, 2));
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.prototype.getPodRecommendationsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.recommendations.PodRecommendation>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_recommendations_recommendations_pb.PodRecommendation, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.recommendations.PodRecommendation>} value
- * @return {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.recommendations.PodRecommendation>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse} returns this
 */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.prototype.setPodRecommendationsList = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.prototype.setPodRecommendationsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.PodRecommendation=} opt_value
+ * @param {!proto.prophetstor.api.datahub.recommendations.PodRecommendation=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.recommendations.PodRecommendation}
+ * @return {!proto.prophetstor.api.datahub.recommendations.PodRecommendation}
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.prototype.addPodRecommendations = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.recommendations.PodRecommendation, opt_index);
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.prototype.addPodRecommendations = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.recommendations.PodRecommendation, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse} returns this
  */
-proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.prototype.clearPodRecommendationsList = function() {
+proto.prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse.prototype.clearPodRecommendationsList = function() {
   return this.setPodRecommendationsList([]);
 };
 
@@ -1964,7 +1964,7 @@ proto.prophetstor.datahub.recommendations.ListPodRecommendationsResponse.prototy
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.repeatedFields_ = [2];
 
 
 
@@ -1981,8 +1981,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1991,15 +1991,15 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.p
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     kind: jspb.Message.getFieldWithDefault(msg, 3, 0),
     recommendedType: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
@@ -2015,23 +2015,23 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.t
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest;
-  return proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest;
+  return proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2039,21 +2039,21 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.d
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!proto.prophetstor.datahub.resources.Kind} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (reader.readEnum());
       msg.setKind(value);
       break;
     case 4:
-      var value = /** @type {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType} */ (reader.readEnum());
       msg.setRecommendedType(value);
       break;
     default:
@@ -2069,9 +2069,9 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.d
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2079,18 +2079,18 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.p
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -2098,7 +2098,7 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.s
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getKind();
@@ -2119,29 +2119,29 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.s
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -2150,81 +2150,81 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.p
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * optional prophetstor.datahub.resources.Kind kind = 3;
- * @return {!proto.prophetstor.datahub.resources.Kind}
+ * optional prophetstor.api.datahub.resources.Kind kind = 3;
+ * @return {!proto.prophetstor.api.datahub.resources.Kind}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.prototype.getKind = function() {
-  return /** @type {!proto.prophetstor.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.prototype.getKind = function() {
+  return /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.Kind} value
- * @return {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.resources.Kind} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.prototype.setKind = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.prototype.setKind = function(value) {
   return jspb.Message.setProto3EnumField(this, 3, value);
 };
 
 
 /**
  * optional ControllerRecommendedType recommended_type = 4;
- * @return {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.prototype.getRecommendedType = function() {
-  return /** @type {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.prototype.getRecommendedType = function() {
+  return /** @type {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType} value
- * @return {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.prototype.setRecommendedType = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsRequest.prototype.setRecommendedType = function(value) {
   return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
@@ -2235,7 +2235,7 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsRequest.p
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.repeatedFields_ = [2];
 
 
 
@@ -2252,8 +2252,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -2262,15 +2262,15 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     controllerRecommendationsList: jspb.Message.toObjectList(msg.getControllerRecommendationsList(),
-    datahub_recommendations_recommendations_pb.ControllerRecommendation.toObject, includeInstance)
+    prophetstor_api_datahub_recommendations_recommendations_pb.ControllerRecommendation.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -2284,23 +2284,23 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse;
-  return proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse;
+  return proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2313,8 +2313,8 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_recommendations_recommendations_pb.ControllerRecommendation;
-      reader.readMessage(value,datahub_recommendations_recommendations_pb.ControllerRecommendation.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_recommendations_recommendations_pb.ControllerRecommendation;
+      reader.readMessage(value,prophetstor_api_datahub_recommendations_recommendations_pb.ControllerRecommendation.deserializeBinaryFromReader);
       msg.addControllerRecommendations(value);
       break;
     default:
@@ -2330,9 +2330,9 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2340,11 +2340,11 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -2359,7 +2359,7 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_recommendations_recommendations_pb.ControllerRecommendation.serializeBinaryToWriter
+      prophetstor_api_datahub_recommendations_recommendations_pb.ControllerRecommendation.serializeBinaryToWriter
     );
   }
 };
@@ -2369,7 +2369,7 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -2377,18 +2377,18 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse} returns this
 */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse} returns this
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -2397,45 +2397,45 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated ControllerRecommendation controller_recommendations = 2;
- * @return {!Array<!proto.prophetstor.datahub.recommendations.ControllerRecommendation>}
+ * @return {!Array<!proto.prophetstor.api.datahub.recommendations.ControllerRecommendation>}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.prototype.getControllerRecommendationsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.recommendations.ControllerRecommendation>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_recommendations_recommendations_pb.ControllerRecommendation, 2));
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.prototype.getControllerRecommendationsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.recommendations.ControllerRecommendation>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_recommendations_recommendations_pb.ControllerRecommendation, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.recommendations.ControllerRecommendation>} value
- * @return {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.recommendations.ControllerRecommendation>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse} returns this
 */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.prototype.setControllerRecommendationsList = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.prototype.setControllerRecommendationsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.ControllerRecommendation=} opt_value
+ * @param {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendation=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.recommendations.ControllerRecommendation}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendation}
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.prototype.addControllerRecommendations = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.recommendations.ControllerRecommendation, opt_index);
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.prototype.addControllerRecommendations = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.recommendations.ControllerRecommendation, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse} returns this
  */
-proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.prototype.clearControllerRecommendationsList = function() {
+proto.prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse.prototype.clearControllerRecommendationsList = function() {
   return this.setControllerRecommendationsList([]);
 };
 
@@ -2446,7 +2446,7 @@ proto.prophetstor.datahub.recommendations.ListControllerRecommendationsResponse.
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.repeatedFields_ = [2];
 
 
 
@@ -2463,8 +2463,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -2473,15 +2473,15 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     kind: jspb.Message.getFieldWithDefault(msg, 3, 0),
     recommendedType: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
@@ -2497,23 +2497,23 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest;
-  return proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest;
+  return proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2521,21 +2521,21 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!proto.prophetstor.datahub.resources.Kind} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (reader.readEnum());
       msg.setKind(value);
       break;
     case 4:
-      var value = /** @type {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType} */ (reader.readEnum());
       msg.setRecommendedType(value);
       break;
     default:
@@ -2551,9 +2551,9 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2561,18 +2561,18 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -2580,7 +2580,7 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getKind();
@@ -2601,29 +2601,29 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -2632,81 +2632,81 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * optional prophetstor.datahub.resources.Kind kind = 3;
- * @return {!proto.prophetstor.datahub.resources.Kind}
+ * optional prophetstor.api.datahub.resources.Kind kind = 3;
+ * @return {!proto.prophetstor.api.datahub.resources.Kind}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.getKind = function() {
-  return /** @type {!proto.prophetstor.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.getKind = function() {
+  return /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.Kind} value
- * @return {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.resources.Kind} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.setKind = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.setKind = function(value) {
   return jspb.Message.setProto3EnumField(this, 3, value);
 };
 
 
 /**
  * optional ControllerRecommendedType recommended_type = 4;
- * @return {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.getRecommendedType = function() {
-  return /** @type {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.getRecommendedType = function() {
+  return /** @type {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType} value
- * @return {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.setRecommendedType = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsRequest.prototype.setRecommendedType = function(value) {
   return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
@@ -2717,7 +2717,7 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsRequest.
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.repeatedFields_ = [2];
 
 
 
@@ -2734,8 +2734,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -2744,15 +2744,15 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     applicationRecommendationsList: jspb.Message.toObjectList(msg.getApplicationRecommendationsList(),
-    datahub_recommendations_recommendations_pb.ApplicationRecommendation.toObject, includeInstance)
+    prophetstor_api_datahub_recommendations_recommendations_pb.ApplicationRecommendation.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -2766,23 +2766,23 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse;
-  return proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse;
+  return proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2795,8 +2795,8 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_recommendations_recommendations_pb.ApplicationRecommendation;
-      reader.readMessage(value,datahub_recommendations_recommendations_pb.ApplicationRecommendation.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_recommendations_recommendations_pb.ApplicationRecommendation;
+      reader.readMessage(value,prophetstor_api_datahub_recommendations_recommendations_pb.ApplicationRecommendation.deserializeBinaryFromReader);
       msg.addApplicationRecommendations(value);
       break;
     default:
@@ -2812,9 +2812,9 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2822,11 +2822,11 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -2841,7 +2841,7 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_recommendations_recommendations_pb.ApplicationRecommendation.serializeBinaryToWriter
+      prophetstor_api_datahub_recommendations_recommendations_pb.ApplicationRecommendation.serializeBinaryToWriter
     );
   }
 };
@@ -2851,7 +2851,7 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -2859,18 +2859,18 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse} returns this
 */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse} returns this
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -2879,45 +2879,45 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated ApplicationRecommendation application_recommendations = 2;
- * @return {!Array<!proto.prophetstor.datahub.recommendations.ApplicationRecommendation>}
+ * @return {!Array<!proto.prophetstor.api.datahub.recommendations.ApplicationRecommendation>}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.getApplicationRecommendationsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.recommendations.ApplicationRecommendation>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_recommendations_recommendations_pb.ApplicationRecommendation, 2));
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.getApplicationRecommendationsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.recommendations.ApplicationRecommendation>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_recommendations_recommendations_pb.ApplicationRecommendation, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.recommendations.ApplicationRecommendation>} value
- * @return {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.recommendations.ApplicationRecommendation>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse} returns this
 */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.setApplicationRecommendationsList = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.setApplicationRecommendationsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.ApplicationRecommendation=} opt_value
+ * @param {!proto.prophetstor.api.datahub.recommendations.ApplicationRecommendation=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.recommendations.ApplicationRecommendation}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ApplicationRecommendation}
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.addApplicationRecommendations = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.recommendations.ApplicationRecommendation, opt_index);
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.addApplicationRecommendations = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.recommendations.ApplicationRecommendation, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse} returns this
  */
-proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.clearApplicationRecommendationsList = function() {
+proto.prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse.prototype.clearApplicationRecommendationsList = function() {
   return this.setApplicationRecommendationsList([]);
 };
 
@@ -2928,7 +2928,7 @@ proto.prophetstor.datahub.recommendations.ListApplicationRecommendationsResponse
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.repeatedFields_ = [2];
 
 
 
@@ -2945,8 +2945,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -2955,15 +2955,15 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.pr
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     kind: jspb.Message.getFieldWithDefault(msg, 3, 0),
     recommendedType: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
@@ -2979,23 +2979,23 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.to
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest;
-  return proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest;
+  return proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3003,21 +3003,21 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.de
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!proto.prophetstor.datahub.resources.Kind} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (reader.readEnum());
       msg.setKind(value);
       break;
     case 4:
-      var value = /** @type {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType} */ (reader.readEnum());
       msg.setRecommendedType(value);
       break;
     default:
@@ -3033,9 +3033,9 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.de
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3043,18 +3043,18 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.pr
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -3062,7 +3062,7 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.se
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getKind();
@@ -3083,29 +3083,29 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.se
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -3114,81 +3114,81 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.pr
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * optional prophetstor.datahub.resources.Kind kind = 3;
- * @return {!proto.prophetstor.datahub.resources.Kind}
+ * optional prophetstor.api.datahub.resources.Kind kind = 3;
+ * @return {!proto.prophetstor.api.datahub.resources.Kind}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.getKind = function() {
-  return /** @type {!proto.prophetstor.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.getKind = function() {
+  return /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.Kind} value
- * @return {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.resources.Kind} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.setKind = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.setKind = function(value) {
   return jspb.Message.setProto3EnumField(this, 3, value);
 };
 
 
 /**
  * optional ControllerRecommendedType recommended_type = 4;
- * @return {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.getRecommendedType = function() {
-  return /** @type {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.getRecommendedType = function() {
+  return /** @type {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType} value
- * @return {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.setRecommendedType = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsRequest.prototype.setRecommendedType = function(value) {
   return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
@@ -3199,7 +3199,7 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsRequest.pr
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.repeatedFields_ = [2];
 
 
 
@@ -3216,8 +3216,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -3226,15 +3226,15 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.p
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     namespaceRecommendationsList: jspb.Message.toObjectList(msg.getNamespaceRecommendationsList(),
-    datahub_recommendations_recommendations_pb.NamespaceRecommendation.toObject, includeInstance)
+    prophetstor_api_datahub_recommendations_recommendations_pb.NamespaceRecommendation.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -3248,23 +3248,23 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.t
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse;
-  return proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse;
+  return proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3277,8 +3277,8 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.d
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_recommendations_recommendations_pb.NamespaceRecommendation;
-      reader.readMessage(value,datahub_recommendations_recommendations_pb.NamespaceRecommendation.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_recommendations_recommendations_pb.NamespaceRecommendation;
+      reader.readMessage(value,prophetstor_api_datahub_recommendations_recommendations_pb.NamespaceRecommendation.deserializeBinaryFromReader);
       msg.addNamespaceRecommendations(value);
       break;
     default:
@@ -3294,9 +3294,9 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.d
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3304,11 +3304,11 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.p
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -3323,7 +3323,7 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.s
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_recommendations_recommendations_pb.NamespaceRecommendation.serializeBinaryToWriter
+      prophetstor_api_datahub_recommendations_recommendations_pb.NamespaceRecommendation.serializeBinaryToWriter
     );
   }
 };
@@ -3333,7 +3333,7 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.s
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -3341,18 +3341,18 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.p
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse} returns this
 */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse} returns this
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -3361,45 +3361,45 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.p
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated NamespaceRecommendation namespace_recommendations = 2;
- * @return {!Array<!proto.prophetstor.datahub.recommendations.NamespaceRecommendation>}
+ * @return {!Array<!proto.prophetstor.api.datahub.recommendations.NamespaceRecommendation>}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.getNamespaceRecommendationsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.recommendations.NamespaceRecommendation>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_recommendations_recommendations_pb.NamespaceRecommendation, 2));
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.getNamespaceRecommendationsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.recommendations.NamespaceRecommendation>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_recommendations_recommendations_pb.NamespaceRecommendation, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.recommendations.NamespaceRecommendation>} value
- * @return {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.recommendations.NamespaceRecommendation>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse} returns this
 */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.setNamespaceRecommendationsList = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.setNamespaceRecommendationsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.NamespaceRecommendation=} opt_value
+ * @param {!proto.prophetstor.api.datahub.recommendations.NamespaceRecommendation=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.recommendations.NamespaceRecommendation}
+ * @return {!proto.prophetstor.api.datahub.recommendations.NamespaceRecommendation}
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.addNamespaceRecommendations = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.recommendations.NamespaceRecommendation, opt_index);
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.addNamespaceRecommendations = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.recommendations.NamespaceRecommendation, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse} returns this
  */
-proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.clearNamespaceRecommendationsList = function() {
+proto.prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse.prototype.clearNamespaceRecommendationsList = function() {
   return this.setNamespaceRecommendationsList([]);
 };
 
@@ -3410,7 +3410,7 @@ proto.prophetstor.datahub.recommendations.ListNamespaceRecommendationsResponse.p
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.repeatedFields_ = [2];
 
 
 
@@ -3427,8 +3427,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -3437,15 +3437,15 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototy
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     kind: jspb.Message.getFieldWithDefault(msg, 3, 0),
     recommendedType: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
@@ -3461,23 +3461,23 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.toObjec
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest;
-  return proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest;
+  return proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3485,21 +3485,21 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.deseria
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!proto.prophetstor.datahub.resources.Kind} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (reader.readEnum());
       msg.setKind(value);
       break;
     case 4:
-      var value = /** @type {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType} */ (reader.readEnum());
       msg.setRecommendedType(value);
       break;
     default:
@@ -3515,9 +3515,9 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.deseria
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3525,18 +3525,18 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototy
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -3544,7 +3544,7 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.seriali
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getKind();
@@ -3565,29 +3565,29 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.seriali
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -3596,81 +3596,81 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototy
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * optional prophetstor.datahub.resources.Kind kind = 3;
- * @return {!proto.prophetstor.datahub.resources.Kind}
+ * optional prophetstor.api.datahub.resources.Kind kind = 3;
+ * @return {!proto.prophetstor.api.datahub.resources.Kind}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototype.getKind = function() {
-  return /** @type {!proto.prophetstor.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.prototype.getKind = function() {
+  return /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.Kind} value
- * @return {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.resources.Kind} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototype.setKind = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.prototype.setKind = function(value) {
   return jspb.Message.setProto3EnumField(this, 3, value);
 };
 
 
 /**
  * optional ControllerRecommendedType recommended_type = 4;
- * @return {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototype.getRecommendedType = function() {
-  return /** @type {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.prototype.getRecommendedType = function() {
+  return /** @type {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType} value
- * @return {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototype.setRecommendedType = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsRequest.prototype.setRecommendedType = function(value) {
   return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
@@ -3681,7 +3681,7 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsRequest.prototy
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.repeatedFields_ = [2];
 
 
 
@@ -3698,8 +3698,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -3708,15 +3708,15 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.protot
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     nodeRecommendationsList: jspb.Message.toObjectList(msg.getNodeRecommendationsList(),
-    datahub_recommendations_recommendations_pb.NodeRecommendation.toObject, includeInstance)
+    prophetstor_api_datahub_recommendations_recommendations_pb.NodeRecommendation.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -3730,23 +3730,23 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.toObje
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse;
-  return proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse;
+  return proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3759,8 +3759,8 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.deseri
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_recommendations_recommendations_pb.NodeRecommendation;
-      reader.readMessage(value,datahub_recommendations_recommendations_pb.NodeRecommendation.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_recommendations_recommendations_pb.NodeRecommendation;
+      reader.readMessage(value,prophetstor_api_datahub_recommendations_recommendations_pb.NodeRecommendation.deserializeBinaryFromReader);
       msg.addNodeRecommendations(value);
       break;
     default:
@@ -3776,9 +3776,9 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.deseri
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -3786,11 +3786,11 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.protot
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -3805,7 +3805,7 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.serial
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_recommendations_recommendations_pb.NodeRecommendation.serializeBinaryToWriter
+      prophetstor_api_datahub_recommendations_recommendations_pb.NodeRecommendation.serializeBinaryToWriter
     );
   }
 };
@@ -3815,7 +3815,7 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.serial
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -3823,18 +3823,18 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.protot
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse} returns this
 */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse} returns this
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -3843,45 +3843,45 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.protot
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated NodeRecommendation node_recommendations = 2;
- * @return {!Array<!proto.prophetstor.datahub.recommendations.NodeRecommendation>}
+ * @return {!Array<!proto.prophetstor.api.datahub.recommendations.NodeRecommendation>}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.prototype.getNodeRecommendationsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.recommendations.NodeRecommendation>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_recommendations_recommendations_pb.NodeRecommendation, 2));
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.prototype.getNodeRecommendationsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.recommendations.NodeRecommendation>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_recommendations_recommendations_pb.NodeRecommendation, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.recommendations.NodeRecommendation>} value
- * @return {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.recommendations.NodeRecommendation>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse} returns this
 */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.prototype.setNodeRecommendationsList = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.prototype.setNodeRecommendationsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.NodeRecommendation=} opt_value
+ * @param {!proto.prophetstor.api.datahub.recommendations.NodeRecommendation=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.recommendations.NodeRecommendation}
+ * @return {!proto.prophetstor.api.datahub.recommendations.NodeRecommendation}
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.prototype.addNodeRecommendations = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.recommendations.NodeRecommendation, opt_index);
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.prototype.addNodeRecommendations = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.recommendations.NodeRecommendation, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse} returns this
  */
-proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.prototype.clearNodeRecommendationsList = function() {
+proto.prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse.prototype.clearNodeRecommendationsList = function() {
   return this.setNodeRecommendationsList([]);
 };
 
@@ -3892,7 +3892,7 @@ proto.prophetstor.datahub.recommendations.ListNodeRecommendationsResponse.protot
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.repeatedFields_ = [2];
 
 
 
@@ -3909,8 +3909,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -3919,15 +3919,15 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prot
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
     objectMetaList: jspb.Message.toObjectList(msg.getObjectMetaList(),
-    datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
+    prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.toObject, includeInstance),
     kind: jspb.Message.getFieldWithDefault(msg, 3, 0),
     recommendedType: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
@@ -3943,23 +3943,23 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.toOb
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest;
-  return proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest;
+  return proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3967,21 +3967,21 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.dese
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_resources_metadata_pb.ObjectMeta;
-      reader.readMessage(value,datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_resources_metadata_pb.ObjectMeta;
+      reader.readMessage(value,prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.deserializeBinaryFromReader);
       msg.addObjectMeta(value);
       break;
     case 3:
-      var value = /** @type {!proto.prophetstor.datahub.resources.Kind} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (reader.readEnum());
       msg.setKind(value);
       break;
     case 4:
-      var value = /** @type {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType} */ (reader.readEnum());
+      var value = /** @type {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType} */ (reader.readEnum());
       msg.setRecommendedType(value);
       break;
     default:
@@ -3997,9 +3997,9 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.dese
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4007,18 +4007,18 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prot
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getObjectMetaList();
@@ -4026,7 +4026,7 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.seri
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_resources_metadata_pb.ObjectMeta.serializeBinaryToWriter
     );
   }
   f = message.getKind();
@@ -4047,29 +4047,29 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.seri
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -4078,81 +4078,81 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prot
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * repeated prophetstor.datahub.resources.ObjectMeta object_meta = 2;
- * @return {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>}
+ * repeated prophetstor.api.datahub.resources.ObjectMeta object_meta = 2;
+ * @return {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prototype.getObjectMetaList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_resources_metadata_pb.ObjectMeta, 2));
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.prototype.getObjectMetaList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_resources_metadata_pb.ObjectMeta, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.resources.ObjectMeta>} value
- * @return {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.resources.ObjectMeta>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prototype.setObjectMetaList = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.prototype.setObjectMetaList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.ObjectMeta=} opt_value
+ * @param {!proto.prophetstor.api.datahub.resources.ObjectMeta=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.resources.ObjectMeta}
+ * @return {!proto.prophetstor.api.datahub.resources.ObjectMeta}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.resources.ObjectMeta, opt_index);
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.prototype.addObjectMeta = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.resources.ObjectMeta, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prototype.clearObjectMetaList = function() {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.prototype.clearObjectMetaList = function() {
   return this.setObjectMetaList([]);
 };
 
 
 /**
- * optional prophetstor.datahub.resources.Kind kind = 3;
- * @return {!proto.prophetstor.datahub.resources.Kind}
+ * optional prophetstor.api.datahub.resources.Kind kind = 3;
+ * @return {!proto.prophetstor.api.datahub.resources.Kind}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prototype.getKind = function() {
-  return /** @type {!proto.prophetstor.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.prototype.getKind = function() {
+  return /** @type {!proto.prophetstor.api.datahub.resources.Kind} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.resources.Kind} value
- * @return {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.resources.Kind} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prototype.setKind = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.prototype.setKind = function(value) {
   return jspb.Message.setProto3EnumField(this, 3, value);
 };
 
 
 /**
  * optional ControllerRecommendedType recommended_type = 4;
- * @return {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prototype.getRecommendedType = function() {
-  return /** @type {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.prototype.getRecommendedType = function() {
+  return /** @type {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.ControllerRecommendedType} value
- * @return {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest} returns this
+ * @param {!proto.prophetstor.api.datahub.recommendations.ControllerRecommendedType} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prototype.setRecommendedType = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsRequest.prototype.setRecommendedType = function(value) {
   return jspb.Message.setProto3EnumField(this, 4, value);
 };
 
@@ -4163,7 +4163,7 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsRequest.prot
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.repeatedFields_ = [2];
 
 
 
@@ -4180,8 +4180,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -4190,15 +4190,15 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.pro
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
     clusterRecommendationsList: jspb.Message.toObjectList(msg.getClusterRecommendationsList(),
-    datahub_recommendations_recommendations_pb.ClusterRecommendation.toObject, includeInstance)
+    prophetstor_api_datahub_recommendations_recommendations_pb.ClusterRecommendation.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -4212,23 +4212,23 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.toO
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse;
-  return proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse;
+  return proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4241,8 +4241,8 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.des
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_recommendations_recommendations_pb.ClusterRecommendation;
-      reader.readMessage(value,datahub_recommendations_recommendations_pb.ClusterRecommendation.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_recommendations_recommendations_pb.ClusterRecommendation;
+      reader.readMessage(value,prophetstor_api_datahub_recommendations_recommendations_pb.ClusterRecommendation.deserializeBinaryFromReader);
       msg.addClusterRecommendations(value);
       break;
     default:
@@ -4258,9 +4258,9 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.des
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4268,11 +4268,11 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.pro
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -4287,7 +4287,7 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.ser
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_recommendations_recommendations_pb.ClusterRecommendation.serializeBinaryToWriter
+      prophetstor_api_datahub_recommendations_recommendations_pb.ClusterRecommendation.serializeBinaryToWriter
     );
   }
 };
@@ -4297,7 +4297,7 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.ser
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -4305,18 +4305,18 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.pro
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse} returns this
 */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse} returns this
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -4325,45 +4325,45 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.pro
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated ClusterRecommendation cluster_recommendations = 2;
- * @return {!Array<!proto.prophetstor.datahub.recommendations.ClusterRecommendation>}
+ * @return {!Array<!proto.prophetstor.api.datahub.recommendations.ClusterRecommendation>}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.prototype.getClusterRecommendationsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.recommendations.ClusterRecommendation>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_recommendations_recommendations_pb.ClusterRecommendation, 2));
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.prototype.getClusterRecommendationsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.recommendations.ClusterRecommendation>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_recommendations_recommendations_pb.ClusterRecommendation, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.recommendations.ClusterRecommendation>} value
- * @return {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.recommendations.ClusterRecommendation>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse} returns this
 */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.prototype.setClusterRecommendationsList = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.prototype.setClusterRecommendationsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.ClusterRecommendation=} opt_value
+ * @param {!proto.prophetstor.api.datahub.recommendations.ClusterRecommendation=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.recommendations.ClusterRecommendation}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ClusterRecommendation}
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.prototype.addClusterRecommendations = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.recommendations.ClusterRecommendation, opt_index);
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.prototype.addClusterRecommendations = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.recommendations.ClusterRecommendation, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse} returns this
  */
-proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.prototype.clearClusterRecommendationsList = function() {
+proto.prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse.prototype.clearClusterRecommendationsList = function() {
   return this.setClusterRecommendationsList([]);
 };
 
@@ -4374,7 +4374,7 @@ proto.prophetstor.datahub.recommendations.ListClusterRecommendationsResponse.pro
  * @private {!Array<number>}
  * @const
  */
-proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.repeatedFields_ = [2];
+proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.repeatedFields_ = [2];
 
 
 
@@ -4391,8 +4391,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -4401,15 +4401,15 @@ proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.prototype
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    schemaMeta: (f = msg.getSchemaMeta()) && datahub_schemas_types_pb.SchemaMeta.toObject(includeInstance, f),
+    schemaMeta: (f = msg.getSchemaMeta()) && prophetstor_api_datahub_schemas_types_pb.SchemaMeta.toObject(includeInstance, f),
     recommendationsList: jspb.Message.toObjectList(msg.getRecommendationsList(),
-    datahub_recommendations_recommendations_pb.WriteRecommendation.toObject, includeInstance)
+    prophetstor_api_datahub_recommendations_recommendations_pb.WriteRecommendation.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -4423,23 +4423,23 @@ proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.toObject 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest;
-  return proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest;
+  return proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4447,13 +4447,13 @@ proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.deseriali
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_schemas_types_pb.SchemaMeta;
-      reader.readMessage(value,datahub_schemas_types_pb.SchemaMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_schemas_types_pb.SchemaMeta;
+      reader.readMessage(value,prophetstor_api_datahub_schemas_types_pb.SchemaMeta.deserializeBinaryFromReader);
       msg.setSchemaMeta(value);
       break;
     case 2:
-      var value = new datahub_recommendations_recommendations_pb.WriteRecommendation;
-      reader.readMessage(value,datahub_recommendations_recommendations_pb.WriteRecommendation.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_recommendations_recommendations_pb.WriteRecommendation;
+      reader.readMessage(value,prophetstor_api_datahub_recommendations_recommendations_pb.WriteRecommendation.deserializeBinaryFromReader);
       msg.addRecommendations(value);
       break;
     default:
@@ -4469,9 +4469,9 @@ proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.deseriali
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4479,18 +4479,18 @@ proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.prototype
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getSchemaMeta();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_schemas_types_pb.SchemaMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_schemas_types_pb.SchemaMeta.serializeBinaryToWriter
     );
   }
   f = message.getRecommendationsList();
@@ -4498,36 +4498,36 @@ proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.serialize
     writer.writeRepeatedMessage(
       2,
       f,
-      datahub_recommendations_recommendations_pb.WriteRecommendation.serializeBinaryToWriter
+      prophetstor_api_datahub_recommendations_recommendations_pb.WriteRecommendation.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * optional prophetstor.datahub.schemas.SchemaMeta schema_meta = 1;
- * @return {?proto.prophetstor.datahub.schemas.SchemaMeta}
+ * optional prophetstor.api.datahub.schemas.SchemaMeta schema_meta = 1;
+ * @return {?proto.prophetstor.api.datahub.schemas.SchemaMeta}
  */
-proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.prototype.getSchemaMeta = function() {
-  return /** @type{?proto.prophetstor.datahub.schemas.SchemaMeta} */ (
-    jspb.Message.getWrapperField(this, datahub_schemas_types_pb.SchemaMeta, 1));
+proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.prototype.getSchemaMeta = function() {
+  return /** @type{?proto.prophetstor.api.datahub.schemas.SchemaMeta} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_schemas_types_pb.SchemaMeta, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.schemas.SchemaMeta|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.schemas.SchemaMeta|undefined} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.prototype.setSchemaMeta = function(value) {
+proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.prototype.setSchemaMeta = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.prototype.clearSchemaMeta = function() {
+proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.prototype.clearSchemaMeta = function() {
   return this.setSchemaMeta(undefined);
 };
 
@@ -4536,45 +4536,45 @@ proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.prototype
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.prototype.hasSchemaMeta = function() {
+proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.prototype.hasSchemaMeta = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * repeated WriteRecommendation recommendations = 2;
- * @return {!Array<!proto.prophetstor.datahub.recommendations.WriteRecommendation>}
+ * @return {!Array<!proto.prophetstor.api.datahub.recommendations.WriteRecommendation>}
  */
-proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.prototype.getRecommendationsList = function() {
-  return /** @type{!Array<!proto.prophetstor.datahub.recommendations.WriteRecommendation>} */ (
-    jspb.Message.getRepeatedWrapperField(this, datahub_recommendations_recommendations_pb.WriteRecommendation, 2));
+proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.prototype.getRecommendationsList = function() {
+  return /** @type{!Array<!proto.prophetstor.api.datahub.recommendations.WriteRecommendation>} */ (
+    jspb.Message.getRepeatedWrapperField(this, prophetstor_api_datahub_recommendations_recommendations_pb.WriteRecommendation, 2));
 };
 
 
 /**
- * @param {!Array<!proto.prophetstor.datahub.recommendations.WriteRecommendation>} value
- * @return {!proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest} returns this
+ * @param {!Array<!proto.prophetstor.api.datahub.recommendations.WriteRecommendation>} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.prototype.setRecommendationsList = function(value) {
+proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.prototype.setRecommendationsList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
 /**
- * @param {!proto.prophetstor.datahub.recommendations.WriteRecommendation=} opt_value
+ * @param {!proto.prophetstor.api.datahub.recommendations.WriteRecommendation=} opt_value
  * @param {number=} opt_index
- * @return {!proto.prophetstor.datahub.recommendations.WriteRecommendation}
+ * @return {!proto.prophetstor.api.datahub.recommendations.WriteRecommendation}
  */
-proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.prototype.addRecommendations = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.datahub.recommendations.WriteRecommendation, opt_index);
+proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.prototype.addRecommendations = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.prophetstor.api.datahub.recommendations.WriteRecommendation, opt_index);
 };
 
 
 /**
  * Clears the list making it empty but non-null.
- * @return {!proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.CreateRecommendationsRequest.prototype.clearRecommendationsList = function() {
+proto.prophetstor.api.datahub.recommendations.CreateRecommendationsRequest.prototype.clearRecommendationsList = function() {
   return this.setRecommendationsList([]);
 };
 
@@ -4595,8 +4595,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -4605,14 +4605,14 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.prototype.t
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.ListRecommendationsRequest} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    queryCondition: (f = msg.getQueryCondition()) && datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
-    schemaMeta: (f = msg.getSchemaMeta()) && datahub_schemas_types_pb.SchemaMeta.toObject(includeInstance, f)
+    queryCondition: (f = msg.getQueryCondition()) && prophetstor_api_datahub_common_queries_pb.QueryCondition.toObject(includeInstance, f),
+    schemaMeta: (f = msg.getSchemaMeta()) && prophetstor_api_datahub_schemas_types_pb.SchemaMeta.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -4626,23 +4626,23 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.toObject = 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.ListRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.ListRecommendationsRequest;
-  return proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest;
+  return proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.ListRecommendationsRequest} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.ListRecommendationsRequest}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest}
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4650,13 +4650,13 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.deserialize
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new datahub_common_queries_pb.QueryCondition;
-      reader.readMessage(value,datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_common_queries_pb.QueryCondition;
+      reader.readMessage(value,prophetstor_api_datahub_common_queries_pb.QueryCondition.deserializeBinaryFromReader);
       msg.setQueryCondition(value);
       break;
     case 2:
-      var value = new datahub_schemas_types_pb.SchemaMeta;
-      reader.readMessage(value,datahub_schemas_types_pb.SchemaMeta.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_schemas_types_pb.SchemaMeta;
+      reader.readMessage(value,prophetstor_api_datahub_schemas_types_pb.SchemaMeta.deserializeBinaryFromReader);
       msg.setSchemaMeta(value);
       break;
     default:
@@ -4672,9 +4672,9 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.deserialize
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4682,18 +4682,18 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.prototype.s
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.ListRecommendationsRequest} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getQueryCondition();
   if (f != null) {
     writer.writeMessage(
       1,
       f,
-      datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
+      prophetstor_api_datahub_common_queries_pb.QueryCondition.serializeBinaryToWriter
     );
   }
   f = message.getSchemaMeta();
@@ -4701,36 +4701,36 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.serializeBi
     writer.writeMessage(
       2,
       f,
-      datahub_schemas_types_pb.SchemaMeta.serializeBinaryToWriter
+      prophetstor_api_datahub_schemas_types_pb.SchemaMeta.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * optional prophetstor.datahub.common.QueryCondition query_condition = 1;
- * @return {?proto.prophetstor.datahub.common.QueryCondition}
+ * optional prophetstor.api.datahub.common.QueryCondition query_condition = 1;
+ * @return {?proto.prophetstor.api.datahub.common.QueryCondition}
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.prototype.getQueryCondition = function() {
-  return /** @type{?proto.prophetstor.datahub.common.QueryCondition} */ (
-    jspb.Message.getWrapperField(this, datahub_common_queries_pb.QueryCondition, 1));
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.prototype.getQueryCondition = function() {
+  return /** @type{?proto.prophetstor.api.datahub.common.QueryCondition} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_common_queries_pb.QueryCondition, 1));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.common.QueryCondition|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.ListRecommendationsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.common.QueryCondition|undefined} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.prototype.setQueryCondition = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.prototype.setQueryCondition = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.ListRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.prototype.clearQueryCondition = function() {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.prototype.clearQueryCondition = function() {
   return this.setQueryCondition(undefined);
 };
 
@@ -4739,35 +4739,35 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.prototype.c
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.prototype.hasQueryCondition = function() {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.prototype.hasQueryCondition = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
- * optional prophetstor.datahub.schemas.SchemaMeta schema_meta = 2;
- * @return {?proto.prophetstor.datahub.schemas.SchemaMeta}
+ * optional prophetstor.api.datahub.schemas.SchemaMeta schema_meta = 2;
+ * @return {?proto.prophetstor.api.datahub.schemas.SchemaMeta}
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.prototype.getSchemaMeta = function() {
-  return /** @type{?proto.prophetstor.datahub.schemas.SchemaMeta} */ (
-    jspb.Message.getWrapperField(this, datahub_schemas_types_pb.SchemaMeta, 2));
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.prototype.getSchemaMeta = function() {
+  return /** @type{?proto.prophetstor.api.datahub.schemas.SchemaMeta} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_schemas_types_pb.SchemaMeta, 2));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.schemas.SchemaMeta|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.ListRecommendationsRequest} returns this
+ * @param {?proto.prophetstor.api.datahub.schemas.SchemaMeta|undefined} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest} returns this
 */
-proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.prototype.setSchemaMeta = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.prototype.setSchemaMeta = function(value) {
   return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.ListRecommendationsRequest} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest} returns this
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.prototype.clearSchemaMeta = function() {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.prototype.clearSchemaMeta = function() {
   return this.setSchemaMeta(undefined);
 };
 
@@ -4776,7 +4776,7 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.prototype.c
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsRequest.prototype.hasSchemaMeta = function() {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsRequest.prototype.hasSchemaMeta = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 
@@ -4797,8 +4797,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.toObject(opt_includeInstance, this);
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -4807,14 +4807,14 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.prototype.
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.prophetstor.datahub.recommendations.ListRecommendationsResponse} msg The msg instance to transform.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.toObject = function(includeInstance, msg) {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     status: (f = msg.getStatus()) && google_rpc_status_pb.Status.toObject(includeInstance, f),
-    recommendations: (f = msg.getRecommendations()) && datahub_recommendations_types_pb.Recommendation.toObject(includeInstance, f)
+    recommendations: (f = msg.getRecommendations()) && prophetstor_api_datahub_recommendations_types_pb.Recommendation.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -4828,23 +4828,23 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.toObject =
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.prophetstor.datahub.recommendations.ListRecommendationsResponse}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse}
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.deserializeBinary = function(bytes) {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.prophetstor.datahub.recommendations.ListRecommendationsResponse;
-  return proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse;
+  return proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.prophetstor.datahub.recommendations.ListRecommendationsResponse} msg The message object to deserialize into.
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.prophetstor.datahub.recommendations.ListRecommendationsResponse}
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse}
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4857,8 +4857,8 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.deserializ
       msg.setStatus(value);
       break;
     case 2:
-      var value = new datahub_recommendations_types_pb.Recommendation;
-      reader.readMessage(value,datahub_recommendations_types_pb.Recommendation.deserializeBinaryFromReader);
+      var value = new prophetstor_api_datahub_recommendations_types_pb.Recommendation;
+      reader.readMessage(value,prophetstor_api_datahub_recommendations_types_pb.Recommendation.deserializeBinaryFromReader);
       msg.setRecommendations(value);
       break;
     default:
@@ -4874,9 +4874,9 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.deserializ
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.prototype.serializeBinary = function() {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.serializeBinaryToWriter(this, writer);
+  proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -4884,11 +4884,11 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.prototype.
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.prophetstor.datahub.recommendations.ListRecommendationsResponse} message
+ * @param {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.serializeBinaryToWriter = function(message, writer) {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getStatus();
   if (f != null) {
@@ -4903,7 +4903,7 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.serializeB
     writer.writeMessage(
       2,
       f,
-      datahub_recommendations_types_pb.Recommendation.serializeBinaryToWriter
+      prophetstor_api_datahub_recommendations_types_pb.Recommendation.serializeBinaryToWriter
     );
   }
 };
@@ -4913,7 +4913,7 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.serializeB
  * optional google.rpc.Status status = 1;
  * @return {?proto.google.rpc.Status}
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.prototype.getStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.prototype.getStatus = function() {
   return /** @type{?proto.google.rpc.Status} */ (
     jspb.Message.getWrapperField(this, google_rpc_status_pb.Status, 1));
 };
@@ -4921,18 +4921,18 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.prototype.
 
 /**
  * @param {?proto.google.rpc.Status|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.ListRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse} returns this
 */
-proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.prototype.setStatus = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.prototype.setStatus = function(value) {
   return jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.ListRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse} returns this
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.prototype.clearStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.prototype.clearStatus = function() {
   return this.setStatus(undefined);
 };
 
@@ -4941,35 +4941,35 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.prototype.
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.prototype.hasStatus = function() {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.prototype.hasStatus = function() {
   return jspb.Message.getField(this, 1) != null;
 };
 
 
 /**
  * optional Recommendation recommendations = 2;
- * @return {?proto.prophetstor.datahub.recommendations.Recommendation}
+ * @return {?proto.prophetstor.api.datahub.recommendations.Recommendation}
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.prototype.getRecommendations = function() {
-  return /** @type{?proto.prophetstor.datahub.recommendations.Recommendation} */ (
-    jspb.Message.getWrapperField(this, datahub_recommendations_types_pb.Recommendation, 2));
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.prototype.getRecommendations = function() {
+  return /** @type{?proto.prophetstor.api.datahub.recommendations.Recommendation} */ (
+    jspb.Message.getWrapperField(this, prophetstor_api_datahub_recommendations_types_pb.Recommendation, 2));
 };
 
 
 /**
- * @param {?proto.prophetstor.datahub.recommendations.Recommendation|undefined} value
- * @return {!proto.prophetstor.datahub.recommendations.ListRecommendationsResponse} returns this
+ * @param {?proto.prophetstor.api.datahub.recommendations.Recommendation|undefined} value
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse} returns this
 */
-proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.prototype.setRecommendations = function(value) {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.prototype.setRecommendations = function(value) {
   return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.prophetstor.datahub.recommendations.ListRecommendationsResponse} returns this
+ * @return {!proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse} returns this
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.prototype.clearRecommendations = function() {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.prototype.clearRecommendations = function() {
   return this.setRecommendations(undefined);
 };
 
@@ -4978,9 +4978,9 @@ proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.prototype.
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.prophetstor.datahub.recommendations.ListRecommendationsResponse.prototype.hasRecommendations = function() {
+proto.prophetstor.api.datahub.recommendations.ListRecommendationsResponse.prototype.hasRecommendations = function() {
   return jspb.Message.getField(this, 2) != null;
 };
 
 
-goog.object.extend(exports, proto.prophetstor.datahub.recommendations);
+goog.object.extend(exports, proto.prophetstor.api.datahub.recommendations);

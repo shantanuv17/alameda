@@ -2,7 +2,7 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.licenses;
+package prophetstor.api.datahub.licenses;
 
 option go_package = "prophetstor.com/api/datahub/licenses";
 

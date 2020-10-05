@@ -2,9 +2,9 @@
 
 syntax = "proto3";
 
-package prophetstor.datahub.keycodes;
+package prophetstor.api.datahub.keycodes;
 
-import "datahub/keycodes/types.proto";
+import "prophetstor/api/datahub/keycodes/types.proto";
 import "google/protobuf/timestamp.proto";
 
 option go_package = "prophetstor.com/api/datahub/keycodes";
