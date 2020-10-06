@@ -119,7 +119,17 @@ type Kafka struct {
 	HpaParameters *KafkaHPAParameters `json:"hpaParameters,omitempty"`
 }
 
+type ControllerTarget struct {
+	// generic application metadata
+	// +optional
+	Generic *Generic `json:"generic,omitempty"`
+	// kafka metadata
+	// +optional
+	Kafka *Kafka `json:"kafka,omitempty"`
+}
+
 type Controller struct {
+	ControllerTarget `json:",inline"`
 	// enable Federator.ai autoscaling execution.
 	// This flag is to control the execution by Federator.ai executor.
 	// It is usable only if the application and Federator.ai are running in the same cluster.
@@ -131,12 +141,6 @@ type Controller struct {
 	Type TargetType `json:"type"`
 	// scaling methods (hpa, predictionOnly)
 	Scaling ScalingType `json:"scaling"`
-	// generic application metadata
-	// +optional
-	Generic *Generic `json:"generic,omitempty"`
-	// kafka metadata
-	// +optional
-	Kafka *Kafka `json:"kafka,omitempty"`
 }
 
 // AlamedaScalerSpec defines the desired state of AlamedaScaler
