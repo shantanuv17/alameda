@@ -4,13 +4,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"strconv"
 	"strings"
 	"time"
 
-	"github.com/spf13/viper"
 	Corev1 "k8s.io/api/core/v1"
 	K8SErrors "k8s.io/apimachinery/pkg/api/errors"
+	notifyingv1alpha1 "prophetstor.com/alameda/notifier/api/v1alpha1"
 	datahub_events "prophetstor.com/api/datahub/events"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -46,16 +45,16 @@ func RemoveEmptyStr(strList []string) []string {
 
 func EventEmailSubject(evt *datahub_events.Event) string {
 	msg := evt.GetMessage()
-	levelMap := viper.GetStringMap("eventLevel")
+	levelMap := notifyingv1alpha1.LevelTypeName
 	level := evt.GetLevel()
 	return fmt.Sprintf("Federator.ai Notification: %s - %s",
-		strings.Title(levelMap[strconv.FormatInt(int64(level), 10)].(string)), msg)
+		strings.Title(string(levelMap[int32(level)])), msg)
 }
 
 func EventHTMLMsg(evt *datahub_events.Event, clusterInfo *ClusterInfo) string {
 	var cInfo *ClusterInfo
-	levelMap := viper.GetStringMap("eventLevel")
-	eventMap := viper.GetStringMap("eventType")
+	levelMap := notifyingv1alpha1.LevelTypeName
+	eventMap := notifyingv1alpha1.TopicTypeName
 	evtClusterId := evt.GetClusterId()
 	cInfoUnknown := ClusterInfo{UID: evtClusterId}
 	if evtClusterId == clusterInfo.UID {
@@ -84,8 +83,8 @@ func EventHTMLMsg(evt *datahub_events.Event, clusterInfo *ClusterInfo) string {
 	</html>
 	`, cInfo.UID, cInfo.MasterNodeHostname, cInfo.MasterNodeIP,
 		time.Unix(evt.Time.GetSeconds(), 0).Format(time.RFC3339),
-		strings.Title(levelMap[strconv.FormatInt(int64(evt.Level), 10)].(string)), evt.Message,
-		eventMap[strconv.FormatInt(int64(evt.Type), 10)].(string), evt.Subject.Name,
+		strings.Title(string(levelMap[int32(evt.Level)])), evt.Message,
+		eventMap[int32(evt.Type)], evt.Subject.Name,
 		evt.Subject.Kind, evt.Subject.Namespace)
 }
 

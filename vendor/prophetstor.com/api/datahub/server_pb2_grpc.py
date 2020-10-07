@@ -5,6 +5,7 @@ import grpc
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from google.rpc import status_pb2 as google_dot_rpc_dot_status__pb2
 from prophetstor.api.datahub.applications import services_pb2 as prophetstor_dot_api_dot_datahub_dot_applications_dot_services__pb2
+from prophetstor.api.datahub.configs import services_pb2 as prophetstor_dot_api_dot_datahub_dot_configs_dot_services__pb2
 from prophetstor.api.datahub.data import services_pb2 as prophetstor_dot_api_dot_datahub_dot_data_dot_services__pb2
 from prophetstor.api.datahub.events import services_pb2 as prophetstor_dot_api_dot_datahub_dot_events_dot_services__pb2
 from prophetstor.api.datahub.gpu import services_pb2 as prophetstor_dot_api_dot_datahub_dot_gpu_dot_services__pb2
@@ -580,6 +581,21 @@ class DatahubServiceStub(object):
                 '/prophetstor.api.datahub.DatahubService/GetWeaveScopeContainerDetails',
                 request_serializer=prophetstor_dot_api_dot_datahub_dot_weavescope_dot_services__pb2.ListWeaveScopeContainersRequest.SerializeToString,
                 response_deserializer=prophetstor_dot_api_dot_datahub_dot_weavescope_dot_services__pb2.WeaveScopeResponse.FromString,
+                )
+        self.CreateConfigs = channel.unary_unary(
+                '/prophetstor.api.datahub.DatahubService/CreateConfigs',
+                request_serializer=prophetstor_dot_api_dot_datahub_dot_configs_dot_services__pb2.CreateConfigsRequest.SerializeToString,
+                response_deserializer=google_dot_rpc_dot_status__pb2.Status.FromString,
+                )
+        self.ListConfigs = channel.unary_unary(
+                '/prophetstor.api.datahub.DatahubService/ListConfigs',
+                request_serializer=prophetstor_dot_api_dot_datahub_dot_configs_dot_services__pb2.ListConfigsRequest.SerializeToString,
+                response_deserializer=prophetstor_dot_api_dot_datahub_dot_configs_dot_services__pb2.ListConfigsResponse.FromString,
+                )
+        self.DeleteConfigs = channel.unary_unary(
+                '/prophetstor.api.datahub.DatahubService/DeleteConfigs',
+                request_serializer=prophetstor_dot_api_dot_datahub_dot_configs_dot_services__pb2.DeleteConfigsRequest.SerializeToString,
+                response_deserializer=google_dot_rpc_dot_status__pb2.Status.FromString,
                 )
 
 
@@ -1318,6 +1334,25 @@ class DatahubServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CreateConfigs(self, request, context):
+        """config scope -------------------------------------------------
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListConfigs(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteConfigs(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_DatahubServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -1870,6 +1905,21 @@ def add_DatahubServiceServicer_to_server(servicer, server):
                     servicer.GetWeaveScopeContainerDetails,
                     request_deserializer=prophetstor_dot_api_dot_datahub_dot_weavescope_dot_services__pb2.ListWeaveScopeContainersRequest.FromString,
                     response_serializer=prophetstor_dot_api_dot_datahub_dot_weavescope_dot_services__pb2.WeaveScopeResponse.SerializeToString,
+            ),
+            'CreateConfigs': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateConfigs,
+                    request_deserializer=prophetstor_dot_api_dot_datahub_dot_configs_dot_services__pb2.CreateConfigsRequest.FromString,
+                    response_serializer=google_dot_rpc_dot_status__pb2.Status.SerializeToString,
+            ),
+            'ListConfigs': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListConfigs,
+                    request_deserializer=prophetstor_dot_api_dot_datahub_dot_configs_dot_services__pb2.ListConfigsRequest.FromString,
+                    response_serializer=prophetstor_dot_api_dot_datahub_dot_configs_dot_services__pb2.ListConfigsResponse.SerializeToString,
+            ),
+            'DeleteConfigs': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteConfigs,
+                    request_deserializer=prophetstor_dot_api_dot_datahub_dot_configs_dot_services__pb2.DeleteConfigsRequest.FromString,
+                    response_serializer=google_dot_rpc_dot_status__pb2.Status.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -3749,5 +3799,56 @@ class DatahubService(object):
         return grpc.experimental.unary_unary(request, target, '/prophetstor.api.datahub.DatahubService/GetWeaveScopeContainerDetails',
             prophetstor_dot_api_dot_datahub_dot_weavescope_dot_services__pb2.ListWeaveScopeContainersRequest.SerializeToString,
             prophetstor_dot_api_dot_datahub_dot_weavescope_dot_services__pb2.WeaveScopeResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CreateConfigs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prophetstor.api.datahub.DatahubService/CreateConfigs',
+            prophetstor_dot_api_dot_datahub_dot_configs_dot_services__pb2.CreateConfigsRequest.SerializeToString,
+            google_dot_rpc_dot_status__pb2.Status.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ListConfigs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prophetstor.api.datahub.DatahubService/ListConfigs',
+            prophetstor_dot_api_dot_datahub_dot_configs_dot_services__pb2.ListConfigsRequest.SerializeToString,
+            prophetstor_dot_api_dot_datahub_dot_configs_dot_services__pb2.ListConfigsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DeleteConfigs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/prophetstor.api.datahub.DatahubService/DeleteConfigs',
+            prophetstor_dot_api_dot_datahub_dot_configs_dot_services__pb2.DeleteConfigsRequest.SerializeToString,
+            google_dot_rpc_dot_status__pb2.Status.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

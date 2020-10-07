@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package prophetstor.api.datahub.configs;
+
+import "prophetstor/api/datahub/resources/metadata.proto";
+import "google/protobuf/wrappers.proto";
+
+option go_package = "prophetstor.com/api/datahub/configs";
+
+enum MetricType {
+    METRIC_TYPE_UNDEFINED = 0;
+    CPU                   = 1;
+    MEMORY                = 2;
+}
+
+enum Match {
+    MATCH_UNDEFINED = 0;
+    EXACT           = 1;
+    PREFIX          = 2;
+    SUFFIX          = 3;
+}
+
+enum DetectionMode {    
+    DETECTION_MODE_UNDEFINED = 0;
+    REALTIME                 = 1;
+    FORECAST                 = 2;
+}
+
+enum ResourceType {
+    RESOURCE_TYPE_UNDEFINED = 0;
+    APPLICATION             = 1;
+    POD                     = 2;
+    NODE                    = 3;
+    NAMESPACE               = 4;
+    CLUSTER                 = 5;
+    CONTROLLER              = 6;
+    GPU                     = 7;
+}
+
+message Threshold {
+    MetricType                  metric_type = 1;
+    google.protobuf.StringValue overrun     = 2;
+    google.protobuf.StringValue underrun    = 3;
+}
+
+message Selector {
+    string cluster_name = 1;
+    string name         = 2;
+    string namespace    = 3;
+    Match  match        = 4;
+}
+
+message StandardResource {
+    string        name           = 1;
+    ResourceType  resource_type  = 2;
+    Selector      selector       = 3;
+    string        inherited_rule = 4;
+    DetectionMode detection_ode  = 5;
+}
+
+message StandardRule {
+    string             name       = 1;
+    repeated Threshold thresholds = 2;
+}
+
+message WorkloadThreshold {
+    repeated StandardResource standard_resource = 1;
+    repeated StandardRule     standard_rules    = 2;
+}
+
+message Detection {
+    resources.ObjectMeta object_meta        = 1;
+    WorkloadThreshold    workload_threshold = 2;
+}

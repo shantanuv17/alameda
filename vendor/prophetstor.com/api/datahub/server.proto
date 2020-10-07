@@ -19,6 +19,7 @@ import "prophetstor/api/datahub/resources/services.proto";
 import "prophetstor/api/datahub/schemas/services.proto";
 import "prophetstor/api/datahub/scores/services.proto";
 import "prophetstor/api/datahub/weavescope/services.proto";
+import "prophetstor/api/datahub/configs/services.proto";
 import "google/protobuf/empty.proto";
 import "google/rpc/status.proto";
 
@@ -426,4 +427,14 @@ service DatahubService {
 
     rpc GetWeaveScopeContainerDetails(weavescope.ListWeaveScopeContainersRequest)
         returns (weavescope.WeaveScopeResponse){}
+
+    // config scope -------------------------------------------------
+    rpc CreateConfigs(configs.CreateConfigsRequest)
+        returns (google.rpc.Status){}
+
+    rpc ListConfigs(configs.ListConfigsRequest)
+        returns (configs.ListConfigsResponse){}
+
+    rpc DeleteConfigs(configs.DeleteConfigsRequest)
+        returns (google.rpc.Status){}        
 }

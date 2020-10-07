@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package prophetstor.api.datahub.configs;
+
+import "prophetstor/api/datahub/resources/metadata.proto";
+import "google/protobuf/wrappers.proto";
+
+option go_package = "prophetstor.com/api/datahub/configs";
+
+enum ScalingType {
+    SCALING_TYPE_UNDEFINED = 0;
+    PREDICT_ONLY           = 1;
+    HPA                    = 2;
+}
+
+enum TargetType {
+    TARGET_TYPE_UNDEFINED = 0;
+    GENERIC               = 1;
+    KAFKA                 = 2;
+}
+
+enum ControllerKind {
+    CONTROLLER_KIND_UNDEFINED = 0;
+    DEPLOYMENT                = 1;
+    STATEFULSET               = 2;
+    DEPLOYMENTCONFIG          = 3;
+}
+
+message HPAParameters {
+    google.protobuf.Int32Value min_replicas = 1;
+    int32                      max_replicas = 2;
+}
+
+message GenericHPAParameters {
+    HPAParameters hpa_parameter = 1;
+}
+
+message KafkaHPAParameters {
+    HPAParameters hpa_parameter = 1;
+}
+
+message Target {	
+    string         namespace       = 1;
+    string         name            = 2;	
+    ControllerKind controller_kind = 3;
+}
+
+message GenericController {
+    Target               target         = 1;
+    GenericHPAParameters hpa_parameters = 2;
+}
+
+message ConsumerGroup {
+    string                      namespace       = 1;	
+    string                      name            = 2;	
+    ControllerKind              controller_kind = 3;
+    string                      topic           = 4;
+    google.protobuf.StringValue group_id        = 5;
+}
+
+message KafkaController {
+    ConsumerGroup      consumer_group     = 1;
+    string             exporter_namespace = 2;
+    KafkaHPAParameters hpa_parameters     = 3;
+}
+
+message Controller {
+    google.protobuf.BoolValue enable_execution = 1;
+    TargetType                target_type      = 2;
+    ScalingType               scaling_type     = 3;
+    oneof target_type_controller {
+        GenericController generic_controller = 4;
+        KafkaController   kafka_controller   = 5;
+    }
+}
+
+message Scaler {
+    resources.ObjectMeta object_meta         = 1;
+    string               target_cluster_name = 2;
+    repeated Controller  controllers         = 3;
+}

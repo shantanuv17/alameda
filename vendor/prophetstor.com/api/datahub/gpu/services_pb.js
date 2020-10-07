@@ -18,7 +18,7 @@ var prophetstor_api_datahub_common_queries_pb = require('../../../../prophetstor
 goog.object.extend(proto, prophetstor_api_datahub_common_queries_pb);
 var prophetstor_api_datahub_gpu_gpu_pb = require('../../../../prophetstor/api/datahub/gpu/gpu_pb.js');
 goog.object.extend(proto, prophetstor_api_datahub_gpu_gpu_pb);
-var google_rpc_status_pb = require('../../../../google/rpc/status_pb.js');
+var google_rpc_status_pb = require('../../../../prophetstor/api/google/rpc/status_pb.js');
 goog.object.extend(proto, google_rpc_status_pb);
 goog.exportSymbol('proto.prophetstor.api.datahub.gpu.CreateGpuPredictionsRequest', null, global);
 goog.exportSymbol('proto.prophetstor.api.datahub.gpu.ListGpuMetricsRequest', null, global);

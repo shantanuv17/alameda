@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package prophetstor.api.datahub.configs;
+
+import "prophetstor/api/datahub/resources/metadata.proto";
+
+option go_package = "prophetstor.com/api/datahub/configs";
+
+message Keycode {
+    string code_number    = 1;	
+    string signature_data = 2;
+}
+
+message Service {
+    resources.ObjectMeta object_meta = 1;
+    Keycode              keycode     = 2;
+}

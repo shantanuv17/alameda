@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package prophetstor.api.datahub.configs;
+
+import "prophetstor/api/datahub/configs/scaler.proto";
+import "prophetstor/api/datahub/configs/organization.proto";
+import "prophetstor/api/datahub/configs/detection.proto";
+import "prophetstor/api/datahub/configs/service.proto";
+import "prophetstor/api/datahub/configs/notification_topic.proto";
+import "prophetstor/api/datahub/configs/notification_channel.proto";
+
+option go_package = "prophetstor.com/api/datahub/configs";
+
+message Config {
+    oneof kind {
+        Scaler              scaler_config               = 1;
+        Organization        organization_config         = 2;
+        Detection           detection_config            = 3;
+        Service             service_config              = 4;
+        NotificationChannel notification_channel_config = 5;
+        NotificationTopic   notification_topic_config   = 6;
+    }
+}

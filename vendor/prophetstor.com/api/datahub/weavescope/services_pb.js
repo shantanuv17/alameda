@@ -12,7 +12,7 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var google_rpc_status_pb = require('../../../../google/rpc/status_pb.js');
+var google_rpc_status_pb = require('../../../../prophetstor/api/google/rpc/status_pb.js');
 goog.object.extend(proto, google_rpc_status_pb);
 goog.exportSymbol('proto.prophetstor.api.datahub.weavescope.ListWeaveScopeContainersRequest', null, global);
 goog.exportSymbol('proto.prophetstor.api.datahub.weavescope.ListWeaveScopeHostsRequest', null, global);

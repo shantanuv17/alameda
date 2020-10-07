@@ -24,7 +24,7 @@ var prophetstor_api_datahub_resources_metadata_pb = require('../../../../prophet
 goog.object.extend(proto, prophetstor_api_datahub_resources_metadata_pb);
 var prophetstor_api_datahub_schemas_types_pb = require('../../../../prophetstor/api/datahub/schemas/types_pb.js');
 goog.object.extend(proto, prophetstor_api_datahub_schemas_types_pb);
-var google_rpc_status_pb = require('../../../../google/rpc/status_pb.js');
+var google_rpc_status_pb = require('../../../../prophetstor/api/google/rpc/status_pb.js');
 goog.object.extend(proto, google_rpc_status_pb);
 goog.exportSymbol('proto.prophetstor.api.datahub.plannings.CreateApplicationPlanningsRequest', null, global);
 goog.exportSymbol('proto.prophetstor.api.datahub.plannings.CreateClusterPlanningsRequest', null, global);

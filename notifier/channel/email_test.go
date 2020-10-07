@@ -37,13 +37,15 @@ func Test_SendEmailBySMTP(t *testing.T) {
 				notificationChannel: &notifyingv1alpha1.AlamedaNotificationChannel{
 					Spec: notifyingv1alpha1.AlamedaNotificationChannelSpec{
 						Type: "email",
-						Email: notifyingv1alpha1.AlamedaEmail{
-							Server:     "172.31.1.1",
-							Port:       465,
-							From:       "",
-							Username:   b64.StdEncoding.EncodeToString([]byte("")),
-							Password:   b64.StdEncoding.EncodeToString([]byte("")),
-							Encryption: "tls",
+						Channel: notifyingv1alpha1.Channel{
+							Email: &notifyingv1alpha1.AlamedaEmail{
+								Server:     "172.31.1.1",
+								Port:       465,
+								From:       "",
+								Username:   b64.StdEncoding.EncodeToString([]byte("")),
+								Password:   b64.StdEncoding.EncodeToString([]byte("")),
+								Encryption: "tls",
+							},
 						},
 					},
 				},
@@ -80,13 +82,15 @@ func Test_SendEmailBySMTP(t *testing.T) {
 				notificationChannel: &notifyingv1alpha1.AlamedaNotificationChannel{
 					Spec: notifyingv1alpha1.AlamedaNotificationChannelSpec{
 						Type: "email",
-						Email: notifyingv1alpha1.AlamedaEmail{
-							Server:     "smtp.office365.com",
-							Port:       587,
-							From:       "",
-							Username:   b64.StdEncoding.EncodeToString([]byte("")),
-							Password:   b64.StdEncoding.EncodeToString([]byte("")),
-							Encryption: "starttls",
+						Channel: notifyingv1alpha1.Channel{
+							Email: &notifyingv1alpha1.AlamedaEmail{
+								Server:     "smtp.office365.com",
+								Port:       587,
+								From:       "",
+								Username:   b64.StdEncoding.EncodeToString([]byte("")),
+								Password:   b64.StdEncoding.EncodeToString([]byte("")),
+								Encryption: "starttls",
+							},
 						},
 					},
 				},

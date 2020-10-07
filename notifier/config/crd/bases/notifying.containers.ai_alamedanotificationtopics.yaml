@@ -58,6 +58,12 @@ spec:
                 properties:
                   level:
                     items:
+                      enum:
+                      - debug
+                      - info
+                      - warning
+                      - error
+                      - fatal
                       type: string
                     type: array
                   source:
@@ -84,6 +90,27 @@ spec:
                     type: array
                   type:
                     items:
+                      enum:
+                      - AlamedaScalerCreate
+                      - AlamedaScalerDelete
+                      - NodeRegister
+                      - DeploymentRegister
+                      - DeploymentConfigRegister
+                      - PodRegister
+                      - NodeDeregister
+                      - DeploymentDeregister
+                      - DeploymentConfigDeregister
+                      - PodDeregister
+                      - NodePredictionCreate
+                      - PodPredictionCreate
+                      - HPARecommendationCreate
+                      - HPARecommendationExecute
+                      - AnomalyMetricDetect
+                      - AnomalyAnalysisCreate
+                      - License
+                      - EmailNotification
+                      - AnomalyForecastDetect
+                      - AnomalyRealtimeDetect
                       type: string
                     type: array
                 type: object
@@ -107,6 +134,8 @@ spec:
                   time:
                     type: string
                   type:
+                    enum:
+                    - email
                     type: string
                 required:
                 - name

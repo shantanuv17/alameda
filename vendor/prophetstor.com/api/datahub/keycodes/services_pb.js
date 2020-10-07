@@ -14,7 +14,7 @@ var global = Function('return this')();
 
 var prophetstor_api_datahub_keycodes_keycodes_pb = require('../../../../prophetstor/api/datahub/keycodes/keycodes_pb.js');
 goog.object.extend(proto, prophetstor_api_datahub_keycodes_keycodes_pb);
-var google_rpc_status_pb = require('../../../../google/rpc/status_pb.js');
+var google_rpc_status_pb = require('../../../../prophetstor/api/google/rpc/status_pb.js');
 goog.object.extend(proto, google_rpc_status_pb);
 goog.exportSymbol('proto.prophetstor.api.datahub.keycodes.ActivateRegistrationDataRequest', null, global);
 goog.exportSymbol('proto.prophetstor.api.datahub.keycodes.AddKeycodeRequest', null, global);

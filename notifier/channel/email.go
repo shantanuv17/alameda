@@ -118,10 +118,10 @@ func getMailMessage(subject string, from string, recipients []string,
 	mailMsg := mail.NewMessage()
 	mailMsg.SetHeaders(
 		map[string][]string{
-			"From":    []string{from},
+			"From":    {from},
 			"To":      recipients,
 			"Cc":      ccs,
-			"Subject": []string{subject},
+			"Subject": {subject},
 		})
 	mailMsg.SetBody("text/html", msgHTML)
 	for _, filePath := range attachments {

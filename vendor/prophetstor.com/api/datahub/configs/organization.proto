@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package prophetstor.api.datahub.configs;
+
+import "prophetstor/api/datahub/resources/metadata.proto";
+
+option go_package = "prophetstor.com/api/datahub/configs";
+
+enum LogicOperator {
+    LOGIC_OPERATOR_UNDEFINED = 0;
+    INCLUDE                  = 1;
+    EXCLUDE                  = 2;
+}
+
+enum DataSourceType {
+    DATA_SOURCETYPE_UNDEFINED = 0;
+    DATADOG                   = 1;
+    PROMETHEUS                = 2;
+}
+
+enum FeatureType {
+    FEATURE_TYPE_UNDEFINED = 0;
+    RESOURCE_PLANNING      = 1;
+    COST_ANALYSIS          = 2;
+}
+
+enum FeatureMode {
+    FEATURE_MODE_UNDEFINED = 0;
+    UPLOAD_RESULT          = 1;
+    LOCAL_ONLY             = 2;
+}
+
+message WatchedNamespace {
+    repeated string names    = 1;
+    LogicOperator   operator = 2;
+}
+
+message Key {
+    string key = 1;
+}
+
+message FeatureMeta {
+    bool        enabled = 1;
+    FeatureMode mode    = 2;
+}
+
+message ResourcePlanningFeature {
+    FeatureMeta feature_meta = 1;
+}
+
+message CostAnalysisFeature {
+    FeatureMeta feature_meta = 1;
+}
+
+message DataSource {
+    DataSourceType type    = 1;	
+    repeated Key   keys    = 2;
+    string         account = 3;
+    string         address = 4;
+}
+
+message Feature {
+    FeatureType type = 1;
+    oneof type_feature {
+        ResourcePlanningFeature resource_planning_feature = 2;
+        CostAnalysisFeature     cost_analysis_feature     = 3;
+    }
+}
+
+message Cluster {
+    string           name              = 1;
+    DataSource       data_source       = 2;
+    WatchedNamespace watched_namespace = 3;
+    repeated Feature features          = 4;
+}
+
+message Organization {
+    resources.ObjectMeta object_meta       = 1;
+    string               tenant            = 2;
+    repeated Feature     features          = 3;
+    DataSource           data_source       = 4;
+    WatchedNamespace     watched_namespace = 5;
+}

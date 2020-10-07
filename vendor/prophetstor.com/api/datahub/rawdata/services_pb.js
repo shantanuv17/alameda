@@ -18,7 +18,7 @@ var prophetstor_api_datahub_rawdata_rawdata_pb = require('../../../../prophetsto
 goog.object.extend(proto, prophetstor_api_datahub_rawdata_rawdata_pb);
 var prophetstor_api_datahub_rawdata_types_pb = require('../../../../prophetstor/api/datahub/rawdata/types_pb.js');
 goog.object.extend(proto, prophetstor_api_datahub_rawdata_types_pb);
-var google_rpc_status_pb = require('../../../../google/rpc/status_pb.js');
+var google_rpc_status_pb = require('../../../../prophetstor/api/google/rpc/status_pb.js');
 goog.object.extend(proto, google_rpc_status_pb);
 goog.exportSymbol('proto.prophetstor.api.datahub.rawdata.ReadRawdataRequest', null, global);
 goog.exportSymbol('proto.prophetstor.api.datahub.rawdata.ReadRawdataResponse', null, global);

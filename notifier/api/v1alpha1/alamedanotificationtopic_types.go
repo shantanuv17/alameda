@@ -20,6 +20,146 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+// +kubebuilder:validation:Enum=AlamedaScalerCreate;AlamedaScalerDelete;NodeRegister;DeploymentRegister;DeploymentConfigRegister;PodRegister;NodeDeregister;DeploymentDeregister;DeploymentConfigDeregister;PodDeregister;NodePredictionCreate;PodPredictionCreate;HPARecommendationCreate;HPARecommendationExecute;AnomalyMetricDetect;AnomalyAnalysisCreate;License;EmailNotification;AnomalyForecastDetect;AnomalyRealtimeDetect
+type TopicType string
+
+const (
+	ScalerCreateTopicType               TopicType = "AlamedaScalerCreate"
+	ScalerDeleteTopicType               TopicType = "AlamedaScalerDelete"
+	NodeRegisterTopicType               TopicType = "NodeRegister"
+	DeploymentRegisterTopicType         TopicType = "DeploymentRegister"
+	DeploymentConfigRegisterTopicType   TopicType = "DeploymentConfigRegister"
+	PodRegisterTopicType                TopicType = "PodRegister"
+	NodeDeregisterTopicType             TopicType = "NodeDeregister"
+	DeploymentDeregisterTopicType       TopicType = "DeploymentDeregister"
+	DeploymentConfigDeregisterTopicType TopicType = "DeploymentConfigDeregister"
+	PodDeregisterTopicType              TopicType = "PodDeregister"
+	NodePredictionCreateTopicType       TopicType = "NodePredictionCreate"
+	PodPredictionCreateTopicType        TopicType = "PodPredictionCreate"
+	VPARecommendationCreateTopicType    TopicType = "VPARecommendationCreate"
+	HPARecommendationCreateTopicType    TopicType = "HPARecommendationCreate"
+	VPARecommendationExecuteTopicType   TopicType = "VPARecommendationExecute"
+	HPARecommendationExecuteTopicType   TopicType = "HPARecommendationExecute"
+	AnomalyMetricDetectTopicType        TopicType = "AnomalyMetricDetect"
+	AnomalyAnalysisCreateTopicType      TopicType = "AnomalyAnalysisCreate"
+	LicenseTopicType                    TopicType = "License"
+	EmailNotificationTopicType          TopicType = "EmailNotification"
+	AnomalyForecastDetectTopicType      TopicType = "AnomalyForecastDetect"
+	AnomalyRealtimeDetectTopicType      TopicType = "AnomalyRealtimeDetect"
+)
+
+var (
+	TopicTypes = []TopicType{
+		ScalerCreateTopicType,
+		ScalerDeleteTopicType,
+		NodeRegisterTopicType,
+		DeploymentRegisterTopicType,
+		DeploymentConfigRegisterTopicType,
+		PodRegisterTopicType,
+		NodeDeregisterTopicType,
+		DeploymentDeregisterTopicType,
+		DeploymentConfigDeregisterTopicType,
+		PodDeregisterTopicType,
+		NodePredictionCreateTopicType,
+		PodPredictionCreateTopicType,
+		VPARecommendationCreateTopicType,
+		HPARecommendationCreateTopicType,
+		VPARecommendationExecuteTopicType,
+		HPARecommendationExecuteTopicType,
+		AnomalyMetricDetectTopicType,
+		AnomalyAnalysisCreateTopicType,
+		LicenseTopicType,
+		EmailNotificationTopicType,
+		AnomalyForecastDetectTopicType,
+		AnomalyRealtimeDetectTopicType,
+	}
+	// datahub event type mapping
+	TopicTypeName = map[int32]TopicType{
+		1:  ScalerCreateTopicType,
+		2:  ScalerDeleteTopicType,
+		3:  NodeRegisterTopicType,
+		4:  DeploymentRegisterTopicType,
+		5:  DeploymentConfigRegisterTopicType,
+		6:  PodRegisterTopicType,
+		7:  NodeDeregisterTopicType,
+		8:  DeploymentDeregisterTopicType,
+		9:  DeploymentConfigDeregisterTopicType,
+		10: PodDeregisterTopicType,
+		11: NodePredictionCreateTopicType,
+		12: PodPredictionCreateTopicType,
+		13: VPARecommendationCreateTopicType,
+		14: HPARecommendationCreateTopicType,
+		15: VPARecommendationExecuteTopicType,
+		16: HPARecommendationExecuteTopicType,
+		17: AnomalyMetricDetectTopicType,
+		18: AnomalyAnalysisCreateTopicType,
+		19: LicenseTopicType,
+		20: EmailNotificationTopicType,
+		21: AnomalyForecastDetectTopicType,
+		22: AnomalyRealtimeDetectTopicType,
+	}
+	TopicTypeValue = map[TopicType]int32{
+		ScalerCreateTopicType:               1,
+		ScalerDeleteTopicType:               2,
+		NodeRegisterTopicType:               3,
+		DeploymentRegisterTopicType:         4,
+		DeploymentConfigRegisterTopicType:   5,
+		PodRegisterTopicType:                6,
+		NodeDeregisterTopicType:             7,
+		DeploymentDeregisterTopicType:       8,
+		DeploymentConfigDeregisterTopicType: 9,
+		PodDeregisterTopicType:              10,
+		NodePredictionCreateTopicType:       11,
+		PodPredictionCreateTopicType:        12,
+		VPARecommendationCreateTopicType:    13,
+		HPARecommendationCreateTopicType:    14,
+		VPARecommendationExecuteTopicType:   15,
+		HPARecommendationExecuteTopicType:   16,
+		AnomalyMetricDetectTopicType:        17,
+		AnomalyAnalysisCreateTopicType:      18,
+		LicenseTopicType:                    19,
+		EmailNotificationTopicType:          20,
+		AnomalyForecastDetectTopicType:      21,
+		AnomalyRealtimeDetectTopicType:      22,
+	}
+)
+
+// +kubebuilder:validation:Enum=debug;info;warning;error;fatal
+type LevelType string
+
+const (
+	DebugLevelType   LevelType = "debug"
+	InfoLevelType    LevelType = "info"
+	WarningLevelType LevelType = "warning"
+	ErrorLevelType   LevelType = "error"
+	FatalLevelType   LevelType = "fatal"
+)
+
+var (
+	LevelTypes = []LevelType{
+		DebugLevelType,
+		InfoLevelType,
+		WarningLevelType,
+		ErrorLevelType,
+		FatalLevelType,
+	}
+	// datahub event level mapping
+	LevelTypeName = map[int32]LevelType{
+		1: DebugLevelType,
+		2: InfoLevelType,
+		3: WarningLevelType,
+		4: ErrorLevelType,
+		5: FatalLevelType,
+	}
+	LevelTypeValue = map[LevelType]int32{
+		DebugLevelType:   1,
+		InfoLevelType:    2,
+		WarningLevelType: 3,
+		ErrorLevelType:   4,
+		FatalLevelType:   5,
+	}
+)
+
 type AlamedaSubject struct {
 	Kind       string `json:"kind,omitempty"`
 	Namespace  string `json:"namespace,omitempty"`
@@ -28,9 +168,9 @@ type AlamedaSubject struct {
 }
 
 type AlamedaTopic struct {
-	Type    []string          `json:"type,omitempty"`
+	Type    []TopicType       `json:"type,omitempty"`
 	Subject []*AlamedaSubject `json:"subject,omitempty"`
-	Level   []string          `json:"level,omitempty"`
+	Level   []LevelType       `json:"level,omitempty"`
 	Source  []*AlamedaSource  `json:"source,omitempty"`
 }
 
@@ -44,29 +184,29 @@ type AlamedaChannel struct {
 }
 
 type AlamedaEmailChannel struct {
-	Name string   `json:"name,"`
-	To   []string `json:"to,"`
+	Name string   `json:"name"`
+	To   []string `json:"to"`
 	Cc   []string `json:"cc,omitempty"`
 }
 
 // AlamedaNotificationTopicSpec defines the desired state of AlamedaNotificationTopic
 type AlamedaNotificationTopicSpec struct {
 	Disabled bool            `json:"disabled,omitempty"`
-	Topics   []*AlamedaTopic `json:"topics,"`
-	Channel  *AlamedaChannel `json:"channel,"`
+	Topics   []*AlamedaTopic `json:"topics"`
+	Channel  *AlamedaChannel `json:"channel"`
 }
 
 type AlamedaChannelCondition struct {
-	Type    string `json:"type,"`
-	Name    string `json:"name,"`
-	Success bool   `json:"success,omitempty"`
-	Time    string `json:"time,omitempty"`
-	Message string `json:"message,omitempty"`
+	Type    ChannelType `json:"type"`
+	Name    string      `json:"name"`
+	Success bool        `json:"success,omitempty"`
+	Time    string      `json:"time,omitempty"`
+	Message string      `json:"message,omitempty"`
 }
 
 // AlamedaNotificationTopicStatus defines the observed state of AlamedaNotificationTopic
 type AlamedaNotificationTopicStatus struct {
-	ChannelCondictions []*AlamedaChannelCondition `json:"channelConditions,"`
+	ChannelCondictions []*AlamedaChannelCondition `json:"channelConditions"`
 }
 
 // +kubebuilder:object:root=true

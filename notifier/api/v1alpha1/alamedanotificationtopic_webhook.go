@@ -18,13 +18,11 @@ package v1alpha1
 
 import (
 	"fmt"
-	"strings"
 
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/validation/field"
-	"prophetstor.com/alameda/notifier/event"
 	"prophetstor.com/alameda/pkg/utils"
 	"prophetstor.com/alameda/pkg/utils/log"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -49,7 +47,7 @@ func (r *AlamedaNotificationTopic) Default() {
 	for _, emailChannel := range r.Spec.Channel.Emails {
 		found := false
 		for _, curCondition := range r.Status.ChannelCondictions {
-			if strings.ToLower(curCondition.Type) == "email" {
+			if curCondition.Type == EmailChannelType {
 				channelConditions = append(channelConditions, curCondition)
 				found = true
 				break
@@ -57,7 +55,7 @@ func (r *AlamedaNotificationTopic) Default() {
 		}
 		if !found {
 			channelConditions = append(channelConditions, &AlamedaChannelCondition{
-				Type: "email",
+				Type: EmailChannelType,
 				Name: emailChannel.Name,
 			})
 		}
@@ -107,19 +105,19 @@ func (r *AlamedaNotificationTopic) validateAlamedaNotificationTopic() error {
 
 	for topicIdx, topic := range r.Spec.Topics {
 		for typeIdx, iType := range topic.Type {
-			if iType != "" && !event.IsEventTypeYamlKeySupported(iType) {
+			if _, ok := TopicTypeValue[iType]; !ok {
 				allErrs = append(allErrs, field.Invalid(field.NewPath("spec").Child("topics").
 					Index(topicIdx).Child("type").Index(typeIdx),
-					iType, fmt.Sprintf("topic type %s is not in support list (%s)",
-						iType, strings.Join(event.ListEventTypeYamlKey(), ","))))
+					iType, fmt.Sprintf("topic type %s is not in support list %s",
+						iType, TopicTypes)))
 			}
 		}
 		for levelIdx, level := range topic.Level {
-			if level != "" && !event.IsEventLevelYamlKeySupported(level) {
+			if _, ok := LevelTypeValue[level]; !ok {
 				allErrs = append(allErrs, field.Invalid(field.NewPath("spec").Child("topics").
 					Index(topicIdx).Child("level").Index(levelIdx),
-					level, fmt.Sprintf("topic level %s is not in support list (%s)",
-						level, strings.Join(event.ListEventLevelYamlKey(), ","))))
+					level, fmt.Sprintf("topic level %s is not in support list %s",
+						level, LevelTypes)))
 			}
 		}
 	}

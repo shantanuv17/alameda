@@ -19,6 +19,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	applications "prophetstor.com/api/datahub/applications"
+	configs "prophetstor.com/api/datahub/configs"
 	data "prophetstor.com/api/datahub/data"
 	events "prophetstor.com/api/datahub/events"
 	gpu "prophetstor.com/api/datahub/gpu"
@@ -100,10 +101,13 @@ var file_prophetstor_api_datahub_server_proto_rawDesc = []byte{
 	0x72, 0x6f, 0x70, 0x68, 0x65, 0x74, 0x73, 0x74, 0x6f, 0x72, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x64,
 	0x61, 0x74, 0x61, 0x68, 0x75, 0x62, 0x2f, 0x77, 0x65, 0x61, 0x76, 0x65, 0x73, 0x63, 0x6f, 0x70,
 	0x65, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x70, 0x68, 0x65, 0x74, 0x73, 0x74, 0x6f, 0x72, 0x2f, 0x61, 0x70,
+	0x69, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x68, 0x75, 0x62, 0x2f, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67,
+	0x73, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
 	0x1a, 0x1b, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75,
 	0x66, 0x2f, 0x65, 0x6d, 0x70, 0x74, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x17, 0x67,
 	0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x72, 0x70, 0x63, 0x2f, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73,
-	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x32, 0xda, 0x6e, 0x0a, 0x0e, 0x44, 0x61, 0x74, 0x61, 0x68,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x32, 0x92, 0x71, 0x0a, 0x0e, 0x44, 0x61, 0x74, 0x61, 0x68,
 	0x75, 0x62, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x63, 0x0a, 0x0a, 0x43, 0x72, 0x65,
 	0x61, 0x74, 0x65, 0x41, 0x70, 0x70, 0x73, 0x12, 0x3f, 0x2e, 0x70, 0x72, 0x6f, 0x70, 0x68, 0x65,
 	0x74, 0x73, 0x74, 0x6f, 0x72, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x68, 0x75,
@@ -989,9 +993,29 @@ var file_prophetstor_api_datahub_server_proto_rawDesc = []byte{
 	0x68, 0x65, 0x74, 0x73, 0x74, 0x6f, 0x72, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61,
 	0x68, 0x75, 0x62, 0x2e, 0x77, 0x65, 0x61, 0x76, 0x65, 0x73, 0x63, 0x6f, 0x70, 0x65, 0x2e, 0x57,
 	0x65, 0x61, 0x76, 0x65, 0x53, 0x63, 0x6f, 0x70, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x22, 0x00, 0x42, 0x1d, 0x5a, 0x1b, 0x70, 0x72, 0x6f, 0x70, 0x68, 0x65, 0x74, 0x73, 0x74,
-	0x6f, 0x72, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x68,
-	0x75, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x22, 0x00, 0x12, 0x5c, 0x0a, 0x0d, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x6f, 0x6e,
+	0x66, 0x69, 0x67, 0x73, 0x12, 0x35, 0x2e, 0x70, 0x72, 0x6f, 0x70, 0x68, 0x65, 0x74, 0x73, 0x74,
+	0x6f, 0x72, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x68, 0x75, 0x62, 0x2e, 0x63,
+	0x6f, 0x6e, 0x66, 0x69, 0x67, 0x73, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x6f, 0x6e,
+	0x66, 0x69, 0x67, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x67, 0x6f,
+	0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x72, 0x70, 0x63, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22,
+	0x00, 0x12, 0x7a, 0x0a, 0x0b, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x73,
+	0x12, 0x33, 0x2e, 0x70, 0x72, 0x6f, 0x70, 0x68, 0x65, 0x74, 0x73, 0x74, 0x6f, 0x72, 0x2e, 0x61,
+	0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6e, 0x66, 0x69,
+	0x67, 0x73, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x73, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x34, 0x2e, 0x70, 0x72, 0x6f, 0x70, 0x68, 0x65, 0x74, 0x73,
+	0x74, 0x6f, 0x72, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x68, 0x75, 0x62, 0x2e,
+	0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x73, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x6f, 0x6e, 0x66,
+	0x69, 0x67, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x5c, 0x0a,
+	0x0d, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x73, 0x12, 0x35,
+	0x2e, 0x70, 0x72, 0x6f, 0x70, 0x68, 0x65, 0x74, 0x73, 0x74, 0x6f, 0x72, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x64, 0x61, 0x74, 0x61, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x73,
+	0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x73, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x72,
+	0x70, 0x63, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22, 0x00, 0x42, 0x1d, 0x5a, 0x1b, 0x70,
+	0x72, 0x6f, 0x70, 0x68, 0x65, 0x74, 0x73, 0x74, 0x6f, 0x72, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x61,
+	0x70, 0x69, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x68, 0x75, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var file_prophetstor_api_datahub_server_proto_goTypes = []interface{}{
@@ -1097,55 +1121,59 @@ var file_prophetstor_api_datahub_server_proto_goTypes = []interface{}{
 	(*weavescope.ListWeaveScopeHostsRequest)(nil),                   // 99: prophetstor.api.datahub.weavescope.ListWeaveScopeHostsRequest
 	(*weavescope.ListWeaveScopePodsRequest)(nil),                    // 100: prophetstor.api.datahub.weavescope.ListWeaveScopePodsRequest
 	(*weavescope.ListWeaveScopeContainersRequest)(nil),              // 101: prophetstor.api.datahub.weavescope.ListWeaveScopeContainersRequest
-	(*status.Status)(nil),                                           // 102: google.rpc.Status
-	(*applications.ListApplicationsResponse)(nil),                   // 103: prophetstor.api.datahub.applications.ListApplicationsResponse
-	(*data.ReadDataResponse)(nil),                                   // 104: prophetstor.api.datahub.data.ReadDataResponse
-	(*events.ListEventsResponse)(nil),                               // 105: prophetstor.api.datahub.events.ListEventsResponse
-	(*gpu.ListGpusResponse)(nil),                                    // 106: prophetstor.api.datahub.gpu.ListGpusResponse
-	(*gpu.ListGpuMetricsResponse)(nil),                              // 107: prophetstor.api.datahub.gpu.ListGpuMetricsResponse
-	(*gpu.ListGpuPredictionsResponse)(nil),                          // 108: prophetstor.api.datahub.gpu.ListGpuPredictionsResponse
-	(*keycodes.AddKeycodeResponse)(nil),                             // 109: prophetstor.api.datahub.keycodes.AddKeycodeResponse
-	(*keycodes.ListKeycodesResponse)(nil),                           // 110: prophetstor.api.datahub.keycodes.ListKeycodesResponse
-	(*keycodes.GenerateRegistrationDataResponse)(nil),               // 111: prophetstor.api.datahub.keycodes.GenerateRegistrationDataResponse
-	(*licenses.GetLicenseResponse)(nil),                             // 112: prophetstor.api.datahub.licenses.GetLicenseResponse
-	(*metrics.ListMetricsResponse)(nil),                             // 113: prophetstor.api.datahub.metrics.ListMetricsResponse
-	(*metrics.ListPodMetricsResponse)(nil),                          // 114: prophetstor.api.datahub.metrics.ListPodMetricsResponse
-	(*metrics.ListControllerMetricsResponse)(nil),                   // 115: prophetstor.api.datahub.metrics.ListControllerMetricsResponse
-	(*metrics.ListApplicationMetricsResponse)(nil),                  // 116: prophetstor.api.datahub.metrics.ListApplicationMetricsResponse
-	(*metrics.ListNamespaceMetricsResponse)(nil),                    // 117: prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse
-	(*metrics.ListNodeMetricsResponse)(nil),                         // 118: prophetstor.api.datahub.metrics.ListNodeMetricsResponse
-	(*metrics.ListClusterMetricsResponse)(nil),                      // 119: prophetstor.api.datahub.metrics.ListClusterMetricsResponse
-	(*plannings.ListPlanningsResponse)(nil),                         // 120: prophetstor.api.datahub.plannings.ListPlanningsResponse
-	(*plannings.ListPodPlanningsResponse)(nil),                      // 121: prophetstor.api.datahub.plannings.ListPodPlanningsResponse
-	(*plannings.ListControllerPlanningsResponse)(nil),               // 122: prophetstor.api.datahub.plannings.ListControllerPlanningsResponse
-	(*plannings.ListApplicationPlanningsResponse)(nil),              // 123: prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse
-	(*plannings.ListNamespacePlanningsResponse)(nil),                // 124: prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse
-	(*plannings.ListNodePlanningsResponse)(nil),                     // 125: prophetstor.api.datahub.plannings.ListNodePlanningsResponse
-	(*plannings.ListClusterPlanningsResponse)(nil),                  // 126: prophetstor.api.datahub.plannings.ListClusterPlanningsResponse
-	(*predictions.ListPredictionsResponse)(nil),                     // 127: prophetstor.api.datahub.predictions.ListPredictionsResponse
-	(*predictions.ListPodPredictionsResponse)(nil),                  // 128: prophetstor.api.datahub.predictions.ListPodPredictionsResponse
-	(*predictions.ListControllerPredictionsResponse)(nil),           // 129: prophetstor.api.datahub.predictions.ListControllerPredictionsResponse
-	(*predictions.ListApplicationPredictionsResponse)(nil),          // 130: prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse
-	(*predictions.ListNamespacePredictionsResponse)(nil),            // 131: prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse
-	(*predictions.ListNodePredictionsResponse)(nil),                 // 132: prophetstor.api.datahub.predictions.ListNodePredictionsResponse
-	(*predictions.ListClusterPredictionsResponse)(nil),              // 133: prophetstor.api.datahub.predictions.ListClusterPredictionsResponse
-	(*rawdata.ReadRawdataResponse)(nil),                             // 134: prophetstor.api.datahub.rawdata.ReadRawdataResponse
-	(*recommendations.ListRecommendationsResponse)(nil),             // 135: prophetstor.api.datahub.recommendations.ListRecommendationsResponse
-	(*recommendations.ListPodRecommendationsResponse)(nil),          // 136: prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse
-	(*recommendations.ListControllerRecommendationsResponse)(nil),   // 137: prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse
-	(*recommendations.ListApplicationRecommendationsResponse)(nil),  // 138: prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse
-	(*recommendations.ListNamespaceRecommendationsResponse)(nil),    // 139: prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse
-	(*recommendations.ListNodeRecommendationsResponse)(nil),         // 140: prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse
-	(*recommendations.ListClusterRecommendationsResponse)(nil),      // 141: prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse
-	(*resources.ListPodsResponse)(nil),                              // 142: prophetstor.api.datahub.resources.ListPodsResponse
-	(*resources.ListControllersResponse)(nil),                       // 143: prophetstor.api.datahub.resources.ListControllersResponse
-	(*resources.ListApplicationsResponse)(nil),                      // 144: prophetstor.api.datahub.resources.ListApplicationsResponse
-	(*resources.ListNamespacesResponse)(nil),                        // 145: prophetstor.api.datahub.resources.ListNamespacesResponse
-	(*resources.ListNodesResponse)(nil),                             // 146: prophetstor.api.datahub.resources.ListNodesResponse
-	(*resources.ListClustersResponse)(nil),                          // 147: prophetstor.api.datahub.resources.ListClustersResponse
-	(*schemas.ListSchemasResponse)(nil),                             // 148: prophetstor.api.datahub.schemas.ListSchemasResponse
-	(*scores.ListSimulatedSchedulingScoresResponse)(nil),            // 149: prophetstor.api.datahub.scores.ListSimulatedSchedulingScoresResponse
-	(*weavescope.WeaveScopeResponse)(nil),                           // 150: prophetstor.api.datahub.weavescope.WeaveScopeResponse
+	(*configs.CreateConfigsRequest)(nil),                            // 102: prophetstor.api.datahub.configs.CreateConfigsRequest
+	(*configs.ListConfigsRequest)(nil),                              // 103: prophetstor.api.datahub.configs.ListConfigsRequest
+	(*configs.DeleteConfigsRequest)(nil),                            // 104: prophetstor.api.datahub.configs.DeleteConfigsRequest
+	(*status.Status)(nil),                                           // 105: google.rpc.Status
+	(*applications.ListApplicationsResponse)(nil),                   // 106: prophetstor.api.datahub.applications.ListApplicationsResponse
+	(*data.ReadDataResponse)(nil),                                   // 107: prophetstor.api.datahub.data.ReadDataResponse
+	(*events.ListEventsResponse)(nil),                               // 108: prophetstor.api.datahub.events.ListEventsResponse
+	(*gpu.ListGpusResponse)(nil),                                    // 109: prophetstor.api.datahub.gpu.ListGpusResponse
+	(*gpu.ListGpuMetricsResponse)(nil),                              // 110: prophetstor.api.datahub.gpu.ListGpuMetricsResponse
+	(*gpu.ListGpuPredictionsResponse)(nil),                          // 111: prophetstor.api.datahub.gpu.ListGpuPredictionsResponse
+	(*keycodes.AddKeycodeResponse)(nil),                             // 112: prophetstor.api.datahub.keycodes.AddKeycodeResponse
+	(*keycodes.ListKeycodesResponse)(nil),                           // 113: prophetstor.api.datahub.keycodes.ListKeycodesResponse
+	(*keycodes.GenerateRegistrationDataResponse)(nil),               // 114: prophetstor.api.datahub.keycodes.GenerateRegistrationDataResponse
+	(*licenses.GetLicenseResponse)(nil),                             // 115: prophetstor.api.datahub.licenses.GetLicenseResponse
+	(*metrics.ListMetricsResponse)(nil),                             // 116: prophetstor.api.datahub.metrics.ListMetricsResponse
+	(*metrics.ListPodMetricsResponse)(nil),                          // 117: prophetstor.api.datahub.metrics.ListPodMetricsResponse
+	(*metrics.ListControllerMetricsResponse)(nil),                   // 118: prophetstor.api.datahub.metrics.ListControllerMetricsResponse
+	(*metrics.ListApplicationMetricsResponse)(nil),                  // 119: prophetstor.api.datahub.metrics.ListApplicationMetricsResponse
+	(*metrics.ListNamespaceMetricsResponse)(nil),                    // 120: prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse
+	(*metrics.ListNodeMetricsResponse)(nil),                         // 121: prophetstor.api.datahub.metrics.ListNodeMetricsResponse
+	(*metrics.ListClusterMetricsResponse)(nil),                      // 122: prophetstor.api.datahub.metrics.ListClusterMetricsResponse
+	(*plannings.ListPlanningsResponse)(nil),                         // 123: prophetstor.api.datahub.plannings.ListPlanningsResponse
+	(*plannings.ListPodPlanningsResponse)(nil),                      // 124: prophetstor.api.datahub.plannings.ListPodPlanningsResponse
+	(*plannings.ListControllerPlanningsResponse)(nil),               // 125: prophetstor.api.datahub.plannings.ListControllerPlanningsResponse
+	(*plannings.ListApplicationPlanningsResponse)(nil),              // 126: prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse
+	(*plannings.ListNamespacePlanningsResponse)(nil),                // 127: prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse
+	(*plannings.ListNodePlanningsResponse)(nil),                     // 128: prophetstor.api.datahub.plannings.ListNodePlanningsResponse
+	(*plannings.ListClusterPlanningsResponse)(nil),                  // 129: prophetstor.api.datahub.plannings.ListClusterPlanningsResponse
+	(*predictions.ListPredictionsResponse)(nil),                     // 130: prophetstor.api.datahub.predictions.ListPredictionsResponse
+	(*predictions.ListPodPredictionsResponse)(nil),                  // 131: prophetstor.api.datahub.predictions.ListPodPredictionsResponse
+	(*predictions.ListControllerPredictionsResponse)(nil),           // 132: prophetstor.api.datahub.predictions.ListControllerPredictionsResponse
+	(*predictions.ListApplicationPredictionsResponse)(nil),          // 133: prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse
+	(*predictions.ListNamespacePredictionsResponse)(nil),            // 134: prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse
+	(*predictions.ListNodePredictionsResponse)(nil),                 // 135: prophetstor.api.datahub.predictions.ListNodePredictionsResponse
+	(*predictions.ListClusterPredictionsResponse)(nil),              // 136: prophetstor.api.datahub.predictions.ListClusterPredictionsResponse
+	(*rawdata.ReadRawdataResponse)(nil),                             // 137: prophetstor.api.datahub.rawdata.ReadRawdataResponse
+	(*recommendations.ListRecommendationsResponse)(nil),             // 138: prophetstor.api.datahub.recommendations.ListRecommendationsResponse
+	(*recommendations.ListPodRecommendationsResponse)(nil),          // 139: prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse
+	(*recommendations.ListControllerRecommendationsResponse)(nil),   // 140: prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse
+	(*recommendations.ListApplicationRecommendationsResponse)(nil),  // 141: prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse
+	(*recommendations.ListNamespaceRecommendationsResponse)(nil),    // 142: prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse
+	(*recommendations.ListNodeRecommendationsResponse)(nil),         // 143: prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse
+	(*recommendations.ListClusterRecommendationsResponse)(nil),      // 144: prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse
+	(*resources.ListPodsResponse)(nil),                              // 145: prophetstor.api.datahub.resources.ListPodsResponse
+	(*resources.ListControllersResponse)(nil),                       // 146: prophetstor.api.datahub.resources.ListControllersResponse
+	(*resources.ListApplicationsResponse)(nil),                      // 147: prophetstor.api.datahub.resources.ListApplicationsResponse
+	(*resources.ListNamespacesResponse)(nil),                        // 148: prophetstor.api.datahub.resources.ListNamespacesResponse
+	(*resources.ListNodesResponse)(nil),                             // 149: prophetstor.api.datahub.resources.ListNodesResponse
+	(*resources.ListClustersResponse)(nil),                          // 150: prophetstor.api.datahub.resources.ListClustersResponse
+	(*schemas.ListSchemasResponse)(nil),                             // 151: prophetstor.api.datahub.schemas.ListSchemasResponse
+	(*scores.ListSimulatedSchedulingScoresResponse)(nil),            // 152: prophetstor.api.datahub.scores.ListSimulatedSchedulingScoresResponse
+	(*weavescope.WeaveScopeResponse)(nil),                           // 153: prophetstor.api.datahub.weavescope.WeaveScopeResponse
+	(*configs.ListConfigsResponse)(nil),                             // 154: prophetstor.api.datahub.configs.ListConfigsResponse
 }
 var file_prophetstor_api_datahub_server_proto_depIdxs = []int32{
 	0,   // 0: prophetstor.api.datahub.DatahubService.CreateApps:input_type -> prophetstor.api.datahub.applications.CreateApplicationsRequest
@@ -1258,118 +1286,124 @@ var file_prophetstor_api_datahub_server_proto_depIdxs = []int32{
 	101, // 107: prophetstor.api.datahub.DatahubService.ListWeaveScopeContainersByHostname:input_type -> prophetstor.api.datahub.weavescope.ListWeaveScopeContainersRequest
 	101, // 108: prophetstor.api.datahub.DatahubService.ListWeaveScopeContainersByImage:input_type -> prophetstor.api.datahub.weavescope.ListWeaveScopeContainersRequest
 	101, // 109: prophetstor.api.datahub.DatahubService.GetWeaveScopeContainerDetails:input_type -> prophetstor.api.datahub.weavescope.ListWeaveScopeContainersRequest
-	102, // 110: prophetstor.api.datahub.DatahubService.CreateApps:output_type -> google.rpc.Status
-	103, // 111: prophetstor.api.datahub.DatahubService.ListApps:output_type -> prophetstor.api.datahub.applications.ListApplicationsResponse
-	102, // 112: prophetstor.api.datahub.DatahubService.DeleteApps:output_type -> google.rpc.Status
-	104, // 113: prophetstor.api.datahub.DatahubService.ReadData:output_type -> prophetstor.api.datahub.data.ReadDataResponse
-	102, // 114: prophetstor.api.datahub.DatahubService.WriteData:output_type -> google.rpc.Status
-	102, // 115: prophetstor.api.datahub.DatahubService.DeleteData:output_type -> google.rpc.Status
-	102, // 116: prophetstor.api.datahub.DatahubService.WriteMeta:output_type -> google.rpc.Status
-	102, // 117: prophetstor.api.datahub.DatahubService.CreateEvents:output_type -> google.rpc.Status
-	105, // 118: prophetstor.api.datahub.DatahubService.ListEvents:output_type -> prophetstor.api.datahub.events.ListEventsResponse
-	102, // 119: prophetstor.api.datahub.DatahubService.CreateGpuPredictions:output_type -> google.rpc.Status
-	106, // 120: prophetstor.api.datahub.DatahubService.ListGpus:output_type -> prophetstor.api.datahub.gpu.ListGpusResponse
-	107, // 121: prophetstor.api.datahub.DatahubService.ListGpuMetrics:output_type -> prophetstor.api.datahub.gpu.ListGpuMetricsResponse
-	108, // 122: prophetstor.api.datahub.DatahubService.ListGpuPredictions:output_type -> prophetstor.api.datahub.gpu.ListGpuPredictionsResponse
-	109, // 123: prophetstor.api.datahub.DatahubService.AddKeycode:output_type -> prophetstor.api.datahub.keycodes.AddKeycodeResponse
-	110, // 124: prophetstor.api.datahub.DatahubService.ListKeycodes:output_type -> prophetstor.api.datahub.keycodes.ListKeycodesResponse
-	102, // 125: prophetstor.api.datahub.DatahubService.DeleteKeycode:output_type -> google.rpc.Status
-	111, // 126: prophetstor.api.datahub.DatahubService.GenerateRegistrationData:output_type -> prophetstor.api.datahub.keycodes.GenerateRegistrationDataResponse
-	102, // 127: prophetstor.api.datahub.DatahubService.ActivateRegistrationData:output_type -> google.rpc.Status
-	112, // 128: prophetstor.api.datahub.DatahubService.GetLicense:output_type -> prophetstor.api.datahub.licenses.GetLicenseResponse
-	102, // 129: prophetstor.api.datahub.DatahubService.CreateMetrics:output_type -> google.rpc.Status
-	102, // 130: prophetstor.api.datahub.DatahubService.CreatePodMetrics:output_type -> google.rpc.Status
-	102, // 131: prophetstor.api.datahub.DatahubService.CreateControllerMetrics:output_type -> google.rpc.Status
-	102, // 132: prophetstor.api.datahub.DatahubService.CreateApplicationMetrics:output_type -> google.rpc.Status
-	102, // 133: prophetstor.api.datahub.DatahubService.CreateNamespaceMetrics:output_type -> google.rpc.Status
-	102, // 134: prophetstor.api.datahub.DatahubService.CreateNodeMetrics:output_type -> google.rpc.Status
-	102, // 135: prophetstor.api.datahub.DatahubService.CreateClusterMetrics:output_type -> google.rpc.Status
-	113, // 136: prophetstor.api.datahub.DatahubService.ListMetrics:output_type -> prophetstor.api.datahub.metrics.ListMetricsResponse
-	114, // 137: prophetstor.api.datahub.DatahubService.ListPodMetrics:output_type -> prophetstor.api.datahub.metrics.ListPodMetricsResponse
-	115, // 138: prophetstor.api.datahub.DatahubService.ListControllerMetrics:output_type -> prophetstor.api.datahub.metrics.ListControllerMetricsResponse
-	116, // 139: prophetstor.api.datahub.DatahubService.ListApplicationMetrics:output_type -> prophetstor.api.datahub.metrics.ListApplicationMetricsResponse
-	117, // 140: prophetstor.api.datahub.DatahubService.ListNamespaceMetrics:output_type -> prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse
-	118, // 141: prophetstor.api.datahub.DatahubService.ListNodeMetrics:output_type -> prophetstor.api.datahub.metrics.ListNodeMetricsResponse
-	119, // 142: prophetstor.api.datahub.DatahubService.ListClusterMetrics:output_type -> prophetstor.api.datahub.metrics.ListClusterMetricsResponse
-	102, // 143: prophetstor.api.datahub.DatahubService.Ping:output_type -> google.rpc.Status
-	102, // 144: prophetstor.api.datahub.DatahubService.CreatePlannings:output_type -> google.rpc.Status
-	102, // 145: prophetstor.api.datahub.DatahubService.CreatePodPlannings:output_type -> google.rpc.Status
-	102, // 146: prophetstor.api.datahub.DatahubService.CreateControllerPlannings:output_type -> google.rpc.Status
-	102, // 147: prophetstor.api.datahub.DatahubService.CreateApplicationPlannings:output_type -> google.rpc.Status
-	102, // 148: prophetstor.api.datahub.DatahubService.CreateNamespacePlannings:output_type -> google.rpc.Status
-	102, // 149: prophetstor.api.datahub.DatahubService.CreateNodePlannings:output_type -> google.rpc.Status
-	102, // 150: prophetstor.api.datahub.DatahubService.CreateClusterPlannings:output_type -> google.rpc.Status
-	120, // 151: prophetstor.api.datahub.DatahubService.ListPlannings:output_type -> prophetstor.api.datahub.plannings.ListPlanningsResponse
-	121, // 152: prophetstor.api.datahub.DatahubService.ListPodPlannings:output_type -> prophetstor.api.datahub.plannings.ListPodPlanningsResponse
-	122, // 153: prophetstor.api.datahub.DatahubService.ListControllerPlannings:output_type -> prophetstor.api.datahub.plannings.ListControllerPlanningsResponse
-	123, // 154: prophetstor.api.datahub.DatahubService.ListApplicationPlannings:output_type -> prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse
-	124, // 155: prophetstor.api.datahub.DatahubService.ListNamespacePlannings:output_type -> prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse
-	125, // 156: prophetstor.api.datahub.DatahubService.ListNodePlannings:output_type -> prophetstor.api.datahub.plannings.ListNodePlanningsResponse
-	126, // 157: prophetstor.api.datahub.DatahubService.ListClusterPlannings:output_type -> prophetstor.api.datahub.plannings.ListClusterPlanningsResponse
-	102, // 158: prophetstor.api.datahub.DatahubService.CreatePredictions:output_type -> google.rpc.Status
-	102, // 159: prophetstor.api.datahub.DatahubService.CreatePodPredictions:output_type -> google.rpc.Status
-	102, // 160: prophetstor.api.datahub.DatahubService.CreateControllerPredictions:output_type -> google.rpc.Status
-	102, // 161: prophetstor.api.datahub.DatahubService.CreateApplicationPredictions:output_type -> google.rpc.Status
-	102, // 162: prophetstor.api.datahub.DatahubService.CreateNamespacePredictions:output_type -> google.rpc.Status
-	102, // 163: prophetstor.api.datahub.DatahubService.CreateNodePredictions:output_type -> google.rpc.Status
-	102, // 164: prophetstor.api.datahub.DatahubService.CreateClusterPredictions:output_type -> google.rpc.Status
-	127, // 165: prophetstor.api.datahub.DatahubService.ListPredictions:output_type -> prophetstor.api.datahub.predictions.ListPredictionsResponse
-	128, // 166: prophetstor.api.datahub.DatahubService.ListPodPredictions:output_type -> prophetstor.api.datahub.predictions.ListPodPredictionsResponse
-	129, // 167: prophetstor.api.datahub.DatahubService.ListControllerPredictions:output_type -> prophetstor.api.datahub.predictions.ListControllerPredictionsResponse
-	130, // 168: prophetstor.api.datahub.DatahubService.ListApplicationPredictions:output_type -> prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse
-	131, // 169: prophetstor.api.datahub.DatahubService.ListNamespacePredictions:output_type -> prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse
-	132, // 170: prophetstor.api.datahub.DatahubService.ListNodePredictions:output_type -> prophetstor.api.datahub.predictions.ListNodePredictionsResponse
-	133, // 171: prophetstor.api.datahub.DatahubService.ListClusterPredictions:output_type -> prophetstor.api.datahub.predictions.ListClusterPredictionsResponse
-	134, // 172: prophetstor.api.datahub.DatahubService.ReadRawdata:output_type -> prophetstor.api.datahub.rawdata.ReadRawdataResponse
-	102, // 173: prophetstor.api.datahub.DatahubService.WriteRawdata:output_type -> google.rpc.Status
-	102, // 174: prophetstor.api.datahub.DatahubService.CreateRecommendations:output_type -> google.rpc.Status
-	102, // 175: prophetstor.api.datahub.DatahubService.CreatePodRecommendations:output_type -> google.rpc.Status
-	102, // 176: prophetstor.api.datahub.DatahubService.CreateControllerRecommendations:output_type -> google.rpc.Status
-	102, // 177: prophetstor.api.datahub.DatahubService.CreateApplicationRecommendations:output_type -> google.rpc.Status
-	102, // 178: prophetstor.api.datahub.DatahubService.CreateNamespaceRecommendations:output_type -> google.rpc.Status
-	102, // 179: prophetstor.api.datahub.DatahubService.CreateNodeRecommendations:output_type -> google.rpc.Status
-	102, // 180: prophetstor.api.datahub.DatahubService.CreateClusterRecommendations:output_type -> google.rpc.Status
-	135, // 181: prophetstor.api.datahub.DatahubService.ListRecommendations:output_type -> prophetstor.api.datahub.recommendations.ListRecommendationsResponse
-	136, // 182: prophetstor.api.datahub.DatahubService.ListPodRecommendations:output_type -> prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse
-	136, // 183: prophetstor.api.datahub.DatahubService.ListAvailablePodRecommendations:output_type -> prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse
-	137, // 184: prophetstor.api.datahub.DatahubService.ListControllerRecommendations:output_type -> prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse
-	138, // 185: prophetstor.api.datahub.DatahubService.ListApplicationRecommendations:output_type -> prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse
-	139, // 186: prophetstor.api.datahub.DatahubService.ListNamespaceRecommendations:output_type -> prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse
-	140, // 187: prophetstor.api.datahub.DatahubService.ListNodeRecommendations:output_type -> prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse
-	141, // 188: prophetstor.api.datahub.DatahubService.ListClusterRecommendations:output_type -> prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse
-	102, // 189: prophetstor.api.datahub.DatahubService.CreatePods:output_type -> google.rpc.Status
-	102, // 190: prophetstor.api.datahub.DatahubService.CreateControllers:output_type -> google.rpc.Status
-	102, // 191: prophetstor.api.datahub.DatahubService.CreateApplications:output_type -> google.rpc.Status
-	102, // 192: prophetstor.api.datahub.DatahubService.CreateNamespaces:output_type -> google.rpc.Status
-	102, // 193: prophetstor.api.datahub.DatahubService.CreateNodes:output_type -> google.rpc.Status
-	102, // 194: prophetstor.api.datahub.DatahubService.CreateClusters:output_type -> google.rpc.Status
-	142, // 195: prophetstor.api.datahub.DatahubService.ListPods:output_type -> prophetstor.api.datahub.resources.ListPodsResponse
-	143, // 196: prophetstor.api.datahub.DatahubService.ListControllers:output_type -> prophetstor.api.datahub.resources.ListControllersResponse
-	144, // 197: prophetstor.api.datahub.DatahubService.ListApplications:output_type -> prophetstor.api.datahub.resources.ListApplicationsResponse
-	145, // 198: prophetstor.api.datahub.DatahubService.ListNamespaces:output_type -> prophetstor.api.datahub.resources.ListNamespacesResponse
-	146, // 199: prophetstor.api.datahub.DatahubService.ListNodes:output_type -> prophetstor.api.datahub.resources.ListNodesResponse
-	147, // 200: prophetstor.api.datahub.DatahubService.ListClusters:output_type -> prophetstor.api.datahub.resources.ListClustersResponse
-	102, // 201: prophetstor.api.datahub.DatahubService.DeletePods:output_type -> google.rpc.Status
-	102, // 202: prophetstor.api.datahub.DatahubService.DeleteControllers:output_type -> google.rpc.Status
-	102, // 203: prophetstor.api.datahub.DatahubService.DeleteApplications:output_type -> google.rpc.Status
-	102, // 204: prophetstor.api.datahub.DatahubService.DeleteNamespaces:output_type -> google.rpc.Status
-	102, // 205: prophetstor.api.datahub.DatahubService.DeleteNodes:output_type -> google.rpc.Status
-	102, // 206: prophetstor.api.datahub.DatahubService.DeleteClusters:output_type -> google.rpc.Status
-	102, // 207: prophetstor.api.datahub.DatahubService.CreateSchemas:output_type -> google.rpc.Status
-	148, // 208: prophetstor.api.datahub.DatahubService.ListSchemas:output_type -> prophetstor.api.datahub.schemas.ListSchemasResponse
-	102, // 209: prophetstor.api.datahub.DatahubService.DeleteSchemas:output_type -> google.rpc.Status
-	102, // 210: prophetstor.api.datahub.DatahubService.CreateSimulatedSchedulingScores:output_type -> google.rpc.Status
-	149, // 211: prophetstor.api.datahub.DatahubService.ListSimulatedSchedulingScores:output_type -> prophetstor.api.datahub.scores.ListSimulatedSchedulingScoresResponse
-	150, // 212: prophetstor.api.datahub.DatahubService.ListWeaveScopeHosts:output_type -> prophetstor.api.datahub.weavescope.WeaveScopeResponse
-	150, // 213: prophetstor.api.datahub.DatahubService.GetWeaveScopeHostDetails:output_type -> prophetstor.api.datahub.weavescope.WeaveScopeResponse
-	150, // 214: prophetstor.api.datahub.DatahubService.ListWeaveScopePods:output_type -> prophetstor.api.datahub.weavescope.WeaveScopeResponse
-	150, // 215: prophetstor.api.datahub.DatahubService.GetWeaveScopePodDetails:output_type -> prophetstor.api.datahub.weavescope.WeaveScopeResponse
-	150, // 216: prophetstor.api.datahub.DatahubService.ListWeaveScopeContainers:output_type -> prophetstor.api.datahub.weavescope.WeaveScopeResponse
-	150, // 217: prophetstor.api.datahub.DatahubService.ListWeaveScopeContainersByHostname:output_type -> prophetstor.api.datahub.weavescope.WeaveScopeResponse
-	150, // 218: prophetstor.api.datahub.DatahubService.ListWeaveScopeContainersByImage:output_type -> prophetstor.api.datahub.weavescope.WeaveScopeResponse
-	150, // 219: prophetstor.api.datahub.DatahubService.GetWeaveScopeContainerDetails:output_type -> prophetstor.api.datahub.weavescope.WeaveScopeResponse
-	110, // [110:220] is the sub-list for method output_type
-	0,   // [0:110] is the sub-list for method input_type
+	102, // 110: prophetstor.api.datahub.DatahubService.CreateConfigs:input_type -> prophetstor.api.datahub.configs.CreateConfigsRequest
+	103, // 111: prophetstor.api.datahub.DatahubService.ListConfigs:input_type -> prophetstor.api.datahub.configs.ListConfigsRequest
+	104, // 112: prophetstor.api.datahub.DatahubService.DeleteConfigs:input_type -> prophetstor.api.datahub.configs.DeleteConfigsRequest
+	105, // 113: prophetstor.api.datahub.DatahubService.CreateApps:output_type -> google.rpc.Status
+	106, // 114: prophetstor.api.datahub.DatahubService.ListApps:output_type -> prophetstor.api.datahub.applications.ListApplicationsResponse
+	105, // 115: prophetstor.api.datahub.DatahubService.DeleteApps:output_type -> google.rpc.Status
+	107, // 116: prophetstor.api.datahub.DatahubService.ReadData:output_type -> prophetstor.api.datahub.data.ReadDataResponse
+	105, // 117: prophetstor.api.datahub.DatahubService.WriteData:output_type -> google.rpc.Status
+	105, // 118: prophetstor.api.datahub.DatahubService.DeleteData:output_type -> google.rpc.Status
+	105, // 119: prophetstor.api.datahub.DatahubService.WriteMeta:output_type -> google.rpc.Status
+	105, // 120: prophetstor.api.datahub.DatahubService.CreateEvents:output_type -> google.rpc.Status
+	108, // 121: prophetstor.api.datahub.DatahubService.ListEvents:output_type -> prophetstor.api.datahub.events.ListEventsResponse
+	105, // 122: prophetstor.api.datahub.DatahubService.CreateGpuPredictions:output_type -> google.rpc.Status
+	109, // 123: prophetstor.api.datahub.DatahubService.ListGpus:output_type -> prophetstor.api.datahub.gpu.ListGpusResponse
+	110, // 124: prophetstor.api.datahub.DatahubService.ListGpuMetrics:output_type -> prophetstor.api.datahub.gpu.ListGpuMetricsResponse
+	111, // 125: prophetstor.api.datahub.DatahubService.ListGpuPredictions:output_type -> prophetstor.api.datahub.gpu.ListGpuPredictionsResponse
+	112, // 126: prophetstor.api.datahub.DatahubService.AddKeycode:output_type -> prophetstor.api.datahub.keycodes.AddKeycodeResponse
+	113, // 127: prophetstor.api.datahub.DatahubService.ListKeycodes:output_type -> prophetstor.api.datahub.keycodes.ListKeycodesResponse
+	105, // 128: prophetstor.api.datahub.DatahubService.DeleteKeycode:output_type -> google.rpc.Status
+	114, // 129: prophetstor.api.datahub.DatahubService.GenerateRegistrationData:output_type -> prophetstor.api.datahub.keycodes.GenerateRegistrationDataResponse
+	105, // 130: prophetstor.api.datahub.DatahubService.ActivateRegistrationData:output_type -> google.rpc.Status
+	115, // 131: prophetstor.api.datahub.DatahubService.GetLicense:output_type -> prophetstor.api.datahub.licenses.GetLicenseResponse
+	105, // 132: prophetstor.api.datahub.DatahubService.CreateMetrics:output_type -> google.rpc.Status
+	105, // 133: prophetstor.api.datahub.DatahubService.CreatePodMetrics:output_type -> google.rpc.Status
+	105, // 134: prophetstor.api.datahub.DatahubService.CreateControllerMetrics:output_type -> google.rpc.Status
+	105, // 135: prophetstor.api.datahub.DatahubService.CreateApplicationMetrics:output_type -> google.rpc.Status
+	105, // 136: prophetstor.api.datahub.DatahubService.CreateNamespaceMetrics:output_type -> google.rpc.Status
+	105, // 137: prophetstor.api.datahub.DatahubService.CreateNodeMetrics:output_type -> google.rpc.Status
+	105, // 138: prophetstor.api.datahub.DatahubService.CreateClusterMetrics:output_type -> google.rpc.Status
+	116, // 139: prophetstor.api.datahub.DatahubService.ListMetrics:output_type -> prophetstor.api.datahub.metrics.ListMetricsResponse
+	117, // 140: prophetstor.api.datahub.DatahubService.ListPodMetrics:output_type -> prophetstor.api.datahub.metrics.ListPodMetricsResponse
+	118, // 141: prophetstor.api.datahub.DatahubService.ListControllerMetrics:output_type -> prophetstor.api.datahub.metrics.ListControllerMetricsResponse
+	119, // 142: prophetstor.api.datahub.DatahubService.ListApplicationMetrics:output_type -> prophetstor.api.datahub.metrics.ListApplicationMetricsResponse
+	120, // 143: prophetstor.api.datahub.DatahubService.ListNamespaceMetrics:output_type -> prophetstor.api.datahub.metrics.ListNamespaceMetricsResponse
+	121, // 144: prophetstor.api.datahub.DatahubService.ListNodeMetrics:output_type -> prophetstor.api.datahub.metrics.ListNodeMetricsResponse
+	122, // 145: prophetstor.api.datahub.DatahubService.ListClusterMetrics:output_type -> prophetstor.api.datahub.metrics.ListClusterMetricsResponse
+	105, // 146: prophetstor.api.datahub.DatahubService.Ping:output_type -> google.rpc.Status
+	105, // 147: prophetstor.api.datahub.DatahubService.CreatePlannings:output_type -> google.rpc.Status
+	105, // 148: prophetstor.api.datahub.DatahubService.CreatePodPlannings:output_type -> google.rpc.Status
+	105, // 149: prophetstor.api.datahub.DatahubService.CreateControllerPlannings:output_type -> google.rpc.Status
+	105, // 150: prophetstor.api.datahub.DatahubService.CreateApplicationPlannings:output_type -> google.rpc.Status
+	105, // 151: prophetstor.api.datahub.DatahubService.CreateNamespacePlannings:output_type -> google.rpc.Status
+	105, // 152: prophetstor.api.datahub.DatahubService.CreateNodePlannings:output_type -> google.rpc.Status
+	105, // 153: prophetstor.api.datahub.DatahubService.CreateClusterPlannings:output_type -> google.rpc.Status
+	123, // 154: prophetstor.api.datahub.DatahubService.ListPlannings:output_type -> prophetstor.api.datahub.plannings.ListPlanningsResponse
+	124, // 155: prophetstor.api.datahub.DatahubService.ListPodPlannings:output_type -> prophetstor.api.datahub.plannings.ListPodPlanningsResponse
+	125, // 156: prophetstor.api.datahub.DatahubService.ListControllerPlannings:output_type -> prophetstor.api.datahub.plannings.ListControllerPlanningsResponse
+	126, // 157: prophetstor.api.datahub.DatahubService.ListApplicationPlannings:output_type -> prophetstor.api.datahub.plannings.ListApplicationPlanningsResponse
+	127, // 158: prophetstor.api.datahub.DatahubService.ListNamespacePlannings:output_type -> prophetstor.api.datahub.plannings.ListNamespacePlanningsResponse
+	128, // 159: prophetstor.api.datahub.DatahubService.ListNodePlannings:output_type -> prophetstor.api.datahub.plannings.ListNodePlanningsResponse
+	129, // 160: prophetstor.api.datahub.DatahubService.ListClusterPlannings:output_type -> prophetstor.api.datahub.plannings.ListClusterPlanningsResponse
+	105, // 161: prophetstor.api.datahub.DatahubService.CreatePredictions:output_type -> google.rpc.Status
+	105, // 162: prophetstor.api.datahub.DatahubService.CreatePodPredictions:output_type -> google.rpc.Status
+	105, // 163: prophetstor.api.datahub.DatahubService.CreateControllerPredictions:output_type -> google.rpc.Status
+	105, // 164: prophetstor.api.datahub.DatahubService.CreateApplicationPredictions:output_type -> google.rpc.Status
+	105, // 165: prophetstor.api.datahub.DatahubService.CreateNamespacePredictions:output_type -> google.rpc.Status
+	105, // 166: prophetstor.api.datahub.DatahubService.CreateNodePredictions:output_type -> google.rpc.Status
+	105, // 167: prophetstor.api.datahub.DatahubService.CreateClusterPredictions:output_type -> google.rpc.Status
+	130, // 168: prophetstor.api.datahub.DatahubService.ListPredictions:output_type -> prophetstor.api.datahub.predictions.ListPredictionsResponse
+	131, // 169: prophetstor.api.datahub.DatahubService.ListPodPredictions:output_type -> prophetstor.api.datahub.predictions.ListPodPredictionsResponse
+	132, // 170: prophetstor.api.datahub.DatahubService.ListControllerPredictions:output_type -> prophetstor.api.datahub.predictions.ListControllerPredictionsResponse
+	133, // 171: prophetstor.api.datahub.DatahubService.ListApplicationPredictions:output_type -> prophetstor.api.datahub.predictions.ListApplicationPredictionsResponse
+	134, // 172: prophetstor.api.datahub.DatahubService.ListNamespacePredictions:output_type -> prophetstor.api.datahub.predictions.ListNamespacePredictionsResponse
+	135, // 173: prophetstor.api.datahub.DatahubService.ListNodePredictions:output_type -> prophetstor.api.datahub.predictions.ListNodePredictionsResponse
+	136, // 174: prophetstor.api.datahub.DatahubService.ListClusterPredictions:output_type -> prophetstor.api.datahub.predictions.ListClusterPredictionsResponse
+	137, // 175: prophetstor.api.datahub.DatahubService.ReadRawdata:output_type -> prophetstor.api.datahub.rawdata.ReadRawdataResponse
+	105, // 176: prophetstor.api.datahub.DatahubService.WriteRawdata:output_type -> google.rpc.Status
+	105, // 177: prophetstor.api.datahub.DatahubService.CreateRecommendations:output_type -> google.rpc.Status
+	105, // 178: prophetstor.api.datahub.DatahubService.CreatePodRecommendations:output_type -> google.rpc.Status
+	105, // 179: prophetstor.api.datahub.DatahubService.CreateControllerRecommendations:output_type -> google.rpc.Status
+	105, // 180: prophetstor.api.datahub.DatahubService.CreateApplicationRecommendations:output_type -> google.rpc.Status
+	105, // 181: prophetstor.api.datahub.DatahubService.CreateNamespaceRecommendations:output_type -> google.rpc.Status
+	105, // 182: prophetstor.api.datahub.DatahubService.CreateNodeRecommendations:output_type -> google.rpc.Status
+	105, // 183: prophetstor.api.datahub.DatahubService.CreateClusterRecommendations:output_type -> google.rpc.Status
+	138, // 184: prophetstor.api.datahub.DatahubService.ListRecommendations:output_type -> prophetstor.api.datahub.recommendations.ListRecommendationsResponse
+	139, // 185: prophetstor.api.datahub.DatahubService.ListPodRecommendations:output_type -> prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse
+	139, // 186: prophetstor.api.datahub.DatahubService.ListAvailablePodRecommendations:output_type -> prophetstor.api.datahub.recommendations.ListPodRecommendationsResponse
+	140, // 187: prophetstor.api.datahub.DatahubService.ListControllerRecommendations:output_type -> prophetstor.api.datahub.recommendations.ListControllerRecommendationsResponse
+	141, // 188: prophetstor.api.datahub.DatahubService.ListApplicationRecommendations:output_type -> prophetstor.api.datahub.recommendations.ListApplicationRecommendationsResponse
+	142, // 189: prophetstor.api.datahub.DatahubService.ListNamespaceRecommendations:output_type -> prophetstor.api.datahub.recommendations.ListNamespaceRecommendationsResponse
+	143, // 190: prophetstor.api.datahub.DatahubService.ListNodeRecommendations:output_type -> prophetstor.api.datahub.recommendations.ListNodeRecommendationsResponse
+	144, // 191: prophetstor.api.datahub.DatahubService.ListClusterRecommendations:output_type -> prophetstor.api.datahub.recommendations.ListClusterRecommendationsResponse
+	105, // 192: prophetstor.api.datahub.DatahubService.CreatePods:output_type -> google.rpc.Status
+	105, // 193: prophetstor.api.datahub.DatahubService.CreateControllers:output_type -> google.rpc.Status
+	105, // 194: prophetstor.api.datahub.DatahubService.CreateApplications:output_type -> google.rpc.Status
+	105, // 195: prophetstor.api.datahub.DatahubService.CreateNamespaces:output_type -> google.rpc.Status
+	105, // 196: prophetstor.api.datahub.DatahubService.CreateNodes:output_type -> google.rpc.Status
+	105, // 197: prophetstor.api.datahub.DatahubService.CreateClusters:output_type -> google.rpc.Status
+	145, // 198: prophetstor.api.datahub.DatahubService.ListPods:output_type -> prophetstor.api.datahub.resources.ListPodsResponse
+	146, // 199: prophetstor.api.datahub.DatahubService.ListControllers:output_type -> prophetstor.api.datahub.resources.ListControllersResponse
+	147, // 200: prophetstor.api.datahub.DatahubService.ListApplications:output_type -> prophetstor.api.datahub.resources.ListApplicationsResponse
+	148, // 201: prophetstor.api.datahub.DatahubService.ListNamespaces:output_type -> prophetstor.api.datahub.resources.ListNamespacesResponse
+	149, // 202: prophetstor.api.datahub.DatahubService.ListNodes:output_type -> prophetstor.api.datahub.resources.ListNodesResponse
+	150, // 203: prophetstor.api.datahub.DatahubService.ListClusters:output_type -> prophetstor.api.datahub.resources.ListClustersResponse
+	105, // 204: prophetstor.api.datahub.DatahubService.DeletePods:output_type -> google.rpc.Status
+	105, // 205: prophetstor.api.datahub.DatahubService.DeleteControllers:output_type -> google.rpc.Status
+	105, // 206: prophetstor.api.datahub.DatahubService.DeleteApplications:output_type -> google.rpc.Status
+	105, // 207: prophetstor.api.datahub.DatahubService.DeleteNamespaces:output_type -> google.rpc.Status
+	105, // 208: prophetstor.api.datahub.DatahubService.DeleteNodes:output_type -> google.rpc.Status
+	105, // 209: prophetstor.api.datahub.DatahubService.DeleteClusters:output_type -> google.rpc.Status
+	105, // 210: prophetstor.api.datahub.DatahubService.CreateSchemas:output_type -> google.rpc.Status
+	151, // 211: prophetstor.api.datahub.DatahubService.ListSchemas:output_type -> prophetstor.api.datahub.schemas.ListSchemasResponse
+	105, // 212: prophetstor.api.datahub.DatahubService.DeleteSchemas:output_type -> google.rpc.Status
+	105, // 213: prophetstor.api.datahub.DatahubService.CreateSimulatedSchedulingScores:output_type -> google.rpc.Status
+	152, // 214: prophetstor.api.datahub.DatahubService.ListSimulatedSchedulingScores:output_type -> prophetstor.api.datahub.scores.ListSimulatedSchedulingScoresResponse
+	153, // 215: prophetstor.api.datahub.DatahubService.ListWeaveScopeHosts:output_type -> prophetstor.api.datahub.weavescope.WeaveScopeResponse
+	153, // 216: prophetstor.api.datahub.DatahubService.GetWeaveScopeHostDetails:output_type -> prophetstor.api.datahub.weavescope.WeaveScopeResponse
+	153, // 217: prophetstor.api.datahub.DatahubService.ListWeaveScopePods:output_type -> prophetstor.api.datahub.weavescope.WeaveScopeResponse
+	153, // 218: prophetstor.api.datahub.DatahubService.GetWeaveScopePodDetails:output_type -> prophetstor.api.datahub.weavescope.WeaveScopeResponse
+	153, // 219: prophetstor.api.datahub.DatahubService.ListWeaveScopeContainers:output_type -> prophetstor.api.datahub.weavescope.WeaveScopeResponse
+	153, // 220: prophetstor.api.datahub.DatahubService.ListWeaveScopeContainersByHostname:output_type -> prophetstor.api.datahub.weavescope.WeaveScopeResponse
+	153, // 221: prophetstor.api.datahub.DatahubService.ListWeaveScopeContainersByImage:output_type -> prophetstor.api.datahub.weavescope.WeaveScopeResponse
+	153, // 222: prophetstor.api.datahub.DatahubService.GetWeaveScopeContainerDetails:output_type -> prophetstor.api.datahub.weavescope.WeaveScopeResponse
+	105, // 223: prophetstor.api.datahub.DatahubService.CreateConfigs:output_type -> google.rpc.Status
+	154, // 224: prophetstor.api.datahub.DatahubService.ListConfigs:output_type -> prophetstor.api.datahub.configs.ListConfigsResponse
+	105, // 225: prophetstor.api.datahub.DatahubService.DeleteConfigs:output_type -> google.rpc.Status
+	113, // [113:226] is the sub-list for method output_type
+	0,   // [0:113] is the sub-list for method input_type
 	0,   // [0:0] is the sub-list for extension type_name
 	0,   // [0:0] is the sub-list for extension extendee
 	0,   // [0:0] is the sub-list for field type_name
@@ -1592,6 +1626,10 @@ type DatahubServiceClient interface {
 	ListWeaveScopeContainersByHostname(ctx context.Context, in *weavescope.ListWeaveScopeContainersRequest, opts ...grpc.CallOption) (*weavescope.WeaveScopeResponse, error)
 	ListWeaveScopeContainersByImage(ctx context.Context, in *weavescope.ListWeaveScopeContainersRequest, opts ...grpc.CallOption) (*weavescope.WeaveScopeResponse, error)
 	GetWeaveScopeContainerDetails(ctx context.Context, in *weavescope.ListWeaveScopeContainersRequest, opts ...grpc.CallOption) (*weavescope.WeaveScopeResponse, error)
+	// config scope -------------------------------------------------
+	CreateConfigs(ctx context.Context, in *configs.CreateConfigsRequest, opts ...grpc.CallOption) (*status.Status, error)
+	ListConfigs(ctx context.Context, in *configs.ListConfigsRequest, opts ...grpc.CallOption) (*configs.ListConfigsResponse, error)
+	DeleteConfigs(ctx context.Context, in *configs.DeleteConfigsRequest, opts ...grpc.CallOption) (*status.Status, error)
 }
 
 type datahubServiceClient struct {
@@ -2592,6 +2630,33 @@ func (c *datahubServiceClient) GetWeaveScopeContainerDetails(ctx context.Context
 	return out, nil
 }
 
+func (c *datahubServiceClient) CreateConfigs(ctx context.Context, in *configs.CreateConfigsRequest, opts ...grpc.CallOption) (*status.Status, error) {
+	out := new(status.Status)
+	err := c.cc.Invoke(ctx, "/prophetstor.api.datahub.DatahubService/CreateConfigs", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datahubServiceClient) ListConfigs(ctx context.Context, in *configs.ListConfigsRequest, opts ...grpc.CallOption) (*configs.ListConfigsResponse, error) {
+	out := new(configs.ListConfigsResponse)
+	err := c.cc.Invoke(ctx, "/prophetstor.api.datahub.DatahubService/ListConfigs", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datahubServiceClient) DeleteConfigs(ctx context.Context, in *configs.DeleteConfigsRequest, opts ...grpc.CallOption) (*status.Status, error) {
+	out := new(status.Status)
+	err := c.cc.Invoke(ctx, "/prophetstor.api.datahub.DatahubService/DeleteConfigs", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DatahubServiceServer is the server API for DatahubService service.
 type DatahubServiceServer interface {
 	CreateApps(context.Context, *applications.CreateApplicationsRequest) (*status.Status, error)
@@ -2775,6 +2840,10 @@ type DatahubServiceServer interface {
 	ListWeaveScopeContainersByHostname(context.Context, *weavescope.ListWeaveScopeContainersRequest) (*weavescope.WeaveScopeResponse, error)
 	ListWeaveScopeContainersByImage(context.Context, *weavescope.ListWeaveScopeContainersRequest) (*weavescope.WeaveScopeResponse, error)
 	GetWeaveScopeContainerDetails(context.Context, *weavescope.ListWeaveScopeContainersRequest) (*weavescope.WeaveScopeResponse, error)
+	// config scope -------------------------------------------------
+	CreateConfigs(context.Context, *configs.CreateConfigsRequest) (*status.Status, error)
+	ListConfigs(context.Context, *configs.ListConfigsRequest) (*configs.ListConfigsResponse, error)
+	DeleteConfigs(context.Context, *configs.DeleteConfigsRequest) (*status.Status, error)
 }
 
 // UnimplementedDatahubServiceServer can be embedded to have forward compatible implementations.
@@ -3110,6 +3179,15 @@ func (*UnimplementedDatahubServiceServer) ListWeaveScopeContainersByImage(contex
 }
 func (*UnimplementedDatahubServiceServer) GetWeaveScopeContainerDetails(context.Context, *weavescope.ListWeaveScopeContainersRequest) (*weavescope.WeaveScopeResponse, error) {
 	return nil, status1.Errorf(codes.Unimplemented, "method GetWeaveScopeContainerDetails not implemented")
+}
+func (*UnimplementedDatahubServiceServer) CreateConfigs(context.Context, *configs.CreateConfigsRequest) (*status.Status, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method CreateConfigs not implemented")
+}
+func (*UnimplementedDatahubServiceServer) ListConfigs(context.Context, *configs.ListConfigsRequest) (*configs.ListConfigsResponse, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method ListConfigs not implemented")
+}
+func (*UnimplementedDatahubServiceServer) DeleteConfigs(context.Context, *configs.DeleteConfigsRequest) (*status.Status, error) {
+	return nil, status1.Errorf(codes.Unimplemented, "method DeleteConfigs not implemented")
 }
 
 func RegisterDatahubServiceServer(s *grpc.Server, srv DatahubServiceServer) {
@@ -5096,6 +5174,60 @@ func _DatahubService_GetWeaveScopeContainerDetails_Handler(srv interface{}, ctx 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatahubService_CreateConfigs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(configs.CreateConfigsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).CreateConfigs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/prophetstor.api.datahub.DatahubService/CreateConfigs",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).CreateConfigs(ctx, req.(*configs.CreateConfigsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatahubService_ListConfigs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(configs.ListConfigsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).ListConfigs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/prophetstor.api.datahub.DatahubService/ListConfigs",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).ListConfigs(ctx, req.(*configs.ListConfigsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatahubService_DeleteConfigs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(configs.DeleteConfigsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatahubServiceServer).DeleteConfigs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/prophetstor.api.datahub.DatahubService/DeleteConfigs",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatahubServiceServer).DeleteConfigs(ctx, req.(*configs.DeleteConfigsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _DatahubService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "prophetstor.api.datahub.DatahubService",
 	HandlerType: (*DatahubServiceServer)(nil),
@@ -5539,6 +5671,18 @@ var _DatahubService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetWeaveScopeContainerDetails",
 			Handler:    _DatahubService_GetWeaveScopeContainerDetails_Handler,
+		},
+		{
+			MethodName: "CreateConfigs",
+			Handler:    _DatahubService_CreateConfigs_Handler,
+		},
+		{
+			MethodName: "ListConfigs",
+			Handler:    _DatahubService_ListConfigs_Handler,
+		},
+		{
+			MethodName: "DeleteConfigs",
+			Handler:    _DatahubService_DeleteConfigs_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

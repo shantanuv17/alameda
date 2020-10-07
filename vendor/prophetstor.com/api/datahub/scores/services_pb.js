@@ -16,7 +16,7 @@ var prophetstor_api_datahub_common_queries_pb = require('../../../../prophetstor
 goog.object.extend(proto, prophetstor_api_datahub_common_queries_pb);
 var prophetstor_api_datahub_scores_scores_pb = require('../../../../prophetstor/api/datahub/scores/scores_pb.js');
 goog.object.extend(proto, prophetstor_api_datahub_scores_scores_pb);
-var google_rpc_status_pb = require('../../../../google/rpc/status_pb.js');
+var google_rpc_status_pb = require('../../../../prophetstor/api/google/rpc/status_pb.js');
 goog.object.extend(proto, google_rpc_status_pb);
 goog.exportSymbol('proto.prophetstor.api.datahub.scores.CreateSimulatedSchedulingScoresRequest', null, global);
 goog.exportSymbol('proto.prophetstor.api.datahub.scores.ListSimulatedSchedulingScoresRequest', null, global);

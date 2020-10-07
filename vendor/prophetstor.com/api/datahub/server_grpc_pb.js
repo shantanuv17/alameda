@@ -20,8 +20,9 @@ var prophetstor_api_datahub_resources_services_pb = require('../../../prophetsto
 var prophetstor_api_datahub_schemas_services_pb = require('../../../prophetstor/api/datahub/schemas/services_pb.js');
 var prophetstor_api_datahub_scores_services_pb = require('../../../prophetstor/api/datahub/scores/services_pb.js');
 var prophetstor_api_datahub_weavescope_services_pb = require('../../../prophetstor/api/datahub/weavescope/services_pb.js');
+var prophetstor_api_datahub_configs_services_pb = require('../../../prophetstor/api/datahub/configs/services_pb.js');
 var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js');
-var google_rpc_status_pb = require('../../../google/rpc/status_pb.js');
+var google_rpc_status_pb = require('../../../prophetstor/api/google/rpc/status_pb.js');
 
 function serialize_google_protobuf_Empty(arg) {
   if (!(arg instanceof google_protobuf_empty_pb.Empty)) {
@@ -87,6 +88,50 @@ function serialize_prophetstor_api_datahub_applications_ListApplicationsResponse
 
 function deserialize_prophetstor_api_datahub_applications_ListApplicationsResponse(buffer_arg) {
   return prophetstor_api_datahub_applications_services_pb.ListApplicationsResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_prophetstor_api_datahub_configs_CreateConfigsRequest(arg) {
+  if (!(arg instanceof prophetstor_api_datahub_configs_services_pb.CreateConfigsRequest)) {
+    throw new Error('Expected argument of type prophetstor.api.datahub.configs.CreateConfigsRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_prophetstor_api_datahub_configs_CreateConfigsRequest(buffer_arg) {
+  return prophetstor_api_datahub_configs_services_pb.CreateConfigsRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_prophetstor_api_datahub_configs_DeleteConfigsRequest(arg) {
+  if (!(arg instanceof prophetstor_api_datahub_configs_services_pb.DeleteConfigsRequest)) {
+    throw new Error('Expected argument of type prophetstor.api.datahub.configs.DeleteConfigsRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_prophetstor_api_datahub_configs_DeleteConfigsRequest(buffer_arg) {
+  return prophetstor_api_datahub_configs_services_pb.DeleteConfigsRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_prophetstor_api_datahub_configs_ListConfigsRequest(arg) {
+  if (!(arg instanceof prophetstor_api_datahub_configs_services_pb.ListConfigsRequest)) {
+    throw new Error('Expected argument of type prophetstor.api.datahub.configs.ListConfigsRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_prophetstor_api_datahub_configs_ListConfigsRequest(buffer_arg) {
+  return prophetstor_api_datahub_configs_services_pb.ListConfigsRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_prophetstor_api_datahub_configs_ListConfigsResponse(arg) {
+  if (!(arg instanceof prophetstor_api_datahub_configs_services_pb.ListConfigsResponse)) {
+    throw new Error('Expected argument of type prophetstor.api.datahub.configs.ListConfigsResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_prophetstor_api_datahub_configs_ListConfigsResponse(buffer_arg) {
+  return prophetstor_api_datahub_configs_services_pb.ListConfigsResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_prophetstor_api_datahub_data_DeleteDataRequest(arg) {
@@ -2967,6 +3012,40 @@ listWeaveScopeHosts: {
     requestDeserialize: deserialize_prophetstor_api_datahub_weavescope_ListWeaveScopeContainersRequest,
     responseSerialize: serialize_prophetstor_api_datahub_weavescope_WeaveScopeResponse,
     responseDeserialize: deserialize_prophetstor_api_datahub_weavescope_WeaveScopeResponse,
+  },
+  // config scope -------------------------------------------------
+createConfigs: {
+    path: '/prophetstor.api.datahub.DatahubService/CreateConfigs',
+    requestStream: false,
+    responseStream: false,
+    requestType: prophetstor_api_datahub_configs_services_pb.CreateConfigsRequest,
+    responseType: google_rpc_status_pb.Status,
+    requestSerialize: serialize_prophetstor_api_datahub_configs_CreateConfigsRequest,
+    requestDeserialize: deserialize_prophetstor_api_datahub_configs_CreateConfigsRequest,
+    responseSerialize: serialize_google_rpc_Status,
+    responseDeserialize: deserialize_google_rpc_Status,
+  },
+  listConfigs: {
+    path: '/prophetstor.api.datahub.DatahubService/ListConfigs',
+    requestStream: false,
+    responseStream: false,
+    requestType: prophetstor_api_datahub_configs_services_pb.ListConfigsRequest,
+    responseType: prophetstor_api_datahub_configs_services_pb.ListConfigsResponse,
+    requestSerialize: serialize_prophetstor_api_datahub_configs_ListConfigsRequest,
+    requestDeserialize: deserialize_prophetstor_api_datahub_configs_ListConfigsRequest,
+    responseSerialize: serialize_prophetstor_api_datahub_configs_ListConfigsResponse,
+    responseDeserialize: deserialize_prophetstor_api_datahub_configs_ListConfigsResponse,
+  },
+  deleteConfigs: {
+    path: '/prophetstor.api.datahub.DatahubService/DeleteConfigs',
+    requestStream: false,
+    responseStream: false,
+    requestType: prophetstor_api_datahub_configs_services_pb.DeleteConfigsRequest,
+    responseType: google_rpc_status_pb.Status,
+    requestSerialize: serialize_prophetstor_api_datahub_configs_DeleteConfigsRequest,
+    requestDeserialize: deserialize_prophetstor_api_datahub_configs_DeleteConfigsRequest,
+    responseSerialize: serialize_google_rpc_Status,
+    responseDeserialize: deserialize_google_rpc_Status,
   },
 };
 

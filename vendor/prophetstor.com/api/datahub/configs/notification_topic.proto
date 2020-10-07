@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package prophetstor.api.datahub.configs;
+
+import "prophetstor/api/datahub/resources/metadata.proto";
+import "prophetstor/api/datahub/events/types.proto";
+import "google/protobuf/wrappers.proto";
+
+option go_package = "prophetstor.com/api/datahub/configs";
+
+message EmailChannel {
+    string          name    = 1;
+    repeated string to_list = 2;
+    repeated string cc_list = 3;
+}
+
+message Channel {
+    repeated EmailChannel email_channels = 1;
+}
+
+message Subject {
+    string kind        = 1;
+    string namespace   = 2;
+    string name        = 3;
+    string api_version = 4;
+}
+
+message Source {
+    string host      = 1;
+    string component = 2;
+}
+
+message Topic {
+    repeated events.EventType  types    = 1;
+    repeated events.EventLevel levels   = 2;
+    repeated Subject           subjects = 3;
+    repeated Source            sources  = 4;	
+}
+
+message NotificationTopic {
+    resources.ObjectMeta      object_meta = 1;
+    google.protobuf.BoolValue disabled    = 2;
+    repeated Topic            topics      = 3;
+    Channel                   channel     = 4;
+}

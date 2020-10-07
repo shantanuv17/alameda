@@ -20,19 +20,30 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+// +kubebuilder:validation:Enum=email
+type ChannelType string
+
+const (
+	EmailChannelType = "email"
+)
+
 type AlamedaEmail struct {
-	Server     string `json:"server,"`
-	Port       uint16 `json:"port,"`
-	From       string `json:"from,"`
-	Username   string `json:"username,"`
-	Password   string `json:"password,"`
+	Server     string `json:"server"`
+	Port       uint16 `json:"port"`
+	From       string `json:"from"`
+	Username   string `json:"username"`
+	Password   string `json:"password"`
 	Encryption string `json:"encryption,omitempty"`
+}
+
+type Channel struct {
+	Email *AlamedaEmail `json:"email,omitempty"`
 }
 
 // AlamedaNotificationChannelSpec defines the desired state of AlamedaNotificationChannel
 type AlamedaNotificationChannelSpec struct {
-	Type  string       `json:"type,"`
-	Email AlamedaEmail `json:"email,omitempty"`
+	Channel `json:",inline"`
+	Type    ChannelType `json:"type"`
 }
 
 // AlamedaNotificationChannelStatus defines the observed state of AlamedaNotificationChannel
@@ -41,9 +52,9 @@ type AlamedaNotificationChannelStatus struct {
 }
 
 type AlamedaChannelTest struct {
-	Success bool   `json:"success,"`
-	Time    string `json:"time,"`
-	Message string `json:"message,"`
+	Success bool   `json:"success"`
+	Time    string `json:"time"`
+	Message string `json:"message"`
 }
 
 // +kubebuilder:object:root=true

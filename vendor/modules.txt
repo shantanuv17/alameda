@@ -44,6 +44,7 @@ github.com/golang/protobuf/ptypes/any
 github.com/golang/protobuf/ptypes/duration
 github.com/golang/protobuf/ptypes/empty
 github.com/golang/protobuf/ptypes/timestamp
+github.com/golang/protobuf/ptypes/wrappers
 # github.com/golang/snappy v0.0.1
 github.com/golang/snappy
 # github.com/google/go-cmp v0.4.1
@@ -406,6 +407,7 @@ google.golang.org/protobuf/types/known/anypb
 google.golang.org/protobuf/types/known/durationpb
 google.golang.org/protobuf/types/known/emptypb
 google.golang.org/protobuf/types/known/timestamppb
+google.golang.org/protobuf/types/known/wrapperspb
 # gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc
 ## explicit
 gopkg.in/alexcesaro/quotedprintable.v3
@@ -651,11 +653,12 @@ k8s.io/utils/buffer
 k8s.io/utils/integer
 k8s.io/utils/pointer
 k8s.io/utils/trace
-# prophetstor.com/api v0.0.0-00010101000000-000000000000 => gitlab.prophetservice.com/ProphetStor/api v0.0.0-20201005083931-cf83042f5978
+# prophetstor.com/api v0.0.0-00010101000000-000000000000 => gitlab.prophetservice.com/ProphetStor/api v0.0.0-20201007071116-b2917758f037
 ## explicit
 prophetstor.com/api/datahub
 prophetstor.com/api/datahub/applications
 prophetstor.com/api/datahub/common
+prophetstor.com/api/datahub/configs
 prophetstor.com/api/datahub/data
 prophetstor.com/api/datahub/events
 prophetstor.com/api/datahub/gpu
@@ -720,4 +723,4 @@ sigs.k8s.io/yaml
 # k8s.io/api => k8s.io/api v0.18.9
 # k8s.io/apimachinery => k8s.io/apimachinery v0.18.9
 # k8s.io/client-go => k8s.io/client-go v0.18.9
-# prophetstor.com/api => gitlab.prophetservice.com/ProphetStor/api v0.0.0-20201005083931-cf83042f5978
+# prophetstor.com/api => gitlab.prophetservice.com/ProphetStor/api v0.0.0-20201007071116-b2917758f037

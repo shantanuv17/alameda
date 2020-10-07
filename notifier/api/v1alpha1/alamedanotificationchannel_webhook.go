@@ -157,11 +157,11 @@ func (r *AlamedaNotificationChannel) validateAlamedaNotificationChannel(op strin
 		}
 	}
 
-	if channelType != "" && channelType != "email" {
+	if channelType != "" && channelType != EmailChannelType {
 		allErrs = append(allErrs, field.Invalid(field.NewPath("spec").Child("type"),
 			channelType, fmt.Sprintf("channel type %s is not supported, please email instead", channelType)))
 	}
-	if channelType == "email" {
+	if channelType == EmailChannelType {
 		from := r.Spec.Email.From
 		encryption := strings.ToLower(r.Spec.Email.Encryption)
 		if from != "" && !utils.IsEmailValid(from) {

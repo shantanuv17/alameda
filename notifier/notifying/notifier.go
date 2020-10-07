@@ -71,14 +71,14 @@ func (notifier *notifier) sendEvtBaseOnTopic(evt *datahub_events.Event,
 		}
 		typeMatched := (specTopic.Type == nil || len(specTopic.Type) == 0)
 		for _, ty := range specTopic.Type {
-			if ty == "" || event.EventTypeYamlKeyToIntMap(ty) == int32(evt.Type) {
+			if notifyingv1alpha1.TopicTypeValue[ty] == int32(evt.Type) {
 				typeMatched = true
 				break
 			}
 		}
 		lvlMatched := (specTopic.Level == nil || len(specTopic.Level) == 0)
 		for _, lvl := range specTopic.Level {
-			if lvl == "" || event.EventLevelYamlKeyToIntMap(lvl) == int32(evt.Level) {
+			if notifyingv1alpha1.LevelTypeValue[lvl] == int32(evt.Level) {
 				lvlMatched = true
 				break
 			}

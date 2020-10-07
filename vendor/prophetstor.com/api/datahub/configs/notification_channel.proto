@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package prophetstor.api.datahub.configs;
+
+import "prophetstor/api/datahub/resources/metadata.proto";
+
+option go_package = "prophetstor.com/api/datahub/configs";
+
+enum ChannelType {
+    CHANNEL_TYPE_UNDEFINED = 0;
+    EMAIL                  = 1;
+}
+
+message Email {
+    string server     = 1;
+    uint32 port       = 2;
+    string from       = 3;
+    string username   = 4;
+    string password   = 5;
+    string encryption = 6;
+}
+
+message NotificationChannel {
+    resources.ObjectMeta object_meta = 1;
+    ChannelType          type        = 2;
+    oneof type_channel {
+        Email email_channel = 3;
+    }
+}

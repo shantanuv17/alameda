@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package prophetstor.api.datahub.configs;
+
+import "prophetstor/api/datahub/configs/configs.proto";
+import "google/rpc/status.proto";
+
+option go_package = "prophetstor.com/api/datahub/configs";
+
+message CreateConfigsRequest {
+    repeated Config configs = 1;
+}
+
+message ListConfigsRequest {
+    Config config = 1;
+}
+
+message ListConfigsResponse {
+    google.rpc.Status status  = 1;
+    repeated Config   configs = 2;
+}
+ 
+message DeleteConfigsRequest {
+    repeated Config configs = 1;
+}

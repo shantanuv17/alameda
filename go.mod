@@ -49,5 +49,5 @@ replace (
 	k8s.io/api => k8s.io/api v0.18.9
 	k8s.io/apimachinery => k8s.io/apimachinery v0.18.9
 	k8s.io/client-go => k8s.io/client-go v0.18.9
-	prophetstor.com/api => gitlab.prophetservice.com/ProphetStor/api v0.0.0-20201005083931-cf83042f5978
+	prophetstor.com/api => gitlab.prophetservice.com/ProphetStor/api v0.0.0-20201007071116-b2917758f037
 )

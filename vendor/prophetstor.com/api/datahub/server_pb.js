@@ -42,7 +42,9 @@ var prophetstor_api_datahub_scores_services_pb = require('../../../prophetstor/a
 goog.object.extend(proto, prophetstor_api_datahub_scores_services_pb);
 var prophetstor_api_datahub_weavescope_services_pb = require('../../../prophetstor/api/datahub/weavescope/services_pb.js');
 goog.object.extend(proto, prophetstor_api_datahub_weavescope_services_pb);
+var prophetstor_api_datahub_configs_services_pb = require('../../../prophetstor/api/datahub/configs/services_pb.js');
+goog.object.extend(proto, prophetstor_api_datahub_configs_services_pb);
 var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js');
 goog.object.extend(proto, google_protobuf_empty_pb);
-var google_rpc_status_pb = require('../../../google/rpc/status_pb.js');
+var google_rpc_status_pb = require('../../../prophetstor/api/google/rpc/status_pb.js');
 goog.object.extend(proto, google_rpc_status_pb);
